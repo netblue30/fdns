@@ -1,0 +1,108 @@
+all: apps man
+APPS = src/fdns
+MANPAGES = fdns.1
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+libdir=@libdir@
+datarootdir=@datarootdir@
+mandir=@mandir@
+sysconfdir=@sysconfdir@
+
+VERSION=@PACKAGE_VERSION@
+NAME=@PACKAGE_NAME@
+PACKAGE_TARNAME=@PACKAGE_TARNAME@
+DOCDIR=@docdir@
+
+.PHONY: apps $(APPS)
+apps: $(APPS)
+$(APPS):
+	$(MAKE) -C $@
+
+$(MANPAGES): $(wildcard src/man/*.txt)
+	./mkman.sh $(VERSION) src/man/$(basename $@).txt $@
+
+man: $(MANPAGES)
+
+clean:
+	for dir in $(APPS); do \
+		$(MAKE) -C $$dir clean; \
+	done
+	rm -f $(MANPAGES) $(MANPAGES:%=%.gz)
+
+distclean: clean
+	for dir in $(APPS); do \
+		$(MAKE) -C $$dir distclean; \
+	done
+	rm -fr Makefile autom4te.cache config.log config.status config.h dummy.o src/common.mk
+
+realinstall:
+	# fdns executable
+	install -m 0755 -d $(DESTDIR)/$(bindir)
+	install -c -m 0755 src/fdns/fdns $(DESTDIR)/$(bindir)/.
+	# documents
+	install -m 0755 -d $(DESTDIR)/$(DOCDIR)
+	install -c -m 0644 COPYING $(DESTDIR)/$(DOCDIR)/.
+	install -c -m 0644 README $(DESTDIR)/$(DOCDIR)/.
+	install -c -m 0644 RELNOTES $(DESTDIR)/$(DOCDIR)/.
+	# etc files
+	install -m 0755 -d $(DESTDIR)/$(sysconfdir)/fdns
+	for file in etc/*; do \
+		install -c -m 0644 $$file $(DESTDIR)/$(sysconfdir)/fdns; \
+	done
+	# man pages
+	install -m 0755 -d $(DESTDIR)/$(mandir)/man1
+	for man in $(MANPAGES); do \
+		rm -f $$man.gz; \
+		gzip -9n $$man; \
+		case "$$man" in \
+			*.1) install -c -m 0644 $$man.gz $(DESTDIR)/$(mandir)/man1/; ;; \
+		esac; \
+	done
+	rm -f $(MANPAGES) $(MANPAGES:%=%.gz)
+	# bash completion
+	install -m 0755 -d $(DESTDIR)/$(datarootdir)/bash-completion/completions
+	install -c -m 0644 src/bash_completion/fdns.bash_completion $(DESTDIR)/$(datarootdir)/bash-completion/completions/fdns
+
+install: all
+	$(MAKE) realinstall
+
+install-strip: all
+	strip src/fdns/fdns
+	$(MAKE) realinstall
+
+uninstall:
+	rm -f $(DESTDIR)/$(bindir)/fdns
+	rm -fr $(DESTDIR)/$(datarootdir)/doc/fdns
+	for man in $(MANPAGES); do \
+		rm -f $(DESTDIR)/$(mandir)/man1/$$man*; \
+	done
+	rm -f $(DESTDIR)/$(datarootdir)/bash-completion/completions/fdns
+
+DISTFILES = "src test configure configure.ac dummy.c Makefile.in install.sh mkman.sh COPYING README RELNOTES"
+
+dist:
+	mv config.status config.status.old
+	make distclean
+	mv config.status.old config.status
+	rm -fr $(NAME)-$(VERSION) $(NAME)-$(VERSION).tar.xz
+	mkdir $(NAME)-$(VERSION)
+	cp -a "$(DISTFILES)" $(NAME)-$(VERSION)
+	rm -rf $(NAME)-$(VERSION)/src/tools
+	find $(NAME)-$(VERSION) -name .svn -delete
+	tar -cJvf $(NAME)-$(VERSION).tar.xz $(NAME)-$(VERSION)
+	rm -fr $(NAME)-$(VERSION)
+
+cppcheck: clean
+	cppcheck --force .
+
+scan-build: clean
+	NO_EXTRA_CFLAGS="yes" scan-build make
+
+test-fdns:
+	cd test/fdns; su -c ./test.sh | grep TESTING
+
+
+test: test-fdns
+	echo "TEST COMPLETE"

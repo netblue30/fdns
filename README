@@ -1,0 +1,78 @@
+What is fdns?
+-----------
+fdns is a DNS-over-HTTPS proxy server targeted at small networks and
+Linux desktops. To speed up the name resolution fdns caches the responses,
+and uses a configurable adblocker and privacy filter to cut down the
+unnecessary traffic.
+
+The software is written in C, and is licensed under GPLv3.
+
+
+Build and Install
+-----------------
+Dependencies: OpenSSL library, libseccomp
+  - Debian/Ubuntu: sudo apt-get install libseccomp-dev libssl-dev
+  - Fedora/CentOS: sudo yum install libseccomp-devel openssl-devel
+
+Build and install: ./configure && make && sudo make install
+
+
+Development
+-----------
+The project is developed at https://github.com/netblue30/fdns
+
+Maintainers/commiters:
+- netblue30 (netblue30@yahoo.com)
+
+
+Documentation and Support
+-------------------------
+For bugs/questions/whatever please use the issues section
+at https://github.com/netblue30/fdns/issues
+
+
+fdns Authors
+------------
+netblue30 (netblue30@yahoo.com) - maintainer
+
+Incorporating code from Firejail Security Sandbox, https://github.com/netblue30/firejail
+Copyright © 2014-2019 Firejail Authors, license GPLv2
+
+Incorporating code from Privacy Badger, htps://github.com/EFForg/privacybadger
+Copyright © 2015 Electronic Frontier Foundation and other contributors, license GPLv3
+
+Incorporating code from Steven Black's hosts project, https://github.com/StevenBlack/hosts
+Copyright © Steven Black, license MIT
+
+
+Licensing and Copyright
+-----------------------
+This project is published under GPLv3 license. Please see COPYING file
+for more details. Copyright © 2019 fdns Authors
+
+
+Cryptographic Software Notice
+-----------------------------
+
+This project includes code designed for use with cryptographic software.
+The country in which you currently reside may have restrictions on the
+import, possession, use, and/or re-export to another country, of
+encryption software. BEFORE using any encryption software, please check
+your country's laws, regulations and policies concerning encryption
+software, to see if this is permitted.
+
+The U.S. Government Department of Commerce, Bureau of Industry and
+Security (BIS), has classified this software as Export Commodity
+Control Number (ECCN) 5D002.C.1, which includes information security
+software using or performing cryptographic functions with asymmetric
+algorithms.  The form and manner of this distribution makes it
+eligible for export under the License Exception ENC Technology
+Software Unrestricted (TSU) exception (see the BIS Export Administration
+Regulations, Section 740.13) for both object code and source code.
+
+Manufacturers and software components:
+(only listed for components related to cryptographic functions)
+
+- OpenSSL Project, openssl library,
+source code at https://www.openssl.org/source
+

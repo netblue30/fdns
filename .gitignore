@@ -1,0 +1,17 @@
+*.o
+*.so
+*~
+*.swp
+*.deb
+*.rpm
+*.gcda
+*.gcno
+Makefile
+autom4te.cache/
+config.log
+config.status
+fdns-*.tar.xz
+fdns.1
+src/fdns/fdns
+src/common.mk
+src/filter/trackers

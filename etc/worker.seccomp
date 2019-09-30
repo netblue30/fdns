@@ -1,0 +1,1 @@
+recvfrom,setsockopt,select,sendto,write,read,close,open,openat,writev,ioctl,socket,connect,fstat,stat,getpid,sigreturn,rt_sigprocmask,exit_group,kill,wait4,brk,gettimeofday,poll,sendmmsg,bind,getsockname,recvmsg,getrandom,uname,mmap

@@ -1,0 +1,64 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+
+send -- "fdns --workers=10\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"fdns starting"
+}
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 5\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 6\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 7\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 8\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 9\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 10\n";exit}
+	"SSL connection opened"
+}
+sleep 1
+
+spawn $env(SHELL)
+send -- "pkill fdns\r"
+
+after 100
+puts "\nall done\n"

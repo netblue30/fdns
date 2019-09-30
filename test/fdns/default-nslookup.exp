@@ -1,0 +1,50 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+
+send -- "fdns\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"fdns starting"
+}
+expect {
+	timeout {puts "TESTING ERROR 0.1\n";exit}
+	"SSL connection opened"
+}
+sleep 1
+
+spawn $env(SHELL)
+send -- "firejail --dns=127.1.1.1 nslookup google.com\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"Address"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"127.1.1.1#53"
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"Non-authoritative answer:"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"google.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 5\n";exit}
+	"Address"
+}
+after 100
+send -- "pkill fdns\r"
+
+after 100
+puts "\nall done\n"

@@ -1,0 +1,154 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019 FDNS Authors
+# License GPL v2
+
+set timeout 50
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+
+send -- "fdns --workers=10\r"
+set server_id $spawn_id
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"fdns starting"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.0\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.1\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.2\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.3\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.4\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.5\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.6\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.7\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.8\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1.9\n";exit}
+	"SSL connection opened"
+}
+sleep 1
+
+spawn $env(SHELL)
+set ping_id $spawn_id
+puts "TESTING: Killing workers, please wait 30 seconds\n"
+send -- "kill -9 `ps a -o pid,cmd | grep fdns | grep id | awk '{print \$1}' | head -n 10`\r"
+after 100
+set spawn_id $server_id
+
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 5\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 6\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 7\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 8\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 9\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 10\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 11\n";exit}
+	"Restarting worker process"
+}
+expect {
+	timeout {puts "TESTING ERROR 12\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 13\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 14\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 15\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 16\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 17\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 18\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 19\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 20\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 21\n";exit}
+	"SSL connection opened"
+}
+after 100
+
+set spawn_id $ping_id
+send -- "pkill fdns\r"
+
+after 100
+puts "\nall done\n"
