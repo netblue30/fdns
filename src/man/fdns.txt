@@ -1,0 +1,231 @@
+.TH FIREJAIL 1 "MONTH YEAR" "VERSION" "firejail man page"
+.SH NAME
+fdns \- Firejail DNS over HTTPS proxy
+.SH SYNOPSIS
+Start the server (root user):
+.PP
+.RS
+fdns [OPTIONS]
+.RE
+
+Start the monitor (regular user):
+.PP
+.RS
+fdns --monitor
+.RE
+
+.SH DESCRIPTION
+fdns is a DNS-over-HTTPS proxy server targeted at small networks and Linux desktops.
+To speed up the name resolution fdns cachea the responses, and uses a configurable
+adblocker and privacy filter to cut down the unnecessary traffic.
+
+.SH OPTIONS
+.TP
+\fB\-\-allow-all-queries
+Allow all DNS query types; by default only A and AAA are allowed.
+.TP
+\fB\-\-certfile=filename
+Use an SSL certificate file in PEM format. By default we use the certificates installed
+by OpenSSL.
+.br
+
+.br
+Example:
+.br
+$ sudo fdns --certfile=/etc/ssl/certs/ca-certificates.crt
+.TP
+\fB\-\-daemonize
+Detach from the controlling terminal and run as a Unix daemon.
+.TP
+\fB\-\-debug
+Print debug messages.
+.TP
+\fB\-\-help, \-?
+Print options end exit.
+.TP
+\fB\-\-ipv6
+Allow AAAA requests.
+
+.TP
+\fB\-\-list
+List all available DoH service providers.
+.br
+
+.br
+$ fdns --list
+.br
+cloudflare
+.br
+	https://www.cloudflare.com
+.br
+	massive anycast network
+.br
+cleanbrowsing
+.br
+	https://cleanbrowsing.org
+.br
+	anycast network, security filter
+.br
+[...]
+.TP
+\fB\-\-monitor
+Start the stats monitor. Run this command as a regular user in a terminal.
+.br
+
+.br
+$ fdns --monitor
+.TP
+\fB\-\-nofilter
+No DNS request filtering. This disables the adblocker, the tracker filter, and the user host file
+installed in /etc/fdns directory.
+.TP
+\fB\-\-proxy-addr=address
+Configure the IP address the proxy listens for
+DNS queries coming from the local clients. The default is 127.1.1.1.
+.br
+
+.br
+Example:
+.br
+$ sudo fdns --proxy-addr=127.0.0.1
+.TP
+\fB\-\-proxy-addr-any
+Listen on all available system interfaces and 127.0.0.1 for loopback interface.
+.TP
+\fB\-\-server=server-name
+Configure the DoH service provider.
+Use --list to print the list of available providers.
+.br
+
+.br
+Example:
+.br
+$ sudo fdns --server=cleanbrowsing
+.TP
+\fB\-\-test-url=URL
+Check if URL is dropped by the adblock/tracker filters.
+.br
+
+.br
+Example:
+.br
+$ fdns --test-url=amazon-adsystem.com
+URL amazon-adsystem.com dropped by "amazon-adsystem.com" rule
+.TP
+\fB\-\-version
+Print program version and exit.
+.TP
+\fB\-\-workers=number
+The number of worker threads, between 1 and 10, default 3.
+
+.SH Setup fdns on a workstation
+Use Firejail security sandbox to redirect all the DNS traffic to 127.1.1.1, where fdns listens by default. Firejail decouples the DNS functionality, allowing each sandbox to have its own DNS setting. Your system DNS configuration is not touched. If things go wrong, you won't lose your Internet connectivity. Here are the steps:
+
+.TP
+\fBStart fdns:
+$ sudo fdns
+.TP
+\fBStart your applications in Firejail:
+$ firejail --dns=127.1.1.1 firefox
+.br
+$ firejail --dns=127.1.1.1 transmission-qt
+.br
+
+.br
+.SH Setup fdns on a network server
+Install fdns and set "nameserver 127.0.0.1" in /etc/resolv.conf. Start fdns using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface. The default 127.1.1.1 is not used in this case.
+.PP
+.RS
+$ sudo fdns --proxy-addr-any --daemonize
+.br
+
+.br
+.RE
+Or you can run it only on a specific interface. Example assuming 192.168.1.44 is the IP address of eth0:
+.PP
+.RS
+$ sudo fdns --proxy-addr=192.168.1.44 --daemonize
+.br
+
+.br
+.RE
+When using --daemonize, errors and warnings are posted to syslog.
+
+.SH FAQ
+
+.TP
+\fBHow do I start fdns when I power-on the computer?
+One solution that will work on any Linux computer is to start it from /etc/rc.local.
+.br
+
+.br
+$ cat /etc/rc.local
+.br
+#!/bin/sh -e
+.br
+/usr/bin/fdns --daemonize
+.br
+exit 0
+.br
+
+.TP
+\fBHow do I configure Firejail to send all the DNS traffic to fdns by default?
+As root user, add the following two lines in /etc/firejail/golbals.local. If the file doesn't exist, create it:
+.br
+
+.br
+$ cat /etc/firejail/globals.local
+.br
+dns 127.1.1.1
+.br
+ignore dns
+.br
+
+.TP
+\fBHow do I save a list with all the DNS requests?
+Start fdns this way:
+.br
+
+.br
+$ sudo fdns | tee dnslist.txt
+.br
+
+.TP
+\fBHow do I check fdns is running in the background?
+Run ss and look for sockets open on port 53:
+.br
+
+.br
+$ sudo ss -nulp
+.br
+State     Recv-Q    Send-Q       Local Address:Port        Peer Address:Port
+.br
+UNCONN    0         0                127.1.1.1:53               0.0.0.0:*        users:(("fdns",pid=4227,fd=11))
+.br
+UNCONN    0         0                127.1.1.1:53               0.0.0.0:*        users:(("fdns",pid=4226,fd=9))
+.br
+UNCONN    0         0                127.1.1.1:53               0.0.0.0:*        users:(("fdns",pid=4225,fd=7))
+.br
+
+
+.TP
+\fBHow do I shut down fdns?
+$ sudo pkill fdns
+.br
+
+.SH FILES
+/etc/fdns/adblocker - adblocker filter distributed with fdns
+.br
+/etc/fdns/host - user host file
+.br
+/etc/fdns/trackers - tracker filter distributed with fdns
+
+.SH LICENSE
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+.PP
+Homepage: https://github.com/netblue30/fdns
+
+.SH SEE ALSO
+\&\flfirejail\fR\|(1)
+
+

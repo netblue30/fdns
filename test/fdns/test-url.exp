@@ -1,0 +1,26 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "fdns --test-url=doubleclick.net\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"URL doubleclick.net dropped by default rule \"click.\""
+}
+after 100
+
+send -- "fdns --test-url=amazon-adsystem.com\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"URL amazon-adsystem.com dropped by \"amazon-adsystem.com\" rule"
+}
+
+
+after 100
+puts "\nall done\n"
+

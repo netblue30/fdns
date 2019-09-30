@@ -1,0 +1,39 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "fdns --list\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"cleanbrowsing"
+}
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"cleanbrowsing.org"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"anycast network, security filter"
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"cloudflare"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"cloudflare.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"masive anycast network"
+}
+
+
+after 100
+puts "\nall done\n"
+

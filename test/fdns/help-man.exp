@@ -1,0 +1,42 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+
+send -- "fdns --help\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"fdns - DNS over HTTPS proxy server"
+}
+after 100
+
+send -- "fdns -?\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"fdns - DNS over HTTPS proxy server"
+}
+after 100
+
+send -- "rm -f tmp\r"
+after 100
+send -- "man fdns > tmp\r"
+after 100
+send -- "cat tmp\r"
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"fdns - Firejail DNS over HTTPS proxy"
+}
+after 100
+send -- "rm -f tmp"
+send -- "pkill fdns\r"
+
+after 100
+puts "\nall done\n"
+

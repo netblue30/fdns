@@ -1,0 +1,50 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+
+send -- "fdns\r"
+set server_id $spawn_id
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"fdns starting"
+}
+expect {
+	timeout {puts "TESTING ERROR 0.1\n";exit}
+	"SSL connection opened"
+}
+sleep 1
+
+spawn $env(SHELL)
+set ping_id $spawn_id
+
+send -- "kill -9 `ps a -o pid,cmd | grep fdns | grep id | awk '{print \$1}' | head -n 1`\r"
+after 100
+set spawn_id $server_id
+
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"worker"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"terminated, restarting it..."
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"SSL connection opened"
+}
+after 100
+
+set spawn_id $ping_id
+send -- "pkill fdns\r"
+
+after 100
+puts "\nall done\n"
