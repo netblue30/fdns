@@ -10,27 +10,27 @@ match_max 100000
 send -- "fdns --list\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
+	"appliedprivacy"
+}
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
 	"cleanbrowsing"
 }
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"cleanbrowsing.org"
+	"cleanbrowsing-family"
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"anycast network, security filter"
-}
-expect {
-	timeout {puts "TESTING ERROR 3\n";exit}
 	"cloudflare"
 }
 expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
-	"cloudflare.com"
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"powerdns"
 }
 expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
-	"masive anycast network"
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"quad9"
 }
 
 

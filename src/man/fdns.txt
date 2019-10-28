@@ -1,4 +1,4 @@
-.TH FIREJAIL 1 "MONTH YEAR" "VERSION" "firejail man page"
+.TH FDNS 1 "MONTH YEAR" "VERSION" "fdns man page"
 .SH NAME
 fdns \- Firejail DNS over HTTPS proxy
 .SH SYNOPSIS
