@@ -32,7 +32,8 @@ Change this default with --proxy-addr command line option.
 posted on the provider's website. Here is a short list:
   * [CleanBrowsing](https://cleanbrowsing.org) (185.228.168.168) - security filter, family filter
   * [Cloudflare](https://www.cloudflare.com/dns/) (1.1.1.1)
-  * [Foundation for Applied Privacy](https://appliedprivacy.net/) (37.252.185.229)
+  * [Foundation for Applied Privacy](https://appliedprivacy.net/) (37.252.185.229, Austria)
+  * [PoweDNS](https://quad9.net, Netherlands)
   * [Quad9](https://quad9.net) (9.9.9.9) - security filter
 
   Use  --list for the full list of supported DoH providers, and --server=... to pick one.
@@ -78,6 +79,8 @@ Dependencies: OpenSSL library and libseccomp.
 * Debian/Ubuntu: sudo apt-get install libseccomp-dev libssl-dev
 
 * Fedora/CentOS: sudo yum install libseccomp-devel openssl-devel
+
+* Arch Linux: the libraries are already included in the base group
 
 `````
 $ git clone https://github.com/netblue30/fdns

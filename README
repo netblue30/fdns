@@ -13,6 +13,7 @@ Build and Install
 Dependencies: OpenSSL library, libseccomp
   - Debian/Ubuntu: sudo apt-get install libseccomp-dev libssl-dev
   - Fedora/CentOS: sudo yum install libseccomp-devel openssl-devel
+  - Arch Linux: the libraries are already included in the base group
 
 Build and install: ./configure && make && sudo make install
 
@@ -23,6 +24,7 @@ The project is developed at https://github.com/netblue30/fdns
 
 Maintainers/commiters:
 - netblue30 (netblue30@yahoo.com)
+- Fred-Barclay (https://github.com/Fred-Barclay)
 
 
 Documentation and Support
@@ -34,6 +36,8 @@ at https://github.com/netblue30/fdns/issues
 fdns Authors
 ------------
 netblue30 (netblue30@yahoo.com) - maintainer
+
+Fred-Barclay (https://github.com/Fred-Barclay) - maintainer
 
 Incorporating code from Firejail Security Sandbox, https://github.com/netblue30/firejail
 Copyright © 2014-2019 Firejail Authors, license GPLv2
