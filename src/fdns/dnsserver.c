@@ -18,12 +18,14 @@
 */
 #include "fdns.h"
 
-static char *default_server = "cloudflare";
 static char *push_request_tail =
 	"accept: application/dns-message\r\n" \
 	"content-type: application/dns-message\r\n" \
 	"content-length: %d\r\n" \
 	"\r\n";
+static char *default_server_name = "cloudflare";
+static char *active_server_name = NULL;
+static DnsServer *default_server = NULL;
 static DnsServer *active_server = NULL;
 static char *requested_server = NULL;
 
@@ -44,30 +46,39 @@ static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
 		// comments
 		if (*buf == '#')
 			continue;
+
 		// remove \n
 		char *ptr = strchr(buf, '\n');
 		if (ptr)
 			*ptr = '\0';
 
 		if (strncmp(buf, "name: ", 6) == 0) {
+			if (s->name)
+				goto errout;
 			s->name = strdup(buf + 6);
 			if (!s->name)
 				errExit("strdup");
 			found = 1;
 		}
 		else if (strncmp(buf, "website: ", 9) == 0) {
+			if (s->website)
+				goto errout;
 			s->website = strdup(buf + 9);
 			if (!s->website)
 				errExit("strdup");
 			found = 1;
 		}
 		else if (strncmp(buf, "description: ", 13) == 0) {
+			if (s->description)
+				goto errout;
 			s->description = strdup(buf + 9);
 			if (!s->description)
 				errExit("strdup");
 			found = 1;
 		}
 		else if (strncmp(buf, "address: ", 9) == 0) {
+			if (s->address)
+				goto errout;
 			s->address = strdup(buf + 9);
 			if (!s->address)
 				errExit("strdup");
@@ -80,6 +91,8 @@ static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
 			found = 1;
 		}
 		else if (strncmp(buf, "request1: ", 10) == 0) {
+			if (s->request1)
+				goto errout;
 			s->request1 = strdup(buf + 10);
 			if (!s->request1)
 				errExit("strdup");
@@ -87,6 +100,8 @@ static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
 			found = 1;
 		}
 		else if (strncmp(buf, "request2: ", 9) == 0) {
+			if (s->request2)
+				goto errout;
 			s->request2 = strdup(buf + 10);
 			if (!s->request2)
 				errExit("strdup");
@@ -94,6 +109,8 @@ static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
 			found = 1;
 		}
 		else if (strncmp(buf, "keepalive: ", 11) == 0) {
+			if (s->ssl_keepalive)
+				goto errout;
 			if (sscanf(buf + 11, "%d", &s->ssl_keepalive) != 1 || s->ssl_keepalive <= 0) {
 				fprintf(stderr, "Error: line %d, invalid keepalive\n", *linecnt);
 				return -1;
@@ -116,8 +133,11 @@ static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
 		fprintf(stderr, "Error: line %d, keepalive missing\n", *linecnt);
 		return -1;
 	}
-
 	return 0;	// the last server was already read
+
+errout:
+	fprintf(stderr, "Error: line %d, field defined twice\n", *linecnt);
+	return -1;
 }
 
 void dns_list(void) {
@@ -153,8 +173,8 @@ void dns_list(void) {
 
 void dns_set_server(const char *srv) {
 	assert(srv);
-	requested_server = strdup(srv);
-	if (requested_server == NULL)
+	active_server_name = strdup(srv);
+	if (active_server_name == NULL)
 		errExit("strdup");
 
 	// read server configuration
@@ -164,13 +184,15 @@ void dns_set_server(const char *srv) {
 DnsServer *dns_get_server(void) {
 	if (arg_debug)
 		printf("dns_get_server pid %d, active_server %p\n", getpid(), active_server);
+
 	if (active_server == NULL) {
 		// initialize server
 		active_server = malloc(sizeof(DnsServer));
 		if (active_server == NULL)
 			errExit("malloc");
-
-
+		default_server = malloc(sizeof(DnsServer));
+		if (default_server == NULL)
+			errExit("malloc");
 
 		// print all server entries from /etc/fdns/servers
 		FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
@@ -179,8 +201,9 @@ DnsServer *dns_get_server(void) {
 			exit(1);
 		}
 
+		if (active_server_name == NULL)
+			active_server_name = default_server_name;
 		int linecnt = 0; // line counter
-		char *find_server = (requested_server)? requested_server: default_server;
 		while (1) {
 			DnsServer s;
 			int rv = read_one_server(fp, &s, &linecnt);
@@ -188,12 +211,27 @@ DnsServer *dns_get_server(void) {
 				fprintf(stderr, "Error: invalid %s file\n", PATH_ETC_SERVER_LIST);
 				exit(1);
 			}
+			// check if we went trough the file and didn't find the server
+			if (s.name == NULL) {
+				// if we extracted the default server, use it
+				if (default_server->name == NULL) {
+					fprintf(stderr, "Error: requested server not found, default server not found\n");
+					exit(1);
+				}
+				memcpy(active_server, default_server, sizeof(DnsServer));
+				logprintf("Warning: requested server not found, using %s\n", active_server->name);
+				break;
+			}
 
-			// check default server
-			if (strcmp(s.name, find_server) == 0) {
+			// check requested server
+			if (strcmp(s.name, active_server_name) == 0) {
 				memcpy(active_server, &s, sizeof(DnsServer));
 				break;
 			}
+
+			// check default server
+			if (strcmp(s.name, default_server_name) == 0)
+				memcpy(default_server, &s, sizeof(DnsServer));
 
 		}
 		fclose(fp);
