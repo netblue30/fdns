@@ -18,9 +18,27 @@
 */
 #include "fdns.h"
 
-static int server_id = 3; // cloudflare
+static int server_id = -1;
+static char *server_default = "cloudflare";
 
 DnsServer server[] = {
+	{
+		"42l",		// name
+		"https://42l.fr",	// website
+		"non-profit, France",		// description
+
+		"185.216.27.142:443",		// IP address
+
+		// POST request
+		"POST /dns-query HTTP/1.1\r\n" \
+		"Host: doh.42l.fr\r\n" \
+		"accept: application/dns-message\r\n" \
+		"content-type: application/dns-message\r\n" \
+		"content-length: %d\r\n" \
+		"\r\n",
+
+		30			// keepalive in seconds
+	},
 
 	{
 		"appliedprivacy",		// name
@@ -144,18 +162,35 @@ DnsServer server[] = {
 		7
 	},
 
+	{
+		"seby.io",		// name
+		"https://dns.seby.io ",	// website
+		"Australia",		// description
+
+		"45.76.113.31:8443",		// IP address
+
+		// POST request
+		"POST /dns-query HTTP/1.1\r\n" \
+		"Host: dns.seby.io\r\n" \
+		"accept: application/dns-message\r\n" \
+		"content-type: application/dns-message\r\n" \
+		"content-length: %d\r\n" \
+		"\r\n",
+
+		7			// keepalive in seconds
+	},
+
 	{ NULL, NULL, NULL, NULL, NULL, 0}
 };
 
 void dns_list(void) {
 	int i = 0;
 	while(server[i].name) {
-		// name
-		printf("%s\n", server[i].name);
+		// name - website
+		printf("%s - %s\n", server[i].name, server[i].website);
 
-		// website etc.
-		printf("\t%s\n", server[i].website);
-		printf("\t%s\n", server[i].description);
+		// description.
+		printf("\t%s; SSL keepalive %ds\n", server[i].description, server[i].ssl_keepalive);
 		i++;
 	}
 }
@@ -177,5 +212,18 @@ void dns_set_server(const char *srv) {
 }
 
 DnsServer *dns_get_server(void) {
+	if (server_id == -1) {
+		// set the default
+		int i = 0;
+		while (server[i].name) {
+			if (strcmp(server[i].name, server_default) == 0) {
+				server_id = i;
+				break;
+			}
+			i++;
+		}
+	}
+
+	assert(server_id != -1);
 	return server + server_id;
 }
