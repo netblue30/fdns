@@ -85,7 +85,7 @@ Dependencies: OpenSSL library and libseccomp.
 `````
 $ git clone https://github.com/netblue30/fdns
 $ cd fdns
-$ ~/.configure --prefix=/usr
+$ ./configure --prefix=/usr
 $ make
 $ sudo make install
 `````
