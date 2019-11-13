@@ -39,7 +39,7 @@ description: anycast network, security filter,
 address: 185.228.168.168:443
 request1: POST /doh/security-filter HTTP/1.1
 request2: Host: doh.cleanbrowsing.org
-keepalive 30
+keepalive: 30
 
 name: cleanbrowsing-family
 website: https://cleanbrowsing.org

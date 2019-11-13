@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014-2019 fdns Authors
  *
  * This file is part of fdns project
@@ -69,6 +69,18 @@ int main(int argc, char **argv) {
 	dnsfilter_init();
 	cache_init();
 
+	// process --daemonize before any other option
+	if (argc != 1) {
+		int i;
+		for (i = 1; i < argc; i++) {
+			if (strcmp(argv[i], "--daemonize") == 0) {
+		 		daemonize();
+			 	arg_daemonize = 1;
+			 }
+		}
+	}
+
+
 	// parse command line arguments
 	if (argc != 1) {
 		// parse arguments
@@ -85,11 +97,8 @@ int main(int argc, char **argv) {
 			 }
 			 else if (strcmp(argv[i], "--debug") == 0)
 			 	arg_debug = 1;
-			 else if (strcmp(argv[i], "--daemonize") == 0) {
-			 	if (!arg_daemonize)
-			 		daemonize();
-			 	arg_daemonize = 1;
-			 }
+			else if (strcmp(argv[i], "--daemonize") == 0)
+				;
 			 else if (strncmp(argv[i], "--test-url=", 11) == 0) {
 			 	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
 			 	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);

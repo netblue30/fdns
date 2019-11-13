@@ -39,6 +39,15 @@ echo "TESTING: cleanbrowsing wget (test/fdns/cleanbrowsing-wget.exp)"
 ./cleanbrowsing-wget.exp
 rm -f /tmp/index.html
 
+echo "TESTING: 42l wget (test/fdns/42l-wget.exp)"
+./42l-wget.exp
+rm -f /tmp/index.html
+
+echo "TESTING: seby.io wget (test/fdns/seby.io-wget.exp)"
+./seby.io-wget.exp
+rm -f /tmp/index.html
+
+
 echo "TESTING: cleanbrowsing-family wget (test/fdns/cleanbrowsing-family-wget.exp)"
 ./cleanbrowsing-family-wget.exp
 rm -f /tmp/index.html
