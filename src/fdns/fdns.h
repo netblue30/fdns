@@ -40,6 +40,18 @@
 #define PRINT_IP(A) \
 ((int) (((A) >> 24) & 0xFF)),  ((int) (((A) >> 16) & 0xFF)), ((int) (((A) >> 8) & 0xFF)), ((int) ( (A) & 0xFF))
 
+// check ip:port
+// return -1 if error
+static inline int check_addr_port(const char *str) {
+	unsigned a, b, c, d, e;
+
+	// extract ip
+	int rv = sscanf(str, "%u.%u.%u.%u:%u", &a, &b, &c, &d, &e);
+	if (rv != 5 || a > 255 || b > 255 || c > 255 || d > 255 || e > 0xffffffff)
+		return -1;
+	return 0;
+}
+
 // all timers are in seconds
 #define WORKER_KEEPALIVE_TIMER 10 // keepalive messages sent by worker processes
 #define WORKER_KEEPALIVE_SHUTDOWN (WORKER_KEEPALIVE_TIMER * 3) // timer to detect a dead worker process
@@ -62,6 +74,7 @@
 #define PATH_ETC_TRACKERS_LIST (SYSCONFDIR "/trackers")
 #define PATH_ETC_ADBLOCKER_LIST (SYSCONFDIR "/adblocker")
 #define PATH_ETC_HOST_LIST (SYSCONFDIR "/host")
+#define PATH_ETC_SERVER_LIST (SYSCONFDIR "/servers")
 #define PATH_ETC_WORKER_SECCOMP (SYSCONFDIR "/worker.seccomp")
 #define PATH_LOG_FILE "/var/log/fdns.log"
 #define PATH_STATS_FILE "/fdns-stats"	// the actual path is /dev/shm/fdns-stats
@@ -82,7 +95,9 @@ typedef struct dnsserver_t {
 	char *website;	// website
 	char *description;	// description
 	char *address;	// IP address
-	char *post;		// POST request
+	char *request1;	// POST request first line
+	char *request2;	// POST request second line
+	char *request;	// full POST request
 	int ssl_keepalive;	// keepalive in seconds
 } DnsServer;
 

@@ -192,7 +192,7 @@ int ssl_dns(uint8_t *msg, int cnt) {
 //	timetrace_start();
 
 	char buf[MAXBUF];
-	sprintf(buf, srv->post, cnt);
+	sprintf(buf, srv->request, cnt);
 	int len = strlen(buf);
 	assert(cnt < MAXBUF - len);
 
