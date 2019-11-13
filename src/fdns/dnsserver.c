@@ -18,212 +18,195 @@
 */
 #include "fdns.h"
 
-static int server_id = -1;
-static char *server_default = "cloudflare";
-
-DnsServer server[] = {
-	{
-		"42l",		// name
-		"https://42l.fr",	// website
-		"non-profit, France",		// description
-
-		"185.216.27.142:443",		// IP address
-
-		// POST request
-		"POST /dns-query HTTP/1.1\r\n" \
-		"Host: doh.42l.fr\r\n" \
-		"accept: application/dns-message\r\n" \
-		"content-type: application/dns-message\r\n" \
-		"content-length: %d\r\n" \
-		"\r\n",
-
-		30			// keepalive in seconds
-	},
-
-	{
-		"appliedprivacy",		// name
-		"https://appliedprivacy.net ",	// website
-		"non-profit, Austria",		// description
-
-		"37.252.185.229:443",		// IP address
-
-		// POST request
-		"POST /query HTTP/1.1\r\n" \
-		"Host: doh.appliedprivacy.net\r\n" \
-		"accept: application/dns-message\r\n" \
-		"content-type: application/dns-message\r\n" \
-		"content-length: %d\r\n" \
-		"\r\n",
-
-		30			// keepalive in seconds
-	},
-
-	{
-		"cleanbrowsing",
-		"https://cleanbrowsing.org",
-		"anycast network, security filter",
-
-		"185.228.168.168:443",
-
-		"POST /doh/security-filter HTTP/1.1\r\n" \
-		"Host: doh.cleanbrowsing.org\r\n" \
-		"accept: application/dns-message\r\n" \
-		"content-type: application/dns-message\r\n" \
-		"content-length: %d\r\n" \
-		"\r\n",
-
-		30
-	},
-
-	{
-		"cleanbrowsing-family",
-		"https://cleanbrowsing.org",
-		"anycast network, security filter + family filter",
-
-		"185.228.168.168:443",
-
-		"POST /doh/family-filter HTTP/1.1\r\n" \
-		"Host: doh.cleanbrowsing.org\r\n" \
-		"accept: application/dns-message\r\n" \
-		"content-type: application/dns-message\r\n" \
-		"content-length: %d\r\n" \
-		"\r\n",
-
-		30
-	},
-
-	{
-		"cloudflare",
-		"https://www.cloudflare.com",
-		"massive anycast network",
-
-		"1.1.1.1:443",
-		"POST /dns-query HTTP/1.1\r\n" \
-		"Host: cloudflare-dns.com\r\n" \
-		"accept: application/dns-message\r\n" \
-		"content-type: application/dns-message\r\n" \
-		"content-length: %d\r\n" \
-		"\r\n",
-
-		250			// keepalive in seconds
-	},
+static char *default_server = "cloudflare";
+static char *push_request_tail =
+	"accept: application/dns-message\r\n" \
+	"content-type: application/dns-message\r\n" \
+	"content-length: %d\r\n" \
+	"\r\n";
+static DnsServer *active_server = NULL;
+static char *requested_server = NULL;
 
 
-#if 0
-	{
-		"google",
-		"https://dns.google",
-		"massive anycast network, heavy logging!!!",
+// returns 0 if successful, -1 if error
+static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
+	assert(fp);
+	assert(s);
+	assert(linecnt);
+	memset(s, 0, sizeof(DnsServer));
+	int found = 0;
 
-		"8.8.8.8:443",
+	char buf[4096];
+	buf[0] = '\0';
+	while (fgets(buf, 4096, fp)) {
+		(*linecnt)++;
 
-		"POST /dns-query HTTP/1.1\r\n" \
-		"Host: dns.google\r\n" \
-		"accept: application/dns-message\r\n" \
-		"content-type: application/dns-message\r\n" \
-		"content-length: %d\r\n" \
-		"\r\n",
+		// comments
+		if (*buf == '#')
+			continue;
+		// remove \n
+		char *ptr = strchr(buf, '\n');
+		if (ptr)
+			*ptr = '\0';
 
-		250
-	},
-#endif
+		if (strncmp(buf, "name: ", 6) == 0) {
+			s->name = strdup(buf + 6);
+			if (!s->name)
+				errExit("strdup");
+			found = 1;
+		}
+		else if (strncmp(buf, "website: ", 9) == 0) {
+			s->website = strdup(buf + 9);
+			if (!s->website)
+				errExit("strdup");
+			found = 1;
+		}
+		else if (strncmp(buf, "description: ", 13) == 0) {
+			s->description = strdup(buf + 9);
+			if (!s->description)
+				errExit("strdup");
+			found = 1;
+		}
+		else if (strncmp(buf, "address: ", 9) == 0) {
+			s->address = strdup(buf + 9);
+			if (!s->address)
+				errExit("strdup");
 
-	{
-		"powerdns",
-		"https://powerdns.org",
-		"Netherlands",
+			// check address:port
+			if (check_addr_port(s->address)) {
+				fprintf(stderr, "Error: line %d, invalid address:port\n", *linecnt);
+				return -1;
+			}
+			found = 1;
+		}
+		else if (strncmp(buf, "request1: ", 10) == 0) {
+			s->request1 = strdup(buf + 10);
+			if (!s->request1)
+				errExit("strdup");
 
-		"136.144.215.158:443",
+			found = 1;
+		}
+		else if (strncmp(buf, "request2: ", 9) == 0) {
+			s->request2 = strdup(buf + 10);
+			if (!s->request2)
+				errExit("strdup");
 
-		"POST /dns-query HTTP/1.1\r\n" \
-		"Host: doh.powerdns.org\r\n" \
-		"accept: application/dns-message\r\n" \
-		"content-type: application/dns-message\r\n" \
-		"content-length: %d\r\n" \
-		"\r\n",
+			found = 1;
+		}
+		else if (strncmp(buf, "keepalive: ", 11) == 0) {
+			if (sscanf(buf + 11, "%d", &s->ssl_keepalive) != 1 || s->ssl_keepalive <= 0) {
+				fprintf(stderr, "Error: line %d, invalid keepalive\n", *linecnt);
+				return -1;
+			}
 
-		7
-	},
+			// check server data
+			if (!s->name || !s->website || !s->description || !s->address || !s->request1 || !s->request2) {
+				fprintf(stderr, "Error: line %d, one of the server fields is missing\n", *linecnt);
+				return -1;
+			}
 
-	{
-		"quad9",
-		"https://quad9.net",
-		"massive anycast network, security filter",
+			// build the request
+			if (asprintf(&s->request, "%s\r\n%s\r\n%s", s->request1, s->request2, push_request_tail) == -1)
+				errExit("asprintf");
+			return 0;
+		}
+	}
 
-		"9.9.9.9:443",
+	if (found) {
+		fprintf(stderr, "Error: line %d, keepalive missing\n", *linecnt);
+		return -1;
+	}
 
-		"POST /dns-query HTTP/1.1\r\n" \
-		"Host: dns.quad9.net\r\n" \
-		"accept: application/dns-message\r\n" \
-		"content-type: application/dns-message\r\n" \
-		"content-length: %d\r\n" \
-		"\r\n",
-
-		7
-	},
-
-	{
-		"seby.io",		// name
-		"https://dns.seby.io ",	// website
-		"Australia",		// description
-
-		"45.76.113.31:8443",		// IP address
-
-		// POST request
-		"POST /dns-query HTTP/1.1\r\n" \
-		"Host: dns.seby.io\r\n" \
-		"accept: application/dns-message\r\n" \
-		"content-type: application/dns-message\r\n" \
-		"content-length: %d\r\n" \
-		"\r\n",
-
-		7			// keepalive in seconds
-	},
-
-	{ NULL, NULL, NULL, NULL, NULL, 0}
-};
+	return 0;	// the last server was already read
+}
 
 void dns_list(void) {
-	int i = 0;
-	while(server[i].name) {
-		// name - website
-		printf("%s - %s\n", server[i].name, server[i].website);
-
-		// description.
-		printf("\t%s; SSL keepalive %ds\n", server[i].description, server[i].ssl_keepalive);
-		i++;
+	// print all server entries from /etc/fdns/servers
+	FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
+	if (!fp) {
+		fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
+		exit(1);
 	}
+
+	int linecnt = 0; // line counter
+	while (1) {
+		DnsServer s;
+		int rv = read_one_server(fp, &s, &linecnt);
+		if (rv == -1) {
+			fprintf(stderr, "Error: invalid %s file\n", PATH_ETC_SERVER_LIST);
+			exit(1);
+		}
+
+		// check if we are at the end of the file
+		if (!s.name)
+			break;
+
+		// print name - website
+		printf("%s - %s\n", s.name, s.website);
+
+		// print description.
+		printf("\t%s; SSL keepalive %ds\n", s.description, s.ssl_keepalive);
+	}
+
+	fclose(fp);
 }
 
 void dns_set_server(const char *srv) {
 	assert(srv);
+	requested_server = strdup(srv);
+	if (requested_server == NULL)
+		errExit("strdup");
 
-	int i = 0;
-	while (server[i].name) {
-		if (strcmp(server[i].name, srv) == 0) {
-			server_id = i;
-			return;
-		}
-		i++;
-	}
-
-	if (arg_id == -1)
-		logprintf("Warning: server %s not found, using %s\n", srv, server[server_id].name);
+	// read server configuration
+	dns_get_server();
 }
 
 DnsServer *dns_get_server(void) {
-	if (server_id == -1) {
-		// set the default
-		int i = 0;
-		while (server[i].name) {
-			if (strcmp(server[i].name, server_default) == 0) {
-				server_id = i;
+	if (arg_debug)
+		printf("dns_get_server pid %d, active_server %p\n", getpid(), active_server);
+	if (active_server == NULL) {
+		// initialize server
+		active_server = malloc(sizeof(DnsServer));
+		if (active_server == NULL)
+			errExit("malloc");
+
+
+
+		// print all server entries from /etc/fdns/servers
+		FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
+		if (!fp) {
+			fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
+			exit(1);
+		}
+
+		int linecnt = 0; // line counter
+		char *find_server = (requested_server)? requested_server: default_server;
+		while (1) {
+			DnsServer s;
+			int rv = read_one_server(fp, &s, &linecnt);
+			if (rv == -1) {
+				fprintf(stderr, "Error: invalid %s file\n", PATH_ETC_SERVER_LIST);
+				exit(1);
+			}
+
+			// check default server
+			if (strcmp(s.name, find_server) == 0) {
+				memcpy(active_server, &s, sizeof(DnsServer));
 				break;
 			}
-			i++;
+
 		}
+		fclose(fp);
+
+		if (active_server->name == NULL) {
+			fprintf(stderr, "Error: cannot set cloudflare as default server\n");
+			exit(1);
+		}
+		if (arg_debug)
+			printf("\tServer %s initialized %p\n", active_server->name, active_server);
 	}
 
-	assert(server_id != -1);
-	return server + server_id;
+	if (arg_debug)
+		printf("\tpid %d, server #%s#\n", getpid(), active_server->name);
+	return active_server;
 }
