@@ -8,7 +8,7 @@ include ../common.mk
 fdns: $(OBJS)
 	$(CC)  $(LDFLAGS) -o $@ $(OBJS) -lssl -lcrypto -lrt  -lseccomp $(LIBS) $(EXTRA_LDFLAGS)
 
-clean:; rm -f *.o firejail *.gcov *.gcda *.gcno
+clean:; rm -f *.o fdns *.gcov *.gcda *.gcno
 
 distclean: clean
 	rm -fr Makefile
