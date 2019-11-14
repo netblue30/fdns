@@ -206,9 +206,10 @@ void shmem_print_stats(void);
 void shmem_monitor_stats(void);
 
 // dnsserver.c
-void dns_set_server(const char *srv);
+DnsServer *dns_set_server(const char *srv);
 DnsServer *dns_get_server(void);
 void dns_list(void);
+char *dns_get_random_server(void);
 
 // cache.c
 void cache_set_name(const char *name, int ipv6);
