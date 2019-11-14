@@ -52,6 +52,8 @@ static void usage(void) {
 	printf("    --proxy-addr=address - configure the IP address the proxy listens for\n"
 		"\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
 	printf("    --proxy-addr-any - listen on all available interfaces.\n");
+	printf("    --server=random - use a non-family random DoH service provider from\n"
+		"\tthe list.\n");
 	printf("    --server=server-name - configure the DoH service provider. Use --list\n"
 		"\tto print the list of available providers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
@@ -63,6 +65,8 @@ static void usage(void) {
 }
 
 int main(int argc, char **argv) {
+	DnsServer *s = NULL;
+
 	// init
 	memset(&stats, 0, sizeof(stats));
 	memset(encrypted, 0, sizeof(encrypted));
@@ -126,9 +130,16 @@ int main(int argc, char **argv) {
 			 	arg_id = atoi(argv[i] + 5);
 			 else if (strncmp(argv[i], "--fd=", 5) == 0)
 			 	arg_fd = atoi(argv[i] + 5);
+			 else if (strcmp(argv[i], "--server=random") == 0) {
+			 	arg_server = dns_get_random_server();
+			 	assert(arg_server);
+			 	s = dns_set_server(arg_server);
+			 	assert(s);
+			 }
 			 else if (strncmp(argv[i], "--server=", 9) == 0) {
-			 	dns_set_server(argv[i] + 9);
 			 	arg_server = argv[i] + 9;
+			 	s = dns_set_server(argv[i] + 9);
+			 	assert(s);
 			 }
 			 else if (strcmp(argv[i], "--list") == 0) {
 			 	dns_list();
@@ -151,6 +162,12 @@ int main(int argc, char **argv) {
 		}
 	}
 
+	// update server argument
+	if (s) {
+		assert(s->name);
+		arg_server = s->name;
+	}
+
 	if (getuid() != 0) {
 		fprintf(stderr, "Error: you need to be root to run this program\n");
 		exit(1);
@@ -168,6 +185,10 @@ int main(int argc, char **argv) {
 		worker();
 	}
 	else {
+		logprintf("fdns starting\n");
+		if (s)
+		 	logprintf("connecting to %s server\n", s->name);
+
 		assert(arg_fd == -1);
 		monitor();
 	}
