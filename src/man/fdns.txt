@@ -54,15 +54,11 @@ List all available DoH service providers.
 .br
 $ fdns --list
 .br
-cloudflare
-.br
-	https://www.cloudflare.com
+cloudflare - https://www.cloudflare.com
 .br
 	massive anycast network
 .br
-cleanbrowsing
-.br
-	https://cleanbrowsing.org
+cleanbrowsing - https://cleanbrowsing.org
 .br
 	anycast network, security filter
 .br
@@ -91,6 +87,15 @@ $ sudo fdns --proxy-addr=127.0.0.1
 .TP
 \fB\-\-proxy-addr-any
 Listen on all available system interfaces and 127.0.0.1 for loopback interface.
+.TP
+\fB\-\-server=random
+Use a non-family random server from the list of supported servers.
+.br
+
+.br
+Example:
+.br
+$ sudo fdns --server=random
 .TP
 \fB\-\-server=server-name
 Configure the DoH service provider.

@@ -17,6 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "fdns.h"
+#include <time.h>
 
 static char *push_request_tail =
 	"accept: application/dns-message\r\n" \
@@ -171,14 +172,14 @@ void dns_list(void) {
 	fclose(fp);
 }
 
-void dns_set_server(const char *srv) {
+DnsServer *dns_set_server(const char *srv) {
 	assert(srv);
 	active_server_name = strdup(srv);
 	if (active_server_name == NULL)
 		errExit("strdup");
 
 	// read server configuration
-	dns_get_server();
+	return dns_get_server();
 }
 
 DnsServer *dns_get_server(void) {
@@ -194,7 +195,7 @@ DnsServer *dns_get_server(void) {
 		if (default_server == NULL)
 			errExit("malloc");
 
-		// print all server entries from /etc/fdns/servers
+		// parse the server entries from /etc/fdns/servers
 		FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
 		if (!fp) {
 			fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
@@ -248,3 +249,70 @@ DnsServer *dns_get_server(void) {
 		printf("\tpid %d, server #%s#\n", getpid(), active_server->name);
 	return active_server;
 }
+
+// build a list of servers from /etc/fdns/servers file and pick a random one
+typedef struct slist_t {
+	char *name;
+	struct slist_t *next;
+} SList;
+static SList *server_list = NULL;
+static int server_cnt = 0;
+
+char *dns_get_random_server(void) {
+	// parse the server entries from /etc/fdns/servers
+	FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
+	if (!fp) {
+		fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
+		exit(1);
+	}
+
+	int linecnt = 0; // line counter
+	while (1) {
+		DnsServer s;
+		int rv = read_one_server(fp, &s, &linecnt);
+		if (rv == -1) {
+			fprintf(stderr, "Error: invalid %s file\n", PATH_ETC_SERVER_LIST);
+			exit(1);
+		}
+
+		// empty list?
+		if (!s.name)
+			break;
+
+		// don't use family services
+		assert(s.description);
+		if (strstr(s.description, "family filter"))
+			continue;
+
+		server_cnt++;
+		SList *ptr = malloc(sizeof(SList));
+		if (!ptr)
+			errExit("malloc");
+		ptr->name = strdup(s.name);
+		if (!ptr->name)
+			errExit("strdup");
+		ptr->next = server_list;
+		server_list = ptr;
+	}
+	fclose(fp);
+
+	if (!server_cnt) {
+		fprintf(stderr, "Error: the server list in %s is empty\n", PATH_ETC_SERVER_LIST);
+		exit(1);
+	}
+
+	// init random number generator and pick a server
+	srand(time(NULL));
+	int index = rand() % server_cnt;
+	int i;
+	SList *ptr = server_list;
+	for (i = 0; i < index; i++, ptr = ptr->next) ;
+
+	assert(ptr->name);
+	char *rv = strdup(ptr->name);
+	if (!rv)
+		exit(1);
+	return rv;
+}
+
+

@@ -167,7 +167,6 @@ static void install_signal_handler(void) {
 void monitor(void) {
 	assert(arg_id == -1);
 	assert(arg_workers <= WORKERS_MAX && arg_workers >= WORKERS_MIN);
-	logprintf("fdns starting\n");
 	net_local_unix_socket();
 	install_signal_handler();
 
