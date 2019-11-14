@@ -1,0 +1,14 @@
+Package: fdns
+Version: FDNSVER-1
+Architecture: amd64
+Maintainer: netblue30 <netblue30@yahoo.com>
+Installed-Size: 2024
+Depends: libc6,libseccomp-dev,libssl-dev
+Section: admin
+Priority: optional
+Homepage: https://github.com/netblue30/firejail
+Description: Firejail DNS-over-HTTPS Proxy Server.
+ fdns is a DNS-over-HTTPS proxy server targeted at small networks and
+ Linux desktops. To speed up the name resolution fdns caches the responses,
+ and uses a configurable adblocker and privacy filter to cut down the
+ unnecessary traffic. The software is written in C, and is licensed under GPLv3.

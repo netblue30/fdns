@@ -80,7 +80,7 @@ uninstall:
 	done
 	rm -f $(DESTDIR)/$(datarootdir)/bash-completion/completions/fdns
 
-DISTFILES = "src test configure configure.ac dummy.c Makefile.in install.sh mkman.sh COPYING README RELNOTES"
+DISTFILES = "src etc platform test configure configure.ac Makefile.in install.sh mkman.sh mkdeb.sh COPYING README RELNOTES"
 
 dist:
 	mv config.status config.status.old
@@ -93,6 +93,11 @@ dist:
 	find $(NAME)-$(VERSION) -name .svn -delete
 	tar -cJvf $(NAME)-$(VERSION).tar.xz $(NAME)-$(VERSION)
 	rm -fr $(NAME)-$(VERSION)
+
+asc:; ./mkasc.sh $(VERSION)
+
+deb: dist
+	./mkdeb.sh $(NAME) $(VERSION)
 
 cppcheck: clean
 	cppcheck --force .
