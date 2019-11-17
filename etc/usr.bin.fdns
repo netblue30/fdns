@@ -1,0 +1,38 @@
+#include <tunables/global>
+
+/usr/bin/fdns {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/ssl_certs>
+
+  capability kill,
+  capability net_bind_service,
+  capability setgid,
+  capability setuid,
+  capability sys_admin,
+  capability sys_chroot,
+
+  signal send set=kill peer=/usr/bin/fdns//null-/usr/bin/fdns,
+
+
+  /usr/bin/fdns mrix,
+
+  /dev/** rw,
+#  owner /dev/shm/fdns-stats rw,
+
+  /run/** rw,
+#  owner /run/fdns rw,
+#  owner /run/fdns/** rw,
+
+  owner /etc/fdns/adblocker r,
+  owner /etc/fdns/servers r,
+  owner /etc/fdns/trackers r,
+  owner /etc/fdns/worker.seccomp r,
+
+ # mount required for setting up the mount namespace in the worker processes
+  mount,
+
+ deny ptrace (r, rw, read, readby, trace, tracedby),
+
+}
