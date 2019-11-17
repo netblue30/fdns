@@ -67,6 +67,7 @@ other service that requires special DNS handling.
 The worker processes are chrooted into an empty filesystem and sandboxed
 in separate Linux namespaces. The privileges are dropped, and
 a whitelist seccomp filter is enabled. By default we start 3 workers.
+An AppArmor profile is installed in /etc/apparmor.d directory.
 
 * Seamless integration with [Firejail security sandbox](https://github.com/netblue30/firejail).
 
@@ -89,6 +90,11 @@ $ ./configure --prefix=/usr
 $ make
 $ sudo make install
 `````
+If AppArmor is present in the system, enable fdns profile by running
+`````
+# /sbin/apparmor_parser -r /etc/apparmor.d/usr.bin.fdns
+`````
+
 <div style="height:20px;">&nbsp;</div>
 
 ## Setup fdns on a workstation

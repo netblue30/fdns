@@ -16,6 +16,8 @@ Dependencies: OpenSSL library, libseccomp
   - Arch Linux: the libraries are already included in the base group
 
 Build and install: ./configure && make && sudo make install
+If AppArmor is present in the system, enable fdns profile by running
+# /sbin/apparmor_parser -r /etc/apparmor.d/usr.bin.fdns
 
 
 Development
@@ -25,6 +27,7 @@ The project is developed at https://github.com/netblue30/fdns
 Maintainers/commiters:
 - netblue30 (netblue30@yahoo.com)
 - Fred-Barclay (https://github.com/Fred-Barclay)
+- startx2017 (https://github.com/startx2017)
 
 
 Documentation and Support
