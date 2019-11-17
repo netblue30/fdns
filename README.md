@@ -48,7 +48,7 @@ For blocked domains we respond with 127.0.0.1. Use --nofilter to disable.
   The filter files are /etc/fdns/adblocker and /etc/fdns/trackers.
 These are regular text file, you can modify them, or even delete them.
 You can also add your own list in /etc/fdns/hosts.
-Adblocker host files as published all over the net should work just fine.
+Adblocker hosts files as published all over the net should work just fine.
 
 * Blocking IPv6 requests by default and responding with NXDOMAIN.
 Use --ipv6 option to overwrite the default.
