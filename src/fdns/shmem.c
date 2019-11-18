@@ -117,6 +117,7 @@ void shmem_monitor_stats(void) {
 		// make a copy of the data in order to minimize the posibility of data changes durring printing
 		DnsReport d;
 		memcpy(&d, report, sizeof(DnsReport));
+		seq = report->seq;
 
 		ansi_clrscr();
 
@@ -131,7 +132,6 @@ void shmem_monitor_stats(void) {
 			printf("%s", d.logentry[i]);
 
 		// detect data changes using report->seq
-		seq = report->seq;
 		sleep(1);
 		int cnt = 0;
 		while (seq == report->seq && ++cnt < 10)
