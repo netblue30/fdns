@@ -114,17 +114,21 @@ void shmem_monitor_stats(void) {
 	uint32_t seq = 0;
 
 	while (1) {
+		// make a copy of the data in order to minimize the posibility of data changes durring printing
+		DnsReport d;
+		memcpy(&d, report, sizeof(DnsReport));
+
 		ansi_clrscr();
 
 		// print header
-		printf("%s\n", report->header);
+		printf("%s\n", d.header);
 
 		// print log lines
 		int i;
-		for (i = report->logindex; i < MAX_LOG_ENTRIES; i++)
-			printf("%s", report->logentry[i]);
-		for (i = 0; i < report->logindex; i++)
-			printf("%s", report->logentry[i]);
+		for (i = d.logindex; i < MAX_LOG_ENTRIES; i++)
+			printf("%s", d.logentry[i]);
+		for (i = 0; i < d.logindex; i++)
+			printf("%s", d.logentry[i]);
 
 		// detect data changes using report->seq
 		seq = report->seq;
