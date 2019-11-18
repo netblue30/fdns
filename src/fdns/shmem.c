@@ -21,11 +21,12 @@
 #include <fcntl.h>
 
 typedef struct dns_report_t {
-#define MAX_HEADER 163 // two full lines on a terminal screen, \n and \0
+	volatile uint32_t seq;	//sqence number used to detect data changes
+#define MAX_HEADER 163 	// two full lines on a terminal screen, \n and \0
 	char header[MAX_HEADER];
 	int logindex;
-#define MAX_LOG_ENTRIES 18 // 18 lines on the screen in order to handle tab terminals
-#define MAX_ENTRY_LEN 82 // a full line on a terminal screen, \n and \0
+#define MAX_LOG_ENTRIES 18 	// 18 lines on the screen in order to handle tab terminals
+#define MAX_ENTRY_LEN 82 	// a full line on a terminal screen, \n and \0
 	char logentry[MAX_LOG_ENTRIES][MAX_ENTRY_LEN];
 } DnsReport;
 DnsReport *report = NULL;
@@ -59,12 +60,13 @@ void shmem_open(int create) {
 	if (report == (void *) - 1)
 		errExit("mmap");
 
-	// set the size
+	// set the size and initialize sequence number
 	if (create) {
 		int v = ftruncate(fd, sizeof(DnsReport));
 		if (v == -1)
 			errExit("ftruncate");
 		memset(report, 0, sizeof(DnsReport));
+		report->seq = 0;
 	}
 }
 
@@ -94,6 +96,7 @@ void shmem_store_stats(void) {
 		 stats.cached,
 		 srv->name,
 		 encstatus);
+	report->seq++;
 }
 
 void shmem_store_log(const char *str) {
@@ -102,11 +105,13 @@ void shmem_store_log(const char *str) {
 	if (++report->logindex >= MAX_LOG_ENTRIES)
 		report->logindex = 0;
 	*report->logentry[report->logindex] = '\0';
+	report->seq++;
 }
 
 // handling "fdns --monitor"
 void shmem_monitor_stats(void) {
 	shmem_open(0);
+	uint32_t seq = 0;
 
 	while (1) {
 		ansi_clrscr();
@@ -121,6 +126,11 @@ void shmem_monitor_stats(void) {
 		for (i = 0; i < report->logindex; i++)
 			printf("%s", report->logentry[i]);
 
+		// detect data changes using report->seq
+		seq = report->seq;
 		sleep(1);
+		int cnt = 0;
+		while (seq == report->seq && ++cnt < 10)
+			sleep(1);
 	}
 }
