@@ -72,7 +72,7 @@ Start the stats monitor. Run this command as a regular user in a terminal.
 $ fdns --monitor
 .TP
 \fB\-\-nofilter
-No DNS request filtering. This disables the adblocker, the tracker filter, and the user host file
+No DNS request filtering. This disables the adblocker, the tracker filter, and the user hosts file
 installed in /etc/fdns directory.
 .TP
 \fB\-\-proxy-addr=address
@@ -221,7 +221,7 @@ $ sudo pkill fdns
 .SH FILES
 /etc/fdns/adblocker - adblocker filter distributed with fdns
 .br
-/etc/fdns/host - user host file
+/etc/fdns/hosts - user hosts file
 .br
 /etc/fdns/trackers - tracker filter distributed with fdns
 
