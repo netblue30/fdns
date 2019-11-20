@@ -72,7 +72,7 @@ static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
 		else if (strncmp(buf, "description: ", 13) == 0) {
 			if (s->description)
 				goto errout;
-			s->description = strdup(buf + 9);
+			s->description = strdup(buf + 13);
 			if (!s->description)
 				errExit("strdup");
 			found = 1;
@@ -284,15 +284,23 @@ char *dns_get_random_server(void) {
 		if (strstr(s.description, "family filter"))
 			continue;
 
-		server_cnt++;
-		SList *ptr = malloc(sizeof(SList));
-		if (!ptr)
-			errExit("malloc");
-		ptr->name = strdup(s.name);
-		if (!ptr->name)
-			errExit("strdup");
-		ptr->next = server_list;
-		server_list = ptr;
+		// anycast networks are overweighted 2:1
+		int scnt = 1;
+		if (strstr(s.description, "anycast"))
+			scnt = 2;
+
+		int i;
+		for (i = 0; i < scnt; i++) {
+			server_cnt++;
+			SList *ptr = malloc(sizeof(SList));
+			if (!ptr)
+				errExit("malloc");
+			ptr->name = strdup(s.name);
+			if (!ptr->name)
+				errExit("strdup");
+			ptr->next = server_list;
+			server_list = ptr;
+		}
 	}
 	fclose(fp);
 
