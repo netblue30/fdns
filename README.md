@@ -2,7 +2,7 @@
 
 fdns is a DNS-over-HTTPS proxy server targeted at small networks and Linux desktops.
 To speed up the name resolution fdns caches the responses, and uses a configurable adblocker
-and privacy filter to cut down the unnecessary traffic.
+and privacy filter to cut down unnecessary traffic.
 The software is written in C, and is licensed under GPLv3.
 
 <div style="height:20px;">&nbsp;</div>
@@ -33,7 +33,7 @@ posted on the provider's website. Here is a short list:
   * [CleanBrowsing](https://cleanbrowsing.org) (185.228.168.168) - security filter, family filter
   * [Cloudflare](https://www.cloudflare.com/dns/) (1.1.1.1)
   * [Foundation for Applied Privacy](https://appliedprivacy.net/) (37.252.185.229, Austria)
-  * [PoweDNS](https://powerdns.org) (136.144.215.15, Netherlands)
+  * [PowerDNS](https://powerdns.org) (136.144.215.158, Netherlands)
   * [Quad9](https://quad9.net) (9.9.9.9) - security filter
 
   Use  --list for the full list of supported DoH providers, and --server=... to pick one.
