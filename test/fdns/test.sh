@@ -3,8 +3,15 @@
 # Copyright (C) 2014-2019 Firejail Authors
 # License GPL v2
 
+# we are coming into this file as root user; by the end we will switch back to the regular $USER
+
 export MALLOC_CHECK_=3
 export MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
+
+echo "TESTING: ********************"
+printf "TESTING: running as user "
+whoami
+echo "TESTING: ********************"
 
 echo "TESTING: help/man (test/fdns/help-man.exp)"
 ./help-man.exp
@@ -87,4 +94,9 @@ echo "TESTING: workers (test/fdns/workers.exp)"
 echo "TESTING: restart workers (test/fdns/restart-workers.exp)"
 ./restart-workers.exp
 
-
+#
+# Start server as random and switch back to the regular user
+#
+fdns --daemonize --server=random
+sleep 5
+sudo -u $USER ./test-user.sh
