@@ -25,6 +25,22 @@ request1: POST /dns-query HTTP/1.1
 request2: Host: doh.42l.fr
 keepalive: 30
 
+name: adguard
+website: https://adguard.com/en/adguard-dns/overview.html
+description: anycast, ad filter
+address: 176.103.130.130:443
+request1: POST /dns-query HTTP/1.1
+request2: Host: dns.adguard.com
+keepalive: 30
+
+name: adguard-family
+website: https://adguard.com/en/adguard-dns/overview.html
+description: anycast, ad filter + family filter
+address: 176.103.130.132:443
+request1: POST /dns-query HTTP/1.1
+request2: Host: dns-familiy.adguard.com
+keepalive: 30
+
 name: appliedprivacy
 website: https://appliedprivacy.net
 description: non-profit, Austria
