@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
 			 else if (strncmp(argv[i], "--test-url=", 11) == 0) {
 			 	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
 			 	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
-			 	dnsfilter_load_list(PATH_ETC_HOST_LIST);
+			 	dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
 			 	dnsfilter_test(argv[i] + 11);
 			 	return 0;
 			 }

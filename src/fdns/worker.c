@@ -34,7 +34,7 @@ void worker(void) {
 	if (!arg_nofilter) {
 		dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
  		dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
- 		dnsfilter_load_list(PATH_ETC_HOST_LIST);
+ 		dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
  	}
 
 	// connect SSL/DNS server

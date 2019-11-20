@@ -73,7 +73,7 @@ static inline int check_addr_port(const char *str) {
 #define PATH_RUN_FDNS "/run/fdns"
 #define PATH_ETC_TRACKERS_LIST (SYSCONFDIR "/trackers")
 #define PATH_ETC_ADBLOCKER_LIST (SYSCONFDIR "/adblocker")
-#define PATH_ETC_HOST_LIST (SYSCONFDIR "/host")
+#define PATH_ETC_HOSTS_LIST (SYSCONFDIR "/hosts")
 #define PATH_ETC_SERVER_LIST (SYSCONFDIR "/servers")
 #define PATH_ETC_WORKER_SECCOMP (SYSCONFDIR "/worker.seccomp")
 #define PATH_LOG_FILE "/var/log/fdns.log"
