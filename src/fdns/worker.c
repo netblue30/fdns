@@ -239,7 +239,7 @@ void worker(void) {
 				stats.fallback++;
 				stats.changed = 1;
 				if (!dns_over_udp)
-					rlogprintf("Warning: sendig requests in clear\n");
+					rlogprintf("Warning: sending requests in clear\n");
 				dns_over_udp = 1;
 				errno = 0;
 				len = sendto(sremote, buf, len, 0, (struct sockaddr *) &addr_fallback, addr_fallback_len);
