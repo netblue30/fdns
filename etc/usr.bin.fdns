@@ -15,25 +15,24 @@
 
   signal send set=kill peer=/usr/bin/fdns//null-/usr/bin/fdns,
 
-
   /usr/bin/fdns mrix,
 
+# we need to be able to create /dev/shm/fdns-stats file
   /dev/** rw,
-#  owner /dev/shm/fdns-stats rw,
 
+# we need to be able to create /run/fdns directory
   /run/** rw,
-#  owner /run/fdns/** rw,
 
-  owner /etc/fdns/adblocker r,
-  owner /etc/fdns/servers r,
-  owner /etc/fdns/trackers r,
+  /etc/fdns/adblocker r,
+  /etc/fdns/servers r,
+  /etc/fdns/trackers r,
   owner /etc/fdns/worker.seccomp r,
-  owner /etc/fdns/hosts r,
+  /etc/fdns/hosts r,
 
  # mount required for setting up the mount namespace in the worker processes - Debian 10
   mount,
 
-# problems on Ubuntu 18.04, unix (bind) is required
+# problems on Ubuntu 18.04, unix (bind) is required - allow all unix soket functionality
   unix,
 
   deny ptrace (r, rw, read, readby, trace, tracedby),
