@@ -109,7 +109,7 @@ scan-build: clean
 	NO_EXTRA_CFLAGS="yes" scan-build make
 
 test-fdns:
-	cd test/fdns; su -c ./test.sh | grep TESTING
+	cd test/fdns;su -c ./test.sh | grep TESTING
 
 
 test: test-fdns
