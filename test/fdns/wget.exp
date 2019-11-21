@@ -7,10 +7,18 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
+if { $argc != 1 } {
+	puts "TESTING ERROR: argument missing"
+	puts "Usage: wget.exp server-name"
+	exit
+}
+
+puts "TESTING: $argv"
+
 send -- "pkill fdns\r"
 sleep 1
 
-send -- "fdns --server=42l\r"
+send -- "fdns --server=$argv\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"using cloudflare" {puts "TESTING ERROR 0.1\n";exit}
