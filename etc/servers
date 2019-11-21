@@ -15,7 +15,7 @@
 # keepalive:
 #
 # a format of IP:PORT is required for "address:"
-# "keepalive:" marks the end of the server entry.
+# "keepalive:" also marks the end of the server entry.
 
 name: 42l
 website: https://42l.fr
@@ -72,6 +72,14 @@ address: 1.1.1.1:443
 request1: POST /dns-query HTTP/1.1
 request2: Host: cloudflare-dns.com
 keepalive: 250
+
+name: digital-society
+website:  https://www.digitale-gesellschaft.ch
+description: non-profit, Switzerland
+address: 185.95.218.43:443
+request1: POST /dns-query HTTP/1.1
+request2: Host: dns.digitale-gesellschaft.ch
+keepalive: 30
 
 name: powerdns
 website: https://powerdns.org
