@@ -1,0 +1,12 @@
+[Unit]
+Description=Firejail DoH Proxy Server
+Documentation=man:fdns(1)
+Wants=network-online.target nss-lookup.target
+Before=nscd.service nss-lookup.target ntpdate.service
+
+[Service]
+ExecStart=/usr/bin/fdns --proxy-addr-any
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
