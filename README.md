@@ -30,7 +30,7 @@ Change this default with --proxy-addr command line option.
 
 * Using only DoH services from zero-logging providers, based on the privacy policy
 posted on the provider's website. Here is a short list:
-  * [AdGuard](https://https://adguard.com/en/adguard-dns/overview.html) (176.103.130.130)
+  * [AdGuard](https://adguard.com/en/adguard-dns/overview.html) (176.103.130.130)
   * [CleanBrowsing](https://cleanbrowsing.org) (185.228.168.168) - security filter, family filter
   * [Cloudflare](https://www.cloudflare.com/dns/) (1.1.1.1)
   * [Digital Society](https://www.digitale-gesellschaft.ch) (185.95.218.46, Switzerland)
