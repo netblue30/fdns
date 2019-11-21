@@ -30,38 +30,12 @@ echo "TESTING: default wget (test/fdns/default-wget.exp)"
 ./default-wget.exp
 rm -f /tmp/index.html
 
-echo "TESTING: quad9 wget (test/fdns/quad9-wget.exp)"
-./quad9-wget.exp
-rm -f /tmp/index.html
-
-echo "TESTING: appliedprivacy wget (test/fdns/appliedprivacy-wget.exp)"
-./appliedprivacy-wget.exp
-rm -f /tmp/index.html
-
-echo "TESTING: powerdns wget (test/fdns/powerdns-wget.exp)"
-./powerdns-wget.exp
-rm -f /tmp/index.html
-
-echo "TESTING: cleanbrowsing wget (test/fdns/cleanbrowsing-wget.exp)"
-./cleanbrowsing-wget.exp
-rm -f /tmp/index.html
-
-echo "TESTING: 42l wget (test/fdns/42l-wget.exp)"
-./42l-wget.exp
-rm -f /tmp/index.html
-
-echo "TESTING: seby.io wget (test/fdns/seby.io-wget.exp)"
-./seby.io-wget.exp
-rm -f /tmp/index.html
-
-
-echo "TESTING: cleanbrowsing-family wget (test/fdns/cleanbrowsing-family-wget.exp)"
-./cleanbrowsing-family-wget.exp
-rm -f /tmp/index.html
-
-echo "TESTING: cloudflare wget (test/fdns/cloudflare-wget.exp)"
-./cloudflare-wget.exp
-rm -f /tmp/index.html
+SERVERS=`fdns --list | grep https | awk '{ print $1 }'`
+for s in $SERVERS
+do
+	./wget.exp $s
+	rm -f /tmp/index.html
+done
 
 echo "TESTING: default-not-found wget (test/fdns/default-notfound-wget.exp)"
 ./default-notfound-wget.exp
