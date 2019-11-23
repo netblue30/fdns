@@ -99,8 +99,7 @@ typedef struct dnsserver_t {
 	char *website;	// website
 	char *tags;	// description
 	char *address;	// IP address
-	char *request1;	// POST request first line
-	char *request2;	// POST request second line
+	char *host;		// POST request first line
 	char *request;	// full POST request
 	int ssl_keepalive;	// keepalive in seconds
 } DnsServer;
