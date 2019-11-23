@@ -19,28 +19,28 @@
 #include "fdns.h"
 #include <time.h>
 
+static DnsServer *slist = NULL;
+static DnsServer *scurrent = NULL;
 static char *push_request_tail =
 	"accept: application/dns-message\r\n" \
 	"content-type: application/dns-message\r\n" \
 	"content-length: %d\r\n" \
 	"\r\n";
-static char *default_server_name = "cloudflare";
-static char *active_server_name = NULL;
-static DnsServer *default_server = NULL;
-static DnsServer *active_server = NULL;
-static char *requested_server = NULL;
 
-
-// returns 0 if successful, -1 if error
-static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
+// returns NULL for end of list
+static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 	assert(fp);
-	assert(s);
 	assert(linecnt);
+	assert(fname);
+
+	DnsServer *s = malloc(sizeof(DnsServer));
+	if (!s)
+		errExit("malloc");
 	memset(s, 0, sizeof(DnsServer));
-	int found = 0;
 
 	char buf[4096];
 	buf[0] = '\0';
+	int found = 0;
 	while (fgets(buf, 4096, fp)) {
 		(*linecnt)++;
 
@@ -69,11 +69,11 @@ static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
 				errExit("strdup");
 			found = 1;
 		}
-		else if (strncmp(buf, "description: ", 13) == 0) {
-			if (s->description)
+		else if (strncmp(buf, "tags: ", 6) == 0) {
+			if (s->tags)
 				goto errout;
-			s->description = strdup(buf + 13);
-			if (!s->description)
+			s->tags = strdup(buf + 6);
+			if (!s->tags)
 				errExit("strdup");
 			found = 1;
 		}
@@ -86,8 +86,8 @@ static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
 
 			// check address:port
 			if (check_addr_port(s->address)) {
-				fprintf(stderr, "Error: line %d, invalid address:port\n", *linecnt);
-				return -1;
+				fprintf(stderr, "Error: file %s, line %d, invalid address:port\n", fname, *linecnt);
+				errExit("read server file");
 			}
 			found = 1;
 		}
@@ -113,36 +113,42 @@ static int read_one_server(FILE *fp, DnsServer *s, int *linecnt) {
 			if (s->ssl_keepalive)
 				goto errout;
 			if (sscanf(buf + 11, "%d", &s->ssl_keepalive) != 1 || s->ssl_keepalive <= 0) {
-				fprintf(stderr, "Error: line %d, invalid keepalive\n", *linecnt);
-				return -1;
+				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
+				errExit("read server file");
 			}
 
 			// check server data
-			if (!s->name || !s->website || !s->description || !s->address || !s->request1 || !s->request2) {
-				fprintf(stderr, "Error: line %d, one of the server fields is missing\n", *linecnt);
-				return -1;
+			if (!s->name || !s->website || !s->tags || !s->address || !s->request1 || !s->request2) {
+				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
+				errExit("read server file");
 			}
 
-			// build the request
+			// build the DNS/HTTP request
 			if (asprintf(&s->request, "%s\r\n%s\r\n%s", s->request1, s->request2, push_request_tail) == -1)
 				errExit("asprintf");
-			return 0;
+			return s;
 		}
 	}
 
 	if (found) {
-		fprintf(stderr, "Error: line %d, keepalive missing\n", *linecnt);
-		return -1;
+		free(s);
+		fprintf(stderr, "Error: file %s, line %d, keepalive missing\n", fname, *linecnt);
+		errExit("read server file");
 	}
-	return 0;	// the last server was already read
+	free(s);
+	return NULL;	// no  more servers in the configuration file
 
 errout:
-	fprintf(stderr, "Error: line %d, field defined twice\n", *linecnt);
-	return -1;
+	free(s);
+	fprintf(stderr, "Error: file %s, line %d, field defined twice\n", fname, *linecnt);
+	errExit("read server file");
 }
 
-void dns_list(void) {
-	// print all server entries from /etc/fdns/servers
+
+static void load_list(void) {
+	assert(slist == NULL);
+
+	// load all server entries from /etc/fdns/servers in slist
 	FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
 	if (!fp) {
 		fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
@@ -150,177 +156,112 @@ void dns_list(void) {
 	}
 
 	int linecnt = 0; // line counter
+	DnsServer **ptr = &slist;
 	while (1) {
-		DnsServer s;
-		int rv = read_one_server(fp, &s, &linecnt);
-		if (rv == -1) {
-			fprintf(stderr, "Error: invalid %s file\n", PATH_ETC_SERVER_LIST);
-			exit(1);
-		}
-
-		// check if we are at the end of the file
-		if (!s.name)
+		DnsServer *s = read_one_server(fp, &linecnt, PATH_ETC_SERVER_LIST);
+		if (!s)
 			break;
+		// push it to the end of the list
+		*ptr = s;
+		ptr = &s->next;
+	}
 
+	fclose(fp);
+}
+
+//**************************************************************************
+// public interface
+//**************************************************************************
+void dnsserver_list(void) {
+	load_list();
+	DnsServer *s = slist;
+
+	while (s) {
 		// print name - website
-		printf("%s - %s\n", s.name, s.website);
+		printf("%s - %s\n", s->name, s->website);
+		// print tags
+		printf("\t%s\n", s->tags);
 
-		// print description.
-		printf("\t%s; SSL keepalive %ds\n", s.description, s.ssl_keepalive);
+		s = s->next;
 	}
-
-	fclose(fp);
 }
 
-DnsServer *dns_set_server(const char *srv) {
-	assert(srv);
-	active_server_name = strdup(srv);
-	if (active_server_name == NULL)
-		errExit("strdup");
-
-	// read server configuration
-	return dns_get_server();
-}
-
-DnsServer *dns_get_server(void) {
-	if (arg_debug)
-		printf("dns_get_server pid %d, active_server %p\n", getpid(), active_server);
-
-	if (active_server == NULL) {
-		// initialize server
-		active_server = malloc(sizeof(DnsServer));
-		if (active_server == NULL)
-			errExit("malloc");
-		default_server = malloc(sizeof(DnsServer));
-		if (default_server == NULL)
-			errExit("malloc");
-
-		// parse the server entries from /etc/fdns/servers
-		FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
-		if (!fp) {
-			fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
-			exit(1);
-		}
-
-		if (active_server_name == NULL)
-			active_server_name = default_server_name;
-		int linecnt = 0; // line counter
-		while (1) {
-			DnsServer s;
-			int rv = read_one_server(fp, &s, &linecnt);
-			if (rv == -1) {
-				fprintf(stderr, "Error: invalid %s file\n", PATH_ETC_SERVER_LIST);
-				exit(1);
-			}
-			// check if we went trough the file and didn't find the server
-			if (s.name == NULL) {
-				// if we extracted the default server, use it
-				if (default_server->name == NULL) {
-					fprintf(stderr, "Error: requested server not found, default server not found\n");
-					exit(1);
-				}
-				memcpy(active_server, default_server, sizeof(DnsServer));
-				logprintf("Warning: requested server not found, using %s\n", active_server->name);
-				break;
-			}
-
-			// check requested server
-			if (strcmp(s.name, active_server_name) == 0) {
-				memcpy(active_server, &s, sizeof(DnsServer));
-				break;
-			}
-
-			// check default server
-			if (strcmp(s.name, default_server_name) == 0)
-				memcpy(default_server, &s, sizeof(DnsServer));
-
-		}
-		fclose(fp);
-
-		if (active_server->name == NULL) {
-			fprintf(stderr, "Error: cannot set cloudflare as default server\n");
-			exit(1);
-		}
-		if (arg_debug)
-			printf("\tServer %s initialized %p\n", active_server->name, active_server);
-	}
-
-	if (arg_debug)
-		printf("\tpid %d, server #%s#\n", getpid(), active_server->name);
-	return active_server;
-}
-
-// build a list of servers from /etc/fdns/servers file and pick a random one
-typedef struct slist_t {
-	char *name;
-	struct slist_t *next;
-} SList;
-static SList *server_list = NULL;
-static int server_cnt = 0;
-
-char *dns_get_random_server(void) {
-	// parse the server entries from /etc/fdns/servers
-	FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
-	if (!fp) {
-		fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
+DnsServer *dnsserver_get(void) {
+	if (scurrent)
+		return scurrent;
+	if (!slist)
+		load_list();
+	if (!slist) {
+		fprintf(stderr, "Error: the server list %s is empty", PATH_ETC_SERVER_LIST);
 		exit(1);
 	}
 
-	int linecnt = 0; // line counter
-	while (1) {
-		DnsServer s;
-		int rv = read_one_server(fp, &s, &linecnt);
-		if (rv == -1) {
-			fprintf(stderr, "Error: invalid %s file\n", PATH_ETC_SERVER_LIST);
-			exit(1);
-		}
+	// update arg_server
+	if (arg_server == NULL) {
+		arg_server = strdup("cloudflare");
+		if (!arg_server)
+			errExit("strdup");
+	} // arg_server is in mallocated memory
 
-		// empty list?
-		if (!s.name)
+	// find the server in the list and initialize the server structure
+	DnsServer *s = slist;
+	while (s) {
+		if (strcmp(s->name, arg_server) == 0) {
+			scurrent = s;
 			break;
+		}
+		s = s->next;
+	}
 
-		// don't use family services
-		assert(s.description);
-		if (strstr(s.description, "family filter"))
-			continue;
+	// look for a tag
+	if (!scurrent) {
+		// mark the servers using arg_server as a tag
+		s = slist;
+		int cnt = 0;
+		while (s) {
+			assert(s->active == 0);
+			if (strstr(s->tags, arg_server)) {
+				if (arg_debug)
+					printf("tag %s\n", s->name);
+				cnt++;
+				s->active = cnt;
+			}
+			s = s->next;
+		}
 
-		// anycast networks are overweighted 2:1
-		int scnt = 1;
-		if (strstr(s.description, "anycast"))
-			scnt = 2;
+		if (!cnt)
+			goto errexit;
 
-		int i;
-		for (i = 0; i < scnt; i++) {
-			server_cnt++;
-			SList *ptr = malloc(sizeof(SList));
-			if (!ptr)
-				errExit("malloc");
-			ptr->name = strdup(s.name);
-			if (!ptr->name)
-				errExit("strdup");
-			ptr->next = server_list;
-			server_list = ptr;
+		// pick a random server
+		srand(time(NULL));
+		int index = rand() % cnt;
+		index++;
+		if (arg_debug)
+			printf("tag index %d\n", index);
+
+		s = slist;
+		while (s) {
+			if (s->active == index) {
+				scurrent = s;
+				free(arg_server);
+				arg_server = strdup(s->name);
+				if (!arg_server)
+					errExit("strdup");
+				break;
+			}
+			s = s->next;
 		}
 	}
-	fclose(fp);
 
-	if (!server_cnt) {
-		fprintf(stderr, "Error: the server list in %s is empty\n", PATH_ETC_SERVER_LIST);
-		exit(1);
-	}
+	// end the program if the server is not found in the list
+	if (!scurrent)
+		goto errexit;
 
-	// init random number generator and pick a server
-	srand(time(NULL));
-	int index = rand() % server_cnt;
-	int i;
-	SList *ptr = server_list;
-	for (i = 0; i < index; i++, ptr = ptr->next) ;
+	return scurrent;
 
-	assert(ptr->name);
-	char *rv = strdup(ptr->name);
-	if (!rv)
-		exit(1);
-	return rv;
+errexit:
+	fprintf(stderr, "Error: cannot find server %s in %s\n", arg_server, PATH_ETC_SERVER_LIST);
+	exit(1);
+
 }
-
 

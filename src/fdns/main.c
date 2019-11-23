@@ -65,8 +65,6 @@ static void usage(void) {
 }
 
 int main(int argc, char **argv) {
-	DnsServer *s = NULL;
-
 	// init
 	memset(&stats, 0, sizeof(stats));
 	memset(encrypted, 0, sizeof(encrypted));
@@ -130,19 +128,19 @@ int main(int argc, char **argv) {
 			 	arg_id = atoi(argv[i] + 5);
 			 else if (strncmp(argv[i], "--fd=", 5) == 0)
 			 	arg_fd = atoi(argv[i] + 5);
-			 else if (strcmp(argv[i], "--server=random") == 0) {
-			 	arg_server = dns_get_random_server();
-			 	assert(arg_server);
-			 	s = dns_set_server(arg_server);
-			 	assert(s);
-			 }
+//			 else if (strcmp(argv[i], "--server=random") == 0) {
+//			 	arg_server = dns_get_random_server();
+//			 	assert(arg_server);
+//			 	s = dns_set_server(arg_server);
+//			 	assert(s);
+//			 }
 			 else if (strncmp(argv[i], "--server=", 9) == 0) {
-			 	arg_server = argv[i] + 9;
-			 	s = dns_set_server(argv[i] + 9);
-			 	assert(s);
+			 	arg_server = strdup(argv[i] + 9);
+			 	if (!arg_server)
+			 		errExit("strdup");
 			 }
 			 else if (strcmp(argv[i], "--list") == 0) {
-			 	dns_list();
+			 	dnsserver_list();
 			 	return 0;
 			 }
 			 else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {
@@ -162,11 +160,6 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	// update server argument
-	if (s) {
-		assert(s->name);
-		arg_server = s->name;
-	}
 
 	if (getuid() != 0) {
 		fprintf(stderr, "Error: you need to be root to run this program\n");
@@ -179,6 +172,11 @@ int main(int argc, char **argv) {
 		exit(1);
 	}
 
+	// initialize the active server structure
+	DnsServer *s = dnsserver_get();
+	assert(s);
+	assert(arg_server);
+
 	// start the monitor or the worker
 	if (arg_id != -1) {
 		assert(arg_fd != -1);
@@ -186,10 +184,7 @@ int main(int argc, char **argv) {
 	}
 	else {
 		logprintf("fdns starting\n");
-		if (s)
-		 	logprintf("connecting to %s server\n", s->name);
-
-		assert(arg_fd == -1);
+	 	logprintf("connecting to %s server\n", s->name);
 		monitor();
 	}
 
