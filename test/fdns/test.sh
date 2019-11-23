@@ -37,6 +37,9 @@ do
 	rm -f /tmp/index.html
 done
 
+echo "TESTING: tags (test/fdns/tags.exp)"
+./tags.exp
+
 echo "TESTING: default-not-found wget (test/fdns/default-notfound-wget.exp)"
 ./default-notfound-wget.exp
 rm -f /tmp/index.html

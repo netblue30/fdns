@@ -91,9 +91,13 @@ typedef struct stats_t {
 } Stats;
 
 typedef struct dnsserver_t {
+	struct dnsserver_t *next;// linked list
+	int  active;		// flag for random purposes
+
+	// server data
 	char *name;	// name
 	char *website;	// website
-	char *description;	// description
+	char *tags;	// description
 	char *address;	// IP address
 	char *request1;	// POST request first line
 	char *request2;	// POST request second line
@@ -206,10 +210,9 @@ void shmem_print_stats(void);
 void shmem_monitor_stats(void);
 
 // dnsserver.c
-DnsServer *dns_set_server(const char *srv);
-DnsServer *dns_get_server(void);
-void dns_list(void);
-char *dns_get_random_server(void);
+void dnsserver_load(void);
+void dnsserver_list(void);
+DnsServer *dnsserver_get(void);
 
 // cache.c
 void cache_set_name(const char *name, int ipv6);

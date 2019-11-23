@@ -74,7 +74,7 @@ void shmem_store_stats(void) {
 	assert(report);
 
 	// server
-	DnsServer *srv = dns_get_server();
+	DnsServer *srv = dnsserver_get();
 	assert(srv);
 
 

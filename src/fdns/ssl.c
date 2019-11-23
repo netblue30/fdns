@@ -117,7 +117,7 @@ char *get_cert_file(void) {
 
 void ssl_open(void) {
 	assert(ssl_state == SSL_CLOSED);
-	DnsServer *srv = dns_get_server();
+	DnsServer *srv = dnsserver_get();
 	assert(srv);
 
 	if (ctx == NULL) {
@@ -179,7 +179,7 @@ void ssl_close(void) {
 int ssl_dns(uint8_t *msg, int cnt) {
 	assert(msg);
 
-	DnsServer *srv = dns_get_server();
+	DnsServer *srv = dnsserver_get();
 	assert(srv);
 
 	if (ssl == NULL || ssl_state != SSL_OPEN)
