@@ -21,16 +21,14 @@ name: 42l
 website: https://42l.fr
 tags: non-profit, France, Europe, random
 address: 185.216.27.142:443
-request1: POST /dns-query HTTP/1.1
-request2: Host: doh.42l.fr
+host: doh.42l.fr/dns-query
 keepalive: 30
 
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, adblocker
 address: 176.103.130.130:443
-request1: POST /dns-query HTTP/1.1
-request2: Host: dns.adguard.com
+host: dns.adguard.com/dns-query
 keepalive: 30
 
 # under testing
@@ -46,62 +44,54 @@ name: appliedprivacy
 website: https://appliedprivacy.net
 tags: non-profit, Austria, Europe, random
 address: 37.252.185.229:443
-request1: POST /query HTTP/1.1
-request2: Host: doh.appliedprivacy.net
+host: doh.appliedprivacy.net/query
 keepalive: 30
 
 name: cleanbrowsing
 website: https://cleanbrowsing.org
 tags: anycast, security, random
 address: 185.228.168.168:443
-request1: POST /doh/security-filter HTTP/1.1
-request2: Host: doh.cleanbrowsing.org
+host: doh.cleanbrowsing.org/doh/security-filter
 keepalive: 30
 
 name: cleanbrowsing-family
 website: https://cleanbrowsing.org
 tags: family
 address: 185.228.168.168:443
-request1: POST /doh/family-filter HTTP/1.1
-request2: Host: doh.cleanbrowsing.org
+host: doh.cleanbrowsing.org/doh/family-filter
 keepalive: 30
 
 name: cloudflare
 website: https://www.cloudflare.com
 tags: anycast, random
 address: 1.1.1.1:443
-request1: POST /dns-query HTTP/1.1
-request2: Host: cloudflare-dns.com
+host: cloudflare-dns.com/dns-query
 keepalive: 250
 
 name: digital-society
 website:  https://www.digitale-gesellschaft.ch
 tags: non-profit, Switzerland, Europe, random
 address: 185.95.218.43:443
-request1: POST /dns-query HTTP/1.1
-request2: Host: dns.digitale-gesellschaft.ch
+host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 30
 
 name: powerdns
 website: https://powerdns.org
 tags: Netherlands, Europe, random
 address: 136.144.215.158:443
-request1: POST /dns-query HTTP/1.1
-request2: Host: doh.powerdns.org
+host: doh.powerdns.org/dns-query
 keepalive: 7
 
 name: quad9
 website: https://quad9.net
 tags: anycast, security, random
 address: 9.9.9.9:443
-request1: POST /dns-query HTTP/1.1
-request2: Host: dns.quad9.net
+host: dns.quad9.net/dns-query
 keepalive: 7
 
 name: seby.io
 website: https://dns.seby.io
 tags: Australia, Asia-Pacific, random
 address: 45.76.113.31:8443
-request1: POST /dns-query HTTP/1.1
-request2: Host: dns.seby.io
+host: dns.seby.io/dns-query
 keepalive: 7

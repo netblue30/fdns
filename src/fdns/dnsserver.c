@@ -87,45 +87,42 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			// check address:port
 			if (check_addr_port(s->address)) {
 				fprintf(stderr, "Error: file %s, line %d, invalid address:port\n", fname, *linecnt);
-				errExit("read server file");
+				exit(1);
 			}
 			found = 1;
 		}
-		else if (strncmp(buf, "request1: ", 10) == 0) {
-			if (s->request1)
+		else if (strncmp(buf, "host: ", 6) == 0) {
+			if (s->host)
 				goto errout;
-			s->request1 = strdup(buf + 10);
-			if (!s->request1)
+			s->host = strdup(buf + 6);
+			if (!s->host)
 				errExit("strdup");
-
 			found = 1;
-		}
-		else if (strncmp(buf, "request2: ", 9) == 0) {
-			if (s->request2)
-				goto errout;
-			s->request2 = strdup(buf + 10);
-			if (!s->request2)
-				errExit("strdup");
 
-			found = 1;
+			// build the DNS/HTTP request
+			char *str = strchr(s->host, '/');
+			if (!str)
+				goto errout2;
+			*str++ = '\0';
+			if (asprintf(&s->request, "POST /%s HTTP/1.1\r\nHost: %s\r\n%s", str, s->host, push_request_tail) == -1)
+				errExit("asprintf");
+			if (arg_debug)
+				printf("%s\n", s->request);
 		}
 		else if (strncmp(buf, "keepalive: ", 11) == 0) {
 			if (s->ssl_keepalive)
 				goto errout;
 			if (sscanf(buf + 11, "%d", &s->ssl_keepalive) != 1 || s->ssl_keepalive <= 0) {
 				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
-				errExit("read server file");
+				exit(1);
 			}
 
 			// check server data
-			if (!s->name || !s->website || !s->tags || !s->address || !s->request1 || !s->request2) {
+			if (!s->name || !s->website || !s->tags || !s->address || !s->host || !s->request) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
-				errExit("read server file");
+				exit(1);
 			}
 
-			// build the DNS/HTTP request
-			if (asprintf(&s->request, "%s\r\n%s\r\n%s", s->request1, s->request2, push_request_tail) == -1)
-				errExit("asprintf");
 			return s;
 		}
 	}
@@ -133,7 +130,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 	if (found) {
 		free(s);
 		fprintf(stderr, "Error: file %s, line %d, keepalive missing\n", fname, *linecnt);
-		errExit("read server file");
+		exit(1);
 	}
 	free(s);
 	return NULL;	// no  more servers in the configuration file
@@ -141,7 +138,12 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 errout:
 	free(s);
 	fprintf(stderr, "Error: file %s, line %d, field defined twice\n", fname, *linecnt);
-	errExit("read server file");
+	exit(1);
+
+errout2:
+	free(s);
+	fprintf(stderr, "Error: file %s, line %d, invalid host\n", fname, *linecnt);
+	exit(1);
 }
 
 
