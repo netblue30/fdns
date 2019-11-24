@@ -20,7 +20,7 @@
 
 name: 42l
 website: https://42l.fr
-tags: non-profit, France, Europe, random
+tags: non-profit, France, Europe
 address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
 keepalive: 30
@@ -34,14 +34,14 @@ keepalive: 30
 
 name: appliedprivacy
 website: https://appliedprivacy.net
-tags: non-profit, Austria, Europe, random
+tags: non-profit, Austria, Europe
 address: 37.252.185.229:443
 host: doh.appliedprivacy.net/query
 keepalive: 30
 
 name: cleanbrowsing
 website: https://cleanbrowsing.org
-tags: anycast, security, random
+tags: anycast, security
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
 keepalive: 30
@@ -55,49 +55,49 @@ keepalive: 30
 
 name: cloudflare
 website: https://www.cloudflare.com
-tags: anycast, random
+tags: anycast
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
 keepalive: 250
 
 name: digital-society
 website:  https://www.digitale-gesellschaft.ch
-tags: non-profit, Switzerland, Europe, random
+tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 30
 
 name: powerdns
 website: https://powerdns.org
-tags: Netherlands, Europe, random
+tags: Netherlands, Europe
 address: 136.144.215.158:443
 host: doh.powerdns.org/dns-query
 keepalive: 7
 
 name: quad9
 website: https://quad9.net
-tags: anycast, security, random
+tags: anycast, security
 address: 9.9.9.9:443
 host: dns.quad9.net/dns-query
 keepalive: 7
 
 name: seby.io
 website: https://dns.seby.io
-tags: Australia, Asia-Pacific, random
+tags: Australia, Asia-Pacific
 address: 45.76.113.31:8443
 host: dns.seby.io/dns-query
 keepalive: 7
 
 name: tiarapp
 website: https://doh.tiar.app
-tags: Singapore, Asia-Pacific, random
+tags: Singapore, Asia-Pacific
 address: 174.138.29.175:443
 host: doh.tiar.app/dns-query
 keepalive: 30
 
 name: tiarapp-jp
 website: https://jp.tiar.app/
-tags: Japan, Asia-Pacific, random
+tags: Japan, Asia-Pacific
 address: 172.104.93.80:443
 host: jp.tiar.app/dns-query
 keepalive: 30
