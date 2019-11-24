@@ -179,10 +179,8 @@ void dnsserver_list(void) {
 	DnsServer *s = slist;
 
 	while (s) {
-		// print name - website
-		printf("%s - %s\n", s->name, s->website);
-		// print tags
-		printf("\t%s\n", s->tags);
+		printf("%s - %s\n", s->name, s->tags);
+		printf("\t%s\n", s->website);
 
 		s = s->next;
 	}
