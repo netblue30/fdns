@@ -107,6 +107,19 @@ Example:
 .br
 $ sudo fdns --server=cleanbrowsing
 .TP
+\fB\-\-test-server=server
+Send a burst of 5 DNS requests to one of the supported servers and calculate an average response time.
+.br
+
+.br
+Example:
+.br
+$ fdns --test-server=digital-society
+.br
+SSL connection opened in 640.53 ms
+.br
+DoH response average 155.22 ms
+.TP
 \fB\-\-test-url=URL
 Check if URL is dropped by the adblock/tracker filters.
 .br
@@ -115,6 +128,7 @@ Check if URL is dropped by the adblock/tracker filters.
 Example:
 .br
 $ fdns --test-url=amazon-adsystem.com
+.br
 URL amazon-adsystem.com dropped by "amazon-adsystem.com" rule
 .TP
 \fB\-\-version

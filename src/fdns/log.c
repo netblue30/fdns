@@ -19,9 +19,18 @@
 #include "fdns.h"
 #include <syslog.h>
 static LogMsg msg;
+static int disabled = 0;
+
+void log_disable(void) {
+	disabled = 1;
+}
+
 
 // remote logging (worker processes)
 void rlogprintf(const char *format, ...) {
+	if (disabled)
+		return;
+		
 	// initialize packet
 	memset(&msg, 0, sizeof(LogMsgHeader));
 
@@ -44,6 +53,9 @@ void rlogprintf(const char *format, ...) {
 
 // local logging (monitor process)
 void logprintf(const char *format, ...) {
+	if (disabled)
+		return;
+
 	va_list valist;
 	va_start(valist, format);
 

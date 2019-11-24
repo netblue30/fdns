@@ -56,6 +56,7 @@ static void usage(void) {
 		"\tthe list.\n");
 	printf("    --server=server-name - configure the DoH service provider. Use --list\n"
 		"\tto print the list of available providers.\n");
+	printf("    --test-server=server - check DoH server.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --version - print program version and exit.\n");
 	printf("    --workers=number - the number of worker threads, between %d and %d,\n"
@@ -101,13 +102,6 @@ int main(int argc, char **argv) {
 			 	arg_debug = 1;
 			else if (strcmp(argv[i], "--daemonize") == 0)
 				;
-			 else if (strncmp(argv[i], "--test-url=", 11) == 0) {
-			 	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
-			 	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
-			 	dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
-			 	dnsfilter_test(argv[i] + 11);
-			 	return 0;
-			 }
 			 else if (strncmp(argv[i], "--certfile=", 11) == 0)
 			 	arg_certfile = argv[i] + 11;
 			 else if (strcmp(argv[i], "--allow-all-queries") == 0)
@@ -151,6 +145,17 @@ int main(int argc, char **argv) {
 			 	arg_proxy_addr_any = 1;
 			 else if (strcmp(argv[i], "--monitor") == 0) {
 			 	shmem_monitor_stats();
+			 	return 0;
+			 }
+			 else if (strncmp(argv[i], "--test-url=", 11) == 0) {
+			 	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
+			 	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
+			 	dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
+			 	dnsfilter_test(argv[i] + 11);
+			 	return 0;
+			 }
+			 else if (strncmp(argv[i], "--test-server=", 14) == 0) {
+			 	dnsserver_test(argv[i] + 14);
 			 	return 0;
 			 }
 			 else {

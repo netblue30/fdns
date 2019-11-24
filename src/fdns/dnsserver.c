@@ -17,6 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "fdns.h"
+#include "timetrace.h"
 #include <time.h>
 
 static DnsServer *slist = NULL;
@@ -267,3 +268,39 @@ errexit:
 
 }
 
+// return 0 if ok, 1 if failed
+int dnsserver_test(const char *server_name)  {
+	// initialize server structure
+	arg_server = strdup(server_name);
+	if (!arg_server)
+		errExit("strdup");
+	DnsServer *s = dnsserver_get();
+	log_disable();
+	ssl_init();
+
+	printf("Testing server %s\n", arg_server);
+
+	timetrace_start();
+	ssl_open();
+	if (ssl_state == SSL_CLOSED) {
+		fprintf(stderr, "Error: cannot open SSL connection\n");
+		exit(1);
+	}
+	float ms = timetrace_end();
+	printf("SSL connection opened in %.02f ms\n", ms);
+
+	timetrace_start();
+	ssl_keepalive();
+	ssl_keepalive();
+	ssl_keepalive();
+	ssl_keepalive();
+	ssl_keepalive();
+	ms = timetrace_end();
+	if (ssl_state == SSL_CLOSED) {
+		fprintf(stderr, "Error: SSL connection closed\n");
+		exit(1);
+	}
+	printf("DoH response average %.02f ms\n", ms/5);
+
+	return 0;
+}
