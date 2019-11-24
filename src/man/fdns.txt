@@ -120,6 +120,15 @@ SSL connection opened in 640.53 ms
 .br
 DoH response average 155.22 ms
 .TP
+\fB\-\-test-server=all
+Similar to \-\-test-server=server above, but run the test on all servers.
+.br
+
+.br
+Example:
+.br
+$ fdns --test-server=all
+.TP
 \fB\-\-test-url=URL
 Check if URL is dropped by the adblock/tracker filters.
 .br

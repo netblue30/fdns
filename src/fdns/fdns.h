@@ -215,6 +215,7 @@ void dnsserver_list(void);
 DnsServer *dnsserver_get(void);
 // return 0 if ok, 1 if failed
 int dnsserver_test(const char *server_name);
+void dnsserver_test_all(void);
 
 // cache.c
 void cache_set_name(const char *name, int ipv6);
