@@ -57,6 +57,7 @@ static void usage(void) {
 	printf("    --server=server-name - configure the DoH service provider. Use --list\n"
 		"\tto print the list of available providers.\n");
 	printf("    --test-server=server - check DoH server.\n");
+	printf("    --test-server=all - check all DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --version - print program version and exit.\n");
 	printf("    --workers=number - the number of worker threads, between %d and %d,\n"
@@ -154,9 +155,13 @@ int main(int argc, char **argv) {
 			 	dnsfilter_test(argv[i] + 11);
 			 	return 0;
 			 }
-			 else if (strncmp(argv[i], "--test-server=", 14) == 0) {
-			 	dnsserver_test(argv[i] + 14);
+			 else if (strcmp(argv[i], "--test-server=all") == 0) {
+			 	dnsserver_test_all();
 			 	return 0;
+			 }
+			 else if (strncmp(argv[i], "--test-server=", 14) == 0) {
+			 	int rv = dnsserver_test(argv[i] + 14);
+			 	return rv;
 			 }
 			 else {
 			 	fprintf(stderr, "Error: invalid command line argument %s\n", argv[i]);
