@@ -30,7 +30,7 @@ echo "TESTING: default wget (test/fdns/default-wget.exp)"
 ./default-wget.exp
 rm -f /tmp/index.html
 
-SERVERS=`fdns --list | grep https | awk '{ print $1 }'`
+SERVERS=`fdns --list | grep -v https | awk '{ print $1 }'`
 for s in $SERVERS
 do
 	./wget.exp $s
