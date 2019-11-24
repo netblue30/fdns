@@ -17,6 +17,7 @@
 # a format of IP:PORT is required for "address:"
 # "keepalive:" also marks the end of the server entry.
 
+
 name: 42l
 website: https://42l.fr
 tags: non-profit, France, Europe, random
@@ -30,15 +31,6 @@ tags: anycast, adblocker
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
 keepalive: 30
-
-# under testing
-#name: adguard-family
-#website: https://adguard.com/en/adguard-dns/overview.html
-#tags: family
-#address: 176.103.130.132:443
-#request1: POST /dns-query HTTP/1.1
-#request2: Host: dns-familiy.adguard.com
-#keepalive: 30
 
 name: appliedprivacy
 website: https://appliedprivacy.net
@@ -95,3 +87,17 @@ tags: Australia, Asia-Pacific, random
 address: 45.76.113.31:8443
 host: dns.seby.io/dns-query
 keepalive: 7
+
+name: tiarapp
+website: https://doh.tiar.app
+tags: Singapore, Asia-Pacific, random
+address: 174.138.29.175:443
+host: doh.tiar.app/dns-query
+keepalive: 30
+
+name: tiarapp-jp
+website: https://jp.tiar.app/
+tags: Japan, Asia-Pacific, random
+address: 172.104.93.80:443
+host: jp.tiar.app/dns-query
+keepalive: 30
