@@ -193,6 +193,7 @@ typedef struct logmsg_t {
 	char buf[MAXMSG]; // text content ending in \0
 } LogMsg;
 
+void log_disable(void);
 // remote logging (worker processes)
 void rlogprintf(const char *format, ...);
 // local logging (monitor process)
@@ -212,6 +213,8 @@ void shmem_monitor_stats(void);
 void dnsserver_load(void);
 void dnsserver_list(void);
 DnsServer *dnsserver_get(void);
+// return 0 if ok, 1 if failed
+int dnsserver_test(const char *server_name);
 
 // cache.c
 void cache_set_name(const char *name, int ipv6);
