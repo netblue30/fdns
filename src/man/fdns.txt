@@ -54,13 +54,25 @@ List all available DoH service providers.
 .br
 $ fdns --list
 .br
-cloudflare - https://www.cloudflare.com
+42l - non-profit, France, Europe
 .br
-	massive anycast network
+	https://42l.fr
 .br
-cleanbrowsing - https://cleanbrowsing.org
+adguard - anycast, adblocker
 .br
-	anycast network, security filter
+	https://adguard.com/en/adguard-dns/overview.html
+.br
+appliedprivacy - non-profit, Austria, Europe
+.br
+	https://appliedprivacy.net
+.br
+cleanbrowsing - anycast, security
+.br
+	https://cleanbrowsing.org
+.br
+cleanbrowsing-family - family
+.br
+	https://cleanbrowsing.org
 .br
 [...]
 .TP
@@ -88,24 +100,21 @@ $ sudo fdns --proxy-addr=127.0.0.1
 \fB\-\-proxy-addr-any
 Listen on all available system interfaces and 127.0.0.1 for loopback interface.
 .TP
-\fB\-\-server=random
-Use a non-family random server from the list of supported servers.
-.br
-
-.br
-Example:
-.br
-$ sudo fdns --server=random
-.TP
-\fB\-\-server=server-name
+\fB\-\-server=server-name|tag
 Configure the DoH service provider.
-Use --list to print the list of available providers.
+Use --list to print the list of available providers. When using a tag, a random server from the tag group will be used
 .br
 
 .br
-Example:
+Examples:
 .br
-$ sudo fdns --server=cleanbrowsing
+$ sudo fdns --server=cloudflare
+.br
+$ sudo fdns --server=anycast
+.br
+$ sudo fdns --server=Europe
+.br
+
 .TP
 \fB\-\-test-server=server
 Send a burst of 5 DNS requests to one of the supported servers and calculate an average response time.
