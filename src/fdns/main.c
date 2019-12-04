@@ -46,16 +46,16 @@ static void usage(void) {
 	printf("    --debug - print debug messages.\n");
 	printf("    --help, -? - this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
-	printf("    --list - list all available DoH service providers.\n");
+	printf("    --list - list all available DoH service providers, and the groups they\n"
+		"\t belong to.\n");
 	printf("    --monitor - monitor statistics.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens for\n"
 		"\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
 	printf("    --proxy-addr-any - listen on all available interfaces.\n");
-	printf("    --server=random - use a non-family random DoH service provider from\n"
-		"\tthe list.\n");
-	printf("    --server=server-name - configure the DoH service provider. Use --list\n"
-		"\tto print the list of available providers.\n");
+	printf("    --server=server-name|group - configure the DoH service provider. Use --list\n"
+		"\tto print the list of available providers. By default we use a random\n"
+		"\tserver from the anycast group.\n");
 	printf("    --test-server=server - check DoH server.\n");
 	printf("    --test-server=all - check all DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");

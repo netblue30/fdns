@@ -48,7 +48,7 @@ Allow AAAA requests.
 
 .TP
 \fB\-\-list
-List all available DoH service providers.
+List all available DoH service providers, and the groups they belong to.
 .br
 
 .br
@@ -100,9 +100,10 @@ $ sudo fdns --proxy-addr=127.0.0.1
 \fB\-\-proxy-addr-any
 Listen on all available system interfaces and 127.0.0.1 for loopback interface.
 .TP
-\fB\-\-server=server-name|tag
+\fB\-\-server=server-name|group
 Configure the DoH service provider.
-Use --list to print the list of available providers. When using a tag, a random server from the tag group will be used
+Use \-\-list to print the list of available providers. When using a group, a random server from the group will be used.
+By default we use a random server from the anycast group.
 .br
 
 .br
@@ -110,7 +111,7 @@ Examples:
 .br
 $ sudo fdns --server=cloudflare
 .br
-$ sudo fdns --server=anycast
+$ sudo fdns --server=non-profit
 .br
 $ sudo fdns --server=Europe
 .br

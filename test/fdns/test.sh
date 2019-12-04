@@ -74,6 +74,7 @@ echo "TESTING: restart workers (test/fdns/restart-workers.exp)"
 #
 # Start server as random and switch back to the regular user
 #
-fdns --daemonize --server=random
-sleep 5
+echo "TESTING: starting user-level tests, please wait 10 seconds"
+fdns --daemonize
+sleep 10
 sudo -u $USER ./test-user.sh
