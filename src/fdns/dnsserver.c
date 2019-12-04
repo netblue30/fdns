@@ -199,7 +199,7 @@ DnsServer *dnsserver_get(void) {
 
 	// update arg_server
 	if (arg_server == NULL) {
-		arg_server = strdup("cloudflare");
+		arg_server = strdup(DEFAULT_SERVER);
 		if (!arg_server)
 			errExit("strdup");
 	} // arg_server is in mallocated memory

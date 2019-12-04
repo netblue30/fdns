@@ -29,17 +29,40 @@ This allows it to coexist peacefully with any other DNS server/proxy installed o
 Change this default with --proxy-addr command line option.
 
 * Using only DoH services from zero-logging providers, based on the privacy policy
-posted on the provider's website. Here is a short list:
-  * [AdGuard](https://adguard.com/en/adguard-dns/overview.html) (176.103.130.130)
-  * [CleanBrowsing](https://cleanbrowsing.org) (185.228.168.168) - security filter, family filter
-  * [Cloudflare](https://www.cloudflare.com/dns/) (1.1.1.1)
-  * [Digital Society](https://www.digitale-gesellschaft.ch) (185.95.218.46, Switzerland)
-  * [Foundation for Applied Privacy](https://appliedprivacy.net/) (37.252.185.229, Austria)
-  * [PowerDNS](https://powerdns.org) (136.144.215.158, Netherlands)
-  * [Quad9](https://quad9.net) (9.9.9.9) - security filter
+posted on the provider's website. Here is the current list. Each server is followed by a number
+of groups it belongs to:
 
-  Use  --list for the full list of supported DoH providers, and --server=... to pick one.
-  By default we are using Cloudflare.
+`````
+$ fdns --list
+42l - non-profit, France, Europe
+	https://42l.fr
+adguard - anycast, adblocker
+	https://adguard.com/en/adguard-dns/overview.html
+appliedprivacy - non-profit, Austria, Europe
+	https://appliedprivacy.net
+cleanbrowsing - anycast, security
+	https://cleanbrowsing.org
+cleanbrowsing-family - family
+	https://cleanbrowsing.org
+cloudflare - anycast
+	https://www.cloudflare.com
+digital-society - non-profit, Switzerland, Europe
+	 https://www.digitale-gesellschaft.ch
+powerdns - Netherlands, Europe
+	https://powerdns.org
+quad9 - anycast, security
+	https://quad9.net
+seby.io - Australia, Asia-Pacific
+	https://dns.seby.io
+tiarapp - Singapore, Asia-Pacific
+	https://doh.tiar.app
+tiarapp-jp - Japan, Asia-Pacific
+	https://jp.tiar.app/
+`````
+
+  Use --server= to pick up a specific server (--server=powerdns), or you can use a group,
+in this case fdns will chose a random server from the group (--server=Europe). By default
+we are using the anycast group (--server=anycast).
 
 * DNS resolver cache with a fixed time to live of 180 seconds for DNS records.
 
