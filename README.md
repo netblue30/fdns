@@ -29,9 +29,10 @@ This allows it to coexist peacefully with any other DNS server/proxy installed o
 Change this default with --proxy-addr command line option.
 
 * Using only DoH services from zero-logging providers, based on the privacy policy
-posted on the provider's website. Here is the current list. Each server is followed by a number
-of groups it belongs to:
-
+posted on the provider's website. You can print the list of supported servers with --list. 
+Use --server= to pick up a specific server (--server=powerdns). You can also use a group,
+in this case fdns will chose a random server from the group (--server=Europe). By default
+we pick up a random server from anycast group (--server=anycast).
 `````
 $ fdns --list
 42l - non-profit, France, Europe
@@ -60,10 +61,6 @@ tiarapp-jp - Japan, Asia-Pacific
 	https://jp.tiar.app/
 `````
 
-  Use --server= to pick up a specific server (--server=powerdns), or you can use a group,
-in this case fdns will chose a random server from the group (--server=Europe). By default
-we are using the anycast group (--server=anycast).
-
 * DNS resolver cache with a fixed time to live of 180 seconds for DNS records.
 
 * Default anti-tracker and adblocker based on EFF's [Privacy Badger](https://github.com/EFForg/privacybadger)
@@ -84,7 +81,7 @@ All other queries are dropped, NXDOMAIN is returned.
 Disable this functionality with --allow-all-queries if you are running an email server or some
 other service that requires special DNS handling.
 
-* Regular DNS over UDP fallback in case the DoH service is unavailable. We use Quad9 for fallback.
+* Regular DNS over UDP fallback in case DoH service is unavailable. We use Quad9 for fallback.
 
 * Live DNS request monitoring and statistics.
 
