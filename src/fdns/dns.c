@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014-2019 fdns Authors
  *
  * This file is part of fdns project
@@ -120,7 +120,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr) {
 		return NULL; // allow
 
 // Query - offset 12 - see QOFFSET definition above
-	char *ptr = output + QOFFSET;
+	uint8_t *ptr = (uint8_t *) output + QOFFSET;
 	int position = QOFFSET;
 	while (1) {
 		uint8_t sz = *ptr;

@@ -30,6 +30,7 @@ clean:
 		$(MAKE) -C $$dir clean; \
 	done
 	rm -f $(MANPAGES) $(MANPAGES:%=%.gz)
+	cd test/compile; ./compile.sh --clean; cd ../..
 
 distclean: clean
 	for dir in $(APPS); do \
@@ -66,7 +67,7 @@ realinstall:
 	install -c -m 0644 src/bash_completion/fdns.bash_completion $(DESTDIR)/$(datarootdir)/bash-completion/completions/fdns
 	# apparmor profile
 	sh -c "if [ ! -d $(DESTDIR)/$(sysconfdir)/apparmor.d ]; then install -d -m 755 $(DESTDIR)/$(sysconfdir)/apparmor.d; fi;"
-	install -c -m 0644 etc/usr.bin.fdns $(DESTDIR)/$(sysconfdir)/apparmor.d/.
+	install -c -m 0644 etc/apparmor/usr.bin.fdns $(DESTDIR)/$(sysconfdir)/apparmor.d/.
 
 install: all
 	$(MAKE) realinstall
@@ -111,6 +112,9 @@ scan-build: clean
 test-fdns:
 	cd test/fdns;su -c ./test.sh | grep TESTING
 
-
 test: test-fdns
 	echo "TEST COMPLETE"
+
+test-compile: dist
+	cd test/compile; ./compile.sh $(NAME)-$(VERSION)
+

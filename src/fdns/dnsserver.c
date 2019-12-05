@@ -275,7 +275,7 @@ int dnsserver_test(const char *server_name)  {
 	arg_server = strdup(server_name);
 	if (!arg_server)
 		errExit("strdup");
-	DnsServer *s = dnsserver_get();
+	dnsserver_get();
 	ssl_init();
 
 	printf("Testing server %s\n", arg_server);

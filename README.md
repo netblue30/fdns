@@ -19,6 +19,12 @@ The certificates are already installed on your computer for your browser.
 
 <div style="height:20px;">&nbsp;</div>
 
+## Project Status
+
+First release 0.9 pending, project website up and running at https://firejaildns.wordpress.com.
+
+<div style="height:20px;">&nbsp;</div>
+
 ## Features
 
 * Works out of the box with no configuration changes.
