@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014-2019 fdns Authors
  *
  * This file is part of fdns project
@@ -153,7 +153,6 @@ int net_remote_dns_socket(struct sockaddr_in *addr) {
 	return sremote;
 }
 
-#define UNIX_ADDRESS "fdns"
 void net_local_unix_socket(void) {
 	// open a UNIX socket in order to alow only a  single fnds instance to run
 	int sock = socket(AF_UNIX, SOCK_DGRAM, 0);
@@ -163,7 +162,7 @@ void net_local_unix_socket(void) {
 	struct sockaddr_un addr;
 	memset(&addr, 0, sizeof(addr));
 	addr.sun_family = AF_UNIX;
-	strncpy(addr.sun_path + 1, UNIX_ADDRESS, strlen(UNIX_ADDRESS));
+	strncpy(addr.sun_path + 1, UNIX_ADDRESS, strlen(UNIX_ADDRESS) + 1);
 
 	int rv = bind(sock, (struct sockaddr *) &addr, sizeof(sa_family_t) + strlen(UNIX_ADDRESS) + 1); //sizeof(addr));
 	if (rv == -1) {
