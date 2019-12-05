@@ -5,7 +5,7 @@ Wants=network-online.target nss-lookup.target
 Before=nscd.service nss-lookup.target ntpdate.service
 
 [Service]
-ExecStart=/usr/bin/fdns --proxy-addr-any
+ExecStart=/usr/bin/fdns
 Restart=on-failure
 
 [Install]

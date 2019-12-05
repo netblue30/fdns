@@ -60,7 +60,6 @@ void net_check_proxy_addr(const char *str) {
 		goto errout;
 
 	// see if this address belongs to any local interface
-	uint32_t mask;
 	struct ifaddrs *ifaddr, *ifa;
 
 	if (getifaddrs(&ifaddr) == -1)

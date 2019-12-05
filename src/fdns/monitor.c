@@ -29,6 +29,15 @@
 #include <sys/stat.h>
 #include <sys/un.h>
 
+#ifdef __ia64__
+/* clone(2) has a different interface on ia64, as it needs to know
+   the size of the stack */
+int __clone2(int (*fn)(void *),
+             void *child_stack_base, size_t stack_size,
+             int flags, void *arg, ...
+              /* pid_t *ptid, struct user_desc *tls, pid_t *ctid */ );
+#endif
+
 int encrypted[WORKERS_MAX];
 
 typedef struct worker_t {
@@ -36,7 +45,8 @@ typedef struct worker_t {
 	int keepalive;
 	int fd[2];
 #define STACK_SIZE (1024 * 1024)
-	char child_stack[STACK_SIZE];		// space for child's stack
+#define STACK_ALIGNMENT 16
+	char child_stack[STACK_SIZE] __attribute__((aligned(STACK_ALIGNMENT)));; // space for child's stack
 } Worker;
 static Worker w[WORKERS_MAX];
 

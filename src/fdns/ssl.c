@@ -234,7 +234,7 @@ int ssl_dns(uint8_t *msg, int cnt) {
 	char *ptr = strstr(buf, "\r\n\r\n");
 	if (!ptr) {
 		rlogprintf("Warning: cannot parse HTTPS response, didn't recieve a full http header\n");
-		print_mem(buf, len);
+		print_mem((uint8_t *) buf, len);
 		goto errout;
 	}
 	ptr += 4; // length of "\r\n\r\n"
@@ -249,7 +249,7 @@ int ssl_dns(uint8_t *msg, int cnt) {
 	int datalen = 0;
 	if (!ptr) {
 		rlogprintf("Warning: cannot parse HTTPS response, content-length missing\n");
-		print_mem(buf, len);
+		print_mem((uint8_t *) buf, len);
 		goto errout;
 	}
 	else {
@@ -264,7 +264,7 @@ int ssl_dns(uint8_t *msg, int cnt) {
 		       arg_id, len, totallen, datalen);
 	if (totallen >= MAXBUF) {
 		rlogprintf("Warning: cannot parse HTTPS response, invalid length\n");
-		print_mem(buf, len);
+		print_mem((uint8_t *) buf, len);
 		goto errout;
 	}
 
@@ -293,7 +293,7 @@ int ssl_dns(uint8_t *msg, int cnt) {
 	memcpy(msg, buf + len - datalen, datalen);
 	if (arg_debug) {
 		printf("(%d) DNS data:\n", arg_id);
-		print_mem(buf, datalen);
+		print_mem((uint8_t *) buf, datalen);
 		printf("(%d) *** SSL transaction end ***\n", arg_id);
 	}
 
