@@ -219,6 +219,7 @@ int dnsserver_test(const char *server_name);
 void dnsserver_test_all(void);
 
 // cache.c
+#define CACHE_NAME_LEN 100 // requests for domain names bigger than this value are not cached
 void cache_set_name(const char *name, int ipv6);
 void cache_set_reply(uint8_t *reply, ssize_t len);
 uint8_t *cache_check(uint8_t id0, uint8_t id1, const char *name, ssize_t *lenptr, int ipv6);
