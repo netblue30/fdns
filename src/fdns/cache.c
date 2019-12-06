@@ -23,15 +23,14 @@ typedef struct cache_entry_t {
 	int16_t  ttl;
 	uint16_t len;
 	int type; // 0 - ipv4,, 1 - ipv6
-#define MAX_NAME_LEN 100
-	char name[MAX_NAME_LEN + 1];
+	char name[CACHE_NAME_LEN + 1];
 #define MAX_REPLY 900
 	uint8_t reply[MAX_REPLY];
 } CacheEntry;	// not more than 1024
 
 #define MAX_HASH_ARRAY 256
 static CacheEntry clist[MAX_HASH_ARRAY];
-static char cname[MAX_NAME_LEN + 1] = {0};
+static char cname[CACHE_NAME_LEN + 1] = {0};
 static int cname_type;	// 0 - ipv4, 1 - ipv6
 static uint8_t creply[MAX_REPLY];
 
@@ -53,8 +52,8 @@ void cache_init(void) {
 
 void cache_set_name(const char *name, int ipv6) {
 	assert(name);
-	strncpy(cname, name, MAX_NAME_LEN);
-	cname[MAX_NAME_LEN] = '\0';
+	strncpy(cname, name, CACHE_NAME_LEN);
+	cname[CACHE_NAME_LEN] = '\0';
 	cname_type = ipv6;
 }
 

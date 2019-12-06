@@ -143,7 +143,9 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr) {
 		return NULL; // allow
 
 	// domain name length 255; this includes the first length filed and the ending \0
-	if ((position - QOFFSET) > 253)
+	unsigned dname_len = position - QOFFSET - 1; // subtract 1 for the first length field
+printf("dname_len %u, #%s#\n", dname_len, output + QOFFSET + 1);	
+	if (dname_len > 253)
 		return NULL; // allow
 
 
@@ -203,7 +205,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr) {
 		print_stats = 1;
 		return rbuf;
 	}
-	else {
+	else if (dname_len <= CACHE_NAME_LEN) {
 		// check cache
 		uint8_t *rv = cache_check(*buf, *(buf + 1), output + QOFFSET + 1, lenptr, aaaa);
 		if (rv) {
@@ -214,6 +216,11 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr) {
 
 		// set the stage for caching the reply
 		cache_set_name(output + QOFFSET + 1, aaaa);
+		rlogprintf("Request: %s%s, %s\n", output + QOFFSET + 1, (aaaa)? " (ipv6)": "",
+			(ssl_state == SSL_OPEN)? "encrypted": "not encrypted");
+		return NULL;
+	}
+	else {
 		rlogprintf("Request: %s%s, %s\n", output + QOFFSET + 1, (aaaa)? " (ipv6)": "",
 			(ssl_state == SSL_OPEN)? "encrypted": "not encrypted");
 		return NULL;
