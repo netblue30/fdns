@@ -1,0 +1,62 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+spawn $env(SHELL)
+
+send -- "firejail --dns=127.1.1.1 ../../src/fdnstress/fdnstress --threads=3 ./list100-cache\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"Android.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"Android.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"Android.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"Android.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 5\n";exit}
+	"Android.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 6\n";exit}
+	"Android.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 7\n";exit}
+	"Android.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 8\n";exit}
+	"Android.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 9\n";exit}
+	"Android.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 10\n";exit}
+	"Android.com"
+}
+
+sleep 12
+send -- "fdns --monitor\r"
+expect {
+	timeout {puts "TESTING ERROR 11\n";exit}
+	"requests 200, dropped 100, fallback 0, cached 90"
+}
+
+after 100
+puts "\nall done\n"
+

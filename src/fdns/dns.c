@@ -27,11 +27,11 @@ static ssize_t rbuf_len;
 // redirect to 127.0.0.1
 // packet format: response_loopback1 + question + response_loopback2
 static uint8_t response_loopback1[] = {
-// ID
+	// ID
 	0, 0,
-// Flags
+	// Flags
 	0x81, 0x80,
-// Questions etc.
+	// Questions etc.
 	0, 1, 0, 1, 0, 0, 0, 0
 };
 
@@ -57,12 +57,12 @@ static void  build_response_loopback(uint8_t id0, uint8_t id1, uint8_t *question
 // NXDOMAIN
 // packet format: response_nxdomain + question
 static uint8_t response_nxdomain[] = {
-// ID
+	// ID
 	0, 0,
-// Flags
+	// Flags
 	0x81, 0x83,	// NXDOMAIN
 //	0x81, 0x80,	// <-- NO DATA RESPONSE TYPE 3, RFC2308
-// Questions etc.
+	// Questions etc.
 	0, 1, 0, 0, 0, 0, 0, 0
 };
 
@@ -96,30 +96,30 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr) {
 	if (len < QOFFSET + 1 + 4)
 		return NULL; // allow
 
-// ID - 2 bytes
+	// ID - 2 bytes
 	uint16_t id;
 	memcpy(&id, buf, 2);
 	id = htons(id);
 
-// Flags - 2 bytes
+	// Flags - 2 bytes
 	// we don't really care about flags
 
-// Questions - 2 bytes
+	// Questions - 2 bytes
 	// we only look for a single question - is not worth trying to parse multiple questions requests
 	if (*(buf + 4) != 0 || *(buf + 5) != 1)
 		return NULL; // allow
 
-// Answers - 2 bytes
+	// Answers - 2 bytes
 	// there should be no answer in this request!
 	if (*(buf + 6) != 0 || *(buf + 7) != 0)
 		return NULL; // allow
 
-// Autohority RRs - 2
-// Additional RRS - 2
+	// Autohority RRs - 2
+	// Additional RRS - 2
 	if (*(buf + 8) != 0 ||  *(buf + 9) != 0 || *(buf + 10) != 0 ||  *(buf + 11) != 0)
 		return NULL; // allow
 
-// Query - offset 12 - see QOFFSET definition above
+	// Query - offset 12 - see QOFFSET definition above
 	uint8_t *ptr = (uint8_t *) output + QOFFSET;
 	int position = QOFFSET;
 	while (1) {
@@ -144,7 +144,6 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr) {
 
 	// domain name length 255; this includes the first length filed and the ending \0
 	unsigned dname_len = position - QOFFSET - 1; // subtract 1 for the first length field
-printf("dname_len %u, #%s#\n", dname_len, output + QOFFSET + 1);	
 	if (dname_len > 253)
 		return NULL; // allow
 

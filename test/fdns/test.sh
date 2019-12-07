@@ -74,7 +74,15 @@ echo "TESTING: restart workers (test/fdns/restart-workers.exp)"
 #
 # Start server as random and switch back to the regular user
 #
-echo "TESTING: starting user-level tests, please wait 10 seconds"
-fdns --daemonize
-sleep 10
+echo "TESTING: starting user-level tests, please wait 5 seconds"
+fdns --daemonize --server=cloudflare --workers=1
+sleep 5
+sudo -u $USER ./test-user2.sh
+pkill fdns
+sleep 3
+
+
+fdns --daemonize --server=cloudflare
+sleep 5
 sudo -u $USER ./test-user.sh
+
