@@ -1,5 +1,5 @@
 all: apps man
-APPS = src/fdns
+APPS = src/fdns src/fdnstress
 MANPAGES = fdns.1
 
 prefix=@prefix@
