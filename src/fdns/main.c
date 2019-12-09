@@ -17,6 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "fdns.h"
+#include <time.h>
 int arg_debug = 0;
 int arg_workers = WORKERS_DEFAULT;
 int arg_id = -1;
@@ -72,6 +73,7 @@ int main(int argc, char **argv) {
 	memset(encrypted, 0, sizeof(encrypted));
 	dnsfilter_init();
 	cache_init();
+	srand(time(NULL));
 
 	// process --daemonize before any other option
 	if (argc != 1) {
@@ -123,12 +125,6 @@ int main(int argc, char **argv) {
 			 	arg_id = atoi(argv[i] + 5);
 			 else if (strncmp(argv[i], "--fd=", 5) == 0)
 			 	arg_fd = atoi(argv[i] + 5);
-//			 else if (strcmp(argv[i], "--server=random") == 0) {
-//			 	arg_server = dns_get_random_server();
-//			 	assert(arg_server);
-//			 	s = dns_set_server(arg_server);
-//			 	assert(s);
-//			 }
 			 else if (strncmp(argv[i], "--server=", 9) == 0) {
 			 	arg_server = strdup(argv[i] + 9);
 			 	if (!arg_server)
