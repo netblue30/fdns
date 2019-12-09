@@ -18,7 +18,7 @@
 */
 #include "fdns.h"
 #include "timetrace.h"
-#include <time.h>
+#include <sys/wait.h>
 
 static DnsServer *slist = NULL;
 static DnsServer *scurrent = NULL;
@@ -172,6 +172,39 @@ static void load_list(void) {
 	fclose(fp);
 }
 
+static void test_server(const char *server_name)  {
+	// disable logging
+	log_disable();
+
+	ssl_init();
+
+	printf("Testing server %s\n", arg_server);
+
+	timetrace_start();
+	ssl_open();
+	if (ssl_state == SSL_CLOSED) {
+		fprintf(stderr, "\tError: cannot open SSL connection\n");
+		exit(1);
+	}
+	float ms = timetrace_end();
+	printf("\tSSL connection opened in %.02f ms\n", ms);
+
+	timetrace_start();
+	ssl_keepalive();
+	ssl_keepalive();
+	ssl_keepalive();
+	ssl_keepalive();
+	ssl_keepalive();
+	ms = timetrace_end();
+	if (ssl_state == SSL_CLOSED) {
+		fprintf(stderr, "\tError: SSL connection closed\n");
+		exit(1);
+	}
+	printf("\tDoH response average %.02f ms\n", ms/5);
+
+	exit(0);
+}
+
 //**************************************************************************
 // public interface
 //**************************************************************************
@@ -234,7 +267,6 @@ DnsServer *dnsserver_get(void) {
 			goto errexit;
 
 		// pick a random server
-		srand(time(NULL));
 		int index = rand() % cnt;
 		index++;
 		if (arg_debug)
@@ -266,49 +298,41 @@ errexit:
 
 }
 
+
+
 // return 0 if ok, 1 if failed
 int dnsserver_test(const char *server_name)  {
-	// disable logging
-	log_disable();
-
 	// initialize server structure
 	arg_server = strdup(server_name);
 	if (!arg_server)
 		errExit("strdup");
 	dnsserver_get();
-	ssl_init();
 
-	printf("Testing server %s\n", arg_server);
-
-	timetrace_start();
-	ssl_open();
-	if (ssl_state == SSL_CLOSED) {
-		fprintf(stderr, "Error: cannot open SSL connection\n");
+	pid_t child = fork();
+	if (child == 0) { // child
+		test_server(arg_server);
+		assert(0); // it will never get here
+	}
+	int status = 0;
+	// wait for the child to finish
+	int i = 0;
+	do {
+		int rv = waitpid(child, &status, WNOHANG);
+		if (rv  == child)
+			break;
+		sleep(1);
+		i++;
+	} while (i < 5);
+	if (i == 5) {
+		printf("\tError: server %s failed\n", arg_server);
+		kill(-1, SIGKILL);
 		return 1;
 	}
-	float ms = timetrace_end();
-	printf("SSL connection opened in %.02f ms\n", ms);
-
-	timetrace_start();
-	ssl_keepalive();
-	ssl_keepalive();
-	ssl_keepalive();
-	ssl_keepalive();
-	ssl_keepalive();
-	ms = timetrace_end();
-	if (ssl_state == SSL_CLOSED) {
-		fprintf(stderr, "Error: SSL connection closed\n");
-		return 1;
-	}
-	printf("DoH response average %.02f ms\n", ms/5);
 
 	return 0;
 }
 
 void dnsserver_test_all(void)  {
-	// disable logging
-	log_disable();
-
 	// load server list
 	load_list();
 
@@ -316,29 +340,7 @@ void dnsserver_test_all(void)  {
 	DnsServer *s = slist;
 	while (s) {
 		scurrent = s;
-		printf("%-20s - ", s->name);
-		timetrace_start();
-		ssl_open();
-		if (ssl_state == SSL_CLOSED) {
-			printf("open SSL failed\n");
-			continue;
-		}
-		float ms = timetrace_end();
-		printf("SSL open %.02f ms, ", ms);
-
-		timetrace_start();
-		ssl_keepalive();
-		ssl_keepalive();
-		ssl_keepalive();
-		ssl_keepalive();
-		ssl_keepalive();
-		ms = timetrace_end();
-		if (ssl_state == SSL_CLOSED) {
-			printf("DoH request failed\n");
-			continue;
-		}
-		printf("DoH average %.02f ms\n", ms/5);
-		ssl_close();
+		dnsserver_test(s->name);
 		s = s->next;
 	}
 }
