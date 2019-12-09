@@ -35,8 +35,8 @@ This allows it to coexist peacefully with any other DNS server/proxy installed o
 Change this default with --proxy-addr command line option.
 
 * Using only DoH services from zero-logging providers, based on the privacy policy
-posted on the provider's website. You can print the list of supported servers with --list. 
-Use --server= to pick up a specific server (--server=powerdns). You can also use a group,
+posted on the provider's website. Print the list of supported servers with --list, 
+and use --server= to pick up a specific server (--server=powerdns). You can also use a group,
 in this case fdns will chose a random server from the group (--server=Europe). By default
 we pick up a random server from anycast group (--server=anycast).
 `````
@@ -91,13 +91,14 @@ other service that requires special DNS handling.
 
 * Live DNS request monitoring and statistics.
 
-* Highly scalable multi-process design with a monitoring process and several independent workers.
-The worker processes are chrooted into an empty filesystem and sandboxed
+* Highly scalable multi-process design with a monitoring process and several independent worker processes.
+The workers are chrooted into an empty filesystem and sandboxed
 in separate Linux namespaces. The privileges are dropped, and
 a whitelist seccomp filter is enabled. By default we start 3 workers.
 An AppArmor profile is installed in /etc/apparmor.d directory.
 
-* Seamless integration with [Firejail security sandbox](https://github.com/netblue30/firejail).
+* Seamless integration with [Firejail security sandbox](https://github.com/netblue30/firejail),
+a graphical user interface if available in [Firetools](https://github.com/netblue30/firetools).
 
 <div style="height:20px;">&nbsp;</div>
 
@@ -149,15 +150,15 @@ $ firejail --dns=127.1.1.1 transmission-qt
 
 Set "nameserver 127.0.0.1" in /etc/resolv.conf.
 Start fdns using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface.
-The default 127.1.1.1 is not used in this case.
+The default 127.1.1.1 is not used in this case, Firejail is not required to be installed on the system.
 `````
 $ sudo fdns --proxy-addr-any --daemonize
 `````
-You can also run it only on a specific network interface. Example assuming 192.168.1.44 is the IP address of eth0:
+You can also run the server only on a specific network interface. Example assuming 192.168.1.44 is the IP address of eth0:
 `````
 $ sudo fdns --proxy-addr=192.168.1.44 --daemonize
 `````
-When using --daemonize, errors and warnings are posted to syslog.
+When using --daemonize, errors and warnings are posted to syslog (/var/log/syslog on most systems).
 
 <div style="height:20px;">&nbsp;</div>
 
@@ -206,6 +207,7 @@ $ cat /etc/rc.local
 /usr/bin/fdns --daemonize
 exit 0
 `````
+For systemd users, we place a fdns.service file in /etc/fdns directory. 
 
 #### How do I configure Firejail to send all the DNS traffic to fdns by default?
 
@@ -234,7 +236,14 @@ UNCONN    0         0                127.1.1.1:53               0.0.0.0:*       
 UNCONN    0         0                127.1.1.1:53               0.0.0.0:*        users:(("fdns",pid=4226,fd=9))
 UNCONN    0         0                127.1.1.1:53               0.0.0.0:*        users:(("fdns",pid=4225,fd=7))
 `````
-In the default case you get 3 worker processes listening on 127.1.1.1 port 53.
+In the default case you get 3 worker processes listening on 127.1.1.1 port 53. Or you can use a more traditional
+`````
+# ps ax | grep fdns
+ 1069 ?        Ss     0:00 /usr/bin/fdns --daemonize --server=anycast
+ 1072 ?        S      0:00 /usr/bin/fdns --id=0 --fd=6 --server=adguard
+ 1073 ?        S      0:00 /usr/bin/fdns --id=1 --fd=8 --server=adguard
+ 1074 ?        S      0:00 /usr/bin/fdns --id=2 --fd=10 --server=adguard
+`````
 
 #### How do I shut down fdns?
 `````

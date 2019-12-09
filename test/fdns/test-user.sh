@@ -15,5 +15,5 @@ echo "TESTING: list (test/fdns/list.exp)"
 echo "TESTING: test-url (test/fdns/test-url.exp)"
 ./test-url.exp
 
-echo "TESTING: monitor (test/fdns/test-monitor.exp)"
+echo "TESTING: monitor (test/fdns/monitor.exp)"
 ./monitor.exp
