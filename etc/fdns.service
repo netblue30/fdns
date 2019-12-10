@@ -10,7 +10,7 @@ ExecStart=/usr/bin/fdns --daemonize
 # start fdns as a network server listening on all interfaces and on 127.0.0.1 loopback address
 #ExecStart=/usr/bin/fdns --daemonize --proxy-addr-any
 # start fdns as a network server listening on a specific network interface address
-#ExecStart=/usr/bin/fdns --daemonize --proxy-addr=1292.168.1.200
+#ExecStart=/usr/bin/fdns --daemonize --proxy-addr=192.168.1.200
 Restart=on-failure
 
 [Install]
