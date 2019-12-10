@@ -242,60 +242,64 @@ DnsServer *dnsserver_get(void) {
 	while (s) {
 		if (strcmp(s->name, arg_server) == 0) {
 			scurrent = s;
-			break;
+			return scurrent;
 		}
 		s = s->next;
 	}
 
 	// look for a tag
-	if (!scurrent) {
-		// mark the servers using arg_server as a tag
-		s = slist;
-		int cnt = 0;
-		while (s) {
-			assert(s->active == 0);
-			if (strstr(s->tags, arg_server)) {
-				if (arg_debug)
-					printf("tag %s\n", s->name);
-				cnt++;
-				s->active = cnt;
-			}
-			s = s->next;
+	// mark the servers using arg_server as a tag
+	s = slist;
+	int cnt = 0;
+	while (s) {
+		assert(s->active == 0);
+		if (strstr(s->tags, arg_server)) {
+			if (arg_debug)
+				printf("tag %s\n", s->name);
+			cnt++;
+			s->active = cnt;
 		}
-
-		if (!cnt)
-			goto errexit;
-
-		// pick a random server
-		int index = rand() % cnt;
-		index++;
-		if (arg_debug)
-			printf("tag index %d\n", index);
-
-		s = slist;
-		while (s) {
-			if (s->active == index) {
-				scurrent = s;
-				free(arg_server);
-				arg_server = strdup(s->name);
-				if (!arg_server)
-					errExit("strdup");
-				break;
-			}
-			s = s->next;
-		}
+		s = s->next;
 	}
 
-	// end the program if the server is not found in the list
-	if (!scurrent)
-		goto errexit;
+	if (!cnt) {
+		fprintf(stderr, "Error: no server %s found in %s\n", arg_server, PATH_ETC_SERVER_LIST);
+		exit(1);
+	}
 
-	return scurrent;
+	// pick a random server
+	int index = rand() % cnt + 1;
+	if (arg_debug)
+		printf("tag index %d\n", index);
+	s = slist;
+	while (s) {
+		if (s->active == index) {
+			if (dnsserver_test(s->name)) {
+				// mark the server as inactive and try again
+				s->active = 0;
+				s = slist;
+				// try several times to pick a different random server
+				int newindex = rand() % cnt + 1;
+				if (index == newindex)
+					newindex = rand() % cnt + 1;
+				if (index == newindex)
+					newindex = rand() % cnt + 1;
+				index = newindex;
+				continue;
+			}
 
-errexit:
-	fprintf(stderr, "Error: cannot find server %s in %s\n", arg_server, PATH_ETC_SERVER_LIST);
+			scurrent = s;
+			free(arg_server);
+			arg_server = strdup(s->name);
+			if (!arg_server)
+				errExit("strdup");
+			return scurrent;
+		}
+		s = s->next;
+	}
+
+	fprintf(stderr, "Error: cannot connect to server %s\n", arg_server);
 	exit(1);
-
 }
 
 
@@ -306,7 +310,6 @@ int dnsserver_test(const char *server_name)  {
 	arg_server = strdup(server_name);
 	if (!arg_server)
 		errExit("strdup");
-	dnsserver_get();
 
 	pid_t child = fork();
 	if (child == 0) { // child

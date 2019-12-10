@@ -77,9 +77,9 @@ keepalive: 7
 name: quad9
 website: https://quad9.net
 tags: anycast, security
-address: 9.9.9.9:443
+address: 9.9.9.9:5053
 host: dns.quad9.net/dns-query
-keepalive: 7
+keepalive: 30
 
 name: seby.io
 website: https://dns.seby.io

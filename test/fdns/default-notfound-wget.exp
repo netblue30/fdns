@@ -13,7 +13,7 @@ sleep 1
 send -- "fdns --server=blablabla\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
-	"cannot find server blablabla"
+	"no server blablabla"
 }
 
 after 100
