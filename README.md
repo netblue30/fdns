@@ -82,7 +82,7 @@ Adblocker hosts files as published all over the net should work just fine.
 Use --ipv6 option to overwrite the default.
 
 * DNS handles multiple categories of data: name resolution, email, internet telephony etc.
-By default fdns forwards only domain name resolution queries A and AAAA.
+By default fdns forwards only domain name resolution queries A (and AAAA if --ipv6 is requested).
 All other queries are dropped, NXDOMAIN is returned.
 Disable this functionality with --allow-all-queries if you are running an email server or some
 other service that requires special DNS handling.
