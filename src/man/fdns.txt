@@ -22,7 +22,7 @@ adblocker and privacy filter to cut down the unnecessary traffic.
 .SH OPTIONS
 .TP
 \fB\-\-allow-all-queries
-Allow all DNS query types; by default only A and AAAA are allowed.
+Allow all DNS query types; by default only A queries are allowed.
 .TP
 \fB\-\-certfile=filename
 Use an SSL certificate file in PEM format. By default we use the certificates installed

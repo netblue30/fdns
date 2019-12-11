@@ -40,7 +40,7 @@ static void usage(void) {
 	printf("    monitor the server:   fdns --monitor\n");
 	printf("Options:\n");
 	printf("    --allow-all-queries - allow all DNS query types; by default only\n"
-		"\tA and AAA are allowed.\n");
+		"\tA queries are allowed.\n");
 	printf("    --certfile=filename - SSL certificate file in PEM format.\n");
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 		"\tdaemon.\n");
