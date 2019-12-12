@@ -172,7 +172,10 @@ static void load_list(void) {
 	fclose(fp);
 }
 
-static void test_server(const char *server_name)  {
+// test the server pointed by arg_server
+// this function shuold be run in a separate process
+// exit(0) if ok, exit(1) if error
+static void test_server(void)  {
 	// disable logging
 	log_disable();
 
@@ -318,7 +321,7 @@ int dnsserver_test(const char *server_name)  {
 
 	pid_t child = fork();
 	if (child == 0) { // child
-		test_server(arg_server);
+		test_server();
 		assert(0); // it will never get here
 	}
 	int status = 0;
