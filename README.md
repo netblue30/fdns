@@ -21,7 +21,8 @@ The certificates are already installed on your computer for your browser.
 
 ## Project Status
 
-First release 0.9 pending, project website up and running at https://firejaildns.wordpress.com.
+Release 0.9.62 is out. Download: https://github.com/netblue30/fdns/releases/tag/v0.9.62.
+
 
 <div style="height:20px;">&nbsp;</div>
 
