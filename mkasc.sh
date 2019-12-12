@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Calculationg SHA256 for all files in /transfer - fdns version $1"
+echo "Calculating SHA256 for all files in /transfer - fdns version $1"
 
 cd /transfer
 sha256sum * > fdns-$1-unsigned
