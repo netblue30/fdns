@@ -23,6 +23,8 @@ The certificates are already installed on your computer for your browser.
 
 Release 0.9.62 is out. Download: https://github.com/netblue30/fdns/releases/tag/v0.9.62.
 
+The current development version is 0.9.63.
+
 
 <div style="height:20px;">&nbsp;</div>
 
