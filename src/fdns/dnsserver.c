@@ -179,15 +179,18 @@ static void test_server(const char *server_name)  {
 	ssl_init();
 
 	printf("Testing server %s\n", arg_server);
+	fflush(0);
 
 	timetrace_start();
 	ssl_open();
 	if (ssl_state == SSL_CLOSED) {
-		fprintf(stderr, "\tError: cannot open SSL connection\n");
+		fprintf(stderr, "\tError: cannot open SSL connection to server %s\n", arg_server);
+		fflush(0);
 		exit(1);
 	}
 	float ms = timetrace_end();
 	printf("\tSSL connection opened in %.02f ms\n", ms);
+	fflush(0);
 
 	timetrace_start();
 	ssl_keepalive();
@@ -198,9 +201,11 @@ static void test_server(const char *server_name)  {
 	ms = timetrace_end();
 	if (ssl_state == SSL_CLOSED) {
 		fprintf(stderr, "\tError: SSL connection closed\n");
+		fflush(0);
 		exit(1);
 	}
 	printf("\tDoH response average %.02f ms\n", ms/5);
+	fflush(0);
 
 	exit(0);
 }
@@ -321,13 +326,21 @@ int dnsserver_test(const char *server_name)  {
 	int i = 0;
 	do {
 		int rv = waitpid(child, &status, WNOHANG);
-		if (rv  == child)
+		if (rv  == child) {
+			// check status
+			if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
+				printf("\tError: server %s failed\n", arg_server);
+				fflush(0);
+				return 1;
+			}
 			break;
+		}
 		sleep(1);
 		i++;
 	} while (i < 5);
 	if (i == 5) {
 		printf("\tError: server %s failed\n", arg_server);
+		fflush(0);
 		kill(-1, SIGKILL);
 		return 1;
 	}
@@ -346,4 +359,6 @@ void dnsserver_test_all(void)  {
 		dnsserver_test(s->name);
 		s = s->next;
 	}
+
+	printf("\nTesting completed\n");
 }
