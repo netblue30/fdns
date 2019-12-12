@@ -22,7 +22,8 @@ If AppArmor is present in the system, enable fdns profile by running
 
 Development
 -----------
-The project is developed at https://github.com/netblue30/fdns
+The project is developed at https://github.com/netblue30/fdns,
+website at https://firejaildns.wordpress.com
 
 Maintainers/commiters:
 - netblue30 (netblue30@yahoo.com)
