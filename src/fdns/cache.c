@@ -19,6 +19,7 @@
 #include "fdns.h"
 
 typedef struct cache_entry_t {
+	struct cache_entry_t *next;
 #define MAX_TTL 180
 	int16_t  ttl;
 	uint16_t len;
@@ -29,10 +30,17 @@ typedef struct cache_entry_t {
 } CacheEntry;	// not more than 1024
 
 #define MAX_HASH_ARRAY 256
-static CacheEntry clist[MAX_HASH_ARRAY];
+static CacheEntry *clist[MAX_HASH_ARRAY];
 static char cname[CACHE_NAME_LEN + 1] = {0};
 static int cname_type;	// 0 - ipv4, 1 - ipv6
 static uint8_t creply[MAX_REPLY];
+
+static inline void clean_entry(CacheEntry *ptr) {
+	ptr->next = NULL;
+	ptr->ttl = 0;
+	ptr->type = 0;
+	ptr->name[0] = '\0';
+}
 
 // djb2 hash function by Dan Bernstein
 static inline int hash(const char *str, int type) {
@@ -63,7 +71,10 @@ void cache_set_reply(uint8_t *reply, ssize_t len) {
 		return;
 
 	int h = hash(cname, cname_type);
-	CacheEntry *ptr = &clist[h];
+	CacheEntry *ptr = malloc(sizeof(CacheEntry));
+	if (!ptr)
+		errExit("malloc");
+	clean_entry(ptr);
 
 	ptr->len = len;
 	ptr->type = cname_type;
@@ -71,28 +82,32 @@ void cache_set_reply(uint8_t *reply, ssize_t len) {
 	memcpy(ptr->name, cname, sizeof(cname));
 	memcpy(ptr->reply, reply, len);
 	ptr->ttl = MAX_TTL;
+
+	ptr->next = clist[h];
+	clist[h] = ptr;
 }
 
 
 uint8_t *cache_check(uint8_t id0, uint8_t id1, const char *name, ssize_t *lenptr, int ipv6) {
 	assert(name);
 	int h = hash(name, ipv6);
-	CacheEntry *ptr = &clist[h];
-	if (ptr->ttl <= 0)
-		return NULL;
+	CacheEntry *ptr = clist[h];
+	while (ptr) {
+		if (strcmp(ptr->name, name) == 0 && ptr->type == ipv6) {
+			// store the reply locally
+			assert(ptr->len);
+			assert(ptr->len < MAX_REPLY);
+			memcpy(creply, ptr->reply, ptr->len);
+			// set id
+			creply[0] = id0;
+			creply[1] = id1;
+			// set length
+			*lenptr = ptr->len;
 
-	if (strcmp(ptr->name, name) == 0 && ptr->type == ipv6) {
-		// store the reply locally
-		assert(ptr->len);
-		assert(ptr->len < MAX_REPLY);
-		memcpy(creply, ptr->reply, ptr->len);
-		// set id
-		creply[0] = id0;
-		creply[1] = id1;
-		// set length
-		*lenptr = ptr->len;
+			return creply;
+		}
 
-		return creply;
+		ptr = ptr->next;
 	}
 
 	return NULL;
@@ -101,12 +116,27 @@ uint8_t *cache_check(uint8_t id0, uint8_t id1, const char *name, ssize_t *lenptr
 void cache_timeout(void) {
 	int i;
 
-	int cnt = 0;
 	for (i = 0; i < MAX_HASH_ARRAY; i++) {
-		clist[i].ttl--;
-		if (clist[i].ttl < 0)
-			clist[i].ttl = 0;
-		else
-			cnt++;
+		CacheEntry *ptr = clist[i];
+		CacheEntry *last = NULL;
+
+		while (ptr) {
+			ptr->ttl--;
+			if (ptr->ttl <= 0) {
+				if (last == NULL)
+					clist[i] = ptr->next;
+				else
+					last->next = ptr->next;
+
+
+				CacheEntry *tmp = ptr;
+				ptr = ptr->next;
+				free(tmp);
+			}
+			else {
+				last = ptr;
+				ptr = ptr->next;
+			}
+		}
 	}
 }
