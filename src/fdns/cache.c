@@ -20,7 +20,7 @@
 
 typedef struct cache_entry_t {
 	struct cache_entry_t *next;
-#define MAX_TTL 180
+#define MAX_TTL 300
 	int16_t  ttl;
 	uint16_t len;
 	int type; // 0 - ipv4,, 1 - ipv6
@@ -65,6 +65,7 @@ void cache_set_name(const char *name, int ipv6) {
 	cname_type = ipv6;
 }
 
+static int mcnt = 0;
 void cache_set_reply(uint8_t *reply, ssize_t len) {
 	assert(reply);
 	if (len > MAX_REPLY || *cname == '\0')
@@ -75,6 +76,7 @@ void cache_set_reply(uint8_t *reply, ssize_t len) {
 	if (!ptr)
 		errExit("malloc");
 	clean_entry(ptr);
+	mcnt++;
 
 	ptr->len = len;
 	ptr->type = cname_type;
@@ -116,6 +118,7 @@ uint8_t *cache_check(uint8_t id0, uint8_t id1, const char *name, ssize_t *lenptr
 void cache_timeout(void) {
 	int i;
 
+	int cnt = 0;
 	for (i = 0; i < MAX_HASH_ARRAY; i++) {
 		CacheEntry *ptr = clist[i];
 		CacheEntry *last = NULL;
@@ -132,11 +135,15 @@ void cache_timeout(void) {
 				CacheEntry *tmp = ptr;
 				ptr = ptr->next;
 				free(tmp);
+				mcnt--;
 			}
 			else {
 				last = ptr;
 				ptr = ptr->next;
+				cnt++;
 			}
 		}
 	}
+
+	assert(cnt == mcnt);
 }
