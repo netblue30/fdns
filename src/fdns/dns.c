@@ -81,7 +81,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, int *error) {
 	// check packet lentght
 	if ((*lenptr - sizeof(DnsHeader) - delta ) != 0) {
 		*error = 1;
-		rlogprintf("Error: invalid packet lenght\n");
+		rlogprintf("Error: invalid packet length\n");
 		return NULL;
 	}
 
