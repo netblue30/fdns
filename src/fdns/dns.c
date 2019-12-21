@@ -17,6 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "fdns.h"
+#include "dnslint.h"
 #include "timetrace.h"
 
 static int print_stats = 0;
@@ -25,133 +26,65 @@ static ssize_t rbuf_len;
 
 
 // redirect to 127.0.0.1
-// packet format: response_loopback1 + question + response_loopback2
-static uint8_t response_loopback1[] = {
-	// ID
-	0, 0,
-	// Flags
-	0x81, 0x80,
-	// Questions etc.
-	0, 1, 0, 1, 0, 0, 0, 0
-};
-
-static uint8_t response_loopback2[] = {
+static uint8_t loopback_tail[] = {
 	0xc0, 0x0c, 0, 1, 0, 1, 0, 0, 0xaa, 0xaa, 0, 4, 0x7f, 0, 0, 1
 };
 
-static void  build_response_loopback(uint8_t id0, uint8_t id1, uint8_t *question, int qlen) {
-	// header
-	memcpy(rbuf, response_loopback1, sizeof(response_loopback1));
-	rbuf[0] = id0;
-	rbuf[1] = id1;
-
-	// question
-	memcpy(rbuf + sizeof(response_loopback1), question, qlen);
-
-	//response
-	memcpy(rbuf + sizeof(response_loopback1) + qlen, response_loopback2, sizeof(response_loopback2));
-	rbuf_len = sizeof(response_loopback1) + qlen + sizeof(response_loopback2);
+static void  build_response_loopback(uint8_t *pkt, ssize_t *lenptr) {
+	// build answer RR
+	pkt[2] = 0x81;
+	pkt[3] = 0x80;
+	pkt[6] = 0;
+	pkt[7] = 0x01;
+	memcpy(pkt + *lenptr, loopback_tail, sizeof(loopback_tail));
+	*lenptr += sizeof(loopback_tail);
 }
 
-
-// NXDOMAIN
-// packet format: response_nxdomain + question
-static uint8_t response_nxdomain[] = {
-	// ID
-	0, 0,
-	// Flags
-	0x81, 0x83,	// NXDOMAIN
-//	0x81, 0x80,	// <-- NO DATA RESPONSE TYPE 3, RFC2308
-	// Questions etc.
-	0, 1, 0, 0, 0, 0, 0, 0
-};
-
-static void  build_response_nxdomain(uint8_t id0, uint8_t id1, uint8_t *question, int qlen) {
-	// header
-	memcpy(rbuf, response_nxdomain, sizeof(response_nxdomain));
-	rbuf[0] = id0;
-	rbuf[1] = id1;
-
-	// question
-	memcpy(rbuf + sizeof(response_nxdomain), question, qlen);
-
-	rbuf_len = sizeof(response_nxdomain) + qlen;
+// build a NXDOMAIN package on top of the existing dns request
+inline static void build_response_nxdomain(uint8_t *pkt) {
+	// lenptr remains unchanged
+	pkt[2] = 0x81;
+	pkt[3] = 0x83;
 }
 
 // attempt to extract the domain name and run it through the filter
-uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr) {
+uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, int *error) {
 	assert(buf);
 	assert(lenptr);
+	uint8_t *pkt = buf;
+	*error = 0;
 
-	//*****************************
-	// parse DNS query
-	//*****************************
-	ssize_t len = *lenptr;
-	char output[len];
-	memcpy(output, buf, len);
-
-#define QOFFSET 12
-	// check a minimum length of the request
-	// - an empty request with a 2 byte type and a 2 byte class
-	if (len < QOFFSET + 1 + 4)
-		return NULL; // allow
-
-	// ID - 2 bytes
-	uint16_t id;
-	memcpy(&id, buf, 2);
-	id = htons(id);
-
-	// Flags - 2 bytes
-	// we don't really care about flags
-
-	// Questions - 2 bytes
-	// we only look for a single question - is not worth trying to parse multiple questions requests
-	if (*(buf + 4) != 0 || *(buf + 5) != 1)
-		return NULL; // allow
-
-	// Answers - 2 bytes
-	// there should be no answer in this request!
-	if (*(buf + 6) != 0 || *(buf + 7) != 0)
-		return NULL; // allow
-
-	// Autohority RRs - 2
-	// Additional RRS - 2
-	if (*(buf + 8) != 0 ||  *(buf + 9) != 0 || *(buf + 10) != 0 ||  *(buf + 11) != 0)
-		return NULL; // allow
-
-	// Query - offset 12 - see QOFFSET definition above
-	uint8_t *ptr = (uint8_t *) output + QOFFSET;
-	int position = QOFFSET;
-	while (1) {
-		uint8_t sz = *ptr;
-		// sz should be smaller than 63
-		// domain compression is not supported
-		if (sz > 63)
-			return NULL; // allow
-
-		if (position + sz >= len || sz == 0) {
-			*ptr = '\0';
-			break;
-		}
-		*ptr = '.';
-		ptr += sz + 1;
-		position += sz + 1;
+	unsigned delta;
+	DnsHeader *h = dnslint_header(pkt, *lenptr, &delta);
+	if (!h) {
+		*error = 1;
+		rlogprintf("Error: rx local %s\n", dnslint_err2str());
+		return NULL;
 	}
 
-	// in this moment we are positioned at the end of the host name; it should be a \0 here
-	if (*ptr != 0)
-		return NULL; // allow
+	// we allow exactly one question
+	if (h->questions != 1 || h->answer != 0 || h->authority || h->additional != 0) {
+		*error = 1;
+		rlogprintf("Error: rx local invalid header\n");
+		return NULL;
+	}
 
-	// domain name length 255; this includes the first length filed and the ending \0
-	unsigned dname_len = position - QOFFSET - 1; // subtract 1 for the first length field
-	if (dname_len > 253)
-		return NULL; // allow
+	pkt = pkt + delta;
+	DnsQuestion *q = dnslint_question(pkt , *lenptr - delta, &delta);
+	if (!q) {
+		*error = 1;
+		rlogprintf("Error: %s\n", dnslint_err2str());
+		return NULL;
+	}
 
+//printf("domain #%s#\n", q->domain); fflush(0);
+	// check packet lentght
+	if ((*lenptr - sizeof(DnsHeader) - delta ) != 0) {
+		*error = 1;
+		rlogprintf("Error: invalid packet lenght\n");
+		return NULL;
+	}
 
-	// there shouldn't be anything else in the packet
-	if (len != position + 1 + 4 )
-		return NULL; //allow
-	ptr++;
 
 	// clear cache name
 	cache_set_name("", 0);
@@ -161,50 +94,84 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr) {
 	//******************************
 	int aaaa = 0;
 
-	// drop ANY by default - RFC8482
-	if (*ptr == 0 && *(ptr + 1) == 255 && *(ptr + 2) == 0 && *(ptr + 3) == 1)
-		goto drop_nxdomain;
-
 	// check querry filtering configuration
 	if (arg_allow_all_queries == 0) {
 		// type A requests
-		if (*ptr == 0 && *(ptr + 1) == 1 && *(ptr + 2) == 0 && *(ptr + 3) == 1);
+		if (q->type == 1);
 
 		// AAAA requests
-		else if (*ptr == 0 && *(ptr + 1) == 0x1c && *(ptr + 2) == 0 && *(ptr + 3) == 1) {
+		else if (q->type == 0x1c) {
 			aaaa = 1;
 			if (!arg_ipv6) {
-				rlogprintf("Request: %s (ipv6), dropped\n", output + QOFFSET + 1);
+				rlogprintf("Request: %s (ipv6), dropped\n", q->domain);
 				goto drop_nxdomain;
 			}
 		}
 
-		// drop all the rest and respond with NXDOMAIN
-		else {
-			rlogprintf("Request: type %02x %02x class %02x %02x rejected\n", *ptr, *(ptr + 1), *(ptr + 2), *(ptr + 3));
+		// responde NXDOMAIN to PTR in order to fix apps as ping
+		else if (q->type == 0x0c) {
+			rlogprintf("Request: %s (PTR), dropped\n", q->domain);
 			goto drop_nxdomain;
 		}
-	}
 
+		// drop all the rest and respond with NXDOMAIN
+		else {
+			*error = 1;	// just let him try again
+			rlogprintf("Error: RR type %u rejected\n", q->type);
+			return NULL;
+		}
+	}
 
 	//*****************************
 	// trackers/adblock filtering
 	//*****************************
 	if (arg_nofilter) {
-		rlogprintf("Request: %s\n", output + QOFFSET + 1);
+		rlogprintf("Request: %s\n", q->domain);
 		return NULL;
 	}
 
-	int rv = dnsfilter_blocked(output + QOFFSET + 1, 0);
+	int rv = dnsfilter_blocked(q->domain, 0);
 	if (rv) {
-		rlogprintf("Request: %s%s, dropped\n", output + QOFFSET + 1, (aaaa)? " (ipv6)": "");
+		rlogprintf("Request: %s%s, dropped\n", q->domain, (aaaa)? " (ipv6)": "");
 		stats.drop++;
-		build_response_loopback(*buf, *(buf + 1), buf + QOFFSET, strlen(output + QOFFSET + 1) + 1 + 5);
-		*lenptr = rbuf_len;
+		build_response_loopback(buf, lenptr);
 		print_stats = 1;
-		return rbuf;
+		return buf;
 	}
-	else if (dname_len <= CACHE_NAME_LEN) {
+
+	//*****************************
+	// cache - only domains smaller than CACHE_NAME_LEN
+	//*****************************
+	if (q->len <= CACHE_NAME_LEN) {
+//printf("******* %u %s\n", q->len, q->domain);
+		// check cache
+		uint8_t *rv = cache_check(h->id, q->domain, lenptr, aaaa);
+		if (rv) {
+			stats.cached++;
+			rlogprintf("Request: %s%s, cached\n", q->domain, (aaaa)? " (ipv6)": "");
+			print_stats = 1;
+			return rv;
+		}
+
+		// set the stage for caching the reply
+		cache_set_name(q->domain, aaaa);
+	}
+
+	rlogprintf("Request: %s%s, %s\n", q->domain, (aaaa)? " (ipv6)": "",
+		(ssl_state == SSL_OPEN)? "encrypted": "not encrypted");
+
+	return NULL;
+
+drop_nxdomain:
+	stats.drop++;
+	build_response_nxdomain(buf);
+	print_stats = 1;
+	return buf;
+}
+
+
+#if 0
+	else if (strlen(q->domain <= CACHE_NAME_LEN) {
 		// check cache
 		uint8_t *rv = cache_check(*buf, *(buf + 1), output + QOFFSET + 1, lenptr, aaaa);
 		if (rv) {
@@ -224,15 +191,16 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr) {
 			(ssl_state == SSL_OPEN)? "encrypted": "not encrypted");
 		return NULL;
 	}
+#endif
 
-	return NULL;
 
+#if 0
 drop_nxdomain:
 	stats.drop++;
 	build_response_nxdomain(*buf, *(buf + 1), buf + QOFFSET, strlen(output + QOFFSET + 1) + 1 + 5);
 	*lenptr = rbuf_len;
 	print_stats = 1;
 	return rbuf;
-}
+#endif
 
 

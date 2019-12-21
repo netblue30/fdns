@@ -90,7 +90,7 @@ void cache_set_reply(uint8_t *reply, ssize_t len) {
 }
 
 
-uint8_t *cache_check(uint8_t id0, uint8_t id1, const char *name, ssize_t *lenptr, int ipv6) {
+uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6) {
 	assert(name);
 	int h = hash(name, ipv6);
 	CacheEntry *ptr = clist[h];
@@ -101,8 +101,8 @@ uint8_t *cache_check(uint8_t id0, uint8_t id1, const char *name, ssize_t *lenptr
 			assert(ptr->len < MAX_REPLY);
 			memcpy(creply, ptr->reply, ptr->len);
 			// set id
-			creply[0] = id0;
-			creply[1] = id1;
+			id = htons(id);
+			memcpy(creply, &id, 2);
 			// set length
 			*lenptr = ptr->len;
 
