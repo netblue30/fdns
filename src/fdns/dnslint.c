@@ -27,7 +27,7 @@ static DnsQuestion question;
 
 // parse a domain name
 // error if cross-references
-// size - number of paket bytes consumed
+// size - number of packet bytes consumed
 // return -1 if error, 0 if ok
 static int domain_size_no_crossreference(const uint8_t *data, char *domain_name, unsigned *size){
 	assert(data);
