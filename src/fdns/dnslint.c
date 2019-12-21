@@ -1,0 +1,123 @@
+#include "dnslint.h"
+
+//***********************************************
+// error
+//***********************************************
+static int dnserror;
+static const char *err2str[DNSERR_MAX] = {
+	"no error",
+	"invalid header",
+	"invalid question"
+};
+
+int dnslint_error(void) {
+	return dnserror;
+}
+
+const char *dnslint_err2str(void) {
+	assert(dnserror < DNSERR_MAX);
+	return err2str[dnserror];
+}
+
+//***********************************************
+// lint
+//***********************************************
+static DnsHeader hdr;
+static DnsQuestion question;
+
+// parse a domain name
+// error if cross-references
+// size - number of paket bytes consumed
+// return -1 if error, 0 if ok
+static int domain_size_no_crossreference(const uint8_t *data, char *domain_name, unsigned *size){
+	assert(data);
+	assert(domain_name);
+	unsigned i = 0;
+	unsigned chunk = *data;
+
+	// skip each set of chars until (0) at the end
+	while(chunk != 0){
+		if (chunk > 63)
+			goto errexit;
+		i += chunk + 1;
+		if (i > 255)
+			goto errexit;
+		memcpy(domain_name + i - chunk - 1, data + i - chunk -1 + 1, chunk);
+		domain_name[i - 1] = '.';
+		chunk = data[i];
+	}
+
+	// domain name including the ending \0
+	domain_name[i - 1] = '\0';
+	*size = i + 1;
+	return 0;
+errexit:
+	dnserror = DNSERR_INVALID_DOMAIN;
+	return -1;
+}
+
+// pkt - start of the dns packet
+// size - packet bytes consumed durring the parsing
+DnsHeader *dnslint_header(uint8_t *pkt, unsigned len, unsigned *size) {
+	assert(pkt);
+
+	*size = 0;
+	if (len < sizeof(DnsHeader)) {
+		dnserror = DNSERR_INVALID_HEADER;
+		return NULL;
+	}
+
+	memcpy(&hdr, pkt, sizeof(hdr));
+	hdr.id = ntohs(hdr.id);
+	hdr.flags = ntohs(hdr.flags);
+	hdr.questions = ntohs(hdr.questions);
+	hdr.answer = ntohs(hdr.answer);
+	hdr.authority = ntohs(hdr.authority);
+	hdr.additional = ntohs(hdr.additional);
+	*size = sizeof(DnsHeader);
+	return &hdr;
+}
+
+// pkt is positioned at the the start of RR
+DnsQuestion *dnslint_question(uint8_t *pkt, unsigned len, unsigned *size) {
+	assert(pkt);
+	if (len < 1 + 2 + 2) // empty domain + type + class
+		goto errexit;
+
+	// clanup
+	question.domain[0] = '\0';
+	question.type = 0;
+	*size = 0;
+
+	// first byte smaller than 63
+	if (*pkt > 63)
+		goto errexit;
+	if (domain_size_no_crossreference(pkt, question.domain, size))
+		goto errexit;
+
+	// check length
+	if (*size + 4 > len)
+		goto  errexit;
+
+	// set type
+	pkt += *size;
+	memcpy(&question.type, pkt, 2);
+	question.type = ntohs(question.type);
+	pkt += 2;
+
+	// check class
+	uint16_t cls;
+	memcpy(&cls, pkt,  2);
+	cls = ntohs(cls);
+	if (cls != 1)
+		goto errexit;
+
+	*size += 4;
+	question.len = *size;
+//printf("len/size %d/%d\n", len, *size);
+	return &question;
+
+errexit:
+	dnserror = DNSERR_INVALID_DOMAIN;
+	return NULL;
+}

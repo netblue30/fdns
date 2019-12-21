@@ -175,7 +175,7 @@ int seccomp_load_filter_list(void);
 void seccomp_worker(void);
 
 // dns.c
-uint8_t *dns_parser(uint8_t *buf, ssize_t *len);
+uint8_t *dns_parser(uint8_t *buf, ssize_t *len, int *error);
 
 // dnsfilter.c
 void dnsfilter_init(void);
@@ -222,7 +222,7 @@ void dnsserver_test_all(void);
 #define CACHE_NAME_LEN 100 // requests for domain names bigger than this value are not cached
 void cache_set_name(const char *name, int ipv6);
 void cache_set_reply(uint8_t *reply, ssize_t len);
-uint8_t *cache_check(uint8_t id0, uint8_t id1, const char *name, ssize_t *lenptr, int ipv6);
+uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6);
 void cache_timeout(void);
 void cache_init(void);
 

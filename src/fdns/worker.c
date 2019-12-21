@@ -205,7 +205,14 @@ void worker(void) {
 			stats.changed = 1;
 
 			// filter incoming requests
-			uint8_t *r = dns_parser(buf, &len);
+			int error = 0;
+			uint8_t *r = dns_parser(buf, &len, &error);
+			if (error) {
+				rlogprintf("Error: PACKET DROPPED\n");
+				stats.drop++;
+				continue;
+			}
+
 			if (r) {
 				stats.changed = 1;
 
