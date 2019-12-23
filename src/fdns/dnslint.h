@@ -29,7 +29,8 @@ typedef struct __attribute__((__packed__)) dns_question_t {
 #define DNSERR_OK 0
 #define DNSERR_INVALID_HEADER 1
 #define DNSERR_INVALID_DOMAIN 2
-#define DNSERR_MAX 3		// always the last one
+#define DNSERR_INVALID_CLASS 3
+#define DNSERR_MAX 4		// always the last one
 int dnslint_error(void);
 const char *dnslint_err2str(void);
 
