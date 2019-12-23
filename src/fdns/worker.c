@@ -208,7 +208,6 @@ void worker(void) {
 			int error = 0;
 			uint8_t *r = dns_parser(buf, &len, &error);
 			if (error) {
-				rlogprintf("Error: PACKET DROPPED\n");
 				stats.drop++;
 				continue;
 			}

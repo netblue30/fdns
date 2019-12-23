@@ -57,7 +57,7 @@ static inline int check_addr_port(const char *str) {
 #define WORKER_KEEPALIVE_SHUTDOWN (WORKER_KEEPALIVE_TIMER * 3) // timer to detect a dead worker process
 #define WORKER_KEEPALIVE_AFTER_SLEEP (WORKER_KEEPALIVE_TIMER * 1.2) // after sleep detection
 #define MONITOR_WAIT_TIMER 2	// wait for this number of seconds before restarting a failed child process
-#define CONSOLE_PRINTOUT_TIMER 10	// transfer stats from worker to monitor
+#define CONSOLE_PRINTOUT_TIMER 5	// transfer stats from worker to monitor
 #define SSL_REOPEN_TIMER 5	// try to reopen a failed SSL connection after this time
 #define OUT_OF_SLEEP 20	// detect computer going out of sleep/hibernation, reinitialize SSL connections
 

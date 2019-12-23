@@ -1,0 +1,139 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+puts "TESTING: DSN packet testing"
+
+########################
+puts "TESTING: packet length test"
+send -- "./ptest test1 > test1.out\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"Testing done"
+}
+after 100
+send -- "diff -s test1.out test1.master\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"are identical"
+}
+after 100
+send -- "rm test1.out\r"
+after 100
+
+########################
+puts "TESTING: packet class test"
+send -- "./ptest test2 > test2.out\r"
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"Testing done"
+}
+after 100
+send -- "diff -s test2.out test2.master\r"
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"are identical"
+}
+after 100
+send -- "rm test2.out\r"
+after 100
+
+
+########################
+puts "TESTING: packet rr type test"
+send -- "./ptest test3 > test3.out\r"
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"Testing done"
+}
+after 100
+send -- "diff -s test3.out test3.master\r"
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"are identical"
+}
+after 100
+send -- "rm test3.out\r"
+after 100
+
+########################
+puts "TESTING: wrong question/answer section"
+send -- "./ptest test4 > test4.out\r"
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"Testing done"
+}
+after 100
+send -- "diff -s test4.out test4.master\r"
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"are identical"
+}
+after 100
+send -- "rm test4.out\r"
+after 100
+
+########################
+puts "TESTING: compressed question"
+send -- "./ptest test5 > test5.out\r"
+expect {
+	timeout {puts "TESTING ERROR 5\n";exit}
+	"Testing done"
+}
+after 100
+send -- "diff -s test5.out test5.master\r"
+expect {
+	timeout {puts "TESTING ERROR 5\n";exit}
+	"are identical"
+}
+after 100
+send -- "rm test5.out\r"
+after 100
+
+
+########################
+puts "TESTING: classic exploits"
+send -- "./ptest test6 > test6.out\r"
+expect {
+	timeout {puts "TESTING ERROR 6\n";exit}
+	"Testing done"
+}
+after 100
+send -- "diff -s test6.out test6.master\r"
+expect {
+	timeout {puts "TESTING ERROR 6\n";exit}
+	"are identical"
+}
+after 100
+send -- "rm test6.out\r"
+after 100
+
+
+########################
+puts "TESTING: DSN flags"
+send -- "./ptest test7 > test7.out\r"
+expect {
+	timeout {puts "TESTING ERROR 7\n";exit}
+	"Testing done"
+}
+after 100
+send -- "diff -s test7.out test7.master\r"
+expect {
+	timeout {puts "TESTING ERROR 7\n";exit}
+	"are identical"
+}
+after 100
+send -- "rm test7.out\r"
+after 100
+
+
+
+
+after 100
+puts "\nall done\n"
+
+

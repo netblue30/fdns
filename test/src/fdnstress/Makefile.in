@@ -1,6 +1,6 @@
 all: fdnstress
 
-include ../common.mk
+include ../../../src/common.mk
 
 %.o : %.c $(H_FILE_LIST)
 	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $(INCLUDE) -c $< -o $@
