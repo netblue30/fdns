@@ -7,7 +7,8 @@ static int dnserror;
 static const char *err2str[DNSERR_MAX] = {
 	"no error",
 	"invalid header",
-	"invalid question"
+	"invalid domain",
+	"invalid class"
 };
 
 int dnslint_error(void) {
@@ -25,6 +26,22 @@ const char *dnslint_err2str(void) {
 static DnsHeader hdr;
 static DnsQuestion question;
 
+// check chars in domain name: a-z, A-Z, and 0-9
+// return 0 if ok, 1 if bad
+//TODO: add support or IDNA and/or Punycode (rfc3492)
+static inline int check_char(const uint8_t c)  {
+	if (c >= 'a' && c <= 'z')
+		return 0;
+	else if (c >= 'A' && c <= 'Z')
+		return 0;
+	else if ( c>= '0' && c <= '9')
+		return 0;
+	else if (c =='-')
+		return 0;
+
+	return 1;
+}
+
 // parse a domain name
 // error if cross-references
 // size - number of paket bytes consumed
@@ -32,19 +49,30 @@ static DnsQuestion question;
 static int domain_size_no_crossreference(const uint8_t *data, char *domain_name, unsigned *size){
 	assert(data);
 	assert(domain_name);
+	assert(size);
 	unsigned i = 0;
-	unsigned chunk = *data;
+	unsigned chunk_size = *data;
 
 	// skip each set of chars until (0) at the end
-	while(chunk != 0){
-		if (chunk > 63)
+	while(chunk_size != 0){
+		if (chunk_size > 63)
 			goto errexit;
-		i += chunk + 1;
+		i += chunk_size + 1;
 		if (i > 255)
 			goto errexit;
-		memcpy(domain_name + i - chunk - 1, data + i - chunk -1 + 1, chunk);
+
+		// check chars in domain name
+		const uint8_t *ptr = data + i - chunk_size - 1 + 1;
+		unsigned j;
+		for (j = 0; j < chunk_size; j++, ptr++) {
+//printf("%02x - %c\n", *ptr, (char) *ptr);
+			if (check_char(*ptr))
+				goto errexit;
+		}
+
+		memcpy(domain_name + i - chunk_size - 1, data + i - chunk_size -1 + 1, chunk_size);
 		domain_name[i - 1] = '.';
-		chunk = data[i];
+		chunk_size = data[i];
 	}
 
 	// domain name including the ending \0
@@ -81,8 +109,10 @@ DnsHeader *dnslint_header(uint8_t *pkt, unsigned len, unsigned *size) {
 // pkt is positioned at the the start of RR
 DnsQuestion *dnslint_question(uint8_t *pkt, unsigned len, unsigned *size) {
 	assert(pkt);
-	if (len < 1 + 2 + 2) // empty domain + type + class
-		goto errexit;
+	if (len < 1 + 2 + 2) { // empty domain + type + class
+		dnserror = DNSERR_INVALID_DOMAIN;
+		return NULL;
+	}
 
 	// clanup
 	question.domain[0] = '\0';
@@ -90,14 +120,20 @@ DnsQuestion *dnslint_question(uint8_t *pkt, unsigned len, unsigned *size) {
 	*size = 0;
 
 	// first byte smaller than 63
-	if (*pkt > 63)
-		goto errexit;
-	if (domain_size_no_crossreference(pkt, question.domain, size))
-		goto errexit;
+	if (*pkt > 63) {
+		dnserror = DNSERR_INVALID_DOMAIN;
+		return NULL;
+	}
+	if (domain_size_no_crossreference(pkt, question.domain, size)) {
+		dnserror = DNSERR_INVALID_DOMAIN;
+		return NULL;
+	}
 
 	// check length
-	if (*size + 4 > len)
-		goto  errexit;
+	if (*size + 4 > len) {
+		dnserror = DNSERR_INVALID_DOMAIN;
+		return NULL;
+	}
 
 	// set type
 	pkt += *size;
@@ -109,15 +145,13 @@ DnsQuestion *dnslint_question(uint8_t *pkt, unsigned len, unsigned *size) {
 	uint16_t cls;
 	memcpy(&cls, pkt,  2);
 	cls = ntohs(cls);
-	if (cls != 1)
-		goto errexit;
+	if (cls != 1) {
+		dnserror = DNSERR_INVALID_CLASS;
+		return NULL;
+	}
 
 	*size += 4;
 	question.len = *size;
 //printf("len/size %d/%d\n", len, *size);
 	return &question;
-
-errexit:
-	dnserror = DNSERR_INVALID_DOMAIN;
-	return NULL;
 }
