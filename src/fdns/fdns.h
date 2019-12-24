@@ -142,6 +142,7 @@ extern char *arg_server;
 extern char *arg_proxy_addr;
 extern int arg_proxy_addr_any;
 extern char *arg_certfile;
+extern int arg_print_drop_lists;
 extern Stats stats;
 
 // dnsdb.c

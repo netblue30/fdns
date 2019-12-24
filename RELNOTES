@@ -1,3 +1,10 @@
 fdns (0.9.62) baseline; urgency=low
+  * work in progress
+  * implement a hash table for cacheing DNS responses
+  * strict parsing of DNS requests on the LAN side
+  * --print-drop-lists command line option
+ -- netblue30 <netblue30@yahoo.com>  Thu, 24 Dec 2019 08:00:00 -0500
+
+fdns (0.9.62) baseline; urgency=low
   * first release
  -- netblue30 <netblue30@yahoo.com>  Thu, 12 Dec 2019 08:00:00 -0500
