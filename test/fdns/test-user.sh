@@ -17,3 +17,6 @@ echo "TESTING: test-url (test/fdns/test-url.exp)"
 
 echo "TESTING: monitor (test/fdns/monitor.exp)"
 ./monitor.exp
+
+echo "TESTING: LAN rx packet (test/fdns/ptest.exp)"
+./ptest.exp
