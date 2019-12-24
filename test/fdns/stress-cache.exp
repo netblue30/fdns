@@ -8,7 +8,7 @@ spawn $env(SHELL)
 match_max 100000
 spawn $env(SHELL)
 
-send -- "firejail --dns=127.1.1.1 ../../src/fdnstress/fdnstress --threads=3 ./list100-cache\r"
+send -- "firejail --dns=127.1.1.1 ../src/fdnstress/fdnstress --threads=3 ./list100-cache\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
 	"Android.com"

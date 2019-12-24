@@ -8,7 +8,7 @@ spawn $env(SHELL)
 match_max 100000
 
 spawn $env(SHELL)
-send -- "firejail --dns=127.1.1.1 ../../src/fdnstress/fdnstress --threads=10 ./list500\r"
+send -- "firejail --dns=127.1.1.1 ../src/fdnstress/fdnstress --threads=10 ./list500\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
 	"Aws.amazon.com"
