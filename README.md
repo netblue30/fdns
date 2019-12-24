@@ -38,7 +38,7 @@ This allows it to coexist peacefully with any other DNS server/proxy installed o
 Change this default with --proxy-addr command line option.
 
 * Using only DoH services from zero-logging providers, based on the privacy policy
-posted on the provider's website. Print the list of supported servers with --list, 
+posted on the provider's website. Print the list of supported servers with --list,
 and use --server= to pick up a specific server (--server=powerdns). You can also use a group,
 in this case fdns will chose a random server from the group (--server=Europe). By default
 we pick up a random server from anycast group (--server=anycast).
@@ -72,11 +72,11 @@ tiarapp-jp - Japan, Asia-Pacific
 
 * DNS resolver cache with a fixed time to live of 180 seconds for DNS records.
 
-* Default anti-tracker and adblocker based on EFF's [Privacy Badger](https://github.com/EFForg/privacybadger)
-and Steven Black's [hosts](https://github.com/StevenBlack/hosts) project.
+* Default anti-tracker and adblocker based on EFF's [Privacy Badger](https://github.com/EFForg/privacybadger),
+Steven Black's [hosts](https://github.com/StevenBlack/hosts) project, and ZeroDot1 [coninblocker](https://zerodot1.gitlab.io/CoinBlockerListsWeb/index.html) list.
 For blocked domains we respond with 127.0.0.1. Use --nofilter to disable.
 
-  The filter files are /etc/fdns/adblocker and /etc/fdns/trackers.
+  The filter files are /etc/fdns/adblocker, /etc/fdns/trackers and /etc/fdns/coinblocker.
 These are regular text file, you can modify them, or even delete them.
 You can also add your own list in /etc/fdns/hosts.
 Adblocker hosts files as published all over the net should work just fine.
@@ -210,7 +210,7 @@ $ cat /etc/rc.local
 /usr/bin/fdns --daemonize
 exit 0
 `````
-For systemd users, we place a fdns.service file in /etc/fdns directory. 
+For systemd users, we place a fdns.service file in /etc/fdns directory.
 
 #### How do I configure Firejail to send all the DNS traffic to fdns by default?
 

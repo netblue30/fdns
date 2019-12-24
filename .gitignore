@@ -15,4 +15,5 @@ fdns.1
 src/fdns/fdns
 src/common.mk
 src/filter/trackers
-src/fdnstress/fdnstress
+test/src/fdnstress/fdnstress
+test/src/ptest/ptest

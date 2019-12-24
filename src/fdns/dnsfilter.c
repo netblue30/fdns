@@ -174,9 +174,14 @@ void dnsfilter_load_list(const char *fname) {
 
 	if (arg_id == 0)
 		printf("%d filter entries added from %s\n", cnt, fname);
-
 }
 
+void dnsfilter_load_all_lists(void) {
+	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
+	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
+	dnsfilter_load_list(PATH_ETC_COINBLOCKER_LIST);
+	dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
+}
 
 #define MAX_DOMAINS 64
 static const char *domain[MAX_DOMAINS];

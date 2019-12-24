@@ -73,6 +73,7 @@ static inline int check_addr_port(const char *str) {
 #define PATH_RUN_FDNS "/run/fdns"
 #define PATH_ETC_TRACKERS_LIST (SYSCONFDIR "/trackers")
 #define PATH_ETC_ADBLOCKER_LIST (SYSCONFDIR "/adblocker")
+#define PATH_ETC_COINBLOCKER_LIST (SYSCONFDIR "/coinblocker")
 #define PATH_ETC_HOSTS_LIST (SYSCONFDIR "/hosts")
 #define PATH_ETC_SERVER_LIST (SYSCONFDIR "/servers")
 #define PATH_ETC_WORKER_SECCOMP (SYSCONFDIR "/worker.seccomp")
@@ -181,6 +182,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *len, int *error);
 // dnsfilter.c
 void dnsfilter_init(void);
 void dnsfilter_load_list(const char *fname);
+void dnsfilter_load_all_lists(void);
 int dnsfilter_blocked(const char *str, int verbose);
 void dnsfilter_test(char *url);
 
