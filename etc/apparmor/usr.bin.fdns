@@ -26,6 +26,7 @@
   /etc/fdns/adblocker r,
   /etc/fdns/servers r,
   /etc/fdns/trackers r,
+  /etc/fdns/coinblocker r,
   owner /etc/fdns/worker.seccomp r,
   /etc/fdns/hosts r,
 

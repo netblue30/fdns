@@ -138,9 +138,7 @@ int main(int argc, char **argv) {
 			 }
 			 else if (strcmp(argv[i], "--print-drop-lists") == 0) {
 			 	arg_print_drop_lists = 1;
-			 	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
-			 	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
-			 	dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
+			 	dnsfilter_load_all_lists();
 			 	return 0;
 			 }
 			 else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {
@@ -154,9 +152,7 @@ int main(int argc, char **argv) {
 			 	return 0;
 			 }
 			 else if (strncmp(argv[i], "--test-url=", 11) == 0) {
-			 	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
-			 	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
-			 	dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
+			 	dnsfilter_load_all_lists();
 			 	dnsfilter_test(argv[i] + 11);
 			 	return 0;
 			 }

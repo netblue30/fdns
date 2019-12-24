@@ -31,11 +31,8 @@ void worker(void) {
 	signal(SIGPIPE, SIG_IGN);
 
 	// load the drop list
-	if (!arg_nofilter) {
-		dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
- 		dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
- 		dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
- 	}
+	if (!arg_nofilter)
+		dnsfilter_load_all_lists();
 
 	// connect SSL/DNS server
 	ssl_init();
