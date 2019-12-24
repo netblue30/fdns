@@ -30,6 +30,7 @@ char *arg_server = NULL;
 char *arg_proxy_addr = NULL;
 int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
+int arg_print_drop_lists = 0;
 
 Stats stats;
 
@@ -51,6 +52,7 @@ static void usage(void) {
 		"\t belong to.\n");
 	printf("    --monitor - monitor statistics.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
+	printf("    --print-drop-lists - print the content of the drop lists\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens for\n"
 		"\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
 	printf("    --proxy-addr-any - listen on all available interfaces.\n");
@@ -132,6 +134,13 @@ int main(int argc, char **argv) {
 			 }
 			 else if (strcmp(argv[i], "--list") == 0) {
 			 	dnsserver_list();
+			 	return 0;
+			 }
+			 else if (strcmp(argv[i], "--print-drop-lists") == 0) {
+			 	arg_print_drop_lists = 1;
+			 	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
+			 	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
+			 	dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
 			 	return 0;
 			 }
 			 else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {

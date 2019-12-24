@@ -111,6 +111,13 @@ void dnsfilter_load_list(const char *fname) {
 	if (!fp)
 		return;  // nothing to do
 
+	if (arg_print_drop_lists) {
+		printf("\n\n");
+		printf("//************************************************\n");
+		printf("// file: %s\n", fname);
+		printf("//************************************************\n");
+	}
+
 	char buf[MAXBUF];
 	int cnt = 0;
 	while (fgets(buf, MAXBUF, fp)) {
@@ -153,6 +160,12 @@ void dnsfilter_load_list(const char *fname) {
 
 		// add it to the hash table
 		if (!dnsfilter_blocked(ptr, 0)) {
+			if (arg_print_drop_lists) {
+				// if the name starts in www,. remove it
+				if (strncmp(ptr, "www.", 4) == 0)
+					ptr += 4;
+				printf("127.0.0.1 %s\n", ptr);
+			}
 			blist_add(ptr);
 			cnt++;
 		}
