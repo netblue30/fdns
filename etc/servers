@@ -67,6 +67,13 @@ address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 30
 
+name: ibuki
+website: http://ibuki.cgnat.net/
+tags: Americas
+address: 35.198.2.76:443
+host: ibuki.cgnat.net/dns-query
+keepalive: 7
+
 name: powerdns
 website: https://powerdns.org
 tags: Netherlands, Europe
@@ -81,11 +88,18 @@ address: 9.9.9.9:5053
 host: dns.quad9.net/dns-query
 keepalive: 30
 
-name: seby.io
+name: seby
 website: https://dns.seby.io
-tags: Australia, Asia-Pacific
+tags: Australia, Asia-Pacific, OpenNIC
 address: 45.76.113.31:8443
 host: dns.seby.io/dns-query
+keepalive: 7
+
+name: seby2
+website: https://dns.seby.io
+tags: Australia, Asia-Pacific, OpenNIC
+address: 139.99.222.72:443
+host: doh-2.seby.io/dns-query
 keepalive: 7
 
 name: tiarapp
