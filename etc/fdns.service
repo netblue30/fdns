@@ -14,5 +14,12 @@ ExecStart=/usr/bin/fdns --daemonize
 #ExecStart=/usr/bin/fdns --daemonize --proxy-addr=192.168.1.200
 Restart=on-failure
 
+# Log all querys to /tmp/fdns-log.txt.
+#  [NOTE] /tmp is often a tmpfs you need to change the path if you want
+#    persist logs over reboots.
+#  [IMPORTANT] You need to remove `--daemonize' form the `ExecStart' line above
+#    and change the service type from `forking' to `simple'.
+#StandardOutput=append:/tmp/fdns-log.txt
+
 [Install]
 WantedBy=multi-user.target
