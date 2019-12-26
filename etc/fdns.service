@@ -5,6 +5,7 @@ Wants=network-online.target nss-lookup.target
 Before=nscd.service nss-lookup.target ntpdate.service
 
 [Service]
+Type=forking
 # start fdns as a local server listening on 127.1.1.1 loopback address
 ExecStart=/usr/bin/fdns --daemonize
 # start fdns as a network server listening on all interfaces and on 127.0.0.1 loopback address
