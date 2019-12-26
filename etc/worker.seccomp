@@ -1,1 +1,1 @@
-time,_newselect,recvfrom,setsockopt,select,sendto,write,read,close,open,openat,writev,ioctl,socket,connect,fstat,stat,getpid,sigreturn,rt_sigprocmask,exit_group,kill,wait4,brk,gettimeofday,poll,sendmmsg,bind,getsockname,recvmsg,getrandom,uname,mmap
+bind,brk,close,connect,dup,exit_group,fstat,getpid,getrandom,getsockname,gettimeofday,ioctl,kill,mmap,_newselect,open,openat,poll,read,recvfrom,recvmsg,rt_sigprocmask,select,sendmmsg,sendto,setsockopt,sigreturn,socket,stat,time,uname,wait4,write,writev
