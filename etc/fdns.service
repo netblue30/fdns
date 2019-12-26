@@ -5,6 +5,7 @@ Wants=network-online.target nss-lookup.target
 Before=nscd.service nss-lookup.target ntpdate.service
 
 [Service]
+Type=forking
 # start fdns as a local server listening on 127.1.1.1 loopback address
 ExecStart=/usr/bin/fdns --daemonize
 # start fdns as a network server listening on all interfaces and on 127.0.0.1 loopback address
@@ -12,6 +13,13 @@ ExecStart=/usr/bin/fdns --daemonize
 # start fdns as a network server listening on a specific network interface address
 #ExecStart=/usr/bin/fdns --daemonize --proxy-addr=192.168.1.200
 Restart=on-failure
+
+# Log all querys to /tmp/fdns-log.txt.
+#  [NOTE] /tmp is often a tmpfs you need to change the path if you want
+#    persist logs over reboots.
+#  [IMPORTANT] You need to remove `--daemonize' form the `ExecStart' line above
+#    and change the service type from `forking' to `simple'.
+#StandardOutput=append:/tmp/fdns-log.txt
 
 [Install]
 WantedBy=multi-user.target
