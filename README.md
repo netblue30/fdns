@@ -211,6 +211,15 @@ $ cat /etc/rc.local
 exit 0
 `````
 For systemd users, we place a fdns.service file in /etc/fdns directory.
+Usage:
+```bash
+cp /etc/fdns/fdns.service /etc/systemd/system/fdns.service
+# Load the file. Alternative reboot your system
+systemctl daemon-reload
+systemctl start fdns.service
+# Start fdns when starting the system
+systemctl enable fdns.service
+```
 
 #### How do I configure Firejail to send all the DNS traffic to fdns by default?
 
