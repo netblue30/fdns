@@ -17,7 +17,6 @@
 # a format of IP:PORT is required for "address:"
 # "keepalive:" also marks the end of the server entry.
 
-
 name: 42l
 website: https://42l.fr
 tags: non-profit, France, Europe
@@ -31,6 +30,14 @@ tags: anycast, adblocker
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
 keepalive: 30
+
+name: adguard-family
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: family
+address: 176.103.130.132:443
+host: dns-family.adguard.com/dns-query
+keepalive: 30
+
 
 name: appliedprivacy
 website: https://appliedprivacy.net
@@ -66,6 +73,34 @@ tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 30
+
+name: dnswarden-family2
+website: https://github.com/bhanupratapys/dnswarden
+tags: family
+address: 116.203.35.255:443
+host: doh.dnswarden.com/adult-filter
+keepalive: 7
+
+name: dnswarden-family1
+website: https://github.com/bhanupratapys/dnswarden
+tags: family
+address: 116.203.70.156:443
+host: doh.dnswarden.com/adult-filter
+keepalive: 7
+
+name: dnswarden1
+website: https://github.com/bhanupratapys/dnswarden
+tags: adblocker, Germany, Europe
+address: 116.203.70.156:443
+host: doh.dnswarden.com/adblock
+keepalive: 7
+
+name: dnswarden2
+website: https://github.com/bhanupratapys/dnswarden
+tags: adblocker, Germany, Europe
+address: 116.203.35.255:443
+host: doh.dnswarden.com/adblock
+keepalive: 7
 
 name: ibuki
 website: http://ibuki.cgnat.net/
