@@ -21,5 +21,98 @@ Restart=on-failure
 #    and change the service type from `forking' to `simple'.
 #StandardOutput=append:/tmp/fdns-log.txt
 
+AmbientCapabilities=
+LockPersonality=true
+RestrictNamespaces=ipc mnt pid uts
+RestrictRealtime=true
+RestrictSUIDSGID=true
+ProtectHostname=true
+PrivateMounts=true
+MountFlags=private
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# FJ: --read-only=/ (except: /dev, /proc /sys)
+ProtectSystem=strict
+
+# FJ: --private --private-tmp
+ProtectHome=true
+PrivateTmp=true
+
+# FJ: --private-dev --no…
+PrivateDevices=true
+DevicePolicy=closed
+
+# FJ: --caps.keep=kill,net-bind,setgid,setuid,sys-admin,sys-chroot
+CapabilityBoundingSet=CAP_KILL CAP_NET_BIND_SERVICE CAP_SETGID CAP_SETUID CAP_SYS_ADMIN CAP_SYS_CHROOT
+
+# FJ: --memor-deny-write-execute --nonewprivs --protocol=unix,inet,inet6
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# FJ: --seccomp.keep=@system-service,@mount,seccomp --seccomp.drop=@debug,@obsolete --seccomp.block-secondary
+SystemCallFilter=@system-service @mount seccomp
+SystemCallFilter=~@debug @obsolete @resources
+SystemCallArchitectures=native
+
+# FJ: --private-etc=ca-certificates,crypto-policies,fdns,hostname,hosts,nsswitch.conf,passwd,pki,protocols,resolv.conf,services,ssl
+TemporaryFileSystem=/etc
+BindReadOnlyPaths=-/etc/ca-certificates
+BindReadOnlyPaths=-/etc/crypto-policies
+BindReadOnlyPaths=-/etc/fdns
+BindReadOnlyPaths=-/etc/hostname
+BindReadOnlyPaths=-/etc/hosts
+BindReadOnlyPaths=-/etc/nsswitch.conf
+BindReadOnlyPaths=-/etc/passwd
+BindReadOnlyPaths=-/etc/pki
+BindReadOnlyPaths=-/etc/protocols
+BindReadOnlyPaths=-/etc/resolv.conf
+BindReadOnlyPaths=-/etc/services
+BindReadOnlyPaths=-/etc/ssl
+
+# FJ: disable-mnt
+InaccessiblePaths=-/mnt
+InaccessiblePaths=-/media
+#InaccessiblePaths=-/run/mount
+InaccessiblePaths=-/run/media
+
+# firejail's hardcoded blacklist
+InaccessiblePaths=-/sys/firmware
+InaccessiblePaths=-/sys/hypervisor
+InaccessiblePaths=-/sys/fs
+InaccessiblePaths=-/sys/module
+InaccessiblePaths=-/sys/power
+InaccessiblePaths=-/sys/kernel/debug
+InaccessiblePaths=-/sys/kernel/vmcoreinfo
+InaccessiblePaths=-/sys/kernel/uevent_helper
+InaccessiblePaths=-/proc/sys/security
+InaccessiblePaths=-/proc/sys/efi/vars
+InaccessiblePaths=-/proc/sys/fs/binfmt_misc
+#InaccessiblePaths=-/proc/sys/kernel/core_pattern
+#InaccessiblePaths=-/proc/sys/kernel/modprobe
+InaccessiblePaths=-/proc/sysrq-trigger
+InaccessiblePaths=-/proc/sys/kernel/hotplug
+#InaccessiblePaths=-/proc/sys/vm/panic_on_oom
+InaccessiblePaths=-/proc/irq
+InaccessiblePaths=-/proc/bus
+InaccessiblePaths=-/proc/config.gz
+InaccessiblePaths=-/proc/sched_debug
+InaccessiblePaths=-/proc/timer_list
+InaccessiblePaths=-/proc/timer_stats
+InaccessiblePaths=-/proc/kcore
+InaccessiblePaths=-/proc/kallsyms
+InaccessiblePaths=-/proc/mem
+InaccessiblePaths=-/proc/kmem
+InaccessiblePaths=-/usr/src/linux
+InaccessiblePaths=-/lib/modules
+#InaccessiblePaths=-/usr/lib/debug
+InaccessiblePaths=-/boot
+InaccessiblePaths=-/selinux
+InaccessiblePaths=-/dev/port
+InaccessiblePaths=-/dev/kmsg
+#InaccessiblePaths=-/proc/kmsg
+
 [Install]
 WantedBy=multi-user.target
