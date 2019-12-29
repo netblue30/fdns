@@ -32,6 +32,7 @@ MountFlags=private
 ProtectKernelTunables=true
 ProtectKernelModules=true
 ProtectControlGroups=true
+SecureBits=no-setuid-fixup-locked noroot-locked
 
 # FJ: --read-only=/ (except: /dev, /proc /sys)
 ProtectSystem=strict
@@ -42,19 +43,20 @@ PrivateTmp=true
 
 # FJ: --private-dev --no…
 PrivateDevices=true
-DevicePolicy=closed
 
 # FJ: --caps.keep=kill,net-bind,setgid,setuid,sys-admin,sys-chroot
 CapabilityBoundingSet=CAP_KILL CAP_NET_BIND_SERVICE CAP_SETGID CAP_SETUID CAP_SYS_ADMIN CAP_SYS_CHROOT
 
-# FJ: --memor-deny-write-execute --nonewprivs --protocol=unix,inet,inet6
+# FJ: --memory-deny-write-execute --nonewprivs --protocol=unix,inet,inet6
 MemoryDenyWriteExecute=true
 NoNewPrivileges=true
-RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 
-# FJ: --seccomp.keep=@system-service,@mount,seccomp --seccomp.drop=@debug,@obsolete --seccomp.block-secondary
+# FJ: --protocol=unix,inet,inet6 (Breaks on Arch)
+#RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# FJ: --seccomp.keep=@system-service,@mount,seccomp --seccomp.drop=@aio,@chown,@ipc,@keyring,@memlock,@resources,@sync,@timer --seccomp.block-secondary
 SystemCallFilter=@system-service @mount seccomp
-SystemCallFilter=~@debug @obsolete @resources
+SystemCallFilter=~@aio @chown @ipc @keyring @memlock @resources @sync @timer
 SystemCallArchitectures=native
 
 # FJ: --private-etc=ca-certificates,crypto-policies,fdns,hostname,hosts,nsswitch.conf,passwd,pki,protocols,resolv.conf,services,ssl
@@ -75,7 +77,7 @@ BindReadOnlyPaths=-/etc/ssl
 # FJ: disable-mnt
 InaccessiblePaths=-/mnt
 InaccessiblePaths=-/media
-#InaccessiblePaths=-/run/mount
+# InaccessiblePaths=-/run/mount
 InaccessiblePaths=-/run/media
 
 # firejail's hardcoded blacklist
@@ -90,11 +92,11 @@ InaccessiblePaths=-/sys/kernel/uevent_helper
 InaccessiblePaths=-/proc/sys/security
 InaccessiblePaths=-/proc/sys/efi/vars
 InaccessiblePaths=-/proc/sys/fs/binfmt_misc
-#InaccessiblePaths=-/proc/sys/kernel/core_pattern
-#InaccessiblePaths=-/proc/sys/kernel/modprobe
+# InaccessiblePaths=-/proc/sys/kernel/core_pattern
+# InaccessiblePaths=-/proc/sys/kernel/modprobe
 InaccessiblePaths=-/proc/sysrq-trigger
 InaccessiblePaths=-/proc/sys/kernel/hotplug
-#InaccessiblePaths=-/proc/sys/vm/panic_on_oom
+# InaccessiblePaths=-/proc/sys/vm/panic_on_oom
 InaccessiblePaths=-/proc/irq
 InaccessiblePaths=-/proc/bus
 InaccessiblePaths=-/proc/config.gz
@@ -107,12 +109,15 @@ InaccessiblePaths=-/proc/mem
 InaccessiblePaths=-/proc/kmem
 InaccessiblePaths=-/usr/src/linux
 InaccessiblePaths=-/lib/modules
-#InaccessiblePaths=-/usr/lib/debug
+# InaccessiblePaths=-/usr/lib/debug
 InaccessiblePaths=-/boot
 InaccessiblePaths=-/selinux
 InaccessiblePaths=-/dev/port
 InaccessiblePaths=-/dev/kmsg
-#InaccessiblePaths=-/proc/kmsg
+# InaccessiblePaths=-/proc/kmsg
+
+# FJ: --nodbus (only system bus)
+# InaccessiblePaths=-/run/dbus/system_bus_socket
 
 [Install]
 WantedBy=multi-user.target
