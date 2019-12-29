@@ -77,7 +77,7 @@ BindReadOnlyPaths=-/etc/ssl
 # FJ: disable-mnt
 InaccessiblePaths=-/mnt
 InaccessiblePaths=-/media
-# InaccessiblePaths=-/run/mount
+#*InaccessiblePaths=-/run/mount
 InaccessiblePaths=-/run/media
 
 # firejail's hardcoded blacklist
@@ -92,11 +92,11 @@ InaccessiblePaths=-/sys/kernel/uevent_helper
 InaccessiblePaths=-/proc/sys/security
 InaccessiblePaths=-/proc/sys/efi/vars
 InaccessiblePaths=-/proc/sys/fs/binfmt_misc
-# InaccessiblePaths=-/proc/sys/kernel/core_pattern
-# InaccessiblePaths=-/proc/sys/kernel/modprobe
+#*InaccessiblePaths=-/proc/sys/kernel/core_pattern
+#*InaccessiblePaths=-/proc/sys/kernel/modprobe
 InaccessiblePaths=-/proc/sysrq-trigger
 InaccessiblePaths=-/proc/sys/kernel/hotplug
-# InaccessiblePaths=-/proc/sys/vm/panic_on_oom
+#*InaccessiblePaths=-/proc/sys/vm/panic_on_oom
 InaccessiblePaths=-/proc/irq
 InaccessiblePaths=-/proc/bus
 InaccessiblePaths=-/proc/config.gz
@@ -109,15 +109,17 @@ InaccessiblePaths=-/proc/mem
 InaccessiblePaths=-/proc/kmem
 InaccessiblePaths=-/usr/src/linux
 InaccessiblePaths=-/lib/modules
-# InaccessiblePaths=-/usr/lib/debug
+#*InaccessiblePaths=-/usr/lib/debug
 InaccessiblePaths=-/boot
 InaccessiblePaths=-/selinux
 InaccessiblePaths=-/dev/port
 InaccessiblePaths=-/dev/kmsg
-# InaccessiblePaths=-/proc/kmsg
+#*InaccessiblePaths=-/proc/kmsg
 
 # FJ: --nodbus (only system bus)
-# InaccessiblePaths=-/run/dbus/system_bus_socket
+#*InaccessiblePaths=-/run/dbus/system_bus_socket
+
+# NOTE: `#*' means: required by systemd
 
 [Install]
 WantedBy=multi-user.target
