@@ -15,22 +15,21 @@ ExecStart=/usr/bin/fdns --daemonize
 Restart=on-failure
 
 # Log all querys to /tmp/fdns-log.txt.
-#  [NOTE] /tmp is often a tmpfs you need to change the path if you want
-#    persist logs over reboots.
-#  [IMPORTANT] You need to remove `--daemonize' form the `ExecStart' line above
-#    and change the service type from `forking' to `simple'.
+#  [NOTE] /tmp is often a tmpfs, you need to change this path if you want persistent logs.
+#  [IMPORTANT] You need to remove `--daemonize` from the `ExecStart` line above
+#    and change the service type from `forking` to `simple`.
 #StandardOutput=append:/tmp/fdns-log.txt
 
 ################################################################################
 #                                Hardening                                     #
 # ---------------------------------------------------------------------------- #
-# NOTEs:                                                                       #
-#  - Depending on your systemd version not all options are supported,          #
-#    unsupported option are ignored. Check `systemctl status fdns.service'     #
-#  - Lines commented with `#*' are required by systemd.                        #
-#  - See man 5 systemd.exec for explanations about the options.                #
-#    firejail equivalents are also noted down.                                 #
-#  - If you aren't on Arch, you can try uncommenting 'RestrictAddressFamilies' #
+# NOTES:                                                                       #
+#  - depending on your systemd version not all options are supported -          #
+#    unsupported options are ignored (check with `systemctl status fdns.service `);    #
+#  - lines commented with `#*` are required by systemd;                        #
+#  - see man 5 systemd.exec for explanations about the options;                #
+#  - firejail equivalents are commented with `# FJa`;                                 #
+#  - if you aren't on Arch, you can try uncommenting `RestrictAddressFamilies`. #
 ################################################################################
 
 AmbientCapabilities=
@@ -87,50 +86,49 @@ BindReadOnlyPaths=-/etc/services
 BindReadOnlyPaths=-/etc/ssl
 
 # FJ: disable-mnt
-InaccessiblePaths=-/mnt
 InaccessiblePaths=-/media
+InaccessiblePaths=-/mnt
 #*InaccessiblePaths=-/run/mount
 InaccessiblePaths=-/run/media
 
 # firejail's hardcoded blacklist
-InaccessiblePaths=-/sys/firmware
-InaccessiblePaths=-/sys/hypervisor
-InaccessiblePaths=-/sys/fs
-InaccessiblePaths=-/sys/module
-InaccessiblePaths=-/sys/power
-InaccessiblePaths=-/sys/kernel/debug
-InaccessiblePaths=-/sys/kernel/vmcoreinfo
-InaccessiblePaths=-/sys/kernel/uevent_helper
-InaccessiblePaths=-/proc/sys/security
+InaccessiblePaths=-/boot
+InaccessiblePaths=-/dev/kmsg
+InaccessiblePaths=-/dev/port
+InaccessiblePaths=-/lib/modules
+InaccessiblePaths=-/proc/bus
+InaccessiblePaths=-/proc/config.gz
+InaccessiblePaths=-/proc/irq
+InaccessiblePaths=-/proc/kallsyms
+InaccessiblePaths=-/proc/kcore
+InaccessiblePaths=-/proc/kmem
+#*InaccessiblePaths=-/proc/kmsg
+InaccessiblePaths=-/proc/mem
+InaccessiblePaths=-/proc/sched_debug
 InaccessiblePaths=-/proc/sys/efi/vars
 InaccessiblePaths=-/proc/sys/fs/binfmt_misc
 #*InaccessiblePaths=-/proc/sys/kernel/core_pattern
-#*InaccessiblePaths=-/proc/sys/kernel/modprobe
-InaccessiblePaths=-/proc/sysrq-trigger
 InaccessiblePaths=-/proc/sys/kernel/hotplug
+#*InaccessiblePaths=-/proc/sys/kernel/modprobe
+InaccessiblePaths=-/proc/sys/security
 #*InaccessiblePaths=-/proc/sys/vm/panic_on_oom
-InaccessiblePaths=-/proc/irq
-InaccessiblePaths=-/proc/bus
-InaccessiblePaths=-/proc/config.gz
-InaccessiblePaths=-/proc/sched_debug
+InaccessiblePaths=-/proc/sysrq-trigger
 InaccessiblePaths=-/proc/timer_list
 InaccessiblePaths=-/proc/timer_stats
-InaccessiblePaths=-/proc/kcore
-InaccessiblePaths=-/proc/kallsyms
-InaccessiblePaths=-/proc/mem
-InaccessiblePaths=-/proc/kmem
-InaccessiblePaths=-/usr/src/linux
-InaccessiblePaths=-/lib/modules
-#*InaccessiblePaths=-/usr/lib/debug
-InaccessiblePaths=-/boot
 InaccessiblePaths=-/selinux
-InaccessiblePaths=-/dev/port
-InaccessiblePaths=-/dev/kmsg
-#*InaccessiblePaths=-/proc/kmsg
+InaccessiblePaths=-/sys/firmware
+InaccessiblePaths=-/sys/fs
+InaccessiblePaths=-/sys/hypervisor
+InaccessiblePaths=-/sys/kernel/debug
+InaccessiblePaths=-/sys/kernel/vmcoreinfo
+InaccessiblePaths=-/sys/kernel/uevent_helper
+InaccessiblePaths=-/sys/module
+InaccessiblePaths=-/sys/power
+#*InaccessiblePaths=-/usr/lib/debug
+InaccessiblePaths=-/usr/src/linux
 
 # FJ: --nodbus (only system bus)
 #*InaccessiblePaths=-/run/dbus/system_bus_socket
-
 
 [Install]
 WantedBy=multi-user.target
