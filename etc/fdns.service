@@ -21,6 +21,18 @@ Restart=on-failure
 #    and change the service type from `forking' to `simple'.
 #StandardOutput=append:/tmp/fdns-log.txt
 
+################################################################################
+#                                Hardening                                     #
+# ---------------------------------------------------------------------------- #
+# NOTEs:                                                                       #
+#  - Depending on your systemd version not all options are supported,          #
+#    unsupported option are ignored. Check `systemctl status fdns.service'     #
+#  - Lines commented with `#*' are required by systemd.                        #
+#  - See man 5 systemd.exec for explanations about the options.                #
+#    firejail equivalents are also noted down.                                 #
+#  - If you aren't on Arch, you can try uncommenting 'RestrictAddressFamilies' #
+################################################################################
+
 AmbientCapabilities=
 LockPersonality=true
 RestrictNamespaces=ipc mnt pid uts
@@ -47,7 +59,7 @@ PrivateDevices=true
 # FJ: --caps.keep=kill,net-bind,setgid,setuid,sys-admin,sys-chroot
 CapabilityBoundingSet=CAP_KILL CAP_NET_BIND_SERVICE CAP_SETGID CAP_SETUID CAP_SYS_ADMIN CAP_SYS_CHROOT
 
-# FJ: --memory-deny-write-execute --nonewprivs --protocol=unix,inet,inet6
+# FJ: --memory-deny-write-execute --nonewprivs
 MemoryDenyWriteExecute=true
 NoNewPrivileges=true
 
@@ -119,7 +131,6 @@ InaccessiblePaths=-/dev/kmsg
 # FJ: --nodbus (only system bus)
 #*InaccessiblePaths=-/run/dbus/system_bus_socket
 
-# NOTE: `#*' means: required by systemd
 
 [Install]
 WantedBy=multi-user.target
