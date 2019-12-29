@@ -14,82 +14,44 @@ ExecStart=/usr/bin/fdns --daemonize
 #ExecStart=/usr/bin/fdns --daemonize --proxy-addr=192.168.1.200
 Restart=on-failure
 
-# Log all querys to /tmp/fdns-log.txt.
+# Log all queries to /tmp/fdns-log.txt.
 #  [NOTE] /tmp is often a tmpfs, you need to change this path if you want persistent logs.
 #  [IMPORTANT] You need to remove `--daemonize` from the `ExecStart` line above
 #    and change the service type from `forking` to `simple`.
 #StandardOutput=append:/tmp/fdns-log.txt
 
-################################################################################
-#                                Hardening                                     #
-# ---------------------------------------------------------------------------- #
-# NOTES:                                                                       #
-#  - depending on your systemd version not all options are supported -          #
-#    unsupported options are ignored (check with `systemctl status fdns.service `);    #
-#  - lines commented with `#*` are required by systemd;                        #
-#  - see man 5 systemd.exec for explanations about the options;                #
-#  - firejail equivalents are commented with `# FJa`;                                 #
-#  - if you aren't on Arch, you can try uncommenting `RestrictAddressFamilies`. #
-################################################################################
+####################################################
+# HARDENING NOTES:
+#  - depending on your systemd version not all options are supported -
+#    unsupported options are usually ignored but you can always check
+#    with `systemctl status fdns.service`;
+#  - lines commented with `#*` are required by systemd;
+#  - see man 5 systemd.exec for details on the options;
+#  - firejail equivalents are commented with `# FJ`;
+#  - if you aren't on Arch, try uncommenting `RestrictAddressFamilies`.
+####################################################
 
 AmbientCapabilities=
 LockPersonality=true
+MountFlags=private
+PrivateMounts=true
+ProtectControlGroups=true
+ProtectHostname=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
 RestrictNamespaces=ipc mnt pid uts
 RestrictRealtime=true
 RestrictSUIDSGID=true
-ProtectHostname=true
-PrivateMounts=true
-MountFlags=private
-ProtectKernelTunables=true
-ProtectKernelModules=true
-ProtectControlGroups=true
 SecureBits=no-setuid-fixup-locked noroot-locked
-
-# FJ: --read-only=/ (except: /dev, /proc /sys)
-ProtectSystem=strict
-
-# FJ: --private --private-tmp
-ProtectHome=true
-PrivateTmp=true
-
-# FJ: --private-dev --no…
-PrivateDevices=true
 
 # FJ: --caps.keep=kill,net-bind,setgid,setuid,sys-admin,sys-chroot
 CapabilityBoundingSet=CAP_KILL CAP_NET_BIND_SERVICE CAP_SETGID CAP_SETUID CAP_SYS_ADMIN CAP_SYS_CHROOT
 
-# FJ: --memory-deny-write-execute --nonewprivs
-MemoryDenyWriteExecute=true
-NoNewPrivileges=true
-
-# FJ: --protocol=unix,inet,inet6 (Breaks on Arch)
-#RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
-
-# FJ: --seccomp.keep=@system-service,@mount,seccomp --seccomp.drop=@aio,@chown,@ipc,@keyring,@memlock,@resources,@sync,@timer --seccomp.block-secondary
-SystemCallFilter=@system-service @mount seccomp
-SystemCallFilter=~@aio @chown @ipc @keyring @memlock @resources @sync @timer
-SystemCallArchitectures=native
-
-# FJ: --private-etc=ca-certificates,crypto-policies,fdns,hostname,hosts,nsswitch.conf,passwd,pki,protocols,resolv.conf,services,ssl
-TemporaryFileSystem=/etc
-BindReadOnlyPaths=-/etc/ca-certificates
-BindReadOnlyPaths=-/etc/crypto-policies
-BindReadOnlyPaths=-/etc/fdns
-BindReadOnlyPaths=-/etc/hostname
-BindReadOnlyPaths=-/etc/hosts
-BindReadOnlyPaths=-/etc/nsswitch.conf
-BindReadOnlyPaths=-/etc/passwd
-BindReadOnlyPaths=-/etc/pki
-BindReadOnlyPaths=-/etc/protocols
-BindReadOnlyPaths=-/etc/resolv.conf
-BindReadOnlyPaths=-/etc/services
-BindReadOnlyPaths=-/etc/ssl
-
 # FJ: disable-mnt
 InaccessiblePaths=-/media
 InaccessiblePaths=-/mnt
-#*InaccessiblePaths=-/run/mount
 InaccessiblePaths=-/run/media
+#*InaccessiblePaths=-/run/mount
 
 # firejail's hardcoded blacklist
 InaccessiblePaths=-/boot
@@ -120,15 +82,54 @@ InaccessiblePaths=-/sys/firmware
 InaccessiblePaths=-/sys/fs
 InaccessiblePaths=-/sys/hypervisor
 InaccessiblePaths=-/sys/kernel/debug
-InaccessiblePaths=-/sys/kernel/vmcoreinfo
 InaccessiblePaths=-/sys/kernel/uevent_helper
+InaccessiblePaths=-/sys/kernel/vmcoreinfo
 InaccessiblePaths=-/sys/module
 InaccessiblePaths=-/sys/power
 #*InaccessiblePaths=-/usr/lib/debug
 InaccessiblePaths=-/usr/src/linux
 
+# FJ: --memory-deny-write-execute --nonewprivs
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+
 # FJ: --nodbus (only system bus)
 #*InaccessiblePaths=-/run/dbus/system_bus_socket
+
+# FJ: --private --private-tmp
+PrivateTmp=true
+ProtectHome=true
+
+# FJ: --private-dev --no…
+PrivateDevices=true
+
+# FJ: --private-etc=ca-certificates,crypto-policies,fdns,hostname,hosts,nsswitch.conf,passwd,pki,protocols,resolv.conf,services,ssl
+BindReadOnlyPaths=-/etc/ca-certificates
+BindReadOnlyPaths=-/etc/crypto-policies
+BindReadOnlyPaths=-/etc/fdns
+BindReadOnlyPaths=-/etc/hostname
+BindReadOnlyPaths=-/etc/hosts
+BindReadOnlyPaths=-/etc/nsswitch.conf
+BindReadOnlyPaths=-/etc/passwd
+BindReadOnlyPaths=-/etc/pki
+BindReadOnlyPaths=-/etc/protocols
+BindReadOnlyPaths=-/etc/resolv.conf
+BindReadOnlyPaths=-/etc/services
+BindReadOnlyPaths=-/etc/ssl
+TemporaryFileSystem=/etc
+
+# FJ: --protocol=unix,inet,inet6 (Breaks on Arch)
+#RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# FJ: --read-only=/ (except: /dev, /proc /sys)
+ProtectSystem=strict
+
+# FJ: --seccomp.drop=@aio,@chown,@ipc,@keyring,@memlock,@resources,@sync,@timer
+SystemCallFilter=~@aio @chown @ipc @keyring @memlock @resources @sync @timer
+# FJ: --seccomp.keep=@system-service,@mount,seccomp
+SystemCallFilter=@system-service @mount seccomp
+# FJ: --seccomp.block-secondary
+SystemCallArchitectures=native
 
 [Install]
 WantedBy=multi-user.target
