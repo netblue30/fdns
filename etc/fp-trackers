@@ -1,10 +1,9 @@
-#
-# First-party trackers host list  from https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
-# Author: Geoffrey Frogeye (https://geoffrey.frogeye.fr)
-# License MIT
-#
+# Most of the information in this host file is based on
+# https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
+# author Geoffrey Frogeye, license MIT. This is the original file header:
 #
 #
+# First-party trackers host list
 # Variant: first-party trackers
 #
 # About first-party trackers: https://hostfiles.frogeye.fr/#whats-a-first-party-tracker
