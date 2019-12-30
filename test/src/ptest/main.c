@@ -21,8 +21,8 @@
 
 int pktcnt = 0;
 void sendpkt(uint8_t *pkt, ssize_t len) {
-	int error;
-	uint8_t *rv = dns_parser(pkt, &len, &error);
+	DnsDestination dest;
+	uint8_t *rv = dns_parser(pkt, &len, &dest);
 	pktcnt++;
 	printf("cnt %d, %s\n", pktcnt, (rv)? "(not nil)":"(nil)");
 	usleep(INTERTEST_DELAY);

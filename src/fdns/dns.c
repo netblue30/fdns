@@ -47,52 +47,52 @@ inline static void build_response_nxdomain(uint8_t *pkt) {
 }
 
 // attempt to extract the domain name and run it through the filter
-uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, int *error) {
+uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	assert(buf);
 	assert(lenptr);
 	uint8_t *pkt = buf;
-	*error = 0;
+	*dest = DEST_SSL;
 
 	unsigned delta;
 	DnsHeader *h = dnslint_header(pkt, *lenptr, &delta);
 	if (!h) {
-		*error = 1;
 		rlogprintf("Error: LAN DNS: %s\n", dnslint_err2str());
+		*dest = DEST_DROP;
 		return NULL;
 	}
 
 	// check flags
 	if (h->flags & 0x8000) {
-		*error = 1;
 		rlogprintf("Error: LAN DNS: this is not a query\n");
+		*dest = DEST_DROP;
 		return NULL;
 	}
 	if (h->flags & 0x7800) {
-		*error = 1;
 		rlogprintf("Error: LAN DNS: flags %4x, this is not a standard query\n", h->flags);
+		*dest = DEST_DROP;
 		return NULL;
 	}
 
 	// we allow exactly one question
 	if (h->questions != 1 || h->answer != 0 || h->authority || h->additional != 0) {
-		*error = 1;
 		rlogprintf("Error: LAN DNS - invalid header\n");
+		*dest = DEST_DROP;
 		return NULL;
 	}
 
 	pkt = pkt + delta;
 	DnsQuestion *q = dnslint_question(pkt , *lenptr - delta, &delta);
 	if (!q) {
-		*error = 1;
 		rlogprintf("Error: LAN DNS - %s\n", dnslint_err2str());
+		*dest = DEST_DROP;
 		return NULL;
 	}
 
 //printf("domain #%s#\n", q->domain); fflush(0);
 	// check packet lentght
 	if ((*lenptr - sizeof(DnsHeader) - delta ) != 0) {
-		*error = 1;
 		rlogprintf("Error: LAN DNS - invalid packet lenght\n");
+		*dest = DEST_DROP;
 		return NULL;
 	}
 
@@ -127,8 +127,8 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, int *error) {
 
 		// drop all the rest and respond with NXDOMAIN
 		else {
-			*error = 1;	// just let him try again
 			rlogprintf("Error: LAN DNS - RR type %u rejected\n", q->type);
+			*dest = DEST_DROP; // just let him try again
 			return NULL;
 		}
 	}
@@ -138,6 +138,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, int *error) {
 	//*****************************
 	if (arg_nofilter) {
 		rlogprintf("Request: %s\n", q->domain);
+		*dest = DEST_SSL;
 		return NULL;
 	}
 
@@ -146,6 +147,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, int *error) {
 		rlogprintf("Request: %s%s, dropped\n", q->domain, (aaaa)? " (ipv6)": "");
 		stats.drop++;
 		build_response_loopback(buf, lenptr);
+		*dest = DEST_LOCAL;
 		return buf;
 	}
 
@@ -159,6 +161,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, int *error) {
 		if (rv) {
 			stats.cached++;
 			rlogprintf("Request: %s%s, cached\n", q->domain, (aaaa)? " (ipv6)": "");
+			*dest = DEST_LOCAL;
 			return rv;
 		}
 
@@ -169,11 +172,13 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, int *error) {
 	rlogprintf("Request: %s%s, %s\n", q->domain, (aaaa)? " (ipv6)": "",
 		(ssl_state == SSL_OPEN)? "encrypted": "not encrypted");
 
+	*dest = DEST_SSL;
 	return NULL;
 
 drop_nxdomain:
 	stats.drop++;
 	build_response_nxdomain(buf);
+	*dest = DEST_LOCAL;
 	return buf;
 }
 
