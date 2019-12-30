@@ -34,7 +34,6 @@ Restart=on-failure
 AmbientCapabilities=
 LockPersonality=true
 MountFlags=private
-PrivateMounts=true
 ProtectControlGroups=true
 ProtectHostname=true
 ProtectKernelModules=true
@@ -89,16 +88,14 @@ InaccessiblePaths=-/sys/power
 #*InaccessiblePaths=-/usr/lib/debug
 InaccessiblePaths=-/usr/src/linux
 
-# FJ: --memory-deny-write-execute --nonewprivs
-MemoryDenyWriteExecute=true
-NoNewPrivileges=true
-
 # FJ: --nodbus (only system bus)
 #*InaccessiblePaths=-/run/dbus/system_bus_socket
 
-# FJ: --private --private-tmp
-PrivateTmp=true
+# FJ: --private --private-tmp --nonewprivs --memory-deny-write-execute
 ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+MemoryDenyWriteExecute=true
 
 # FJ: --private-dev --no…
 PrivateDevices=true
