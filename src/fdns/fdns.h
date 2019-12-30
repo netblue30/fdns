@@ -177,7 +177,13 @@ int seccomp_load_filter_list(void);
 void seccomp_worker(void);
 
 // dns.c
-uint8_t *dns_parser(uint8_t *buf, ssize_t *len, int *error);
+typedef enum {
+	DEST_DROP = 0,
+	DEST_SSL,
+	DEST_LOCAL,
+	DEST_ZONE
+} DnsDestination;
+uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 
 // dnsfilter.c
 void dnsfilter_init(void);

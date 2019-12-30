@@ -202,14 +202,15 @@ void worker(void) {
 			stats.changed = 1;
 
 			// filter incoming requests
-			int error = 0;
-			uint8_t *r = dns_parser(buf, &len, &error);
-			if (error) {
+			DnsDestination dest;
+			uint8_t *r = dns_parser(buf, &len, &dest);
+			if (dest == DEST_DROP) {
 				stats.drop++;
 				continue;
 			}
 
-			if (r) {
+			if (dest == DEST_LOCAL) {
+				assert(r);
 				stats.changed = 1;
 
 				// send the loopback response
@@ -223,6 +224,7 @@ void worker(void) {
 			}
 
 			// attempt to send the data over SSL; the request is not stored in the database
+			assert(dest == DEST_SSL);
 			int ssl_len;
 			if (ssl_state == SSL_OPEN && (ssl_len = ssl_dns(buf, len)) > 0) {
 				dns_over_udp = 0;
