@@ -34,7 +34,7 @@
  # mount required for setting up the mount namespace in the worker processes - Debian 10
   mount,
 
-# problems on Ubuntu 18.04, unix (bind) is required - allow all unix soket functionality
+# problems on Ubuntu 18.04, unix (bind) is required - allow all unix socket functionality
   unix,
 
   deny ptrace (r, rw, read, readby, trace, tracedby),
