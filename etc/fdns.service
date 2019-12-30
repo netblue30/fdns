@@ -111,6 +111,9 @@ BindReadOnlyPaths=-/etc/pki
 BindReadOnlyPaths=-/etc/ssl
 TemporaryFileSystem=/etc
 
+# FJ: --private-tmp
+PrivateTmp=true
+
 # FJ: --protocol=unix,inet,inet6 (Breaks on Arch)
 #RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 
