@@ -72,6 +72,7 @@ static inline int check_addr_port(const char *str) {
 #define PATH_FDNS (PREFIX "/bin/fdns")
 #define PATH_RUN_FDNS "/run/fdns"
 #define PATH_ETC_TRACKERS_LIST (SYSCONFDIR "/trackers")
+#define PATH_ETC_FP_TRACKERS_LIST (SYSCONFDIR "/fp-trackers")
 #define PATH_ETC_ADBLOCKER_LIST (SYSCONFDIR "/adblocker")
 #define PATH_ETC_COINBLOCKER_LIST (SYSCONFDIR "/coinblocker")
 #define PATH_ETC_HOSTS_LIST (SYSCONFDIR "/hosts")

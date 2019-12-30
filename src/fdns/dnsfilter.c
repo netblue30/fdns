@@ -48,6 +48,23 @@ static char *default_filter[] = {
 //	"tracker.",
 	"telemetry."
 	"pixel.",
+
+	// minimize first-party trackers list
+	"$smetric.", //  2711 on the original fp-trackers list
+	"$smetrics.", //  2642
+	"$tr.", // 1756
+	"$metric.", // 950
+	"$metrics.", // 644
+	"$mdws.", // 193
+	"$marketing.net.", // 66
+	".ati-host.net.",  // 91
+	"$sadbmetrics.", // 67
+	"$somni.", // 198
+	"$srepdata,", //198
+	"$sstats.", // 339
+	"$sw88.", // 63
+	"$tk.airfrance.", // 98
+
 	NULL
 };
 
@@ -178,6 +195,7 @@ void dnsfilter_load_list(const char *fname) {
 
 void dnsfilter_load_all_lists(void) {
 	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
+	dnsfilter_load_list(PATH_ETC_FP_TRACKERS_LIST);
 	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
 	dnsfilter_load_list(PATH_ETC_COINBLOCKER_LIST);
 	dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
