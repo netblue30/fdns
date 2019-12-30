@@ -1,35 +1,33 @@
 [Unit]
 Description=Firejail DoH Proxy Server
 Documentation=man:fdns(1)
+Documentation=man:systemd.exec(5)
 Wants=network-online.target nss-lookup.target
 Before=nscd.service nss-lookup.target ntpdate.service
 
 [Service]
-Type=forking
+Type=simple
 # start fdns as a local server listening on 127.1.1.1 loopback address
-ExecStart=/usr/bin/fdns --daemonize
+ExecStart=/usr/bin/fdns
 # start fdns as a network server listening on all interfaces and on 127.0.0.1 loopback address
-#ExecStart=/usr/bin/fdns --daemonize --proxy-addr-any
+#ExecStart=/usr/bin/fdns --proxy-addr-any
 # start fdns as a network server listening on a specific network interface address
-#ExecStart=/usr/bin/fdns --daemonize --proxy-addr=192.168.1.200
+#ExecStart=/usr/bin/fdns --proxy-addr=192.168.1.200
 Restart=on-failure
 
 # Log all queries to /tmp/fdns-log.txt.
 #  [NOTE] /tmp is often a tmpfs, you need to change this path if you want persistent logs.
-#  [IMPORTANT] You need to remove `--daemonize` from the `ExecStart` line above
-#    and change the service type from `forking` to `simple`.
 #StandardOutput=append:/tmp/fdns-log.txt
 
-####################################################
+##############################################################
 # HARDENING NOTES:
 #  - depending on your systemd version not all options are supported -
-#    unsupported options are usually ignored but you can always check
-#    with `systemctl status fdns.service`;
+#    unsupported options are ignored and can be checked via `systemctl status fdns.service`;
 #  - lines commented with `#*` are required by systemd;
 #  - see man 5 systemd.exec for details on the options;
 #  - firejail equivalents are commented with `# FJ`;
 #  - if you aren't on Arch, try uncommenting `RestrictAddressFamilies`.
-####################################################
+##############################################################
 
 AmbientCapabilities=
 LockPersonality=true
@@ -88,14 +86,17 @@ InaccessiblePaths=-/sys/power
 #*InaccessiblePaths=-/usr/lib/debug
 InaccessiblePaths=-/usr/src/linux
 
+# FJ: --memory-deny-write-execute
+MemoryDenyWriteExecute=true
+
 # FJ: --nodbus (only system bus)
 #*InaccessiblePaths=-/run/dbus/system_bus_socket
 
-# FJ: --private --private-tmp --nonewprivs --memory-deny-write-execute
-ProtectHome=true
-PrivateTmp=true
+# FJ: --nonewprivs
 NoNewPrivileges=true
-MemoryDenyWriteExecute=true
+
+# FJ: --private
+ProtectHome=true
 
 # FJ: --private-dev --no…
 PrivateDevices=true
@@ -119,7 +120,9 @@ TemporaryFileSystem=/etc
 #RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 
 # FJ: --read-only=/ (except: /dev, /proc /sys)
-ProtectSystem=strict
+ProtectSystem=full
+ReadOnlyDirectories=/
+ReadWriteDirectories=/run
 
 # FJ: --seccomp.drop=@aio,@chown,@ipc,@keyring,@memlock,@resources,@sync,@timer
 SystemCallFilter=~@aio @chown @ipc @keyring @memlock @resources @sync @timer
