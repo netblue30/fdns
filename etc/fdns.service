@@ -101,18 +101,13 @@ ProtectHome=true
 # FJ: --private-dev --no…
 PrivateDevices=true
 
-# FJ: --private-etc=ca-certificates,crypto-policies,fdns,hostname,hosts,nsswitch.conf,passwd,pki,protocols,resolv.conf,services,ssl
+# FJ: --private-etc=ca-certificates,crypto-policies,fdns,nsswitch.conf,passwd,pki,ssl
 BindReadOnlyPaths=-/etc/ca-certificates
 BindReadOnlyPaths=-/etc/crypto-policies
 BindReadOnlyPaths=-/etc/fdns
-BindReadOnlyPaths=-/etc/hostname
-BindReadOnlyPaths=-/etc/hosts
 BindReadOnlyPaths=-/etc/nsswitch.conf
 BindReadOnlyPaths=-/etc/passwd
 BindReadOnlyPaths=-/etc/pki
-BindReadOnlyPaths=-/etc/protocols
-BindReadOnlyPaths=-/etc/resolv.conf
-BindReadOnlyPaths=-/etc/services
 BindReadOnlyPaths=-/etc/ssl
 TemporaryFileSystem=/etc
 
