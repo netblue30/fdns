@@ -114,7 +114,8 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 		else if (q->type == 0x1c) {
 			aaaa = 1;
 			if (!arg_ipv6) {
-				rlogprintf("Request: %s (ipv6), dropped\n", q->domain);
+// disabled, see https://github.com/netblue30/fdns/issues/13
+//				rlogprintf("Request: %s (ipv6), dropped\n", q->domain);
 				goto drop_nxdomain;
 			}
 		}
