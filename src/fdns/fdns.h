@@ -188,9 +188,8 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 
 // dnsfilter.c
 void dnsfilter_init(void);
-void dnsfilter_load_list(const char *fname);
 void dnsfilter_load_all_lists(void);
-int dnsfilter_blocked(const char *str, int verbose);
+const char *dnsfilter_blocked(const char *str, int verbose);
 void dnsfilter_test(char *url);
 
 // log.c

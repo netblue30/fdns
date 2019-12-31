@@ -35,7 +35,7 @@ void rlogprintf(const char *format, ...) {
 	fflush(0);
 }
 
-int dnsfilter_blocked(const char *str, int verbose) {
+const char *dnsfilter_blocked(const char *str, int verbose) {
 	(void) str;
 	(void) verbose;
 	return 0;
