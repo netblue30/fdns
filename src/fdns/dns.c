@@ -103,16 +103,12 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	//******************************
 	// query type
 	//******************************
-	int aaaa = 0;
-
-	// check querry filtering configuration
 	if (arg_allow_all_queries == 0) {
 		// type A requests
 		if (q->type == 1);
 
 		// AAAA requests
 		else if (q->type == 0x1c) {
-			aaaa = 1;
 			if (!arg_ipv6) {
 // disabled, see https://github.com/netblue30/fdns/issues/13
 //				rlogprintf("Request: %s (ipv6), dropped\n", q->domain);
@@ -120,7 +116,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 			}
 		}
 
-		// responde NXDOMAIN to PTR in order to fix apps as ping
+		// respond NXDOMAIN to PTR in order to fix apps as ping
 		else if (q->type == 0x0c) {
 			rlogprintf("Request: %s (PTR), dropped\n", q->domain);
 			goto drop_nxdomain;
@@ -145,7 +141,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 
 	int rv = dnsfilter_blocked(q->domain, 0);
 	if (rv) {
-		rlogprintf("Request: %s%s, dropped\n", q->domain, (aaaa)? " (ipv6)": "");
+		rlogprintf("Request: %s%s, dropped\n", q->domain, (q->type == 0x1c)? " (ipv6)": "");
 		stats.drop++;
 		build_response_loopback(buf, lenptr);
 		*dest = DEST_LOCAL;
@@ -158,19 +154,19 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	if (q->len <= CACHE_NAME_LEN) {
 //printf("******* %u %s\n", q->len, q->domain);
 		// check cache
-		uint8_t *rv = cache_check(h->id, q->domain, lenptr, aaaa);
+		uint8_t *rv = cache_check(h->id, q->domain, lenptr, (q->type == 0x1c)? 1: 0);
 		if (rv) {
 			stats.cached++;
-			rlogprintf("Request: %s%s, cached\n", q->domain, (aaaa)? " (ipv6)": "");
+			rlogprintf("Request: %s%s, cached\n", q->domain, (q->type == 0x1c)? " (ipv6)": "");
 			*dest = DEST_LOCAL;
 			return rv;
 		}
 
 		// set the stage for caching the reply
-		cache_set_name(q->domain, aaaa);
+		cache_set_name(q->domain, (q->type == 0x1c)? 1: 0);
 	}
 
-	rlogprintf("Request: %s%s, %s\n", q->domain, (aaaa)? " (ipv6)": "",
+	rlogprintf("Request: %s%s, %s\n", q->domain, (q->type == 0x1c)? " (ipv6)": "",
 		(ssl_state == SSL_OPEN)? "encrypted": "not encrypted");
 
 	*dest = DEST_SSL;
