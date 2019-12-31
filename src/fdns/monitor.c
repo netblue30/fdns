@@ -311,17 +311,20 @@ void monitor(void) {
 					// parse incoming message
 					if (strncmp(msg.buf, "Stats: ", 7) == 0) {
 						Stats s;
-						sscanf(msg.buf, "Stats: rx %u, dropped %u, fallback %u, cached %u",
+						sscanf(msg.buf, "Stats: rx %u, dropped %u, fallback %u, cached %u, %lf",
 						       &s.rx,
 						       &s.drop,
 						       &s.fallback,
-						       &s.cached);
+						       &s.cached,
+						       &s.ssl_pkts_timetrace);
 
 						// calculate global stats
 						stats.rx += s.rx;
 						stats.drop += s.drop;
 						stats.fallback += s.fallback;
 						stats.cached += s.cached;
+						if (s.ssl_pkts_timetrace)
+							stats.ssl_pkts_timetrace = s.ssl_pkts_timetrace;
 						shmem_store_stats();
 					}
 					else if (strncmp(msg.buf, "Request: ", 9) == 0) {
