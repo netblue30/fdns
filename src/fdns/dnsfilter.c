@@ -19,61 +19,82 @@
 #include "fdns.h"
 #include "timetrace.h"
 
+static inline const char *label2str(char label) {
+	if (label == 'A')
+		return "ad";
+	else if (label == 'T')
+		return "tracker";
+	else if (label == 'F')
+		return "fp-tracker"; // first-party tracker
+	else if (label == 'M')
+		return "miner";
+	else if (label == 'H')
+		return "hosts";
 
-static char *default_filter[] = {
+	return "?";
+}
+
+// default filter
+typedef struct dfilter_t {
+	char label;
+	char *name;
+} DFilter;
+
+static DFilter default_filter[] = {
 
 	// start of name
-	"$ad.",
-	"$ads.",
-	"$banner.",
-	"$banners.",
-	"$creatives.",
-	"$oas.",
-	"$oascentral.",
-	"$stats.",
-	"$tag.",
+	{'A', "$ad."},
+	{'A', "$ads."},
+	{'A', "$banner."},
+	{'A', "$banners."},
+	{'A', "$creatives."},
+	{'A', "$oas."},
+	{'A', "$oascentral."},
+	{'T', "$stats."},
+	{'T', "$tag."},
 
 	// anywhere in the name
-	".ad.",
-	".ads."
-	"admob.",
-	"adserver",
-	"advertising",
-	"analytics.",
-	"click.",
-	"clickstatsview.",
-	"counter.",
-	"tags.",
-	"tracking.",
+	{'A', ".ad."},
+	{'A', ".ads."},
+	{'A', "admob."},
+	{'A', "adserver"},
+	{'A', "advertising"},
+	{'T', "analytics."},
+	{'T', "click."},
+	{'T', "clickstatsview."},
+	{'T', "counter."},
+	{'T', "tags."},
+	{'T', "tracking."},
 //	"tracker.",
-	"telemetry."
-	"pixel.",
+	{'T', "telemetry."},
+	{'T', "pixel."},
 
 	// minimize first-party trackers list
-	"$smetric.", //  2711 on the original fp-trackers list
-	"$smetrics.", //  2642
-	"$tr.", // 1756
-	"$metric.", // 950
-	"$metrics.", // 644
-	"$mdws.", // 193
-	"$marketing.net.", // 66
-	".ati-host.net.",  // 91
-	"$sadbmetrics.", // 67
-	"$somni.", // 198
-	"$srepdata,", //198
-	"$sstats.", // 339
-	"$sw88.", // 63
-	"$tk.airfrance.", // 98
+	{'F', "$smetric."}, //  2711 on the original fp-trackers list
+	{'F', "$smetrics."}, //  2642
+	{'F', "$tr."}, // 1756
+	{'F', "$metric."}, // 950
+	{'F', "$metrics."}, // 644
+	{'F', "$mdws."}, // 193
+	{'F', "$marketing.net."}, // 66
+	{'F', ".ati-host.net."},  // 91
+	{'F', "$sadbmetrics."}, // 67
+	{'F', "$somni."}, // 198
+	{'F', "$srepdata,"}, //198
+	{'F', "$sstats."}, // 339
+	{'F', "$sw88."}, // 63
+	{'F', "$tk.airfrance."}, // 98
 
-	NULL
+	{0, NULL}
 };
 
 typedef struct hash_entry_t {
 	struct hash_entry_t *next;
+	char label;
 	char *name;
 } HashEntry;
 
-#define MAX_HASH_ARRAY 4096
+#define MAX_HASH_ARRAY 16384  // 32768
 static HashEntry *blist[MAX_HASH_ARRAY];
 
 void dnsfilter_init(void) {
@@ -91,11 +112,12 @@ static inline int hash(const char *str) {
 	return (int) (hash & (MAX_HASH_ARRAY - 1));
 }
 
-static void blist_add(const char *domain) {
+static void blist_add(char label, const char *domain) {
 	assert(domain);
 	HashEntry *h = malloc(sizeof(HashEntry));
 	if (!h)
 		errExit("malloc");
+	h->label = label;
 	h->name = strdup(domain);
 	if (!h->name)
 		errExit("strdup");
@@ -122,7 +144,7 @@ static HashEntry *blist_search(const char *domain) {
 }
 
 
-void dnsfilter_load_list(const char *fname) {
+static void dnsfilter_load_list(char label, const char *fname) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
 	if (!fp)
@@ -183,7 +205,7 @@ void dnsfilter_load_list(const char *fname) {
 					ptr += 4;
 				printf("127.0.0.1 %s\n", ptr);
 			}
-			blist_add(ptr);
+			blist_add(label, ptr);
 			cnt++;
 		}
 	}
@@ -194,11 +216,11 @@ void dnsfilter_load_list(const char *fname) {
 }
 
 void dnsfilter_load_all_lists(void) {
-	dnsfilter_load_list(PATH_ETC_TRACKERS_LIST);
-	dnsfilter_load_list(PATH_ETC_FP_TRACKERS_LIST);
-	dnsfilter_load_list(PATH_ETC_ADBLOCKER_LIST);
-	dnsfilter_load_list(PATH_ETC_COINBLOCKER_LIST);
-	dnsfilter_load_list(PATH_ETC_HOSTS_LIST);
+	dnsfilter_load_list('T', PATH_ETC_TRACKERS_LIST);
+	dnsfilter_load_list('F', PATH_ETC_FP_TRACKERS_LIST);
+	dnsfilter_load_list('A', PATH_ETC_ADBLOCKER_LIST);
+	dnsfilter_load_list('M', PATH_ETC_COINBLOCKER_LIST);
+	dnsfilter_load_list('H', PATH_ETC_HOSTS_LIST);
 }
 
 #define MAX_DOMAINS 64
@@ -223,23 +245,23 @@ static int extract_domains(const char *ptr) {
 }
 
 // return 1 if the site is blocked
-int dnsfilter_blocked(const char *str, int verbose) {
+const char *dnsfilter_blocked(const char *str, int verbose) {
 //timetrace_start();
 	int i = 0;
 
 	// check the default list
-	while (default_filter[i] != NULL) {
-		if (*default_filter[i] == '$') {
-			if (strncmp(str, default_filter[i] + 1, strlen(default_filter[i] + 1)) == 0) {
+	while (default_filter[i].name != NULL) {
+		if (*default_filter[i].name == '$') {
+			if (strncmp(str, default_filter[i].name + 1, strlen(default_filter[i].name + 1)) == 0) {
 				if (verbose)
-					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i]);
-				return 1;
+					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
+				return label2str(default_filter[i].label);
 			}
 		}
-		else  if (strstr(str, default_filter[i])) {
+		else  if (strstr(str, default_filter[i].name)) {
 			if (verbose)
-				printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i]);
-			return 1;
+				printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
+			return label2str(default_filter[i].label);
 		}
 		i++;
 	}
@@ -250,16 +272,17 @@ int dnsfilter_blocked(const char *str, int verbose) {
 		HashEntry *ptr = blist_search(domain[i]);
 		if (ptr) {
 			if (verbose)
-				printf("URL %s dropped by \"%s\" rule\n", str, ptr->name);
-			return 1;
+				printf("URL %s dropped by \"%s\" rule as a %s\n", str, ptr->name, label2str(ptr->label));
+			return label2str(ptr->label);
 		}
 	}
 
 	if (verbose)
 		printf("URL %s is not dropped\n", str);
+
 //float ms = timetrace_end();
 //printf(" (%.03f ms)\n", ms);
-	return 0;
+	return NULL;
 }
 
 void dnsfilter_test(char *url) {
