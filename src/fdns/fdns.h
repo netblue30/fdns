@@ -90,6 +90,9 @@ typedef struct stats_t {
 	unsigned fallback;
 	unsigned drop;
 	unsigned cached;
+	// average time
+	double ssl_pkts_timetrace;
+	unsigned ssl_pkts_cnt;
 } Stats;
 
 typedef struct dnsserver_t {

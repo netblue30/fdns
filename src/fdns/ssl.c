@@ -189,8 +189,6 @@ int ssl_dns(uint8_t *msg, int cnt) {
 	assert(ctx);
 	assert(ssl);
 
-//	timetrace_start();
-
 	char buf[MAXBUF];
 	sprintf(buf, srv->request, cnt);
 	int len = strlen(buf);
@@ -299,9 +297,6 @@ int ssl_dns(uint8_t *msg, int cnt) {
 
 	// cache the response
 	cache_set_reply(msg, datalen);
-
-//	float ms = timetrace_end();
-//	stats.ssl_pkts_timetrace += ms;
 
 	// return the length
 	return datalen;
