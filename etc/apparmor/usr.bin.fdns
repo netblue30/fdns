@@ -1,3 +1,4 @@
+# vim:syntax=apparmor
 #include <tunables/global>
 
 /usr/bin/fdns {
