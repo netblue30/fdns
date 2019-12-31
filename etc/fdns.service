@@ -118,9 +118,11 @@ PrivateTmp=true
 #RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 
 # FJ: --read-only=/ (except: /dev, /proc /sys)
-ProtectSystem=full
-ReadOnlyDirectories=/
-ReadWriteDirectories=/run
+ProtectSystem=strict
+
+# FJ: mkdir + --read-write=/run/fdns
+RuntimeDirectory=fdns
+ReadWritePaths=/run/fdns
 
 # FJ: --seccomp.drop=@aio,@chown,@ipc,@keyring,@memlock,@resources,@sync,@timer
 SystemCallFilter=~@aio @chown @ipc @keyring @memlock @resources @sync @timer
