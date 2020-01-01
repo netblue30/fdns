@@ -253,6 +253,8 @@ int ssl_dns(uint8_t *msg, int cnt) {
 	else {
 		ptr += strlen(contlen);
 		sscanf(ptr, "%d", &datalen);
+		if (datalen == 0) // we got a "Content-lenght: 0"; this is probably a HTTP error
+			return 0;
 	}
 
 	// do we need to read more data?

@@ -231,7 +231,14 @@ void worker(void) {
 			assert(dest == DEST_SSL);
 			int ssl_len;
 			timetrace_start();
-			if (ssl_state == SSL_OPEN && (ssl_len = ssl_dns(buf, len)) > 0) {
+			if (ssl_state == SSL_OPEN)
+				ssl_len = ssl_dns(buf, len);
+
+			 // a HTTP error from SSL, with no DNS data comming back
+			if (ssl_state == SSL_OPEN && ssl_len == 0)
+				continue;	// drop the packet
+			// good packet from SSL
+			else if (ssl_state == SSL_OPEN && ssl_len > 0) {
 				stats.ssl_pkts_timetrace += timetrace_end();
 				stats.ssl_pkts_cnt++;
 				dns_over_udp = 0;
