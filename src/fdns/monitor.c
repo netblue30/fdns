@@ -323,8 +323,11 @@ void monitor(void) {
 						stats.drop += s.drop;
 						stats.fallback += s.fallback;
 						stats.cached += s.cached;
-						if (s.ssl_pkts_timetrace)
-							stats.ssl_pkts_timetrace = s.ssl_pkts_timetrace;
+						if (s.ssl_pkts_timetrace) {
+							stats.ssl_pkts_timetrace += s.ssl_pkts_timetrace;
+							stats.ssl_pkts_timetrace /= 2;
+						}
+
 						shmem_store_stats();
 					}
 					else if (strncmp(msg.buf, "Request: ", 9) == 0) {
