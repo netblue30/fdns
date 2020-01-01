@@ -100,12 +100,25 @@ void shmem_store_stats(void) {
 	report->seq++;
 }
 
+static char lastentry[MAX_ENTRY_LEN] = {'\0'};
+static int lastentry_cnt = 1;
+static int lastentry_index = 0;
 void shmem_store_log(const char *str) {
 	assert(str);
-	snprintf(report->logentry[report->logindex], MAX_ENTRY_LEN, "%s", str);
-	if (++report->logindex >= MAX_LOG_ENTRIES)
-		report->logindex = 0;
-	*report->logentry[report->logindex] = '\0';
+
+	if (strcmp(lastentry, str) == 0) {
+		lastentry_cnt++;
+		snprintf(report->logentry[lastentry_index], MAX_ENTRY_LEN, "%dx %s", lastentry_cnt, str);
+	}
+	else {
+		snprintf(report->logentry[report->logindex], MAX_ENTRY_LEN, "%s", str);
+		snprintf(lastentry, MAX_ENTRY_LEN, "%s", str);
+		lastentry_cnt = 1;
+		lastentry_index = report->logindex;
+		if (++report->logindex >= MAX_LOG_ENTRIES)
+			report->logindex = 0;
+		*report->logentry[report->logindex] = '\0';
+	}
 	report->seq++;
 }
 
