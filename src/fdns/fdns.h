@@ -38,7 +38,18 @@
 
 // macro to print ip addresses in a printf statement
 #define PRINT_IP(A) \
-((int) (((A) >> 24) & 0xFF)),  ((int) (((A) >> 16) & 0xFF)), ((int) (((A) >> 8) & 0xFF)), ((int) ( (A) & 0xFF))
+	((int) (((A) >> 24) & 0xFF)),  ((int) (((A) >> 16) & 0xFF)), ((int) (((A) >> 8) & 0xFF)), ((int) ( (A) & 0xFF))
+
+// read an IPv4 address and convert it to uint32_t
+static int atoip(const char *str, uint32_t *ip) {
+	unsigned a, b, c, d;
+
+	if (sscanf(str, "%u.%u.%u.%u", &a, &b, &c, &d) != 4 || a > 255 || b > 255 || c > 255 || d > 255)
+		return 1;
+
+	*ip = a * 0x1000000 + b * 0x10000 + c * 0x100 + d;
+	return 0;
+}
 
 // check ip:port
 // return -1 if error
@@ -85,11 +96,14 @@ static inline int check_addr_port(const char *str) {
 #define MAXBUF 2048
 typedef struct stats_t {
 	int changed;
+
 	// packet counts
 	unsigned rx;
 	unsigned fallback;
 	unsigned drop;
 	unsigned cached;
+	unsigned fwd;
+
 	// average time
 	double ssl_pkts_timetrace;
 	unsigned ssl_pkts_cnt;
@@ -148,6 +162,7 @@ extern char *arg_proxy_addr;
 extern int arg_proxy_addr_any;
 extern char *arg_certfile;
 extern int arg_print_drop_lists;
+char *arg_forwarder;
 extern Stats stats;
 
 // dnsdb.c
@@ -182,10 +197,11 @@ void seccomp_worker(void);
 
 // dns.c
 typedef enum {
-	DEST_DROP = 0,
-	DEST_SSL,
-	DEST_LOCAL,
-	DEST_ZONE
+	DEST_DROP = 0,	// drop the packet
+	DEST_SSL,		// send the packet over SSL
+	DEST_LOCAL,	// local cache or filtered out
+	DEST_ZONE	,	// zone forwarding
+	DEST_MAX // always the last one
 } DnsDestination;
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 
@@ -213,7 +229,7 @@ void rlogprintf(const char *format, ...);
 void logprintf(const char *format, ...);
 
 // util.c
-int copy_file(const char *src, const char * dest);
+int copy_file(const char *src, const char *dest);
 
 // shmem.c
 void shmem_open(int create);
@@ -244,7 +260,24 @@ void worker(void);
 // net.c
 void net_check_proxy_addr(const char *str);
 int net_local_dns_socket(void);
-int net_remote_dns_socket(struct sockaddr_in *addr);
+int net_remote_dns_socket(struct sockaddr_in *addr, const char *ipstr);
 void net_local_unix_socket(void);
+
+// forward.c
+typedef struct forward_zone_t {
+	const char *name;	// domain name
+	unsigned name_len;	// length of the domain name string
+	const char *ip;	// IP address
+
+	// socket
+	int sock;
+	struct sockaddr_in saddr;
+	socklen_t slen;
+} Forwarder;
+
+extern Forwarder fwd;
+
+void forwarder_set(const char *str);
+int forwarder_check(const char *domain, unsigned len);
 
 #endif

@@ -31,6 +31,7 @@ char *arg_proxy_addr = NULL;
 int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
 int arg_print_drop_lists = 0;
+char *arg_forwarder = NULL;
 
 Stats stats;
 
@@ -46,6 +47,7 @@ static void usage(void) {
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 		"\tdaemon.\n");
 	printf("    --debug - print debug messages.\n");
+	printf("    --forwarder=domain@address - conditional forwarding\n");
 	printf("    --help, -? - this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
 	printf("    --list - list all available DoH service providers, and the groups they\n"
@@ -150,6 +152,12 @@ int main(int argc, char **argv) {
 			 else if (strcmp(argv[i], "--monitor") == 0) {
 			 	shmem_monitor_stats();
 			 	return 0;
+			 }
+			 else if (strncmp(argv[i], "--forwarder=", 12) == 0) {
+			 	arg_forwarder = strdup(argv[i] + 12);
+			 	if (!arg_forwarder)
+			 		errExit("strdup");
+			 	forwarder_set(arg_forwarder);
 			 }
 			 else if (strncmp(argv[i], "--test-url=", 11) == 0) {
 			 	dnsfilter_load_all_lists();

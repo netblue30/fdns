@@ -152,6 +152,7 @@ DnsQuestion *dnslint_question(uint8_t *pkt, unsigned len, unsigned *size) {
 
 	*size += 4;
 	question.len = *size;
+	question.dlen = question.len - 6; // we are assuming a domain name without crossreferences
 //printf("len/size %d/%d\n", len, *size);
 	return &question;
 }
