@@ -18,6 +18,7 @@
 */
 #include "fdns.h"
 #include <time.h>
+int arg_argc = 0;
 int arg_debug = 0;
 int arg_workers = WORKERS_DEFAULT;
 int arg_id = -1;
@@ -31,7 +32,6 @@ char *arg_proxy_addr = NULL;
 int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
 int arg_print_drop_lists = 0;
-char *arg_forwarder = NULL;
 
 Stats stats;
 
@@ -73,6 +73,7 @@ static void usage(void) {
 
 int main(int argc, char **argv) {
 	// init
+	arg_argc = argc;
 	memset(&stats, 0, sizeof(stats));
 	memset(encrypted, 0, sizeof(encrypted));
 	dnsfilter_init();
@@ -154,10 +155,7 @@ int main(int argc, char **argv) {
 			 	return 0;
 			 }
 			 else if (strncmp(argv[i], "--forwarder=", 12) == 0) {
-			 	arg_forwarder = strdup(argv[i] + 12);
-			 	if (!arg_forwarder)
-			 		errExit("strdup");
-			 	forwarder_set(arg_forwarder);
+			 	forwarder_set(argv[i] + 12);
 			 }
 			 else if (strncmp(argv[i], "--test-url=", 11) == 0) {
 			 	dnsfilter_load_all_lists();
