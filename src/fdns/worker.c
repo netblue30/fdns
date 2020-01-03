@@ -80,9 +80,11 @@ void worker(void) {
 		FD_SET(slocal, &fds);
 		FD_SET(sremote, &fds);
 		int nfds = ((slocal > sremote) ? slocal : sremote);
-		if (fwd.name) {
-			FD_SET(fwd.sock, &fds);
-			nfds = (fwd.sock > nfds)? fwd.sock: nfds;
+		Forwarder *f = fwd;
+		while (f) {
+			FD_SET(f->sock, &fds);
+			nfds = (f->sock > nfds)? f->sock: nfds;
+			f = f->next;
 		}
 		nfds += 1;
 
@@ -157,12 +159,13 @@ void worker(void) {
 			cache_timeout();
 			t.tv_sec = 1;
 			t.tv_usec = 0;
+			continue;
 		}
 
 		//***********************************************
 		// data coming from remote DNS fallback server
 		//***********************************************
-		else if (FD_ISSET(sremote, &fds)) {
+		if (FD_ISSET(sremote, &fds)) {
 			struct sockaddr_in remote;
 			memset(&remote, 0, sizeof(remote));
 			socklen_t remote_len = sizeof(struct sockaddr_in);
@@ -193,48 +196,14 @@ void worker(void) {
 				printf("len %ld, errno %d\n", len, errno);
 			if (len == -1) // todo: parse errno - EAGAIN
 				errExit("sendto");
+			continue;
 		}
 
-		//***********************************************
-		// data coming from the forwarding fwd DNS server
-		//***********************************************
-		else if (fwd.name && FD_ISSET(fwd.sock, &fds)) {
-			struct sockaddr_in remote;
-			memset(&remote, 0, sizeof(remote));
-			socklen_t remote_len = sizeof(struct sockaddr_in);
-			ssize_t len = recvfrom(fwd.sock, buf, MAXBUF, 0, (struct sockaddr *) &remote, &remote_len);
-			if (len == -1) // todo: parse errno - EINTR
-				errExit("recvfrom");
-			if(arg_debug)
-				printf("rx remote packet len %ld\n", len);
-
-			// check remote ip address
-			if (remote.sin_addr.s_addr != fwd.saddr.sin_addr.s_addr) {
-				rlogprintf("Warning: wrong IP address for fwd response: %d.%d.%d.%d\n",
-					PRINT_IP(ntohl(remote.sin_addr.s_addr)));
-				continue;
-			}
-
-			struct sockaddr_in *addr_client = dnsdb_retrieve(buf);
-			if (!addr_client) {
-				rlogprintf("Warning: fwd DNS over UDP request timeout\n");
-				continue;
-			}
-			socklen_t addr_client_len = sizeof(struct sockaddr_in);
-
-			// send the data to the local client
-			errno = 0;
-			len = sendto(slocal, buf, len, 0, (struct sockaddr *) addr_client, addr_client_len);
-			if(arg_debug)
-				printf("len %ld, errno %d\n", len, errno);
-			if (len == -1) // todo: parse errno - EAGAIN
-				errExit("sendto");
-		}
 
 		//***********************************************
 		// data coming from the local network
 		//***********************************************
-		else if (FD_ISSET(slocal, &fds)) {
+		if (FD_ISSET(slocal, &fds)) {
 			struct sockaddr_in addr_client;
 			socklen_t addr_client_len = sizeof(struct sockaddr_in);
 
@@ -269,9 +238,10 @@ void worker(void) {
 				continue;
 			}
 			
-			else if (dest == DEST_ZONE) {
+			else if (dest == DEST_FORWARDING) {
+				assert(fwd_active);
 				errno = 0;
-				len= sendto(fwd.sock, buf, len, 0, (struct sockaddr *) &fwd.saddr, fwd.slen);
+				len= sendto(fwd_active->sock, buf, len, 0, (struct sockaddr *) &fwd_active->saddr, fwd_active->slen);
 				if(arg_debug)
 					printf("len %ld, errno %d\n", len, errno);
 				if (len == -1) // todo: parse errno - EAGAIN
@@ -279,6 +249,7 @@ void worker(void) {
 
 				// store the incoming request in the database
 				dnsdb_store(buf, &addr_client);
+				fwd_active = NULL;
 				continue;
 			}			
 
@@ -326,11 +297,53 @@ void worker(void) {
 				// store the incoming request in the database
 				dnsdb_store(buf, &addr_client);
 			}
+			continue;
 		}
-		else {
-			printf("rv %d\n", rv);
-			assert(0);
+		
+		//***********************************************
+		// data coming from a forwarding DNS server
+		//***********************************************
+		if (fwd) {
+			Forwarder *f = fwd;
+			while (f) {
+				if (FD_ISSET(f->sock, &fds)) {
+					struct sockaddr_in remote;
+					memset(&remote, 0, sizeof(remote));
+					socklen_t remote_len = sizeof(struct sockaddr_in);
+					ssize_t len = recvfrom(f->sock, buf, MAXBUF, 0, (struct sockaddr *) &remote, &remote_len);
+					if (len == -1) // todo: parse errno - EINTR
+						errExit("recvfrom");
+					if(arg_debug)
+						printf("rx remote packet len %ld\n", len);
+		
+					// check remote ip address
+					if (remote.sin_addr.s_addr != f->saddr.sin_addr.s_addr) {
+						rlogprintf("Warning: wrong IP address for fwd response: %d.%d.%d.%d\n",
+							PRINT_IP(ntohl(remote.sin_addr.s_addr)));
+						continue;
+					}
+		
+					struct sockaddr_in *addr_client = dnsdb_retrieve(buf);
+					if (!addr_client) {
+						rlogprintf("Warning: fwd DNS over UDP request timeout\n");
+						continue;
+					}
+					socklen_t addr_client_len = sizeof(struct sockaddr_in);
+		
+					// send the data to the local client
+					errno = 0;
+					len = sendto(slocal, buf, len, 0, (struct sockaddr *) addr_client, addr_client_len);
+					if(arg_debug)
+						printf("len %ld, errno %d\n", len, errno);
+					if (len == -1) // todo: parse errno - EAGAIN
+						errExit("sendto");
+				}
+				
+				f = f->next;
+			}
+			continue;
 		}
+
 	}
 }
 

@@ -149,6 +149,7 @@ static inline void print_mem(unsigned char *msg, int len) {
 
 
 // main.c
+extern int arg_argc;
 extern int arg_debug;
 extern int arg_workers;
 extern int arg_id;
@@ -200,7 +201,7 @@ typedef enum {
 	DEST_DROP = 0,	// drop the packet
 	DEST_SSL,		// send the packet over SSL
 	DEST_LOCAL,	// local cache or filtered out
-	DEST_ZONE	,	// zone forwarding
+	DEST_FORWARDING,	// forwarding
 	DEST_MAX // always the last one
 } DnsDestination;
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
@@ -265,6 +266,8 @@ void net_local_unix_socket(void);
 
 // forward.c
 typedef struct forward_zone_t {
+	struct forward_zone_t *next;
+
 	const char *name;	// domain name
 	unsigned name_len;	// length of the domain name string
 	const char *ip;	// IP address
@@ -275,7 +278,8 @@ typedef struct forward_zone_t {
 	socklen_t slen;
 } Forwarder;
 
-extern Forwarder fwd;
+extern Forwarder *fwd;
+extern Forwarder *fwd_active;
 
 void forwarder_set(const char *str);
 int forwarder_check(const char *domain, unsigned len);

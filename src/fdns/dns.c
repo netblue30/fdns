@@ -171,7 +171,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	//*****************************
 	if (forwarder_check(q->domain, q->dlen)) {
 		rlogprintf("Request: %s%s, forwarded\n", q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
-		*dest = DEST_ZONE;
+		*dest = DEST_FORWARDING;
 		stats.fwd++;
 		return NULL;
 	}

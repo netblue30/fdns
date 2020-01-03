@@ -83,7 +83,7 @@ static int sandbox(void *sandbox_arg) {
 
 
 	// start a fdns worker process
-	char *a[20];
+	char *a[arg_argc + 20];
 	a[0] = PATH_FDNS;
 	a[1] = idstr;
 	a[2] = fdstr;
@@ -116,14 +116,17 @@ static int sandbox(void *sandbox_arg) {
 	}
 	if (arg_allow_all_queries)
 		a[last++] = "--allow-all-queries";
-	if (arg_forwarder) {
+
+	Forwarder *f = fwd;
+	while (f) {
 		char *cmd;
-		if (asprintf(&cmd, "--forwarder=%s", arg_forwarder) == -1)
+		if (asprintf(&cmd, "--forwarder=%s@%s", f->name, f->ip) == -1)
 			errExit("asprintf");
 		a[last++] = cmd;
+		f = f->next;
 	}
 	a[last] = NULL;
-	assert(last < 20);
+	assert(last < (arg_argc + 20));
 
 	// add a small 2 seconds sleep before restarting, just in case we are looping
 	sleep(MONITOR_WAIT_TIMER);
