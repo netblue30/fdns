@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2019 fdns Authors
+ * Copyright (C) 2019-2020 fdns Authors
  *
  * This file is part of fdns project
  *
@@ -207,7 +207,7 @@ static void test_server(void)  {
 		fflush(0);
 		exit(1);
 	}
-	printf("\tDoH response average %.02f ms\n", ms/5);
+	printf("\tDoH response average %.02f ms\n", ms / 5);
 	fflush(0);
 
 	exit(0);
@@ -340,7 +340,8 @@ int server_test(const char *server_name)  {
 		}
 		sleep(1);
 		i++;
-	} while (i < 5);
+	}
+	while (i < 5);
 	if (i == 5) {
 		printf("\tError: server %s failed\n", arg_server);
 		fflush(0);

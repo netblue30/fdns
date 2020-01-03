@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2019 fdns Authors
+ * Copyright (C) 2019-2020 fdns Authors
  *
  * This file is part of fdns project
  *
@@ -23,8 +23,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
- #include <arpa/inet.h>
- #include <assert.h>
+#include <arpa/inet.h>
+#include <assert.h>
 
 typedef struct __attribute__((__packed__)) dns_header_t {
 	uint16_t id;

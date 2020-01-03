@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2019 fdns Authors
+ * Copyright (C) 2019-2020 fdns Authors
  *
  * This file is part of fdns project
  *
@@ -70,7 +70,7 @@ void net_check_proxy_addr(const char *str) {
 
 			if (arg_debug)
 				printf("Checking interface %s, %d.%d.%d.%d/%u\n",
-					ifa->ifa_name, PRINT_IP(ifip), mask2bits(ifmask));
+				       ifa->ifa_name, PRINT_IP(ifip), mask2bits(ifmask));
 
 			// is the address in the network range?
 			if ((ip & ifmask) == (ifip & ifmask)) {
@@ -112,7 +112,7 @@ int net_local_dns_socket(void) {
 	struct sockaddr_in addr_local;
 	memset(&addr_local, 0, sizeof(addr_local));
 	addr_local.sin_family = AF_INET;
-	char *tmp = (arg_proxy_addr)? arg_proxy_addr: DEFAULT_PROXY_ADDR;
+	char *tmp = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
 	addr_local.sin_addr.s_addr = inet_addr(tmp); //INADDR_LOOPBACK, INADDR_ANY
 	if (arg_proxy_addr_any)
 		addr_local.sin_addr.s_addr = INADDR_ANY;

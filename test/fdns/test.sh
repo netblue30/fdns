@@ -1,6 +1,6 @@
 #!/bin/bash
 # This file is part of Firejail project
-# Copyright (C) 2014-2019 Firejail Authors
+# Copyright (C) 2019-2020 Firejail Authors
 # License GPL v2
 
 # we are coming into this file as root user; by the end we will switch back to the regular $USER

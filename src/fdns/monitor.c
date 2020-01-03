@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2019 fdns Authors
+ * Copyright (C) 2019-2020 fdns Authors
  *
  * This file is part of fdns project
  *
@@ -33,9 +33,9 @@
 /* clone(2) has a different interface on ia64, as it needs to know
    the size of the stack */
 int __clone2(int (*fn)(void *),
-             void *child_stack_base, size_t stack_size,
-             int flags, void *arg, ...
-              /* pid_t *ptid, struct user_desc *tls, pid_t *ctid */ );
+	     void *child_stack_base, size_t stack_size,
+	     int flags, void *arg, ...
+	     /* pid_t *ptid, struct user_desc *tls, pid_t *ctid */ );
 #endif
 
 int encrypted[WORKERS_MAX];
@@ -147,9 +147,9 @@ static void start_sandbox(int id) {
 
 	int flags = CLONE_NEWNS | CLONE_NEWPID | CLONE_NEWUTS | CLONE_NEWIPC | SIGCHLD;
 	w[id].pid = clone(sandbox,
-		        w[id].child_stack + STACK_SIZE,
-		        flags,
-		        &id);
+			  w[id].child_stack + STACK_SIZE,
+			  flags,
+			  &id);
 	w[id].keepalive = WORKER_KEEPALIVE_SHUTDOWN;
 	if (w[id].pid == -1)
 		errExit("clone");
@@ -195,7 +195,7 @@ void monitor(void) {
 	if (arg_proxy_addr_any)
 		logprintf("listening on all available interfaces\n");
 	else
-		logprintf("listening on %s\n", (arg_proxy_addr)? arg_proxy_addr: DEFAULT_PROXY_ADDR);
+		logprintf("listening on %s\n", (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR);
 
 	// init worker structures
 	memset(w, 0, sizeof(w));
@@ -240,9 +240,9 @@ void monitor(void) {
 		fd_set rset;
 		FD_ZERO(&rset);
 		int fdmax = 0;
-		for (i = 0; i < arg_workers;i++) {
+		for (i = 0; i < arg_workers; i++) {
 			FD_SET(w[i].fd[0], &rset);
-			fdmax = (fdmax < w[i].fd[0])? w[i].fd[0]: fdmax;
+			fdmax = (fdmax < w[i].fd[0]) ? w[i].fd[0] : fdmax;
 		}
 		fdmax++;
 

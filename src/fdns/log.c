@@ -1,5 +1,5 @@
-/* 
- * Copyright (C) 2014-2019 fdns Authors
+/*
+ * Copyright (C) 2019-2020 fdns Authors
  *
  * This file is part of fdns project
  *
@@ -30,7 +30,7 @@ void log_disable(void) {
 void rlogprintf(const char *format, ...) {
 	if (disabled)
 		return;
-		
+
 	// initialize packet
 	memset(&msg, 0, sizeof(LogMsgHeader));
 
