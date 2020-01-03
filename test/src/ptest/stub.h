@@ -54,4 +54,9 @@ uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6) {
 	return NULL;
 }
 
+int forwarder_check(const char *domain, unsigned len) {
+	(void) domain;
+	(void) len;
+}
+
 #endif

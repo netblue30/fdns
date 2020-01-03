@@ -36,18 +36,6 @@ static inline uint8_t mask2bits(uint32_t mask) {
 	return rv;
 }
 
-
-// read an IPv4 address and convert it to uint32_t
-static inline int atoip(const char *str, uint32_t *ip) {
-	unsigned a, b, c, d;
-
-	if (sscanf(str, "%u.%u.%u.%u", &a, &b, &c, &d) != 4 || a > 255 || b > 255 || c > 255 || d > 255)
-		return 1;
-
-	*ip = a * 0x1000000 + b * 0x10000 + c * 0x100 + d;
-	return 0;
-}
-
 void net_check_proxy_addr(const char *str) {
 	if (arg_debug)
 		printf("Checking proxy address %s\n", str);
@@ -137,7 +125,7 @@ int net_local_dns_socket(void) {
 	return slocal;
 }
 
-int net_remote_dns_socket(struct sockaddr_in *addr) {
+int net_remote_dns_socket(struct sockaddr_in *addr, const char *ipstr) {
 	// Remote dns server socket
 	// this is the fallback server
 	int sremote = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -148,7 +136,7 @@ int net_remote_dns_socket(struct sockaddr_in *addr) {
 	memset(addr, 0, sizeof(struct sockaddr_in));
 	addr->sin_family = AF_INET;
 	addr->sin_port = htons(53);
-	addr->sin_addr.s_addr = inet_addr("9.9.9.9");
+	addr->sin_addr.s_addr = inet_addr(ipstr);
 
 	return sremote;
 }

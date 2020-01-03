@@ -116,6 +116,12 @@ static int sandbox(void *sandbox_arg) {
 	}
 	if (arg_allow_all_queries)
 		a[last++] = "--allow-all-queries";
+	if (arg_forwarder) {
+		char *cmd;
+		if (asprintf(&cmd, "--forwarder=%s", arg_forwarder) == -1)
+			errExit("asprintf");
+		a[last++] = cmd;
+	}
 	a[last] = NULL;
 	assert(last < 20);
 
@@ -311,11 +317,12 @@ void monitor(void) {
 					// parse incoming message
 					if (strncmp(msg.buf, "Stats: ", 7) == 0) {
 						Stats s;
-						sscanf(msg.buf, "Stats: rx %u, dropped %u, fallback %u, cached %u, %lf",
+						sscanf(msg.buf, "Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %lf",
 						       &s.rx,
 						       &s.drop,
 						       &s.fallback,
 						       &s.cached,
+						       &s.fwd,
 						       &s.ssl_pkts_timetrace);
 
 						// calculate global stats
@@ -323,6 +330,7 @@ void monitor(void) {
 						stats.drop += s.drop;
 						stats.fallback += s.fallback;
 						stats.cached += s.cached;
+						stats.fwd += s.fwd;
 						if (s.ssl_pkts_timetrace) {
 							stats.ssl_pkts_timetrace += s.ssl_pkts_timetrace;
 							stats.ssl_pkts_timetrace /= 2;

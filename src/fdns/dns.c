@@ -81,7 +81,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	}
 
 	pkt = pkt + delta;
-	DnsQuestion *q = dnslint_question(pkt , *lenptr - delta, &delta);
+	DnsQuestion *q = dnslint_question(pkt, *lenptr - delta, &delta);
 	if (!q) {
 		rlogprintf("Error: LAN DNS - %s\n", dnslint_err2str());
 		*dest = DEST_DROP;
@@ -141,7 +141,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 
 	const char *label = dnsfilter_blocked(q->domain, 0);
 	if (label) {
-		rlogprintf("Request: %s://%s%s, dropped\n", label, q->domain, (q->type == 0x1c)? " (ipv6)": "");
+		rlogprintf("Request: %s://%s%s, dropped\n", label, q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
 		stats.drop++;
 		build_response_loopback(buf, lenptr);
 		*dest = DEST_LOCAL;
@@ -154,20 +154,30 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	if (q->len <= CACHE_NAME_LEN) {
 //printf("******* %u %s\n", q->len, q->domain);
 		// check cache
-		uint8_t *rv = cache_check(h->id, q->domain, lenptr, (q->type == 0x1c)? 1: 0);
+		uint8_t *rv = cache_check(h->id, q->domain, lenptr, (q->type == 0x1c) ? 1 : 0);
 		if (rv) {
 			stats.cached++;
-			rlogprintf("Request: %s%s, cached\n", q->domain, (q->type == 0x1c)? " (ipv6)": "");
+			rlogprintf("Request: %s%s, cached\n", q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
 			*dest = DEST_LOCAL;
 			return rv;
 		}
 
 		// set the stage for caching the reply
-		cache_set_name(q->domain, (q->type == 0x1c)? 1: 0);
+		cache_set_name(q->domain, (q->type == 0x1c) ? 1 : 0);
 	}
 
-	rlogprintf("Request: %s%s, %s\n", q->domain, (q->type == 0x1c)? " (ipv6)": "",
-		(ssl_state == SSL_OPEN)? "encrypted": "not encrypted");
+	//*****************************
+	// forwarder
+	//*****************************
+	if (forwarder_check(q->domain, q->dlen)) {
+		rlogprintf("Request: %s%s, forwarded\n", q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
+		*dest = DEST_ZONE;
+		stats.fwd++;
+		return NULL;
+	}
+
+	rlogprintf("Request: %s%s, %s\n", q->domain, (q->type == 0x1c) ? " (ipv6)" : "",
+		   (ssl_state == SSL_OPEN) ? "encrypted" : "not encrypted");
 
 	*dest = DEST_SSL;
 	return NULL;

@@ -86,17 +86,20 @@ void shmem_store_stats(void) {
 	char *encstatus = (i == arg_workers)? "ENCRYPTED": "NOT ENCRYPTED";
 
 	snprintf(report->header, MAX_HEADER,
-		 "PID %d, requests %u, dropped %u, fallback %u, cached %u, SSL %.02lf ms,\n"
-		 "%s %s\n",
+		 "%s %s (SSL %.02lf ms, fallback %u), \n"
+		 "requests %u, dropped %u, cached %u, fwd %u\n",
 
-		 getpid(),
+		 srv->name,
+		 encstatus,
+		 stats.ssl_pkts_timetrace,
+		 stats.fallback,
+
 		 stats.rx,
 		 stats.drop,
-		 stats.fallback,
 		 stats.cached,
-		 stats.ssl_pkts_timetrace,
-		 srv->name,
-		 encstatus);
+		 stats.fwd);
+
+
 	report->seq++;
 }
 

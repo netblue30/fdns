@@ -22,7 +22,8 @@ typedef struct __attribute__((__packed__)) dns_question_t {
 #define DNS_MAX_DOMAIN_NAME 255
 	char domain[DNS_MAX_DOMAIN_NAME];
 	uint16_t type;	// RR type requested
-	unsigned len;	// domain name length
+	unsigned len;	// question length
+	unsigned dlen;	// domain name length (len - 6)
 } DnsQuestion;
 
 // error checking
