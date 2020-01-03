@@ -41,7 +41,7 @@
 	((int) (((A) >> 24) & 0xFF)),  ((int) (((A) >> 16) & 0xFF)), ((int) (((A) >> 8) & 0xFF)), ((int) ( (A) & 0xFF))
 
 // read an IPv4 address and convert it to uint32_t
-static int atoip(const char *str, uint32_t *ip) {
+static inline int atoip(const char *str, uint32_t *ip) {
 	unsigned a, b, c, d;
 
 	if (sscanf(str, "%u.%u.%u.%u", &a, &b, &c, &d) != 4 || a > 255 || b > 255 || c > 255 || d > 255)
@@ -206,11 +206,11 @@ typedef enum {
 } DnsDestination;
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 
-// dnsfilter.c
-void dnsfilter_init(void);
-void dnsfilter_load_all_lists(void);
-const char *dnsfilter_blocked(const char *str, int verbose);
-void dnsfilter_test(char *url);
+// filter.c
+void filter_init(void);
+void filter_load_all_lists(void);
+const char *filter_blocked(const char *str, int verbose);
+void filter_test(char *url);
 
 // log.c
 typedef struct logmsgheader_t {
@@ -239,13 +239,13 @@ void shmem_store_log(const char *str);
 void shmem_print_stats(void);
 void shmem_monitor_stats(void);
 
-// dnsserver.c
-void dnsserver_load(void);
-void dnsserver_list(void);
-DnsServer *dnsserver_get(void);
+// server.c
+void server_load(void);
+void server_list(void);
+DnsServer *server_get(void);
 // return 0 if ok, 1 if failed
-int dnsserver_test(const char *server_name);
-void dnsserver_test_all(void);
+int server_test(const char *server_name);
+void server_test_all(void);
 
 // cache.c
 #define CACHE_NAME_LEN 100 // requests for domain names bigger than this value are not cached

@@ -1,4 +1,22 @@
-#include "dnslint.h"
+/*
+ * Copyright (C) 2014-2019 fdns Authors
+ *
+ * This file is part of fdns project
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+#include "lint.h"
 
 //***********************************************
 // error
@@ -11,11 +29,11 @@ static const char *err2str[DNSERR_MAX] = {
 	"invalid class"
 };
 
-int dnslint_error(void) {
+int lint_error(void) {
 	return dnserror;
 }
 
-const char *dnslint_err2str(void) {
+const char *lint_err2str(void) {
 	assert(dnserror < DNSERR_MAX);
 	return err2str[dnserror];
 }
@@ -86,7 +104,7 @@ errexit:
 
 // pkt - start of the dns packet
 // size - packet bytes consumed durring the parsing
-DnsHeader *dnslint_header(uint8_t *pkt, unsigned len, unsigned *size) {
+DnsHeader *lint_header(uint8_t *pkt, unsigned len, unsigned *size) {
 	assert(pkt);
 
 	*size = 0;
@@ -107,7 +125,7 @@ DnsHeader *dnslint_header(uint8_t *pkt, unsigned len, unsigned *size) {
 }
 
 // pkt is positioned at the the start of RR
-DnsQuestion *dnslint_question(uint8_t *pkt, unsigned len, unsigned *size) {
+DnsQuestion *lint_question(uint8_t *pkt, unsigned len, unsigned *size) {
 	assert(pkt);
 	if (len < 1 + 2 + 2) { // empty domain + type + class
 		dnserror = DNSERR_INVALID_DOMAIN;

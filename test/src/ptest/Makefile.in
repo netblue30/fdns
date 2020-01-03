@@ -5,8 +5,8 @@ include ../../../src/common.mk
 %.o : %.c $(H_FILE_LIST) ../../../src/fdns/fdns.h
 	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $(INCLUDE) -c $< -o $@
 
-ptest: $(OBJS) ../../../src/fdns/dns.o ../../../src/fdns/dnslint.o
-	$(CC)  $(LDFLAGS) -o $@ $(OBJS) ../../../src/fdns/dns.o ../../../src/fdns/dnslint.o -lanl $(LIBS) $(EXTRA_LDFLAGS)
+ptest: $(OBJS) ../../../src/fdns/dns.o ../../../src/fdns/lint.o
+	$(CC)  $(LDFLAGS) -o $@ $(OBJS) ../../../src/fdns/dns.o ../../../src/fdns/lint.o -lanl $(LIBS) $(EXTRA_LDFLAGS)
 
 clean:; rm -f *.o ptest *.gcov *.gcda *.gcno
 

@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
 	arg_argc = argc;
 	memset(&stats, 0, sizeof(stats));
 	memset(encrypted, 0, sizeof(encrypted));
-	dnsfilter_init();
+	filter_init();
 	cache_init();
 	srand(time(NULL));
 
@@ -136,12 +136,12 @@ int main(int argc, char **argv) {
 			 		errExit("strdup");
 			 }
 			 else if (strcmp(argv[i], "--list") == 0) {
-			 	dnsserver_list();
+			 	server_list();
 			 	return 0;
 			 }
 			 else if (strcmp(argv[i], "--print-drop-lists") == 0) {
 			 	arg_print_drop_lists = 1;
-			 	dnsfilter_load_all_lists();
+			 	filter_load_all_lists();
 			 	return 0;
 			 }
 			 else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {
@@ -158,16 +158,16 @@ int main(int argc, char **argv) {
 			 	forwarder_set(argv[i] + 12);
 			 }
 			 else if (strncmp(argv[i], "--test-url=", 11) == 0) {
-			 	dnsfilter_load_all_lists();
-			 	dnsfilter_test(argv[i] + 11);
+			 	filter_load_all_lists();
+			 	filter_test(argv[i] + 11);
 			 	return 0;
 			 }
 			 else if (strcmp(argv[i], "--test-server=all") == 0) {
-			 	dnsserver_test_all();
+			 	server_test_all();
 			 	return 0;
 			 }
 			 else if (strncmp(argv[i], "--test-server=", 14) == 0) {
-			 	int rv = dnsserver_test(argv[i] + 14);
+			 	int rv = server_test(argv[i] + 14);
 			 	return rv;
 			 }
 			 else {
@@ -190,7 +190,7 @@ int main(int argc, char **argv) {
 	}
 
 	// initialize the active server structure
-	DnsServer *s = dnsserver_get();
+	DnsServer *s = server_get();
 	assert(s);
 	assert(arg_server);
 

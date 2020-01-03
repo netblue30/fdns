@@ -97,7 +97,7 @@ typedef struct hash_entry_t {
 #define MAX_HASH_ARRAY 16384  // 32768
 static HashEntry *blist[MAX_HASH_ARRAY];
 
-void dnsfilter_init(void) {
+void filter_init(void) {
 	memset(&blist[0], 0, sizeof(blist));
 }
 
@@ -144,7 +144,7 @@ static HashEntry *blist_search(const char *domain) {
 }
 
 
-static void dnsfilter_load_list(char label, const char *fname) {
+static void filter_load_list(char label, const char *fname) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
 	if (!fp)
@@ -198,7 +198,7 @@ static void dnsfilter_load_list(char label, const char *fname) {
 			*ptr2 = '\0';
 
 		// add it to the hash table
-		if (!dnsfilter_blocked(ptr, 0)) {
+		if (!filter_blocked(ptr, 0)) {
 			if (arg_print_drop_lists) {
 				// if the name starts in www,. remove it
 				if (strncmp(ptr, "www.", 4) == 0)
@@ -215,12 +215,12 @@ static void dnsfilter_load_list(char label, const char *fname) {
 		printf("%d filter entries added from %s\n", cnt, fname);
 }
 
-void dnsfilter_load_all_lists(void) {
-	dnsfilter_load_list('T', PATH_ETC_TRACKERS_LIST);
-	dnsfilter_load_list('F', PATH_ETC_FP_TRACKERS_LIST);
-	dnsfilter_load_list('A', PATH_ETC_ADBLOCKER_LIST);
-	dnsfilter_load_list('M', PATH_ETC_COINBLOCKER_LIST);
-	dnsfilter_load_list('H', PATH_ETC_HOSTS_LIST);
+void filter_load_all_lists(void) {
+	filter_load_list('T', PATH_ETC_TRACKERS_LIST);
+	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST);
+	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST);
+	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST);
+	filter_load_list('H', PATH_ETC_HOSTS_LIST);
 }
 
 #define MAX_DOMAINS 64
@@ -245,7 +245,7 @@ static int extract_domains(const char *ptr) {
 }
 
 // return 1 if the site is blocked
-const char *dnsfilter_blocked(const char *str, int verbose) {
+const char *filter_blocked(const char *str, int verbose) {
 //timetrace_start();
 	int i = 0;
 
@@ -285,12 +285,12 @@ const char *dnsfilter_blocked(const char *str, int verbose) {
 	return NULL;
 }
 
-void dnsfilter_test(char *url) {
+void filter_test(char *url) {
 	assert(url);
 
 	char *ptr = strtok(url, ",");
 	while (ptr) {
-		dnsfilter_blocked(ptr, 1);
+		filter_blocked(ptr, 1);
 		ptr = strtok(NULL, ",");
 	}
 }
