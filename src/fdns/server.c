@@ -216,7 +216,7 @@ static void test_server(void)  {
 //**************************************************************************
 // public interface
 //**************************************************************************
-void dnsserver_list(void) {
+void server_list(void) {
 	load_list();
 	DnsServer *s = slist;
 
@@ -228,7 +228,7 @@ void dnsserver_list(void) {
 	}
 }
 
-DnsServer *dnsserver_get(void) {
+DnsServer *server_get(void) {
 	if (scurrent)
 		return scurrent;
 	if (!slist)
@@ -282,7 +282,7 @@ DnsServer *dnsserver_get(void) {
 	s = slist;
 	while (s) {
 		if (s->active == index) {
-			if (dnsserver_test(s->name)) {
+			if (server_test(s->name)) {
 				// mark the server as inactive and try again
 				s->active = 0;
 				s = slist;
@@ -313,7 +313,7 @@ DnsServer *dnsserver_get(void) {
 
 
 // return 0 if ok, 1 if failed
-int dnsserver_test(const char *server_name)  {
+int server_test(const char *server_name)  {
 	// initialize server structure
 	arg_server = strdup(server_name);
 	if (!arg_server)
@@ -351,7 +351,7 @@ int dnsserver_test(const char *server_name)  {
 	return 0;
 }
 
-void dnsserver_test_all(void)  {
+void server_test_all(void)  {
 	// load server list
 	load_list();
 
@@ -359,7 +359,7 @@ void dnsserver_test_all(void)  {
 	DnsServer *s = slist;
 	while (s) {
 		scurrent = s;
-		dnsserver_test(s->name);
+		server_test(s->name);
 		s = s->next;
 	}
 

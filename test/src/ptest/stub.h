@@ -35,7 +35,7 @@ void rlogprintf(const char *format, ...) {
 	fflush(0);
 }
 
-const char *dnsfilter_blocked(const char *str, int verbose) {
+const char *filter_blocked(const char *str, int verbose) {
 	(void) str;
 	(void) verbose;
 	return 0;
@@ -57,6 +57,7 @@ uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6) {
 int forwarder_check(const char *domain, unsigned len) {
 	(void) domain;
 	(void) len;
+	return 0;
 }
 
 #endif

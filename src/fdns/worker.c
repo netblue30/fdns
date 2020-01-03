@@ -33,7 +33,7 @@ void worker(void) {
 
 	// load the drop list
 	if (!arg_nofilter)
-		dnsfilter_load_all_lists();
+		filter_load_all_lists();
 
 	// connect SSL/DNS server
 	ssl_init();
@@ -62,7 +62,7 @@ void worker(void) {
 
 	fflush(0);
 	int worker_keepalive_cnt = (WORKER_KEEPALIVE_TIMER * arg_id) / arg_workers;
-	DnsServer *srv = dnsserver_get();
+	DnsServer *srv = server_get();
 	assert(srv);
 	int ssl_keepalive_timer = srv->ssl_keepalive;
 	int ssl_keepalive_cnt = ssl_keepalive_timer;

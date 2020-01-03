@@ -17,12 +17,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "fdns.h"
-#include "dnslint.h"
+#include "lint.h"
 #include "timetrace.h"
-
-static uint8_t rbuf[MAXBUF];
-static ssize_t rbuf_len;
-
 
 // redirect to 127.0.0.1
 static uint8_t loopback_tail[] = {
@@ -54,9 +50,9 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	*dest = DEST_SSL;
 
 	unsigned delta;
-	DnsHeader *h = dnslint_header(pkt, *lenptr, &delta);
+	DnsHeader *h = lint_header(pkt, *lenptr, &delta);
 	if (!h) {
-		rlogprintf("Error: LAN DNS: %s\n", dnslint_err2str());
+		rlogprintf("Error: LAN DNS: %s\n", lint_err2str());
 		*dest = DEST_DROP;
 		return NULL;
 	}
@@ -81,9 +77,9 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	}
 
 	pkt = pkt + delta;
-	DnsQuestion *q = dnslint_question(pkt, *lenptr - delta, &delta);
+	DnsQuestion *q = lint_question(pkt, *lenptr - delta, &delta);
 	if (!q) {
-		rlogprintf("Error: LAN DNS - %s\n", dnslint_err2str());
+		rlogprintf("Error: LAN DNS - %s\n", lint_err2str());
 		*dest = DEST_DROP;
 		return NULL;
 	}
@@ -139,7 +135,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 		return NULL;
 	}
 
-	const char *label = dnsfilter_blocked(q->domain, 0);
+	const char *label = filter_blocked(q->domain, 0);
 	if (label) {
 		rlogprintf("Request: %s://%s%s, dropped\n", label, q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
 		stats.drop++;
