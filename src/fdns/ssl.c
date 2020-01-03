@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2019 fdns Authors
+ * Copyright (C) 2019-2020 fdns Authors
  *
  * This file is part of fdns project
  *
@@ -35,9 +35,9 @@ static void ssl_alert_callback(const SSL *s, int where, int ret) {
 	if (w & SSL_ST_CONNECT)
 		return;
 
-/*	if (w & SSL_ST_CONNECT)
-		str = "SSL_connect";
-	else */if (w & SSL_ST_ACCEPT)
+	/*	if (w & SSL_ST_CONNECT)
+			str = "SSL_connect";
+		else */if (w & SSL_ST_ACCEPT)
 		str = "SSL_accept";
 	else
 		str = "undefined";

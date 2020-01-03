@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2019 fdns Authors
+ * Copyright (C) 2019-2020 fdns Authors
  *
  * This file is part of fdns project
  *
@@ -83,11 +83,11 @@ void shmem_store_stats(void) {
 	for (i = 0; i < arg_workers; i++)
 		if (encrypted[i] == 0)
 			break;
-	char *encstatus = (i == arg_workers)? "ENCRYPTED": "NOT ENCRYPTED";
+	char *encstatus = (i == arg_workers) ? "ENCRYPTED" : "NOT ENCRYPTED";
 
 	snprintf(report->header, MAX_HEADER,
 		 "%s %s (SSL %.02lf ms, fallback %u), \n"
-		 "requests %u, dropped %u, cached %u, fwd %u\n",
+		 "requests %u, drop %u, cache %u, fwd %u\n",
 
 		 srv->name,
 		 encstatus,

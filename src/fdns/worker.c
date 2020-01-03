@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2019 fdns Authors
+ * Copyright (C) 2019-2020 fdns Authors
  *
  * This file is part of fdns project
  *
@@ -83,7 +83,7 @@ void worker(void) {
 		Forwarder *f = fwd;
 		while (f) {
 			FD_SET(f->sock, &fds);
-			nfds = (f->sock > nfds)? f->sock: nfds;
+			nfds = (f->sock > nfds) ? f->sock : nfds;
 			f = f->next;
 		}
 		nfds += 1;
@@ -121,8 +121,8 @@ void worker(void) {
 					if (stats.ssl_pkts_cnt == 0)
 						stats.ssl_pkts_cnt = 1;
 					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %.02lf\n",
-					       stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd,
-					       stats.ssl_pkts_timetrace / stats.ssl_pkts_cnt);
+						   stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd,
+						   stats.ssl_pkts_timetrace / stats.ssl_pkts_cnt);
 					stats.changed = 0;
 					memset(&stats, 0, sizeof(stats));
 				}
@@ -178,7 +178,7 @@ void worker(void) {
 			// check remote ip address
 			if (remote.sin_addr.s_addr != addr_fallback.sin_addr.s_addr) {
 				rlogprintf("Warning: wrong IP address for fallback response: %d.%d.%d.%d\n",
-					PRINT_IP(ntohl(remote.sin_addr.s_addr)));
+					   PRINT_IP(ntohl(remote.sin_addr.s_addr)));
 				continue;
 			}
 
@@ -237,11 +237,11 @@ void worker(void) {
 
 				continue;
 			}
-			
+
 			else if (dest == DEST_FORWARDING) {
 				assert(fwd_active);
 				errno = 0;
-				len= sendto(fwd_active->sock, buf, len, 0, (struct sockaddr *) &fwd_active->saddr, fwd_active->slen);
+				len = sendto(fwd_active->sock, buf, len, 0, (struct sockaddr *) &fwd_active->saddr, fwd_active->slen);
 				if(arg_debug)
 					printf("len %ld, errno %d\n", len, errno);
 				if (len == -1) // todo: parse errno - EAGAIN
@@ -251,7 +251,7 @@ void worker(void) {
 				dnsdb_store(buf, &addr_client);
 				fwd_active = NULL;
 				continue;
-			}			
+			}
 
 			// attempt to send the data over SSL; the request is not stored in the database
 			assert(dest == DEST_SSL);
@@ -260,7 +260,7 @@ void worker(void) {
 			if (ssl_state == SSL_OPEN)
 				ssl_len = ssl_dns(buf, len);
 
-			 // a HTTP error from SSL, with no DNS data comming back
+			// a HTTP error from SSL, with no DNS data comming back
 			if (ssl_state == SSL_OPEN && ssl_len == 0)
 				continue;	// drop the packet
 			// good packet from SSL
@@ -299,7 +299,7 @@ void worker(void) {
 			}
 			continue;
 		}
-		
+
 		//***********************************************
 		// data coming from a forwarding DNS server
 		//***********************************************
@@ -315,21 +315,21 @@ void worker(void) {
 						errExit("recvfrom");
 					if(arg_debug)
 						printf("rx remote packet len %ld\n", len);
-		
+
 					// check remote ip address
 					if (remote.sin_addr.s_addr != f->saddr.sin_addr.s_addr) {
 						rlogprintf("Warning: wrong IP address for fwd response: %d.%d.%d.%d\n",
-							PRINT_IP(ntohl(remote.sin_addr.s_addr)));
+							   PRINT_IP(ntohl(remote.sin_addr.s_addr)));
 						continue;
 					}
-		
+
 					struct sockaddr_in *addr_client = dnsdb_retrieve(buf);
 					if (!addr_client) {
 						rlogprintf("Warning: fwd DNS over UDP request timeout\n");
 						continue;
 					}
 					socklen_t addr_client_len = sizeof(struct sockaddr_in);
-		
+
 					// send the data to the local client
 					errno = 0;
 					len = sendto(slocal, buf, len, 0, (struct sockaddr *) addr_client, addr_client_len);
@@ -338,7 +338,7 @@ void worker(void) {
 					if (len == -1) // todo: parse errno - EAGAIN
 						errExit("sendto");
 				}
-				
+
 				f = f->next;
 			}
 			continue;

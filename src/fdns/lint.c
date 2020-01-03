@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2019 fdns Authors
+ * Copyright (C) 2019-2020 fdns Authors
  *
  * This file is part of fdns project
  *
@@ -52,9 +52,9 @@ static inline int check_char(const uint8_t c)  {
 		return 0;
 	else if (c >= 'A' && c <= 'Z')
 		return 0;
-	else if ( c>= '0' && c <= '9')
+	else if ( c >= '0' && c <= '9')
 		return 0;
-	else if (c =='-')
+	else if (c == '-')
 		return 0;
 
 	return 1;
@@ -64,7 +64,7 @@ static inline int check_char(const uint8_t c)  {
 // error if cross-references
 // size - number of packet bytes consumed
 // return -1 if error, 0 if ok
-static int domain_size_no_crossreference(const uint8_t *data, char *domain_name, unsigned *size){
+static int domain_size_no_crossreference(const uint8_t *data, char *domain_name, unsigned *size) {
 	assert(data);
 	assert(domain_name);
 	assert(size);
@@ -72,7 +72,7 @@ static int domain_size_no_crossreference(const uint8_t *data, char *domain_name,
 	unsigned chunk_size = *data;
 
 	// skip each set of chars until (0) at the end
-	while(chunk_size != 0){
+	while(chunk_size != 0) {
 		if (chunk_size > 63)
 			goto errexit;
 		i += chunk_size + 1;
@@ -88,7 +88,7 @@ static int domain_size_no_crossreference(const uint8_t *data, char *domain_name,
 				goto errexit;
 		}
 
-		memcpy(domain_name + i - chunk_size - 1, data + i - chunk_size -1 + 1, chunk_size);
+		memcpy(domain_name + i - chunk_size - 1, data + i - chunk_size - 1 + 1, chunk_size);
 		domain_name[i - 1] = '.';
 		chunk_size = data[i];
 	}
