@@ -32,6 +32,7 @@ char *arg_proxy_addr = NULL;
 int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
 int arg_print_drop_lists = 0;
+int arg_test_hosts = 0;
 
 Stats stats;
 
@@ -47,7 +48,7 @@ static void usage(void) {
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
 	printf("    --debug - print debug messages.\n");
-	printf("    --forwarder=domain@address - conditional forwarding\n");
+	printf("    --forwarder=domain@address - conditional forwarding.\n");
 	printf("    --help, -? - this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
 	printf("    --list - list all available DoH service providers, and the groups they\n"
@@ -61,6 +62,7 @@ static void usage(void) {
 	printf("    --server=server-name|group - configure the DoH service provider. Use --list\n"
 	       "\tto print the list of available providers. By default we use a random\n"
 	       "\tserver from the anycast group.\n");
+	printf("    --test-hosts - test the domains in /etc/fdns/hosts file.\n");
 	printf("    --test-server=server - check DoH server.\n");
 	printf("    --test-server=all - check all DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
@@ -156,6 +158,11 @@ int main(int argc, char **argv) {
 			}
 			else if (strncmp(argv[i], "--forwarder=", 12) == 0) {
 				forwarder_set(argv[i] + 12);
+			}
+			else if (strcmp(argv[i], "--test-hosts") == 0) {
+				arg_test_hosts = 1;
+				filter_load_all_lists();
+				return 0;
 			}
 			else if (strncmp(argv[i], "--test-url=", 11) == 0) {
 				filter_load_all_lists();
