@@ -163,7 +163,8 @@ extern char *arg_proxy_addr;
 extern int arg_proxy_addr_any;
 extern char *arg_certfile;
 extern int arg_print_drop_lists;
-char *arg_forwarder;
+extern char *arg_forwarder;
+extern int arg_test_hosts;
 extern Stats stats;
 
 // dnsdb.c

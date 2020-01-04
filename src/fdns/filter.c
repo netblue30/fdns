@@ -150,6 +150,10 @@ static void filter_load_list(char label, const char *fname) {
 	if (!fp)
 		return;  // nothing to do
 
+	int test_hosts = 0;
+	if (arg_test_hosts && strcmp(fname,PATH_ETC_HOSTS_LIST) == 0)
+		test_hosts = 1;
+
 	if (arg_print_drop_lists) {
 		printf("\n\n");
 		printf("//************************************************\n");
@@ -168,6 +172,10 @@ static void filter_load_list(char label, const char *fname) {
 		// comments, empty lines
 		if (*buf == '#' || *buf == '\0' || strspn(buf, " \t") == strlen(buf))
 			continue;
+
+		ptr =strchr(buf, '#');
+		if (ptr)
+			*ptr = '\0';
 
 		// remove blanks
 		ptr = buf;
@@ -199,7 +207,7 @@ static void filter_load_list(char label, const char *fname) {
 
 		// add it to the hash table
 		if (!filter_blocked(ptr, 0)) {
-			if (arg_print_drop_lists) {
+			if (arg_print_drop_lists || test_hosts) {
 				// if the name starts in www,. remove it
 				if (strncmp(ptr, "www.", 4) == 0)
 					ptr += 4;
