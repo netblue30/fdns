@@ -223,7 +223,7 @@ systemctl enable fdns.service
 
 #### How do I configure Firejail to send all the DNS traffic to fdns by default?
 
-As root user, add the following two lines in /etc/firejail/golbals.local. If the file doesn't exist, create it:
+As root user, add the following two lines in /etc/firejail/globals.local. If the file doesn't exist, create it:
 `````
 $ cat /etc/firejail/globals.local
 dns 127.1.1.1
