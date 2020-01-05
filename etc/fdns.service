@@ -16,6 +16,9 @@ ExecStart=/usr/bin/fdns
 #ExecStart=/usr/bin/fdns --proxy-addr=192.168.1.200
 Restart=on-failure
 
+# remove stats file after stopping the service
+ExecStopPost=-/bin/sh -c '[ -f "/dev/shm/fdns-stats" ] && rm -f "/dev/shm/fdns-stats"'
+
 # Log all queries to /tmp/fdns-log.txt.
 #  [NOTE] /tmp is often a tmpfs, you need to change this path if you want persistent logs.
 #StandardOutput=append:/tmp/fdns-log.txt
