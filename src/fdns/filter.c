@@ -19,6 +19,15 @@
 #include "fdns.h"
 #include "timetrace.h"
 
+// debug statistics
+//#define DEBUG_STATS
+#ifdef DEBUG_STATS
+static unsigned smem = 0;	// memory
+static unsigned sentries = 0;	// entries
+static unsigned scnt = 0;	// search counter
+static double stime = 0;		// accumulated search access time
+#endif
+
 static inline const char *label2str(char label) {
 	if (label == 'A')
 		return "ad";
@@ -45,6 +54,7 @@ static DFilter default_filter[] = {
 	// start of name
 	{'A', "$ad."},
 	{'A', "$ads."},
+	{'A', "$adservice."},
 	{'A', "$affiliate."},
 	{'A', "$affiliates."},
 	{'A', "$banner."},
@@ -53,6 +63,7 @@ static DFilter default_filter[] = {
 	{'A', "clicks."},
 	{'A', "collector."},
 	{'A', "$creatives."},
+	{'A', "id.google."},
 	{'A', "$oas."},
 	{'A', "$oascentral."},
 	{'T', "$stats."},
@@ -71,17 +82,20 @@ static DFilter default_filter[] = {
 	{'T', "counter."},
 	{'T', "tags."},
 	{'T', "tracking."},
-//	"tracker.",
+//	"tracker.",	used by bittorrent trackers
 	{'T', "telemetry."},
 	{'T', "pixel."},
 
 	// minimize first-party trackers list
-	{'F', "$smetric."}, //  2711 on the original fp-trackers list
+	{'F', "$somniture."}, // 30
+	{'F', "$aa-metrics."}, // 20
+	{'F', "$smetric."}, //  2711
 	{'F', "$smetrics."}, //  2642
 	{'F', "$tr."}, // 1756
 	{'F', "$metric."}, // 950
 	{'F', "$metrics."}, // 644
 	{'F', "$mdws."}, // 193
+	{'F', "$srepdata."}, // 200
 	{'F', "$marketing.net."}, // 66
 	{'F', ".ati-host.net."},  // 91
 	{'F', "$sadbmetrics."}, // 67
@@ -100,7 +114,7 @@ typedef struct hash_entry_t {
 	char *name;
 } HashEntry;
 
-#define MAX_HASH_ARRAY 16384  // 32768
+#define MAX_HASH_ARRAY 32768
 static HashEntry *blist[MAX_HASH_ARRAY];
 
 void filter_init(void) {
@@ -132,6 +146,11 @@ static void blist_add(char label, const char *domain) {
 	assert(hval < MAX_HASH_ARRAY);
 	h->next = blist[hval];
 	blist[hval] = h;
+
+#ifdef DEBUG_STATS
+	smem += sizeof(HashEntry) + strlen(domain) + 1;
+	sentries++;
+#endif
 }
 
 static HashEntry *blist_search(const char *domain) {
@@ -260,7 +279,9 @@ static int extract_domains(const char *ptr) {
 
 // return 1 if the site is blocked
 const char *filter_blocked(const char *str, int verbose) {
-//timetrace_start();
+#ifdef DEBUG_STATS
+	timetrace_start();
+#endif
 	int i = 0;
 
 	// remove "www."
@@ -298,8 +319,17 @@ const char *filter_blocked(const char *str, int verbose) {
 	if (verbose)
 		printf("URL %s is not dropped\n", str);
 
-//float ms = timetrace_end();
-//printf(" (%.03f ms)\n", ms);
+#ifdef DEBUG_STATS
+	stime += timetrace_end();
+	scnt++;
+	if (scnt >= 20) {
+		printf("*** filter entries %u, mem %u, access %.03f ms\n", sentries, smem + (unsigned) sizeof(blist), stime / scnt);
+		fflush(0);
+		stime = 0;
+		scnt = 0;
+	}
+#endif
+
 	return NULL;
 }
 

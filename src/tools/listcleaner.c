@@ -46,6 +46,8 @@ int main(int argc, char **argv) {
 			char *ptr = strchr(buf, '\n');
 			if (ptr)
 				*ptr = '\0';
+//			printf("127.0.0.1 %s\n", buf);
+//			continue;
 
 			// check length
 			int len = strlen(buf);
