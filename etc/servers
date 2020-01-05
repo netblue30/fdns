@@ -49,7 +49,7 @@ name: bortzmeyer
 website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
 tags: France, Europe
 address: 193.70.85.11:443
-host: https://doh.bortzmeyer.fr/dns-query
+host: doh.bortzmeyer.fr
 keepalive: 7
 
 name: cleanbrowsing
