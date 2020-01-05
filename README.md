@@ -21,9 +21,9 @@ The certificates are already installed on your computer for your browser.
 
 ## Project Status
 
-Release 0.9.62 is out. Download: https://github.com/netblue30/fdns/releases/tag/v0.9.62.
+Release `0.9.62` is out. Download: https://github.com/netblue30/fdns/releases/tag/v0.9.62.
 
-The current development version is 0.9.63.
+The current development version is `0.9.63`.
 
 
 <div style="height:20px;">&nbsp;</div>
@@ -33,61 +33,61 @@ The current development version is 0.9.63.
 * Works out of the box with no configuration changes.
 The defaults mentioned below can be overwritten using command line options.
 
-* The proxy listens on local loopback address 127.1.1.1, UDP port 53.
+* The proxy listens on local loopback address `127.1.1.1`, UDP port `53`.
 This allows it to coexist peacefully with any other DNS server/proxy installed on the system.
 Change this default with --proxy-addr command line option.
 
 * Using only DoH services from zero-logging providers, based on the privacy policy
-posted on the provider's website. Print the list of supported servers with --list,
-and use --server= to pick up a specific server (--server=powerdns). You can also use a group,
-in this case fdns will chose a random server from the group (--server=Europe). By default
-we pick up a random server from anycast group (--server=anycast).
+posted on the provider's website. Print the list of supported servers with `--list`,
+and use `--server=` to pick up a specific server (`--server=powerdns`). You can also use a group,
+in this case fdns will chose a random server from the group (`--server=Europe`). By default
+we pick up a random server from anycast group (`--server=anycast`).
 `````
 $ fdns --list
 42l - non-profit, France, Europe
-	https://42l.fr
+  https://42l.fr
 adguard - anycast, adblocker
-	https://adguard.com/en/adguard-dns/overview.html
+  https://adguard.com/en/adguard-dns/overview.html
 appliedprivacy - non-profit, Austria, Europe
-	https://appliedprivacy.net
+  https://appliedprivacy.net
 cleanbrowsing - anycast, security
-	https://cleanbrowsing.org
+  https://cleanbrowsing.org
 cleanbrowsing-family - family
-	https://cleanbrowsing.org
+  https://cleanbrowsing.org
 cloudflare - anycast
-	https://www.cloudflare.com
+  https://www.cloudflare.com
 digital-society - non-profit, Switzerland, Europe
-	 https://www.digitale-gesellschaft.ch
+   https://www.digitale-gesellschaft.ch
 powerdns - Netherlands, Europe
-	https://powerdns.org
+  https://powerdns.org
 quad9 - anycast, security
-	https://quad9.net
+  https://quad9.net
 seby.io - Australia, Asia-Pacific
-	https://dns.seby.io
+  https://dns.seby.io
 tiarapp - Singapore, Asia-Pacific
-	https://doh.tiar.app
+  https://doh.tiar.app
 tiarapp-jp - Japan, Asia-Pacific
-	https://jp.tiar.app/
+  https://jp.tiar.app/
 `````
 
 * DNS resolver cache with a fixed time to live of 180 seconds for DNS records.
 
 * Default anti-tracker and adblocker based on EFF's [Privacy Badger](https://github.com/EFForg/privacybadger),
 Steven Black's [hosts](https://github.com/StevenBlack/hosts) project, and ZeroDot1 [coninblocker](https://zerodot1.gitlab.io/CoinBlockerListsWeb/index.html) list.
-For blocked domains we respond with 127.0.0.1. Use --nofilter to disable.
+For blocked domains we respond with `127.0.0.1`. Use `--nofilter` to disable.
 
-  The filter files are /etc/fdns/adblocker, /etc/fdns/trackers and /etc/fdns/coinblocker.
+  The filter files are `/etc/fdns/adblocker`, `/etc/fdns/trackers` and `/etc/fdns/coinblocker`.
 These are regular text file, you can modify them, or even delete them.
-You can also add your own list in /etc/fdns/hosts.
+You can also add your own list in `/etc/fdns/hosts`.
 Adblocker hosts files as published all over the net should work just fine.
 
-* Blocking IPv6 requests by default and responding with NXDOMAIN.
-Use --ipv6 option to overwrite the default.
+* Blocking IPv6 requests by default and responding with `NXDOMAIN`.
+Use `--ipv6` option to overwrite the default.
 
 * DNS handles multiple categories of data: name resolution, email, internet telephony etc.
-By default fdns forwards only domain name resolution queries A (and AAAA if --ipv6 is requested).
-All other queries are dropped, NXDOMAIN is returned.
-Disable this functionality with --allow-all-queries if you are running an email server or some
+By default fdns forwards only domain name resolution queries `A` (and `AAAA` if `--ipv6` is requested).
+All other queries are dropped, `NXDOMAIN` is returned.
+Disable this functionality with `--allow-all-queries` if you are running an email server or some
 other service that requires special DNS handling.
 
 * Regular DNS over UDP fallback in case DoH service is unavailable. We use Quad9 for fallback.
@@ -98,7 +98,7 @@ other service that requires special DNS handling.
 The workers are chrooted into an empty filesystem and sandboxed
 in separate Linux namespaces. The privileges are dropped, and
 a whitelist seccomp filter is enabled. By default we start 3 workers.
-An AppArmor profile is installed in /etc/apparmor.d directory.
+An AppArmor profile is installed in `/etc/apparmor.d` directory.
 
 * Seamless integration with [Firejail security sandbox](https://github.com/netblue30/firejail),
 a graphical user interface if available in [Firetools](https://github.com/netblue30/firetools).
@@ -109,11 +109,14 @@ a graphical user interface if available in [Firetools](https://github.com/netblu
 
 Dependencies: OpenSSL library and libseccomp.
 
-* Debian/Ubuntu: sudo apt-get install libseccomp-dev libssl-dev
+* Debian/Ubuntu:
+  * sudo apt-get install libseccomp-dev libssl-dev
 
-* Fedora/CentOS: sudo yum install libseccomp-devel openssl-devel
+* Fedora/CentOS:
+  * sudo yum install libseccomp-devel openssl-devel
 
-* Arch Linux: the libraries are already included in the base group
+* Arch Linux:
+  * the libraries are already included in the base group
 
 `````
 $ git clone https://github.com/netblue30/fdns
@@ -132,7 +135,7 @@ If AppArmor is present in the system, enable fdns profile by running
 ## Setup fdns on a workstation
 
 Use [Firejail security sandbox](https://github.com/netblue30/firejaill)
-to redirect all the DNS traffic to 127.1.1.1, where fdns listens by default.
+to redirect all the DNS traffic to `127.1.1.1`, where fdns listens by default.
 Firejail decouples the DNS functionality, allowing each sandbox to  have its own DNS setting.
 Your system DNS configuration is not touched. If things go wrong, you won't lose your Internet connectivity.
 Here are the steps:
@@ -151,23 +154,23 @@ $ firejail --dns=127.1.1.1 transmission-qt
 
 ## Setup fdns on a network server
 
-Set "nameserver 127.0.0.1" in /etc/resolv.conf.
-Start fdns using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface.
-The default 127.1.1.1 is not used in this case, Firejail is not required to be installed on the system.
+Set `"nameserver 127.0.0.1"` in `/etc/resolv.conf`.
+Start fdns using `--proxy-addr-any`. The proxy will listen on all system interfaces, and `127.0.0.1` for loopback interface.
+The default `127.1.1.1` is not used in this case, Firejail is not required to be installed on the system.
 `````
 $ sudo fdns --proxy-addr-any --daemonize
 `````
-You can also run the server only on a specific network interface. Example assuming 192.168.1.44 is the IP address of eth0:
+You can also run the server only on a specific network interface. Example assuming `192.168.1.44` is the IP address of `eth0`:
 `````
 $ sudo fdns --proxy-addr=192.168.1.44 --daemonize
 `````
-When using --daemonize, errors and warnings are posted to syslog (/var/log/syslog on most systems).
+When using `--daemonize`, errors and warnings are posted to syslog (`/var/log/syslog` on most systems).
 
 <div style="height:20px;">&nbsp;</div>
 
 ## Monitoring the proxy
 
-To monitor fdns, run as a regular user
+To monitor `fdns`, run as a regular user
 `````
 $ fdns --monitor
 `````
@@ -202,7 +205,7 @@ Yes, the more the merrier! You can also pick up a DoH provider like CleanBrowsin
 
 #### How do I start fdns when I power-on the computer?
 
-One solution that will work on any Linux computer is to start it from /etc/rc.local.
+One solution that will work on any Linux computer is to start it from `/etc/rc.local`.
 `````
 $ cat /etc/rc.local
 #!/bin/sh -e
@@ -210,7 +213,7 @@ $ cat /etc/rc.local
 /usr/bin/fdns --daemonize
 exit 0
 `````
-For systemd users, we place a fdns.service file in /etc/fdns directory.
+For `systemd` users, we place a `fdns.service` file in `/etc/fdns` directory.
 Usage:
 ```bash
 cp /etc/fdns/fdns.service /etc/systemd/system/fdns.service
@@ -223,7 +226,7 @@ systemctl enable fdns.service
 
 #### How do I configure Firejail to send all the DNS traffic to fdns by default?
 
-As root user, add the following two lines in /etc/firejail/golbals.local. If the file doesn't exist, create it:
+As `root` user, add the following two lines in `/etc/firejail/globals.local`. If the file doesn't exist, create it:
 `````
 $ cat /etc/firejail/globals.local
 dns 127.1.1.1
@@ -232,14 +235,14 @@ ignore dns
 
 #### How do I save a list with all the DNS requests?
 
-Start fdns this way:
+Start `fdns` this way:
 `````
 $ sudo fdns | tee dnslist.txt
 `````
 
 #### How do I check fdns is running in the background?
 
-Run ss and look for sockets open on port 53:
+Run `ss` and look for sockets open on port `53`:
 `````
 $ sudo ss -nulp
 State     Recv-Q    Send-Q       Local Address:Port        Peer Address:Port
@@ -248,7 +251,7 @@ UNCONN    0         0                127.1.1.1:53               0.0.0.0:*       
 UNCONN    0         0                127.1.1.1:53               0.0.0.0:*        users:(("fdns",pid=4226,fd=9))
 UNCONN    0         0                127.1.1.1:53               0.0.0.0:*        users:(("fdns",pid=4225,fd=7))
 `````
-In the default case you get 3 worker processes listening on 127.1.1.1 port 53. Or you can use a more traditional
+In the default case you get 3 worker processes listening on `127.1.1.1` port `53`. Or you can use a more traditional
 `````
 # ps ax | grep fdns
  1069 ?        Ss     0:00 /usr/bin/fdns --daemonize --server=anycast
