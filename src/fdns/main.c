@@ -48,7 +48,7 @@ static void usage(void) {
 	       "\tdaemon.\n");
 	printf("    --debug - print debug messages.\n");
 	printf("    --forwarder=domain@address - conditional forwarding\n");
-	printf("    --help, -? - this help screen.\n");
+	printf("    --help, -? - show this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
 	printf("    --list - list all available DoH service providers, and the groups they\n"
 	       "\t belong to.\n");
