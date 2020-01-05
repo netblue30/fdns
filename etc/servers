@@ -38,13 +38,19 @@ address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
 keepalive: 30
 
-
 name: appliedprivacy
 website: https://appliedprivacy.net
 tags: non-profit, Austria, Europe
 address: 37.252.185.229:443
 host: doh.appliedprivacy.net/query
 keepalive: 30
+
+name: bortzmeyer
+website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
+tags: France, Europe
+address: 193.70.85.11:443
+host: doh.bortzmeyer.fr
+keepalive: 7
 
 name: cleanbrowsing
 website: https://cleanbrowsing.org

@@ -125,6 +125,10 @@ void shmem_store_log(const char *str) {
 	report->seq++;
 }
 
+void shmem_keepalive(void) {
+	report->seq++;
+}
+
 // handling "fdns --monitor"
 void shmem_monitor_stats(void) {
 	shmem_open(0);
@@ -148,10 +152,16 @@ void shmem_monitor_stats(void) {
 		for (i = 0; i < d.logindex; i++)
 			printf("%s", d.logentry[i]);
 
-		// detect data changes using report->seq
+		// detect data changes and fdns going down using report->seq
 		sleep(1);
 		int cnt = 0;
-		while (seq == report->seq && ++cnt < 10)
+		while (seq == report->seq && ++cnt < (SHMEM_KEEPALIVE * 3))
 			sleep(1);
+		if (cnt >= (SHMEM_KEEPALIVE * 3)) { // declare fdns dead
+			ansi_clrscr();
+			printf("Sorry, fdns is not running!\n");
+			while (seq == report->seq)
+				sleep(1);
+		}
 	}
 }
