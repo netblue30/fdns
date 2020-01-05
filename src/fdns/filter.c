@@ -45,8 +45,13 @@ static DFilter default_filter[] = {
 	// start of name
 	{'A', "$ad."},
 	{'A', "$ads."},
+	{'A', "$affiliate."},
+	{'A', "$affiliates."},
 	{'A', "$banner."},
 	{'A', "$banners."},
+	{'A', "click."},
+	{'A', "clicks."},
+	{'A', "collector."},
 	{'A', "$creatives."},
 	{'A', "$oas."},
 	{'A', "$oascentral."},
@@ -59,6 +64,7 @@ static DFilter default_filter[] = {
 	{'A', "admob."},
 	{'A', "adserver"},
 	{'A', "advertising"},
+	{'T', "analytic."},
 	{'T', "analytics."},
 	{'T', "click."},
 	{'T', "clickstatsview."},
@@ -256,6 +262,10 @@ static int extract_domains(const char *ptr) {
 const char *filter_blocked(const char *str, int verbose) {
 //timetrace_start();
 	int i = 0;
+
+	// remove "www."
+	if (strncmp(str, "www.", 4) == 0)
+		str += 4;
 
 	// check the default list
 	while (default_filter[i].name != NULL) {
