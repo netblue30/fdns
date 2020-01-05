@@ -257,9 +257,19 @@ $ sudo pkill fdns
 .SH FILES
 /etc/fdns/adblocker - adblocker filter distributed with fdns
 .br
+/etc/fdns/coinblocker - cryptomining filter distributed with fdns
+.br
+/etc/fdns/fdns.service - systemd service unit for fdns
+.br
+/etc/fdns/fp-trackers - first-party tracker filter distributed with fdns
+.br
 /etc/fdns/hosts - user hosts file
 .br
+/etc/fdns/servers - DoH server fdns know about
+.br
 /etc/fdns/trackers - tracker filter distributed with fdns
+.br
+/etc/fdns/worker.seccomp - seccomp filter applied to fdns' workers
 
 .SH LICENSE
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -267,6 +277,6 @@ This program is free software; you can redistribute it and/or modify it under th
 Homepage: https://github.com/netblue30/fdns
 
 .SH SEE ALSO
-\&\flfdns\fR\|(1)
+\&\flfirejail\fR\|(1)
 
 
