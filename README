@@ -59,6 +59,10 @@ Incoporating code from Geoffrey Frogeye first-party trackers host list at
 https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt,
 Copyright © Geoffrey Frogeye, license MIT
 
+Incorporating code from Sophos XG Block Lists project at
+https://github.com/austinheap/sophos-xg-block-lists (adguard.txt).
+Copyright ©Austin Heap (https://github.com/austinheap), license MIT
+
 
 Licensing and Copyright
 -----------------------
