@@ -12,6 +12,7 @@ ExecStart=/usr/bin/fdns
 # start fdns as a network server listening on all interfaces and on 127.0.0.1 loopback address
 #ExecStart=/usr/bin/fdns --proxy-addr-any
 # start fdns as a network server listening on a specific network interface address
+# --proxy-addr is broken when enabling RestrictAddressFamilies, see #15
 #ExecStart=/usr/bin/fdns --proxy-addr=192.168.1.200
 Restart=on-failure
 
@@ -114,8 +115,8 @@ TemporaryFileSystem=/etc
 # FJ: --private-tmp
 PrivateTmp=true
 
-# FJ: --protocol=unix,inet,inet6 (Breaks on Arch)
-#RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+# FJ: --protocol=unix,inet,inet6 (Breaks --proxy-addr, see #15)
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 
 # FJ: --read-only=/ (except: /dev, /proc /sys)
 ProtectSystem=strict
