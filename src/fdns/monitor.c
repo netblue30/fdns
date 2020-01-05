@@ -211,6 +211,7 @@ void monitor(void) {
 
 	// enable /dev/shm/fdns-stats - create the file if it doesn't exist
 	shmem_open(1);
+	int shm_keepalive_cnt = 0;
 
 	// start workers
 	int i;
@@ -280,6 +281,13 @@ void monitor(void) {
 					start_sandbox(i);
 				}
 			}
+
+			// send a shared memory keepalive
+			if (++shm_keepalive_cnt > SHMEM_KEEPALIVE) {
+				shmem_keepalive();
+				shm_keepalive_cnt = 0;
+			}
+
 			t.tv_sec = 1;
 			t.tv_nsec = 0;
 			timestamp = time(NULL);

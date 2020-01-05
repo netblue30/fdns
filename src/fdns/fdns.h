@@ -233,11 +233,13 @@ void logprintf(const char *format, ...);
 int copy_file(const char *src, const char *dest);
 
 // shmem.c
+#define SHMEM_KEEPALIVE 3
 void shmem_open(int create);
 void shmem_store_stats(void);
 void shmem_store_log(const char *str);
 void shmem_print_stats(void);
 void shmem_monitor_stats(void);
+void shmem_keepalive(void);
 
 // server.c
 void server_load(void);
