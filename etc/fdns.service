@@ -30,7 +30,6 @@ ExecStopPost=-/bin/sh -c '[ -f "/dev/shm/fdns-stats" ] && rm -f "/dev/shm/fdns-s
 #  - lines commented with `#*` are required by systemd;
 #  - see man 5 systemd.exec for details on the options;
 #  - firejail equivalents are commented with `# FJ`;
-#  - if you aren't on Arch, try uncommenting `RestrictAddressFamilies`.
 ##############################################################
 
 AmbientCapabilities=
