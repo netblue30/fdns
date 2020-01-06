@@ -108,6 +108,20 @@ keepalive: 30
 #host: doh.dnswarden.com/adblock
 #keepalive: 7
 
+name: hostux
+website: https://hostux.network/en/index.html
+tags: Luxembourg, Europe
+address: 185.26.126.37:443
+host: dns.hostux.net/dns-query
+keepalive: 30
+
+name: hostux-ads
+website: https://hostux.network/en/index.html
+tags: Luxembourg, Europe, adblocker
+address: 185.26.126.37:443
+host: dns.hostux.net/ads
+keepalive: 30
+
 name: ibuki
 website: http://ibuki.cgnat.net/
 tags: Americas
