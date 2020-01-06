@@ -129,39 +129,70 @@ void shmem_keepalive(void) {
 	report->seq++;
 }
 
+
+// return 1 if file is present
+static int inline check_shmem_file(void) {
+	struct stat s;
+	if (stat("/dev/shm/fdns-stats", &s) == -1)
+		return 0;
+	return 1;
+}
+
 // handling "fdns --monitor"
 void shmem_monitor_stats(void) {
-	shmem_open(0);
-	uint32_t seq = 0;
-
 	while (1) {
-		// make a copy of the data in order to minimize the posibility of data changes durring printing
-		DnsReport d;
-		memcpy(&d, report, sizeof(DnsReport));
-		seq = report->seq;
-
-		ansi_clrscr();
-
-		// print header
-		printf("%s\n", d.header);
-
-		// print log lines
-		int i;
-		for (i = d.logindex; i < MAX_LOG_ENTRIES; i++)
-			printf("%s", d.logentry[i]);
-		for (i = 0; i < d.logindex; i++)
-			printf("%s", d.logentry[i]);
-
-		// detect data changes and fdns going down using report->seq
-		sleep(1);
-		int cnt = 0;
-		while (seq == report->seq && ++cnt < (SHMEM_KEEPALIVE * 3))
-			sleep(1);
-		if (cnt >= (SHMEM_KEEPALIVE * 3)) { // declare fdns dead
-			ansi_clrscr();
-			printf("Sorry, fdns is not running!\n");
-			while (seq == report->seq)
+		int first = 1;
+		struct stat s;
+		while (check_shmem_file() == 0) {
+			if (first) {
+				printf("Waiting for fdns to start...");
+				fflush(0);
+				first = 0;
+			}
+			else {
+				printf(".");
+				fflush(0);
 				sleep(1);
+			}
+		}
+		shmem_open(0);
+
+		uint32_t seq = 0;
+		while (1) {
+			if (check_shmem_file() == 0)
+				break;
+
+			// make a copy of the data in order to minimize the posibility of data changes durring printing
+			DnsReport d;
+			memcpy(&d, report, sizeof(DnsReport));
+			seq = report->seq;
+
+			ansi_clrscr();
+
+			// print header
+			printf("%s\n", d.header);
+
+			// print log lines
+			int i;
+			for (i = d.logindex; i < MAX_LOG_ENTRIES; i++)
+				printf("%s", d.logentry[i]);
+			for (i = 0; i < d.logindex; i++)
+				printf("%s", d.logentry[i]);
+
+			// detect data changes and fdns going down using report->seq
+			sleep(1);
+			int cnt = 0;
+			while (seq == report->seq && ++cnt < (SHMEM_KEEPALIVE * 3)) {
+				sleep(1);
+				if (check_shmem_file() == 0)
+					break;
+			}
+			if (cnt >= (SHMEM_KEEPALIVE * 3)) { // declare fdns dead; it might never recover!
+				printf("Error:\n");
+				printf("\tSorry, fdns was shut down, it might never recover!\n");
+				while (seq == report->seq)
+					sleep(1);
+			}
 		}
 	}
 }

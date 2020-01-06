@@ -74,18 +74,24 @@ void worker(void) {
 
 	struct timeval t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
+	int parent_keepalive_cnt = 0;
 	while (1) {
 		fd_set fds;
 		FD_ZERO(&fds);
+		// UDP sockets
 		FD_SET(slocal, &fds);
 		FD_SET(sremote, &fds);
 		int nfds = ((slocal > sremote) ? slocal : sremote);
+		// forwarding sockets
 		Forwarder *f = fwd;
 		while (f) {
 			FD_SET(f->sock, &fds);
 			nfds = (f->sock > nfds) ? f->sock : nfds;
 			f = f->next;
 		}
+		// communication with parent
+		FD_SET(arg_fd, &fds);
+		nfds = (arg_fd > nfds) ? arg_fd : nfds;
 		nfds += 1;
 
 		errno = 0;
@@ -148,10 +154,16 @@ void worker(void) {
 				ssl_keepalive_cnt = ssl_keepalive_timer;
 			}
 
-			// worker keepalive
+			// send worker keepalive
 			if (--worker_keepalive_cnt <= 0)  {
 				rlogprintf("worker keepalive\n");
 				worker_keepalive_cnt = WORKER_KEEPALIVE_TIMER;
+			}
+
+			// check parent keepalive
+			if (++parent_keepalive_cnt >= PARENT_KEEPALIVE_SHUTDOWN) {
+				fprintf(stderr, "Error: worker process going down, parent keepalive failed\n");
+				exit(1);
 			}
 
 			// database cleanup
@@ -159,6 +171,16 @@ void worker(void) {
 			cache_timeout();
 			t.tv_sec = 1;
 			t.tv_usec = 0;
+			continue;
+		}
+
+		//***********************************************
+		// parent keepalive
+		//***********************************************
+		if (FD_ISSET(arg_fd, &fds)) {
+			int sz = read(arg_fd, buf, MAXBUF);
+			(void) sz; // todo: error recovery
+			parent_keepalive_cnt = 0;
 			continue;
 		}
 
