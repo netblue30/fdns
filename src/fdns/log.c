@@ -43,7 +43,7 @@ void rlogprintf(const char *format, ...) {
 	// set packet size
 	msg.h.len = sizeof(LogMsgHeader) + strlen(msg.buf) + 1; // + '\0'
 
-	// send UDP packet
+	// send packet
 	ssize_t rv = write(arg_fd, &msg, msg.h.len);
 	if (rv == -1)
 		errExit("write");

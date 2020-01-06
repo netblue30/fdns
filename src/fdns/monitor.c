@@ -62,6 +62,10 @@ static void my_handler(int s) {
 	int i;
 	for (i = 0; i < arg_workers; i++)
 		kill(w[i].pid, SIGKILL);
+
+	// attempt to remove shmem file
+	int rv = unlink("/dev/shm/fdns-stats");
+	(void) rv;
 	exit(0);
 }
 
@@ -237,6 +241,7 @@ void monitor(void) {
 
 	struct timespec t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
+	int send_keepalive_cnt = 0;
 	while (1) {
 		fd_set rset;
 		FD_ZERO(&rset);
@@ -286,6 +291,14 @@ void monitor(void) {
 			if (++shm_keepalive_cnt > SHMEM_KEEPALIVE) {
 				shmem_keepalive();
 				shm_keepalive_cnt = 0;
+			}
+
+			if (++send_keepalive_cnt >= PARENT_KEEPALIVE_TIMER) {
+				send_keepalive_cnt = 0;
+				for (i = 0; i < arg_workers; i++) {
+					int rv = write(w[i].fd[0], "keepalive", 10);
+					(void) rv; // todo: error recovery
+				}
 			}
 
 			t.tv_sec = 1;
