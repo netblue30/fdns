@@ -36,7 +36,7 @@ void forwarder_set(const char *str) {
 		errExit("strdup");
 	char *ptr = strchr(f->name, '@');
 	if (!ptr) {
-		fprintf(stderr, "Error: invalid forwarding fwd %s\n", str);
+		fprintf(stderr, "Error: invalid forwarding %s\n", str);
 		exit(1);
 	}
 	*ptr = '\0';

@@ -52,26 +52,27 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	unsigned delta;
 	DnsHeader *h = lint_header(pkt, *lenptr, &delta);
 	if (!h) {
-		rlogprintf("Error: LAN DNS: %s\n", lint_err2str());
+		rlogprintf("Error %d: LAN DNS: %s\n", __LINE__, lint_err2str());
 		*dest = DEST_DROP;
 		return NULL;
 	}
 
 	// check flags
 	if (h->flags & 0x8000) {
-		rlogprintf("Error: LAN DNS: this is not a query\n");
+		rlogprintf("Error %d: LAN DNS: this is not a query\n", __LINE__);
 		*dest = DEST_DROP;
 		return NULL;
 	}
 	if (h->flags & 0x7800) {
-		rlogprintf("Error: LAN DNS: flags %4x, this is not a standard query\n", h->flags);
+		rlogprintf("Error %d: LAN DNS: flags %4x, this is not a standard query\n", __LINE__, h->flags);
 		*dest = DEST_DROP;
 		return NULL;
 	}
 
 	// we allow exactly one question
 	if (h->questions != 1 || h->answer != 0 || h->authority || h->additional != 0) {
-		rlogprintf("Error: LAN DNS - invalid header\n");
+		rlogprintf("Error %d: LAN DNS - invalid section counts: %x %x %x %x\n",
+			 __LINE__, h->questions, h->answer, h->authority,  h->additional);
 		*dest = DEST_DROP;
 		return NULL;
 	}
@@ -79,7 +80,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	pkt = pkt + delta;
 	DnsQuestion *q = lint_question(pkt, *lenptr - delta, &delta);
 	if (!q) {
-		rlogprintf("Error: LAN DNS - %s\n", lint_err2str());
+		rlogprintf("Error %d: LAN DNS - %s\n", __LINE__, lint_err2str());
 		*dest = DEST_DROP;
 		return NULL;
 	}
@@ -87,7 +88,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 //printf("domain #%s#\n", q->domain); fflush(0);
 	// check packet lentght
 	if ((*lenptr - sizeof(DnsHeader) - delta ) != 0) {
-		rlogprintf("Error: LAN DNS - invalid packet lenght\n");
+		rlogprintf("Error %d: LAN DNS - invalid packet lenght\n", __LINE__);
 		*dest = DEST_DROP;
 		return NULL;
 	}
@@ -120,7 +121,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 
 		// drop all the rest and respond with NXDOMAIN
 		else {
-			rlogprintf("Error: LAN DNS - RR type %u rejected\n", q->type);
+			rlogprintf("Error %d: LAN DNS - RR type %u rejected\n", __LINE__, q->type);
 			*dest = DEST_DROP; // just let him try again
 			return NULL;
 		}
@@ -137,7 +138,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 
 	const char *label = filter_blocked(q->domain, 0);
 	if (label) {
-		rlogprintf("Request: %s://%s%s, dropped\n", label, q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
+		rlogprintf("Request: %s  %s%s, dropped\n", label, q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
 		stats.drop++;
 		build_response_loopback(buf, lenptr);
 		*dest = DEST_LOCAL;
