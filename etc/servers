@@ -73,6 +73,17 @@ address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
 keepalive: 250
 
+# uncensored server redirected to cloudflare
+# family and security servers redirected to cleanbrowsing
+name: containerpi
+website: listed on https://github.com/curl/curl/wiki/DNS-over-HTTPS
+tags: Japan, Asia-Pacific
+address: 45.77.180.10:443
+host: dns.containerpi.com/dns-query
+#host: dns.containerpi.com/doh/family-filter - currently down
+#host: dns.containerpi.com/doh/secure-filter - currently down
+keepalive: 30
+
 name: digital-society
 website:  https://www.digitale-gesellschaft.ch
 tags: non-profit, Switzerland, Europe
@@ -169,4 +180,11 @@ website: https://jp.tiar.app/
 tags: Japan, Asia-Pacific
 address: 172.104.93.80:443
 host: jp.tiar.app/dns-query
+keepalive: 30
+
+name: twnic
+website: https://101.101.101.101/index_en.html
+tags: Taiwan, Asia-Pacific
+address: 210.17.9.228:443
+host: dns.twnic.tw/dns-query
 keepalive: 30
