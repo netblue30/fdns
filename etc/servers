@@ -10,8 +10,7 @@
 # website:
 # tags:
 # address:
-# request1:
-# request2:
+# host:
 # keepalive:
 #
 # a format of IP:PORT is required for "address:"
@@ -84,40 +83,61 @@ host: dns.containerpi.com/dns-query
 #host: dns.containerpi.com/doh/secure-filter - currently down
 keepalive: 30
 
+name: cznic
+website: https://www.nic.cz/odvr/
+tags: Czechia, Europe
+address: 185.43.135.1:443
+host: odvr.nic.cz/doh
+keepalive: 7
+
+name: cznic2
+website: https://www.nic.cz/odvr/
+tags: Czechia, Europe
+address: 193.17.47.1:443
+host: odvr.nic.cz/doh
+keepalive: 7
+
 name: digital-society
-website:  https://www.digitale-gesellschaft.ch
+website: https://www.digitale-gesellschaft.ch
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 30
 
-#name: dnswarden-family2
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: family
-#address: 116.203.35.255:443
-#host: doh.dnswarden.com/adult-filter
-#keepalive: 7
-#
-#name: dnswarden-family1
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: family
-#address: 116.203.70.156:443
-#host: doh.dnswarden.com/adult-filter
-#keepalive: 7
-#
-#name: dnswarden1
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: adblocker, Germany, Europe
-#address: 116.203.70.156:443
-#host: doh.dnswarden.com/adblock
-#keepalive: 7
-#
-#name: dnswarden2
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: adblocker, Germany, Europe
-#address: 116.203.35.255:443
-#host: doh.dnswarden.com/adblock
-#keepalive: 7
+name: dnscrypt-ca
+website: https://dnscrypt.ca/
+tags: Canada, US-East, Americas
+address: 167.114.220.125:453
+host: dns1.dnscrypt.ca:453/dns-query
+keepalive: 30
+
+name: dnscrypt-ca2
+website: https://dnscrypt.ca/
+tags: Canada, US-East, Americas
+address: 149.56.228.45:453
+host: dns2.dnscrypt.ca:453/dns-query
+keepalive: 30
+
+name: ffmuc
+website: https://ffmuc.net/
+tags: Germany, Europe
+address: 195.30.94.28:443
+host: doh.ffmuc.net/dns-query
+keepalive: 30
+
+name: gridth-jp
+website: https://grid.in.th/projects/gridns/
+tags: Japan, Asia-Pacific
+address: 172.105.241.93:443
+host: jp.gridns.xyz/dns-query
+keepalive: 30
+
+name: gridth-sg
+website: https://grid.in.th/projects/gridns/
+tags: Singapore, Asia-Pacific
+address: 139.162.3.123:443
+host: sg.gridns.xyz/dns-query
+keepalive: 30
 
 name: hostux
 website: https://hostux.network/en/index.html
@@ -126,7 +146,7 @@ address: 185.26.126.37:443
 host: dns.hostux.net/dns-query
 keepalive: 30
 
-name: hostux-ads
+name: hostux-adblock
 website: https://hostux.network/en/index.html
 tags: Luxembourg, Europe, adblocker
 address: 185.26.126.37:443
@@ -135,10 +155,59 @@ keepalive: 30
 
 name: ibuki
 website: http://ibuki.cgnat.net/
-tags: Americas
+tags: US-West, Americas
 address: 35.198.2.76:443
 host: ibuki.cgnat.net/dns-query
 keepalive: 7
+
+name: jcdns
+website: https://jcdns.fun/
+tags: Netherlands, Europe
+address: 178.62.214.105:443
+host: jcdns.fun/dns-query
+keepalive: 30
+
+name: lelux
+website: https://lelux.fi/resolver/
+tags: Netherlands, Europe
+address: 51.158.147.50:443
+host: resolver-eu.lelux.fi/dns-query
+keepalive: 30
+
+name: li
+website: https://doh.li/
+tags: UK, Europe
+address: 46.101.66.244:443
+host: doh.li/dns-query
+keepalive: 30
+
+name: libredns
+website: https://libredns.gr/
+tags: Germany, Europe, OpenNIC
+address: 116.203.115.192:443
+host: doh.libredns.gr/dns-query
+keepalive: 30
+
+name: libredns-adblock
+website: https://libredns.gr/
+tags: Germany, Europe, OpenNIC, adblocker
+address: 116.203.115.192:443
+host: doh.libredns.gr/ads
+keepalive: 30
+
+name: nixnet
+website: https://nixnet.services/dns/
+tags: US-East, US-West, Americas, Luxemburg, Europe
+address: 198.251.90.114:443
+host: uncensored.any.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+name: nixnet-adblock
+website: https://nixnet.services/dns/
+tags: US-East, US-West, Americas, Luxemburg, Europe, adblocker
+address: 198.251.90.89:443
+host: adblock.any.dns.nixnet.xyz/dns-query
+keepalive: 30
 
 name: powerdns
 website: https://powerdns.org

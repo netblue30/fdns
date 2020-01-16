@@ -138,6 +138,16 @@ static int inline check_shmem_file(void) {
 	return 1;
 }
 
+static inline void print_line(const char *str) {
+//red - printf("\033[31;1mHello\033[0m\n");
+// 31 - red
+// 91 -bright red
+	if (strstr(str, ", dropped"))
+		printf("\033[31m%s\033[0m", str);
+	else
+		printf("%s", str);
+}
+
 // handling "fdns --monitor"
 void shmem_monitor_stats(void) {
 	while (1) {
@@ -175,9 +185,10 @@ void shmem_monitor_stats(void) {
 			// print log lines
 			int i;
 			for (i = d.logindex; i < MAX_LOG_ENTRIES; i++)
-				printf("%s", d.logentry[i]);
+				print_line(d.logentry[i]);
+
 			for (i = 0; i < d.logindex; i++)
-				printf("%s", d.logentry[i]);
+				print_line(d.logentry[i]);
 
 			// detect data changes and fdns going down using report->seq
 			sleep(1);
