@@ -146,6 +146,17 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	}
 
 	//*****************************
+	// drop browser search domains
+	// these are requests sent by the browser when you try to search from the URL line
+	// RFC 7085 - several dotless domains on record; we should not drop them (todo)
+	//*****************************
+	if (strchr(q->domain, '.') == NULL) {
+		rlogprintf("Request: search %s%s, dropped\n", q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
+		goto drop_nxdomain;
+	}
+
+
+	//*****************************
 	// cache - only domains smaller than CACHE_NAME_LEN
 	//*****************************
 	if (q->len <= CACHE_NAME_LEN) {

@@ -132,7 +132,6 @@ int net_remote_dns_socket(struct sockaddr_in *addr, const char *ipstr) {
 	if (sremote == -1)
 		errExit("socket");
 
-	// Remote dns server address: 9.9.9.9 (Quad9)
 	memset(addr, 0, sizeof(struct sockaddr_in));
 	addr->sin_family = AF_INET;
 	addr->sin_port = htons(53);
