@@ -39,6 +39,8 @@ static inline const char *label2str(char label) {
 		return "miner";
 	else if (label == 'H')
 		return "hosts";
+	else if (label == 'R')
+		return "reserved";
 
 	return "?";
 }
@@ -46,30 +48,45 @@ static inline const char *label2str(char label) {
 // default filter
 typedef struct dfilter_t {
 	char label;
+	// Match based on the first letter:
+	//      ^ - start of domain name
+	//      $ - end of domain name
+	//      regular letter: anywhere in the domain name
 	char *name;
+	int len;	// name string length
 } DFilter;
 
+// todo: add length field to speed up search
 static DFilter default_filter[] = {
+	// reserved domain names (RFC 2606, RFC 6761, RFC 6762)
+	// - currently we are returning 127.0.0.1 regardless what RFC says
+	// - RFC 6762: send .local to link-local multicast address 224.0.0.251 (todo)
+	{'R', "$.local"},
+	{'R', "$.localhost"},
+	{'R', "$.test"},
+	{'R', "$.invalid"},
+	{'R', "$.example"},
+	{'R', "$example.com"},
+	{'R', "$example.net"},
+	{'R', "$example.org"},
 
-	// start of name
-	{'A', "$ad."},
-	{'A', "$ads."},
-	{'A', "$adservice."},
-	{'A', "$affiliate."},
-	{'A', "$affiliates."},
-	{'A', "$banner."},
-	{'A', "$banners."},
+	{'A', "^ad."},
+	{'A', "^ads."},
+	{'A', "^adservice."},
+	{'A', "^affiliate."},
+	{'A', "^affiliates."},
+	{'A', "^banner."},
+	{'A', "^banners."},
 	{'A', "click."},
 	{'A', "clicks."},
 	{'A', "collector."},
-	{'A', "$creatives."},
+	{'A', "^creatives."},
 	{'A', "id.google."},
-	{'A', "$oas."},
-	{'A', "$oascentral."},
-	{'T', "$stats."},
-	{'T', "$tag."},
+	{'A', "^oas."},
+	{'A', "^oascentral."},
+	{'T', "^stats."},
+	{'T', "^tag."},
 
-	// anywhere in the name
 	{'A', ".ad."},
 	{'A', ".ads."},
 	{'A', "admob."},
@@ -87,23 +104,23 @@ static DFilter default_filter[] = {
 	{'T', "pixel."},
 
 	// minimize first-party trackers list
-	{'F', "$somniture."}, // 30
-	{'F', "$aa-metrics."}, // 20
-	{'F', "$smetric."}, //  2711
-	{'F', "$smetrics."}, //  2642
-	{'F', "$tr."}, // 1756
-	{'F', "$metric."}, // 950
-	{'F', "$metrics."}, // 644
-	{'F', "$mdws."}, // 193
-	{'F', "$srepdata."}, // 200
-	{'F', "$marketing.net."}, // 66
+	{'F', "^somniture."}, // 30
+	{'F', "^aa-metrics."}, // 20
+	{'F', "^smetric."}, //  2711
+	{'F', "^smetrics."}, //  2642
+	{'F', "^tr."}, // 1756
+	{'F', "^metric."}, // 950
+	{'F', "^metrics."}, // 644
+	{'F', "^mdws."}, // 193
+	{'F', "^srepdata."}, // 200
+	{'F', "^marketing.net."}, // 66
 	{'F', ".ati-host.net."},  // 91
-	{'F', "$sadbmetrics."}, // 67
-	{'F', "$somni."}, // 198
-	{'F', "$srepdata,"}, //198
-	{'F', "$sstats."}, // 339
-	{'F', "$sw88."}, // 63
-	{'F', "$tk.airfrance."}, // 98
+	{'F', "^sadbmetrics."}, // 67
+	{'F', "^somni."}, // 198
+	{'F', "^srepdata,"}, //198
+	{'F', "^sstats."}, // 339
+	{'F', "^sw88."}, // 63
+	{'F', "^tk.airfrance."}, // 98
 
 	{0, NULL}
 };
@@ -118,7 +135,16 @@ typedef struct hash_entry_t {
 static HashEntry *blist[MAX_HASH_ARRAY];
 
 void filter_init(void) {
+	int i = 0;
+	while (default_filter[i].name != NULL) {
+		int offset = 0;
+		if (*default_filter[i].name == '^' || *default_filter[i].name == '$')
+			offset = 1;
+		default_filter[i].len = strlen(default_filter[i].name + offset);
+		i++;
+	}
 	memset(&blist[0], 0, sizeof(blist));
+
 }
 
 // djb2 hash function by Dan Bernstein
@@ -282,6 +308,7 @@ const char *filter_blocked(const char *str, int verbose) {
 #ifdef DEBUG_STATS
 	timetrace_start();
 #endif
+	int dlen = strlen(str); // todo: pass the length as function param
 	int i = 0;
 
 	// remove "www."
@@ -290,8 +317,17 @@ const char *filter_blocked(const char *str, int verbose) {
 
 	// check the default list
 	while (default_filter[i].name != NULL) {
-		if (*default_filter[i].name == '$') {
-			if (strncmp(str, default_filter[i].name + 1, strlen(default_filter[i].name + 1)) == 0) {
+		if (*default_filter[i].name == '^') {
+			int flen = default_filter[i].len;
+			if (strncmp(str, default_filter[i].name + 1, flen) == 0) {
+				if (verbose)
+					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
+				return label2str(default_filter[i].label);
+			}
+		}
+		else if (*default_filter[i].name == '$') {
+			int flen = default_filter[i].len;
+			if (strcmp(str + dlen - flen, default_filter[i].name + 1) == 0) {
 				if (verbose)
 					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
 				return label2str(default_filter[i].label);
