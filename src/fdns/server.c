@@ -345,7 +345,7 @@ int server_test(const char *server_name)  {
 	if (i == 5) {
 		printf("\tError: server %s failed\n", arg_server);
 		fflush(0);
-		kill(-1, SIGKILL);
+		kill(child, SIGKILL);
 		return 1;
 	}
 

@@ -197,10 +197,15 @@ void worker(void) {
 			if(arg_debug)
 				printf("rx remote packet len %ld\n", len);
 
-			// check remote ip address
+			// check remote ip address - RFC 5452 (todo - more matches)
 			if (remote.sin_addr.s_addr != addr_fallback.sin_addr.s_addr) {
-				rlogprintf("Warning: wrong IP address for fallback response: %d.%d.%d.%d\n",
-					   PRINT_IP(ntohl(remote.sin_addr.s_addr)));
+				rlogprintf("Error: wrong IP address for fallback response: %d.%d.%d.%d\n",
+					   PRINT_IP(ntohs(remote.sin_addr.s_addr)));
+				continue;
+			}
+			if (remote.sin_port != addr_fallback.sin_port) {
+				rlogprintf("Error: wrong UDP port for fallback response: %d\n",
+					   PRINT_IP(ntohs(remote.sin_port)));
 				continue;
 			}
 

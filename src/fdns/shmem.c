@@ -142,8 +142,11 @@ static inline void print_line(const char *str) {
 //red - printf("\033[31;1mHello\033[0m\n");
 // 31 - red
 // 91 -bright red
-	if (strstr(str, ", dropped"))
-		printf("\033[31m%s\033[0m", str);
+// 92 - bright green
+	if (strstr(str, "Error"))
+		printf("\033[91m%s\033[0m", str);
+	else if (strstr(str, ", dropped"))
+		printf("\033[92m%s\033[0m", str);
 	else
 		printf("%s", str);
 }
