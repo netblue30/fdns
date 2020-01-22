@@ -85,6 +85,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			if (!s->address)
 				errExit("strdup");
 
+// todo: accept a server name in parallel with IP addresses
 			// check address:port
 			if (check_addr_port(s->address)) {
 				fprintf(stderr, "Error: file %s, line %d, invalid address:port\n", fname, *linecnt);
@@ -107,8 +108,6 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			*str++ = '\0';
 			if (asprintf(&s->request, "POST /%s HTTP/1.1\r\nHost: %s\r\n%s", str, s->host, push_request_tail) == -1)
 				errExit("asprintf");
-			if (arg_debug)
-				printf("%s\n", s->request);
 		}
 		else if (strncmp(buf, "keepalive: ", 11) == 0) {
 			if (s->ssl_keepalive)
