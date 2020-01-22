@@ -23,6 +23,20 @@ address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
 keepalive: 30
 
+name: aaflao
+website: from dnscrypt list
+tags: adblocker, Netherlands, Europe
+address: 176.56.236.175:443
+host: dns.aaflalo.me/dns-query
+keepalive: 30
+
+name: aaflao-nyc
+website: from dnscrypt list
+tags: adblocker, US-East, Americas
+address: 168.235.81.167:443
+host: dns-nyc.aaflalo.me/dns-query
+keepalive: 30
+
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, adblocker
@@ -35,6 +49,13 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
+keepalive: 30
+
+name: alekberg
+website: posted on dnscrypt list
+tags: US-West, Americas,
+address: 104.168.247.138:443
+host: dns2.alekberg.net/dns-query
 keepalive: 30
 
 name: appliedprivacy
@@ -153,6 +174,13 @@ address: 185.26.126.37:443
 host: dns.hostux.net/ads
 keepalive: 30
 
+name: ibksturm
+website: from dnscrypt list
+tags: OpenNIC, Switzerland, Europe
+address: 83.77.85.7:443
+host: ibksturm.synology.me/dns-query
+keepalive: 7
+
 name: ibuki
 website: http://ibuki.cgnat.net/
 tags: US-West, Americas
@@ -207,6 +235,41 @@ website: https://nixnet.services/dns/
 tags: US-East, US-West, Americas, Luxemburg, Europe, adblocker
 address: 198.251.90.89:443
 host: adblock.any.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+name: oszx
+website: https://dns.oszx.co
+tags: adblocker, UK, Europe
+address: 51.38.83.141:443
+host: dns.oszx.co/dns-query
+keepalive: 30
+
+name: pi-dns
+website: https://pi-dns.com
+tags: adblocker, US-East, Americas
+address: 185.213.26.187:443
+host: doh.eastus.pi-dns.com/dns-query
+keepalive: 30
+
+name: pi-dns2
+website: https://pi-dns.com
+tags: adblocker, US-West, Americas
+address: 45.67.219.208:443
+host: doh.westus.pi-dns.com/dns-query
+keepalive: 30
+
+name: pi-dns3
+website: https://pi-dns.com
+tags: adblocker, Finland, Europe
+address: 95.216.181.228:443
+host: doh.northeu.pi-dns.com/dns-query
+keepalive: 30
+
+name: pi-dns4
+website: https://pi-dns.com
+tags: adblocker, Germany, Europe
+address: 31.220.42.65:443
+host: doh.westeu.pi-dns.com/dns-query
 keepalive: 30
 
 name: powerdns
