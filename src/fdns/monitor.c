@@ -279,7 +279,8 @@ void monitor(void) {
 			// restart workers if the keepalive time expired
 			for (i = 0; i < arg_workers; i++) {
 				if (--w[i].keepalive <= 0) {
-					logprintf("Restarting worker process %d\n", i);
+					logprintf("Restarting worker process %d (pid %d)\n", i, w[i].pid);
+//					logprintf("Restarting worker process %d\n", i);
 					kill(w[i].pid, SIGKILL);
 					int status;
 					waitpid(w[i].pid, &status, 0);
