@@ -121,7 +121,7 @@ void ssl_open(void) {
 	assert(srv);
 
 	if (ctx == NULL) {
-		ctx = SSL_CTX_new(SSLv23_client_method());
+		ctx = SSL_CTX_new(TLS_client_method());
 		char *certfile = get_cert_file();
 		if (certfile == NULL) {
 			if(! SSL_CTX_load_verify_locations(ctx, NULL, "/etc/ssl/certs")) {
@@ -141,7 +141,9 @@ void ssl_open(void) {
 	BIO_get_ssl(bio, &ssl);
 	SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);
 
+	// set connection and SNI
 	BIO_set_conn_hostname(bio, srv->address);
+	SSL_set_tlsext_host_name(ssl, srv->host);
 
 	if(BIO_do_connect(bio) <= 0) {
 //		rlogprintf("Error: cannot connect SSL.\n");
