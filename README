@@ -53,10 +53,10 @@ rcplab (https://github.com/rcplab)
 	- containerpi and twnic
 
 Incorporating code from Firejail Security Sandbox, https://github.com/netblue30/firejail
-Copyright © 2014-2019 Firejail Authors, license GPLv2
+Copyright © 2014-2020 Firejail Authors, license GPLv2
 
 Incorporating code from Privacy Badger, htps://github.com/EFForg/privacybadger
-Copyright © 2015 Electronic Frontier Foundation and other contributors, license GPLv3
+Copyright © Electronic Frontier Foundation and other contributors, license GPLv3
 
 Incorporating code from Steven Black's hosts project, https://github.com/StevenBlack/hosts
 Copyright © Steven Black, license MIT
@@ -67,13 +67,13 @@ Copyright © Geoffrey Frogeye, license MIT
 
 Incorporating code from Sophos XG Block Lists project at
 https://github.com/austinheap/sophos-xg-block-lists (adguard.txt).
-Copyright ©Austin Heap (https://github.com/austinheap), license MIT
+Copyright © Austin Heap (https://github.com/austinheap), license MIT
 
 
 Licensing and Copyright
 -----------------------
 This project is published under GPLv3 license. Please see COPYING file
-for more details. Copyright © 2019 fdns Authors
+for more details. Copyright © 2020 FDNS Authors
 
 
 Cryptographic Software Notice
