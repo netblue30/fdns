@@ -1,5 +1,5 @@
 #!/usr/bin/expect -f
-# This file is part of FDNS project
+# This file is part of fdns project
 # Copyright (C) 2019-2020 FDNS Authors
 # License GPL v2
 
