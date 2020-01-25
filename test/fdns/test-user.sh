@@ -1,6 +1,6 @@
 #!/bin/bash
-# This file is part of Firejail project
-# Copyright (C) 2019-2020 Firejail Authors
+# This file is part of fdns project
+# Copyright (C) 2019-2020 FDNS Authors
 # License GPL v2
 
 export MALLOC_CHECK_=3
