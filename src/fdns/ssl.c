@@ -143,7 +143,8 @@ void ssl_open(void) {
 
 	// set connection and SNI
 	BIO_set_conn_hostname(bio, srv->address);
-	SSL_set_tlsext_host_name(ssl, srv->host);
+	if (srv->sni)
+		SSL_set_tlsext_host_name(ssl, srv->host);
 
 	if(BIO_do_connect(bio) <= 0) {
 //		rlogprintf("Error: cannot connect SSL.\n");

@@ -118,10 +118,12 @@ typedef struct dnsserver_t {
 	// server data
 	char *name;	// name
 	char *website;	// website
+	char *zone;		// geographical zone
 	char *tags;	// description
 	char *address;	// IP address
 	char *host;		// POST request first line
 	char *request;	// full POST request
+	int sni;		// 1 or 0
 	int ssl_keepalive;	// keepalive in seconds
 } DnsServer;
 #define DEFAULT_SERVER "anycast"
@@ -164,9 +166,9 @@ extern char *arg_server;
 extern char *arg_proxy_addr;
 extern int arg_proxy_addr_any;
 extern char *arg_certfile;
-extern int arg_print_drop_lists;
 extern char *arg_forwarder;
 extern int arg_test_hosts;
+extern char *arg_zone;
 extern Stats stats;
 
 // dnsdb.c
@@ -214,6 +216,7 @@ void filter_init(void);
 void filter_load_all_lists(void);
 const char *filter_blocked(const char *str, int verbose);
 void filter_test(char *url);
+void filter_test_list(void);
 
 // log.c
 typedef struct logmsgheader_t {
@@ -245,8 +248,10 @@ void shmem_monitor_stats(void);
 void shmem_keepalive(void);
 
 // server.c
+extern int server_print_zone;
+extern int server_print_servers;
 void server_load(void);
-void server_list(void);
+void server_list(const char *tag);
 DnsServer *server_get(void);
 // return 0 if ok, 1 if failed
 int server_test(const char *server_name);

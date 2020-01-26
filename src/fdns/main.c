@@ -31,8 +31,8 @@ char *arg_server = NULL;
 char *arg_proxy_addr = NULL;
 int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
-int arg_print_drop_lists = 0;
 int arg_test_hosts = 0;
+char *arg_zone = NULL;
 
 Stats stats;
 
@@ -41,6 +41,7 @@ static void usage(void) {
 	printf("Usage:\n");
 	printf("    start the server:     fdns [options]\n");
 	printf("    monitor the server:   fdns --monitor\n");
+	printf("\n");
 	printf("Options:\n");
 	printf("    --allow-all-queries - allow all DNS query types; by default only\n"
 	       "\tA queries are allowed.\n");
@@ -48,28 +49,32 @@ static void usage(void) {
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
 	printf("    --debug - print debug messages.\n");
-	printf("    --forwarder=domain@address - conditional forwarding\n");
+	printf("    --forwarder=domain@address - conditional forwarding to a differnet DNS\n"
+	        "\tserver.\n");
 	printf("    --help, -? - show this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
 	printf("    --list - list all available DoH service providers, and the groups they\n"
 	       "\t belong to.\n");
+	printf("    --list=server-name|tag - list the available DoH service providers\n"
+	       "\tbased on the provided server name or group.\n");
 	printf("    --monitor - monitor statistics.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
-	printf("    --print-drop-lists - print the content of the drop lists\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
 	printf("    --proxy-addr-any - listen on all available interfaces.\n");
 	printf("    --server=server-name|group - configure the DoH service provider. Use --list\n"
-	       "\tto print the list of available providers. By default we use a random\n"
-	       "\tserver from the anycast group.\n");
+	       "\tto print the available providers. By default we use a random server\n"
+	       "\tfrom the anycast group.\n");
 	printf("    --test-hosts - test the domains in /etc/fdns/hosts file.\n");
 	printf("    --test-server=server - check DoH server.\n");
 	printf("    --test-server=all - check all DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
+	printf("    --test-url-list - check all URLs form stdin.\n");
 	printf("    --version - print program version and exit.\n");
 	printf("    --workers=number - the number of worker threads, between %d and %d,\n"
 	       "\tdefault %d.\n",
 	       WORKERS_MIN, WORKERS_MAX, WORKERS_DEFAULT);
+	printf("    --zone=zone-name - set a different geographical zone.\n");
 	printf("\n");
 }
 
@@ -82,7 +87,7 @@ int main(int argc, char **argv) {
 	cache_init();
 	srand(time(NULL));
 
-	// process --daemonize before any other option
+	// processing: daemonize, zone, debug
 	if (argc != 1) {
 		int i;
 		for (i = 1; i < argc; i++) {
@@ -90,6 +95,13 @@ int main(int argc, char **argv) {
 				daemonize();
 				arg_daemonize = 1;
 			}
+			else if (strncmp(argv[i], "--zone=", 7) == 0) {
+				arg_zone = strdup(argv[i] + 7);
+				if (!arg_zone)
+					errExit("strdup");
+			}
+			else if (strcmp(argv[i], "--debug") == 0)
+				arg_debug = 1;
 		}
 	}
 
@@ -108,10 +120,16 @@ int main(int argc, char **argv) {
 				printf("fdns version %s\n", VERSION);
 				return 0;
 			}
-			else if (strcmp(argv[i], "--debug") == 0)
-				arg_debug = 1;
+
+			// already processed
+			else if (strcmp(argv[i], "--debug") == 0) // already processed
+				;
 			else if (strcmp(argv[i], "--daemonize") == 0)
 				;
+			else if (strncmp(argv[i], "--zone=", 7) == 0)
+				;
+
+			// options
 			else if (strncmp(argv[i], "--certfile=", 11) == 0)
 				arg_certfile = argv[i] + 11;
 			else if (strcmp(argv[i], "--allow-all-queries") == 0)
@@ -138,12 +156,15 @@ int main(int argc, char **argv) {
 					errExit("strdup");
 			}
 			else if (strcmp(argv[i], "--list") == 0) {
-				server_list();
+				server_print_zone = 1;
+				server_print_servers = 1;
+				server_list(NULL);
 				return 0;
 			}
-			else if (strcmp(argv[i], "--print-drop-lists") == 0) {
-				arg_print_drop_lists = 1;
-				filter_load_all_lists();
+			else if (strncmp(argv[i], "--list=", 7) == 0) {
+				server_print_zone = 1;
+				server_print_servers = 1;
+				server_list(argv[i] + 7);
 				return 0;
 			}
 			else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {
@@ -159,6 +180,8 @@ int main(int argc, char **argv) {
 			else if (strncmp(argv[i], "--forwarder=", 12) == 0) {
 				forwarder_set(argv[i] + 12);
 			}
+
+			// test options
 			else if (strcmp(argv[i], "--test-hosts") == 0) {
 				arg_test_hosts = 1;
 				filter_load_all_lists();
@@ -167,6 +190,11 @@ int main(int argc, char **argv) {
 			else if (strncmp(argv[i], "--test-url=", 11) == 0) {
 				filter_load_all_lists();
 				filter_test(argv[i] + 11);
+				return 0;
+			}
+			else if (strcmp(argv[i], "--test-url-list") == 0) {
+				filter_load_all_lists();
+				filter_test_list();
 				return 0;
 			}
 			else if (strcmp(argv[i], "--test-server=all") == 0) {

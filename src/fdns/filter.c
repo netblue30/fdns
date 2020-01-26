@@ -205,13 +205,6 @@ static void filter_load_list(char label, const char *fname) {
 	if (arg_test_hosts && strcmp(fname,PATH_ETC_HOSTS_LIST) == 0)
 		test_hosts = 1;
 
-	if (arg_print_drop_lists) {
-		printf("\n\n");
-		printf("//************************************************\n");
-		printf("// file: %s\n", fname);
-		printf("//************************************************\n");
-	}
-
 	char buf[MAXBUF];
 	int cnt = 0;
 	while (fgets(buf, MAXBUF, fp)) {
@@ -258,7 +251,7 @@ static void filter_load_list(char label, const char *fname) {
 
 		// add it to the hash table
 		if (!filter_blocked(ptr, 0)) {
-			if (arg_print_drop_lists || test_hosts) {
+			if (test_hosts) {
 				// if the name starts in www,. remove it
 				if (strncmp(ptr, "www.", 4) == 0)
 					ptr += 4;
@@ -376,5 +369,37 @@ void filter_test(char *url) {
 	while (ptr) {
 		filter_blocked(ptr, 1);
 		ptr = strtok(NULL, ",");
+	}
+}
+
+void filter_test_list(void) {
+	char buf[MAXBUF];
+	while (fgets(buf, MAXBUF, stdin)) {
+		// some basic cleanup
+		char *ptr = strchr(buf, '\n');
+		if (ptr)
+			*ptr = '\0';
+		else
+			ptr = buf;
+		if (*ptr = '\0')
+			continue;
+
+		ptr = buf;
+		while (*ptr == ' ' || *ptr == '\t')
+			ptr++;
+		if (*ptr == '\0')
+			continue;
+		char *start = ptr;
+		if (*start == '#')	// comments
+			continue;
+		while (*ptr != '\0') {
+			if (*ptr == ' ' || *ptr == '\t') {
+				*ptr = '\0';
+				break;
+			}
+			ptr++;
+		}
+
+		filter_test(start);
 	}
 }

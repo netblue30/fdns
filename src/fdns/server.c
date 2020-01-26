@@ -19,7 +19,13 @@
 #include "fdns.h"
 #include "timetrace.h"
 #include <sys/wait.h>
+#include <time.h>
 
+int server_print_zone = 0;
+int server_print_servers = 0;
+
+
+static char *fdns_zone = NULL;
 static DnsServer *slist = NULL;
 static DnsServer *scurrent = NULL;
 static char *push_request_tail =
@@ -27,6 +33,32 @@ static char *push_request_tail =
 	"content-type: application/dns-message\r\n" \
 	"content-length: %d\r\n" \
 	"\r\n";
+
+static void set_zone(void) {
+	if (arg_zone) {
+		fdns_zone = arg_zone;
+		if (server_print_zone)
+			printf("Current zone: %s\n", fdns_zone);
+		return;
+	}
+
+	// get timezone
+	tzset();
+	int tz = -(timezone / 60) / 60;
+	fdns_zone = "unknown";
+
+	if (tz <= 14 && tz >= 4)
+		fdns_zone = "Asia-Pacific";
+	else if (tz <= 3 && tz >= -1)
+		fdns_zone = "Europe";
+	else if (tz <= -3 && tz >= -6)
+		fdns_zone = "Americas-East";
+	else if (tz <= -7 && tz >= -11)
+		fdns_zone = "Americas-West";
+
+	if (server_print_zone)
+		printf("Current zone: %s\n", fdns_zone);
+}
 
 // returns NULL for end of list
 static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
@@ -70,6 +102,14 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				errExit("strdup");
 			found = 1;
 		}
+		else if (strncmp(buf, "zone: ", 6) == 0) {
+			if (s->zone)
+				goto errout;
+			s->zone = strdup(buf + 6);
+			if (!s->zone)
+				errExit("strdup");
+			found = 1;
+		}
 		else if (strncmp(buf, "tags: ", 6) == 0) {
 			if (s->tags)
 				goto errout;
@@ -103,11 +143,26 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 
 			// build the DNS/HTTP request
 			char *str = strchr(s->host, '/');
-			if (!str)
-				goto errout2;
+			if (!str) {
+				free(s);
+				fprintf(stderr, "Error: file %s, line %d, invalid host\n", fname, *linecnt);
+				exit(1);
+			}
 			*str++ = '\0';
 			if (asprintf(&s->request, "POST /%s HTTP/1.1\r\nHost: %s\r\n%s", str, s->host, push_request_tail) == -1)
 				errExit("asprintf");
+		}
+		else if (strncmp(buf, "sni: ", 5) == 0) {
+			if (s->sni)
+				goto errout;
+			if (strcmp(buf + 5, "yes") == 0)
+				s->sni = 1;
+			else if (strcmp(buf + 5, "no") == 0)
+				s->sni = 0;
+			else {
+				fprintf(stderr, "Error: file %s, line %d, wrong SNI setting\n", fname, *linecnt);
+				exit(1);
+			}
 		}
 		else if (strncmp(buf, "keepalive: ", 11) == 0) {
 			if (s->ssl_keepalive)
@@ -118,7 +173,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 
 			// check server data
-			if (!s->name || !s->website || !s->tags || !s->address || !s->host || !s->request) {
+			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host || !s->request) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
 				exit(1);
 			}
@@ -139,16 +194,13 @@ errout:
 	free(s);
 	fprintf(stderr, "Error: file %s, line %d, field defined twice\n", fname, *linecnt);
 	exit(1);
-
-errout2:
-	free(s);
-	fprintf(stderr, "Error: file %s, line %d, invalid host\n", fname, *linecnt);
-	exit(1);
 }
 
-
 static void load_list(void) {
-	assert(slist == NULL);
+	if (slist)
+		return;
+	if (fdns_zone == NULL)
+		set_zone();
 
 	// load all server entries from /etc/fdns/servers in slist
 	FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
@@ -177,9 +229,7 @@ static void load_list(void) {
 static void test_server(void)  {
 	// disable logging
 	log_disable();
-
 	ssl_init();
-
 	printf("Testing server %s\n", arg_server);
 	fflush(0);
 
@@ -215,23 +265,64 @@ static void test_server(void)  {
 //**************************************************************************
 // public interface
 //**************************************************************************
-void server_list(void) {
+static int second_try = 0;
+void server_list(const char *tag) {
 	load_list();
+
+	// try to match a server name
+	assert(slist);
 	DnsServer *s = slist;
-
 	while (s) {
-		printf("%s - %s\n", s->name, s->tags);
-		printf("\t%s\n", s->website);
-
+		if (tag && strcmp(tag, s->name) == 0) {
+			s->active = 1;
+			if (server_print_servers) {
+				printf("%s - %s\n", s->name, s->tags);
+				printf("\t%s\n", s->website);
+			}
+			return;
+		}
 		s = s->next;
 	}
+
+	// match tags/zones
+	s = slist;
+	int cnt = 0;
+	while (s) {
+		// match the tag
+		if (tag && strstr(s->tags, tag) == NULL) {
+			s = s->next;
+			continue;
+		}
+
+		// match the zone
+		if (fdns_zone && tag && strstr(s->zone, fdns_zone) == NULL) {
+			s = s->next;
+			continue;
+		}
+
+		if (server_print_servers) {
+			printf("%s - %s\n", s->name, s->tags);
+			printf("\t%s\n", s->website);
+		}
+		s->active = ++cnt;
+		s = s->next;
+	}
+
+	if (!cnt && tag && second_try == 0) { // try again
+		second_try = 1;
+		fdns_zone = NULL;
+		server_list(tag);
+		return;
+	}
+	else if (!cnt && tag)
+		printf("Sorry, no such server available.\n");
 }
 
 DnsServer *server_get(void) {
 	if (scurrent)
 		return scurrent;
-	if (!slist)
-		load_list();
+
+	load_list();
 	if (!slist) {
 		fprintf(stderr, "Error: the server list %s is empty", PATH_ETC_SERVER_LIST);
 		exit(1);
@@ -244,44 +335,30 @@ DnsServer *server_get(void) {
 			errExit("strdup");
 	} // arg_server is in mallocated memory
 
-	// find the server in the list and initialize the server structure
+	// initialize s->active
+	server_list(arg_server);
+
+	// count the servers
+	int cnt = 0;
+	assert(slist);
 	DnsServer *s = slist;
 	while (s) {
-		if (strcmp(s->name, arg_server) == 0) {
-			scurrent = s;
-			return scurrent;
-		}
-		s = s->next;
-	}
-
-	// look for a tag
-	// mark the servers using arg_server as a tag
-	s = slist;
-	int cnt = 0;
-	while (s) {
-		assert(s->active == 0);
-		if (strstr(s->tags, arg_server)) {
-			if (arg_debug)
-				printf("tag %s\n", s->name);
+		if (s->active)
 			cnt++;
-			s->active = cnt;
-		}
 		s = s->next;
 	}
+	if (cnt == 0)
+		goto errout;
 
-	if (!cnt) {
-		fprintf(stderr, "Error: no server %s found in %s\n", arg_server, PATH_ETC_SERVER_LIST);
-		exit(1);
-	}
-
-	// pick a random server
+	// chose a random server
 	int index = rand() % cnt + 1;
 	if (arg_debug)
 		printf("tag index %d\n", index);
 	s = slist;
 	while (s) {
 		if (s->active == index) {
-			if (server_test(s->name)) {
+			scurrent = s;
+			if (arg_id == -1 && server_test(s->name)) {
 				// mark the server as inactive and try again
 				s->active = 0;
 				s = slist;
@@ -295,7 +372,6 @@ DnsServer *server_get(void) {
 				continue;
 			}
 
-			scurrent = s;
 			free(arg_server);
 			arg_server = strdup(s->name);
 			if (!arg_server)
@@ -305,6 +381,7 @@ DnsServer *server_get(void) {
 		s = s->next;
 	}
 
+errout:
 	fprintf(stderr, "Error: cannot connect to server %s\n", arg_server);
 	exit(1);
 }
@@ -318,8 +395,27 @@ int server_test(const char *server_name)  {
 	if (!arg_server)
 		errExit("strdup");
 
+	// set the current server if not already set
+	if (!scurrent) {
+		// we've been called by main(): --test-server command line option
+		load_list();
+		DnsServer *s = slist;
+		while (s) {
+			if (strcmp(server_name, s->name) == 0) {
+				scurrent = s;
+				break;
+			}
+			s = s->next;
+		}
+		if (!scurrent) {
+			printf("Sorry, no such server available.\n");
+			exit(1);
+		}
+	}
+
 	pid_t child = fork();
 	if (child == 0) { // child
+		assert(scurrent);
 		test_server();
 		assert(0); // it will never get here
 	}
@@ -341,6 +437,7 @@ int server_test(const char *server_name)  {
 		i++;
 	}
 	while (i < 5);
+
 	if (i == 5) {
 		printf("\tError: server %s failed\n", arg_server);
 		fflush(0);

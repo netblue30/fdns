@@ -6,18 +6,27 @@
 # privacy policy posted on the provider's website. The format for each server
 # entry is as follows:
 #
-# name:
-# website:
-# tags:
-# address:
-# host:
-# keepalive:
+# name: the name of the server
+# website: service website
+# zone: geographical zone where the server is located;
+#	Your fdns proxy is located in a very specific geographical zone, such as
+#	Europe, Asia-Pacific, Americas-East, Americas-West (... so far, more to be added).
+#	The fdns zone is detected based on the timezone setting of the computer running fdns.
+#	We match fdns zone it with the server zone, and use it to filter adblocker and family tags.
+#	This way we can restrict a specific service to a specific geographical zone.
+#	If a server zone is not specified, the tag is available in all zones.
+# tags: filtering tags
+# address: IP address and port in IP:PORT format
+# host: URL
+# sni: yes/no
+#	If we add SNI when we establish the connection. Optional, default no.
+# keepalive: how often we sent a request to keep the connection going
+#	This entry also marks the end of the server description
 #
-# a format of IP:PORT is required for "address:"
-# "keepalive:" also marks the end of the server entry.
 
 name: 42l
 website: https://42l.fr
+zone: Europe
 tags: non-profit, France, Europe
 address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
@@ -25,20 +34,23 @@ keepalive: 30
 
 name: aaflao
 website: from dnscrypt list
+zone: Europe
 tags: Netherlands, Europe, adblocker
 address: 176.56.236.175:443
 host: dns.aaflalo.me/dns-query
 keepalive: 30
 
-name: aaflao-nyc
+name: aaflao-adblocker
 website: from dnscrypt list
-tags: US, America-East, Americas, adblocker
+zone: Americas-East
+tags: US, Americas, Americas-East, adblocker
 address: 168.235.81.167:443
 host: dns-nyc.aaflalo.me/dns-query
 keepalive: 30
 
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, adblocker
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
@@ -46,6 +58,7 @@ keepalive: 30
 
 name: adguard-family
 website: https://adguard.com/en/adguard-dns/overview.html
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
@@ -53,13 +66,15 @@ keepalive: 30
 
 name: alekberg
 website: posted on dnscrypt list
-tags: US, America-West, Americas
+zone: Americas-West
+tags: US, Americas, Americas-West
 address: 104.168.247.138:443
 host: dns2.alekberg.net/dns-query
 keepalive: 30
 
 name: appliedprivacy
 website: https://appliedprivacy.net
+zone: Europe
 tags: non-profit, Austria, Europe
 address: 37.252.185.229:443
 host: doh.appliedprivacy.net/query
@@ -67,6 +82,7 @@ keepalive: 30
 
 name: bortzmeyer
 website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
+zone: Europe
 tags: France, Europe
 address: 193.70.85.11:443
 host: doh.bortzmeyer.fr/dns-query
@@ -74,6 +90,7 @@ keepalive: 7
 
 name: cleanbrowsing
 website: https://cleanbrowsing.org
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
@@ -81,6 +98,7 @@ keepalive: 30
 
 name: cleanbrowsing-family
 website: https://cleanbrowsing.org
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
@@ -88,6 +106,7 @@ keepalive: 30
 
 name: cloudflare
 website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
@@ -97,6 +116,7 @@ keepalive: 250
 # family and security servers redirected to cleanbrowsing
 name: containerpi
 website: listed on https://github.com/curl/curl/wiki/DNS-over-HTTPS
+zone: Asia-Pacific
 tags: Japan, Asia-Pacific
 address: 45.77.180.10:443
 host: dns.containerpi.com/dns-query
@@ -106,6 +126,7 @@ keepalive: 30
 
 name: cznic
 website: https://www.nic.cz/odvr/
+zone: Europe
 tags: Czechia, Europe
 address: 185.43.135.1:443
 host: odvr.nic.cz/doh
@@ -113,6 +134,7 @@ keepalive: 7
 
 name: cznic2
 website: https://www.nic.cz/odvr/
+zone: Europe
 tags: Czechia, Europe
 address: 193.17.47.1:443
 host: odvr.nic.cz/doh
@@ -120,6 +142,7 @@ keepalive: 7
 
 name: digital-society
 website: https://www.digitale-gesellschaft.ch
+zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
@@ -127,62 +150,77 @@ keepalive: 30
 
 name: dnscrypt-ca
 website: https://dnscrypt.ca/
-tags: Canada, America-East, Americas
+zone: Americas-East
+tags: Canada, Americas, Americas-East
 address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
 keepalive: 30
 
 name: dnscrypt-ca2
 website: https://dnscrypt.ca/
-tags: Canada, America-East, Americas
+zone: Americas-East
+tags: Canada, Americas, Americas-East
 address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
 keepalive: 30
 
 name: dnswarden
 website: https://github.com/bhanupratapys/dnswarden
+zone: Europe
 tags: Germany, Europe, adblocker
 address: 116.203.70.156:443
 host: doh.dnswarden.com/adblock
+sni: yes
 keepalive: 7
 
 name: dnswarden2
 website: https://github.com/bhanupratapys/dnswarden
+zone: Europe
 tags: Germany, Europe, adblocker
 address: 116.203.35.255:443
 host: doh.dnswarden.com/adblock
+sni: yes
 keepalive: 7
 
 name: dnswarden3
 website: https://github.com/bhanupratapys/dnswarden
+zone: Europe
 tags: Germany, Europe, adblocker
 address: 88.198.161.8:443
 host: doh.dnswarden.com/adblock
+sni: yes
 keepalive: 7
 
-name: dnswarden4
+name: dnswarden-family
 website: https://github.com/bhanupratapys/dnswarden
-tags: Germany, Europe, family
+zone: Europe
+tags: family
 address: 116.203.70.156:443
 host: doh.dnswarden.com/adult-filter
+sni: yes
 keepalive: 7
 
-name: dnswarden5
+name: dnswarden-family2
 website: https://github.com/bhanupratapys/dnswarden
-tags: Germany, Europe, family
+zone: Europe
+tags: family
 address: 116.203.35.255:443
 host: doh.dnswarden.com/adult-filter
+sni: yes
 keepalive: 7
 
-name: dnswarden6
+name: dnswarden-family3
 website: https://github.com/bhanupratapys/dnswarden
-tags: Germany, Europe, family
+zone: Europe
+tags: family
 address: 88.198.161.8:443
 host: doh.dnswarden.com/adult-filter
+sni: yes
 keepalive: 7
 
 name: ffmuc
 website: https://ffmuc.net/
+zone: Europe
 tags: Germany, Europe
 address: 195.30.94.28:443
 host: doh.ffmuc.net/dns-query
@@ -190,6 +228,7 @@ keepalive: 30
 
 name: gridth-jp
 website: https://grid.in.th/projects/gridns/
+zone: Asia-Pacific
 tags: Japan, Asia-Pacific
 address: 172.105.241.93:443
 host: jp.gridns.xyz/dns-query
@@ -197,6 +236,7 @@ keepalive: 30
 
 name: gridth-sg
 website: https://grid.in.th/projects/gridns/
+zone: Asia-Pacific
 tags: Singapore, Asia-Pacific
 address: 139.162.3.123:443
 host: sg.gridns.xyz/dns-query
@@ -204,13 +244,15 @@ keepalive: 30
 
 name: hostux
 website: https://hostux.network/en/index.html
+zone: Europe
 tags: Luxembourg, Europe
 address: 185.26.126.37:443
 host: dns.hostux.net/dns-query
 keepalive: 30
 
-name: hostux2
+name: hostux-adblocker
 website: https://hostux.network/en/index.html
+zone: Europe
 tags: Luxembourg, Europe, adblocker
 address: 185.26.126.37:443
 host: dns.hostux.net/ads
@@ -218,6 +260,7 @@ keepalive: 30
 
 name: ibksturm
 website: from dnscrypt list
+zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 83.77.85.7:443
 host: ibksturm.synology.me/dns-query
@@ -225,13 +268,15 @@ keepalive: 7
 
 name: ibuki
 website: http://ibuki.cgnat.net/
-tags: US, America-West, Americas
+zone: Americas-West
+tags: US, Americas, Americas-West
 address: 35.198.2.76:443
 host: ibuki.cgnat.net/dns-query
 keepalive: 7
 
 name: jcdns
 website: https://jcdns.fun/
+zone: Europe
 tags: Netherlands, Europe
 address: 178.62.214.105:443
 host: jcdns.fun/dns-query
@@ -239,6 +284,7 @@ keepalive: 30
 
 name: lelux
 website: https://lelux.fi/resolver/
+zone: Europe
 tags: Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
@@ -246,6 +292,7 @@ keepalive: 30
 
 name: li
 website: https://doh.li/
+zone: Europe
 tags: UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
@@ -253,13 +300,15 @@ keepalive: 30
 
 name: libredns
 website: https://libredns.gr/
+zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 116.203.115.192:443
 host: doh.libredns.gr/dns-query
 keepalive: 30
 
-name: libredns2
+name: libredns-adblocker
 website: https://libredns.gr/
+zone: Europe
 tags: Germany, Europe, OpenNIC, adblocker
 address: 116.203.115.192:443
 host: doh.libredns.gr/ads
@@ -267,41 +316,80 @@ keepalive: 30
 
 name: nixnet
 website: https://nixnet.services/dns/
-tags: US, America-East, America-West, Americas, Luxemburg, Europe
+zone: Americas-East
+tags: US, Americas, Americas-East
 address: 198.251.90.114:443
 host: uncensored.any.dns.nixnet.xyz/dns-query
 keepalive: 30
 
 name: nixnet2
 website: https://nixnet.services/dns/
-tags: US, America-East, America-West, Americas, Luxemburg, Europe, adblocker
+zone: Americas-West
+tags: US, Americas, Americas-West
+address: 198.251.90.114:443
+host: uncensored.any.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+name: nixnet3
+website: https://nixnet.services/dns/
+zone: Europe
+tags: Luxemburg, Europe
+address: 198.251.90.114:443
+host: uncensored.any.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+name: nixnet-adblocker
+website: https://nixnet.services/dns/
+zone: Americas-East
+tags: US, Americas, Americas-East, adblocker
+address: 198.251.90.89:443
+host: adblock.any.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+name: nixnet-adblocker2
+website: https://nixnet.services/dns/
+zone: Americas-West
+tags: US, Americas, Americas-West, adblocker
+address: 198.251.90.89:443
+host: adblock.any.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+name: nixnet-adblocker3
+website: https://nixnet.services/dns/
+zone: Europe
+tags: Luxemburg, Europe, adblocker
 address: 198.251.90.89:443
 host: adblock.any.dns.nixnet.xyz/dns-query
 keepalive: 30
 
 name: oszx
 website: https://dns.oszx.co
+zone: Europe
 tags: UK, Europe, adblocker
 address: 51.38.83.141:443
 host: dns.oszx.co/dns-query
+sni: yes
 keepalive: 30
 
 name: pi-dns
 website: https://pi-dns.com
-tags: US, America-East, Americas, adblocker
+zone: Americas-East
+tags: US, Americas, Americas-East, adblocker
 address: 185.213.26.187:443
 host: doh.eastus.pi-dns.com/dns-query
 keepalive: 30
 
 name: pi-dns2
 website: https://pi-dns.com
-tags: US, America-West, Americas, adblocker
+zone: Americas-West
+tags: US, Americas, Americas-West, adblocker
 address: 45.67.219.208:443
 host: doh.westus.pi-dns.com/dns-query
 keepalive: 30
 
 name: pi-dns3
 website: https://pi-dns.com
+zone: Europe
 tags: Finland, Europe, adblocker
 address: 95.216.181.228:443
 host: doh.northeu.pi-dns.com/dns-query
@@ -309,6 +397,7 @@ keepalive: 30
 
 name: pi-dns4
 website: https://pi-dns.com
+zone: Europe
 tags: Germany, Europe, adblocker
 address: 31.220.42.65:443
 host: doh.westeu.pi-dns.com/dns-query
@@ -316,6 +405,7 @@ keepalive: 30
 
 name: powerdns
 website: https://powerdns.org
+zone: Europe
 tags: Netherlands, Europe
 address: 136.144.215.158:443
 host: doh.powerdns.org/dns-query
@@ -323,6 +413,7 @@ keepalive: 7
 
 name: quad9
 website: https://quad9.net
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security
 address: 9.9.9.9:5053
 host: dns.quad9.net/dns-query
@@ -330,6 +421,7 @@ keepalive: 30
 
 name: seby
 website: https://dns.seby.io
+zone: Asia-Pacific
 tags: Australia, Asia-Pacific, OpenNIC
 address: 45.76.113.31:8443
 host: dns.seby.io/dns-query
@@ -337,6 +429,7 @@ keepalive: 7
 
 name: seby2
 website: https://dns.seby.io
+zone: Asia-Pacific
 tags: Australia, Asia-Pacific, OpenNIC
 address: 139.99.222.72:443
 host: doh-2.seby.io/dns-query
@@ -344,13 +437,15 @@ keepalive: 7
 
 name: securedns
 website: https://securedns.eu/
+zone: Europe
 tags: Netherlands, Europe
 address: 146.185.167.43:443
 host: doh.securedns.eu/dns-query
 keepalive: 7
 
-name: securedns2
+name: securedns-adblocker
 website: https://securedns.eu/
+zone: Europe
 tags: Netherlands, Europe, adblocker
 address: 146.185.167.43:443
 host: ads-doh.securedns.eu/dns-query
@@ -358,13 +453,16 @@ keepalive: 7
 
 name: snopyta
 website: https://snopyta.org
+zone: Europe
 tags: non-profit, Finland, Europe
 address: 95.216.229.153:443
 host: fi.doh.dns.snopyta.org/dns-query
+sni: yes
 keepalive: 30
 
 name: tiarapp
 website: https://doh.tiar.app
+zone: Asia-Pacific
 tags: Singapore, Asia-Pacific
 address: 174.138.29.175:443
 host: doh.tiar.app/dns-query
@@ -372,6 +470,7 @@ keepalive: 30
 
 name: tiarapp-jp
 website: https://jp.tiar.app/
+zone: Asia-Pacific
 tags: Japan, Asia-Pacific
 address: 172.104.93.80:443
 host: jp.tiar.app/dns-query
@@ -379,6 +478,7 @@ keepalive: 30
 
 name: twnic
 website: https://101.101.101.101/index_en.html
+zone: Asia-Pacific
 tags: Taiwan, Asia-Pacific
 address: 210.17.9.228:443
 host: dns.twnic.tw/dns-query

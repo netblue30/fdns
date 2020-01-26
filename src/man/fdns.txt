@@ -87,9 +87,6 @@ $ fdns --monitor
 No DNS request filtering. This disables the adblocker, the tracker filter, and the user hosts file
 installed in /etc/fdns directory.
 .TP
-\fB\-\-print-drop-lists
-Print the URL drop list as the filter is initialized. We use this option to remove duplicates in our filters.
-.TP
 \fB\-\-proxy-addr=address
 Configure the IP address the proxy listens for
 DNS queries coming from the local clients. The default is 127.1.1.1.
