@@ -35,13 +35,13 @@ The defaults mentioned below can be overwritten using command line options.
 
 * The proxy listens on local loopback address `127.1.1.1`, UDP port `53`.
 This allows it to coexist peacefully with any other DNS server/proxy installed on the system.
-Change this default with --proxy-addr command line option.
+Change this default with the --proxy-addr command line option.
 
 * Using only DoH services from zero-logging providers, based on the privacy policy
 posted on the provider's website. Print the list of supported servers with `--list`,
-and use `--server=` to pick up a specific server (`--server=powerdns`). You can also use a group,
-in this case fdns will chose a random server from the group (`--server=Europe`). By default
-we pick up a random server from anycast group (`--server=anycast`).
+and use `--server=` to pick a specific server (`--server=powerdns`). You can also use a group,
+in which case fdns will choose a random server from the group (`--server=Europe`). By default
+we pick a random server from the anycast group (`--server=anycast`).
 `````
 $ fdns --list
 42l - non-profit, France, Europe
@@ -76,8 +76,8 @@ tiarapp-jp - Japan, Asia-Pacific
 Steven Black's [hosts](https://github.com/StevenBlack/hosts) project, and ZeroDot1 [coninblocker](https://zerodot1.gitlab.io/CoinBlockerListsWeb/index.html) list.
 For blocked domains we respond with `127.0.0.1`. Use `--nofilter` to disable.
 
-  The filter files are `/etc/fdns/adblocker`, `/etc/fdns/trackers` and `/etc/fdns/coinblocker`.
-These are regular text file, you can modify them, or even delete them.
+The filter files are `/etc/fdns/adblocker`, `/etc/fdns/trackers` and `/etc/fdns/coinblocker`.
+These are regular text files, you can modify them, or even delete them.
 You can also add your own list in `/etc/fdns/hosts`.
 Adblocker hosts files as published all over the net should work just fine.
 
@@ -101,7 +101,7 @@ a whitelist seccomp filter is enabled. By default we start 3 workers.
 An AppArmor profile is installed in `/etc/apparmor.d` directory.
 
 * Seamless integration with [Firejail security sandbox](https://github.com/netblue30/firejail),
-a graphical user interface if available in [Firetools](https://github.com/netblue30/firetools).
+a graphical user interface is available in [Firetools](https://github.com/netblue30/firetools).
 
 <div style="height:20px;">&nbsp;</div>
 
@@ -116,7 +116,7 @@ Dependencies: OpenSSL library and libseccomp.
   * sudo yum install libseccomp-devel openssl-devel
 
 * Arch Linux:
-  * the libraries are already included in the base group
+  * the libraries are already included in the base package
 
 `````
 $ git clone https://github.com/netblue30/fdns
@@ -125,7 +125,7 @@ $ ./configure --prefix=/usr
 $ make
 $ sudo make install
 `````
-If AppArmor is present in the system, enable fdns profile by running
+If AppArmor is present on the system, enable fdns profile by running
 `````
 # /sbin/apparmor_parser -r /etc/apparmor.d/usr.bin.fdns
 `````
@@ -193,7 +193,7 @@ According to [Mozilla](https://blog.mozilla.org/futurereleases/2019/04/02/dns-ov
 In my experience it is. HTTPS connections open long periods of time tend to misbehave,
 not to mention if it starts raining.
 
-To give you an idea, on a typical day on Cloudflare the monitor reports about 5000 encrypted request, with 8 requests sent in clear (fallback mode). Problems appear when you take the computer out of sleep mode. Depending how long the computer was sleeping, it could take a few seconds to detect the errors and reestablish the HTTPS connection. During this time, the fallback mode kicks in.
+To give you an idea, on a typical day on Cloudflare the monitor reports about 5000 encrypted request, with 8 requests sent in clear (fallback mode). Problems appear when you take the computer out of sleep mode. Depending on how long the computer was sleeping, it could take a few seconds to detect the errors and reestablish the HTTPS connection. During this time, the fallback mode kicks in.
 
 #### If I use fdns, do I still need an adblocker?
 
@@ -217,7 +217,7 @@ For `systemd` users, we place a `fdns.service` file in `/etc/fdns` directory.
 Usage:
 ```bash
 cp /etc/fdns/fdns.service /etc/systemd/system/fdns.service
-# Load the file. Alternative reboot your system
+# Load the file. Alternatively reboot your system
 systemctl daemon-reload
 systemctl start fdns.service
 # Start fdns when starting the system
