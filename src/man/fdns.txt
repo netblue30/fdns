@@ -40,12 +40,14 @@ Detach from the controlling terminal and run as a Unix daemon.
 \fB\-\-debug
 Print debug messages.
 .TP
+\fB\-\-forwarder=domain@address
+Conditional forwarding to a different DNS server.
+.TP
 \fB\-\-help, \-?
 Print options end exit.
 .TP
 \fB\-\-ipv6
 Allow AAAA requests.
-
 .TP
 \fB\-\-list
 List all available DoH service providers, and the groups they belong to.
@@ -75,6 +77,9 @@ cleanbrowsing-family - family
 	https://cleanbrowsing.org
 .br
 [...]
+.TP
+\fB\-\-list=server-name|tag
+List the available DoH service providers based on the provided server name or group.
 .TP
 \fB\-\-monitor
 Start the stats monitor. Run this command as a regular user in a terminal.
@@ -115,7 +120,9 @@ $ sudo fdns --server=non-profit
 .br
 $ sudo fdns --server=Europe
 .br
-
+.TP
+\fB\-\-test-hosts
+Test the domains in /etc/fdns/hosts file.
 .TP
 \fB\-\-test-server=server
 Send a burst of 5 DNS requests to one of the supported servers and calculate an average response time.
@@ -155,6 +162,9 @@ Print program version and exit.
 .TP
 \fB\-\-workers=number
 The number of worker threads, between 1 and 10, default 3.
+.TP
+\fB\-\-zone=zone-name
+Set a different geographical zone.
 
 .SH Setup fdns on a workstation
 Use Firejail security sandbox to redirect all the DNS traffic to 127.1.1.1, where fdns listens by default. Firejail decouples the DNS functionality, allowing each sandbox to have its own DNS setting. Your system DNS configuration is not touched. If things go wrong, you won't lose your Internet connectivity. Here are the steps:
@@ -168,7 +178,6 @@ $ firejail --dns=127.1.1.1 firefox
 .br
 $ firejail --dns=127.1.1.1 transmission-qt
 .br
-
 .br
 .SH Setup fdns on a network server
 Install fdns and set "nameserver 127.0.0.1" in /etc/resolv.conf. Start fdns using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface. The default 127.1.1.1 is not used in this case.
@@ -176,7 +185,6 @@ Install fdns and set "nameserver 127.0.0.1" in /etc/resolv.conf. Start fdns usin
 .RS
 $ sudo fdns --proxy-addr-any --daemonize
 .br
-
 .br
 .RE
 Or you can run it only on a specific interface. Example assuming 192.168.1.44 is the IP address of eth0:
@@ -184,7 +192,6 @@ Or you can run it only on a specific interface. Example assuming 192.168.1.44 is
 .RS
 $ sudo fdns --proxy-addr=192.168.1.44 --daemonize
 .br
-
 .br
 .RE
 When using --daemonize, errors and warnings are posted to syslog.
