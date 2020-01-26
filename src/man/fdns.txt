@@ -16,7 +16,7 @@ fdns --monitor
 
 .SH DESCRIPTION
 fdns is a DNS-over-HTTPS proxy server targeted at small networks and Linux desktops.
-To speed up the name resolution fdns cachea the responses, and uses a configurable
+To speed up the name resolution fdns caches the responses, and uses a configurable
 adblocker and privacy filter to cut down the unnecessary traffic.
 
 .SH OPTIONS
@@ -88,7 +88,7 @@ No DNS request filtering. This disables the adblocker, the tracker filter, and t
 installed in /etc/fdns directory.
 .TP
 \fB\-\-proxy-addr=address
-Configure the IP address the proxy listens for
+Configure the IP address the proxy listens on for
 DNS queries coming from the local clients. The default is 127.1.1.1.
 .br
 
