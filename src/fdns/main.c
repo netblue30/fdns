@@ -49,7 +49,7 @@ static void usage(void) {
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
 	printf("    --debug - print debug messages.\n");
-	printf("    --forwarder=domain@address - conditional forwarding to a differnet DNS\n"
+	printf("    --forwarder=domain@address - conditional forwarding to a different DNS\n"
 	        "\tserver.\n");
 	printf("    --help, -? - show this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
