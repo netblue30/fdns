@@ -59,7 +59,7 @@ static void usage(void) {
 	       "\tbased on the provided server name or group.\n");
 	printf("    --monitor - monitor statistics.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
-	printf("    --proxy-addr=address - configure the IP address the proxy listens for\n"
+	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
 	printf("    --proxy-addr-any - listen on all available interfaces.\n");
 	printf("    --server=server-name|group - configure the DoH service provider. Use --list\n"
