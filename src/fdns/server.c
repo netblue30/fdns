@@ -202,7 +202,7 @@ static void load_list(void) {
 	if (fdns_zone == NULL)
 		set_zone();
 
-	// load all server entries from /etc/fdns/servers in slist
+	// load all server entries from /etc/fdns/servers in list
 	FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
 	if (!fp) {
 		fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
@@ -224,7 +224,7 @@ static void load_list(void) {
 }
 
 // test the server pointed by arg_server
-// this function shuold be run in a separate process
+// this function should be run in a separate process
 // exit(0) if ok, exit(1) if error
 static void test_server(void)  {
 	// disable logging
@@ -350,7 +350,7 @@ DnsServer *server_get(void) {
 	if (cnt == 0)
 		goto errout;
 
-	// chose a random server
+	// choose a random server
 	int index = rand() % cnt + 1;
 	if (arg_debug)
 		printf("tag index %d\n", index);
@@ -362,7 +362,7 @@ DnsServer *server_get(void) {
 				// mark the server as inactive and try again
 				s->active = 0;
 				s = slist;
-				// try several times to pick a different random server
+				// try several times to choose a different random server
 				int newindex = rand() % cnt + 1;
 				if (index == newindex)
 					newindex = rand() % cnt + 1;
