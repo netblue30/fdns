@@ -8,18 +8,18 @@
 #
 # name: the name of the server
 # website: service website
-# zone: geographical zone where the server is located;
+# zone: geographical zone where the server is located
 #	Your fdns proxy is located in a very specific geographical zone, such as
 #	Europe, Asia-Pacific, Americas-East, Americas-West (... so far, more to be added).
 #	The fdns zone is detected based on the timezone setting of the computer running fdns.
-#	We match fdns zone it with the server zone, and use it to filter adblocker and family tags.
+#	We match fdns zone with the server zone, and use it to filter adblocker and family tags.
 #	This way we can restrict a specific service to a specific geographical zone.
 #	If a server zone is not specified, the tag is available in all zones.
 # tags: filtering tags
 # address: IP address and port in IP:PORT format
 # host: URL
 # sni: yes/no
-#	If we add SNI when we establish the connection. Optional, default no.
+#	If yes we add SNI when we establish the connection. Optional, default no.
 # keepalive: how often we sent a request to keep the connection going
 #	This entry also marks the end of the server description
 #
