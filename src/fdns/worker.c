@@ -138,7 +138,6 @@ void worker(void) {
 			// reopen SSL connection
 			if (ssl_state == SSL_CLOSED) {
 				if (--ssl_reopen_cnt <= 0) {
-					dns_over_udp = 0;
 					ssl_open();
 					ssl_reopen_cnt = SSL_REOPEN_TIMER;
 				}
@@ -149,7 +148,6 @@ void worker(void) {
 			if (ssl_status_check())
 				ssl_keepalive_cnt = 0;
 			if (--ssl_keepalive_cnt <= 0)  {
-//printf("(%d) Sending SSL keepalive\n", arg_id);
 				ssl_keepalive();
 				ssl_keepalive_cnt = ssl_keepalive_timer;
 			}
