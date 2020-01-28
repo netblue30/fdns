@@ -24,6 +24,9 @@ adblocker and privacy filter to cut down the unnecessary traffic.
 \fB\-\-allow-all-queries
 Allow all DNS query types; by default only A queries are allowed.
 .TP
+\fB\-\-cache-ttl=seconds
+Change DNS cache TTL, in seconds, default 900 (15 minutes).
+.TP
 \fB\-\-certfile=filename
 Use an SSL certificate file in PEM format. By default we use the certificates installed
 by OpenSSL.
