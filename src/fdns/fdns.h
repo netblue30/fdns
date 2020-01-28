@@ -66,7 +66,7 @@ static inline int check_addr_port(const char *str) {
 // all timers are in seconds
 #define WORKER_KEEPALIVE_TIMER 10 // keepalive messages sent by worker processes
 #define WORKER_KEEPALIVE_SHUTDOWN (WORKER_KEEPALIVE_TIMER * 3) // timer to detect a dead worker process
-#define PARENT_KEEPALIVE_TIMER 3 // keepalive messages sent by parent processes
+#define PARENT_KEEPALIVE_TIMER 10 // keepalive messages sent by parent processes
 #define PARENT_KEEPALIVE_SHUTDOWN (PARENT_KEEPALIVE_TIMER * 3) // timer to detect the dead parent process
 #define WORKER_KEEPALIVE_AFTER_SLEEP (WORKER_KEEPALIVE_TIMER * 1.2) // after sleep detection
 #define MONITOR_WAIT_TIMER 2	// wait for this number of seconds before restarting a failed child process
