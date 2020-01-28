@@ -73,8 +73,10 @@ void cache_set_name(const char *name, int ipv6) {
 
 void cache_set_reply(uint8_t *reply, ssize_t len) {
 	assert(reply);
-	if (len == 0 || len > MAX_REPLY || *cname == '\0')
+	if (len == 0 || len > MAX_REPLY || *cname == '\0') {
+		*cname = '\0';
 		return;
+	}
 
 	int h = hash(cname, cname_type);
 	CacheEntry *ptr = malloc(sizeof(CacheEntry));
@@ -93,6 +95,7 @@ void cache_set_reply(uint8_t *reply, ssize_t len) {
 
 	ptr->next = clist[h];
 	clist[h] = ptr;
+	*cname = '\0';
 }
 
 
@@ -153,7 +156,7 @@ void cache_timeout(void) {
 #ifdef DEBUG_STATS
 	scnt++;
 	if (scnt >= 60) {
-		printf("*** cache entries %u, mem %lu, cache ttl %d\n", sentries, (unsigned) sentries * sizeof(CacheEntry) + (unsigned) sizeof(clist), arg_cache_ttl);
+		printf("*** (%d) cache entries %u, mem %lu, cache ttl %d\n", arg_id, sentries, (unsigned) sentries * sizeof(CacheEntry) + (unsigned) sizeof(clist), arg_cache_ttl);
 		fflush(0);
 		scnt = 0;
 	}
