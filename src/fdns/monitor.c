@@ -121,6 +121,14 @@ static int sandbox(void *sandbox_arg) {
 	if (arg_allow_all_queries)
 		a[last++] = "--allow-all-queries";
 
+	if (arg_cache_ttl != CACHE_TTL_DEFAULT) {
+		char *cmd;
+		if (asprintf(&cmd, "--cache-ttl=%d", arg_cache_ttl) == -1)
+			errExit("asprintf");
+		a[last++] = cmd;
+	}
+
+
 	Forwarder *f = fwd;
 	while (f) {
 		char *cmd;

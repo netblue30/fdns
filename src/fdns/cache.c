@@ -18,9 +18,15 @@
 */
 #include "fdns.h"
 
+// debug statistics
+#define DEBUG_STATS
+#ifdef DEBUG_STATS
+static unsigned sentries = 0;	// entries
+static unsigned scnt = 0;		// print counter
+#endif
+
 typedef struct cache_entry_t {
 	struct cache_entry_t *next;
-#define MAX_TTL 300
 	int16_t  ttl;
 	uint16_t len;
 	int type; // 0 - ipv4,, 1 - ipv6
@@ -75,13 +81,15 @@ void cache_set_reply(uint8_t *reply, ssize_t len) {
 	if (!ptr)
 		errExit("malloc");
 	clean_entry(ptr);
-
+#ifdef DEBUG_STATS
+	sentries++;
+#endif
 	ptr->len = len;
 	ptr->type = cname_type;
 	assert(sizeof(cname) == sizeof(ptr->name));
 	memcpy(ptr->name, cname, sizeof(cname));
 	memcpy(ptr->reply, reply, len);
-	ptr->ttl = MAX_TTL;
+	ptr->ttl = arg_cache_ttl;
 
 	ptr->next = clist[h];
 	clist[h] = ptr;
@@ -120,6 +128,7 @@ void cache_timeout(void) {
 		CacheEntry *ptr = clist[i];
 		CacheEntry *last = NULL;
 
+		int depth = 0;
 		while (ptr) {
 			ptr->ttl--;
 			if (ptr->ttl <= 0) {
@@ -130,6 +139,9 @@ void cache_timeout(void) {
 				CacheEntry *tmp = ptr;
 				ptr = ptr->next;
 				free(tmp);
+#ifdef DEBUG_STATS
+				sentries--;
+#endif
 			}
 			else {
 				last = ptr;
@@ -137,4 +149,13 @@ void cache_timeout(void) {
 			}
 		}
 	}
+
+#ifdef DEBUG_STATS
+	scnt++;
+	if (scnt >= 60) {
+		printf("*** cache entries %u, mem %lu, cache ttl %d\n", sentries, (unsigned) sentries * sizeof(CacheEntry) + (unsigned) sizeof(clist), arg_cache_ttl);
+		fflush(0);
+		scnt = 0;
+	}
+#endif
 }
