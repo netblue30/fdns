@@ -19,7 +19,7 @@
 #include "fdns.h"
 
 // debug statistics
-#define DEBUG_STATS
+//#define DEBUG_STATS
 #ifdef DEBUG_STATS
 static unsigned sentries = 0;	// entries
 static unsigned scnt = 0;		// print counter
