@@ -24,7 +24,7 @@
 #ifdef DEBUG_STATS
 static unsigned smem = 0;	// memory
 static unsigned sentries = 0;	// entries
-static unsigned scnt = 0;	// search counter
+static unsigned scnt = 0;		// print counter
 static double stime = 0;		// accumulated search access time
 #endif
 

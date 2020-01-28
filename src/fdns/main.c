@@ -33,6 +33,7 @@ int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
 int arg_test_hosts = 0;
 char *arg_zone = NULL;
+int arg_cache_ttl = CACHE_TTL_DEFAULT;
 
 Stats stats;
 
@@ -45,6 +46,7 @@ static void usage(void) {
 	printf("Options:\n");
 	printf("    --allow-all-queries - allow all DNS query types; by default only\n"
 	       "\tA queries are allowed.\n");
+	printf("    --cache-ttl=seconds - change DNS cache TTL (default %ds).\n", CACHE_TTL_DEFAULT);
 	printf("    --certfile=filename - SSL certificate file in PEM format.\n");
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
@@ -130,6 +132,14 @@ int main(int argc, char **argv) {
 				;
 
 			// options
+			else if (strncmp(argv[i], "--cache-ttl=", 12) == 0) {
+				arg_cache_ttl = atoi(argv[i] + 12);
+				if (arg_cache_ttl < CACHE_TTL_MIN || arg_cache_ttl > CACHE_TTL_MAX) {
+					fprintf(stderr, "Error: please provide a cache TTL between %d and %d seconds\n",
+						CACHE_TTL_MIN, CACHE_TTL_MAX);
+					exit(1);
+				}
+			}
 			else if (strncmp(argv[i], "--certfile=", 11) == 0)
 				arg_certfile = argv[i] + 11;
 			else if (strcmp(argv[i], "--allow-all-queries") == 0)
