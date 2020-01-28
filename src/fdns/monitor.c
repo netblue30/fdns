@@ -288,7 +288,6 @@ void monitor(void) {
 			for (i = 0; i < arg_workers; i++) {
 				if (--w[i].keepalive <= 0) {
 					logprintf("Restarting worker process %d (pid %d)\n", i, w[i].pid);
-//					logprintf("Restarting worker process %d\n", i);
 					kill(w[i].pid, SIGKILL);
 					int status;
 					waitpid(w[i].pid, &status, 0);
@@ -394,6 +393,10 @@ void monitor(void) {
 						shmem_store_log(tmp);
 						free(tmp);
 					}
+
+					// respond with a keepalive
+					int rv = write(w[i].fd[0], "keepalive", 10);
+					(void) rv; // todo: error recovery
 
 					fflush(0);
 				}
