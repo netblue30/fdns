@@ -247,6 +247,7 @@ int main(int argc, char **argv) {
 	else {
 		logprintf("fdns starting\n");
 		logprintf("connecting to %s server\n", s->name);
+		logprintf("\t%s\n", s->tags);
 		monitor();
 	}
 
