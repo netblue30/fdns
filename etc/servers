@@ -32,7 +32,7 @@ address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
 keepalive: 30
 
-name: aaflao
+name: aaflalo
 website: from dnscrypt list
 zone: Europe
 tags: Netherlands, Europe, adblocker
@@ -40,7 +40,7 @@ address: 176.56.236.175:443
 host: dns.aaflalo.me/dns-query
 keepalive: 30
 
-name: aaflao-adblocker
+name: aaflalo-adblocker
 website: from dnscrypt list
 zone: Americas-East
 tags: US, Americas, Americas-East, adblocker
@@ -66,10 +66,34 @@ keepalive: 30
 
 name: alekberg
 website: posted on dnscrypt list
+zone: Europe
+tags: Netherlands, Europe
+address: 51.15.124.208:443
+host: dns.alekberg.net/noads
+keepalive: 30
+
+name: alekberg-adblocker
+website: posted on dnscrypt list
+zone: Europe
+tags: Netherlands, Europe, adblocker
+address: 51.15.124.208:443
+host: dns.alekberg.net/noads
+keepalive: 30
+
+name: alekberg2
+website: posted on dnscrypt list
 zone: Americas-West
 tags: US, Americas, Americas-West
 address: 104.168.247.138:443
 host: dns2.alekberg.net/dns-query
+keepalive: 30
+
+name: alekberg-adblocker2
+website: posted on dnscrypt list
+zone: Americas-West
+tags: US, Americas, Americas-West
+address: 104.168.247.138:443
+host: dns2.alekberg.net/noads
 keepalive: 30
 
 name: appliedprivacy
@@ -140,6 +164,15 @@ address: 193.17.47.1:443
 host: odvr.nic.cz/doh
 keepalive: 7
 
+name: defaultroutes
+website: https://doh.defaultroutes.de/
+zone: Europe
+tags: Germany, Europe
+address: 5.45.107.88:443
+host: doh.defaultroutes.de/dns-query
+sni: yes
+keepalive: 30
+
 name: digital-society
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
@@ -169,7 +202,7 @@ website: https://github.com/bhanupratapys/dnswarden
 zone: Europe
 tags: Germany, Europe, adblocker
 address: 116.203.70.156:443
-host: doh.dnswarden.com/adblock
+host: doh.dnswarden.com/uncensored
 sni: yes
 keepalive: 7
 
@@ -178,11 +211,38 @@ website: https://github.com/bhanupratapys/dnswarden
 zone: Europe
 tags: Germany, Europe, adblocker
 address: 116.203.35.255:443
-host: doh.dnswarden.com/adblock
+host: doh.dnswarden.com/uncensored
 sni: yes
 keepalive: 7
 
 name: dnswarden3
+website: https://github.com/bhanupratapys/dnswarden
+zone: Europe
+tags: Germany, Europe, adblocker
+address: 88.198.161.8:443
+host: doh.dnswarden.com/uncensored
+sni: yes
+keepalive: 7
+
+name: dnswarden-adblocker
+website: https://github.com/bhanupratapys/dnswarden
+zone: Europe
+tags: Germany, Europe, adblocker
+address: 116.203.70.156:443
+host: doh.dnswarden.com/adblock
+sni: yes
+keepalive: 7
+
+name: dnswarden-adblocker2
+website: https://github.com/bhanupratapys/dnswarden
+zone: Europe
+tags: Germany, Europe, adblocker
+address: 116.203.35.255:443
+host: doh.dnswarden.com/adblock
+sni: yes
+keepalive: 7
+
+name: dnswarden-adblocker3
 website: https://github.com/bhanupratapys/dnswarden
 zone: Europe
 tags: Germany, Europe, adblocker

@@ -316,6 +316,8 @@ void server_list(const char *tag) {
 	}
 	else if (!cnt && tag)
 		printf("Sorry, no such server available.\n");
+	else if (cnt && server_print_servers)
+		printf("%d servers found\n", cnt);
 }
 
 DnsServer *server_get(void) {

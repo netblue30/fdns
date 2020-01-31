@@ -145,6 +145,8 @@ static inline void print_line(const char *str) {
 // 92 - bright green
 	if (strstr(str, "Error"))
 		printf("\033[91m%s\033[0m", str);
+	else if (strstr(str, "fp-tracker"))
+		printf("\033[91m%s\033[0m", str);
 	else if (strstr(str, ", dropped"))
 		printf("\033[92m%s\033[0m", str);
 	else
