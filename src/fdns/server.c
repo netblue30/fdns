@@ -36,6 +36,15 @@ static char *push_request_tail =
 
 static void set_zone(void) {
 	if (arg_zone) {
+		// check valid zone
+		if (strcmp(arg_zone, "Europe") != 0 &&
+		    strcmp(arg_zone, "Asia-Pacific") != 0 &&
+		    strcmp(arg_zone, "Americas-East") != 0 &&
+		    strcmp(arg_zone, "Americas-West") != 0) {
+		    	fprintf(stderr, "Error: invalid zone\n");
+		    	exit(1);
+		}
+
 		fdns_zone = arg_zone;
 		if (server_print_zone)
 			printf("Current zone: %s\n", fdns_zone);
@@ -332,7 +341,8 @@ DnsServer *server_get(void) {
 
 	// update arg_server
 	if (arg_server == NULL) {
-		arg_server = strdup(DEFAULT_SERVER);
+		assert(fdns_zone);
+		arg_server = strdup(fdns_zone); // strdup(DEFAULT_SERVER);
 		if (!arg_server)
 			errExit("strdup");
 	} // arg_server is in mallocated memory

@@ -129,7 +129,6 @@ typedef struct dnsserver_t {
 	int sni;		// 1 or 0
 	int ssl_keepalive;	// keepalive in seconds
 } DnsServer;
-#define DEFAULT_SERVER "anycast"
 
 static inline void ansi_topleft(void) {
 	char str[] = {0x1b, '[', '1', ';',  '1', 'H', '\0'};
