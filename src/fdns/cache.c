@@ -131,7 +131,6 @@ void cache_timeout(void) {
 		CacheEntry *ptr = clist[i];
 		CacheEntry *last = NULL;
 
-		int depth = 0;
 		while (ptr) {
 			ptr->ttl--;
 			if (ptr->ttl <= 0) {

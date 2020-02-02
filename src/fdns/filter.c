@@ -61,68 +61,68 @@ static DFilter default_filter[] = {
 	// reserved domain names (RFC 2606, RFC 6761, RFC 6762)
 	// - currently we are returning 127.0.0.1 regardless what RFC says
 	// - RFC 6762: send .local to link-local multicast address 224.0.0.251 (todo)
-	{'R', "$.local"},
-	{'R', "$.localhost"},
-	{'R', "$.test"},
-	{'R', "$.invalid"},
-	{'R', "$.example"},
-	{'R', "$example.com"},
-	{'R', "$example.net"},
-	{'R', "$example.org"},
+	{'R', "$.local", 0},
+	{'R', "$.localhost", 0},
+	{'R', "$.test", 0},
+	{'R', "$.invalid", 0},
+	{'R', "$.example", 0},
+	{'R', "$example.com", 0},
+	{'R', "$example.net", 0},
+	{'R', "$example.org", 0},
 
-	{'A', "^ad."},
-	{'A', "^ads."},
-	{'A', "^adservice."},
-	{'A', "^affiliate."},
-	{'A', "^affiliates."},
-	{'A', "^banner."},
-	{'A', "^banners."},
-	{'A', "click."},
-	{'A', "clicks."},
-	{'A', "collector."},
-	{'A', "^creatives."},
-	{'A', "id.google."},
-	{'A', "^oas."},
-	{'A', "^oascentral."},
-	{'T', "^stats."},
-	{'T', "^tag."},
+	{'A', "^ad.", 0},
+	{'A', "^ads.", 0},
+	{'A', "^adservice.", 0},
+	{'A', "^affiliate.", 0},
+	{'A', "^affiliates.", 0},
+	{'A', "^banner.", 0},
+	{'A', "^banners.", 0},
+	{'A', "click.", 0},
+	{'A', "clicks.", 0},
+	{'A', "collector.", 0},
+	{'A', "^creatives.", 0},
+	{'A', "id.google.", 0},
+	{'A', "^oas.", 0},
+	{'A', "^oascentral.", 0},
+	{'T', "^stats.", 0},
+	{'T', "^tag.", 0},
 
-	{'A', ".ad."},
-	{'A', ".ads."},
-	{'A', "admob."},
-	{'A', "adserver"},
-	{'A', "advertising"},
-	{'T', "analytic."},
-	{'T', "analytics."},
-	{'T', "click."},
-	{'T', "clickstatsview."},
-	{'T', "counter."},
-	{'T', "tags."},
-	{'T', "tracking."},
+	{'A', ".ad.", 0},
+	{'A', ".ads.", 0},
+	{'A', "admob.", 0},
+	{'A', "adserver", 0},
+	{'A', "advertising", 0},
+	{'T', "analytic.", 0},
+	{'T', "analytics.", 0},
+	{'T', "click.", 0},
+	{'T', "clickstatsview.", 0},
+	{'T', "counter.", 0},
+	{'T', "tags.", 0},
+	{'T', "tracking.", 0},
 //	"tracker.",	used by bittorrent trackers
-	{'T', "telemetry."},
-	{'T', "pixel."},
+	{'T', "telemetry.", 0},
+	{'T', "pixel.", 0},
 
 	// minimize first-party trackers list
-	{'F', "^somniture."}, // 30
-	{'F', "^aa-metrics."}, // 20
-	{'F', "^smetric."}, //  2711
-	{'F', "^smetrics."}, //  2642
-	{'F', "^tr."}, // 1756
-	{'F', "^metric."}, // 950
-	{'F', "^metrics."}, // 644
-	{'F', "^mdws."}, // 193
-	{'F', "^srepdata."}, // 200
-	{'F', "^marketing.net."}, // 66
-	{'F', ".ati-host.net."},  // 91
-	{'F', "^sadbmetrics."}, // 67
-	{'F', "^somni."}, // 198
-	{'F', "^srepdata,"}, //198
-	{'F', "^sstats."}, // 339
-	{'F', "^sw88."}, // 63
-	{'F', "^tk.airfrance."}, // 98
+	{'F', "^somniture.", 0}, // 30
+	{'F', "^aa-metrics.", 0}, // 20
+	{'F', "^smetric.", 0}, //  2711
+	{'F', "^smetrics.", 0}, //  2642
+	{'F', "^tr.", 0}, // 1756
+	{'F', "^metric.", 0}, // 950
+	{'F', "^metrics.", 0}, // 644
+	{'F', "^mdws.", 0}, // 193
+	{'F', "^srepdata.", 0}, // 200
+	{'F', "^marketing.net.", 0}, // 66
+	{'F', ".ati-host.net.", 0},  // 91
+	{'F', "^sadbmetrics.", 0}, // 67
+	{'F', "^somni.", 0}, // 198
+	{'F', "^srepdata,", 0}, //198
+	{'F', "^sstats.", 0}, // 339
+	{'F', "^sw88.", 0}, // 63
+	{'F', "^tk.airfrance.", 0}, // 98
 
-	{0, NULL}
+	{0, NULL, 0}
 };
 
 typedef struct hash_entry_t {
@@ -381,7 +381,7 @@ void filter_test_list(void) {
 			*ptr = '\0';
 		else
 			ptr = buf;
-		if (*ptr = '\0')
+		if (*ptr == '\0')
 			continue;
 
 		ptr = buf;
