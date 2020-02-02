@@ -257,8 +257,7 @@ void server_load(void);
 void server_list(const char *tag);
 DnsServer *server_get(void);
 // return 0 if ok, 1 if failed
-int server_test(const char *server_name);
-void server_test_all(void);
+void server_test_tag(const char *tag);
 
 // cache.c
 #define CACHE_NAME_LEN 100 // requests for domain names bigger than this value are not cached

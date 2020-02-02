@@ -239,44 +239,79 @@ static void load_list(void) {
 
 	fclose(fp);
 }
+// return 0 if ok, 1 if failed
+int test_server(const char *server_name)  {
+	// initialize server structure
+	arg_server = strdup(server_name);
+	if (!arg_server)
+		errExit("strdup");
+	assert(scurrent);
 
-// test the server pointed by arg_server
-// this function should be run in a separate process
-// exit(0) if ok, exit(1) if error
-static void test_server(void)  {
-	// disable logging
-	log_disable();
-	ssl_init();
-	printf("Testing server %s\n", arg_server);
-	fflush(0);
-
-	timetrace_start();
-	ssl_open();
-	if (ssl_state == SSL_CLOSED) {
-		fprintf(stderr, "\tError: cannot open SSL connection to server %s\n", arg_server);
+	pid_t child = fork();
+	if (child == 0) { // child
+		assert(scurrent);
+		
+		// disable logging
+		log_disable();
+		ssl_init();
+		printf("Testing server %s\n", arg_server);
 		fflush(0);
-		exit(1);
-	}
-	float ms = timetrace_end();
-	printf("\tSSL connection opened in %.02f ms\n", ms);
-	fflush(0);
-
-	timetrace_start();
-	ssl_keepalive();
-	ssl_keepalive();
-	ssl_keepalive();
-	ssl_keepalive();
-	ssl_keepalive();
-	ms = timetrace_end();
-	if (ssl_state == SSL_CLOSED) {
-		fprintf(stderr, "\tError: SSL connection closed\n");
+	
+		timetrace_start();
+		ssl_open();
+		if (ssl_state == SSL_CLOSED) {
+			fprintf(stderr, "\tError: cannot open SSL connection to server %s\n", arg_server);
+			fflush(0);
+			exit(1);
+		}
+		float ms = timetrace_end();
+		printf("\tSSL connection opened in %.02f ms\n", ms);
 		fflush(0);
-		exit(1);
+	
+		timetrace_start();
+		ssl_keepalive();
+		ssl_keepalive();
+		ssl_keepalive();
+		ssl_keepalive();
+		ssl_keepalive();
+		ms = timetrace_end();
+		if (ssl_state == SSL_CLOSED) {
+			fprintf(stderr, "\tError: SSL connection closed\n");
+			fflush(0);
+			exit(1);
+		}
+		printf("\tDoH response average %.02f ms\n", ms / 5);
+		fflush(0);
+	
+		exit(0);
 	}
-	printf("\tDoH response average %.02f ms\n", ms / 5);
-	fflush(0);
+	int status = 0;
+	// wait for the child to finish
+	int i = 0;
+	do {
+		int rv = waitpid(child, &status, WNOHANG);
+		if (rv  == child) {
+			// check status
+			if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
+				printf("\tError: server %s failed\n", arg_server);
+				fflush(0);
+				return 1;
+			}
+			break;
+		}
+		sleep(1);
+		i++;
+	}
+	while (i < 5);
 
-	exit(0);
+	if (i == 5) {
+		printf("\tError: server %s failed\n", arg_server);
+		fflush(0);
+		kill(child, SIGKILL);
+		return 1;
+	}
+
+	return 0;
 }
 
 //**************************************************************************
@@ -395,7 +430,7 @@ DnsServer *server_get(void) {
 	while (s) {
 		if (s->active == index) {
 			scurrent = s;
-			if (arg_id == -1 && server_test(s->name)) {
+			if (arg_id == -1 && test_server(s->name)) {
 				// mark the server as inactive and try again
 				s->active = 0;
 				s = slist;
@@ -425,75 +460,16 @@ errout:
 
 
 
-// return 0 if ok, 1 if failed
-int server_test(const char *server_name)  {
-	// initialize server structure
-	arg_server = strdup(server_name);
-	if (!arg_server)
-		errExit("strdup");
 
-	// set the current server if not already set
-	if (!scurrent) {
-		// we've been called by main(): --test-server command line option
-		load_list();
-		DnsServer *s = slist;
-		while (s) {
-			if (strcmp(server_name, s->name) == 0) {
-				scurrent = s;
-				break;
-			}
-			s = s->next;
-		}
-		if (!scurrent) {
-			printf("Sorry, no such server available.\n");
-			exit(1);
-		}
-	}
-
-	pid_t child = fork();
-	if (child == 0) { // child
-		assert(scurrent);
-		test_server();
-		assert(0); // it will never get here
-	}
-	int status = 0;
-	// wait for the child to finish
-	int i = 0;
-	do {
-		int rv = waitpid(child, &status, WNOHANG);
-		if (rv  == child) {
-			// check status
-			if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
-				printf("\tError: server %s failed\n", arg_server);
-				fflush(0);
-				return 1;
-			}
-			break;
-		}
-		sleep(1);
-		i++;
-	}
-	while (i < 5);
-
-	if (i == 5) {
-		printf("\tError: server %s failed\n", arg_server);
-		fflush(0);
-		kill(child, SIGKILL);
-		return 1;
-	}
-
-	return 0;
-}
-
-void server_test_all(void)  {
-	// load server list
-	load_list();
-
+void server_test_tag(const char *tag)  {
+	server_list(tag);
 	// walk the list
 	DnsServer *s = slist;
 	while (s) {
-		scurrent = s;
-		server_test(s->name);
+		if (s->active) {
+			scurrent = s;
+			test_server(s->name);
+		}
 		s = s->next;
 	}
 
