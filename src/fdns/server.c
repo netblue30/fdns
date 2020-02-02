@@ -34,6 +34,14 @@ static char *push_request_tail =
 	"content-length: %d\r\n" \
 	"\r\n";
 
+static inline void print_server(DnsServer *s) {
+	assert(s);
+	if (server_print_servers) {
+		printf("%s - %s\n", s->name, s->tags);
+		printf("\t%s\n", s->website);
+	}
+}
+
 static void set_zone(void) {
 	if (arg_zone) {
 		// check valid zone
@@ -275,19 +283,34 @@ static void test_server(void)  {
 // public interface
 //**************************************************************************
 static int second_try = 0;
+// mark all the servers corresponding to the given tag (s->active)
 void server_list(const char *tag) {
 	load_list();
+	assert(slist);
+	assert(fdns_zone);
+	if (!tag)
+		tag = fdns_zone;
+
+	// process tag "all"
+	DnsServer *s = slist;
+	int cnt = 0;
+	if (strcmp(tag, "all") == 0) {
+		while (s) {
+			print_server(s);
+			s->active = ++cnt;
+			s = s->next;
+		}
+		if (server_print_servers)
+			printf("%d servers found\n", cnt);
+		return;
+	}
 
 	// try to match a server name
-	assert(slist);
-	DnsServer *s = slist;
+	s = slist;
 	while (s) {
-		if (tag && strcmp(tag, s->name) == 0) {
+		if (strcmp(tag, s->name) == 0) {
 			s->active = 1;
-			if (server_print_servers) {
-				printf("%s - %s\n", s->name, s->tags);
-				printf("\t%s\n", s->website);
-			}
+			print_server(s);
 			return;
 		}
 		s = s->next;
@@ -295,40 +318,42 @@ void server_list(const char *tag) {
 
 	// match tags/zones
 	s = slist;
-	int cnt = 0;
+	cnt = 0;
 	while (s) {
 		// match the tag
-		if (tag && strstr(s->tags, tag) == NULL) {
+		if (strstr(s->tags, tag) == NULL) {
 			s = s->next;
 			continue;
 		}
 
-		// match the zone
-		if (fdns_zone && tag && strstr(s->zone, fdns_zone) == NULL) {
+		// match the zone if the zone is not "any"
+		if (strcmp(fdns_zone, "any") && strstr(s->zone, fdns_zone) == NULL) {
 			s = s->next;
 			continue;
 		}
 
-		if (server_print_servers) {
-			printf("%s - %s\n", s->name, s->tags);
-			printf("\t%s\n", s->website);
-		}
+		print_server(s);
 		s->active = ++cnt;
 		s = s->next;
 	}
 
-	if (!cnt && tag && second_try == 0) { // try again
+	if (cnt) {
+		if (server_print_servers)
+			printf("%d servers found\n", cnt);
+	}
+	else if (second_try == 0) {
+		// try to find server outside the current zone
 		second_try = 1;
-		fdns_zone = NULL;
+		fdns_zone = "any";
 		server_list(tag);
 		return;
 	}
-	else if (!cnt && tag)
+	else
 		printf("Sorry, no such server available.\n");
-	else if (cnt && server_print_servers)
-		printf("%d servers found\n", cnt);
 }
 
+// get a pointer to the current server
+// if arg_server was not set, use the current zone as a tag
 DnsServer *server_get(void) {
 	if (scurrent)
 		return scurrent;
@@ -342,7 +367,7 @@ DnsServer *server_get(void) {
 	// update arg_server
 	if (arg_server == NULL) {
 		assert(fdns_zone);
-		arg_server = strdup(fdns_zone); // strdup(DEFAULT_SERVER);
+		arg_server = strdup(fdns_zone);
 		if (!arg_server)
 			errExit("strdup");
 	} // arg_server is in mallocated memory

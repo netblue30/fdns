@@ -55,21 +55,17 @@ static void usage(void) {
 	        "\tserver.\n");
 	printf("    --help, -? - show this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
-	printf("    --list - list all available DoH service providers, and the groups they\n"
-	       "\t belong to.\n");
-	printf("    --list=server-name|tag - list the available DoH service providers\n"
-	       "\tbased on the provided server name or group.\n");
+	printf("    --list - list the DoH service providers available in the current zone.\n");
+	printf("    --list=server-name|tag|all - list the available DoH service providers.\n");
 	printf("    --monitor - monitor statistics.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
 	printf("    --proxy-addr-any - listen on all available interfaces.\n");
-	printf("    --server=server-name|group - configure the DoH service provider. Use --list\n"
-	       "\tto print the available providers. By default we use a random server\n"
-	       "\tfrom the anycast group.\n");
+	printf("    --server=server-name|tag|all - connect to a specific server, or to a random\n"
+	        "\tone.\n");
 	printf("    --test-hosts - test the domains in /etc/fdns/hosts file.\n");
-	printf("    --test-server=server - check DoH server.\n");
-	printf("    --test-server=all - check all DoH servers.\n");
+	printf("    --test-server=server|all - check DoH server.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --test-url-list - check all URLs form stdin.\n");
 	printf("    --version - print program version and exit.\n");
