@@ -55,17 +55,17 @@ static void usage(void) {
 	        "\tserver.\n");
 	printf("    --help, -? - show this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
-	printf("    --list - list the DoH service providers available in the current zone.\n");
-	printf("    --list=server-name|tag|all - list the available DoH service providers.\n");
+	printf("    --list - list DoH servers.\n");
+	printf("    --list=server-name|tag|all - list DoH servers.\n");
 	printf("    --monitor - monitor statistics.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
-	printf("    --proxy-addr-any - listen on all available interfaces.\n");
-	printf("    --server=server-name|tag|all - connect to a specific server, or to a random\n"
-	        "\tone.\n");
+	printf("    --proxy-addr-any - listen on all available network interfaces.\n");
+	printf("    --server=server-name|tag|all - DoH server to connect to.\n");
 	printf("    --test-hosts - test the domains in /etc/fdns/hosts file.\n");
-	printf("    --test-server=server|all - check DoH server.\n");
+	printf("    --test-servers - test DoH servers.\n");
+	printf("    --test-servers=server-name|tag|all - test DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --test-url-list - check all URLs form stdin.\n");
 	printf("    --version - print program version and exit.\n");
@@ -203,13 +203,13 @@ int main(int argc, char **argv) {
 				filter_test_list();
 				return 0;
 			}
-			else if (strcmp(argv[i], "--test-server=all") == 0) {
-				server_test_all();
+			else if (strcmp(argv[i], "--test-servers") == 0) {
+				server_test_tag(NULL);
 				return 0;
 			}
-			else if (strncmp(argv[i], "--test-server=", 14) == 0) {
-				int rv = server_test(argv[i] + 14);
-				return rv;
+			else if (strncmp(argv[i], "--test-servers=", 15) == 0) {
+				server_test_tag(argv[i] + 15);
+				return 0;
 			}
 			else {
 				fprintf(stderr, "Error: invalid command line argument %s\n", argv[i]);
