@@ -131,7 +131,7 @@ void shmem_keepalive(void) {
 
 
 // return 1 if file is present
-static int inline check_shmem_file(void) {
+inline static int check_shmem_file(void) {
 	struct stat s;
 	if (stat("/dev/shm/fdns-stats", &s) == -1)
 		return 0;
@@ -157,7 +157,6 @@ static inline void print_line(const char *str) {
 void shmem_monitor_stats(void) {
 	while (1) {
 		int first = 1;
-		struct stat s;
 		while (check_shmem_file() == 0) {
 			if (first) {
 				printf("Waiting for fdns to start...");
