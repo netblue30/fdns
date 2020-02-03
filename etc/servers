@@ -33,7 +33,7 @@ host: doh.42l.fr/dns-query
 keepalive: 30
 
 name: aaflalo
-website: from dnscrypt list
+website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Europe
 tags: Netherlands, Europe, adblocker
 address: 176.56.236.175:443
@@ -41,7 +41,7 @@ host: dns.aaflalo.me/dns-query
 keepalive: 30
 
 name: aaflalo-adblocker
-website: from dnscrypt list
+website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Americas-East
 tags: US, Americas, Americas-East, adblocker
 address: 168.235.81.167:443
@@ -65,36 +65,36 @@ host: dns-family.adguard.com/dns-query
 keepalive: 30
 
 name: alekberg
-website: posted on dnscrypt list
+website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Europe
 tags: Netherlands, Europe
 address: 51.15.124.208:443
 host: dns.alekberg.net/noads
-keepalive: 30
+keepalive: 7
 
 name: alekberg-adblocker
-website: posted on dnscrypt list
+website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Europe
 tags: Netherlands, Europe, adblocker
 address: 51.15.124.208:443
 host: dns.alekberg.net/noads
-keepalive: 30
+keepalive: 7
 
 name: alekberg2
-website: posted on dnscrypt list
+website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Americas-West
 tags: US, Americas, Americas-West
 address: 104.168.247.138:443
 host: dns2.alekberg.net/dns-query
-keepalive: 30
+keepalive: 7
 
 name: alekberg-adblocker2
-website: posted on dnscrypt list
+website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Americas-West
 tags: US, Americas, Americas-West
 address: 104.168.247.138:443
 host: dns2.alekberg.net/noads
-keepalive: 30
+keepalive: 7
 
 name: appliedprivacy
 website: https://appliedprivacy.net
@@ -319,7 +319,7 @@ host: dns.hostux.net/ads
 keepalive: 30
 
 name: ibksturm
-website: from dnscrypt list
+website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 83.77.85.7:443
@@ -327,7 +327,7 @@ host: ibksturm.synology.me/dns-query
 keepalive: 7
 
 name: ibuki
-website: http://ibuki.cgnat.net/
+website: https://ibuki.cgnat.net/
 zone: Americas-West
 tags: US, Americas, Americas-West
 address: 35.198.2.76:443

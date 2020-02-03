@@ -115,6 +115,9 @@ test-fdns:
 test: test-fdns
 	echo "TEST COMPLETE"
 
+test-stress:
+	cd test/stress;su -c ./test.sh | grep TESTING
+
 test-compile: dist
 	cd test/compile; ./compile.sh $(NAME)-$(VERSION)
 

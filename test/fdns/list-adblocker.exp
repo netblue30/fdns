@@ -7,17 +7,21 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-spawn $env(SHELL)
-send -- "firejail --dns=127.1.1.1 ping -c 3 doubleclick.net\r"
-set ping_id $spawn_id
-
-spawn $env(SHELL)
-set monitor_id $spawn_id
-send -- "fdns --monitor\r"
+send -- "fdns --list=adblocker\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"Current zone:"
+}
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"doubleclick.net, dropped"
+	"adguard"
 }
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"servers found"
+}
+
+
 after 100
 puts "\nall done\n"
 

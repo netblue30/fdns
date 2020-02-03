@@ -1,0 +1,23 @@
+#!/usr/bin/expect -f
+# This file is part of fdns project
+# Copyright (C) 2019-2020 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+
+send -- "fdns --server=non-profit\r"
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"connecting to adguard server"  {puts "1"}
+	"connecting to cleanbrowsing server"  {puts "2"}
+	"connecting to cloudflare server" {puts "3"}
+	"connecting to quad9 server" {puts "4"}
+}
+
+after 100
+puts "\nall done\n"

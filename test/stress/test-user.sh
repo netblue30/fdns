@@ -13,3 +13,7 @@ echo "TESTING: ********************"
 
 echo "TESTING: stress-cache (test/fdns/stress-cache.exp)"
 ./stress-cache.exp
+
+echo "TESTING: stress (test/fdns/stress.exp)"
+./stress.exp
+

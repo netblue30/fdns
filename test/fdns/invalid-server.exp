@@ -1,0 +1,20 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019-2020 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+
+send -- "fdns --server=blablabla\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"cannot connect to server blablabla"
+}
+
+after 100
+puts "\nall done\n"

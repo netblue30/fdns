@@ -34,10 +34,6 @@ expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
 	"doubleclick.net, dropped"
 }
-expect {
-	timeout {puts "TESTING ERROR 2\n";exit}
-	"doubleclick.net (ipv6), dropped"
-}
 after 100
 
 set spawn_id $ping_id

@@ -35,7 +35,7 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"google.com (ipv6), dropped"
+	"in-addr.arpa (PTR), dropped"
 }
 after 100
 
