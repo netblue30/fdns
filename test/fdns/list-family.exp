@@ -7,29 +7,21 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "fdns --list=Americas-East\r"
+send -- "fdns --list=family\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"Current zone:"
 }
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"aaflalo-adblocker"
+	"adguard-family"
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"dnscrypt-ca"
+	"cleanbrowsing-family"
 }
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
-	"nixnet"
-}
-expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
-	"pi-dns"
-}
-expect {
-	timeout {puts "TESTING ERROR 5\n";exit}
 	"servers found"
 }
 

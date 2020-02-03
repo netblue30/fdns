@@ -1,0 +1,62 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019-2020 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "fdns --test-servers=anycas\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"adguard"
+}
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"connection opened in"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"response average"
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"cleanbrowsing"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"connection opened in"
+}
+expect {
+	timeout {puts "TESTING ERROR 5\n";exit}
+	"response average"
+}
+expect {
+	timeout {puts "TESTING ERROR 6\n";exit}
+	"cloudflare"
+}
+expect {
+	timeout {puts "TESTING ERROR 7\n";exit}
+	"connection opened in"
+}
+expect {
+	timeout {puts "TESTING ERROR 8\n";exit}
+	"response average"
+}
+expect {
+	timeout {puts "TESTING ERROR 9\n";exit}
+	"quad9"
+}
+expect {
+	timeout {puts "TESTING ERROR 10\n";exit}
+	"connection opened in"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"response average"
+}
+
+after 100
+puts "\nall done\n"
+

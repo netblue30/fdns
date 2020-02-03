@@ -7,14 +7,22 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "pkill fdns\r"
-sleep 1
-
-send -- "fdns --server=blablabla\r"
+send -- "fdns --list=OpenNIC\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
-	"no server blablabla"
+	"Current zone:"
 }
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"libredns" {puts "libredns found\n"}
+	"seby" {puts "seby found\n"}
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"servers found"
+}
+
 
 after 100
 puts "\nall done\n"
+
