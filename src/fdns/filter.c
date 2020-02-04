@@ -381,10 +381,10 @@ void filter_test_list(void) {
 			*ptr = '\0';
 		else
 			ptr = buf;
-		if (*ptr == '\0')
-			continue;
 
 		ptr = buf;
+		if (*ptr == '\0')
+			continue;
 		while (*ptr == ' ' || *ptr == '\t')
 			ptr++;
 		if (*ptr == '\0')
