@@ -11,32 +11,6 @@
 #
 # Some tracker companies and some of the domains they use
 #
-127.0.0.1 ingenioustechnologies.com
-127.0.0.1 eulerian.com
-127.0.0.1 eulerian.net
-127.0.0.1 eulerian.fr
-127.0.0.1 eulerian.eu
-127.0.0.1 eulerian.biz
-127.0.0.1 atinternet.com
-127.0.0.1 keyade.com
-127.0.0.1 adobe.com
-127.0.0.1 criteo.com
-127.0.0.1 commandersact.com
-127.0.0.1 mixpanel.com
-127.0.0.1 affex.org
-127.0.0.1 online-metrix.net
-127.0.0.1 mateti.net
-127.0.0.1 ctoid.net
-127.0.0.1 esomniture.com
-127.0.0.1 wt-eu02.net
-127.0.0.1 ati-host.net
-127.0.0.1 webtrekk.com
-127.0.0.1 webtrekk-system.com
-127.0.0.1 hitbox.com
-127.0.0.1 opentracker.net
-127.0.0.1 mywebtracker.ca
-127.0.0.1 froggyads.com
-127.0.0.1 proofleads.com
 
 #
 # Entries from Privacy Badger
@@ -45,7 +19,6 @@
 127.0.0.1 ssl.bing.com
 127.0.0.1 1rx.io
 127.0.0.1 247-inc.net
-127.0.0.1 2o7.net
 127.0.0.1 33across.com
 127.0.0.1 3gl.net
 127.0.0.1 3lift.com
@@ -198,7 +171,6 @@
 127.0.0.1 instinctiveads.com
 127.0.0.1 intellitxt.com
 127.0.0.1 intentiq.com
-127.0.0.1 intentmedia.net
 127.0.0.1 intercom.io
 127.0.0.1 inuvo.com
 127.0.0.1 ioam.de
@@ -240,7 +212,6 @@
 127.0.0.1 mediaplex.com
 127.0.0.1 mediav.com
 127.0.0.1 medtargetsystem.com
-127.0.0.1 messefrankfurt01.webtrekk.net
 127.0.0.1 mgid.com
 127.0.0.1 microad.jp
 127.0.0.1 mixpanel.com
@@ -271,7 +242,6 @@
 127.0.0.1 ojrq.net
 127.0.0.1 omaze.com
 127.0.0.1 omnitagjs.com
-127.0.0.1 omtrdc.net
 127.0.0.1 onclickpredictiv.com
 127.0.0.1 onet.hit.gemius.pl
 127.0.0.1 onetrust.com
@@ -391,7 +361,6 @@
 127.0.0.1 wcfbc.net
 127.0.0.1 wcs.naver.com
 127.0.0.1 websponsors.com
-127.0.0.1 webtrekk.net
 127.0.0.1 webtrendslive.com
 127.0.0.1 xiti.com
 127.0.0.1 xlisting.jp
