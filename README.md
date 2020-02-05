@@ -8,6 +8,7 @@ The software is written in C, and is licensed under GPLv3.
 * Project webpage: https://firejaildns.wordpress.com
 * Documentation: [FDNS Handbook](https://github.com/netblue30/fdns/wiki/Introduction) (wiki)
 * FAQ: [wiki](https://github.com/netblue30/fdns/wiki/FAQ)
+* Current Server List: [wiki](https://github.com/netblue30/fdns/wiki/Current-Server-List)
 
 <div style="height:20px;">&nbsp;</div>
 
