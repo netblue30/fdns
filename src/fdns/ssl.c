@@ -230,12 +230,23 @@ int ssl_dns(uint8_t *msg, int cnt) {
 			goto errout;
 		}
 	}
+	buf[len] = '\0';
+
+	// check 200 OK
+	char *ptr = strstr(buf, "200 OK");
+	if (!ptr) {
+		rlogprintf("Warning: HTTP error, 200 OK not received\n");
+		printf("**************\n%s\n**************\n", buf);
+		fflush(0);
+		goto errout;
+	}
 
 	// look for the end of http header
-	char *ptr = strstr(buf, "\r\n\r\n");
+	ptr = strstr(buf, "\r\n\r\n");
 	if (!ptr) {
 		rlogprintf("Warning: cannot parse HTTPS response, didn't recieve a full http header\n");
-		print_mem((uint8_t *) buf, len);
+		printf("**************\n%s\n**************\n", buf);
+		fflush(0);
 		goto errout;
 	}
 	ptr += 4; // length of "\r\n\r\n"

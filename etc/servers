@@ -33,7 +33,7 @@ host: doh.42l.fr/dns-query
 keepalive: 30
 
 name: aaflalo
-website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://www.aaflalo.me
 zone: Europe
 tags: Netherlands, Europe, adblocker
 address: 176.56.236.175:443
@@ -41,7 +41,7 @@ host: dns.aaflalo.me/dns-query
 keepalive: 30
 
 name: aaflalo-adblocker
-website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://www.aaflalo.me
 zone: Americas-East
 tags: US, Americas, Americas-East, adblocker
 address: 168.235.81.167:443
