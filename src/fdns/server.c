@@ -250,13 +250,13 @@ int test_server(const char *server_name)  {
 	pid_t child = fork();
 	if (child == 0) { // child
 		assert(scurrent);
-		
+
 		// disable logging
 		log_disable();
 		ssl_init();
 		printf("Testing server %s\n", arg_server);
 		fflush(0);
-	
+
 		timetrace_start();
 		ssl_open();
 		if (ssl_state == SSL_CLOSED) {
@@ -267,7 +267,7 @@ int test_server(const char *server_name)  {
 		float ms = timetrace_end();
 		printf("\tSSL connection opened in %.02f ms\n", ms);
 		fflush(0);
-	
+
 		timetrace_start();
 		ssl_keepalive();
 		ssl_keepalive();
@@ -275,14 +275,23 @@ int test_server(const char *server_name)  {
 		ssl_keepalive();
 		ssl_keepalive();
 		ms = timetrace_end();
+		sleep(2);
+		timetrace_start();
+		ssl_keepalive();
+		ssl_keepalive();
+		ssl_keepalive();
+		ssl_keepalive();
+		ssl_keepalive();
+		ms += timetrace_end();
+
 		if (ssl_state == SSL_CLOSED) {
 			fprintf(stderr, "\tError: SSL connection closed\n");
 			fflush(0);
 			exit(1);
 		}
-		printf("\tDoH response average %.02f ms\n", ms / 5);
+		printf("\tDoH response average %.02f ms\n", ms / 10);
 		fflush(0);
-	
+
 		exit(0);
 	}
 	int status = 0;
@@ -302,9 +311,9 @@ int test_server(const char *server_name)  {
 		sleep(1);
 		i++;
 	}
-	while (i < 5);
+	while (i < 10); // 10 second wait
 
-	if (i == 5) {
+	if (i == 10) {
 		printf("\tError: server %s failed\n", arg_server);
 		fflush(0);
 		kill(child, SIGKILL);

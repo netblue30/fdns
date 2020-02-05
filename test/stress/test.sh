@@ -16,7 +16,15 @@ echo "TESTING: ********************"
 SERVERS=`fdns --list=all | grep -v https | grep -v zone | grep -v server | awk '{ print $1 }'`
 for s in $SERVERS
 do
-	./../fdns/wget.exp $s
+	./wget.exp $s
+	status=$?
+	if test $status -eq 0
+	then
+		echo "OK"
+	else
+		sleep 1
+		./wget.exp $s
+	fi
 	rm -f /tmp/index.html
 done
 
