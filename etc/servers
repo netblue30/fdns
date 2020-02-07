@@ -200,7 +200,7 @@ keepalive: 30
 name: dnswarden
 website: https://github.com/bhanupratapys/dnswarden
 zone: Europe
-tags: Germany, Europe, adblocker
+tags: Germany, Europe
 address: 116.203.70.156:443
 host: doh.dnswarden.com/uncensored
 sni: yes
@@ -209,7 +209,7 @@ keepalive: 7
 name: dnswarden2
 website: https://github.com/bhanupratapys/dnswarden
 zone: Europe
-tags: Germany, Europe, adblocker
+tags: Germany, Europe
 address: 116.203.35.255:443
 host: doh.dnswarden.com/uncensored
 sni: yes
@@ -218,7 +218,7 @@ keepalive: 7
 name: dnswarden3
 website: https://github.com/bhanupratapys/dnswarden
 zone: Europe
-tags: Germany, Europe, adblocker
+tags: Germany, Europe
 address: 88.198.161.8:443
 host: doh.dnswarden.com/uncensored
 sni: yes
