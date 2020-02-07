@@ -53,36 +53,37 @@ Print options end exit.
 Allow AAAA requests.
 .TP
 \fB\-\-list
-List all available DoH service providers, and the groups they belong to.
+List the DoH service providers available in the current zone.
 .br
 
 .br
 $ fdns --list
 .br
+Current zone: Europe
 42l - non-profit, France, Europe
 .br
 	https://42l.fr
 .br
-adguard - anycast, adblocker
+aaflalo - Netherlands, Europe, adblocker
 .br
-	https://adguard.com/en/adguard-dns/overview.html
+	https://www.aaflalo.me
 .br
 appliedprivacy - non-profit, Austria, Europe
 .br
 	https://appliedprivacy.net
 .br
-cleanbrowsing - anycast, security
+bortzmeyer - France, Europe
 .br
-	https://cleanbrowsing.org
+	https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
 .br
-cleanbrowsing-family - family
+cznic - Czechia, Europe
 .br
-	https://cleanbrowsing.org
+	https://www.nic.cz/odvr/
 .br
 [...]
 .TP
-\fB\-\-list=server-name|tag
-List the available DoH service providers based on the provided server name or group.
+\fB\-\-list=server-name|tag|all
+List the available DoH service providers.
 .TP
 \fB\-\-monitor
 Start the stats monitor. Run this command as a regular user in a terminal.
@@ -108,10 +109,8 @@ $ sudo fdns --proxy-addr=127.0.0.1
 \fB\-\-proxy-addr-any
 Listen on all available system interfaces and 127.0.0.1 for loopback interface.
 .TP
-\fB\-\-server=server-name|group
-Configure the DoH service provider.
-Use \-\-list to print the list of available providers. When using a group, a random server from the group will be used.
-By default we use a random server from the anycast group.
+\fB\-\-server=server-name|tag|all
+Connect to a specific server, or to a random one.
 .br
 
 .br
@@ -127,8 +126,8 @@ $ sudo fdns --server=Europe
 \fB\-\-test-hosts
 Test the domains in /etc/fdns/hosts file.
 .TP
-\fB\-\-test-server=server
-Send a burst of 5 DNS requests to one of the supported servers and calculate an average response time.
+\fB\-\-test-server=server|all
+Check DoH server.
 .br
 
 .br
