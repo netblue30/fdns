@@ -60,6 +60,7 @@ List the DoH service providers available in the current zone.
 $ fdns --list
 .br
 Current zone: Europe
+.br
 42l - non-profit, France, Europe
 .br
 	https://42l.fr
