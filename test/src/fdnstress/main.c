@@ -153,6 +153,31 @@ static DListEntry *rq_send(DListEntry *ptr) {
 		}
 		else {
 			puts(gai_strerror(rv));
+			printf("retrying\n");
+			// sleep and try again
+			sleep(2);
+
+			printf("%s: ", reqs[i]->ar_name);
+			rv = gai_error(reqs[i]);
+			rv = getaddrinfo_a(GAI_WAIT, reqs + i, 1, NULL);
+			if (rv)
+				errExit("getaddrinfo_a");
+			if (rv == 0) {
+				res = reqs[i]->ar_result;
+				rv = getnameinfo(res->ai_addr, res->ai_addrlen,
+						  host, sizeof(host),
+						  NULL, 0, NI_NUMERICHOST);
+				if (rv != 0) {
+					fprintf(stderr, "getnameinfo() failed: %s\n",
+						gai_strerror(rv));
+					exit(EXIT_FAILURE);
+				}
+				puts(host);
+
+			}
+			else
+				puts(gai_strerror(rv));
+
 		}
 	}
 
@@ -164,6 +189,7 @@ static void rq_engine(void) {
 
 	DListEntry *ptr = dlist;
 	while (ptr) {
+		usleep(250000);
 		ptr = rq_send(ptr);
 	}
 }

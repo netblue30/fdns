@@ -10,13 +10,16 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 1
 
-send -- "fdns --server=non-profit\r"
+send -- "fdns --server=anycast\r"
 expect {
 	timeout {puts "TESTING ERROR 4\n";exit}
 	"connecting to adguard server"  {puts "1"}
+	"connecting to adguard2 server"  {puts "1"}
 	"connecting to cleanbrowsing server"  {puts "2"}
 	"connecting to cloudflare server" {puts "3"}
+	"connecting to cloudflare2 server" {puts "3"}
 	"connecting to quad9 server" {puts "4"}
+	"connecting to quad92 server" {puts "4"}
 }
 
 after 100
