@@ -51,8 +51,16 @@ keepalive: 30
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: anycast, adblocker
+tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.130:443
+host: dns.adguard.com/dns-query
+keepalive: 30
+
+name: adguard2
+website: https://adguard.com/en/adguard-dns/overview.html
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
 keepalive: 30
 
@@ -61,6 +69,14 @@ website: https://adguard.com/en/adguard-dns/overview.html
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.132:443
+host: dns-family.adguard.com/dns-query
+keepalive: 30
+
+name: adguard-family2
+website: https://adguard.com/en/adguard-dns/overview.html
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: family
+address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
 keepalive: 30
 
@@ -115,7 +131,7 @@ keepalive: 7
 name: cleanbrowsing
 website: https://cleanbrowsing.org
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: anycast, security
+tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
 keepalive: 30
@@ -131,8 +147,16 @@ keepalive: 30
 name: cloudflare
 website: https://www.cloudflare.com
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: anycast
+tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.1.1.1:443
+host: cloudflare-dns.com/dns-query
+keepalive: 250
+
+name: cloudflare2
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
 keepalive: 250
 
@@ -474,8 +498,16 @@ keepalive: 7
 name: quad9
 website: https://quad9.net
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: anycast, security
+tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 9.9.9.9:5053
+host: dns.quad9.net/dns-query
+keepalive: 30
+
+name: quad92
+website: https://quad9.net
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 149.112.112.112:5053
 host: dns.quad9.net/dns-query
 keepalive: 30
 
