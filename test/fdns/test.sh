@@ -45,7 +45,7 @@ echo "TESTING: nofilter (test/fdns/nofilter.exp)"
 echo "TESTING: server=non-profit (test/fdns/server-non-profit.exp)"
 ./server-non-profit.exp
 
-echo "TESTING: server=anycast (test/fdns/server-non-profit.exp)"
+echo "TESTING: server=anycast (test/fdns/server-anycast.exp)"
 ./server-anycast.exp
 
 echo "TESTING: restart worker (test/fdns/restart-worker.exp)"
