@@ -71,8 +71,9 @@ void cache_set_name(const char *name, int ipv6) {
 	cname_type = ipv6;
 }
 
-void cache_set_reply(uint8_t *reply, ssize_t len) {
+void cache_set_reply(uint8_t *reply, ssize_t len, int ttl) {
 	assert(reply);
+	assert(ttl > 0);
 	if (len == 0 || len > MAX_REPLY || *cname == '\0') {
 		*cname = '\0';
 		return;
@@ -91,7 +92,7 @@ void cache_set_reply(uint8_t *reply, ssize_t len) {
 	assert(sizeof(cname) == sizeof(ptr->name));
 	memcpy(ptr->name, cname, sizeof(cname));
 	memcpy(ptr->reply, reply, len);
-	ptr->ttl = arg_cache_ttl;
+	ptr->ttl = (int16_t) ttl;
 
 	ptr->next = clist[h];
 	clist[h] = ptr;

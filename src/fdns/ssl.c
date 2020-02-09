@@ -18,6 +18,7 @@
 */
 #include "fdns.h"
 #include "timetrace.h"
+#include "lint.h"
 #include <openssl/bio.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
@@ -311,8 +312,17 @@ int ssl_dns(uint8_t *msg, int cnt) {
 		printf("(%d) *** SSL transaction end ***\n", arg_id);
 	}
 
+	//
 	// cache the response
-	cache_set_reply(msg, datalen);
+	// - check NXDOMAIN and set TTL accordingly
+	//
+	DnsHeader h;
+	memcpy(&h, msg, sizeof(DnsHeader));
+	h.flags = ntohs(h.flags);
+	if ((h.flags & 0x000f) != 0) // errors such as NXDOMAIN
+		cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
+	else
+		cache_set_reply(msg, datalen, arg_cache_ttl);
 
 	// return the length
 	return datalen;
