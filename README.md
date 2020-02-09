@@ -33,7 +33,7 @@ FDNS is a community project. We are not affiliated with any company, and we donâ
 <li>Development: <a href="https://github.com/netblue30/fdns">https://github.com/netblue30/fdns</a></li>
 <li>Documentation: <a href="https://github.com/netblue30/fdns/wiki/Introduction">https://github.com/netblue30/fdns/wiki/Introduction</a> (wiki)</li>
 <li>Download: <a href="https://github.com/netblue30/fdns/releases">https://github.com/netblue30/fdns/releases</a></li>
-<li>Support: <a href="https://github.com/netblue30/fdns/issues">https://github.com/netblue30/fdns/issues  (GitHub)</a>
+<li>Support: <a href="https://github.com/netblue30/fdns/issues">https://github.com/netblue30/fdns/issues</a> (GitHub)
 <li>FAQ: <a href="https://github.com/netblue30/fdns/wiki/FAQ">https://github.com/netblue30/fdns/wiki/FAQ</a> (wiki)</li>
 </ul>
 <div style="height:20px;">&nbsp;</div>
