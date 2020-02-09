@@ -76,6 +76,7 @@ static inline int check_addr_port(const char *str) {
 #define CACHE_TTL_DEFAULT (15 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (30 * 60)
+#define CACHE_TTL_ERROR 60	// cache ttl when and errror mesage (such as NXDOMAIN) is returned by the server
 
 // number of worker processes
 #define WORKERS_MIN 1	// number of worker threads
@@ -262,7 +263,7 @@ void server_test_tag(const char *tag);
 // cache.c
 #define CACHE_NAME_LEN 100 // requests for domain names bigger than this value are not cached
 void cache_set_name(const char *name, int ipv6);
-void cache_set_reply(uint8_t *reply, ssize_t len);
+void cache_set_reply(uint8_t *reply, ssize_t len, int ttl);
 uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6);
 void cache_timeout(void);
 void cache_init(void);
