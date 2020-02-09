@@ -15,17 +15,34 @@ fdns --monitor
 .RE
 
 .SH DESCRIPTION
-fdns is a DNS-over-HTTPS proxy server targeted at small networks and Linux desktops.
-To speed up the name resolution fdns caches the responses, and uses a configurable
+FDNS is a DNS-over-HTTPS proxy server targeted at small networks and Linux desktops.
+To speed up the name resolution the proxy caches the responses, and uses a configurable
 adblocker and privacy filter to cut down the unnecessary traffic.
+
+We preconfigure FDNS with a large list of DoH service providers. For privacy reasons we
+use only DoH services from non-logging providers. We prefer servers run out-of-pocket by
+students, engineers, open-source enthusiasts, privacy-oriented non-profit organizations, etc.
+Currently there are more than 60 such DoH servers on our list.
+
+We also track a corporate category with four providers: Adguard, CleanBrowsing, Cloudflare,
+and Quad9. All have a non-logging privacy policy that will work in most parts of the world.
+
+The servers are organized using a simple geographically-aware tagging system. This allows the
+user to request specialized services such as adblocking, security, family filters, etc.
+
+Once started, FDNS chooses a server at random, as close geographically as possible.
+We derive the computer location from the timezone setting. There are no IP packets sent
+out to geolocation services. Four zones are defined so far: Americas-East, Americas-West,
+Asia-Pacific and Europe. Use --list=all option to print all the servers and the corresponding tags.
 
 .SH OPTIONS
 .TP
 \fB\-\-allow-all-queries
-Allow all DNS query types; by default only A queries are allowed.
+Allow all DNS query types; by default only A queries are allowed. In case --ipv6 is set,
+AAAA queries are also allowed.
 .TP
 \fB\-\-cache-ttl=seconds
-Change DNS cache TTL, in seconds, default 900 (15 minutes).
+Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 900 seconds (15 minutes).
 .TP
 \fB\-\-certfile=filename
 Use an SSL certificate file in PEM format. By default we use the certificates installed
@@ -38,22 +55,39 @@ Example:
 $ sudo fdns --certfile=/etc/ssl/certs/ca-certificates.crt
 .TP
 \fB\-\-daemonize
-Detach from the controlling terminal and run as a Unix daemon.
+Detach from the controlling terminal and run as a Unix daemon. The typical way to start
+FDNS as network proxy is
+.br
+
+.br
+$ sudo fdns --proxy-addr-any --daemonize
+.br
 .TP
 \fB\-\-debug
 Print debug messages.
 .TP
 \fB\-\-forwarder=domain@address
-Conditional forwarding to a different DNS server.
+Conditional domain forwarding to a different DNS server.
+.br
+
+.br
+Example:
+.br
+$ sudo fdns --forwarder=libre@66.70.228.164
+.br
+
+.br
+The proxy will forward all .libre domains to OpenNIC server at 66.70.228.164.
+
 .TP
 \fB\-\-help, \-?
 Print options end exit.
 .TP
 \fB\-\-ipv6
-Allow AAAA requests.
+Allow AAAA requests. Use this option if you have Internet IPv6 connectivity. By default IPv6 queries are disabled.
 .TP
 \fB\-\-list
-List the DoH service providers available in the current zone.
+List the DoH service providers available in your current zone.
 .br
 
 .br
@@ -84,7 +118,7 @@ cznic - Czechia, Europe
 [...]
 .TP
 \fB\-\-list=server-name|tag|all
-List the available DoH service providers.
+List the available DoH service providers based on a tag, server name, or all.
 .TP
 \fB\-\-monitor
 Start the stats monitor. Run this command as a regular user in a terminal.
@@ -111,7 +145,7 @@ $ sudo fdns --proxy-addr=127.0.0.1
 Listen on all available system interfaces and 127.0.0.1 for loopback interface.
 .TP
 \fB\-\-server=server-name|tag|all
-Connect to a specific server, or to a random one.
+Connect to a specific server, or to a random one based on the tag and your geographical location.
 .br
 
 .br
@@ -121,14 +155,56 @@ $ sudo fdns --server=cloudflare
 .br
 $ sudo fdns --server=non-profit
 .br
-$ sudo fdns --server=all
+$ sudo fdns --server=family
 .br
 .TP
 \fB\-\-test-hosts
 Test the domains in /etc/fdns/hosts file.
 .TP
-\fB\-\-test-server=server|all
-Check DoH server.
+\fB\-\-test-servers
+Test the servers from your geographical zone.
+.br
+
+.br
+Example:
+.br
+$ fdns --test-servers
+.br
+Testing server aaflalo-adblocker
+.br
+	SSL connection opened in 309.55 ms
+.br
+	DoH response average 64.92 ms
+.br
+Testing server adguard
+.br
+	SSL connection opened in 281.80 ms
+.br
+	DoH response average 55.44 ms
+.br
+Testing server cleanbrowsing
+.br
+	SSL connection opened in 281.73 ms
+.br
+	DoH response average 57.90 ms
+.br
+Testing server cloudflare
+.br
+	SSL connection opened in 251.37 ms
+.br
+	DoH response average 58.23 ms
+.br
+Testing server dnscrypt-ca
+.br
+	SSL connection opened in 421.59 ms
+.br
+	DoH response average 83.51 ms
+.br
+
+
+.TP
+\fB\-\-test-servers=server-name|tag|all
+Test the servers based on a tag, server name, or all.
 .br
 
 .br
@@ -136,9 +212,9 @@ Example:
 .br
 $ fdns --test-server=digital-society
 .br
-SSL connection opened in 640.53 ms
+     SSL connection opened in 640.53 ms
 .br
-DoH response average 155.22 ms
+     DoH response average 155.22 ms
 .TP
 \fB\-\-test-url=URL
 Check if URL is dropped by the adblock/tracker filters.
@@ -159,12 +235,31 @@ The number of worker threads, between 1 and 10, default 3.
 .TP
 \fB\-\-zone=zone-name
 Set a different geographical zone.
+The zones defined so far are Americas-East, Americas-West, Asia-Pacific and Europe.
 
-.SH Setup fdns on a workstation
-Use Firejail security sandbox to redirect all the DNS traffic to 127.1.1.1, where fdns listens by default. Firejail decouples the DNS functionality, allowing each sandbox to have its own DNS setting. Your system DNS configuration is not touched. If things go wrong, you won't lose your Internet connectivity. Here are the steps:
+.SH Setup FDNS on a workstation
+You would need to set FDNS as your DNS server in /etc/resolv.conf:
+.br
+
+.br
+.PP
+.RS
+$ cat /etc/resolv.conf
+.br
+nameserver 127.1.1.1
+.br
+
+.br
+.RE
+You can also use Firejail security sandbox to redirect all the DNS traffic to 127.1.1.1,
+where FDNS listens by default. Firejail decouples the DNS functionality, allowing each
+sandbox to have its own DNS setting. Your system DNS configuration is not touched.
+If things go wrong, you won't lose your Internet connectivity. Here are the steps:
+
+
 
 .TP
-\fBStart fdns:
+\fBStart FDNS:
 $ sudo fdns
 .TP
 \fBStart your applications in Firejail:
@@ -173,12 +268,13 @@ $ firejail --dns=127.1.1.1 firefox
 $ firejail --dns=127.1.1.1 transmission-qt
 .br
 .br
-.SH Setup fdns on a network server
-Install fdns and set "nameserver 127.0.0.1" in /etc/resolv.conf. Start fdns using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface. The default 127.1.1.1 is not used in this case.
+.SH Setup FDNS as a network server
+Install FDNS and set "nameserver 127.0.0.1" in /etc/resolv.conf. Start fdns using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface. The default 127.1.1.1 is not used in this case.
 .PP
 .RS
 $ sudo fdns --proxy-addr-any --daemonize
 .br
+
 .br
 .RE
 Or you can run it only on a specific interface. Example assuming 192.168.1.44 is the IP address of eth0:
@@ -186,6 +282,7 @@ Or you can run it only on a specific interface. Example assuming 192.168.1.44 is
 .RS
 $ sudo fdns --proxy-addr=192.168.1.44 --daemonize
 .br
+
 .br
 .RE
 When using --daemonize, errors and warnings are posted to syslog.
@@ -206,6 +303,9 @@ $ cat /etc/rc.local
 .br
 exit 0
 .br
+
+.br
+For systemd users, we place a fdns.service file in /etc/fdns directory.
 
 .TP
 \fBHow do I configure Firejail to send all the DNS traffic to fdns by default?
@@ -272,7 +372,9 @@ $ sudo pkill fdns
 .SH LICENSE
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 .PP
-Homepage: https://github.com/netblue30/fdns
+Homepage: https://firejaildns.wordpress.com
+.br
+Development: https://github.com/netblue30/fdns
 
 .SH SEE ALSO
 \&\flfirejail\fR\|(1)

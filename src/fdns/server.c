@@ -332,8 +332,18 @@ void server_list(const char *tag) {
 	load_list();
 	assert(slist);
 	assert(fdns_zone);
+
+	// if no tag provided use the current zone name
 	if (!tag)
 		tag = fdns_zone;
+
+	// if the tag is the name of a zone use zone "any"
+	if (strcmp(tag, "Europe") == 0 ||
+	    strcmp(tag, "Asia-Pacific") == 0 ||
+	    strcmp(tag, "Americas-East") == 0 ||
+	    strcmp(tag, "Americas-West") == 0 ||
+	    strcmp(tag, "Americas") == 0)
+	    	fdns_zone = "any";
 
 	// process tag "all"
 	DnsServer *s = slist;

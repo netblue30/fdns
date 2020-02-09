@@ -64,7 +64,7 @@ static void usage(void) {
 	printf("    --proxy-addr-any - listen on all available network interfaces.\n");
 	printf("    --server=server-name|tag|all - DoH server to connect to.\n");
 	printf("    --test-hosts - test the domains in /etc/fdns/hosts file.\n");
-	printf("    --test-servers - test DoH servers.\n");
+	printf("    --test-servers - test the DoH servers in your current zone.\n");
 	printf("    --test-servers=server-name|tag|all - test DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --test-url-list - check all URLs form stdin.\n");
