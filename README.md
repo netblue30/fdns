@@ -31,8 +31,9 @@ FDNS is a community project. We are not affiliated with any company, and we donâ
 <ul>
 <li>Webpage: https://firejaildns.wordpress.com</li>
 <li>Development: https://github.com/netblue30/fdns</li>
-<li>Documentation: [FDNS Handbook](https://github.com/netblue30/fdns/wiki/Introduction) (wiki)</li>
-<li>FAQ: [wiki](https://github.com/netblue30/fdns/wiki/FAQ)</li>
+<li>Download: https://github.com/netblue30/fdns/releases</li>
+<li>Documentation: https://github.com/netblue30/fdns/wiki/Introduction (wiki)</li>
+<li>FAQ: https://github.com/netblue30/fdns/wiki/FAQ (wiki)</li>
 </ul>
 <div style="height:20px;">&nbsp;</div>
 
