@@ -26,7 +26,7 @@ void log_disable(void) {
 }
 
 
-// remote logging (worker processes)
+// remote logging (resolver processes to frontend process)
 void rlogprintf(const char *format, ...) {
 	if (disabled)
 		return;

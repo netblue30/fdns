@@ -29,10 +29,10 @@
   /etc/fdns/trackers r,
   /etc/fdns/coinblocker r,
   /etc/fdns/fp-trackers r,
-  owner /etc/fdns/worker.seccomp r,
+  owner /etc/fdns/resolver.seccomp r,
   /etc/fdns/hosts r,
 
- # mount required for setting up the mount namespace in the worker processes - Debian 10
+ # mount required for setting up the mount namespace in the resolver processes - Debian 10
   mount,
 
 # problems on Ubuntu 18.04, unix (bind) is required - allow all unix socket functionality

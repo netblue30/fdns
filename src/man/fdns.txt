@@ -144,6 +144,9 @@ $ sudo fdns --proxy-addr=127.0.0.1
 \fB\-\-proxy-addr-any
 Listen on all available system interfaces and 127.0.0.1 for loopback interface.
 .TP
+\fB\-\-resolvers=number
+The number of resolver processes, between 1 and 10, default 3.
+.TP
 \fB\-\-server=server-name|tag|all
 Connect to a specific server, or to a random one based on the tag and your geographical location.
 .br
@@ -229,9 +232,6 @@ URL amazon-adsystem.com dropped by "amazon-adsystem.com" rule
 .TP
 \fB\-\-version
 Print program version and exit.
-.TP
-\fB\-\-workers=number
-The number of worker threads, between 1 and 10, default 3.
 .TP
 \fB\-\-zone=zone-name
 Set a different geographical zone.

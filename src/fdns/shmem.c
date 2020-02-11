@@ -80,10 +80,10 @@ void shmem_store_stats(void) {
 
 	// encryption status
 	int i;
-	for (i = 0; i < arg_workers; i++)
+	for (i = 0; i < arg_resolvers; i++)
 		if (encrypted[i] == 0)
 			break;
-	char *encstatus = (i == arg_workers) ? "ENCRYPTED" : "NOT ENCRYPTED";
+	char *encstatus = (i == arg_resolvers) ? "ENCRYPTED" : "NOT ENCRYPTED";
 
 	snprintf(report->header, MAX_HEADER,
 		 "%s %s (SSL %.02lf ms, fallback %u), \n"

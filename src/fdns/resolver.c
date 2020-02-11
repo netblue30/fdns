@@ -26,7 +26,7 @@
 
 static uint8_t buf[MAXBUF];
 
-void worker(void) {
+void resolver(void) {
 	// we get a SIGPIPE if we write to a socket closed by the other end;
 	// ignoring it - standard practice for TCP servers
 	signal(SIGPIPE, SIG_IGN);
@@ -49,7 +49,7 @@ void worker(void) {
 	int rv = seccomp_load_filter_list();
 	chroot_drop_privs("nobody");
 	if (rv)
-		seccomp_worker();
+		seccomp_resolver();
 
 	// Remote dns server fallback server
 	struct sockaddr_in addr_fallback;
@@ -61,7 +61,7 @@ void worker(void) {
 	dnsdb_init();
 
 	fflush(0);
-	int worker_keepalive_cnt = (WORKER_KEEPALIVE_TIMER * arg_id) / arg_workers;
+	int resolver_keepalive_cnt = (RESOLVER_KEEPALIVE_TIMER * arg_id) / arg_resolvers;
 	DnsServer *srv = server_get();
 	assert(srv);
 	int ssl_keepalive_timer = srv->ssl_keepalive;
@@ -69,12 +69,12 @@ void worker(void) {
 	int console_printout_cnt = CONSOLE_PRINTOUT_TIMER;
 	int ssl_reopen_cnt = SSL_REOPEN_TIMER;
 
-	console_printout_cnt = (CONSOLE_PRINTOUT_TIMER * arg_id) / arg_workers;
+	console_printout_cnt = (CONSOLE_PRINTOUT_TIMER * arg_id) / arg_resolvers;
 	int dns_over_udp = 0;
 
 	struct timeval t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
-	int parent_keepalive_cnt = 0;
+	int frontend_keepalive_cnt = 0;
 	while (1) {
 		fd_set fds;
 		FD_ZERO(&fds);
@@ -89,7 +89,7 @@ void worker(void) {
 			nfds = (f->sock > nfds) ? f->sock : nfds;
 			f = f->next;
 		}
-		// communication with parent
+		// communication with the frontend process
 		FD_SET(arg_fd, &fds);
 		nfds = (arg_fd > nfds) ? arg_fd : nfds;
 		nfds += 1;
@@ -152,15 +152,15 @@ void worker(void) {
 				ssl_keepalive_cnt = ssl_keepalive_timer;
 			}
 
-			// send worker keepalive
-			if (--worker_keepalive_cnt <= 0)  {
-				rlogprintf("worker keepalive\n");
-				worker_keepalive_cnt = WORKER_KEEPALIVE_TIMER;
+			// send resolver keepalive
+			if (--resolver_keepalive_cnt <= 0)  {
+				rlogprintf("resolver keepalive\n");
+				resolver_keepalive_cnt = RESOLVER_KEEPALIVE_TIMER;
 			}
 
-			// check parent keepalive
-			if (++parent_keepalive_cnt >= PARENT_KEEPALIVE_SHUTDOWN) {
-				fprintf(stderr, "Error: worker process going down, parent keepalive failed\n");
+			// check frontend keepalive
+			if (++frontend_keepalive_cnt >= FRONTEND_KEEPALIVE_SHUTDOWN) {
+				fprintf(stderr, "Error: resolver process going down, frontend keepalive failed\n");
 				exit(1);
 			}
 
@@ -173,12 +173,12 @@ void worker(void) {
 		}
 
 		//***********************************************
-		// parent keepalive
+		// frontend keepalive
 		//***********************************************
 		if (FD_ISSET(arg_fd, &fds)) {
 			int sz = read(arg_fd, buf, MAXBUF);
 			(void) sz; // todo: error recovery
-			parent_keepalive_cnt = 0;
+			frontend_keepalive_cnt = 0;
 			continue;
 		}
 

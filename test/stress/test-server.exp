@@ -98,31 +98,31 @@ send "rm /tmp/index.html\r"
 after 100
 
 # under development
-#send -- "cp ../src/fdnstress/fdnstress /transfer/.\r"
-#send -- "cp list20  /transfer/.\r"
-#after 100
-#send -- "firejail --dns=127.1.1.1 /transfer/fdnstress --threads=1 /transfer/list20\r"
-#expect {
-#	timeout {puts "TESTING ERROR 30\n";exit 1}
-#	"wordpress.com"
-#}
-#expect {
-#	timeout {puts "TESTING ERROR 31\n";exit 1}
-#	"linux.org"
-#}
-#expect {
-#	timeout {puts "TESTING ERROR 32\n";exit 1}
-#	"google.com"
-#}
-#expect {
-#	timeout {puts "TESTING ERROR 33\n";exit 1}
-#	"youtube.com"
-#}
-#expect {
-#	timeout {puts "TESTING ERROR 34\n";exit}
-#	"fedoraproject.org"
-#}
-#after 100
+send -- "cp ../src/fdnstress/fdnstress /transfer/.\r"
+send -- "cp list20  /transfer/.\r"
+after 100
+send -- "firejail --dns=127.1.1.1 /transfer/fdnstress --threads=1 /transfer/list20\r"
+expect {
+	timeout {puts "TESTING ERROR 30\n";exit 1}
+	"wordpress.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 31\n";exit 1}
+	"linux.org"
+}
+expect {
+	timeout {puts "TESTING ERROR 32\n";exit 1}
+	"google.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 33\n";exit 1}
+	"youtube.com"
+}
+expect {
+	timeout {puts "TESTING ERROR 34\n";exit}
+	"fedoraproject.org"
+}
+after 100
 
 
 send -- "pkill fdns\r"

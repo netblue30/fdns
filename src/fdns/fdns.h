@@ -64,25 +64,25 @@ static inline int check_addr_port(const char *str) {
 }
 
 // all timers are in seconds
-#define WORKER_KEEPALIVE_TIMER 10 // keepalive messages sent by worker processes
-#define WORKER_KEEPALIVE_SHUTDOWN (WORKER_KEEPALIVE_TIMER * 3) // timer to detect a dead worker process
-#define PARENT_KEEPALIVE_TIMER 10 // keepalive messages sent by parent processes
-#define PARENT_KEEPALIVE_SHUTDOWN (PARENT_KEEPALIVE_TIMER * 3) // timer to detect the dead parent process
-#define WORKER_KEEPALIVE_AFTER_SLEEP (WORKER_KEEPALIVE_TIMER * 1.2) // after sleep detection
-#define MONITOR_WAIT_TIMER 2	// wait for this number of seconds before restarting a failed child process
-#define CONSOLE_PRINTOUT_TIMER 5	// transfer stats from worker to monitor
+#define RESOLVER_KEEPALIVE_TIMER 10 // keepalive messages sent by resolver processes
+#define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 3) // timer to detect a dead resolver process
+#define FRONTEND_KEEPALIVE_TIMER 10 // keepalive messages sent by frontend processes
+#define FRONTEND_KEEPALIVE_SHUTDOWN (FRONTEND_KEEPALIVE_TIMER * 3) // timer to detect the dead frontend process
+#define RESOLVER_KEEPALIVE_AFTER_SLEEP (RESOLVER_KEEPALIVE_TIMER * 1.2) // after sleep detection
+#define MONITOR_WAIT_TIMER 2	// wait for this number of seconds before restarting a failed resolver process
+#define CONSOLE_PRINTOUT_TIMER 5	// transfer stats from resolver to frontend
 #define SSL_REOPEN_TIMER 5	// try to reopen a failed SSL connection after this time
 #define OUT_OF_SLEEP 20	// detect computer going out of sleep/hibernation, reinitialize SSL connections
 #define CACHE_TTL_DEFAULT (15 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (30 * 60)
-#define CACHE_TTL_ERROR 60	// cache ttl when and errror mesage (such as NXDOMAIN) is returned by the server
+#define CACHE_TTL_ERROR 60	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
 
-// number of worker processes
-#define WORKERS_MIN 1	// number of worker threads
-#define WORKERS_MAX 10
-#define WORKERS_DEFAULT 3
-#define UNIX_ADDRESS "fdns"	// internal UNIX socket address for communication between monitor and child processes
+// number of resolver processes
+#define RESOLVERS_CNT_MIN 1	// number of resolver processes
+#define RESOLVERS_CNT_MAX 10
+#define RESOLVERS_CNT_DEFAULT 3
+#define UNIX_ADDRESS "fdns"	// internal UNIX socket address for communication between frontend and resolvers
 #define DEFAULT_PROXY_ADDR "127.1.1.1"
 
 // filesystem paths
@@ -94,7 +94,7 @@ static inline int check_addr_port(const char *str) {
 #define PATH_ETC_COINBLOCKER_LIST (SYSCONFDIR "/coinblocker")
 #define PATH_ETC_HOSTS_LIST (SYSCONFDIR "/hosts")
 #define PATH_ETC_SERVER_LIST (SYSCONFDIR "/servers")
-#define PATH_ETC_WORKER_SECCOMP (SYSCONFDIR "/worker.seccomp")
+#define PATH_ETC_RESOLVER_SECCOMP (SYSCONFDIR "/resolver.seccomp")
 #define PATH_LOG_FILE "/var/log/fdns.log"
 #define PATH_STATS_FILE "/fdns-stats"	// the actual path is /dev/shm/fdns-stats
 
@@ -158,7 +158,7 @@ static inline void print_mem(unsigned char *msg, int len) {
 // main.c
 extern int arg_argc;
 extern int arg_debug;
-extern int arg_workers;
+extern int arg_resolvers;
 extern int arg_id;
 extern int arg_fd;
 extern int arg_nofilter;
@@ -195,15 +195,15 @@ int ssl_dns(uint8_t *msg, int cnt);
 void ssl_keepalive(void);
 int ssl_status_check(void);
 
-// monitor.c
-int encrypted[WORKERS_MAX];
-void monitor(void);
+// frontend.c
+extern int encrypted[RESOLVERS_CNT_MAX];
+void frontend(void);
 
 // security.c
 void daemonize(void);
 void chroot_drop_privs(const char *username);
 int seccomp_load_filter_list(void);
-void seccomp_worker(void);
+void seccomp_resolver(void);
 
 // dns.c
 typedef enum {
@@ -234,7 +234,7 @@ typedef struct logmsg_t {
 } LogMsg;
 
 void log_disable(void);
-// remote logging (worker processes)
+// remote logging (resolver processes)
 void rlogprintf(const char *format, ...);
 // local logging (monitor process)
 void logprintf(const char *format, ...);
@@ -268,8 +268,8 @@ uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6);
 void cache_timeout(void);
 void cache_init(void);
 
-// worker.c
-void worker(void);
+// resolver.c
+void resolver(void);
 
 // net.c
 void net_check_proxy_addr(const char *str);

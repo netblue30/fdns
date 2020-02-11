@@ -70,20 +70,20 @@ void chroot_drop_privs(const char *username) {
 }
 
 //*************************************************
-// seccomp: worker process
+// seccomp: resolver process
 //*************************************************
 static uint32_t arch_token;	// system architecture as detected by libseccomp
 
-static void trap_handler_worker(int sig, siginfo_t *siginfo, void *ucontext) {
+static void trap_handler_resolver(int sig, siginfo_t *siginfo, void *ucontext) {
 	(void) ucontext;
 	if (sig == SIGSYS) {
-		fprintf(stderr, "Error: fdns worker process %d killed by seccomp - syscall %d", arg_id, siginfo->si_syscall);
+		fprintf(stderr, "Error: fdns resolver process %d killed by seccomp - syscall %d", arg_id, siginfo->si_syscall);
 		char *syscall_name = seccomp_syscall_resolve_num_arch(arch_token, siginfo->si_syscall);
 		if (syscall_name)
 			fprintf(stderr, " (%s)", syscall_name);
 		fprintf(stderr, "\n");
 
-		rlogprintf("Error: fdns worker process %d killed by seccomp - syscall %d (%s)\n", arg_id, siginfo->si_syscall, syscall_name);
+		rlogprintf("Error: fdns resolver process %d killed by seccomp - syscall %d (%s)\n", arg_id, siginfo->si_syscall, syscall_name);
 		free(syscall_name);
 	}
 }
@@ -91,7 +91,7 @@ static void trap_handler_worker(int sig, siginfo_t *siginfo, void *ucontext) {
 static char *syscall_list;
 int seccomp_load_filter_list(void) {
 	struct stat s;
-	if (stat(PATH_ETC_WORKER_SECCOMP, &s) == -1)
+	if (stat(PATH_ETC_RESOLVER_SECCOMP, &s) == -1)
 		goto errout;
 
 	syscall_list = malloc(s.st_size + 10);
@@ -99,7 +99,7 @@ int seccomp_load_filter_list(void) {
 		errExit("malloc");
 	memset(syscall_list, 0, s.st_size + 10);
 
-	FILE *fp = fopen(PATH_ETC_WORKER_SECCOMP, "r");
+	FILE *fp = fopen(PATH_ETC_RESOLVER_SECCOMP, "r");
 	if (!fp)
 		goto errout;
 
@@ -112,12 +112,12 @@ int seccomp_load_filter_list(void) {
 	return 1;
 
 errout:
-	fprintf(stderr, "Warning: cannot load seccomp filter %s\n", PATH_ETC_WORKER_SECCOMP);
-	rlogprintf("Warning: cannot load seccomp filter %s\n", PATH_ETC_WORKER_SECCOMP);
+	fprintf(stderr, "Warning: cannot load seccomp filter %s\n", PATH_ETC_RESOLVER_SECCOMP);
+	rlogprintf("Warning: cannot load seccomp filter %s\n", PATH_ETC_RESOLVER_SECCOMP);
 	return 0;
 }
 
-void seccomp_worker(void) {
+void seccomp_resolver(void) {
 	char *tmp = syscall_list;
 
 	arch_token = seccomp_arch_native();
@@ -126,7 +126,7 @@ void seccomp_worker(void) {
 		goto errout;
 
 	struct sigaction sa;
-	sa.sa_sigaction = &trap_handler_worker;
+	sa.sa_sigaction = &trap_handler_resolver;
 	sa.sa_flags = SA_SIGINFO;
 	sigfillset(&sa.sa_mask);	// mask all other signals during the handler execution
 	if (sigaction(SIGSYS, &sa, NULL) == -1)
