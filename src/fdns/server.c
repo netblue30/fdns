@@ -452,14 +452,25 @@ DnsServer *server_get(void) {
 			if (arg_id == -1 && test_server(s->name)) {
 				// mark the server as inactive and try again
 				s->active = 0;
+				// set new active count
 				s = slist;
-				// try several times to choose a different random server
-				int newindex = rand() % cnt + 1;
-				if (index == newindex)
-					newindex = rand() % cnt + 1;
-				if (index == newindex)
-					newindex = rand() % cnt + 1;
-				index = newindex;
+				int cnt2 = 0;
+				while (s) {
+					if (s->active)
+						s->active = ++cnt2;
+					s = s->next;
+				}
+				s = slist;
+				assert(cnt2 == (cnt - 1));
+				cnt = cnt2;
+				if (cnt == 0)
+					goto errout;
+
+				// try again
+				index = rand() % cnt + 1;
+				if (arg_debug)
+					printf("new tag index %d\n", index);
+
 				continue;
 			}
 
