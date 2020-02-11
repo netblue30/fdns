@@ -20,7 +20,7 @@
 #include <time.h>
 int arg_argc = 0;
 int arg_debug = 0;
-int arg_workers = WORKERS_DEFAULT;
+int arg_resolvers = RESOLVERS_CNT_DEFAULT;
 int arg_id = -1;
 int arg_fd = -1;
 int arg_nofilter = 0;
@@ -62,6 +62,9 @@ static void usage(void) {
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
 	printf("    --proxy-addr-any - listen on all available network interfaces.\n");
+	printf("    --resolvers=number - the number of resolver processes, between %d and %d,\n"
+	       "\tdefault %d.\n",
+	       RESOLVERS_CNT_MIN, RESOLVERS_CNT_MAX, RESOLVERS_CNT_DEFAULT);
 	printf("    --server=server-name|tag|all - DoH server to connect to.\n");
 	printf("    --test-hosts - test the domains in /etc/fdns/hosts file.\n");
 	printf("    --test-servers - test the DoH servers in your current zone.\n");
@@ -69,9 +72,6 @@ static void usage(void) {
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --test-url-list - check all URLs form stdin.\n");
 	printf("    --version - print program version and exit.\n");
-	printf("    --workers=number - the number of worker threads, between %d and %d,\n"
-	       "\tdefault %d.\n",
-	       WORKERS_MIN, WORKERS_MAX, WORKERS_DEFAULT);
 	printf("    --zone=zone-name - set a different geographical zone.\n");
 	printf("\n");
 }
@@ -144,11 +144,11 @@ int main(int argc, char **argv) {
 				arg_nofilter = 1;
 			else if (strcmp(argv[i], "--ipv6") == 0)
 				arg_ipv6 = 1;
-			else if (strncmp(argv[i], "--workers=", 10) == 0) {
-				arg_workers = atoi(argv[i] + 10);
-				if (arg_workers < WORKERS_MIN || arg_workers > WORKERS_MAX) {
-					fprintf(stderr, "Error: the number of worker threads should be between %d and %d\n",
-						WORKERS_MIN, WORKERS_MAX);
+			else if (strncmp(argv[i], "--resolvers=", 12) == 0) {
+				arg_resolvers = atoi(argv[i] + 12);
+				if (arg_resolvers < RESOLVERS_CNT_MIN || arg_resolvers > RESOLVERS_CNT_MAX) {
+					fprintf(stderr, "Error: the number of resolver processes should be between %d and %d\n",
+						RESOLVERS_CNT_MIN, RESOLVERS_CNT_MAX);
 					return 1;
 				}
 			}
@@ -235,16 +235,16 @@ int main(int argc, char **argv) {
 	assert(s);
 	assert(arg_server);
 
-	// start the monitor or the worker
+	// start the frontend or the resolver
 	if (arg_id != -1) {
 		assert(arg_fd != -1);
-		worker();
+		resolver();
 	}
 	else {
 		logprintf("fdns starting\n");
 		logprintf("connecting to %s server\n", s->name);
 		logprintf("\t%s\n", s->tags);
-		monitor();
+		frontend();
 	}
 
 	return 0;

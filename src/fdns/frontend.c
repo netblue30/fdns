@@ -38,17 +38,17 @@ int __clone2(int (*fn)(void *),
 	     /* pid_t *ptid, struct user_desc *tls, pid_t *ctid */ );
 #endif
 
-int encrypted[WORKERS_MAX];
+int encrypted[RESOLVERS_CNT_MAX];
 
-typedef struct worker_t {
+typedef struct resolver_t {
 	pid_t pid;
 	int keepalive;
 	int fd[2];
 #define STACK_SIZE (1024 * 1024)
 #define STACK_ALIGNMENT 16
 	char child_stack[STACK_SIZE] __attribute__((aligned(STACK_ALIGNMENT)));; // space for child's stack
-} Worker;
-static Worker w[WORKERS_MAX];
+} Resolver;
+static Resolver w[RESOLVERS_CNT_MAX];
 
 static volatile sig_atomic_t got_SIGCHLD = 0;
 static void child_sig_handler(int sig) {
@@ -57,10 +57,10 @@ static void child_sig_handler(int sig) {
 }
 
 static void my_handler(int s) {
-	logprintf("signal %d caught, shutting down all the workers\n", s);
+	logprintf("signal %d caught, shutting down all resolvers\n", s);
 
 	int i;
-	for (i = 0; i < arg_workers; i++)
+	for (i = 0; i < arg_resolvers; i++)
 		kill(w[i].pid, SIGKILL);
 
 	// attempt to remove shmem file
@@ -72,7 +72,7 @@ static void my_handler(int s) {
 static int sandbox(void *sandbox_arg) {
 	int id = *(int *) sandbox_arg;
 
-	prctl(PR_SET_PDEATHSIG, SIGKILL, 0, 0, 0); // kill this process in case the parent died
+	prctl(PR_SET_PDEATHSIG, SIGKILL, 0, 0, 0); // kill this new process in case the parent died
 
 	// mount events are not forwarded between the host the sandbox
 	if (mount(NULL, "/", NULL, MS_SLAVE | MS_REC, NULL) < 0)
@@ -86,7 +86,7 @@ static int sandbox(void *sandbox_arg) {
 		errExit("asprintf");
 
 
-	// start a fdns worker process
+	// start an fdns resolver process
 	char *a[arg_argc + 20];
 	a[0] = PATH_FDNS;
 	a[1] = idstr;
@@ -147,14 +147,14 @@ static int sandbox(void *sandbox_arg) {
 }
 
 static void start_sandbox(int id) {
-	assert(id < WORKERS_MAX);
+	assert(id < RESOLVERS_CNT_MAX);
 	encrypted[id] = 0;
 
 	if (w[id].fd[0] == 0) {
 		if (socketpair(AF_UNIX, SOCK_DGRAM, 0, w[id].fd) < 0)
 			errExit("socketpair");
 		if (arg_debug)
-			printf("workerid %d, sockpair %d, %d\n", id, w[id].fd[0], w[id].fd[1]);
+			printf("resolverid %d, sockpair %d, %d\n", id, w[id].fd[0], w[id].fd[1]);
 	}
 
 	int flags = CLONE_NEWNS | CLONE_NEWPID | CLONE_NEWUTS | CLONE_NEWIPC | SIGCHLD;
@@ -162,7 +162,7 @@ static void start_sandbox(int id) {
 			  w[id].child_stack + STACK_SIZE,
 			  flags,
 			  &id);
-	w[id].keepalive = WORKER_KEEPALIVE_SHUTDOWN;
+	w[id].keepalive = RESOLVER_KEEPALIVE_SHUTDOWN;
 	if (w[id].pid == -1)
 		errExit("clone");
 }
@@ -195,9 +195,9 @@ static void install_signal_handler(void) {
 	sigaction(SIGHUP, &sga, NULL);
 }
 
-void monitor(void) {
+void frontend(void) {
 	assert(arg_id == -1);
-	assert(arg_workers <= WORKERS_MAX && arg_workers >= WORKERS_MIN);
+	assert(arg_resolvers <= RESOLVERS_CNT_MAX && arg_resolvers >= RESOLVERS_CNT_MIN);
 	net_local_unix_socket();
 	install_signal_handler();
 
@@ -209,7 +209,7 @@ void monitor(void) {
 	else
 		logprintf("listening on %s\n", (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR);
 
-	// init worker structures
+	// init resolver structures
 	memset(w, 0, sizeof(w));
 
 	// create a /run/fdns directory
@@ -225,9 +225,9 @@ void monitor(void) {
 	shmem_open(1);
 	int shm_keepalive_cnt = 0;
 
-	// start workers
+	// start resolvers
 	int i;
-	for (i = 0; i < arg_workers; i++)
+	for (i = 0; i < arg_resolvers; i++)
 		start_sandbox(i);
 
 	// handle SIGCHLD in pselect loop
@@ -254,7 +254,7 @@ void monitor(void) {
 		fd_set rset;
 		FD_ZERO(&rset);
 		int fdmax = 0;
-		for (i = 0; i < arg_workers; i++) {
+		for (i = 0; i < arg_resolvers; i++) {
 			FD_SET(w[i].fd[0], &rset);
 			fdmax = (fdmax < w[i].fd[0]) ? w[i].fd[0] : fdmax;
 		}
@@ -278,16 +278,16 @@ void monitor(void) {
 
 			// decrease keepalive wait when coming out of sleep/hibernation
 			if (ts - timestamp > OUT_OF_SLEEP) {
-				for (i = 0; i < arg_workers; i++) {
-					if (w[i].keepalive > WORKER_KEEPALIVE_AFTER_SLEEP)
-						w[i].keepalive = WORKER_KEEPALIVE_AFTER_SLEEP;
+				for (i = 0; i < arg_resolvers; i++) {
+					if (w[i].keepalive > RESOLVER_KEEPALIVE_AFTER_SLEEP)
+						w[i].keepalive = RESOLVER_KEEPALIVE_AFTER_SLEEP;
 				}
 			}
 
-			// restart workers if the keepalive time expired
-			for (i = 0; i < arg_workers; i++) {
+			// restart resolvers if the keepalive time expired
+			for (i = 0; i < arg_resolvers; i++) {
 				if (--w[i].keepalive <= 0) {
-					logprintf("Restarting worker process %d (pid %d)\n", i, w[i].pid);
+					logprintf("Restarting resolver process %d (pid %d)\n", i, w[i].pid);
 					kill(w[i].pid, SIGKILL);
 					int status;
 					waitpid(w[i].pid, &status, 0);
@@ -301,9 +301,9 @@ void monitor(void) {
 				shm_keepalive_cnt = 0;
 			}
 
-			if (++send_keepalive_cnt >= PARENT_KEEPALIVE_TIMER) {
+			if (++send_keepalive_cnt >= RESOLVER_KEEPALIVE_TIMER) {
 				send_keepalive_cnt = 0;
-				for (i = 0; i < arg_workers; i++) {
+				for (i = 0; i < arg_resolvers; i++) {
 					int rv = write(w[i].fd[0], "keepalive", 10);
 					(void) rv; // todo: error recovery
 				}
@@ -318,19 +318,19 @@ void monitor(void) {
 			int status;
 			got_SIGCHLD = 0;
 
-			// find a dead worker
+			// find a dead resolver
 			int i;
-			for (i = 0; i < arg_workers; i++) {
+			for (i = 0; i < arg_resolvers; i++) {
 				pid = waitpid(w[i].pid, &status, WNOHANG);
 				if (pid == w[i].pid) {
-					logprintf("Error: worker %d (pid %u) terminated, restarting it...\n", i, pid);
+					logprintf("Error: resolver %d (pid %u) terminated, restarting it...\n", i, pid);
 					kill(pid, SIGTERM); // just in case
 					start_sandbox(i);
 				}
 			}
 		}
 		else {
-			for (i = 0; i < arg_workers; i++) {
+			for (i = 0; i < arg_resolvers; i++) {
 				if (FD_ISSET(w[i].fd[0], &rset)) {
 					LogMsg msg;
 					ssize_t len = read(w[i].fd[0], &msg, sizeof(LogMsg));
@@ -374,8 +374,8 @@ void monitor(void) {
 						printf("%s", msg.buf + 9);
 						shmem_store_log(msg.buf + 9);
 					}
-					else if (strncmp(msg.buf, "worker keepalive", 16) == 0)
-						w[i].keepalive = WORKER_KEEPALIVE_SHUTDOWN;
+					else if (strncmp(msg.buf, "resolver keepalive", 16) == 0)
+						w[i].keepalive = RESOLVER_KEEPALIVE_SHUTDOWN;
 					else {
 						if (strncmp(msg.buf, "SSL connection opened", 21) == 0) {
 							encrypted[i] = 1;
