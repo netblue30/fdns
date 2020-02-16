@@ -124,9 +124,10 @@ name: appliedprivacy
 website: https://appliedprivacy.net
 zone: Europe
 tags: non-profit, Austria, Europe
-address: 37.252.185.229:443
+address: 93.177.65.183:443
 host: doh.appliedprivacy.net/query
-keepalive: 30
+sni: yes
+keepalive: 7
 
 name: bortzmeyer
 website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
