@@ -67,8 +67,8 @@ static void usage(void) {
 	       RESOLVERS_CNT_MIN, RESOLVERS_CNT_MAX, RESOLVERS_CNT_DEFAULT);
 	printf("    --server=server-name|tag|all - DoH server to connect to.\n");
 	printf("    --test-hosts - test the domains in /etc/fdns/hosts file.\n");
-	printf("    --test-servers - test the DoH servers in your current zone.\n");
-	printf("    --test-servers=server-name|tag|all - test DoH servers.\n");
+	printf("    --test-server - test the DoH servers in your current zone.\n");
+	printf("    --test-server=server-name|tag|all - test DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --test-url-list - check all URLs form stdin.\n");
 	printf("    --version - print program version and exit.\n");
@@ -203,12 +203,12 @@ int main(int argc, char **argv) {
 				filter_test_list();
 				return 0;
 			}
-			else if (strcmp(argv[i], "--test-servers") == 0) {
+			else if (strcmp(argv[i], "--test-server") == 0) {
 				server_test_tag(NULL);
 				return 0;
 			}
-			else if (strncmp(argv[i], "--test-servers=", 15) == 0) {
-				server_test_tag(argv[i] + 15);
+			else if (strncmp(argv[i], "--test-server=", 14) == 0) {
+				server_test_tag(argv[i] + 14);
 				return 0;
 			}
 			else {
