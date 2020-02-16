@@ -4,7 +4,7 @@ fdns (0.9.62.2) baseline; urgency=low
   * automated test framework
   * over 60 new DoH servers
   * lots of bugfixes
- -- netblue30 <netblue30@yahoo.com>  Sun, 16 Feb 2019 08:00:00 -0500
+ -- netblue30 <netblue30@yahoo.com>  Sun, 16 Feb 2020 08:00:00 -0500
 
 fdns (0.9.62) baseline; urgency=low
   * first release
