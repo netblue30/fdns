@@ -32,6 +32,14 @@ address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
 keepalive: 30
 
+name: a-and-a
+website: https://www.aa.net.uk/legal/dohdot-disclaimer/
+zone: Europe
+tags: UK, Europe
+address: 217.169.20.23:443
+host: dns.aa.net.uk/dns-query
+keepalive: 7
+
 name: aaflalo
 website: https://www.aaflalo.me
 zone: Europe
@@ -107,7 +115,7 @@ keepalive: 7
 name: alekberg-adblocker2
 website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Americas-West
-tags: US, Americas, Americas-West
+tags: US, Americas, Americas-West, adblocker
 address: 104.168.247.138:443
 host: dns2.alekberg.net/noads
 keepalive: 7
@@ -533,12 +541,14 @@ zone: Europe
 tags: Netherlands, Europe
 address: 146.185.167.43:443
 host: doh.securedns.eu/dns-query
+sni: yes
 keepalive: 7
 
 name: securedns-adblocker
 website: https://securedns.eu/
 zone: Europe
 tags: Netherlands, Europe, adblocker
+sni: yes
 address: 146.185.167.43:443
 host: ads-doh.securedns.eu/dns-query
 keepalive: 7
@@ -552,12 +562,31 @@ host: fi.doh.dns.snopyta.org/dns-query
 sni: yes
 keepalive: 30
 
-name: tiarapp
+# tiarapp servers: https://github.com/pengelana
+name: tiarapp-sg
 website: https://doh.tiar.app
 zone: Asia-Pacific
-tags: Singapore, Asia-Pacific
+tags: Singapore, Asia-Pacific, adblocker
 address: 174.138.29.175:443
 host: doh.tiar.app/dns-query
+keepalive: 30
+
+name: tiarapp-us
+website: https://doh.tiarap.org
+zone: Americas-East
+tags: US, Americas, Americas-East, adblocker
+address: 104.18.44.204:443
+host: doh.tiarap.org/dns-query
+sni: yes
+keepalive: 30
+
+name: tiarapp-us2
+website: https://doh.tiarap.org
+zone: Americas-East
+tags: US, Americas, Americas-East, adblocker
+address: 104.18.45.204:443
+host: doh.tiarap.org/dns-query
+sni: yes
 keepalive: 30
 
 name: tiarapp-jp

@@ -164,14 +164,14 @@ $ sudo fdns --server=family
 \fB\-\-test-hosts
 Test the domains in /etc/fdns/hosts file.
 .TP
-\fB\-\-test-servers
+\fB\-\-test-server
 Test the servers from your geographical zone.
 .br
 
 .br
 Example:
 .br
-$ fdns --test-servers
+$ fdns --test-server
 .br
 Testing server aaflalo-adblocker
 .br
@@ -206,7 +206,7 @@ Testing server dnscrypt-ca
 
 
 .TP
-\fB\-\-test-servers=server-name|tag|all
+\fB\-\-test-server=server-name|tag|all
 Test the servers based on a tag, server name, or all.
 .br
 

@@ -31,7 +31,7 @@ set spawn_id $server_id
 
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"worker"
+	"resolver"
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
