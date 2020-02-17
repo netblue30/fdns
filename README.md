@@ -41,7 +41,7 @@ FDNS is a community project. We are not affiliated with any company, and we donâ
 
 ## Project Status
 
-Release `0.9.62` is out. Download: https://github.com/netblue30/fdns/releases/tag/v0.9.62.
+Release `0.9.62.2` is out.
 
 The current development version is `0.9.63`.
 
