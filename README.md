@@ -20,6 +20,7 @@ FDNS is written in C and licensed under GPLv3. The number one job is privacy. We
 <li>Regular DNS over UDP fallback in case the DoH service becomes unavailable.</li>
 <li>Live DNS request monitoring and statistics.</li>
 <li>Scalable multi-process design with a frontend process and several independent resolver processes. Security technologies: chroot, seccomp, Linux namespaces, and AppArmor.</li>
+<li>Seamless integration with <a href="https://firejail.wordpress.com">Firejail security sandbox</a>.</li> 
 </ul>
 <div style="height:20px;">&nbsp;</div>
 
