@@ -73,10 +73,10 @@ static inline int check_addr_port(const char *str) {
 #define CONSOLE_PRINTOUT_TIMER 5	// transfer stats from resolver to frontend
 #define SSL_REOPEN_TIMER 5	// try to reopen a failed SSL connection after this time
 #define OUT_OF_SLEEP 20	// detect computer going out of sleep/hibernation, reinitialize SSL connections
-#define CACHE_TTL_DEFAULT (15 * 60)	// default DNS cache ttl in seconds
+#define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
-#define CACHE_TTL_MAX (30 * 60)
-#define CACHE_TTL_ERROR 60	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
+#define CACHE_TTL_MAX (60 * 60)
+#define CACHE_TTL_ERROR (10 * 60)	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
 
 // number of resolver processes
 #define RESOLVERS_CNT_MIN 1	// number of resolver processes
