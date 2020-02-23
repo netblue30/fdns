@@ -7,14 +7,6 @@
 #         https://github.com/EFForg/privacybadger/blob/master/LICENSE
 #
 
-
-#
-# Some tracker companies and some of the domains they use
-#
-
-#
-# Entries from Privacy Badger
-#
 127.0.0.1 powr-media.com
 127.0.0.1 ssl.bing.com
 127.0.0.1 1rx.io
