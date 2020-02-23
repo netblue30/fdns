@@ -1,3 +1,7 @@
+fdns (0.9.63) baseline; urgency=low
+  * development version
+ -- netblue30 <netblue30@yahoo.com>  Thu, 18 Feb 2020 08:00:00 -0500
+
 fdns (0.9.62.2) baseline; urgency=low
   * feature complete!
   * online documentation in github wiki
