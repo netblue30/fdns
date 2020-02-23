@@ -53,6 +53,7 @@ typedef struct dfilter_t {
 	//      $ - end of domain name
 	//      regular letter: anywhere in the domain name
 	char *name;
+	char *exception;	// false match if exception inside name (strstr)
 	int len;	// name string length
 } DFilter;
 
@@ -61,47 +62,47 @@ static DFilter default_filter[] = {
 	// reserved domain names (RFC 2606, RFC 6761, RFC 6762)
 	// - currently we are returning 127.0.0.1 regardless what RFC says
 	// - RFC 6762: send .local to link-local multicast address 224.0.0.251 (todo)
-	{'R', "$.local", 0},
-	{'R', "$.localhost", 0},
-	{'R', "$.test", 0},
-	{'R', "$.invalid", 0},
-	{'R', "$.example", 0},
-	{'R', "$example.com", 0},
-	{'R', "$example.net", 0},
-	{'R', "$example.org", 0},
+	{'R', "$.local", NULL, 0},
+	{'R', "$.localhost", NULL, 0},
+	{'R', "$.test", NULL, 0},
+	{'R', "$.invalid", NULL, 0},
+	{'R', "$.example", NULL, 0},
+	{'R', "$example.com", NULL, 0},
+	{'R', "$example.net", NULL, 0},
+	{'R', "$example.org", NULL, 0},
 
-	{'A', "^ad.", 0},
-	{'A', "^ads.", 0},
-	{'A', "^adservice.", 0},
-	{'A', "^affiliate.", 0},
-	{'A', "^affiliates.", 0},
-	{'A', "^banner.", 0},
-	{'A', "^banners.", 0},
-	{'A', "click.", 0},
-	{'A', "clicks.", 0},
-	{'A', "collector.", 0},
-	{'A', "^creatives.", 0},
-	{'A', "id.google.", 0},
-	{'A', "^oas.", 0},
-	{'A', "^oascentral.", 0},
-	{'T', "^stats.", 0},
-	{'T', "^tag.", 0},
+	{'A', "^ad.", NULL, 0},
+	{'A', "^ads.", NULL, 0},
+	{'A', "^adservice.", NULL, 0},
+	{'A', "^affiliate.", NULL, 0},
+	{'A', "^affiliates.", NULL, 0},
+	{'A', "^banner.", NULL, 0},
+	{'A', "^banners.", NULL, 0},
+	{'A', "click.", NULL, 0},
+	{'A', "clicks.", NULL, 0},
+	{'A', "collector.", NULL, 0},
+	{'A', "^creatives.", NULL, 0},
+	{'A', "id.google.", NULL, 0},
+	{'A', "^oas.", NULL, 0},
+	{'A', "^oascentral.", NULL, 0},
+	{'T', "^stats.", NULL, 0},
+	{'T', "^tag.", NULL, 0},
 
-	{'A', ".ad.", 0},
-	{'A', ".ads.", 0},
-	{'A', "admob.", 0},
-	{'A', "adserver", 0},
-	{'A', "advertising", 0},
-	{'T', "analytic.", 0},
-	{'T', "analytics.", 0},
-	{'T', "click.", 0},
-	{'T', "clickstatsview.", 0},
-	{'T', "counter.", 0},
-	{'T', "tags.", 0},
-	{'T', "tracking.", 0},
+	{'A', ".ad.", ".ad.jp", 0},	// .ad.jp is popular Japanese domain
+	{'A', ".ads.", NULL, 0},
+	{'A', "admob.", NULL, 0},
+	{'A', "adserver", NULL, 0},
+	{'A', "advertising", NULL, 0},
+	{'T', "analytic.", NULL, 0},
+	{'T', "analytics.", NULL, 0},
+	{'T', "click.", NULL, 0},
+	{'T', "clickstatsview.", NULL, 0},
+	{'T', "counter.", NULL, 0},
+	{'T', "tags.", NULL, 0},
+	{'T', "tracking.", NULL, 0},
 //	"tracker.",	used by bittorrent trackers
-	{'T', "telemetry.", 0},
-	{'T', "pixel.", 0},
+	{'T', "telemetry.", NULL, 0},
+	{'T', "pixel.", NULL, 0},
 
 	// minimize first-party trackers list
 	{'F', "^somniture.", 0}, // 30
@@ -313,6 +314,9 @@ const char *filter_blocked(const char *str, int verbose) {
 		if (*default_filter[i].name == '^') {
 			int flen = default_filter[i].len;
 			if (strncmp(str, default_filter[i].name + 1, flen) == 0) {
+				// handle exceptions
+				if (default_filter[i].exception && strstr(str, default_filter[i].exception))
+					break;
 				if (verbose)
 					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
 				return label2str(default_filter[i].label);
@@ -321,12 +325,16 @@ const char *filter_blocked(const char *str, int verbose) {
 		else if (*default_filter[i].name == '$') {
 			int flen = default_filter[i].len;
 			if (strcmp(str + dlen - flen, default_filter[i].name + 1) == 0) {
+				if (default_filter[i].exception && strstr(str, default_filter[i].exception))
+					break;
 				if (verbose)
 					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
 				return label2str(default_filter[i].label);
 			}
 		}
 		else  if (strstr(str, default_filter[i].name)) {
+			if (default_filter[i].exception && strstr(str, default_filter[i].exception))
+				break;
 			if (verbose)
 				printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
 			return label2str(default_filter[i].label);
