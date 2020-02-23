@@ -40,6 +40,14 @@ address: 217.169.20.23:443
 host: dns.aa.net.uk/dns-query
 keepalive: 7
 
+name: a-and-a2
+website: https://www.aa.net.uk/legal/dohdot-disclaimer/
+zone: Europe
+tags: UK, Europe
+address: 217.169.20.22:443
+host: dns.aa.net.uk/dns-query
+keepalive: 7
+
 name: aaflalo
 website: https://www.aaflalo.me
 zone: Europe
