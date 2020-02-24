@@ -44,22 +44,26 @@ static void ssl_alert_callback(const SSL *s, int where, int ret) {
 		str = "undefined";
 
 	if (where & SSL_CB_LOOP) {
-		rlogprintf("Alert: %s:%s\n", str, SSL_state_string_long(s));
+		printf("Alert: %s:%s\n", str, SSL_state_string_long(s));
+		fflush(0);
 	}
 	else if (where & SSL_CB_ALERT) {
 		str = (where & SSL_CB_READ) ? "read" : "write";
-		rlogprintf("Alert: SSL3 alert %s:%s:%s\n", str,
+		printf("Alert: SSL3 alert %s:%s:%s\n", str,
 			   SSL_alert_type_string_long(ret),
 			   SSL_alert_desc_string_long(ret));
+		fflush(0);
 	}
 	else if (where & SSL_CB_EXIT) {
 		if (ret == 0) {
-			rlogprintf("Alert: %s:failed in %s\n",
+			printf("Alert: %s:failed in %s\n",
 				   str, SSL_state_string_long(s));
+			fflush(0);
 		}
 		else if (ret < 0) {
-			rlogprintf("Alert: %s:error in %s\n",
+			printf("Alert: %s:error in %s\n",
 				   str, SSL_state_string_long(s));
+			fflush(0);
 		}
 	}
 }
