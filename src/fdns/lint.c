@@ -104,30 +104,34 @@ errexit:
 
 // pkt - start of the dns packet
 // size - packet bytes consumed durring the parsing
-DnsHeader *lint_header(uint8_t *pkt, unsigned len, unsigned *size) {
+DnsHeader *lint_header(uint8_t **pkt, uint8_t *last) {
 	assert(pkt);
+	assert(*pkt);
+	assert(*last);
 
-	*size = 0;
-	if (len < sizeof(DnsHeader)) {
+	if (*pkt + sizeof(DnsHeader) > last) {
 		dnserror = DNSERR_INVALID_HEADER;
 		return NULL;
 	}
 
-	memcpy(&hdr, pkt, sizeof(hdr));
+	memcpy(&hdr, *pkt, sizeof(hdr));
 	hdr.id = ntohs(hdr.id);
 	hdr.flags = ntohs(hdr.flags);
 	hdr.questions = ntohs(hdr.questions);
 	hdr.answer = ntohs(hdr.answer);
 	hdr.authority = ntohs(hdr.authority);
 	hdr.additional = ntohs(hdr.additional);
-	*size = sizeof(DnsHeader);
+	*pkt += sizeof(DnsHeader);
 	return &hdr;
 }
 
 // pkt is positioned at the the start of RR
-DnsQuestion *lint_question(uint8_t *pkt, unsigned len, unsigned *size) {
+DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last) {
 	assert(pkt);
-	if (len < 1 + 2 + 2) { // empty domain + type + class
+	assert(*pkt);
+	assert(last);
+
+	if (*pkt + 1 + 2 + 2 > last) { // empty domain + type + class
 		dnserror = DNSERR_INVALID_DOMAIN;
 		return NULL;
 	}
@@ -135,42 +139,42 @@ DnsQuestion *lint_question(uint8_t *pkt, unsigned len, unsigned *size) {
 	// clanup
 	question.domain[0] = '\0';
 	question.type = 0;
-	*size = 0;
+	unsigned size = 0;
 
 	// first byte smaller than 63
-	if (*pkt > 63) {
+	if (**pkt > 63) {
 		dnserror = DNSERR_INVALID_DOMAIN;
 		return NULL;
 	}
-	if (domain_size_no_crossreference(pkt, question.domain, size)) {
+
+	if (domain_size_no_crossreference(*pkt, question.domain, &size)) {
 		dnserror = DNSERR_INVALID_DOMAIN;
 		return NULL;
 	}
 
 	// check length
-	if (*size + 4 > len) {
+	if (*pkt + size + 4 - 1 > last ) {
 		dnserror = DNSERR_INVALID_DOMAIN;
 		return NULL;
 	}
 
 	// set type
-	pkt += *size;
-	memcpy(&question.type, pkt, 2);
+	*pkt += size;
+	memcpy(&question.type, *pkt, 2);
 	question.type = ntohs(question.type);
-	pkt += 2;
+	*pkt += 2;
 
 	// check class
 	uint16_t cls;
-	memcpy(&cls, pkt,  2);
+	memcpy(&cls, *pkt,  2);
 	cls = ntohs(cls);
 	if (cls != 1) {
 		dnserror = DNSERR_INVALID_CLASS;
 		return NULL;
 	}
+	*pkt += 2;
 
-	*size += 4;
-	question.len = *size;
+	question.len = size + 4;
 	question.dlen = question.len - 6; // we are assuming a domain name without crossreferences
-//printf("len/size %d/%d\n", len, *size);
 	return &question;
 }

@@ -47,10 +47,10 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	assert(buf);
 	assert(lenptr);
 	uint8_t *pkt = buf;
+	uint8_t *last = pkt + *lenptr - 1;	// pointer to last byte in the packet
 	*dest = DEST_SSL;
 
-	unsigned delta;
-	DnsHeader *h = lint_header(pkt, *lenptr, &delta);
+	DnsHeader *h = lint_header(&pkt, last);
 	if (!h) {
 		rlogprintf("Error LANrx: %s, dropped\n", lint_err2str());
 		*dest = DEST_DROP;
@@ -77,22 +77,21 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 		return NULL;
 	}
 
-	pkt = pkt + delta;
-	DnsQuestion *q = lint_question(pkt, *lenptr - delta, &delta);
+	unsigned delta;
+	DnsQuestion *q = lint_question(&pkt,  last);
 	if (!q) {
-		rlogprintf("Error LANrx: %s, dropped\n", __LINE__, lint_err2str());
+		rlogprintf("Error LANrx: %s, dropped\n", lint_err2str());
 		*dest = DEST_DROP;
 		return NULL;
 	}
 
-//printf("domain #%s#\n", q->domain); fflush(0);
 	// check packet lentght
-	if ((*lenptr - sizeof(DnsHeader) - delta ) != 0) {
-		rlogprintf("Error LANrx: invalid packet lenght, dropped\n", __LINE__);
+//printf("domain #%s#, pkg %p, last %p\n", q->domain, pkt, last); fflush(0);
+	if (pkt != last + 1) {
+		rlogprintf("Error LANrx: invalid packet lenght, dropped\n");
 		*dest = DEST_DROP;
 		return NULL;
 	}
-
 
 	// clear cache name
 	cache_set_name("", 0);
