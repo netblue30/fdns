@@ -53,7 +53,7 @@ typedef struct __attribute__((__packed__)) dns_question_t {
 int lint_error(void);
 const char *lint_err2str(void);
 
-DnsHeader *lint_header(uint8_t *pkt, unsigned len, unsigned *size);
-DnsQuestion *lint_question(uint8_t *pkt, unsigned len, unsigned *size);
+DnsHeader *lint_header(uint8_t **pkt, uint8_t *last);
+DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last);
 
 #endif
