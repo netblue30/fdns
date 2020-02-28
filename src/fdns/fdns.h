@@ -293,8 +293,10 @@ typedef struct forward_zone_t {
 
 extern Forwarder *fwd;
 extern Forwarder *fwd_active;
-
 void forwarder_set(const char *str);
 int forwarder_check(const char *domain, unsigned len);
+
+// sni.c
+const char *sni_cloak(void);
 
 #endif
