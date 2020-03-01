@@ -41,6 +41,8 @@ static inline const char *label2str(char label) {
 		return "hosts";
 	else if (label == 'R')
 		return "reserved";
+	else if (label == 'D')
+		return "doh";
 
 	return "?";
 }
@@ -123,6 +125,12 @@ static DFilter default_filter[] = {
 	{'F', "^sw88.", 0}, // 63
 	{'F', "^tk.airfrance.", 0}, // 98
 
+	// hardcoded DoH servers
+	{'D', "$dnscrypt-cert.oszx.co", 0},
+	{'D', "$cloudflare-dns.com", 0},
+	{'D', "$anycast.censurfridns.dk", 0},
+	{'D', "$dns.nextdns.io", 0},
+
 	{0, NULL, 0}
 };
 
@@ -145,7 +153,6 @@ void filter_init(void) {
 		i++;
 	}
 	memset(&blist[0], 0, sizeof(blist));
-
 }
 
 // djb2 hash function by Dan Bernstein
@@ -159,7 +166,7 @@ static inline int hash(const char *str) {
 	return (int) (hash & (MAX_HASH_ARRAY - 1));
 }
 
-static void blist_add(char label, const char *domain) {
+void filter_add(char label, const char *domain) {
 	assert(domain);
 	HashEntry *h = malloc(sizeof(HashEntry));
 	if (!h)
@@ -180,7 +187,7 @@ static void blist_add(char label, const char *domain) {
 #endif
 }
 
-static HashEntry *blist_search(const char *domain) {
+static HashEntry *filter_search(const char *domain) {
 	assert(domain);
 	int hval = hash(domain);
 	assert(hval < MAX_HASH_ARRAY);
@@ -258,7 +265,7 @@ static void filter_load_list(char label, const char *fname) {
 					ptr += 4;
 				printf("127.0.0.1 %s\n", ptr);
 			}
-			blist_add(label, ptr);
+			filter_add(label, ptr);
 			cnt++;
 		}
 	}
@@ -345,7 +352,7 @@ const char *filter_blocked(const char *str, int verbose) {
 
 	int cnt = extract_domains(str);
 	for (i = cnt; i >= 0; i--) {
-		HashEntry *ptr = blist_search(domain[i]);
+		HashEntry *ptr = filter_search(domain[i]);
 		if (ptr) {
 			if (verbose)
 				printf("URL %s dropped by \"%s\" rule as a %s\n", str, ptr->name, label2str(ptr->label));

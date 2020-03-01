@@ -195,6 +195,9 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				exit(1);
 			}
 
+			// add host to filter
+			filter_add('D', s->host);
+
 			return s;
 		}
 	}
