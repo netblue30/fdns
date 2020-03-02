@@ -45,6 +45,7 @@ Fdns manitainers/commiters as described above.
 
 sblighting (https://github.com/sblighting)
 	- hash table for the local DNS cache
+	- disable doh on local network
 
 Daniel Schildt (https://github.com/d2s)
 	- documentation

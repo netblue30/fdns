@@ -1,5 +1,8 @@
 # doh servers disabled by fdns
 
+127.0.0.1 doh.opendns.com
+127.0.0.1 dns.google
+127.0.0.1 dohtrial.att.net
 127.0.0.1 ns1.dnsprivacy.at
 127.0.0.1 ns2.dnsprivacy.at
 127.0.0.1 dnsotls.lab.nic.cl
