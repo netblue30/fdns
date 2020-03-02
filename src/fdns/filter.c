@@ -280,6 +280,7 @@ void filter_load_all_lists(void) {
 	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST);
 	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST);
 	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST);
+	filter_load_list('D', PATH_ETC_DOH_LIST);
 	filter_load_list('H', PATH_ETC_HOSTS_LIST);
 }
 
