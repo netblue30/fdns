@@ -218,6 +218,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 // filter.c
 void filter_init(void);
 void filter_load_all_lists(void);
+void filter_add(char label, const char *domain);
 const char *filter_blocked(const char *str, int verbose);
 void filter_test(char *url);
 void filter_test_list(void);

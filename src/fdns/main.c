@@ -190,15 +190,18 @@ int main(int argc, char **argv) {
 			// test options
 			else if (strcmp(argv[i], "--test-hosts") == 0) {
 				arg_test_hosts = 1;
+				server_list("any");
 				filter_load_all_lists();
 				return 0;
 			}
 			else if (strncmp(argv[i], "--test-url=", 11) == 0) {
+				server_list("any");
 				filter_load_all_lists();
 				filter_test(argv[i] + 11);
 				return 0;
 			}
 			else if (strcmp(argv[i], "--test-url-list") == 0) {
+				server_list("any");
 				filter_load_all_lists();
 				filter_test_list();
 				return 0;
