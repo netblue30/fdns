@@ -107,7 +107,7 @@ errexit:
 DnsHeader *lint_header(uint8_t **pkt, uint8_t *last) {
 	assert(pkt);
 	assert(*pkt);
-	assert(*last);
+	assert(last);
 
 	if (*pkt + sizeof(DnsHeader) > last) {
 		dnserror = DNSERR_INVALID_HEADER;
