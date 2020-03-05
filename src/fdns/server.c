@@ -196,7 +196,8 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 
 			// add host to filter
-			filter_add('D', s->host);
+			if (!arg_allow_local_doh)
+				filter_add('D', s->host);
 
 			return s;
 		}

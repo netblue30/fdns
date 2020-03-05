@@ -174,6 +174,7 @@ extern char *arg_forwarder;
 extern int arg_test_hosts;
 extern char *arg_zone;
 extern int arg_cache_ttl;
+extern int arg_allow_local_doh;
 extern Stats stats;
 
 // dnsdb.c
@@ -218,6 +219,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 
 // filter.c
 void filter_init(void);
+void filter_postinit(void);
 void filter_load_all_lists(void);
 void filter_add(char label, const char *domain);
 const char *filter_blocked(const char *str, int verbose);

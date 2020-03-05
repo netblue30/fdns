@@ -126,6 +126,8 @@ static DFilter default_filter[] = {
 	{'F', "^tk.airfrance.", 0}, // 98
 
 	// hardcoded DoH servers
+	// this is the last section before the NULL entry
+	// the NULL entry is moved up for --allow-local-doh
 	{'D', "$dnscrypt-cert.oszx.co", 0},
 	{'D', "$cloudflare-dns.com", 0},
 	{'D', "$anycast.censurfridns.dk", 0},
@@ -145,6 +147,7 @@ static HashEntry *blist[MAX_HASH_ARRAY];
 
 void filter_init(void) {
 	int i = 0;
+
 	while (default_filter[i].name != NULL) {
 		int offset = 0;
 		if (*default_filter[i].name == '^' || *default_filter[i].name == '$')
@@ -153,6 +156,19 @@ void filter_init(void) {
 		i++;
 	}
 	memset(&blist[0], 0, sizeof(blist));
+}
+
+void filter_postinit(void) {
+	int i = 0;
+
+	// --allow-local-doh: move the NULL entry up
+	if (arg_allow_local_doh) {
+		while (default_filter[i].label != 'D' && default_filter[i].label != 0)
+			i++;
+		assert(default_filter[i].label == 'D');
+		default_filter[i].label = 0;
+		default_filter[i].name = NULL;
+	}
 }
 
 // djb2 hash function by Dan Bernstein
@@ -280,7 +296,8 @@ void filter_load_all_lists(void) {
 	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST);
 	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST);
 	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST);
-	filter_load_list('D', PATH_ETC_DOH_LIST);
+	if (!arg_allow_local_doh)
+		filter_load_list('D', PATH_ETC_DOH_LIST);
 	filter_load_list('H', PATH_ETC_HOSTS_LIST);
 }
 

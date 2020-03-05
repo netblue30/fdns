@@ -41,6 +41,9 @@ Asia-Pacific and Europe. Use --list=all option to print all the servers and the 
 Allow all DNS query types; by default only A queries are allowed. In case --ipv6 is set,
 AAAA queries are also allowed.
 .TP
+\fB\-\-allow-local-doh
+Allow applications on local network to connect to DoH services; disabled by default.
+.TP
 \fB\-\-cache-ttl=seconds
 Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 900 seconds (15 minutes).
 .TP
@@ -80,8 +83,8 @@ $ sudo fdns --forwarder=libre@66.70.228.164
 The proxy will forward all .libre domains to OpenNIC server at 66.70.228.164.
 
 .TP
-\fB\-\-help, \-?
-Print options end exit.
+\fB\-\-help, \-?, \-h
+Print comman-line options end exit.
 .TP
 \fB\-\-ipv6
 Allow AAAA requests. Use this option if you have Internet IPv6 connectivity. By default IPv6 queries are disabled.
