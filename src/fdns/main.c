@@ -34,6 +34,7 @@ char *arg_certfile = NULL;
 int arg_test_hosts = 0;
 char *arg_zone = NULL;
 int arg_cache_ttl = CACHE_TTL_DEFAULT;
+int arg_allow_local_doh = 0;
 
 Stats stats;
 
@@ -46,6 +47,8 @@ static void usage(void) {
 	printf("Options:\n");
 	printf("    --allow-all-queries - allow all DNS query types; by default only\n"
 	       "\tA queries are allowed.\n");
+	printf("    --allow-local-doh - allow applications on local network to connect to DoH\n"
+	       "\tservices; disabled by default.\n");
 	printf("    --cache-ttl=seconds - change DNS cache TTL (default %ds).\n", CACHE_TTL_DEFAULT);
 	printf("    --certfile=filename - SSL certificate file in PEM format.\n");
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
@@ -53,7 +56,7 @@ static void usage(void) {
 	printf("    --debug - print debug messages.\n");
 	printf("    --forwarder=domain@address - conditional forwarding to a different DNS\n"
 	        "\tserver.\n");
-	printf("    --help, -? - show this help screen.\n");
+	printf("    --help, -?, -h - show this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
 	printf("    --list - list DoH servers.\n");
 	printf("    --list=server-name|tag|all - list DoH servers.\n");
@@ -110,7 +113,8 @@ int main(int argc, char **argv) {
 		int i;
 		for (i = 1; i < argc; i++) {
 			if (strcmp(argv[i], "--help") == 0 ||
-			    strcmp(argv[i], "-?") == 0) {
+			    strcmp(argv[i], "-?") == 0 ||
+			    strcmp(argv[i], "-h") == 0) {
 				usage();
 				return 0;
 			}
@@ -140,6 +144,10 @@ int main(int argc, char **argv) {
 				arg_certfile = argv[i] + 11;
 			else if (strcmp(argv[i], "--allow-all-queries") == 0)
 				arg_allow_all_queries = 1;
+			else if (strcmp(argv[i], "--allow-local-doh") == 0) {
+				arg_allow_local_doh = 1;
+				filter_postinit();
+			}
 			else if (strcmp(argv[i], "--nofilter") == 0)
 				arg_nofilter = 1;
 			else if (strcmp(argv[i], "--ipv6") == 0)
