@@ -39,6 +39,9 @@ echo "TESTING: ipv6 (test/fdns/ipv6.exp)"
 echo "TESTING: filter (test/fdns/filter.exp)"
 ./filter.exp
 
+echo "TESTING: filter doh (test/fdns/filter-doh.exp)"
+./filter-doh.exp
+
 echo "TESTING: nofilter (test/fdns/nofilter.exp)"
 ./nofilter.exp
 
