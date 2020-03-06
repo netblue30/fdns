@@ -43,6 +43,8 @@ AAAA queries are also allowed.
 .TP
 \fB\-\-allow-local-doh
 Allow applications on local network to connect to DoH services; disabled by default.
+NOTE: Applications can still use DoH-Server if they have a hardcoded IP-Address.
+If you realy want to block other DoH connection you must use your firewall.
 .TP
 \fB\-\-cache-ttl=seconds
 Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 900 seconds (15 minutes).
