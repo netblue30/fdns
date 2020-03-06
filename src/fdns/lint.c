@@ -29,7 +29,9 @@ static const char *err2str[DNSERR_MAX] = {
 	"invalid class",
 	"nxdomain",
 	"multiple questions",
-	"invalid packet length"
+	"invalid packet length",
+	"invalid RR length",
+	"rebinding attack"
 };
 
 int lint_error(void) {
@@ -226,6 +228,19 @@ DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last) {
 	return &question;
 }
 
+// return -1 if error, 0 if ok
+static inline int check_ipv4(uint8_t *ptr) {
+	if (*ptr == 0 || *ptr == 127 ||
+	    (*ptr == 169 && *(ptr + 1) == 254) || // link local 169.254.0.0/16
+	    *ptr == 10 || (*ptr == 192 && *(ptr +1) == 168) ||  // local 10.0.0.0/8, 192.168.0.0/16
+	    (*ptr == 172 && (*ptr + 1) & 0xf0 == 1) || // local 172.16.0.0/12
+	    *ptr & 0xf0 == 0xe0)	// multicast 224.0.0.0/4
+		return -1;
+
+	return 0;
+}
+
+
 // return -1 if error, 0 if fine
 // pkt positioned at start of packet
 int lint_rx(uint8_t *pkt, unsigned len) {
@@ -239,21 +254,34 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 	if (!h)
 		return -1;
 
-	// check errors such as NXDOMAIN
+	// check errors such as NXDOMAIN -> caching the response for a very short time
 	if ((h->flags & 0x000f) != 0) {
 		dnserror = DNSERR_NXDOMAIN;
 		return -1;
 	}
 
-	// one question
+	// one single question
 	if (h->questions != 1) {
 		dnserror = DNSERR_MULTIPLE_QUESTIONS;
 		return -1;
 	}
-
 	if (skip_name(&pkt, last))
 		return -1;
-	pkt += 4;
+	pkt += 2;
+	if (pkt > last) {
+		dnserror = DNSERR_INVALID_PKT_LEN;
+		return -1;
+	}
+
+	// invalid class
+	uint16_t cls;
+	memcpy(&cls, pkt, 2);
+	cls = ntohs(cls);
+	if (cls != 1) {
+		dnserror = DNSERR_INVALID_CLASS;
+		return -1;
+	}
+	pkt += 2;
 	if (pkt > last) {
 		dnserror = DNSERR_INVALID_PKT_LEN;
 		return -1;
@@ -278,17 +306,45 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 		rr.rlen = ntohs(rr.rlen);
 		pkt += sizeof(DnsRR);
 
+		if (pkt + rr.rlen > (last + 1)) {
+			dnserror = DNSERR_INVALID_PKT_LEN;
+			return -1;
+		}
+
 //printf("type %u, class %u, ttl %u, rlen %u\n",
 //rr.type, rr.cls, rr.ttl, rr.rlen);
-		// CNAME processing
-		if (rr.type == 5 && rr.rlen <= 256) { // CNAME
+		if (rr.type == 1) { // A
+			if (rr.rlen != 4) {
+				dnserror = DNSERR_INVALID_RLEN;
+				return -1;
+			}
+
+			if (check_ipv4(pkt)) {
+				dnserror = DNSERR_REBINDING_ATTACK;
+				return -1;
+			}
+		}
+		else if (rr.type == 5) { // CNAME
+			if (rr.rlen > 253) {
+				dnserror = DNSERR_INVALID_RLEN;
+				return -1;
+			}
+
 			uint8_t cname[256 + 1];
 			memcpy(cname, pkt, rr.rlen);
 			cname[rr.rlen] = '\0';
+
 			// clean cname
 			clean_domain(cname);
 			printf("CNAME: %s\n", cname);
 			fflush(0);
+		}
+		else if (rr.type ==0x1c) {
+			if (rr.rlen != 28) {
+				dnserror = DNSERR_INVALID_RLEN;
+				return -1;
+			}
+			// todo: check ipv6 address
 		}
 		pkt += rr.rlen;
 	}
