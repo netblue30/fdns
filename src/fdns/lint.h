@@ -35,7 +35,7 @@ typedef struct __attribute__((__packed__)) dns_header_t {
 	uint16_t additional;
 } DnsHeader;
 
-typedef struct __attribute__((__packed__)) dns_question_t {
+typedef struct dns_question_t {
 // maximum domain name including the first label length byte and terminating '\0'
 #define DNS_MAX_DOMAIN_NAME 255
 	char domain[DNS_MAX_DOMAIN_NAME];
@@ -44,16 +44,26 @@ typedef struct __attribute__((__packed__)) dns_question_t {
 	unsigned dlen;	// domain name length (len - 6)
 } DnsQuestion;
 
+typedef struct __attribute__((__packed__)) dns_rr_t {
+	uint16_t type;
+	uint16_t cls;
+	uint32_t ttl;
+	uint16_t rlen;
+} DnsRR;
+
 // error checking
 #define DNSERR_OK 0
 #define DNSERR_INVALID_HEADER 1
 #define DNSERR_INVALID_DOMAIN 2
 #define DNSERR_INVALID_CLASS 3
-#define DNSERR_MAX 4		// always the last one
+#define DNSERR_NXDOMAIN 4
+#define DNSERR_MULTIPLE_QUESTIONS 5
+#define DNSERR_INVALID_PKT_LEN 6
+#define DNSERR_MAX 7		// always the last one
 int lint_error(void);
 const char *lint_err2str(void);
 
 DnsHeader *lint_header(uint8_t **pkt, uint8_t *last);
 DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last);
-
+int lint_rx(uint8_t *pkt, unsigned len);
 #endif
