@@ -26,7 +26,10 @@ static const char *err2str[DNSERR_MAX] = {
 	"no error",
 	"invalid header",
 	"invalid domain",
-	"invalid class"
+	"invalid class",
+	"nxdomain",
+	"multiple questions",
+	"invalid packet length"
 };
 
 int lint_error(void) {
@@ -102,12 +105,55 @@ errexit:
 	return -1;
 }
 
-// pkt - start of the dns packet
-// size - packet bytes consumed durring the parsing
+
+static void clean_domain(uint8_t *ptr) {
+	assert(ptr);
+	uint8_t *end = ptr + strlen(ptr);
+
+	while (*ptr != 0 && ptr < end) {
+		if ((*ptr & 0xc0) == 0) {
+			uint8_t jump = *ptr + 1;
+			*ptr = '.';
+			ptr += jump;
+		}
+		else {
+			*ptr = '.';
+			ptr++;
+		}
+	}
+}
+
+// return -1 if error, 0 if ok
+static int skip_name(uint8_t **pkt, uint8_t *last) {
+	dnserror = DNSERR_OK;
+
+	if (*pkt > last) {
+		dnserror = DNSERR_INVALID_PKT_LEN;
+		return -1;
+	}
+
+	while (**pkt != 0 && *pkt < (last - 1)) {
+		if ((**pkt & 0xc0) == 0)
+			*pkt +=  **pkt + 1;
+		else {
+			(*pkt)++;
+			break;
+		}
+	}
+	(*pkt)++;
+	return 0;
+}
+
+
+//***********************************************
+// public interface
+//***********************************************
+// pkt positioned at start of packet
 DnsHeader *lint_header(uint8_t **pkt, uint8_t *last) {
 	assert(pkt);
 	assert(*pkt);
 	assert(last);
+	dnserror = DNSERR_OK;
 
 	if (*pkt + sizeof(DnsHeader) > last) {
 		dnserror = DNSERR_INVALID_HEADER;
@@ -125,11 +171,12 @@ DnsHeader *lint_header(uint8_t **pkt, uint8_t *last) {
 	return &hdr;
 }
 
-// pkt is positioned at the the start of RR
+// pkt positioned at the the start of question
 DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last) {
 	assert(pkt);
 	assert(*pkt);
 	assert(last);
+	dnserror = DNSERR_OK;
 
 	if (*pkt + 1 + 2 + 2 > last) { // empty domain + type + class
 		dnserror = DNSERR_INVALID_DOMAIN;
@@ -177,4 +224,74 @@ DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last) {
 	question.len = size + 4;
 	question.dlen = question.len - 6; // we are assuming a domain name without crossreferences
 	return &question;
+}
+
+// return -1 if error, 0 if fine
+// pkt positioned at start of packet
+int lint_rx(uint8_t *pkt, unsigned len) {
+	assert(pkt);
+	assert(len);
+	uint8_t *last = pkt + len - 1;
+	dnserror = DNSERR_OK;
+
+	// check header
+	DnsHeader *h = lint_header(&pkt, last);
+	if (!h)
+		return -1;
+
+	// check errors such as NXDOMAIN
+	if ((h->flags & 0x000f) != 0) {
+		dnserror = DNSERR_NXDOMAIN;
+		return -1;
+	}
+
+	// one question
+	if (h->questions != 1) {
+		dnserror = DNSERR_MULTIPLE_QUESTIONS;
+		return -1;
+	}
+
+	if (skip_name(&pkt, last))
+		return -1;
+	pkt += 4;
+	if (pkt > last) {
+		dnserror = DNSERR_INVALID_PKT_LEN;
+		return -1;
+	}
+
+	// extract CNAMEs from the answer section
+	int i;
+	for (i = 0; i < h->answer; i++) {
+		if (skip_name(&pkt, last))
+			return -1;
+
+		// extract record
+		if (pkt + sizeof(DnsRR) > last) {
+			dnserror = DNSERR_INVALID_PKT_LEN;
+			return -1;
+		}
+		DnsRR rr;
+		memcpy(&rr, pkt, sizeof(DnsRR));
+		rr.type = ntohs(rr.type);
+		rr.cls = ntohs(rr.cls);
+		rr.ttl = ntohl(rr.ttl);
+		rr.rlen = ntohs(rr.rlen);
+		pkt += sizeof(DnsRR);
+
+//printf("type %u, class %u, ttl %u, rlen %u\n",
+//rr.type, rr.cls, rr.ttl, rr.rlen);
+		// CNAME processing
+		if (rr.type == 5 && rr.rlen <= 256) { // CNAME
+			uint8_t cname[256 + 1];
+			memcpy(cname, pkt, rr.rlen);
+			cname[rr.rlen] = '\0';
+			// clean cname
+			clean_domain(cname);
+			printf("CNAME: %s\n", cname);
+			fflush(0);
+		}
+		pkt += rr.rlen;
+	}
+
+	return 0;
 }

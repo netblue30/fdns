@@ -319,18 +319,20 @@ int ssl_dns(uint8_t *msg, int cnt) {
 	}
 
 	//
-	// cache the response
-	// - check NXDOMAIN and set TTL accordingly
+	// partial response parsing
 	//
-	DnsHeader h;
-	memcpy(&h, msg, sizeof(DnsHeader));
-	h.flags = ntohs(h.flags);
-	if ((h.flags & 0x000f) != 0) // errors such as NXDOMAIN
-		cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
-	else
-		cache_set_reply(msg, datalen, arg_cache_ttl);
+	if (lint_rx(msg, datalen)) {
+		if (lint_error() == DNSERR_NXDOMAIN) {
+			cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
+			return datalen;
+		}
 
-	// return the length
+		logprintf("Error: RX %s\n", lint_err2str());
+		return 0;
+	}
+
+	// cache the response and exit
+	cache_set_reply(msg, datalen, arg_cache_ttl);
 	return datalen;
 
 errout:
