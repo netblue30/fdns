@@ -84,7 +84,7 @@ The proxy will forward all .libre domains to OpenNIC server at 66.70.228.164.
 
 .TP
 \fB\-\-help, \-?, \-h
-Print command-line options end exit.
+Print command-line options and exit.
 .TP
 \fB\-\-ipv6
 Allow AAAA requests. Use this option if you have Internet IPv6 connectivity. By default IPv6 queries are disabled.
