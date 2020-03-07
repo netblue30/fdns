@@ -17,11 +17,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "lint.h"
+#include "fdns.h"
 
 //***********************************************
 // error
 //***********************************************
 static int dnserror;
+static uint8_t dnserror_ipv4[4];
+static char dnserror_str[50];
 static const char *err2str[DNSERR_MAX] = {
 	"no error",
 	"invalid header",
@@ -31,7 +34,8 @@ static const char *err2str[DNSERR_MAX] = {
 	"multiple questions",
 	"invalid packet length",
 	"invalid RR length",
-	"rebinding attack"
+	"rebinding attack",
+	"cname cloaking"
 };
 
 int lint_error(void) {
@@ -40,6 +44,17 @@ int lint_error(void) {
 
 const char *lint_err2str(void) {
 	assert(dnserror < DNSERR_MAX);
+
+	if (dnserror == DNSERR_REBINDING_ATTACK) {
+		sprintf(dnserror_str, "%s %u.%u.%u.%u",
+			err2str[dnserror],
+			(unsigned) dnserror_ipv4[0],
+			(unsigned) dnserror_ipv4[1],
+			(unsigned) dnserror_ipv4[2],
+			(unsigned) dnserror_ipv4[3]);
+		return dnserror_str;
+	}
+
 	return err2str[dnserror];
 }
 
@@ -320,7 +335,9 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 			}
 
 			if (check_ipv4(pkt)) {
+//if (strcmp("lxer.com", 	cache_get_name()) == 0) {
 				dnserror = DNSERR_REBINDING_ATTACK;
+				memcpy(dnserror_ipv4, pkt, 4);
 				return -1;
 			}
 		}
@@ -338,6 +355,12 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 			clean_domain(cname);
 			printf("CNAME: %s\n", cname);
 			fflush(0);
+
+			// CNAME Cloaking Blocklist
+			if (filter_cname(cname)) {
+				dnserror = DNSERR_CNAME_CLOAKING;
+				return -1;
+			}
 		}
 		else if (rr.type ==0x1c) {
 			if (rr.rlen != 28) {

@@ -323,11 +323,12 @@ int ssl_dns(uint8_t *msg, int cnt) {
 	//
 	if (lint_rx(msg, datalen)) {
 		if (lint_error() == DNSERR_NXDOMAIN) {
+			// NXDOMAIN or similar received, cache for 10 minutes
 			cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
 			return datalen;
 		}
 
-		logprintf("Error: RX %s\n", lint_err2str());
+		rlogprintf("Error(DoH RX): %s %s\n", lint_err2str(), cache_get_name());
 		return 0;
 	}
 

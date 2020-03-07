@@ -60,4 +60,11 @@ int forwarder_check(const char *domain, unsigned len) {
 	return 0;
 }
 
+int filter_cname(const char *cname) {
+	return 0;
+}
+
+const char *cache_get_name(void) {
+	return "blablabla";
+}
 #endif
