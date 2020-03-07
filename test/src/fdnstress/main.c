@@ -159,6 +159,7 @@ static DListEntry *rq_send(DListEntry *ptr) {
 
 			printf("%s: ", reqs[i]->ar_name);
 			rv = gai_error(reqs[i]);
+			(void) rv;
 			rv = getaddrinfo_a(GAI_WAIT, reqs + i, 1, NULL);
 			if (rv)
 				errExit("getaddrinfo_a");

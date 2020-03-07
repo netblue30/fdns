@@ -412,8 +412,6 @@ void filter_test_list(void) {
 		char *ptr = strchr(buf, '\n');
 		if (ptr)
 			*ptr = '\0';
-		else
-			ptr = buf;
 
 		ptr = buf;
 		if (*ptr == '\0')
@@ -435,4 +433,44 @@ void filter_test_list(void) {
 
 		filter_test(start);
 	}
+}
+
+
+//************************************
+// CNAME cloaking based on rx DoH packet
+//************************************
+static char *fp_block[] = {
+	".eulerian",		//eulerian.net
+	".at-o", 		//at-o.net
+	".keyade.", 		//k.keyade.com
+	".2o7.",		//2o7.net
+	".omtrdc.", 		//sc.omtrdc.net
+	".storetail.",		//storetail.io
+	".dnsdelegation.",	//dnsdelegation.io
+	".tagcommander.",	//tagcommander.com
+	".wizaly.",		//wizaly.com
+	".a88045584548111e997c60ac8a4ec150-1610510072.",
+		//a88045584548111e997c60ac8a4ec150-1610510072.eu-central-1.elb.amazonaws.com
+	".afc4d9aa2a91d11e997c60ac8a4ec150-2082092489.",
+		//afc4d9aa2a91d11e997c60ac8a4ec150-2082092489.eu-central-1.elb.amazonaws.com
+	".affex.",		//affex.org
+	".intentmedia.",	//partner.intentmedia.net
+	".webtrekk.",	//webtrekk.net
+	".wt-eu02.",		//wt-eu02.net
+	".oghub.",		//oghub.io
+	NULL
+};
+
+// return -1 if found in the block list, 0 if not found in the block list
+int filter_cname(const char *cname) {
+	assert(cname);
+	int i = 0;
+
+	while (fp_block[i]) {
+		if (strstr(cname, fp_block[i]))
+			return -1;
+		i++;
+	}
+
+	return 0;
 }

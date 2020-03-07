@@ -71,6 +71,10 @@ void cache_set_name(const char *name, int ipv6) {
 	cname_type = ipv6;
 }
 
+const char *cache_get_name(void) {
+	return cname;
+}
+
 void cache_set_reply(uint8_t *reply, ssize_t len, int ttl) {
 	assert(reply);
 	assert(ttl > 0);
