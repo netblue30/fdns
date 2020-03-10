@@ -34,7 +34,7 @@ static const char *err2str[DNSERR_MAX] = {
 	"multiple questions",
 	"invalid packet length",
 	"invalid RR length",
-	"rebinding attack",
+	"potential rebinding attack",
 	"cname cloaking"
 };
 
@@ -161,6 +161,33 @@ static int skip_name(uint8_t **pkt, uint8_t *last) {
 	return 0;
 }
 
+// return -1 if error, 0 if ok
+static inline int check_ipv4(uint8_t *ptr) {
+	uint32_t ip;
+	memcpy(&ip, ptr, 4);
+	ip = ntohl(ip);
+
+	// RFC 5735 section 4
+	if ((ip & 0xff000000) == 0 ||		// 0.0.0.0/8           "This" Network 	RFC 1122, Section 3.2.1.3
+	     (ip & 0xff000000) == 0x0a000000 ||	// 10.0.0.0/8          Private-Use Networks 	RFC 1918
+	     (ip & 0xff000000) == 0x7f000000 ||	// 127.0.0.0/8         Loopback  	RFC 1122, Section 3.2.1.3
+	     (ip & 0xffff0000) == 0xa9fe0000 ||	// 169.254.0.0/16      Link Local  	RFC 3927
+	     (ip & 0xfff00000) == 0xac100000 ||	// 172.16.0.0/12       Private-Use Networks 	RFC 1918
+	     (ip & 0xffffff00) == 0xc0000000 ||	// 192.0.0.0/24        IETF Protocol Assignments 	RFC 5736
+	     (ip & 0xffffff00) == 0xc0000200 ||	// 192.0.2.0/24        TEST-NET-1 	RFC 5737
+	     (ip & 0xffffff00) == 0xc0586300 ||	// 192.88.99.0/24      6to4 Relay Anycast         RFC 3068
+	     (ip & 0xffff0000) == 0xc0a80000 ||	// 192.168.0.0/16      Private-Use Networks       RFC 1918
+	     (ip & 0xfffe0000) == 0xc6120000 ||	// 198.18.0.0/15       Network Interconnect Device Benchmark Testing   RFC 2544
+	     (ip & 0xffffff00) == 0xc6336400 ||	// 198.51.100.0/24     TEST-NET-2                 RFC 5737
+	     (ip & 0xffffff00) == 0xcb007100 ||	// 203.0.113.0/24      TEST-NET-3                 RFC 5737
+	     (ip & 0xf0000000) == 0xe0000000 ||	// 224.0.0.0/4         Multicast                  RFC 3171
+	     (ip & 0xf0000000) == 0xf0000000 ||	// 240.0.0.0/4         Reserved for Future Use    RFC 1112, Section 4
+	     (ip & 0xffffffff) == 0xffffffff)		// 255.255.255.255/32  Limited Broadcast
+
+		return -1;
+
+	return 0;
+}
 
 //***********************************************
 // public interface
@@ -242,19 +269,6 @@ DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last) {
 	question.dlen = question.len - 6; // we are assuming a domain name without crossreferences
 	return &question;
 }
-
-// return -1 if error, 0 if ok
-static inline int check_ipv4(uint8_t *ptr) {
-	if (*ptr == 0 || *ptr == 127 ||
-	    (*ptr == 169 && *(ptr + 1) == 254) || // link local 169.254.0.0/16
-	    *ptr == 10 || (*ptr == 192 && *(ptr +1) == 168) ||  // local 10.0.0.0/8, 192.168.0.0/16
-	    (*ptr == 172 && (*ptr + 1) & 0xf0 == 1) || // local 172.16.0.0/12
-	    *ptr & 0xf0 == 0xe0)	// multicast 224.0.0.0/4
-		return -1;
-
-	return 0;
-}
-
 
 // return -1 if error, 0 if fine
 // pkt positioned at start of packet

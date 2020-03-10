@@ -328,7 +328,7 @@ int ssl_dns(uint8_t *msg, int cnt) {
 			return datalen;
 		}
 
-		rlogprintf("Error(DoH RX): %s %s\n", lint_err2str(), cache_get_name());
+		rlogprintf("Error: %s %s\n", lint_err2str(), cache_get_name());
 		return 0;
 	}
 
