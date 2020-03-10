@@ -167,7 +167,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
-keepalive: 250
+keepalive: 180
 
 name: cloudflare2
 website: https://www.cloudflare.com
@@ -175,7 +175,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
-keepalive: 250
+keepalive: 180
 
 # uncensored server redirected to cloudflare
 # family and security servers redirected to cleanbrowsing
