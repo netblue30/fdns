@@ -120,10 +120,28 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 			goto drop_nxdomain;
 		}
 
-		// drop all the rest and respond with NXDOMAIN
+		// drop all the rest
 		else {
-			rlogprintf("Error LANrx: RR type %u rejected, dropped\n", q->type);
-			*dest = DEST_DROP; // just let him try again
+			char *type = NULL;
+			switch (q->type) {
+				case 2: type = "NS"; break;
+				case 5: type = "CNAME"; break;
+				case 6: type = "SOA"; break;
+				case 10: type = "NULL"; break;
+				case 15: type = "MX"; break;
+				case 16: type = "TXT"; break;
+				case 25: type = "KEY"; break;
+				case 29: type = "LOC"; break;
+				case 33: type = "SRV"; break;
+				case 255: type = "ANY"; break;
+				case 256: type = "URI";break;
+				case 65399: type = "PRIVATE"; break;
+			}
+			if (type)
+				rlogprintf("Error LANrx: RR type %s rejected, %s\n", type, q->domain);
+			else
+				rlogprintf("Error LANrx: RR type %u rejected, %s\n", q->type, q->domain);
+			*dest = DEST_DROP; // just let him try again, no NXDOMAIN set out
 			return NULL;
 		}
 	}
