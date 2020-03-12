@@ -133,8 +133,9 @@ Start the stats monitor. Run this command as a regular user in a terminal.
 $ fdns --monitor
 .TP
 \fB\-\-nofilter
-No DNS request filtering. This disables the adblocker, the tracker filter, and the user hosts file
-installed in /etc/fdns directory.
+No DNS request filtering. This disables the adblocker, the tracker filter, the coinblocker filter,
+and the user hosts file installed in /etc/fdns directory. Connections to DoH services are allowed
+from the local network (equivalent to --allow-local-doh).
 .TP
 \fB\-\-proxy-addr=address
 Configure the IP address the proxy listens on for

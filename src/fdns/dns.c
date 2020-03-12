@@ -149,19 +149,15 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	//*****************************
 	// trackers/adblock filtering
 	//*****************************
-	if (arg_nofilter) {
-		rlogprintf("Request: %s\n", q->domain);
-		*dest = DEST_SSL;
-		return NULL;
-	}
-
-	const char *label = filter_blocked(q->domain, 0);
-	if (label) {
-		rlogprintf("Request: %s  %s%s, dropped\n", label, q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
-		stats.drop++;
-		build_response_loopback(buf, lenptr);
-		*dest = DEST_LOCAL;
-		return buf;
+	if (!arg_nofilter) {
+		const char *label = filter_blocked(q->domain, 0);
+		if (label) {
+			rlogprintf("Request: %s  %s%s, dropped\n", label, q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
+			stats.drop++;
+			build_response_loopback(buf, lenptr);
+			*dest = DEST_LOCAL;
+			return buf;
+		}
 	}
 
 	//*****************************
