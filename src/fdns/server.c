@@ -279,21 +279,13 @@ int test_server(const char *server_name)  {
 		ssl_keepalive();
 		ssl_keepalive();
 		ms = timetrace_end();
-		sleep(2);
-		timetrace_start();
-		ssl_keepalive();
-		ssl_keepalive();
-		ssl_keepalive();
-		ssl_keepalive();
-		ssl_keepalive();
-		ms += timetrace_end();
 
 		if (ssl_state == SSL_CLOSED) {
 			fprintf(stderr, "\tError: SSL connection closed\n");
 			fflush(0);
 			exit(1);
 		}
-		printf("\tDoH response average %.02f ms\n", ms / 10);
+		printf("\tDoH response average %.02f ms\n", ms / 5);
 		fflush(0);
 
 		exit(0);

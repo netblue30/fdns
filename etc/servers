@@ -178,15 +178,12 @@ host: cloudflare-dns.com/dns-query
 keepalive: 180
 
 # uncensored server redirected to cloudflare
-# family and security servers redirected to cleanbrowsing
 name: containerpi
 website: listed on https://github.com/curl/curl/wiki/DNS-over-HTTPS
 zone: Asia-Pacific
 tags: Japan, Asia-Pacific
 address: 45.77.180.10:443
 host: dns.containerpi.com/dns-query
-#host: dns.containerpi.com/doh/secure-filter
-#host: dns.containerpi.com/doh/family-filter
 keepalive: 30
 
 name: cznic
@@ -238,93 +235,20 @@ address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
 keepalive: 30
 
-name: dnswarden
-website: https://github.com/bhanupratapys/dnswarden
-zone: Europe
-tags: Germany, Europe
-address: 116.203.70.156:443
-host: doh.dnswarden.com/uncensored
-sni: yes
-keepalive: 7
-
-name: dnswarden2
-website: https://github.com/bhanupratapys/dnswarden
-zone: Europe
-tags: Germany, Europe
-address: 116.203.35.255:443
-host: doh.dnswarden.com/uncensored
-sni: yes
-keepalive: 7
-
-name: dnswarden3
-website: https://github.com/bhanupratapys/dnswarden
-zone: Europe
-tags: Germany, Europe
-address: 88.198.161.8:443
-host: doh.dnswarden.com/uncensored
-sni: yes
-keepalive: 7
-
-name: dnswarden-adblocker
-website: https://github.com/bhanupratapys/dnswarden
-zone: Europe
-tags: Germany, Europe, adblocker
-address: 116.203.70.156:443
-host: doh.dnswarden.com/adblock
-sni: yes
-keepalive: 7
-
-name: dnswarden-adblocker2
-website: https://github.com/bhanupratapys/dnswarden
-zone: Europe
-tags: Germany, Europe, adblocker
-address: 116.203.35.255:443
-host: doh.dnswarden.com/adblock
-sni: yes
-keepalive: 7
-
-name: dnswarden-adblocker3
-website: https://github.com/bhanupratapys/dnswarden
-zone: Europe
-tags: Germany, Europe, adblocker
-address: 88.198.161.8:443
-host: doh.dnswarden.com/adblock
-sni: yes
-keepalive: 7
-
-name: dnswarden-family
-website: https://github.com/bhanupratapys/dnswarden
-zone: Europe
-tags: family
-address: 116.203.70.156:443
-host: doh.dnswarden.com/adult-filter
-sni: yes
-keepalive: 7
-
-name: dnswarden-family2
-website: https://github.com/bhanupratapys/dnswarden
-zone: Europe
-tags: family
-address: 116.203.35.255:443
-host: doh.dnswarden.com/adult-filter
-sni: yes
-keepalive: 7
-
-name: dnswarden-family3
-website: https://github.com/bhanupratapys/dnswarden
-zone: Europe
-tags: family
-address: 88.198.161.8:443
-host: doh.dnswarden.com/adult-filter
-sni: yes
-keepalive: 7
-
 name: ffmuc
 website: https://ffmuc.net/
 zone: Europe
 tags: Germany, Europe
 address: 195.30.94.28:443
 host: doh.ffmuc.net/dns-query
+keepalive: 30
+
+name: flatuslifir
+website: listed on https://github.com/curl/curl/wiki/DNS-over-HTTPS
+zone: Europe
+tags: Iceland, Europe
+address: 46.239.223.80:443
+host: dns.flatuslifir.is/dns-query
 keepalive: 30
 
 name: gridth-jp
