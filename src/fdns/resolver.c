@@ -75,6 +75,7 @@ void resolver(void) {
 	struct timeval t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
 	int frontend_keepalive_cnt = 0;
+	int query_second = 0;
 	while (1) {
 		fd_set fds;
 		FD_ZERO(&fds);
@@ -120,6 +121,7 @@ void resolver(void) {
 				ssl_open();
 			}
 			timestamp = ts;
+			query_second = 0;
 
 			// processing stats
 			if (--console_printout_cnt <= 0) {
@@ -235,6 +237,9 @@ void resolver(void) {
 			ssize_t len = recvfrom(slocal, buf, MAXBUF, 0, (struct sockaddr *) &addr_client, &addr_client_len);
 			if (len == -1) // todo: parse errno - EAGAIN
 				errExit("recvfrom");
+			if (++query_second > 5)
+				continue;
+
 			if(arg_debug)
 				printf("rx local packet len %ld\n", len);
 			stats.rx++;

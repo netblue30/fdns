@@ -77,6 +77,7 @@ static inline int check_addr_port(const char *str) {
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (60 * 60)
 #define CACHE_TTL_ERROR (10 * 60)	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
+#define MAX_QUERY_SECOND 5
 
 // number of resolver processes
 #define RESOLVERS_CNT_MIN 1	// number of resolver processes
