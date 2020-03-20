@@ -1,6 +1,14 @@
-fdns (0.9.63) baseline; urgency=low
-  * development version
- -- netblue30 <netblue30@yahoo.com>  Thu, 18 Feb 2020 08:00:00 -0500
+fdns (0.9.62.4) baseline; urgency=low
+  * rate limiting resolvers to 5 queries per second
+  * CNAME cloaking filter
+  * DNS rebinding protections
+  * disable DoH domains on the local network
+  * --allow-local-dns
+  * SNI cloaking when possible
+  * increase cache TTL to 40 minutes
+  * server list update
+  * lots of bugfixes
+ -- netblue30 <netblue30@yahoo.com>  Fri, 20 Mar 2020 08:00:00 -0500
 
 fdns (0.9.62.2) baseline; urgency=low
   * feature complete!
