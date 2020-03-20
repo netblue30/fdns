@@ -245,6 +245,14 @@ name: digital-society
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
 tags: non-profit, Switzerland, Europe
+address: 185.95.218.42:443
+host: dns.digitale-gesellschaft.ch/dns-query
+keepalive: 30
+
+name: digital-society2
+website: https://www.digitale-gesellschaft.ch
+zone: Europe
+tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 30
