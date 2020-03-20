@@ -363,9 +363,11 @@ $ sudo pkill fdns
 .br
 /etc/fdns/coinblocker - cryptomining filter distributed with fdns
 .br
+/etc/fdns/doh - DoH filter
+.br
 /etc/fdns/fdns.service - systemd service unit for fdns
 .br
-/etc/fdns/fp-trackers - first-party tracker filter distributed with fdns
+/etc/fdns/fp-trackers - first-party tracker filter
 .br
 /etc/fdns/hosts - user hosts file
 .br
