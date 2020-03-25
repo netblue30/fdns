@@ -282,6 +282,38 @@ keepalive: 30
 #host: dns2.dnscrypt.ca:453/dns-query
 #keepalive: 30
 
+name: dnslify
+website: https://www.dnslify.com/
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 185.235.81.1:443
+host: doh.dnslify.com/dns-query
+keepalive: 7
+
+name: faelix
+website: https://faelix.net/ref/dns/#privacy-dns
+zone: Europe
+tags: UK, Europe, adblocker
+address: 46.227.200.52:443
+host: pdns.faelix.net/
+keepalive: 7
+
+name: faelix2
+website: https://faelix.net/ref/dns/#privacy-dns
+zone: Europe
+tags: Switzerland, Europe, adblocker
+address: 185.134.196.52:443
+host: pdns.faelix.net/
+keepalive: 7
+
+name: faelix3
+website: https://faelix.net/ref/dns
+zone: Europe
+tags: UK, Europe
+address: 46.227.200.54:443
+host: rdns.faelix.net/
+keepalive: 7
+
 name: ffmuc
 website: https://ffmuc.net/
 zone: Europe
