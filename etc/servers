@@ -285,7 +285,7 @@ keepalive: 30
 name: dnslify
 website: https://www.dnslify.com/
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 7
@@ -613,7 +613,7 @@ keepalive: 30
 name: tiarapp-jp
 website: https://jp.tiar.app/
 zone: Asia-Pacific
-tags: Japan, Asia-Pacific
+tags: Japan, Asia-Pacific, adblocker
 address: 172.104.93.80:443
 host: jp.tiar.app/dns-query
 keepalive: 30

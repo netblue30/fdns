@@ -149,7 +149,7 @@ static inline void print_line(const char *str) {
 		printf("\033[91m%s\033[0m", str);
 	else if (strstr(str, "doh  "))
 		printf("\033[91m%s\033[0m", str);
-	else if (strstr(str, ", dropped"))
+	else if (strstr(str, ", dropped") || strstr(str, "refused by service provider"))
 		printf("\033[92m%s\033[0m", str);
 	else
 		printf("%s", str);
