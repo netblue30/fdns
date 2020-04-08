@@ -328,7 +328,16 @@ int ssl_dns(uint8_t *msg, int cnt) {
 			return datalen;
 		}
 
-		rlogprintf("Error: %s %s\n", lint_err2str(), cache_get_name());
+		// serveral adblocker/family services return addresses of 0.0.0.0 or 127.0.0.1 for blocked domains
+		const char *str = lint_err2str();
+		if (strstr(str, "0.0.0.0") || strstr(str, "127.0.0.1")) {
+			// set NXDOMAIN bytes in the packet
+			msg[3] = 3;
+			rlogprintf("%s refused by service provider\n", cache_get_name());
+			return datalen;
+		}
+		else
+			rlogprintf("Error: %s %s\n", lint_err2str(), cache_get_name());
 		return 0;
 	}
 
