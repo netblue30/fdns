@@ -239,6 +239,18 @@ URL amazon-adsystem.com dropped by "amazon-adsystem.com" rule
 \fB\-\-version
 Print program version and exit.
 .TP
+\fB\-\-whitelist=domain
+Whitelist mode: resolve only the specified domains and drop everything else.
+.br
+
+.br
+Example:
+.br
+$ sudo fdns --whitelist=gentoo.org \\
+      --whitelist=assets.gentoo.org \\
+      --whitelist=security.gentoo.org \\
+      --whitelist=wiki.gentoo.org
+.TP
 \fB\-\-zone=zone-name
 Set a different geographical zone.
 The zones defined so far are Americas-East, Americas-West, Asia-Pacific and Europe.

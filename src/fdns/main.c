@@ -36,6 +36,7 @@ char *arg_zone = NULL;
 int arg_cache_ttl = CACHE_TTL_DEFAULT;
 int arg_allow_local_doh = 0;
 
+
 Stats stats;
 
 static void usage(void) {
@@ -75,6 +76,7 @@ static void usage(void) {
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --test-url-list - check all URLs form stdin.\n");
 	printf("    --version - print program version and exit.\n");
+	printf("    --whitelist=domain - whitelisting domains.\n");
 	printf("    --zone=zone-name - set a different geographical zone.\n");
 	printf("\n");
 }
@@ -222,6 +224,8 @@ int main(int argc, char **argv) {
 				server_test_tag(argv[i] + 14);
 				return 0;
 			}
+			else if (strncmp(argv[i], "--whitelist=", 12) == 0)
+				whitelist_add(argv[i] + 12);
 			else {
 				fprintf(stderr, "Error: invalid command line argument %s\n", argv[i]);
 				return 1;

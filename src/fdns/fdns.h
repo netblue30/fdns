@@ -305,4 +305,12 @@ int forwarder_check(const char *domain, unsigned len);
 // sni.c
 const char *sni_cloak(void);
 
+// whitelist.c
+int whitelist_cnt(void);
+int whitelist_active(void);
+void whitelist_add(const char *domain);
+void whitelist_load_file(const char *fname);
+void whitelist_command(char **argv);
+int whitelist_blocked(const char *domain);
+
 #endif

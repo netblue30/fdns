@@ -87,7 +87,8 @@ static int sandbox(void *sandbox_arg) {
 
 
 	// start an fdns resolver process
-	char *a[arg_argc + 20];
+	int wcnt = whitelist_cnt();
+	char *a[arg_argc + wcnt + 20];
 	a[0] = PATH_FDNS;
 	a[1] = idstr;
 	a[2] = fdstr;
@@ -139,8 +140,14 @@ static int sandbox(void *sandbox_arg) {
 		a[last++] = cmd;
 		f = f->next;
 	}
+
+	if (wcnt) {
+		whitelist_command(a + last);
+		last += wcnt;
+	}
+
 	a[last] = NULL;
-	assert(last < (arg_argc + 20));
+	assert(last < (arg_argc + wcnt + 20));
 
 	// add a small 2 seconds sleep before restarting, just in case we are looping
 	sleep(MONITOR_WAIT_TIMER);
