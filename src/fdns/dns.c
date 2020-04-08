@@ -20,6 +20,7 @@
 #include "lint.h"
 #include "timetrace.h"
 
+#if 0 // replaced with NXDOMAIN
 // redirect to 127.0.0.1
 static uint8_t loopback_tail[] = {
 	0xc0, 0x0c, 0, 1, 0, 1, 0, 0, 0xaa, 0xaa, 0, 4, 0x7f, 0, 0, 1
@@ -34,6 +35,7 @@ static void  build_response_loopback(uint8_t *pkt, ssize_t *lenptr) {
 	memcpy(pkt + *lenptr, loopback_tail, sizeof(loopback_tail));
 	*lenptr += sizeof(loopback_tail);
 }
+#endif
 
 // build a NXDOMAIN package on top of the existing dns request
 inline static void build_response_nxdomain(uint8_t *pkt) {
@@ -147,16 +149,23 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	}
 
 	//*****************************
+	// whitelist
+	//*****************************
+	if (whitelist_active()) {
+		if (whitelist_blocked(q->domain)) {
+			rlogprintf("Request: whitelist  %s%s, dropped\n", q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
+			goto drop_nxdomain;
+		}
+	}
+
+	//*****************************
 	// trackers/adblock filtering
 	//*****************************
 	if (!arg_nofilter) {
 		const char *label = filter_blocked(q->domain, 0);
 		if (label) {
 			rlogprintf("Request: %s  %s%s, dropped\n", label, q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
-			stats.drop++;
-			build_response_loopback(buf, lenptr);
-			*dest = DEST_LOCAL;
-			return buf;
+			goto drop_nxdomain;
 		}
 	}
 

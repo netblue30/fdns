@@ -67,4 +67,13 @@ int filter_cname(const char *cname) {
 const char *cache_get_name(void) {
 	return "blablabla";
 }
+
+int whitelist_active(void) {
+	return 0;
+}
+
+int whitelist_blocked(const char *domain) {
+	(void) domain;
+	return 0;
+}
 #endif
