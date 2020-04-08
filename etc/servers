@@ -625,3 +625,12 @@ tags: Taiwan, Asia-Pacific
 address: 210.17.9.228:443
 host: dns.twnic.tw/dns-query
 keepalive: 30
+
+name: usableprivacy
+website: https://github.com/usableprivacy/updns
+zone: Europe
+tags: Austria, Europe, adblocker
+address: 149.154.153.153:443
+host: adfree.usableprivacy.net/
+sni: yes
+keepalive: 30
