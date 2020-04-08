@@ -1,5 +1,6 @@
 # doh servers disabled by fdns
 
+127.0.0.1 doh.nsa.gov
 127.0.0.1 doh.opendns.com
 127.0.0.1 dns.google
 127.0.0.1 dohtrial.att.net
