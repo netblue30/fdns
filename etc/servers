@@ -515,7 +515,7 @@ address: 136.144.215.158:443
 host: doh.powerdns.org/dns-query
 keepalive: 7
 
-name: quad9-1
+name: quad9
 website: https://quad9.net
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
@@ -531,27 +531,28 @@ address: 149.112.112.112:5053
 host: dns.quad9.net/dns-query
 keepalive: 30
 
-name: quad9-edns-1
-website: https://quad9.net
-zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
-address: 9.9.9.11:5053
-host: dns.quad9.net/dns-query
-keepalive: 30
+# EDNS Clinent Subnet - see https://www.quad9.net/faq/#What_is_EDNS_Client-Subnet
+#name: quad9-edns
+#website: https://quad9.net
+#zone: Americas-East, Americas-West, Asia-Pacific, Europe
+#tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
+#address: 9.9.9.11:5053
+#host: dns.quad9.net/dns-query
+#keepalive: 30
+#
+#name: quad9-edns-2
+#website: https://quad9.net
+#zone: Americas-East, Americas-West, Asia-Pacific, Europe
+#tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
+#address: 149.112.112.11:5053
+#host: dns.quad9.net/dns-query
+#keepalive: 30
 
-name: quad9-edns-2
-website: https://quad9.net
-zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
-address: 149.112.112.11:5053
-host: dns.quad9.net/dns-query
-keepalive: 30
-
-name: quad9-unsecured-1
+name: quad9-unsecured
 website: https://quad9.net
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
-address: 9.9.9.9:5053
+address: 9.9.9.10:5053
 host: dns.quad9.net/dns-query
 keepalive: 30
 
