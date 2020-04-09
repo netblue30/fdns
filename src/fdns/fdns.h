@@ -279,7 +279,7 @@ void resolver(void);
 
 // net.c
 void net_check_proxy_addr(const char *str);
-int net_local_dns_socket(void);
+int net_local_dns_socket(int reuse);
 int net_remote_dns_socket(struct sockaddr_in *addr, const char *ipstr);
 void net_local_unix_socket(void);
 
