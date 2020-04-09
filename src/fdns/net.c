@@ -94,19 +94,21 @@ errout:
 
 
 
-int net_local_dns_socket(void) {
+int net_local_dns_socket(int reuse) {
 	int slocal = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (slocal == -1)
 		errExit("socket");
 
-	int reuse = 1;
-	if (setsockopt(slocal, SOL_SOCKET, SO_REUSEADDR, (const char *)&reuse, sizeof(reuse)) < 0)
-		errExit("setsockopt(SO_REUSEADDR)");
+	if (reuse) {
+		int opt = 1;
+		if (setsockopt(slocal, SOL_SOCKET, SO_REUSEADDR, (const char *)&opt, sizeof(opt)) < 0)
+			errExit("setsockopt(SO_REUSEADDR)");
 
 #ifdef SO_REUSEPORT
-	if (setsockopt(slocal, SOL_SOCKET, SO_REUSEPORT, (const char *)&reuse, sizeof(reuse)) < 0)
-		errExit("setsockopt(SO_REUSEPORT)");
+		if (setsockopt(slocal, SOL_SOCKET, SO_REUSEPORT, (const char *)&opt, sizeof(opt)) < 0)
+			errExit("setsockopt(SO_REUSEPORT)");
 #endif
+	}
 
 	// configure porxy server local  address:port
 	struct sockaddr_in addr_local;
@@ -120,7 +122,7 @@ int net_local_dns_socket(void) {
 
 	int rv = bind(slocal, (struct sockaddr *) &addr_local, sizeof(addr_local));
 	if (rv == -1)
-		errExit("bind");
+		return -1;
 
 	return slocal;
 }

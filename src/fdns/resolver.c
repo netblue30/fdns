@@ -42,8 +42,11 @@ void resolver(void) {
 
 	// start the local DNS server on 127.0.0.1 only
 	// in order to mitigate DDoS amplification attacks
-	int slocal = net_local_dns_socket();
-	assert(slocal > 0);
+	int slocal = net_local_dns_socket(1);
+	if (slocal == -1) {
+		fprintf(stderr, "Error: cannot bind to port 53\n");
+		exit(1);
+	}
 
 	// security
 	int rv = seccomp_load_filter_list();

@@ -207,11 +207,18 @@ static void install_signal_handler(void) {
 void frontend(void) {
 	assert(arg_id == -1);
 	assert(arg_resolvers <= RESOLVERS_CNT_MAX && arg_resolvers >= RESOLVERS_CNT_MIN);
-	net_local_unix_socket();
-	install_signal_handler();
 
-	// attempt to open UDP port 53
-	int slocal = net_local_dns_socket(); // will exit if error
+	install_signal_handler();
+//	net_local_unix_socket();
+
+
+	// check for different DNS servers running on this address:port
+	int slocal = net_local_dns_socket(0);
+	if (slocal == -1) {
+		char *tmp = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
+		fprintf(stderr, "Error: a different DNS server is already running on %s:53\n", tmp);
+		exit(1);
+	}
 	close(slocal); // close the socket
 	if (arg_proxy_addr_any)
 		logprintf("listening on all available interfaces\n");
