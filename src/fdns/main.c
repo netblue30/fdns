@@ -61,6 +61,7 @@ static void usage(void) {
 	printf("    --ipv6 - allow AAAA requests.\n");
 	printf("    --list - list DoH servers.\n");
 	printf("    --list=server-name|tag|all - list DoH servers.\n");
+	printf("    --list-proxies - list all running instances of fdns\n");
 	printf("    --monitor - monitor statistics.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
@@ -181,6 +182,10 @@ int main(int argc, char **argv) {
 				server_print_zone = 1;
 				server_print_servers = 1;
 				server_list(argv[i] + 7);
+				return 0;
+			}
+			else if (strcmp(argv[i], "--list-proxies") == 0) {
+				procs_list();
 				return 0;
 			}
 			else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {

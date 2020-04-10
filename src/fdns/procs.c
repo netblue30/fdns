@@ -78,8 +78,53 @@ void procs_add(void) {
 		fprintf(stderr, "Error: cannot create %s file\n", fname);
 		exit(1);
 	}
-	fprintf(fp, "bingo\n");
+
+	char *tmp = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
+	if (arg_proxy_addr_any)
+		tmp = "0.0.0.0";
+	fprintf(fp, "%s\n", tmp);
 	fclose(fp);
 	free(fname);
 }
 
+void procs_list(void) {
+	DIR *dir;
+	if (!(dir = opendir("/run/fdns"))) {
+		// sleep 2 seconds and try again
+		sleep(2);
+		if (!(dir = opendir("/proc")))
+			return;
+	}
+
+	struct dirent *entry;
+	while ((entry = readdir(dir))) {
+		if (*entry->d_name == '.')
+			continue;
+
+		char *fname;
+		if (asprintf(&fname, "/proc/%s", entry->d_name) == -1)
+			errExit("asprintf");
+		if (access(fname, R_OK) == 0) {
+			char *runfname;
+			if (asprintf(&runfname, "/run/fdns/%s", entry->d_name) == -1)
+				errExit("asprintf");
+			printf("pid %s,", entry->d_name);
+			FILE *fp = fopen(runfname, "r");
+			if (fp) {
+				char buf[MAXBUF];
+				if (fgets(buf, MAXBUF, fp)) {
+					char *ptr = strchr(buf, '\n');
+					if (ptr)
+						*ptr = '\0';
+					printf(" address %s:53", buf);
+					if (strcmp(buf, DEFAULT_PROXY_ADDR) == 0)
+						printf(" (default)");
+				}
+			}
+			printf("\n");
+			fclose(fp);
+		}
+	}
+	closedir(dir);
+	printf("\n");
+}
