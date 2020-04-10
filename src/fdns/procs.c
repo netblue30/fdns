@@ -116,7 +116,7 @@ void procs_list(void) {
 					char *ptr = strchr(buf, '\n');
 					if (ptr)
 						*ptr = '\0';
-					printf(" address %s:53", buf);
+					printf(" address %s", buf);
 					if (strcmp(buf, DEFAULT_PROXY_ADDR) == 0)
 						printf(" (default)");
 				}

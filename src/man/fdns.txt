@@ -47,7 +47,7 @@ NOTE: Applications can still use DoH-Server if they have a hardcoded IP-Address.
 If you realy want to block other DoH connection you must use your firewall.
 .TP
 \fB\-\-cache-ttl=seconds
-Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 900 seconds (15 minutes).
+Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 40 minutes.
 .TP
 \fB\-\-certfile=filename
 Use an SSL certificate file in PEM format. By default we use the certificates installed
@@ -64,6 +64,8 @@ Detach from the controlling terminal and run as a Unix daemon. The typical way t
 FDNS as network proxy is
 .br
 
+.br
+Example:
 .br
 $ sudo fdns --proxy-addr-any --daemonize
 .br
@@ -126,16 +128,43 @@ cznic - Czechia, Europe
 List the available DoH service providers based on a tag, server name, or all.
 .TP
 \fB\-\-monitor
-Start the stats monitor. Run this command as a regular user in a terminal.
+Start the stats monitor for the default FDNS instance (127.1.1.1). Run this command as a regular user in a terminal.
 .br
 
 .br
+Example:
+.br
 $ fdns --monitor
+.TP
+\fB\-\-monitor=proxy-address
+Start the stats monitor for a specific FDNS instance. Run this command as a regular user in a terminal.
+.br
+
+.br
+Example:
+.br
+$ fdns --monitor=127.2.2.2
 .TP
 \fB\-\-nofilter
 No DNS request filtering. This disables the adblocker, the tracker filter, the coinblocker filter,
 and the user hosts file installed in /etc/fdns directory. Connections to DoH services are allowed
 from the local network (equivalent to --allow-local-doh).
+
+.TP
+\fB\-\-proxies
+List all running instances of FDNS.
+.br
+
+.br
+Example:
+.br
+$ fdns --proxies
+.br
+pid 4900, address 127.3.3.3
+.br
+pid 4893, address 127.2.2.2
+.br
+pid 4883, address 127.1.1.1 (default)
 .TP
 \fB\-\-proxy-addr=address
 Configure the IP address the proxy listens on for

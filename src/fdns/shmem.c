@@ -31,19 +31,25 @@ typedef struct dns_report_t {
 } DnsReport;
 DnsReport *report = NULL;
 
-void shmem_open(int create) {
+void shmem_open(int create, const char *proxy_addr) {
+	assert(proxy_addr);
 	int fd;
+
+	// build file name
+	char *fname;
+	if (asprintf(&fname, PATH_STATS_FILE "-%s", proxy_addr) == -1)
+		errExit("asprintf");
 
 	// try to open the shared mem file
 	if (create)
-		fd = shm_open(PATH_STATS_FILE, O_RDWR, S_IRWXU );
+		fd = shm_open(fname, O_RDWR, S_IRWXU );
 	else
-		fd = shm_open(PATH_STATS_FILE, O_RDONLY, S_IRWXU );
+		fd = shm_open(fname, O_RDONLY, S_IRWXU );
 
 	if (fd == -1) {
 		// the file doesn't exist, create it or exit
 		if (create) {
-			fd = shm_open(PATH_STATS_FILE, O_CREAT | O_EXCL | O_RDWR, S_IRWXO | S_IRWXU | S_IRWXG);
+			fd = shm_open(fname, O_CREAT | O_EXCL | O_RDWR, S_IRWXO | S_IRWXU | S_IRWXG);
 			if (fd == -1)
 				errExit("shm_open");
 		}
@@ -68,10 +74,13 @@ void shmem_open(int create) {
 		memset(report, 0, sizeof(DnsReport));
 		report->seq = 0;
 	}
+
+	free(fname);
 }
 
-void shmem_store_stats(void) {
+void shmem_store_stats(const char *proxy_addr) {
 	assert(report);
+	assert(proxy_addr);
 
 	// server
 	DnsServer *srv = server_get();
@@ -86,9 +95,10 @@ void shmem_store_stats(void) {
 	char *encstatus = (i == arg_resolvers) ? "ENCRYPTED" : "NOT ENCRYPTED";
 
 	snprintf(report->header, MAX_HEADER,
-		 "%s %s (SSL %.02lf ms, fallback %u), \n"
+		 "%s %s %s (SSL %.02lf ms, fallback %u), \n"
 		 "requests %u, drop %u, cache %u, fwd %u\n",
 
+		 proxy_addr,
 		 srv->name,
 		 encstatus,
 		 stats.ssl_pkts_timetrace,
@@ -131,10 +141,20 @@ void shmem_keepalive(void) {
 
 
 // return 1 if file is present
-inline static int check_shmem_file(void) {
+inline static int check_shmem_file(const char *proxy_addr) {
+	assert(proxy_addr);
+
+	// build file name
+	char *fname;
+	if (asprintf(&fname, "/dev/shm" PATH_STATS_FILE "-%s", proxy_addr) == -1)
+		errExit("asprintf");
+
 	struct stat s;
-	if (stat("/dev/shm/fdns-stats", &s) == -1)
+	if (stat(fname, &s) == -1) {
+		free(fname);
 		return 0;
+	}
+	free(fname);
 	return 1;
 }
 
@@ -156,10 +176,13 @@ static inline void print_line(const char *str) {
 }
 
 // handling "fdns --monitor"
-void shmem_monitor_stats(void) {
+void shmem_monitor_stats(const char *proxy_addr) {
+	if (proxy_addr == NULL)
+		proxy_addr = DEFAULT_PROXY_ADDR;
+
 	while (1) {
 		int first = 1;
-		while (check_shmem_file() == 0) {
+		while (check_shmem_file(proxy_addr) == 0) {
 			if (first) {
 				printf("Waiting for fdns to start...");
 				fflush(0);
@@ -171,11 +194,11 @@ void shmem_monitor_stats(void) {
 				sleep(1);
 			}
 		}
-		shmem_open(0);
+		shmem_open(0, proxy_addr);
 
 		uint32_t seq = 0;
 		while (1) {
-			if (check_shmem_file() == 0)
+			if (check_shmem_file(proxy_addr) == 0)
 				break;
 
 			// make a copy of the data in order to minimize the posibility of data changes durring printing
@@ -201,7 +224,7 @@ void shmem_monitor_stats(void) {
 			int cnt = 0;
 			while (seq == report->seq && ++cnt < (SHMEM_KEEPALIVE * 3)) {
 				sleep(1);
-				if (check_shmem_file() == 0)
+				if (check_shmem_file(proxy_addr) == 0)
 					break;
 			}
 			if (cnt >= (SHMEM_KEEPALIVE * 3)) { // declare fdns dead; it might never recover!
