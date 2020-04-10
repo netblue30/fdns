@@ -315,6 +315,6 @@ int whitelist_blocked(const char *domain);
 
 // procs.c
 void procs_add(void);
-
+void procs_list(void);
 
 #endif

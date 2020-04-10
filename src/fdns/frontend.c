@@ -215,6 +215,8 @@ void frontend(void) {
 	int slocal = net_local_dns_socket(0);
 	if (slocal == -1) {
 		char *tmp = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
+		if (arg_proxy_addr_any)
+			tmp = "0.0.0.0";
 		fprintf(stderr, "Error: a different DNS server is already running on %s:53\n", tmp);
 		exit(1);
 	}
