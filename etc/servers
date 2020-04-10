@@ -560,7 +560,7 @@ name: quad9-unsecured-2
 website: https://quad9.net
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
-address: 149.112.112.112:5053
+address: 149.112.112.10:5053
 host: dns.quad9.net/dns-query
 keepalive: 30
 
