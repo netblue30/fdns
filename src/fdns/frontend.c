@@ -211,7 +211,6 @@ void frontend(void) {
 	install_signal_handler();
 //	net_local_unix_socket();
 
-
 	// check for different DNS servers running on this address:port
 	int slocal = net_local_dns_socket(0);
 	if (slocal == -1) {
@@ -228,14 +227,8 @@ void frontend(void) {
 	// init resolver structures
 	memset(w, 0, sizeof(w));
 
-	// create a /run/fdns directory
-	struct stat s;
-	if (stat(PATH_RUN_FDNS, &s) ) {
-		if (mkdir(PATH_RUN_FDNS, 0755) == -1) {
-			fprintf(stderr, "Error: cannot create %s directory\n", PATH_RUN_FDNS);
-			exit(1);
-		}
-	}
+	// create the process file in /run/fdns directory
+	procs_add();
 
 	// enable /dev/shm/fdns-stats - create the file if it doesn't exist
 	shmem_open(1);

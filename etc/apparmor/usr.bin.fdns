@@ -21,8 +21,9 @@
 # we need to be able to create /dev/shm/fdns-stats file
   /dev/** rw,
 
-# we need to be able to create /run/fdns directory
+# we need to be able to create /run/fdns directory and inspect /proc
   /run/** rw,
+  owner /proc/** r,
 
   /etc/fdns/adblocker r,
   /etc/fdns/servers r,

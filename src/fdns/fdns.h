@@ -313,4 +313,8 @@ void whitelist_load_file(const char *fname);
 void whitelist_command(char **argv);
 int whitelist_blocked(const char *domain);
 
+// procs.c
+void procs_add(void);
+
+
 #endif
