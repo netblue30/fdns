@@ -212,19 +212,19 @@ void frontend(void) {
 //	net_local_unix_socket();
 
 	// check for different DNS servers running on this address:port
+	char *proxy_addr = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
+	if (arg_proxy_addr_any)
+		proxy_addr = "0.0.0.0";
 	int slocal = net_local_dns_socket(0);
 	if (slocal == -1) {
-		char *tmp = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
-		if (arg_proxy_addr_any)
-			tmp = "0.0.0.0";
-		fprintf(stderr, "Error: a different DNS server is already running on %s:53\n", tmp);
+		fprintf(stderr, "Error: a different DNS server is already running on %s:53\n", proxy_addr);
 		exit(1);
 	}
 	close(slocal); // close the socket
 	if (arg_proxy_addr_any)
 		logprintf("listening on all available interfaces\n");
 	else
-		logprintf("listening on %s\n", (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR);
+		logprintf("listening on %s\n", proxy_addr);
 
 	// init resolver structures
 	memset(w, 0, sizeof(w));
@@ -233,7 +233,7 @@ void frontend(void) {
 	procs_add();
 
 	// enable /dev/shm/fdns-stats - create the file if it doesn't exist
-	shmem_open(1);
+	shmem_open(1, proxy_addr);
 	int shm_keepalive_cnt = 0;
 
 	// start resolvers
@@ -379,7 +379,7 @@ void frontend(void) {
 							stats.ssl_pkts_timetrace /= 2;
 						}
 
-						shmem_store_stats();
+						shmem_store_stats(proxy_addr);
 					}
 					else if (strncmp(msg.buf, "Request: ", 9) == 0) {
 						printf("%s", msg.buf + 9);
@@ -390,11 +390,11 @@ void frontend(void) {
 					else {
 						if (strncmp(msg.buf, "SSL connection opened", 21) == 0) {
 							encrypted[i] = 1;
-							shmem_store_stats();
+							shmem_store_stats(proxy_addr);
 						}
 						else if (strncmp(msg.buf, "SSL connection closed", 21) == 0) {
 							encrypted[i] = 0;;
-							shmem_store_stats();
+							shmem_store_stats(proxy_addr);
 						}
 
 						char *tmp;

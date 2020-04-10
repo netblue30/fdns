@@ -61,9 +61,11 @@ static void usage(void) {
 	printf("    --ipv6 - allow AAAA requests.\n");
 	printf("    --list - list DoH servers.\n");
 	printf("    --list=server-name|tag|all - list DoH servers.\n");
-	printf("    --list-proxies - list all running instances of fdns\n");
-	printf("    --monitor - monitor statistics.\n");
+	printf("    --monitor - monitor statistics for the default instance.\n");
+	printf("    --monitor=proxy-address - monitor statistics for a specific instance\n"
+	         "\tof FDNS.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
+	printf("    --proxies - list all running instances of FDNS\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
 	printf("    --proxy-addr-any - listen on all available network interfaces.\n");
@@ -184,7 +186,7 @@ int main(int argc, char **argv) {
 				server_list(argv[i] + 7);
 				return 0;
 			}
-			else if (strcmp(argv[i], "--list-proxies") == 0) {
+			else if (strcmp(argv[i], "--proxies") == 0) {
 				procs_list();
 				return 0;
 			}
@@ -195,7 +197,12 @@ int main(int argc, char **argv) {
 			else if (strcmp(argv[i], "--proxy-addr-any") == 0)
 				arg_proxy_addr_any = 1;
 			else if (strcmp(argv[i], "--monitor") == 0) {
-				shmem_monitor_stats();
+				shmem_monitor_stats(NULL);
+				return 0;
+			}
+			else if (strncmp(argv[i], "--monitor=", 10) == 0) {
+				net_check_proxy_addr(argv[i] + 10); // will exit if error
+				shmem_monitor_stats(argv[i] + 10);
 				return 0;
 			}
 			else if (strncmp(argv[i], "--forwarder=", 12) == 0) {
