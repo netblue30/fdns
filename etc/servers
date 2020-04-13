@@ -103,7 +103,7 @@ website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2
 zone: Europe
 tags: Netherlands, Europe
 address: 51.15.124.208:443
-host: dns.alekberg.net/noads
+host: dns.alekberg.net/
 keepalive: 7
 
 name: alekberg-adblocker
@@ -114,21 +114,32 @@ address: 51.15.124.208:443
 host: dns.alekberg.net/noads
 keepalive: 7
 
-name: alekberg2
-website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
-zone: Americas-West
-tags: US, Americas, Americas-West
-address: 104.168.247.138:443
-host: dns2.alekberg.net/dns-query
-keepalive: 7
+# server down
+#name: alekberg2
+#website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+#zone: Americas-West
+#tags: US, Americas, Americas-West
+#address: 104.168.247.138:443
+#host: dns2.alekberg.net/dns-query
+#keepalive: 7
 
-name: alekberg-adblocker2
-website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
-zone: Americas-West
-tags: US, Americas, Americas-West, adblocker
-address: 104.168.247.138:443
-host: dns2.alekberg.net/noads
-keepalive: 7
+#server down
+#name: alekberg-adblocker2
+#website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+#zone: Americas-West
+#tags: US, Americas, Americas-West, adblocker
+#address: 104.168.247.138:443
+#host: dns2.alekberg.net/noads
+#keepalive: 7
+
+# server down
+#name: alekberg3
+#website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+#zone: Europe
+#tags: Sweden, Europe
+#address: 45.153.187.96:443
+#host: dnsse.alekberg.net/
+#keepalive: 7
 
 name: appliedprivacy
 website: https://appliedprivacy.net
@@ -172,7 +183,7 @@ website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
 zone: Europe
 tags: France, Europe
 address: 193.70.85.11:443
-host: doh.bortzmeyer.fr/dns-query
+host: doh.bortzmeyer.fr/
 keepalive: 7
 
 name: brahmaworld
@@ -273,14 +284,13 @@ address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
 keepalive: 30
 
-# server down
-#name: dnscrypt-ca2
-#website: https://dnscrypt.ca/
-#zone: Americas-East
-#tags: Canada, Americas, Americas-East
-#address: 149.56.228.45:453
-#host: dns2.dnscrypt.ca:453/dns-query
-#keepalive: 30
+name: dnscrypt-ca2
+website: https://dnscrypt.ca/
+zone: Americas-East
+tags: Canada, Americas, Americas-East
+address: 149.56.228.45:453
+host: dns2.dnscrypt.ca:453/dns-query
+keepalive: 30
 
 name: dnslify
 website: https://www.dnslify.com/
