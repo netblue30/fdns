@@ -170,9 +170,6 @@ void ssl_open(void) {
 
 	ssl_state = SSL_OPEN;
 	rlogprintf("SSL connection opened\n");
-
-	// try to send a keepalive
-	ssl_keepalive();
 }
 
 void ssl_close(void) {
@@ -186,7 +183,7 @@ void ssl_close(void) {
 }
 
 // returns the length of the response,0 if failed
-int ssl_dns(uint8_t *msg, int cnt) {
+int ssl_rxtx_dns(uint8_t *msg, int cnt) {
 	assert(msg);
 
 	DnsServer *srv = server_get();
@@ -350,17 +347,3 @@ errout:
 	return 0;
 }
 
-void ssl_keepalive(void) {
-	if (arg_debug)
-		printf("(%d) send keepalive\n", arg_id);
-	uint8_t msg[3000] = { // www.example.com
-		0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00, 0x00,  0x00, 0x00, 0x00, 0x00, 0x03, 0x77, 0x77, 0x77,
-		0x07, 0x65, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65,  0x03, 0x63, 0x6f, 0x6d, 0x00, 0x00, 0x01, 0x00,
-		0x01
-	};
-	uint8_t buf[MAXBUF];
-	int len = 33;
-
-	memcpy(buf, msg, len);
-	ssl_dns(buf, 33);
-}

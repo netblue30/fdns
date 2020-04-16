@@ -20,23 +20,6 @@
 #include "lint.h"
 #include "timetrace.h"
 
-#if 0 // replaced with NXDOMAIN
-// redirect to 127.0.0.1
-static uint8_t loopback_tail[] = {
-	0xc0, 0x0c, 0, 1, 0, 1, 0, 0, 0xaa, 0xaa, 0, 4, 0x7f, 0, 0, 1
-};
-
-static void  build_response_loopback(uint8_t *pkt, ssize_t *lenptr) {
-	// build answer RR
-	pkt[2] = 0x81;
-	pkt[3] = 0x80;
-	pkt[6] = 0;
-	pkt[7] = 0x01;
-	memcpy(pkt + *lenptr, loopback_tail, sizeof(loopback_tail));
-	*lenptr += sizeof(loopback_tail);
-}
-#endif
-
 // build a NXDOMAIN package on top of the existing dns request
 inline static void build_response_nxdomain(uint8_t *pkt) {
 	// lenptr remains unchanged
@@ -221,3 +204,15 @@ drop_nxdomain:
 	return buf;
 }
 
+void dns_keepalive(void) {
+	if (arg_debug)
+		printf("(%d) send keepalive\n", arg_id);
+	uint8_t msg[33] = { // www.example.com
+		0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00, 0x00,  0x00, 0x00, 0x00, 0x00, 0x03, 0x77, 0x77, 0x77,
+		0x07, 0x65, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65,  0x03, 0x63, 0x6f, 0x6d, 0x00, 0x00, 0x01, 0x00,
+		0x01
+	};
+	uint8_t buf[MAXBUF];
+	memcpy(buf, msg, sizeof(msg));
+	ssl_rxtx_dns(buf, sizeof(msg));
+}
