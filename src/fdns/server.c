@@ -182,9 +182,9 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 		}
 		else if (strncmp(buf, "keepalive: ", 11) == 0) {
-			if (s->ssl_keepalive)
+			if (s->keepalive)
 				goto errout;
-			if (sscanf(buf + 11, "%d", &s->ssl_keepalive) != 1 || s->ssl_keepalive <= 0) {
+			if (sscanf(buf + 11, "%d", &s->keepalive) != 1 || s->keepalive <= 0) {
 				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
 				exit(1);
 			}
@@ -273,11 +273,11 @@ int test_server(const char *server_name)  {
 		fflush(0);
 
 		timetrace_start();
-		ssl_keepalive();
-		ssl_keepalive();
-		ssl_keepalive();
-		ssl_keepalive();
-		ssl_keepalive();
+		dns_keepalive();
+		dns_keepalive();
+		dns_keepalive();
+		dns_keepalive();
+		dns_keepalive();
 		ms = timetrace_end();
 
 		if (ssl_state == SSL_CLOSED) {

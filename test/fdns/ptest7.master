@@ -1,5 +1,0 @@
-TESTING: DNS flags
-Error: LAN DNS: this is not a query
-cnt 1, (nil)
-Error: LAN DNS: flags 2800, this is not a standard query
-cnt 2, (nil)

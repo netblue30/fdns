@@ -77,7 +77,7 @@ if test "$prefix" = /usr; then
 	test "$sysconfdir" = '${prefix}/etc' && sysconfdir="/etc"
 fi
 
-AC_OUTPUT(Makefile src/common.mk src/fdns/Makefile test/src/fdnstress/Makefile test/src/ptest/Makefile)
+AC_OUTPUT(Makefile src/common.mk src/fdns/Makefile test/src/fdnstress/Makefile)
 
 echo
 echo "Configuration options:"

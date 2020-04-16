@@ -130,7 +130,7 @@ typedef struct dnsserver_t {
 	char *host;		// POST request first line
 	char *request;	// full POST request
 	int sni;		// 1 or 0
-	int ssl_keepalive;	// keepalive in seconds
+	int keepalive;	// keepalive in seconds
 } DnsServer;
 
 static inline void ansi_topleft(void) {
@@ -194,8 +194,7 @@ extern SSLState ssl_state;
 void ssl_init(void);
 void ssl_open(void);
 void ssl_close(void);
-int ssl_dns(uint8_t *msg, int cnt);
-void ssl_keepalive(void);
+int ssl_rxtx_dns(uint8_t *msg, int cnt);
 int ssl_status_check(void);
 
 // frontend.c
@@ -217,6 +216,7 @@ typedef enum {
 	DEST_MAX // always the last one
 } DnsDestination;
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
+void dns_keepalive(void);
 
 // filter.c
 void filter_init(void);

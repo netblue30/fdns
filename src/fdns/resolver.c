@@ -38,7 +38,7 @@ void resolver(void) {
 	// connect SSL/DNS server
 	ssl_init();
 	ssl_open();
-	ssl_keepalive();
+	dns_keepalive();
 
 	// start the local DNS server on 127.0.0.1 only
 	// in order to mitigate DDoS amplification attacks
@@ -67,8 +67,7 @@ void resolver(void) {
 	int resolver_keepalive_cnt = (RESOLVER_KEEPALIVE_TIMER * arg_id) / arg_resolvers;
 	DnsServer *srv = server_get();
 	assert(srv);
-	int ssl_keepalive_timer = srv->ssl_keepalive;
-	int ssl_keepalive_cnt = ssl_keepalive_timer;
+	int dns_keepalive_cnt = srv->keepalive;
 	int console_printout_cnt = CONSOLE_PRINTOUT_TIMER;
 	int ssl_reopen_cnt = SSL_REOPEN_TIMER;
 
@@ -151,10 +150,10 @@ void resolver(void) {
 			// ssl keepalive:
 			// if any incoming data, probably is the session going down - force a keepalive
 			if (ssl_status_check())
-				ssl_keepalive_cnt = 0;
-			if (--ssl_keepalive_cnt <= 0)  {
-				ssl_keepalive();
-				ssl_keepalive_cnt = ssl_keepalive_timer;
+				dns_keepalive_cnt = 0;
+			if (--dns_keepalive_cnt <= 0)  {
+				dns_keepalive();
+				dns_keepalive_cnt = srv->keepalive;
 			}
 
 			// send resolver keepalive
@@ -291,7 +290,7 @@ void resolver(void) {
 			int ssl_len;
 			timetrace_start();
 			if (ssl_state == SSL_OPEN)
-				ssl_len = ssl_dns(buf, len);
+				ssl_len = ssl_rxtx_dns(buf, len);
 
 			// a HTTP error from SSL, with no DNS data comming back
 			if (ssl_state == SSL_OPEN && ssl_len == 0)
@@ -311,7 +310,7 @@ void resolver(void) {
 				if (len == -1) // todo: parse errno - EAGAIN
 					errExit("sendto");
 				else
-					ssl_keepalive_cnt = ssl_keepalive_timer;
+					dns_keepalive_cnt = srv->keepalive;
 			}
 			// send the data to the remote fallback server; store the request in the database
 			else {
