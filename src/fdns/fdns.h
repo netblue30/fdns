@@ -148,12 +148,27 @@ static inline void ansi_clrscr(void) {
 
 static inline void print_mem(unsigned char *msg, int len) {
 	int i;
+
+	char buf[16 + 1];
+	char *ptr = buf;
+	*ptr = '\0';
+
 	for (i = 0; i < len; i++, msg++) {
 		printf("%02x ", *msg);
-		if (i % 16 == 15)
-			printf("\n");
+
+		if (*msg >= 0x20 && *msg <= 0x7f)
+			*ptr = *msg;
+		else
+			*ptr = '.';
+		ptr++;
+
+		if (i % 16 == 15) {
+			*ptr = '\0';
+			printf("\t%s\n", buf);
+			ptr = buf;
+		}
 	}
-	printf("\n");
+	printf("\t%s\n", buf);
 }
 
 

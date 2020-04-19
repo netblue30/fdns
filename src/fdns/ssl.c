@@ -173,10 +173,13 @@ void ssl_open(void) {
 }
 
 void ssl_close(void) {
-	int rv = SSL_shutdown(ssl);
-	if (rv == 0)
-		SSL_shutdown(ssl);
-	SSL_free(ssl);
+	if (ssl) {
+		int rv = SSL_shutdown(ssl);
+		if (rv == 0)
+			SSL_shutdown(ssl);
+		SSL_free(ssl);
+	}
+
 	ssl = NULL;
 	ssl_state = SSL_CLOSED;
 	rlogprintf("SSL connection closed\n");
