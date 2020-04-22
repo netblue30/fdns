@@ -19,14 +19,16 @@
 #include "fdns.h"
 #include <sys/mman.h>
 #include <fcntl.h>
+#include <sys/ioctl.h>
+#include <signal.h>
 
 typedef struct dns_report_t {
 	volatile uint32_t seq;	//sqence number used to detect data changes
-#define MAX_HEADER 163 	// two full lines on a terminal screen, \n and \0
-	char header[MAX_HEADER];
-	int logindex;
-#define MAX_LOG_ENTRIES 18 	// 18 lines on the screen in order to handle tab terminals
 #define MAX_ENTRY_LEN 82 	// a full line on a terminal screen, \n and \0
+	char header1[MAX_ENTRY_LEN];
+	char header2[MAX_ENTRY_LEN];
+	int logindex;
+#define MAX_LOG_ENTRIES 256 	// 18 lines on the screen in order to handle tab terminals
 	char logentry[MAX_LOG_ENTRIES][MAX_ENTRY_LEN];
 } DnsReport;
 DnsReport *report = NULL;
@@ -94,21 +96,19 @@ void shmem_store_stats(const char *proxy_addr) {
 			break;
 	char *encstatus = (i == arg_resolvers) ? "ENCRYPTED" : "NOT ENCRYPTED";
 
-	snprintf(report->header, MAX_HEADER,
-		 "%s %s %s (SSL %.02lf ms, fallback %u), \n"
-		 "requests %u, drop %u, cache %u, fwd %u\n",
-
+	snprintf(report->header1, MAX_ENTRY_LEN,
+		 "%s %s %s (SSL %.02lf ms, fallback %u)",
 		 proxy_addr,
 		 srv->name,
 		 encstatus,
 		 stats.ssl_pkts_timetrace,
-		 stats.fallback,
-
+		 stats.fallback);
+	snprintf(report->header2, MAX_ENTRY_LEN,
+		 "requests %u, drop %u, cache %u, fwd %u",
 		 stats.rx,
 		 stats.drop,
 		 stats.cached,
 		 stats.fwd);
-
 
 	report->seq++;
 }
@@ -158,25 +158,36 @@ inline static int check_shmem_file(const char *proxy_addr) {
 	return 1;
 }
 
-static inline void print_line(const char *str) {
+static inline void print_line(const char *str, int col) {
 //red - printf("\033[31;1mHello\033[0m\n");
 // 31 - red
 // 91 -bright red
 // 92 - bright green
 	if (strstr(str, "Error"))
-		printf("\033[91m%s\033[0m", str);
+		printf("\033[91m%.*s\033[0m", col, str);
 	else if (strstr(str, "fp-tracker  "))
-		printf("\033[91m%s\033[0m", str);
+		printf("\033[91m%.*s\033[0m", col, str);
 	else if (strstr(str, "doh  "))
-		printf("\033[91m%s\033[0m", str);
+		printf("\033[91m%.*s\033[0m", col, str);
 	else if (strstr(str, ", dropped") || strstr(str, "refused by service provider"))
-		printf("\033[92m%s\033[0m", str);
+		printf("\033[92m%.*s\033[0m", col, str);
 	else
-		printf("%s", str);
+		printf("%.*s", col, str);
+}
+
+
+// detect terminal window size change
+static volatile int need_resize = 0;
+static void wins_resize_sighandler (int dont_care_sig) {
+	(void)dont_care_sig;
+	need_resize = 1;
 }
 
 // handling "fdns --monitor"
 void shmem_monitor_stats(const char *proxy_addr) {
+	signal(SIGCONT,  wins_resize_sighandler);
+	signal(SIGWINCH, wins_resize_sighandler);
+
 	if (proxy_addr == NULL)
 		proxy_addr = DEFAULT_PROXY_ADDR;
 
@@ -201,6 +212,16 @@ void shmem_monitor_stats(const char *proxy_addr) {
 			if (check_shmem_file(proxy_addr) == 0)
 				break;
 
+			struct winsize sz;
+			int col = 80;
+			int row = 24;
+			if (isatty(STDIN_FILENO)) {
+				if (!ioctl(0, TIOCGWINSZ, &sz)) {
+					col  = sz.ws_col;
+					row = sz.ws_row;
+				}
+			}
+
 			// make a copy of the data in order to minimize the posibility of data changes durring printing
 			DnsReport d;
 			memcpy(&d, report, sizeof(DnsReport));
@@ -209,23 +230,34 @@ void shmem_monitor_stats(const char *proxy_addr) {
 			ansi_clrscr();
 
 			// print header
-			printf("%s\n", d.header);
+			printf("%.*s\n", col, d.header1);
+			printf("%.*s\n", col, d.header2);
+			printf("\n");
 
 			// print log lines
 			int i;
-			for (i = d.logindex; i < MAX_LOG_ENTRIES; i++)
-				print_line(d.logentry[i]);
+			int logrows = MAX_LOG_ENTRIES;
+			if ((row - 4) > 0 && (row - 4) < MAX_LOG_ENTRIES)
+				logrows = row - 4;
 
-			for (i = 0; i < d.logindex; i++)
-				print_line(d.logentry[i]);
+			int index = d.logindex - logrows;
+			for (i = 0; i < logrows; i++, index++) {
+				int position = index;
+				if (index < 0)
+					position += MAX_LOG_ENTRIES;
+				print_line(d.logentry[position], col);
+			}
+			fflush(0);
 
 			// detect data changes and fdns going down using report->seq
-			sleep(1);
 			int cnt = 0;
 			while (seq == report->seq && ++cnt < (SHMEM_KEEPALIVE * 3)) {
-				sleep(1);
 				if (check_shmem_file(proxy_addr) == 0)
 					break;
+				sleep(1); // interrupted by SIGWINCH/SIGCONT
+				if (need_resize)
+					break;
+
 			}
 			if (cnt >= (SHMEM_KEEPALIVE * 3)) { // declare fdns dead; it might never recover!
 				printf("Error:\n");
@@ -233,6 +265,8 @@ void shmem_monitor_stats(const char *proxy_addr) {
 				while (seq == report->seq)
 					sleep(1);
 			}
+
+			need_resize = 0;
 		}
 	}
 }
