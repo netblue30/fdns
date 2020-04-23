@@ -115,22 +115,22 @@ host: dns.alekberg.net/noads
 keepalive: 7
 
 # server down
-#name: alekberg2
-#website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
-#zone: Americas-West
-#tags: US, Americas, Americas-West
-#address: 104.168.247.138:443
-#host: dns2.alekberg.net/dns-query
-#keepalive: 7
+name: alekberg2
+website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+zone: Americas-West
+tags: US, Americas, Americas-West
+address: 104.168.247.138:443
+host: dns2.alekberg.net/dns-query
+keepalive: 7
 
 #server down
-#name: alekberg-adblocker2
-#website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
-#zone: Americas-West
-#tags: US, Americas, Americas-West, adblocker
-#address: 104.168.247.138:443
-#host: dns2.alekberg.net/noads
-#keepalive: 7
+name: alekberg-adblocker2
+website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+zone: Americas-West
+tags: US, Americas, Americas-West, adblocker
+address: 104.168.247.138:443
+host: dns2.alekberg.net/noads
+keepalive: 7
 
 # server down
 #name: alekberg3
