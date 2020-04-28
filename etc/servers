@@ -13,7 +13,7 @@
 #	Europe, Asia-Pacific, Americas-East, Americas-West (... so far, more to be added).
 #	The fdns zone is detected based on the timezone setting of the computer running fdns.
 #	We match fdns zone with the server zone, and use it to filter adblocker and family tags.
-#	This way we can restrict a specific service to a specific geographical zone.
+#	This way we can restrict a specific service to a specific geographical area.
 #	If a server zone is not specified, the tag is available in all zones.
 # tags: filtering tags
 # address: IP address and port in IP:PORT format
@@ -114,7 +114,6 @@ address: 51.15.124.208:443
 host: dns.alekberg.net/noads
 keepalive: 7
 
-# server down
 name: alekberg2
 website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Americas-West
@@ -123,7 +122,6 @@ address: 104.168.247.138:443
 host: dns2.alekberg.net/dns-query
 keepalive: 7
 
-#server down
 name: alekberg-adblocker2
 website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Americas-West
@@ -193,6 +191,54 @@ tags: Germany, Europe, adblocker
 address: 94.130.224.114:443
 host: dns.brahma.world/dns-query
 keepalive: 30
+
+name: cira
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+zone: Americas-East
+tags: non-profit, Ontario, Canada, Americas, Americas-East
+address: 149.112.121.10:443
+host: private.canadianshield.cira.ca/dns-query
+keepalive: 7
+
+name: cira2
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+zone: Americas-East
+tags: non-profit, Ontario, Canada, Americas, Americas-East
+address: 149.112.122.10:443
+host: private.canadianshield.cira.ca/dns-query
+keepalive: 7
+
+name: cira-security
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+zone: Americas-East
+tags: non-profit, security, Ontario, Canada, Americas, Americas-East
+address: 149.112.121.20:443
+host: protected.canadianshield.cira.ca/dns-query
+keepalive: 7
+
+name: cira-security2
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+zone: Americas-East
+tags: non-profit, security, Ontario, Canada, Americas, Americas-East
+address: 149.112.122.20:443
+host: protected.canadianshield.cira.ca/dns-query
+keepalive: 7
+
+name: cira-family
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+zone: Americas-East
+tags: family
+address: 149.112.121.30:443
+host: family.canadianshield.cira.ca/dns-query
+keepalive: 7
+
+name: cira-family2
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+zone: Americas-East
+tags: family
+address: 149.112.122.30:443
+host: family.canadianshield.cira.ca/dns-query
+keepalive: 7
 
 name: cleanbrowsing
 website: https://cleanbrowsing.org
@@ -540,23 +586,6 @@ tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.112:5053
 host: dns.quad9.net/dns-query
 keepalive: 30
-
-# EDNS Clinent Subnet - see https://www.quad9.net/faq/#What_is_EDNS_Client-Subnet
-#name: quad9-edns
-#website: https://quad9.net
-#zone: Americas-East, Americas-West, Asia-Pacific, Europe
-#tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
-#address: 9.9.9.11:5053
-#host: dns.quad9.net/dns-query
-#keepalive: 30
-#
-#name: quad9-edns-2
-#website: https://quad9.net
-#zone: Americas-East, Americas-West, Asia-Pacific, Europe
-#tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
-#address: 149.112.112.11:5053
-#host: dns.quad9.net/dns-query
-#keepalive: 30
 
 name: quad9-unsecured
 website: https://quad9.net
