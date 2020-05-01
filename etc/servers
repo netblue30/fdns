@@ -99,7 +99,7 @@ host: dns-family.adguard.com/dns-query
 keepalive: 30
 
 name: alekberg
-website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Europe
 tags: Netherlands, Europe
 address: 51.15.124.208:443
@@ -107,7 +107,7 @@ host: dns.alekberg.net/
 keepalive: 7
 
 name: alekberg-adblocker
-website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Europe
 tags: Netherlands, Europe, adblocker
 address: 51.15.124.208:443
@@ -115,7 +115,7 @@ host: dns.alekberg.net/noads
 keepalive: 7
 
 name: alekberg2
-website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Americas-West
 tags: US, Americas, Americas-West
 address: 104.168.247.138:443
@@ -123,7 +123,7 @@ host: dns2.alekberg.net/dns-query
 keepalive: 7
 
 name: alekberg-adblocker2
-website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Americas-West
 tags: US, Americas, Americas-West, adblocker
 address: 104.168.247.138:443
@@ -132,7 +132,7 @@ keepalive: 7
 
 # server down
 #name: alekberg3
-#website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 #zone: Europe
 #tags: Sweden, Europe
 #address: 45.153.187.96:443
@@ -195,7 +195,7 @@ keepalive: 30
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas-East
-tags: non-profit, Ontario, Canada, Americas, Americas-East
+tags: non-profit, Canada, Americas, Americas-East
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -203,7 +203,7 @@ keepalive: 7
 name: cira2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas-East
-tags: non-profit, Ontario, Canada, Americas, Americas-East
+tags: non-profit, Canada, Americas, Americas-East
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -211,7 +211,7 @@ keepalive: 7
 name: cira-security
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas-East
-tags: non-profit, security, Ontario, Canada, Americas, Americas-East
+tags: non-profit, security, Canada, Americas, Americas-East
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -219,14 +219,14 @@ keepalive: 7
 name: cira-security2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas-East
-tags: non-profit, security, Ontario, Canada, Americas, Americas-East
+tags: non-profit, security, Canada, Americas, Americas-East
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
 
 name: cira-family
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas-East
+zone: Americas-East, Americas-West
 tags: family
 address: 149.112.121.30:443
 host: family.canadianshield.cira.ca/dns-query
@@ -234,7 +234,7 @@ keepalive: 7
 
 name: cira-family2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas-East
+zone: Americas-East, Americas-West
 tags: family
 address: 149.112.122.30:443
 host: family.canadianshield.cira.ca/dns-query
@@ -274,7 +274,7 @@ keepalive: 180
 
 # uncensored server redirected to cloudflare
 name: containerpi
-website: listed on https://github.com/curl/curl/wiki/DNS-over-HTTPS
+website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
 zone: Asia-Pacific
 tags: Japan, Asia-Pacific
 address: 45.77.180.10:443
@@ -340,8 +340,8 @@ keepalive: 30
 
 name: dnslify
 website: https://www.dnslify.com/
-zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
+zone: Americas-East, Americas-West, Europe
+tags: Americas, Americas-East, Americas-West, Europe
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 7
@@ -379,7 +379,7 @@ host: doh.ffmuc.net/dns-query
 keepalive: 30
 
 name: flatuslifir
-website: listed on https://github.com/curl/curl/wiki/DNS-over-HTTPS
+website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
 zone: Europe
 tags: Iceland, Europe
 address: 46.239.223.80:443
@@ -419,7 +419,7 @@ host: dns.hostux.net/ads
 keepalive: 30
 
 name: ibksturm
-website: listed on https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
 zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 83.77.85.7:443
@@ -476,48 +476,16 @@ keepalive: 30
 
 name: nixnet
 website: https://nixnet.services/dns/
-zone: Americas-East
-tags: US, Americas, Americas-East
-address: 198.251.90.114:443
-host: uncensored.any.dns.nixnet.xyz/dns-query
-keepalive: 30
-
-name: nixnet2
-website: https://nixnet.services/dns/
-zone: Americas-West
-tags: US, Americas, Americas-West
-address: 198.251.90.114:443
-host: uncensored.any.dns.nixnet.xyz/dns-query
-keepalive: 30
-
-name: nixnet3
-website: https://nixnet.services/dns/
-zone: Europe
-tags: Luxemburg, Europe
+zone: Americas-East, Americas-West, Europe
+tags: US, Americas, Americas-East, Americas-West, Luxembourg, Europe
 address: 198.251.90.114:443
 host: uncensored.any.dns.nixnet.xyz/dns-query
 keepalive: 30
 
 name: nixnet-adblocker
 website: https://nixnet.services/dns/
-zone: Americas-East
-tags: US, Americas, Americas-East, adblocker
-address: 198.251.90.89:443
-host: adblock.any.dns.nixnet.xyz/dns-query
-keepalive: 30
-
-name: nixnet-adblocker2
-website: https://nixnet.services/dns/
-zone: Americas-West
-tags: US, Americas, Americas-West, adblocker
-address: 198.251.90.89:443
-host: adblock.any.dns.nixnet.xyz/dns-query
-keepalive: 30
-
-name: nixnet-adblocker3
-website: https://nixnet.services/dns/
-zone: Europe
-tags: Luxemburg, Europe, adblocker
+zone: Americas-East, Americas-West, Europe
+tags: US, Americas, Americas-East, Americas-West, Luxembourg, Europe, adblocker
 address: 198.251.90.89:443
 host: adblock.any.dns.nixnet.xyz/dns-query
 keepalive: 30
