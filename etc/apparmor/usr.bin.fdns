@@ -25,14 +25,7 @@
   /run/** rw,
   /proc/** r,
 
-  /etc/fdns/adblocker r,
-  /etc/fdns/servers r,
-  /etc/fdns/trackers r,
-  /etc/fdns/coinblocker r,
-  /etc/fdns/fp-trackers r,
-  /etc/fdns/doh r,
-  owner /etc/fdns/resolver.seccomp r,
-  /etc/fdns/hosts r,
+  /etc/fdns/** r,
 
  # mount required for setting up the mount namespace in the resolver processes - Debian 10
   mount,
