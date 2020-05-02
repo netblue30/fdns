@@ -99,7 +99,7 @@ host: dns-family.adguard.com/dns-query
 keepalive: 30
 
 name: alekberg
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Europe
 tags: Netherlands, Europe
 address: 51.15.124.208:443
@@ -107,7 +107,7 @@ host: dns.alekberg.net/
 keepalive: 7
 
 name: alekberg-adblocker
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Europe
 tags: Netherlands, Europe, adblocker
 address: 51.15.124.208:443
@@ -115,7 +115,7 @@ host: dns.alekberg.net/noads
 keepalive: 7
 
 name: alekberg2
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Americas-West
 tags: US, Americas, Americas-West
 address: 104.168.247.138:443
@@ -123,7 +123,7 @@ host: dns2.alekberg.net/dns-query
 keepalive: 7
 
 name: alekberg-adblocker2
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Americas-West
 tags: US, Americas, Americas-West, adblocker
 address: 104.168.247.138:443
@@ -132,7 +132,7 @@ keepalive: 7
 
 # server down
 #name: alekberg3
-#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 #zone: Europe
 #tags: Sweden, Europe
 #address: 45.153.187.96:443
@@ -419,7 +419,7 @@ host: dns.hostux.net/ads
 keepalive: 30
 
 name: ibksturm
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md)
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 83.77.85.7:443
