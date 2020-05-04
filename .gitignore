@@ -17,3 +17,4 @@ src/common.mk
 src/filter/trackers
 test/src/fdnstress/fdnstress
 test/src/ptest/ptest
+gcov-dir

@@ -7,26 +7,28 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "fdns --test-url=doubleclick.net\r"
+send -- "fdns --test-url-list\r"
+after 200
+
+send -- "doubleclick.net\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"URL doubleclick.net dropped by default rule \"click.\""
 }
 after 100
 
-send -- "fdns --test-url=amazon-adsystem.com\r"
+send -- "amazon-adsystem.com\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
 	"URL amazon-adsystem.com dropped by \"amazon-adsystem.com\" rule"
 }
 after 100
 
-send -- "fdns --test-url=debian.org\r"
+send -- "debian.org\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
 	"URL debian.org is not dropped"
 }
-
 
 after 100
 puts "\nall done\n"

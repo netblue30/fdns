@@ -165,6 +165,7 @@ static inline void print_mem(unsigned char *msg, int len) {
 		if (i % 16 == 15) {
 			*ptr = '\0';
 			printf("\t%s\n", buf);
+			memset(buf, 0, sizeof(buf));
 			ptr = buf;
 		}
 	}
@@ -316,9 +317,6 @@ extern Forwarder *fwd;
 extern Forwarder *fwd_active;
 void forwarder_set(const char *str);
 int forwarder_check(const char *domain, unsigned len);
-
-// sni.c
-const char *sni_cloak(void);
 
 // whitelist.c
 int whitelist_cnt(void);

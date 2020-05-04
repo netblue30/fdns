@@ -1,0 +1,45 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019-2020 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+
+send -- "fdns --allow-local-doh\r"
+set server_id $spawn_id
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"fdns starting"
+}
+expect {
+	timeout {puts "TESTING ERROR 0.1\n";exit}
+	"SSL connection opened"
+}
+sleep 1
+
+spawn $env(SHELL)
+send -- "firejail --dns=127.1.1.1 ping -c 3 doh.42l.fr\r"
+set ping_id $spawn_id
+sleep 2
+
+spawn $env(SHELL)
+set monitor_id $spawn_id
+send -- "fdns --monitor\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"doh.42l.fr, encrypted"
+}
+after 100
+
+set spawn_id $ping_id
+send -- "pkill fdns\r"
+
+after 100
+puts "\nall done\n"
+
+
