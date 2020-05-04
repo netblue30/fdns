@@ -12,14 +12,16 @@ sleep 1
 
 send -- "fdns --server=anycast\r"
 expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
+	timeout {puts "TESTING ERROR 1\n";exit}
 	"connecting to adguard server"  {puts "1"}
 	"connecting to adguard2 server"  {puts "1"}
 	"connecting to cleanbrowsing server"  {puts "2"}
 	"connecting to cloudflare server" {puts "3"}
 	"connecting to cloudflare2 server" {puts "3"}
 	"connecting to quad9 server" {puts "4"}
-	"connecting to quad92 server" {puts "4"}
+	"connecting to quad9-2 server" {puts "4"}
+	"connecting to quad9-unsecured server" {puts "4"}
+	"connecting to quad9-unsecured-2 server" {puts "4"}
 }
 
 after 100

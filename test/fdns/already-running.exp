@@ -25,7 +25,7 @@ spawn $env(SHELL)
 send -- "fdns\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"only one fdns instance is allowed, shutting down"
+	"a different DNS server is already running on"
 }
 after 100
 
