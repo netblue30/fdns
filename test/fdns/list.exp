@@ -14,7 +14,7 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"aaflalo-adblocker"
+	"adguard"
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}

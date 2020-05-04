@@ -14,15 +14,11 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"42l"
+	"non-profit"
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"appliedprivacy"
-}
-expect {
-	timeout {puts "TESTING ERROR 3\n";exit}
-	"digital-society"
+	"non-profit"
 }
 expect {
 	timeout {puts "TESTING ERROR 4\n";exit}
