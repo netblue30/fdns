@@ -142,6 +142,7 @@ int net_remote_dns_socket(struct sockaddr_in *addr, const char *ipstr) {
 	return sremote;
 }
 
+#if 0
 void net_local_unix_socket(void) {
 	// open a UNIX socket in order to alow only a  single fnds instance to run
 	int sock = socket(AF_UNIX, SOCK_DGRAM, 0);
@@ -159,3 +160,4 @@ void net_local_unix_socket(void) {
 		exit(1);
 	}
 }
+#endif

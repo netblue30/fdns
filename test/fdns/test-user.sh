@@ -37,6 +37,9 @@ echo "TESTING: list=non-profit (test/fdns/list-non-profit.exp)"
 echo "TESTING: test-url (test/fdns/test-url.exp)"
 ./test-url.exp
 
+echo "TESTING: test-url-list (test/fdns/test-url-list.exp)"
+./test-url-list.exp
+
 echo "TESTING: test-servers=anycast (test/fdns/test-servers-anycast.exp)"
 ./test-servers-anycast.exp
 

@@ -49,10 +49,14 @@ void resolver(void) {
 	}
 
 	// security
+#ifdef HAVE_GCOV
+	__gcov_flush();
+#else
 	int rv = seccomp_load_filter_list();
 	chroot_drop_privs("nobody");
 	if (rv)
 		seccomp_resolver();
+#endif
 
 	// Remote dns server fallback server
 	struct sockaddr_in addr_fallback;
@@ -79,6 +83,9 @@ void resolver(void) {
 	int frontend_keepalive_cnt = 0;
 	int query_second = 0;
 	while (1) {
+#ifdef HAVE_GCOV
+	__gcov_flush();
+#endif
 		fd_set fds;
 		FD_ZERO(&fds);
 		// UDP sockets

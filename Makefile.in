@@ -26,6 +26,7 @@ $(MANPAGES): $(wildcard src/man/*.txt)
 man: $(MANPAGES)
 
 clean:
+	rm -f gcov-file gcov-file-new gcov-file-old
 	for dir in $(APPS); do \
 		$(MAKE) -C $$dir clean; \
 	done
@@ -121,3 +122,5 @@ test-stress:
 test-compile: dist
 	cd test/compile; ./compile.sh $(NAME)-$(VERSION)
 
+gcov:
+	./gcov.sh

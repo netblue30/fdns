@@ -173,6 +173,9 @@ static inline void print_line(const char *str, int col) {
 		printf("\033[92m%.*s\033[0m", col, str);
 	else
 		printf("%.*s", col, str);
+#ifdef HAVE_GCOV
+	__gcov_flush();
+#endif
 }
 
 
@@ -192,6 +195,9 @@ void shmem_monitor_stats(const char *proxy_addr) {
 		proxy_addr = DEFAULT_PROXY_ADDR;
 
 	while (1) {
+#ifdef HAVE_GCOV
+		__gcov_flush();
+#endif
 		int first = 1;
 		while (check_shmem_file(proxy_addr) == 0) {
 			if (first) {

@@ -51,6 +51,12 @@ echo "TESTING: server=non-profit (test/fdns/server-non-profit.exp)"
 echo "TESTING: server=anycast (test/fdns/server-anycast.exp)"
 ./server-anycast.exp
 
+echo "TESTING: multiserver (test/fdns/multiserver.exp)"
+./multiserver.exp
+
+echo "TESTING: local doh (test/fdns/local-doh.exp)"
+./local-doh.exp
+
 echo "TESTING: restart worker (test/fdns/restart-worker.exp)"
 ./restart-worker.exp
 
