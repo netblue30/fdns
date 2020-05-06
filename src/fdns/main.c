@@ -35,7 +35,7 @@ int arg_test_hosts = 0;
 char *arg_zone = NULL;
 int arg_cache_ttl = CACHE_TTL_DEFAULT;
 int arg_allow_local_doh = 0;
-
+char *arg_whitelist_file = NULL;
 
 Stats stats;
 
@@ -80,6 +80,7 @@ static void usage(void) {
 	printf("    --test-url-list - check all URLs form stdin.\n");
 	printf("    --version - print program version and exit.\n");
 	printf("    --whitelist=domain - whitelisting domains.\n");
+	printf("    --whitelist-file=filename - whitelisting domains.\n");
 	printf("    --zone=zone-name - set a different geographical zone.\n");
 	printf("\n");
 }
@@ -238,6 +239,8 @@ int main(int argc, char **argv) {
 			}
 			else if (strncmp(argv[i], "--whitelist=", 12) == 0)
 				whitelist_add(argv[i] + 12);
+			else if (strncmp(argv[i], "--whitelist-file=", 17) == 0)
+				whitelist_load_file(argv[i] + 17);
 			else {
 				fprintf(stderr, "Error: invalid command line argument %s\n", argv[i]);
 				return 1;

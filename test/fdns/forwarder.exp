@@ -1,0 +1,71 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019-2020 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+
+send -- "fdns --daemonize --forwarder=gentoo.org@127.2.2.2\r"
+sleep 1
+send -- "fdns --proxy-addr=127.2.2.2 --daemonize\r"
+sleep 3
+
+send -- "fdns --proxies\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"address 127.2.2.2"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"address 127.1.1.1"
+}
+
+sleep 2
+send -- "firejail --dns=127.1.1.1 ping -c 3 assets.gentoo.org\r"
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"3 received"
+}
+
+
+set main_id $spawn_id
+sleep 2
+spawn $env(SHELL)
+send -- "fdns --monitor\r"
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"fwd 1"
+}
+expect {
+	timeout {puts "TESTING ERROR 5\n";exit}
+	"assets.gentoo.org, forwarded"
+}
+after 100
+
+
+sleep 1
+spawn $env(SHELL)
+send -- "fdns --monitor=127.2.2.2\r"
+expect {
+	timeout {puts "TESTING ERROR 6\n";exit}
+	"fwd 0"
+}
+expect {
+	timeout {puts "TESTING ERROR 7\n";exit}
+	"assets.gentoo.org, encrypted"
+}
+after 100
+
+
+set spawn_id $main_id
+send -- "pkill fdns\r"
+
+after 100
+puts "\nall done\n"
+
+

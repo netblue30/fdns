@@ -25,7 +25,18 @@ sudo apparmor_parser -R /etc/apparmor.d/usr.bin.fdns 2>&1 > /dev/null
 gcov_init
 lcov -q --capture -d src/fdns --output-file gcov-file-old
 
-#sudo test/fdns/default-ping.exp
+sudo test/fdns/forwarder.exp
+generate
+sleep 2
+
+sudo test/fdns/whitelist.exp
+generate
+sleep 2
+
+sudo test/fdns/whitelist-file.exp
+generate
+sleep 2
+
 make test
 generate
 sleep 2

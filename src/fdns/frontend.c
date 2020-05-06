@@ -141,6 +141,13 @@ static int sandbox(void *sandbox_arg) {
 		f = f->next;
 	}
 
+	if (arg_whitelist_file) {
+		char *cmd;
+		if (asprintf(&cmd, "--whitelist-file=%s", arg_whitelist_file) == -1)
+			errExit("asprintf");
+		a[last++] = cmd;
+	}
+
 	if (wcnt) {
 		whitelist_command(a + last);
 		last += wcnt;
