@@ -61,6 +61,9 @@ void forwarder_set(const char *str) {
 
 	f->next = fwd;
 	fwd = f;
+#ifdef HAVE_GCOV
+	__gcov_flush();
+#endif
 }
 
 // args: domain name and domain name length
@@ -98,6 +101,9 @@ int forwarder_check(const char *domain, unsigned len) {
 		}
 
 		f = f->next;
+#ifdef HAVE_GCOV
+	__gcov_flush();
+#endif
 	}
 
 	return 0;

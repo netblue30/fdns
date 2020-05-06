@@ -289,6 +289,9 @@ void resolver(void) {
 				// store the incoming request in the database
 				dnsdb_store(buf, &addr_client);
 				fwd_active = NULL;
+#ifdef HAVE_GCOV
+	__gcov_flush();
+#endif
 				continue;
 			}
 
@@ -379,6 +382,9 @@ void resolver(void) {
 				}
 
 				f = f->next;
+#ifdef HAVE_GCOV
+	__gcov_flush();
+#endif
 			}
 			continue;
 		}

@@ -76,13 +76,12 @@ void whitelist_add(const char *domain) {
 	}
 }
 
-#if 0
-// under development - currently getting killed by apparmor
 void whitelist_load_file(const char *fname) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
 	if (!fp) {
 		fprintf(stderr, "Error: cannot open %s\n", fname);
+		fprintf(stderr, "If AppArmor is enabled, please place the file in %s directory\n", SYSCONFDIR);
 		exit(1);
 	}
 
@@ -109,7 +108,6 @@ void whitelist_load_file(const char *fname) {
 
 	fclose(fp);
 }
-#endif
 
 // re-generate the command line
 void whitelist_command(char **argv) {

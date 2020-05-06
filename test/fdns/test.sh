@@ -57,6 +57,15 @@ echo "TESTING: multiserver (test/fdns/multiserver.exp)"
 echo "TESTING: local doh (test/fdns/local-doh.exp)"
 ./local-doh.exp
 
+echo "TESTING: forwarder (test/fdns/forwarder.exp)"
+./forwarder.exp
+
+echo "TESTING: whitelist (test/fdns/whitelist.exp)"
+./whitelist.exp
+
+echo "TESTING: whitelist-file (test/fdns/whitelist-file.exp)"
+./whitelist-file.exp
+
 echo "TESTING: restart worker (test/fdns/restart-worker.exp)"
 ./restart-worker.exp
 
