@@ -10,7 +10,7 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 1
 
-send -- "fdns --fallback-only\r"
+send -- "fdns --fallback-only --debug --resolvers=1\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"
@@ -21,6 +21,26 @@ expect {
 }
 sleep 1
 
+spawn $env(SHELL)
+send -- "firejail --dns=127.1.1.1 ping -c 3 gentoo.org\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"icmp_seq=1"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"icmp_seq=2"
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"icmp_seq=3"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"3 received"
+}
+
+sleep 1
 spawn $env(SHELL)
 send -- "firejail --dns=127.1.1.1 ping -c 3 assets.gentoo.org\r"
 expect {
