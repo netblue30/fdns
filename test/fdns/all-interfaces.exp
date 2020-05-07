@@ -10,40 +10,41 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 1
 
-send -- "fdns --help\r"
+send -- "fdns --proxy-addr-any --debug\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
-	"fdns - DNS over HTTPS proxy server"
+	"fdns starting"
 }
-after 100
+expect {
+	timeout {puts "TESTING ERROR 0.1\n";exit}
+	"listening on all available interfaces"
+}
+expect {
+	timeout {puts "TESTING ERROR 0.2\n";exit}
+	"SSL connection opened"
+}
+sleep 1
 
-send -- "fdns -?\r"
+spawn $env(SHELL)
+send -- "firejail --dns=127.0.0.1 ping -c 3 google.com\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"fdns - DNS over HTTPS proxy server"
+	"icmp_seq=1"
 }
-after 100
-
-send -- "fdns --version\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"fdns version"
+	"icmp_seq=2"
 }
-after 100
-
-send -- "rm -f tmp\r"
-after 100
-send -- "man fdns > tmp\r"
-after 100
-send -- "cat tmp\r"
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
-	"fdns - Firejail DNS over HTTPS proxy"
+	"icmp_seq=3"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"3 received"
 }
 after 100
-send -- "rm -f tmp"
 send -- "pkill fdns\r"
 
 after 100
 puts "\nall done\n"
-

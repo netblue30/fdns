@@ -43,6 +43,9 @@ echo "TESTING: test-url-list (test/fdns/test-url-list.exp)"
 echo "TESTING: test-servers=anycast (test/fdns/test-servers-anycast.exp)"
 ./test-servers-anycast.exp
 
+echo "TESTING: test-servers (test/fdns/test-servers.exp)"
+./test-servers.exp
+
 echo "TESTING: monitor (test/fdns/monitor.exp)"
 ./monitor.exp
 

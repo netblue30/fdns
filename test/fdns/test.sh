@@ -27,6 +27,9 @@ echo "TESTING: invalid server (test/fdns/invalid-server.exp)"
 echo "TESTING: default ping (test/fdns/default-ping.exp)"
 ./default-ping.exp
 
+echo "TESTING: all interfaces (test/fdns/all-interfaces.exp)"
+./all-interfaces.exp
+
 echo "TESTING: default nslookup (test/fdns/default-nslookup.exp)"
 ./default-nslookup.exp
 
