@@ -96,13 +96,21 @@ void shmem_store_stats(const char *proxy_addr) {
 			break;
 	char *encstatus = (i == arg_resolvers) ? "ENCRYPTED" : "NOT ENCRYPTED";
 
-	snprintf(report->header1, MAX_ENTRY_LEN,
-		 "%s %s %s (SSL %.02lf ms, fallback %u)",
-		 proxy_addr,
-		 srv->name,
-		 encstatus,
-		 stats.ssl_pkts_timetrace,
-		 stats.fallback);
+	if (arg_fallback_only)
+		snprintf(report->header1, MAX_ENTRY_LEN,
+			 "%s %s %s",
+			 proxy_addr,
+			 FALLBACK_SERVER,
+			 encstatus);
+
+	else
+		snprintf(report->header1, MAX_ENTRY_LEN,
+			 "%s %s %s (SSL %.02lf ms, fallback %u)",
+			 proxy_addr,
+			 srv->name,
+			 encstatus,
+			 stats.ssl_pkts_timetrace,
+			 stats.fallback);
 	snprintf(report->header2, MAX_ENTRY_LEN,
 		 "requests %u, drop %u, cache %u, fwd %u",
 		 stats.rx,
@@ -110,6 +118,7 @@ void shmem_store_stats(const char *proxy_addr) {
 		 stats.cached,
 		 stats.fwd);
 
+	fflush(0);
 	report->seq++;
 }
 

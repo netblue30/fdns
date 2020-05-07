@@ -85,6 +85,7 @@ static inline int check_addr_port(const char *str) {
 #define RESOLVERS_CNT_DEFAULT 3
 #define UNIX_ADDRESS "fdns"	// internal UNIX socket address for communication between frontend and resolvers
 #define DEFAULT_PROXY_ADDR "127.1.1.1"
+#define FALLBACK_SERVER "9.9.9.9"
 
 // filesystem paths
 #define PATH_FDNS (PREFIX "/bin/fdns")
@@ -193,6 +194,7 @@ extern char *arg_zone;
 extern int arg_cache_ttl;
 extern int arg_allow_local_doh;
 extern char *arg_whitelist_file;
+extern int arg_fallback_only;
 extern Stats stats;
 
 // dnsdb.c

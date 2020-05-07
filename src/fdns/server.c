@@ -245,6 +245,9 @@ static void load_list(void) {
 }
 // return 0 if ok, 1 if failed
 int test_server(const char *server_name)  {
+	if (arg_fallback_only)
+		return 0;
+
 	// initialize server structure
 	arg_server = strdup(server_name);
 	if (!arg_server)
@@ -414,6 +417,7 @@ DnsServer *server_get(void) {
 		exit(1);
 	}
 
+
 	// update arg_server
 	if (arg_server == NULL) {
 		assert(fdns_zone);
@@ -421,9 +425,14 @@ DnsServer *server_get(void) {
 		if (!arg_server)
 			errExit("strdup");
 	} // arg_server is in mallocated memory
+	if (arg_fallback_only) {
+		scurrent = slist;
+		return scurrent;
+	}
 
 	// initialize s->active
 	server_list(arg_server);
+
 
 	// count the servers
 	int cnt = 0;

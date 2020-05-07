@@ -125,6 +125,9 @@ void ssl_open(void) {
 	DnsServer *srv = server_get();
 	assert(srv);
 
+	if (arg_fallback_only)
+		return;
+
 	if (ctx == NULL) {
 		ctx = SSL_CTX_new(TLS_client_method());
 		char *certfile = get_cert_file();
