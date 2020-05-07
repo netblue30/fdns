@@ -60,7 +60,7 @@ void resolver(void) {
 
 	// Remote dns server fallback server
 	struct sockaddr_in addr_fallback;
-	int sremote = net_remote_dns_socket(&addr_fallback, "9.9.9.9");
+	int sremote = net_remote_dns_socket(&addr_fallback, FALLBACK_SERVER);
 	socklen_t addr_fallback_len = sizeof(addr_fallback);
 
 	// initialize database - we use this database for the fallback server
@@ -126,8 +126,10 @@ void resolver(void) {
 			if (ts - timestamp > OUT_OF_SLEEP) {
 				rlogprintf("Suspend detected, restarting SSL connection\n");
 				cache_init();
-				ssl_close();
-				ssl_open();
+				if (!arg_fallback_only) {
+					ssl_close();
+					ssl_open();
+				}
 			}
 			timestamp = ts;
 			query_second = 0;

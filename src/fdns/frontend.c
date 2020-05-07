@@ -105,6 +105,8 @@ static int sandbox(void *sandbox_arg) {
 			errExit("asprintf");
 		a[last++] = cmd;
 	}
+	if (arg_fallback_only)
+		a[last++] = "--fallback-only";
 	if (arg_certfile) {
 		char *cmd;
 		if (asprintf(&cmd, "--certfile=%s", arg_certfile) == -1)

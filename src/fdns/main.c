@@ -36,6 +36,7 @@ char *arg_zone = NULL;
 int arg_cache_ttl = CACHE_TTL_DEFAULT;
 int arg_allow_local_doh = 0;
 char *arg_whitelist_file = NULL;
+int arg_fallback_only = 0;
 
 Stats stats;
 
@@ -55,6 +56,9 @@ static void usage(void) {
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
 	printf("    --debug - print debug messages.\n");
+#ifdef HAVE_GCOV
+	printf("    --fallback-only - operate strictly in fallback mode.\n");
+#endif
 	printf("    --forwarder=domain@address - conditional forwarding to a different DNS\n"
 	        "\tserver.\n");
 	printf("    --help, -?, -h - show this help screen.\n");
@@ -138,6 +142,10 @@ int main(int argc, char **argv) {
 				;
 
 			// options
+#ifdef HAVE_GCOV
+			else if (strcmp(argv[i], "--fallback-only") == 0)
+				arg_fallback_only = 1;
+#endif
 			else if (strncmp(argv[i], "--cache-ttl=", 12) == 0) {
 				arg_cache_ttl = atoi(argv[i] + 12);
 				if (arg_cache_ttl < CACHE_TTL_MIN || arg_cache_ttl > CACHE_TTL_MAX) {
@@ -272,8 +280,10 @@ int main(int argc, char **argv) {
 	}
 	else {
 		logprintf("fdns starting\n");
-		logprintf("connecting to %s server\n", s->name);
-		logprintf("\t%s\n", s->tags);
+		if (!arg_fallback_only) {
+			logprintf("connecting to %s server\n", s->name);
+			logprintf("\t%s\n", s->tags);
+		}
 		frontend();
 	}
 

@@ -37,6 +37,10 @@ sudo test/fdns/whitelist-file.exp
 generate
 sleep 2
 
+sudo test/fdns/fallback.exp
+generate
+sleep 2
+
 make test
 generate
 sleep 2
