@@ -280,6 +280,30 @@ $ sudo fdns --whitelist=gentoo.org \\
       --whitelist=security.gentoo.org \\
       --whitelist=wiki.gentoo.org
 .TP
+\fB\-\-whitelist-file=file-name
+Similar to \-\-whitelist above, it gets the domains from a file. If running under AppArmor, put the file under /etc/fdns directory.
+This is the only directory allowed by our AppArmor profile.
+.br
+
+.br
+Example:
+.br
+$ cat /etc/fdns/whitelist-gentoo
+.br
+# whitelist file for gentoo.org
+.br
+gentoo.org
+.br
+assets.gentoo.org
+.br
+security.gentoo.org
+.br
+wiki.gentoo.org
+.br
+
+.br
+$ sudo fdns --whitelist-file=/etc/fdns/whitelist-gentoo
+.TP
 \fB\-\-zone=zone-name
 Set a different geographical zone.
 The zones defined so far are Americas-East, Americas-West, Asia-Pacific and Europe.
