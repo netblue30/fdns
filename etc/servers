@@ -175,6 +175,15 @@ keepalive: 7
 #host: doh-jp.blahdns.com/dns-query
 #sni: yes
 #keepalive: 4
+#
+#name: blahdns-sg
+#website: https://blahdns.com
+#zone: Asia-Pacific
+#tags: Singapore, Asia-Pacific, adblocker
+#address: 139.180.141.57:443
+#host: doh-sg.blahdns.com/dns-query
+#sni: yes
+#keepalive: 4
 
 name: bortzmeyer
 website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
@@ -272,6 +281,25 @@ address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
 keepalive: 180
 
+name: cloudflare-security
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 1.0.0.2:443
+host: security.cloudflare-dns.com/dns-query
+sni: yes
+keepalive: 180
+
+name: cloudflare-family
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: family, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 1.0.0.3:443
+host: family.cloudflare-dns.com/dns-query
+sni: yes
+keepalive: 180
+
+
 # uncensored server redirected to cloudflare
 name: containerpi
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
@@ -340,8 +368,8 @@ keepalive: 30
 
 name: dnslify
 website: https://www.dnslify.com/
-zone: Americas-East, Americas-West, Europe
-tags: Americas, Americas-East, Americas-West, Europe
+zone: Asia-Pacific, Americas-East, Americas-West, Asia-Pacific, Europe
+tags: Americas, Americas-East, Americas-West, Asia-Pacific, Europe, Netherlands, Germany, UK, US, Singapore
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 7
@@ -596,24 +624,6 @@ address: 139.99.222.72:443
 host: doh-2.seby.io/dns-query
 keepalive: 7
 
-name: securedns
-website: https://securedns.eu/
-zone: Europe
-tags: Netherlands, Europe
-address: 146.185.167.43:443
-host: doh.securedns.eu/dns-query
-sni: yes
-keepalive: 7
-
-name: securedns-adblocker
-website: https://securedns.eu/
-zone: Europe
-tags: Netherlands, Europe, adblocker
-sni: yes
-address: 146.185.167.43:443
-host: ads-doh.securedns.eu/dns-query
-keepalive: 7
-
 name: snopyta
 website: https://snopyta.org
 zone: Europe
@@ -622,6 +632,22 @@ address: 95.216.229.153:443
 host: fi.doh.dns.snopyta.org/dns-query
 sni: yes
 keepalive: 30
+
+name: switch
+website: https://www.switch.ch/security/info/public-dns/
+zone: Europe
+tags: non-profit, Switzerland, Europe
+address: 130.59.31.248:443
+host: dns.switch.ch/dns-query
+keepalive: 7
+
+name: switch2
+website: https://www.switch.ch/security/info/public-dns/
+zone: Europe
+tags: non-profit, Switzerland, Europe
+address: 130.59.31.251:443
+host: dns.switch.ch/dns-query
+keepalive: 7
 
 # tiarapp servers: https://github.com/pengelana
 name: tiarapp-sg
