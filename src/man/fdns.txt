@@ -15,7 +15,7 @@ fdns --monitor
 .RE
 
 .SH DESCRIPTION
-FDNS is a DNS-over-HTTPS proxy server targeted at small networks and Linux desktops.
+FDNS is a DNS-over-HTTPS proxy server for small networks and Linux desktops.
 To speed up the name resolution the proxy caches the responses, and uses a configurable
 adblocker and privacy filter to cut down the unnecessary traffic.
 
@@ -338,6 +338,10 @@ $ firejail --dns=127.1.1.1 firefox
 .br
 $ firejail --dns=127.1.1.1 transmission-qt
 .br
+.TP
+\fBStart the monitor:
+$ fdns --monitor
+.br
 .br
 .SH Setup FDNS as a network server
 Install FDNS and set "nameserver 127.0.0.1" in /etc/resolv.conf. Start fdns using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface. The default 127.1.1.1 is not used in this case.
@@ -358,6 +362,61 @@ $ sudo fdns --proxy-addr=192.168.1.44 --daemonize
 .RE
 When using --daemonize, errors and warnings are posted to syslog.
 
+.SH Running multiple FDNS proxies on the same computer
+On your computer, start a proxy for the all the kids on your network, and make the proxy available
+on interface eth0 on your computer at address 192.168.1.44:
+.PP
+.RS
+$ sudo fdns --proxy-addr=192.168.1.44 --server=family --daemonize
+.br
+
+.br
+.RE
+Start a regular proxy for yourself:
+.PP
+.RS
+$ sudo fdns --server=security --daemonize
+.br
+
+.br
+.RE
+Check the proxies status:
+.PP
+.RS
+$ fdns --proxies
+.br
+pid 11890, address 192.168.1.44
+.br
+pid 12062, address 127.1.1.1 (default)
+.br
+
+.br
+.RE
+Monitor kids proxy:
+.PP
+.RS
+$ fdns --monitor=192.168.1.44
+.br
+
+.br
+.RE
+Monitor your proxy:
+.PP
+.RS
+$ fdns --monitor
+.br
+
+.br
+.RE
+Use the PID number from "fdns --proxies" to shutdown one proxy or another:
+.PP
+.RS
+$ sudo kill -9 11890
+.br
+
+.br
+.RE
+In about 30 seconds all processes associated with this specific proxy will exit.
 .SH FAQ
 
 .TP
@@ -376,7 +435,7 @@ exit 0
 .br
 
 .br
-For systemd users, we place a fdns.service file in /etc/fdns directory.
+For systemd users, we have a fdns.service file in /etc/fdns directory.
 
 .TP
 \fBHow do I configure Firejail to send all the DNS traffic to fdns by default?
@@ -402,7 +461,17 @@ $ sudo fdns | tee dnslist.txt
 
 .TP
 \fBHow do I check fdns is running in the background?
-Run ss and look for sockets open on port 53:
+Use "--proxies" command to list all FDNS proxies running on your computer:
+.br
+
+.br
+$ fdns --proxies
+.br
+pid 12062, address 127.1.1.1 (default)
+.br
+
+.br
+Or run ss and look for sockets open on port 53:
 .br
 
 .br
