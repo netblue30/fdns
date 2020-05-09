@@ -20,20 +20,26 @@
 /*
 Simple tool to extract the server list for wordpress site
 
+Add to anycast list:
 <li><a href="https://www.cira.ca/cybersecurity-services/canadianshield/how-works">cira-family</a> (family, Canada)<br />
 family.canadianshield.cira.ca/dns-query (149.112.121.30)</li>
 <li><a href="https://www.cira.ca/cybersecurity-services/canadianshield/how-works">cira-family2</a> (family, Canada)<br />
 family.canadianshield.cira.ca/dns-query (149.112.122.30)</li>
 
+Add to Asia-Pacific
 <li><a href="https://blahdns.com">blahdns-jp</a> (Japan, adblocker)<br />
 doh-jp.blahdns.com/dns-query (45.32.55.94)</li>
+<li><a href="https://blahdns.com">blahdns-sg</a> (Singapore, adblocker)<br />
+doh-sg.blahdns.com/dns-query (139.180.141.57)</li>
 
+Add to Europe
 <li><a href="https://blahdns.com">blahdns-de</a> (Germany, adblocker)<br />
 doh-de.blahdns.com/dns-query (159.69.198.101)</li>
 <li><a href="https://blahdns.com">blahdns-fi</a> (Finland, adblocker)<br />
 doh-fi.blahdns.com/dns-query (95.216.212.177)</li>
 
-Remove Luxembourg from nixnet Americas
+Remove Luxembourg from nixnet/nixnet-adblocker Americas
+clean up dnslify: Netherlands, Germany, UK, NY, Califronia, Singapore
 
 */
 
@@ -230,7 +236,7 @@ static void load_list(void) {
 			break;
 
 		// push it to the end of the list
-		if (strstr(s->tags, "anycast")) {
+		if (strstr(s->tags, "anycast") || strstr(s->name, "cloudflare")) {
 			*ptr_anycast = s;
 			ptr_anycast = &s->next;
 		}
@@ -329,34 +335,57 @@ void print_server(DnsServer *ptr) {
 	printf("%s (%s)</li>\n", ptr->host, ptr->address);
 }
 
+void print_start(void) {
+	printf("\n<table><tr>\n");
+}
+void print_end(void) {
+	printf("</tr></table>\n\n\n");
+}
+
+
 void print_list(void) {
-	printf("\n\n*** Anycast ***\n");
+	// anycast table
+	printf("\n<table><tr><td><ul>\n");
 	DnsServer *ptr = slist_anycast;
 	while (ptr) {
 		print_server(ptr);
 		ptr = ptr->next;
 	}
+	printf("</ul></td></tr></table>\n\n\n");
 
-	printf("\n\n*** Americas ***\n");
+
+	printf("<table><tr>\n");
+	// Americas
+	printf("<td><p style=\"text-align:center;\"><b>Americas</b></p><ul>\n");
 	ptr = slist_americas;
 	while (ptr) {
 		print_server(ptr);
 		ptr = ptr->next;
 	}
+	printf("</ul>\n");
 
-	printf("\n\n*** Asia-Pacific ***\n");
+	// Asia-Pacific
+	printf("<p style=\"text-align:center;\"><b>Asia-Pacific</b></p><ul>\n");
 	ptr = slist_asiapac;
 	while (ptr) {
 		print_server(ptr);
 		ptr = ptr->next;
 	}
+	printf("</ul>\n");
 
-	printf("\n\n*** Europe ***\n");
+
+	// Europe
+	printf("<p style=\"text-align:center;\"><b>Europe, Middle-East, Africa</b></p><ul>\n");
 	ptr = slist_europe;
+	int i = 0;
 	while (ptr) {
+		if (i == 5)
+			printf("</ul></td><td><p style=\"text-align:center;\"><b>Europe, Middle-East, Africa (cont.)</b></p><ul>\n");
 		print_server(ptr);
 		ptr = ptr->next;
+		i++;
 	}
+	printf("</ul></td></tr></table>\n\n\n");
 }
 
 int main(void) {

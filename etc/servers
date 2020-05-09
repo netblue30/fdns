@@ -61,7 +61,7 @@ keepalive: 7
 #name: aaflalo-adblocker
 #website: https://www.aaflalo.me
 #zone: Americas-East
-#tags: US, Americas, Americas-East, adblocker
+#tags: NY, Americas, Americas-East, adblocker
 #address: 168.235.81.167:443
 #host: dns-nyc.aaflalo.me/dns-query
 #keepalive: 30
@@ -117,7 +117,7 @@ keepalive: 7
 name: alekberg2
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Americas-West
-tags: US, Americas, Americas-West
+tags: Washington, Americas, Americas-West
 address: 104.168.247.138:443
 host: dns2.alekberg.net/dns-query
 keepalive: 7
@@ -125,7 +125,7 @@ keepalive: 7
 name: alekberg-adblocker2
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Americas-West
-tags: US, Americas, Americas-West, adblocker
+tags: Washington, Americas, Americas-West, adblocker
 address: 104.168.247.138:443
 host: dns2.alekberg.net/noads
 keepalive: 7
@@ -204,7 +204,7 @@ keepalive: 30
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas-East
-tags: non-profit, Canada, Americas, Americas-East
+tags: non-profit, Ontario, Americas, Americas-East
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -212,7 +212,7 @@ keepalive: 7
 name: cira2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas-East
-tags: non-profit, Canada, Americas, Americas-East
+tags: non-profit, Ontario, Americas, Americas-East
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -220,7 +220,7 @@ keepalive: 7
 name: cira-security
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas-East
-tags: non-profit, security, Canada, Americas, Americas-East
+tags: non-profit, security, Ontario, Americas, Americas-East
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -228,7 +228,7 @@ keepalive: 7
 name: cira-security2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas-East
-tags: non-profit, security, Canada, Americas, Americas-East
+tags: non-profit, security, Ontario, Americas, Americas-East
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -353,7 +353,7 @@ keepalive: 30
 name: dnscrypt-ca
 website: https://dnscrypt.ca/
 zone: Americas-East
-tags: Canada, Americas, Americas-East
+tags: Quebec, Americas, Americas-East
 address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
 keepalive: 30
@@ -361,7 +361,7 @@ keepalive: 30
 name: dnscrypt-ca2
 website: https://dnscrypt.ca/
 zone: Americas-East
-tags: Canada, Americas, Americas-East
+tags: Quebec, Americas, Americas-East
 address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
 keepalive: 30
@@ -369,7 +369,7 @@ keepalive: 30
 name: dnslify
 website: https://www.dnslify.com/
 zone: Asia-Pacific, Americas-East, Americas-West, Asia-Pacific, Europe
-tags: Americas, Americas-East, Americas-West, Asia-Pacific, Europe, Netherlands, Germany, UK, US, Singapore
+tags: Americas, Americas-East, Americas-West, Asia-Pacific, Europe, Netherlands, Germany, UK, NY, Califronia, Singapore
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 7
@@ -457,7 +457,7 @@ keepalive: 7
 name: ibuki
 website: https://ibuki.cgnat.net/
 zone: Americas-West
-tags: US, Americas, Americas-West
+tags: California, Americas, Americas-West
 address: 35.198.2.76:443
 host: ibuki.cgnat.net/dns-query
 keepalive: 7
@@ -505,7 +505,7 @@ keepalive: 30
 name: nixnet
 website: https://nixnet.services/dns/
 zone: Americas-East, Americas-West, Europe
-tags: US, Americas, Americas-East, Americas-West, Luxembourg, Europe
+tags: LasVegas, NY, Americas, Americas-East, Americas-West, Luxembourg, Europe
 address: 198.251.90.114:443
 host: uncensored.any.dns.nixnet.xyz/dns-query
 keepalive: 30
@@ -513,7 +513,7 @@ keepalive: 30
 name: nixnet-adblocker
 website: https://nixnet.services/dns/
 zone: Americas-East, Americas-West, Europe
-tags: US, Americas, Americas-East, Americas-West, Luxembourg, Europe, adblocker
+tags: LasVegas, NY, Americas, Americas-East, Americas-West, Luxembourg, Europe, adblocker
 address: 198.251.90.89:443
 host: adblock.any.dns.nixnet.xyz/dns-query
 keepalive: 30
@@ -530,7 +530,7 @@ keepalive: 30
 name: pi-dns
 website: https://pi-dns.com
 zone: Americas-East
-tags: US, Americas, Americas-East, adblocker
+tags: NY, Americas, Americas-East, adblocker
 address: 185.213.26.187:443
 host: doh.eastus.pi-dns.com/dns-query
 keepalive: 30
@@ -538,7 +538,7 @@ keepalive: 30
 name: pi-dns2
 website: https://pi-dns.com
 zone: Americas-West
-tags: US, Americas, Americas-West, adblocker
+tags: California, Americas, Americas-West, adblocker
 address: 45.67.219.208:443
 host: doh.westus.pi-dns.com/dns-query
 keepalive: 30
@@ -661,7 +661,7 @@ keepalive: 30
 name: tiarapp-us
 website: https://doh.tiarap.org
 zone: Americas-East
-tags: US, Americas, Americas-East, adblocker
+tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.44.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
@@ -670,7 +670,7 @@ keepalive: 30
 name: tiarapp-us2
 website: https://doh.tiarap.org
 zone: Americas-East
-tags: US, Americas, Americas-East, adblocker
+tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.45.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
