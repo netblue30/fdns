@@ -19,7 +19,7 @@
 #include "fdns.h"
 #include <errno.h>
 
-Forwarder *fwd = NULL;
+Forwarder *fwd_list = NULL;
 Forwarder *fwd_active = NULL;
 
 void forwarder_set(const char *str) {
@@ -59,8 +59,8 @@ void forwarder_set(const char *str) {
 		fflush(0);
 	}
 
-	f->next = fwd;
-	fwd = f;
+	f->next = fwd_list;
+	fwd_list = f;
 #ifdef HAVE_GCOV
 	__gcov_flush();
 #endif
@@ -72,10 +72,10 @@ int forwarder_check(const char *domain, unsigned len) {
 	assert(domain);
 	assert(len != 0);
 	fwd_active = NULL;
-	if (fwd == NULL)
+	if (fwd_list == NULL)
 		return 0;
 
-	Forwarder *f = fwd;
+	Forwarder *f = fwd_list;
 
 	while (f) {
 		if (len < f->name_len) {

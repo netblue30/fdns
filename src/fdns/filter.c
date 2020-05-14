@@ -302,23 +302,23 @@ void filter_load_all_lists(void) {
 }
 
 #define MAX_DOMAINS 64
-static const char *domain[MAX_DOMAINS];
+static const char *domains[MAX_DOMAINS];
 static int extract_domains(const char *ptr) {
 	assert(ptr);
 
-	domain[0] = ptr;
+	domains[0] = ptr;
 	int i = 1;
 
 	while (*ptr) {
 		if (*ptr == '.') {
-			domain[i] = ptr + 1;
+			domains[i] = ptr + 1;
 			if (++i >= MAX_DOMAINS)
 				return i - 1;
 		}
 		ptr++;
 	}
 
-	domain[i] = NULL;
+	domains[i] = NULL;
 	return i - 1;
 }
 
@@ -370,7 +370,7 @@ const char *filter_blocked(const char *str, int verbose) {
 
 	int cnt = extract_domains(str);
 	for (i = cnt; i >= 0; i--) {
-		HashEntry *ptr = filter_search(domain[i]);
+		HashEntry *ptr = filter_search(domains[i]);
 		if (ptr) {
 			if (verbose)
 				printf("URL %s dropped by \"%s\" rule as a %s\n", str, ptr->name, label2str(ptr->label));

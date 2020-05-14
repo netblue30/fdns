@@ -134,7 +134,7 @@ static int sandbox(void *sandbox_arg) {
 	}
 
 
-	Forwarder *f = fwd;
+	Forwarder *f = fwd_list;
 	while (f) {
 		char *cmd;
 		if (asprintf(&cmd, "--forwarder=%s@%s", f->name, f->ip) == -1)
