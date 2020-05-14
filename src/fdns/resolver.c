@@ -93,7 +93,7 @@ void resolver(void) {
 		FD_SET(sremote, &fds);
 		int nfds = ((slocal > sremote) ? slocal : sremote);
 		// forwarding sockets
-		Forwarder *f = fwd;
+		Forwarder *f = fwd_list;
 		while (f) {
 			FD_SET(f->sock, &fds);
 			nfds = (f->sock > nfds) ? f->sock : nfds;
@@ -347,8 +347,8 @@ void resolver(void) {
 		//***********************************************
 		// data coming from a forwarding DNS server
 		//***********************************************
-		if (fwd) {
-			Forwarder *f = fwd;
+		if (fwd_list) {
+			Forwarder *f = fwd_list;
 			while (f) {
 				if (FD_ISSET(f->sock, &fds)) {
 					struct sockaddr_in remote;

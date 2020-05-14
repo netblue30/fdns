@@ -54,11 +54,12 @@ static inline int atoip(const char *str, uint32_t *ip) {
 // check ip:port
 // return -1 if error
 static inline int check_addr_port(const char *str) {
-	unsigned a, b, c, d, e;
+	unsigned a, b, c, d;
+	int e;
 
 	// extract ip
-	int rv = sscanf(str, "%u.%u.%u.%u:%u", &a, &b, &c, &d, &e);
-	if (rv != 5 || a > 255 || b > 255 || c > 255 || d > 255 || e > 0xffffffff)
+	int rv = sscanf(str, "%u.%u.%u.%u:%d", &a, &b, &c, &d, &e);
+	if (rv != 5 || a > 255 || b > 255 || c > 255 || d > 255 || e < 0 || e > 0xffffffff)
 		return -1;
 	return 0;
 }
@@ -316,7 +317,7 @@ typedef struct forward_zone_t {
 	socklen_t slen;
 } Forwarder;
 
-extern Forwarder *fwd;
+extern Forwarder *fwd_list;
 extern Forwarder *fwd_active;
 void forwarder_set(const char *str);
 int forwarder_check(const char *domain, unsigned len);
