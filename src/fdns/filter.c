@@ -218,7 +218,6 @@ static HashEntry *filter_search(const char *domain) {
 	return NULL; // not found
 }
 
-
 static void filter_load_list(char label, const char *fname) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
