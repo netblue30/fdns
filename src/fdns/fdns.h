@@ -59,7 +59,7 @@ static inline int check_addr_port(const char *str) {
 
 	// extract ip
 	int rv = sscanf(str, "%u.%u.%u.%u:%d", &a, &b, &c, &d, &e);
-	if (rv != 5 || a > 255 || b > 255 || c > 255 || d > 255 || e < 0 || e > 0xffffffff)
+	if (rv != 5 || a > 255 || b > 255 || c > 255 || d > 255 || e < 0 || e > 0xffff)
 		return -1;
 	return 0;
 }
