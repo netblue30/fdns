@@ -24,7 +24,7 @@ expect {
 	timeout {puts "TESTING ERROR 0.1\n";exit}
 	"SSL connection opened"
 }
-sleep 1
+sleep 3
 
 spawn $env(SHELL)
 send -- "firejail --dns=127.1.1.1 ping -c 3 assets.gentoo.org\r"
