@@ -414,22 +414,6 @@ address: 46.239.223.80:443
 host: dns.flatuslifir.is/dns-query
 keepalive: 30
 
-name: gridth-jp
-website: https://grid.in.th/projects/gridns/
-zone: Asia-Pacific
-tags: Japan, Asia-Pacific
-address: 172.105.241.93:443
-host: jp.gridns.xyz/dns-query
-keepalive: 30
-
-name: gridth-sg
-website: https://grid.in.th/projects/gridns/
-zone: Asia-Pacific
-tags: Singapore, Asia-Pacific
-address: 139.162.3.123:443
-host: sg.gridns.xyz/dns-query
-keepalive: 30
-
 name: hostux
 website: https://hostux.network/en/index.html
 zone: Europe
@@ -450,7 +434,7 @@ name: ibksturm
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Europe
 tags: Switzerland, Europe, OpenNIC
-address: 83.77.85.7:443
+address: 85.5.93.230:443
 host: ibksturm.synology.me/dns-query
 keepalive: 7
 
@@ -555,8 +539,8 @@ name: pi-dns4
 website: https://pi-dns.com
 zone: Europe
 tags: Germany, Europe, adblocker
-address: 31.220.42.65:443
-host: doh.westeu.pi-dns.com/dns-query
+address: 88.198.91.187:443
+host: doh.centraleu.pi-dns.com/dns-query
 keepalive: 30
 
 name: powerdns
