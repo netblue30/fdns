@@ -1,3 +1,14 @@
+fdns (0.9.62.6) baseline; urgency=low
+  * gcov regression test coverage support
+  * lgtm.com security scanning
+  * whitelisting domains functionality (--whitelist, --whitelist-file)
+  * resizable monitor terminal window
+  * support for multiple fdns proxies running on the same system
+  * enforcing NXDOMAIN for blaclisted domains
+  * server list update
+  * lots of bugfixes
+ -- netblue30 <netblue30@yahoo.com>  Sat, 16 May 2020 08:00:00 -0500
+
 fdns (0.9.62.4) baseline; urgency=low
   * rate limiting resolvers to 5 queries per second
   * CNAME cloaking filter
