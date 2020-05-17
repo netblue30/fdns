@@ -17,8 +17,10 @@ FDNS is written in C and licensed under GPLv3. The number one job is privacy. We
 <li>Blocking IPv6 queries by default to reduce the DNS traffic on IPv4 networks.</li>
 <li>Anti-tunneling technology: by default only A and AAAA queries are forwarded.</li>
 <li>Conditional DNS forwarding support.</li>
+<li>Whitelisting mode.</li>
 <li>Regular DNS over UDP fallback in case the DoH service becomes unavailable.</li>
 <li>Live DNS request monitoring and statistics.</li>
+<li>Multiproxy support.</li>
 <li>Scalable multi-process design with a frontend process and several independent resolver processes. Security technologies: chroot, seccomp, Linux namespaces, and AppArmor.</li>
 <li>Seamless integration with <a href="https://firejail.wordpress.com">Firejail security sandbox</a>.</li>
 </ul>
@@ -41,10 +43,7 @@ FDNS is a community project. We are not affiliated with any company, and we donâ
 
 ## Project Status
 
-Release `0.9.62.4` is out.
-
-The current development version is `0.9.63`.
-
+Release `0.9.62.6` is out.
 
 <div style="height:20px;">&nbsp;</div>
 

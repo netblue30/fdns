@@ -4,7 +4,7 @@ fdns (0.9.62.6) baseline; urgency=low
   * whitelisting domains functionality (--whitelist, --whitelist-file)
   * resizable monitor terminal window
   * support for multiple fdns proxies running on the same system
-  * enforcing NXDOMAIN for blaclisted domains
+  * enforcing NXDOMAIN for blacklisted domains
   * server list update
   * lots of bugfixes
  -- netblue30 <netblue30@yahoo.com>  Sat, 16 May 2020 08:00:00 -0500
