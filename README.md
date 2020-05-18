@@ -12,7 +12,7 @@ FDNS is written in C and licensed under GPLv3. The number one job is privacy. We
 <li>Works out of the box with little or no configuration changes.</li>
 <li>Network of 60+ non-logging DoH service providers spread around the globe. The servers are organized in several categories using a simple geographically-aware tagging system.</li>
 <li>Access to specialized DoH services such as family filtering, adblocking, security, OpenNIC.</li>
-<li>DNS resolver cache with a fixed TTL (default 15 minutes).</li>
+<li>DNS resolver cache with a fixed TTL (default 40 minutes).</li>
 <li>Blocking ads, first and third-party trackers, coinminers, etc. The filters are configurable, the user can add his own hosts filter.</li>
 <li>Blocking IPv6 queries by default to reduce the DNS traffic on IPv4 networks.</li>
 <li>Anti-tunneling technology: by default only A and AAAA queries are forwarded.</li>
