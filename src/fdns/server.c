@@ -158,6 +158,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				errExit("strdup");
 			found = 1;
 
+
 			// build the DNS/HTTP request
 			char *str = strchr(s->host, '/');
 			if (!str) {
@@ -165,9 +166,10 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				fprintf(stderr, "Error: file %s, line %d, invalid host\n", fname, *linecnt);
 				exit(1);
 			}
+			s->path = strdup(str);
+			if (!s->path)
+				errExit("strdup");
 			*str++ = '\0';
-			if (asprintf(&s->request, "POST /%s HTTP/1.1\r\nHost: %s\r\n%s", str, s->host, push_request_tail) == -1)
-				errExit("asprintf");
 		}
 		else if (strncmp(buf, "sni: ", 5) == 0) {
 			if (s->sni)
@@ -190,7 +192,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 
 			// check server data
-			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host || !s->request) {
+			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
 				exit(1);
 			}
@@ -276,11 +278,11 @@ int test_server(const char *server_name)  {
 		fflush(0);
 
 		timetrace_start();
-		dns_keepalive();
-		dns_keepalive();
-		dns_keepalive();
-		dns_keepalive();
-		dns_keepalive();
+		h2_send_exampledotcom();
+		h2_send_exampledotcom();
+		h2_send_exampledotcom();
+		h2_send_exampledotcom();
+		h2_send_exampledotcom();
 		ms = timetrace_end();
 
 		if (ssl_state == SSL_CLOSED) {
