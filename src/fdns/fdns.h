@@ -131,7 +131,8 @@ typedef struct dnsserver_t {
 	char *zone;		// geographical zone
 	char *tags;	// description
 	char *address;	// IP address
-	char *host;		// POST request first line
+	char *host;		// authority in http2
+	char *path;
 	char *request;	// full POST request
 	int sni;		// 1 or 0
 	int keepalive;	// keepalive in seconds

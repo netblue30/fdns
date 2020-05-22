@@ -144,6 +144,8 @@ void ssl_open(void) {
 			}
 		}
 	}
+	// inform the server we are using http2
+	SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
 
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
@@ -171,6 +173,9 @@ void ssl_open(void) {
 
 	ssl_state = SSL_OPEN;
 	rlogprintf("SSL connection opened\n");
+
+	h2_init();
+	h2_connect();
 }
 
 void ssl_close(void) {
@@ -185,6 +190,72 @@ void ssl_close(void) {
 	ssl_state = SSL_CLOSED;
 	rlogprintf("SSL connection closed\n");
 }
+
+int ssl_get_socket(void) {
+	return SSL_get_fd(ssl);
+}
+
+int ssl_tx(uint8_t *buf, int len) {
+	assert(buf);
+	assert(len);
+
+	if (ssl == NULL || ssl_state != SSL_OPEN)
+		return 0;
+
+	assert(bio);
+	assert(ctx);
+	assert(ssl);
+
+	if (arg_debug)
+		printf("(%d) *** SSL transaction ***\n", arg_id);
+
+	int lentx;
+	if((lentx = BIO_write(bio, buf, len)) <= 0) {
+		if(! BIO_should_retry(bio)) {
+			rlogprintf("Error: failed SSL write, retval %d\n", lentx);
+			goto errout;
+		}
+		if((lentx = BIO_write(bio, buf, len)) <= 0) {
+			rlogprintf("Error: failed SSL write, retval %d\n", lentx);\
+			goto errout;
+		}
+	}
+
+	if (arg_debug)
+		printf("(%d) SSL write %d/%d bytes\n", arg_id, len, lentx);
+	return lentx;
+errout:
+	ssl_close();
+	return 0;
+}
+
+int ssl_rx(uint8_t *buf) {
+	assert(buf);
+
+	int len = BIO_read(bio, buf, MAXBUF);
+	if(len <= 0) {
+		if(! BIO_should_retry(bio)) {
+			rlogprintf("Error: failed SSL read, retval %d\n", len);
+			goto errout;
+		}
+		len = BIO_read(bio, buf, MAXBUF);
+		if(len <= 0) {
+			rlogprintf("Error: failed SSL read, retval %d\n", len);
+			goto errout;
+		}
+	}
+	if (arg_debug)
+		printf("(%d) SSL read %d bytes\n", arg_id, len);
+	return len;
+errout:
+	ssl_close();
+	return 0;
+}
+
+
+
+
+
 
 // returns the length of the response,0 if failed
 int ssl_rxtx_dns(uint8_t *msg, int cnt) {
