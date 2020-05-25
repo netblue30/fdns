@@ -149,14 +149,14 @@ sni: yes
 keepalive: 7
 
 # very short keepalive, will work fine on Firefox!
-#name: blahdns-fi
-#website: https://blahdns.com
-#zone: Europe
-#tags: Finland, Europe, adblocker
-#address: 95.216.212.177:443
-#host: doh-fi.blahdns.com/dns-query
-#sni: yes
-#keepalive: 4
+name: blahdns-fi
+website: https://blahdns.com
+zone: Europe
+tags: Finland, Europe, adblocker
+address: 95.216.212.177:443
+host: doh-fi.blahdns.com/dns-query
+sni: yes
+keepalive: 4
 #
 #name: blahdns-de
 #website: https://blahdns.com
@@ -372,7 +372,7 @@ zone: Asia-Pacific, Americas-East, Americas-West, Asia-Pacific, Europe
 tags: Americas, Americas-East, Americas-West, Asia-Pacific, Europe, Netherlands, Germany, UK, NY, Califronia, Singapore
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
-keepalive: 7
+keepalive: 25
 
 name: faelix
 website: https://faelix.net/ref/dns/#privacy-dns

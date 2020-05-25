@@ -20,6 +20,7 @@
 #include <time.h>
 int arg_argc = 0;
 int arg_debug = 0;
+int arg_debug_h2 = 0;
 int arg_resolvers = RESOLVERS_CNT_DEFAULT;
 int arg_id = -1;
 int arg_fd = -1;
@@ -56,6 +57,7 @@ static void usage(void) {
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
 	printf("    --debug - print debug messages.\n");
+	printf("    --debug-h2 - print HTTP2 debug messages.\n");
 #ifdef HAVE_GCOV
 	printf("    --fallback-only - operate strictly in fallback mode.\n");
 #endif
@@ -113,6 +115,8 @@ int main(int argc, char **argv) {
 			}
 			else if (strcmp(argv[i], "--debug") == 0)
 				arg_debug = 1;
+			else if (strcmp(argv[i], "--debug-h2") == 0)
+				arg_debug_h2 = 1;
 		}
 	}
 
@@ -135,6 +139,8 @@ int main(int argc, char **argv) {
 
 			// already processed
 			else if (strcmp(argv[i], "--debug") == 0) // already processed
+				;
+			else if (strcmp(argv[i], "--debug-h2") == 0) // already processed
 				;
 			else if (strcmp(argv[i], "--daemonize") == 0)
 				;

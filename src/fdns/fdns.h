@@ -181,6 +181,7 @@ static inline void print_mem(unsigned char *msg, int len) {
 // main.c
 extern int arg_argc;
 extern int arg_debug;
+extern int arg_debug_h2;
 extern int arg_resolvers;
 extern int arg_id;
 extern int arg_fd;
@@ -217,8 +218,10 @@ extern SSLState ssl_state;
 void ssl_init(void);
 void ssl_open(void);
 void ssl_close(void);
-int ssl_rxtx_dns(uint8_t *msg, int cnt);
 int ssl_status_check(void);
+int ssl_rx(uint8_t *buf);
+int ssl_tx(uint8_t *buf, int len);
+int ssl_get_socket(void);
 
 // frontend.c
 extern int encrypted[RESOLVERS_CNT_MAX];
@@ -240,6 +243,7 @@ typedef enum {
 } DnsDestination;
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 void dns_keepalive(void);
+int dns_query(uint8_t *msg, int cnt);
 
 // filter.c
 void filter_init(void);
@@ -336,5 +340,16 @@ int whitelist_blocked(const char *domain);
 // procs.c
 void procs_add(void);
 void procs_list(void);
+
+// h2.c
+void h2_init(void);
+void h2_close(void);
+void h2_connect(void);
+void h2_send_exampledotcom(void);
+int h2_send_query(uint8_t *req, int cnt);
+void h2_send_ping(void);
+int h2_exchange(uint8_t *response);
+
+
 
 #endif

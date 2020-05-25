@@ -38,7 +38,6 @@ void resolver(void) {
 	// connect SSL/DNS server
 	ssl_init();
 	ssl_open();
-	dns_keepalive();
 
 	// start the local DNS server on 127.0.0.1 only
 	// in order to mitigate DDoS amplification attacks
@@ -158,8 +157,17 @@ void resolver(void) {
 
 			// ssl keepalive:
 			// if any incoming data, probably is the session going down - force a keepalive
-			if (ssl_status_check())
+			if (ssl_status_check()) {
+				h2_exchange(buf);
+#if 0
 				dns_keepalive_cnt = 0;
+				if (ssl_state == SSL_CLOSED) {
+					ssl_open();
+
+					ssl_reopen_cnt = SSL_REOPEN_TIMER;
+				}
+#endif
+			}
 			if (--dns_keepalive_cnt <= 0)  {
 				dns_keepalive();
 				dns_keepalive_cnt = srv->keepalive;
@@ -302,7 +310,7 @@ void resolver(void) {
 			int ssl_len;
 			timetrace_start();
 			if (ssl_state == SSL_OPEN)
-				ssl_len = ssl_rxtx_dns(buf, len);
+				ssl_len = dns_query(buf, len);
 
 			// a HTTP error from SSL, with no DNS data comming back
 			if (ssl_state == SSL_OPEN && ssl_len == 0)
