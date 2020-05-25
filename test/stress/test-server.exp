@@ -54,7 +54,8 @@ after 100
 spawn $env(SHELL)
 
 puts "	TESTING: starting proxy222\n"
-send -- "fdns --server=$argv --proxy-addr=127.2.2.2 2>&1\r"
+#send -- "fdns --server=$argv --proxy-addr=127.2.2.2 2>&1\r"
+send -- "fdns --server=blahdns-de --proxy-addr=127.2.2.2 2>&1\r"
 expect {
 	timeout {puts "TESTING ERROR 20\n";exit 1}
 	"Error:" {puts "TESTING ERROR 21\n";exit 1}
