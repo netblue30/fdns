@@ -106,29 +106,32 @@ address: 51.15.124.208:443
 host: dns.alekberg.net/
 keepalive: 7
 
-name: alekberg-adblocker
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-zone: Europe
-tags: Netherlands, Europe, adblocker
-address: 51.15.124.208:443
-host: dns.alekberg.net/noads
-keepalive: 7
+# server down
+#name: alekberg-adblocker
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+#zone: Europe
+#tags: Netherlands, Europe, adblocker
+#address: 51.15.124.208:443
+#host: dns.alekberg.net/noads
+#keepalive: 7
 
-name: alekberg2
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-zone: Americas-West
-tags: Washington, Americas, Americas-West
-address: 104.168.247.138:443
-host: dns2.alekberg.net/dns-query
-keepalive: 7
+# server down
+#name: alekberg2
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+#zone: Americas-West
+#tags: Washington, Americas, Americas-West
+#address: 104.168.247.138:443
+#host: dns2.alekberg.net/dns-query
+#keepalive: 7
 
-name: alekberg-adblocker2
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-zone: Americas-West
-tags: Washington, Americas, Americas-West, adblocker
-address: 104.168.247.138:443
-host: dns2.alekberg.net/noads
-keepalive: 7
+# server down
+#name: alekberg-adblocker2
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+#zone: Americas-West
+#tags: Washington, Americas, Americas-West, adblocker
+#address: 104.168.247.138:443
+#host: dns2.alekberg.net/noads
+#keepalive: 7
 
 # server down
 #name: alekberg3
@@ -148,7 +151,6 @@ host: doh.appliedprivacy.net/query
 sni: yes
 keepalive: 7
 
-# very short keepalive, will work fine on Firefox!
 name: blahdns-fi
 website: https://blahdns.com
 zone: Europe
@@ -156,8 +158,9 @@ tags: Finland, Europe, adblocker
 address: 95.216.212.177:443
 host: doh-fi.blahdns.com/dns-query
 sni: yes
-keepalive: 4
-#
+keepalive: 7
+
+# very short timeout; works fine on Firefox
 #name: blahdns-de
 #website: https://blahdns.com
 #zone: Europe
@@ -166,7 +169,8 @@ keepalive: 4
 #host: doh-de.blahdns.com/dns-query
 #sni: yes
 #keepalive: 4
-#
+
+# very short timeout; works fine on Firefox
 #name: blahdns-jp
 #website: https://blahdns.com
 #zone: Asia-Pacific
@@ -175,7 +179,8 @@ keepalive: 4
 #host: doh-jp.blahdns.com/dns-query
 #sni: yes
 #keepalive: 4
-#
+
+# very short timeout; works fine on Firefox
 #name: blahdns-sg
 #website: https://blahdns.com
 #zone: Asia-Pacific
@@ -285,6 +290,15 @@ name: cloudflare-security
 website: https://www.cloudflare.com
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 1.1.1.2:443
+host: security.cloudflare-dns.com/dns-query
+sni: yes
+keepalive: 180
+
+name: cloudflare-security2
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
 sni: yes
@@ -293,8 +307,17 @@ keepalive: 180
 name: cloudflare-family
 website: https://www.cloudflare.com
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: family, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+tags: family
 address: 1.0.0.3:443
+host: family.cloudflare-dns.com/dns-query
+sni: yes
+keepalive: 180
+
+name: cloudflare-family2
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: family
+address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
 sni: yes
 keepalive: 180
@@ -366,13 +389,21 @@ address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
 keepalive: 30
 
+name: dnsforge
+website: https://dnsforge.de
+zone: Europe
+tags: Germany, Europe, adblocker
+address: 176.9.93.198:443
+host: dnsforge.de/dns-query
+keepalive: 2
+
 name: dnslify
 website: https://www.dnslify.com/
 zone: Asia-Pacific, Americas-East, Americas-West, Asia-Pacific, Europe
 tags: Americas, Americas-East, Americas-West, Asia-Pacific, Europe, Netherlands, Germany, UK, NY, Califronia, Singapore
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
-keepalive: 25
+keepalive: 7
 
 name: faelix
 website: https://faelix.net/ref/dns/#privacy-dns
@@ -485,6 +516,15 @@ tags: Germany, Europe, OpenNIC, adblocker
 address: 116.203.115.192:443
 host: doh.libredns.gr/ads
 keepalive: 30
+
+# very short timeout; works fine on Firefox
+#name: meganerd
+#website: https://meganerd.nl/encrypted-dns-server
+#zone: Europe
+#tags: Netherlands, Europe
+#address: 209.250.241.25:443
+#host: jarjar.meganerd.nl/doh
+#keepalive: 3
 
 name: nixnet
 website: https://nixnet.services/dns/
