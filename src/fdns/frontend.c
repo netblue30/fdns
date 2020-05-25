@@ -95,6 +95,8 @@ static int sandbox(void *sandbox_arg) {
 	int last = 3;
 	if (arg_debug)
 		a[last++] = "--debug";
+	if (arg_debug_h2)
+		a[last++] = "--debug-h2";
 	if (arg_nofilter)
 		a[last++] = "--nofilter";
 	if (arg_ipv6)

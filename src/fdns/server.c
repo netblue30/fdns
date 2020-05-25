@@ -190,6 +190,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
 				exit(1);
 			}
+			s->keepalive = 25;
 
 			// check server data
 			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {

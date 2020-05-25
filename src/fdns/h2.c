@@ -7,11 +7,9 @@
 #include <assert.h>
 
 #include <hpack.h>
-#include "h2.h"
 #include "h2frame.h"
 #include "fdns.h"
 
-static void h2_exchange(void);
 static uint32_t stream_id;
 
 #define MAX_HEADER_FIELDS 64
@@ -71,10 +69,26 @@ void h2_init(void) {
 	hpd = hpack_decoder(4096, -1, hpack_default_alloc);
 }
 
+void h2_close(void) {
+	if (hpe != NULL) {
+		hpack_free(&hpe);
+		hpe = NULL;
+	}
+	if (hpd != NULL) {
+		hpack_free(&hpd);
+		hpd = NULL;
+	}
 
-// return length of encoded HTTP2 frame
-uint32_t h2_encode_header(uint8_t *frame) {
+}
+
+// encode a header frame
+// frame - http2 frame
+// return offset for the end of frame
+static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	assert(frame);
+
+	char slen[20];
+	sprintf(slen, "%d", len);
 
 	// extract server data
 	DnsServer *srv = server_get();
@@ -93,7 +107,7 @@ uint32_t h2_encode_header(uint8_t *frame) {
 	HEADER(":scheme", "https");
 	HEADER("accept", "application/dns-message");
 	HEADER("content-type", "application/dns-message");
-	HEADER("content-length", "48");
+	HEADER("content-length", slen); //"48");
 	HEADER("pragma", "no-cache");
 //	HEADER("te", "trailers");
 
@@ -130,8 +144,10 @@ uint32_t h2_encode_header(uint8_t *frame) {
 	return sizeof(H2Frame) + length;
 }
 
-// return the frame offset, 0 if nothing done
-uint32_t h2_decode_header(uint8_t *frame) {
+// decode a header frame
+// frame - http2 frame
+// return offset for the end of frame
+static uint32_t h2_decode_header(uint8_t *frame) {
 	// http2 frame
 	H2Frame frm;
 	memcpy(&frm, frame, sizeof(H2Frame));
@@ -184,7 +200,12 @@ uint32_t h2_decode_header(uint8_t *frame) {
 	return offset;
 }
 
-uint32_t h2_encode_data(uint8_t *frame, uint8_t *data, unsigned length) {
+// encode a data frame
+// frame - http2 frame
+// data and length
+// using the same session id as the last encoded header frame; ending the stream
+// return offset for the end of the frame
+static uint32_t h2_encode_data(uint8_t *frame, uint8_t *data, unsigned length) {
 	assert(frame);
 	assert(data);
 	assert(length);
@@ -200,6 +221,11 @@ uint32_t h2_encode_data(uint8_t *frame, uint8_t *data, unsigned length) {
 	return length + sizeof(H2Frame);
 }
 
+// decode a data frame
+// frame - http2 frame
+// offset - offset to data section in frame
+// length - length of data section
+// return offset for the end of the frame
 uint32_t h2_decode_data(uint8_t *frame, uint32_t *offset, uint32_t *length) {
 	assert(frame);
 	assert(length);
@@ -229,6 +255,7 @@ uint32_t h2_decode_data(uint8_t *frame, uint32_t *offset, uint32_t *length) {
 }
 
 
+static uint8_t buf_query[MAXBUF];
 void h2_connect(void) {
 	stream_id = 0;
 	uint8_t connect[] = {
@@ -247,7 +274,7 @@ void h2_connect(void) {
 	if (arg_debug)
 		printf("(%d) h2 send connect\n", arg_id);
 	ssl_tx(connect, sizeof(connect));
-	h2_exchange();
+	h2_exchange(buf_query);
 	stream_id = 13;
 }
 
@@ -255,31 +282,67 @@ void h2_send_exampledotcom(void) {
 	stream_id += 2;
 
 	uint8_t req[] = {
-		0x00, 0x00, 0x30, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0f, 0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00,
+		0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00,
 		0x00, 0x00, 0x00, 0x00, 0x01, 0x07, 0x65, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x03, 0x63, 0x6f,
 		0x6d, 0x00, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x29, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x08, 0x00, 0x08, 0x00, 0x04, 0x00, 0x01, 0x00, 0x00
 	};
-	uint8_t buf[MAXBUF];
-	uint32_t len = h2_encode_header(buf);
-	if (arg_debug) {
+	uint32_t len = h2_encode_header(buf_query, sizeof(req));
+	if (arg_debug || arg_debug_h2) {
 		printf("(%d) h2 tx ", arg_id);
-		h2frame_print((H2Frame *) buf);
+		h2frame_print((H2Frame *) buf_query);
 	}
 
-	H2Frame *frm = (H2Frame *) req;
-	h2frame_set_stream(frm, stream_id);
-	memcpy(buf + len, req, sizeof(req));
-	if (arg_debug)
-	if (arg_debug) {
+	int len2 = h2_encode_data(buf_query + len, req, sizeof(req));
+	if (arg_debug || arg_debug_h2) {
 		printf("(%d) h2 tx query example.com ", arg_id);
-		h2frame_print((H2Frame *) (buf + len));
+		h2frame_print((H2Frame *) (buf_query + len));
 	}
-	ssl_tx(buf, len + sizeof(req));
-	h2_exchange();
+
+	ssl_tx(buf_query, len + len2);
+	int rv = h2_exchange(buf_query);
+	if (arg_debug) {
+		printf("DNS response (%d bytes):\n", rv);
+		print_mem(buf_query, rv);
+	}
 }
 
-static void h2_exchange(void) {
+
+
+int h2_send_query(uint8_t *req, int cnt) {
+	stream_id += 2;
+	uint32_t len = h2_encode_header(buf_query, cnt);
+	if (arg_debug || arg_debug_h2) {
+		printf("(%d) h2 tx ", arg_id);
+		h2frame_print((H2Frame *) buf_query);
+	}
+
+	int len2 = h2_encode_data(buf_query + len, req, cnt);
+	if (arg_debug || arg_debug_h2) {
+		printf("(%d) h2 tx query ", arg_id);
+		h2frame_print((H2Frame *) (buf_query + len));
+	}
+	ssl_tx(buf_query, len + len2);
+
+	return h2_exchange(req);
+}
+
+void h2_send_ping(void) {
+	uint8_t frame[] = {0, 0, 8, 6,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	if (arg_debug || arg_debug_h2) {
+		printf("(%d) h2 tx ", arg_id);
+		h2frame_print((H2Frame *) frame);
+	}
+
+	ssl_tx(frame, sizeof(frame));
+	h2_exchange(buf_query);
+}
+
+// copy rx data in response and return the length
+int h2_exchange(uint8_t *response) {
+	assert(response);
+	int retval = 0;
+
 	uint8_t buf[MAXBUF];
 	while (1) {
 		fd_set readfds;
@@ -292,9 +355,9 @@ static void h2_exchange(void) {
 
 		int rv = select(fd + 1, &readfds, NULL, NULL, &timeout);
 		if (rv <= 0)
-			return;
+			return 0;
 		if (rv == 0)
-			return;
+			return 0;
 
 		if (FD_ISSET(fd, &readfds)) {
 			int rv = ssl_rx(buf);
@@ -306,7 +369,8 @@ static void h2_exchange(void) {
 			int offset = 0;
 			while (offset < rv) {
 				H2Frame *frm = (H2Frame *) (buf + offset);
-				if (arg_debug) {
+
+				if (arg_debug || arg_debug_h2) {
 					printf("(%d) h2 rx ", arg_id);
 					h2frame_print(frm);
 				}
@@ -320,16 +384,37 @@ static void h2_exchange(void) {
 					h2_decode_data((uint8_t *) frm, &offset, &length);
 					if (arg_debug)
 						print_mem((uint8_t *) frm + offset, length);
+
+					// copy response in buf_query_data
+					if (length != 0) {
+						memcpy(response, (uint8_t *) frm + offset, length);
+						retval = length;
+					}
+				}
+				// ping response - do nothing
+				else if (frm->type == H2_TYPE_PING && frm->flag & H2_FLAG_END_STREAM)
+					return 0;
+				// ping request - set end stream flag and return the packet
+				else if (frm->type == H2_TYPE_PING && frm->flag & H2_FLAG_END_STREAM == 0) {
+					frm->flag |= H2_FLAG_END_STREAM;
+					ssl_tx((uint8_t *) frm, rv - offset);
+					return 0;
+				}
+				else if (frm->type == H2_TYPE_GOAWAY) {
+					ssl_close();
+					return 0;
 				}
 
 				if (frm->flag & H2_FLAG_END_STREAM)
-					return;	// disregard the rest!
+					return retval; // disregard the rest!
 				offset += sizeof(H2Frame) + h2frame_extract_length(frm);
 				if (arg_debug)
 					printf("(%d) h2 rx data offset %d\n", arg_id, offset);
 			}
 		}
 	}
+
+	return retval;
 }
 
 

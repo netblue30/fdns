@@ -1,38 +1,46 @@
 #ifndef H2FRAME_H
 #define H2FRAME_H
 #include <stdint.h>
+#include <stdio.h>
 
 //
 // http2 header definitions
 //
 typedef struct h2frame_t {
 	uint8_t len[3];
-#define H2_TYPE_DATA          0x00
-#define H2_TYPE_HEADERS          0x01
-#define H2_TYPE_PRIORITY          0x02
-#define H2_TYPE_RESET          0x03
-#define H2_TYPE_SETTINGS          0x04
+
+#define H2_TYPE_DATA	0x00
+#define H2_TYPE_HEADERS	0x01
+#define H2_TYPE_PRIORITY	0x02
+#define H2_TYPE_RESET	0x03
+#define H2_TYPE_SETTINGS 	0x04
+#define H2_TYPE_PING 		0x06
+#define H2_TYPE_GOAWAY	0x07
 	uint8_t type;
-#define H2_FLAG_END_STREAM       0x01
-#define H2_FLAG_END_HEADERS      0x04
-#define H2_FLAG_PADDED           0x08
-#define H2_FLAG_PRIORITY         0x20
+
+#define H2_FLAG_END_STREAM	0x01
+#define H2_FLAG_END_HEADERS	0x04
+#define H2_FLAG_PADDED	0x08
+#define H2_FLAG_PRIORITY	0x20
 	uint8_t flag;
+
 	uint8_t stream[4];
 } H2Frame;
 
 static inline char *h2frame_type2str(uint8_t type) {
 	switch (type) {
-		case 0:
-			return "DATA";
-		case 1:
-			return "HEADERS";
-		case 2:
-			return "PRIORITY";
-		case 3:
-			return "RESET";
-		case 4:
-			return "SETTINGS";
+	case H2_TYPE_DATA:
+		return "DATA";
+	case H2_TYPE_HEADERS:
+		return "HEADERS";
+	case H2_TYPE_PRIORITY:
+		return "PRIORITY";
+	case H2_TYPE_RESET:
+		return "RESET";
+	case H2_TYPE_SETTINGS:
+		return "SETTINGS";
+	case H2_TYPE_PING:
+		return "PING";
 	};
 	return "UNKNOWN";
 }
@@ -64,14 +72,11 @@ static inline void h2frame_print(H2Frame *frm) {
 	uint32_t len = h2frame_extract_length(frm);
 	uint32_t stream = h2frame_extract_stream(frm);
 	printf("stream %u, len %u, type 0x%02u %s, flags 0x%02u (",
-		stream,
-		len,
-		frm->type, h2frame_type2str(frm->type),
-		frm->flag);
-#define H2_FLAG_END_STREAM       0x01
-#define H2_FLAG_END_HEADERS      0x04
-#define H2_FLAG_PADDED           0x08
-#define H2_FLAG_PRIORITY         0x20
+	       stream,
+	       len,
+	       frm->type, h2frame_type2str(frm->type),
+	       frm->flag);
+
 	if (frm->flag & H2_FLAG_END_STREAM)
 		printf("end stream,");
 	if (frm->flag & H2_FLAG_END_HEADERS)
@@ -81,6 +86,7 @@ static inline void h2frame_print(H2Frame *frm) {
 	if (frm->flag & H2_FLAG_PRIORITY)
 		printf("priority,");
 	printf(")\n");
+	fflush(0);
 }
 
 #endif
