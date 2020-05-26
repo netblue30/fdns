@@ -324,7 +324,7 @@ host: family.cloudflare-dns.com/dns-query
 sni: yes
 keepalive: 60
 
-name: commons.host
+name: commons-host
 website: https://dev.to/commonshost/how-we-built-a-doh-cdn-with-20-global-edge-servers-in-10-days-1man
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
@@ -383,6 +383,27 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
+keepalive: 30
+
+# this seems to be using Cloudflare as a reverse proxy
+# is the real server in Europe???
+# todo: replace IP addresses with European addresses
+name: dns-sb
+website: https://dns.sb/
+zone: Europe
+tags: Germany, Europe
+address: 104.31.91.138:443
+host: doh.dns.sb/dns-query
+sni: yes
+keepalive: 30
+
+name: dns-sb2
+website: https://dns.sb/
+zone: Europe
+tags: Germany, Europe
+address: 104.31.90.138:443
+host: doh.dns.sb/dns-query
+sni: yes
 keepalive: 30
 
 name: dnscrypt-ca
