@@ -41,6 +41,8 @@ static inline char *h2frame_type2str(uint8_t type) {
 		return "SETTINGS";
 	case H2_TYPE_PING:
 		return "PING";
+	case H2_TYPE_GOAWAY:
+		return "GOAWAY";
 	};
 	return "UNKNOWN";
 }
