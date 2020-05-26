@@ -324,6 +324,14 @@ host: family.cloudflare-dns.com/dns-query
 sni: yes
 keepalive: 60
 
+name: commons.host
+website: https://dev.to/commonshost/how-we-built-a-doh-cdn-with-20-global-edge-servers-in-10-days-1man
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: commons.host:443
+host: commons.host/
+sni: yes
+keepalive: 30
 
 # uncensored server redirected to cloudflare
 name: containerpi

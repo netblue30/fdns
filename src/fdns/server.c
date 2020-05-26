@@ -144,9 +144,13 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 
 // todo: accept a server name in parallel with IP addresses
 			// check address:port
-			if (check_addr_port(s->address)) {
-				fprintf(stderr, "Error: file %s, line %d, invalid address:port\n", fname, *linecnt);
-				exit(1);
+			// commons.host is a geocast host
+			// OpenSSL will find out the IP address using regular DNS over UDP
+			if (strcmp(s->name, "commons.host") != 0) {
+				if (check_addr_port(s->address)) {
+					fprintf(stderr, "Error: file %s, line %d, invalid address:port\n", fname, *linecnt);
+					exit(1);
+				}
 			}
 			found = 1;
 		}
