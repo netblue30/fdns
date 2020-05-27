@@ -391,7 +391,7 @@ keepalive: 30
 name: dns-sb
 website: https://dns.sb/
 zone: Europe
-tags: Germany, Europe
+tags: Estonia, Germany, Europe
 address: 104.31.91.138:443
 host: doh.dns.sb/dns-query
 sni: yes
@@ -400,7 +400,7 @@ keepalive: 30
 name: dns-sb2
 website: https://dns.sb/
 zone: Europe
-tags: Germany, Europe
+tags: Estonia, Germany, Europe
 address: 104.31.90.138:443
 host: doh.dns.sb/dns-query
 sni: yes

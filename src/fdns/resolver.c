@@ -121,14 +121,13 @@ void resolver(void) {
 		// one second timeout
 		//***********************************************
 		else if (rv == 0) {
+			// attempting to detect the computer coming out of sleep mode
 			time_t ts = time(NULL);
 			if (ts - timestamp > OUT_OF_SLEEP) {
 				rlogprintf("Suspend detected, restarting SSL connection\n");
 				cache_init();
-				if (!arg_fallback_only) {
-					ssl_close();
-					ssl_open();
-				}
+				// force a PING - if the connection is already down, close SSL
+				dns_keepalive();
 			}
 			timestamp = ts;
 			query_second = 0;
@@ -156,18 +155,15 @@ void resolver(void) {
 			}
 
 			// ssl keepalive:
-			// if any incoming data, probably is the session going down - force a keepalive
+			// if any incoming data, probably is the session going down
 			if (ssl_status_check()) {
 				h2_exchange(buf);
-#if 0
-				dns_keepalive_cnt = 0;
 				if (ssl_state == SSL_CLOSED) {
 					ssl_open();
-
 					ssl_reopen_cnt = SSL_REOPEN_TIMER;
 				}
-#endif
 			}
+
 			if (--dns_keepalive_cnt <= 0)  {
 				dns_keepalive();
 				dns_keepalive_cnt = srv->keepalive;

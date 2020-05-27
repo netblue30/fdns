@@ -361,6 +361,12 @@ int h2_exchange(uint8_t *response) {
 
 		if (FD_ISSET(fd, &readfds)) {
 			int rv = ssl_rx(buf);
+			if (rv == 0) {
+				if (ssl_state == SSL_OPEN)
+					ssl_close();
+				return 0;
+			}
+
 			if (arg_debug) {
 				printf("(%d) h2 rx %d bytes\n", arg_id, rv);
 				print_mem(buf, rv);

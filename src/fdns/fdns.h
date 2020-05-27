@@ -72,10 +72,9 @@ static inline int check_addr_port(const char *str) {
 #define RESOLVER_KEEPALIVE_AFTER_SLEEP (RESOLVER_KEEPALIVE_TIMER * 1.2) // after sleep detection
 #define MONITOR_WAIT_TIMER 2	// wait for this number of seconds before restarting a failed resolver process
 #define CONSOLE_PRINTOUT_TIMER 5	// transfer stats from resolver to frontend
-#define SSL_REOPEN_TIMER 5	// try to reopen a failed SSL connection after this time
-#define OUT_OF_SLEEP (RESOLVER_KEEPALIVE_SHUTDOWN + 5)
-		// detect computer going out of sleep/hibernation, reinitialize SSL connections
-		// it should be greater than RESOLVER_KEEPALIVE_SHUTDOWN
+#define SSL_REOPEN_TIMER 2	// try to reopen a failed SSL connection after this time
+#define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
+
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (60 * 60)

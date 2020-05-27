@@ -205,6 +205,9 @@ drop_nxdomain:
 }
 
 void dns_keepalive(void) {
+	if (ssl_state == SSL_CLOSED)
+		return;
+
 	if (arg_debug)
 		printf("(%d) send keepalive\n", arg_id);
 	h2_send_ping();
