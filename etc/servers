@@ -430,6 +430,22 @@ address: 176.9.93.198:443
 host: dnsforge.de/dns-query
 keepalive: 30
 
+name: dnshome
+website: https://www.dnshome.de/doh-dot-public-resolver.php
+zone: Europe
+tags: Germany, Europe
+address: 185.233.106.232:443
+host: dns.dnshome.de/dns-query
+keepalive: 20
+
+name: dnshome2
+website: https://www.dnshome.de/doh-dot-public-resolver.php
+zone: Europe
+tags: Germany, Europe
+address: 185.233.107.4:443
+host: dns.dnshome.de/dns-query
+keepalive: 20
+
 name: dnslify
 website: https://www.dnslify.com/
 zone: Asia-Pacific, Americas-East, Americas-West, Asia-Pacific, Europe
