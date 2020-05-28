@@ -35,7 +35,7 @@ char *arg_certfile = NULL;
 int arg_test_hosts = 0;
 char *arg_zone = NULL;
 int arg_cache_ttl = CACHE_TTL_DEFAULT;
-int arg_allow_local_doh = 0;
+int arg_disable_local_doh = 0;
 char *arg_whitelist_file = NULL;
 int arg_fallback_only = 0;
 
@@ -50,14 +50,15 @@ static void usage(void) {
 	printf("Options:\n");
 	printf("    --allow-all-queries - allow all DNS query types; by default only\n"
 	       "\tA queries are allowed.\n");
-	printf("    --allow-local-doh - allow applications on local network to connect to DoH\n"
-	       "\tservices; disabled by default.\n");
 	printf("    --cache-ttl=seconds - change DNS cache TTL (default %ds).\n", CACHE_TTL_DEFAULT);
 	printf("    --certfile=filename - SSL certificate file in PEM format.\n");
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
 	printf("    --debug - print debug messages.\n");
 	printf("    --debug-h2 - print HTTP2 debug messages.\n");
+	printf("    --disable-local-doh - blacklist DoH services for applications running on\n"
+	       "\tlocal network.\n");
+
 #ifdef HAVE_GCOV
 	printf("    --fallback-only - operate strictly in fallback mode.\n");
 #endif
@@ -164,8 +165,8 @@ int main(int argc, char **argv) {
 				arg_certfile = argv[i] + 11;
 			else if (strcmp(argv[i], "--allow-all-queries") == 0)
 				arg_allow_all_queries = 1;
-			else if (strcmp(argv[i], "--allow-local-doh") == 0) {
-				arg_allow_local_doh = 1;
+			else if (strcmp(argv[i], "--disable-local-doh") == 0) {
+				arg_disable_local_doh = 1;
 				filter_postinit();
 			}
 			else if (strcmp(argv[i], "--nofilter") == 0)

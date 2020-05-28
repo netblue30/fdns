@@ -196,7 +196,7 @@ extern char *arg_forwarder;
 extern int arg_test_hosts;
 extern char *arg_zone;
 extern int arg_cache_ttl;
-extern int arg_allow_local_doh;
+extern int arg_disable_local_doh;
 extern char *arg_whitelist_file;
 extern int arg_fallback_only;
 extern Stats stats;
