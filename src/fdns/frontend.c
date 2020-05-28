@@ -125,8 +125,8 @@ static int sandbox(void *sandbox_arg) {
 	}
 	if (arg_allow_all_queries)
 		a[last++] = "--allow-all-queries";
-	if (arg_allow_local_doh)
-		a[last++] = "--allow-local-doh";
+	if (arg_disable_local_doh)
+		a[last++] = "--disable-local-doh";
 
 	if (arg_cache_ttl != CACHE_TTL_DEFAULT) {
 		char *cmd;

@@ -202,7 +202,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 
 			// add host to filter
-			if (!arg_allow_local_doh)
+			if (arg_disable_local_doh)
 				filter_add('D', s->host);
 
 			return s;

@@ -41,11 +41,6 @@ Asia-Pacific and Europe. Use --list=all option to print all the servers and the 
 Allow all DNS query types; by default only A queries are allowed. In case --ipv6 is set,
 AAAA queries are also allowed.
 .TP
-\fB\-\-allow-local-doh
-Allow applications on local network to connect to DoH services; disabled by default.
-NOTE: Applications can still use DoH-Server if they have a hardcoded IP-Address.
-If you realy want to block other DoH connection you must use your firewall.
-.TP
 \fB\-\-cache-ttl=seconds
 Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 40 minutes.
 .TP
@@ -72,6 +67,14 @@ $ sudo fdns --proxy-addr-any --daemonize
 .TP
 \fB\-\-debug
 Print debug messages.
+.TP
+\fB\-\-debug-h2
+Print debug messages for HTTP2 protocol.
+.TP
+\fB\-\-disable-local-doh
+Blacklist DoH services for applications running on the local network.
+NOTE: Applications can still use DoH-Server if they have a hardcoded IP-Address.
+If you realy want to block other DoH connection you must use your firewall.
 .TP
 \fB\-\-forwarder=domain@address
 Conditional domain forwarding to a different DNS server.
