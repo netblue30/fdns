@@ -385,14 +385,11 @@ address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 30
 
-# this seems to be using Cloudflare as a reverse proxy
-# is the real server in Europe???
-# todo: replace IP addresses with European addresses
 name: dns-sb
 website: https://dns.sb/
 zone: Europe
 tags: Estonia, Germany, Europe
-address: 104.31.91.138:443
+address: 185.222.222.222:443
 host: doh.dns.sb/dns-query
 sni: yes
 keepalive: 30
@@ -401,7 +398,7 @@ name: dns-sb2
 website: https://dns.sb/
 zone: Europe
 tags: Estonia, Germany, Europe
-address: 104.31.90.138:443
+address: 185.184.222.222:443
 host: doh.dns.sb/dns-query
 sni: yes
 keepalive: 30
