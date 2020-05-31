@@ -1,5 +1,6 @@
 all: apps man
 APPS = src/fdns test/src/fdnstress
+LIBS = src/cashpack-0.3
 MANPAGES = fdns.1
 
 prefix=@prefix@
@@ -15,9 +16,14 @@ NAME=@PACKAGE_NAME@
 PACKAGE_TARNAME=@PACKAGE_TARNAME@
 DOCDIR=@docdir@
 
+.PHONY: libs $(LIBS)
+libs: $(LIBS)
+$(LIBS):
+	$(MAKE) -C $@
+
 .PHONY: apps $(APPS)
 apps: $(APPS)
-$(APPS):
+$(APPS): $(LIBS)
 	$(MAKE) -C $@
 
 $(MANPAGES): $(wildcard src/man/*.txt)
@@ -30,6 +36,9 @@ clean:
 	for dir in $(APPS); do \
 		$(MAKE) -C $$dir clean; \
 	done
+	for dir in $(LIBS); do \
+		$(MAKE) -C $$dir clean; \
+	done
 	rm -f $(MANPAGES) $(MANPAGES:%=%.gz)
 	cd test/compile; ./compile.sh --clean; cd ../..
 
@@ -38,6 +47,7 @@ distclean: clean
 		$(MAKE) -C $$dir distclean; \
 	done
 	rm -fr Makefile autom4te.cache config.log config.status config.h dummy.o src/common.mk
+	rm -fr src/cashpack-0.3
 
 realinstall:
 	# fdns executable
