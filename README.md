@@ -43,7 +43,12 @@ FDNS is a community project. We are not affiliated with any company, and we donâ
 
 ## Project Status
 
-Release `0.9.62.6` is out.
+Development version 0.9.63:
+<ul>
+<li>HTTP1.1 removed and replaced with HTTP2.</li>
+<li>Adding support for https://commons.host network of DoH servers (20+ servers).</li>
+<li>Replaced --allow-local-doh with --disable-local-doh.</li>
+</ul>
 
 <div style="height:20px;">&nbsp;</div>
 

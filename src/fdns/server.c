@@ -142,11 +142,14 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			if (!s->address)
 				errExit("strdup");
 
-// todo: accept a server name in parallel with IP addresses
 			// check address:port
-			if (check_addr_port(s->address)) {
-				fprintf(stderr, "Error: file %s, line %d, invalid address:port\n", fname, *linecnt);
-				exit(1);
+			// commons.host is a geocast host
+			// OpenSSL will find out the IP address using regular DNS over UDP
+			if (strcmp(s->name, "commons-host") != 0) {
+				if (check_addr_port(s->address)) {
+					fprintf(stderr, "Error: file %s, line %d, invalid address:port\n", fname, *linecnt);
+					exit(1);
+				}
 			}
 			found = 1;
 		}
@@ -158,6 +161,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				errExit("strdup");
 			found = 1;
 
+
 			// build the DNS/HTTP request
 			char *str = strchr(s->host, '/');
 			if (!str) {
@@ -165,9 +169,10 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				fprintf(stderr, "Error: file %s, line %d, invalid host\n", fname, *linecnt);
 				exit(1);
 			}
+			s->path = strdup(str);
+			if (!s->path)
+				errExit("strdup");
 			*str++ = '\0';
-			if (asprintf(&s->request, "POST /%s HTTP/1.1\r\nHost: %s\r\n%s", str, s->host, push_request_tail) == -1)
-				errExit("asprintf");
 		}
 		else if (strncmp(buf, "sni: ", 5) == 0) {
 			if (s->sni)
@@ -188,15 +193,16 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
 				exit(1);
 			}
+//			s->keepalive = 25;
 
 			// check server data
-			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host || !s->request) {
+			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
 				exit(1);
 			}
 
 			// add host to filter
-			if (!arg_allow_local_doh)
+			if (arg_disable_local_doh)
 				filter_add('D', s->host);
 
 			return s;
@@ -276,11 +282,11 @@ int test_server(const char *server_name)  {
 		fflush(0);
 
 		timetrace_start();
-		dns_keepalive();
-		dns_keepalive();
-		dns_keepalive();
-		dns_keepalive();
-		dns_keepalive();
+		h2_send_exampledotcom();
+		h2_send_exampledotcom();
+		h2_send_exampledotcom();
+		h2_send_exampledotcom();
+		h2_send_exampledotcom();
 		ms = timetrace_end();
 
 		if (ssl_state == SSL_CLOSED) {

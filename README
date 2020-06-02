@@ -54,6 +54,9 @@ Daniel Schildt (https://github.com/d2s)
 rcplab (https://github.com/rcplab)
 	- containerpi and twnic
 
+Incoporating cashpack library, https://github.com/Dridi/cashpack
+Copyright ©2016-2017 Dridi Boukelmoune, license MIT
+
 Incorporating code from Firejail Security Sandbox, https://github.com/netblue30/firejail
 Copyright © 2014-2020 Firejail Authors, license GPLv2
 

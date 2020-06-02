@@ -72,10 +72,9 @@ static inline int check_addr_port(const char *str) {
 #define RESOLVER_KEEPALIVE_AFTER_SLEEP (RESOLVER_KEEPALIVE_TIMER * 1.2) // after sleep detection
 #define MONITOR_WAIT_TIMER 2	// wait for this number of seconds before restarting a failed resolver process
 #define CONSOLE_PRINTOUT_TIMER 5	// transfer stats from resolver to frontend
-#define SSL_REOPEN_TIMER 5	// try to reopen a failed SSL connection after this time
-#define OUT_OF_SLEEP (RESOLVER_KEEPALIVE_SHUTDOWN + 5)
-		// detect computer going out of sleep/hibernation, reinitialize SSL connections
-		// it should be greater than RESOLVER_KEEPALIVE_SHUTDOWN
+#define SSL_REOPEN_TIMER 2	// try to reopen a failed SSL connection after this time
+#define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
+
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (60 * 60)
@@ -131,7 +130,8 @@ typedef struct dnsserver_t {
 	char *zone;		// geographical zone
 	char *tags;	// description
 	char *address;	// IP address
-	char *host;		// POST request first line
+	char *host;		// authority in http2
+	char *path;
 	char *request;	// full POST request
 	int sni;		// 1 or 0
 	int keepalive;	// keepalive in seconds
@@ -180,6 +180,7 @@ static inline void print_mem(unsigned char *msg, int len) {
 // main.c
 extern int arg_argc;
 extern int arg_debug;
+extern int arg_debug_h2;
 extern int arg_resolvers;
 extern int arg_id;
 extern int arg_fd;
@@ -195,7 +196,7 @@ extern char *arg_forwarder;
 extern int arg_test_hosts;
 extern char *arg_zone;
 extern int arg_cache_ttl;
-extern int arg_allow_local_doh;
+extern int arg_disable_local_doh;
 extern char *arg_whitelist_file;
 extern int arg_fallback_only;
 extern Stats stats;
@@ -216,8 +217,10 @@ extern SSLState ssl_state;
 void ssl_init(void);
 void ssl_open(void);
 void ssl_close(void);
-int ssl_rxtx_dns(uint8_t *msg, int cnt);
 int ssl_status_check(void);
+int ssl_rx(uint8_t *buf);
+int ssl_tx(uint8_t *buf, int len);
+int ssl_get_socket(void);
 
 // frontend.c
 extern int encrypted[RESOLVERS_CNT_MAX];
@@ -239,6 +242,7 @@ typedef enum {
 } DnsDestination;
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 void dns_keepalive(void);
+int dns_query(uint8_t *msg, int cnt);
 
 // filter.c
 void filter_init(void);
@@ -335,5 +339,16 @@ int whitelist_blocked(const char *domain);
 // procs.c
 void procs_add(void);
 void procs_list(void);
+
+// h2.c
+void h2_init(void);
+void h2_close(void);
+void h2_connect(void);
+void h2_send_exampledotcom(void);
+int h2_send_query(uint8_t *req, int cnt);
+void h2_send_ping(void);
+int h2_exchange(uint8_t *response);
+
+
 
 #endif

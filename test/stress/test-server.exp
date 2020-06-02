@@ -3,13 +3,13 @@
 # Copyright (C) 2019-2020 FDNS Authors
 # License GPL v2
 
-set timeout 30
+set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
 if { $argc != 1 } {
 	puts "TESTING ERROR: argument missing"
-	puts "Usage: wget.exp server-name"
+	puts "Usage: test-server.exp server-name"
 	exit
 }
 
@@ -19,19 +19,19 @@ send -- "pkill fdns\r"
 sleep 1
 
 
+puts "	TESTING: --test-server\n"
 send -- "fdns --test-server=$argv 2>&1\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit 1}
-	"Error:" {puts "TESTING ERROR 1\n";exit 1}
-	"no such server available" {puts "TESTING ERROR 2\n";exit 1}
 	"response average"
 }
 expect {
-	timeout {puts "TESTING ERROR 3\n";exit 1}
+	timeout {puts "TESTING ERROR 2\n";exit 1}
 	"Testing completed"
 }
 sleep 1
 
+puts "	TESTING: starting proxy111\n"
 send -- "fdns --server=$argv 2>&1\r"
 expect {
 	timeout {puts "TESTING ERROR 10\n";exit 1}
@@ -50,76 +50,66 @@ expect {
 	timeout {puts "TESTING ERROR 14\n";exit 1}
 	"SSL connection opened"
 }
-
-# wait 10 seconds to detect any kind of connection problems
-#expect {
-#	timeout {puts "connection OK\n"}
-#	"Error:" {puts "TESTING ERROR 2\n";exit 1}
-#	"SSL connection closed" {puts "TESTING ERROR 3\n";exit 1}
-#}
-sleep 1
-
-spawn $env(SHELL)
-send "rm /tmp/index.html\r"
 after 100
-send -- "firejail --dns=127.1.1.1 wget -O /tmp/index.html google.com\r"
+spawn $env(SHELL)
+
+puts "	TESTING: starting proxy222\n"
+#send -- "fdns --server=$argv --proxy-addr=127.2.2.2 2>&1\r"
+send -- "fdns --server=blahdns-de --proxy-addr=127.2.2.2 2>&1\r"
 expect {
 	timeout {puts "TESTING ERROR 20\n";exit 1}
-	"Connecting to www.google.com"
-}
-expect {
-	timeout {puts "TESTING ERROR 21\n";exit 1}
-	"index.html"
+	"Error:" {puts "TESTING ERROR 21\n";exit 1}
+	"fdns starting"
 }
 expect {
 	timeout {puts "TESTING ERROR 22\n";exit 1}
-	"saved"
+	"SSL connection opened"
 }
-after 100
-
-# do it again!
-send "rm /tmp/index.html\r"
-after 100
-send -- "firejail --dns=127.1.1.1 wget -O /tmp/index.html wordpress.com\r"
 expect {
 	timeout {puts "TESTING ERROR 23\n";exit 1}
-	"Connecting to wordpress.com"
+	"SSL connection opened"
 }
 expect {
 	timeout {puts "TESTING ERROR 24\n";exit 1}
-	"index.html"
+	"SSL connection opened"
 }
-expect {
-	timeout {puts "TESTING ERROR 25\n";exit 1}
-	"saved"
-}
-after 100
-send "rm /tmp/index.html\r"
-after 100
 
-# under development
+after 100
+spawn $env(SHELL)
+
+puts "	TESTING: queries\n"
 send -- "cp ../src/fdnstress/fdnstress /transfer/.\r"
 send -- "cp list20  /transfer/.\r"
 after 100
 send -- "firejail --dns=127.1.1.1 /transfer/fdnstress --threads=1 /transfer/list20\r"
 expect {
 	timeout {puts "TESTING ERROR 30\n";exit 1}
+	"Error:" {puts "TESTING ERROR 30.1\n";exit 1}
+	"SSL connection closed" {puts "TESTING ERROR 30.2\n";exit 1}
 	"wordpress.com"
 }
 expect {
 	timeout {puts "TESTING ERROR 31\n";exit 1}
+	"Error:" {puts "TESTING ERROR 30.1\n";exit 1}
+	"SSL connection closed" {puts "TESTING ERROR 30.2\n";exit 1}
 	"linux.org"
 }
 expect {
 	timeout {puts "TESTING ERROR 32\n";exit 1}
+	"Error:" {puts "TESTING ERROR 30.1\n";exit 1}
+	"SSL connection closed" {puts "TESTING ERROR 30.2\n";exit 1}
 	"google.com"
 }
 expect {
 	timeout {puts "TESTING ERROR 33\n";exit 1}
+	"Error:" {puts "TESTING ERROR 30.1\n";exit 1}
+	"SSL connection closed" {puts "TESTING ERROR 30.2\n";exit 1}
 	"youtube.com"
 }
 expect {
 	timeout {puts "TESTING ERROR 34\n";exit}
+	"Error:" {puts "TESTING ERROR 30.1\n";exit 1}
+	"SSL connection closed" {puts "TESTING ERROR 30.2\n";exit 1}
 	"fedoraproject.org"
 }
 after 100

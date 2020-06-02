@@ -95,6 +95,8 @@ static int sandbox(void *sandbox_arg) {
 	int last = 3;
 	if (arg_debug)
 		a[last++] = "--debug";
+	if (arg_debug_h2)
+		a[last++] = "--debug-h2";
 	if (arg_nofilter)
 		a[last++] = "--nofilter";
 	if (arg_ipv6)
@@ -123,8 +125,8 @@ static int sandbox(void *sandbox_arg) {
 	}
 	if (arg_allow_all_queries)
 		a[last++] = "--allow-all-queries";
-	if (arg_allow_local_doh)
-		a[last++] = "--allow-local-doh";
+	if (arg_disable_local_doh)
+		a[last++] = "--disable-local-doh";
 
 	if (arg_cache_ttl != CACHE_TTL_DEFAULT) {
 		char *cmd;
