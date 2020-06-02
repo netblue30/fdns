@@ -205,14 +205,60 @@ drop_nxdomain:
 }
 
 void dns_keepalive(void) {
+	if (ssl_state == SSL_CLOSED)
+		return;
+
 	if (arg_debug)
 		printf("(%d) send keepalive\n", arg_id);
-	uint8_t msg[33] = { // www.example.com
-		0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00, 0x00,  0x00, 0x00, 0x00, 0x00, 0x03, 0x77, 0x77, 0x77,
-		0x07, 0x65, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65,  0x03, 0x63, 0x6f, 0x6d, 0x00, 0x00, 0x01, 0x00,
-		0x01
-	};
-	uint8_t buf[MAXBUF];
-	memcpy(buf, msg, sizeof(msg));
-	ssl_rxtx_dns(buf, sizeof(msg));
+	h2_send_ping();
 }
+
+// returns the length of the response,,0 if failed
+// the response is copied back in msg
+int dns_query(uint8_t *msg, int cnt) {
+	assert(msg);
+	assert(cnt);
+
+
+	int datalen = h2_send_query(msg, cnt);
+	if (datalen == 0)
+		goto errout;
+
+	if (arg_debug) {
+		printf("(%d) DNS data:\n", arg_id);
+		print_mem(msg, datalen);
+		printf("(%d) *** SSL transaction end ***\n", arg_id);
+	}
+
+	//
+	// partial response parsing
+	//
+	if (lint_rx(msg, datalen)) {
+		if (lint_error() == DNSERR_NXDOMAIN) {
+			// NXDOMAIN or similar received, cache for 10 minutes
+			cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
+			return datalen;
+		}
+
+		// serveral adblocker/family services return addresses of 0.0.0.0 or 127.0.0.1 for blocked domains
+		const char *str = lint_err2str();
+		if (strstr(str, "0.0.0.0") || strstr(str, "127.0.0.1")) {
+			// set NXDOMAIN bytes in the packet
+			msg[3] = 3;
+			rlogprintf("%s refused by service provider\n", cache_get_name());
+			return datalen;
+		}
+		else
+			rlogprintf("Error: %s %s\n", lint_err2str(), cache_get_name());
+		return 0;
+	}
+
+	// cache the response and exit
+	cache_set_reply(msg, datalen, arg_cache_ttl);
+	return datalen;
+
+errout:
+	ssl_close();
+	return 0;
+}
+

@@ -3952,6 +3952,8 @@ if test "$prefix" = /usr; then
 	test "$sysconfdir" = '${prefix}/etc' && sysconfdir="/etc"
 fi
 
+cd src && tar -xzvf cashpack-0.3.tar.gz && cd cashpack-0.3 && ./configure && cd ../..
+
 ac_config_files="$ac_config_files Makefile src/common.mk src/fdns/Makefile test/src/fdnstress/Makefile"
 
 cat >confcache <<\_ACEOF

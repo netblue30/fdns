@@ -144,6 +144,8 @@ void ssl_open(void) {
 			}
 		}
 	}
+	// inform the server we are using http2
+	SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
 
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
@@ -171,9 +173,14 @@ void ssl_open(void) {
 
 	ssl_state = SSL_OPEN;
 	rlogprintf("SSL connection opened\n");
+
+	h2_init();
+	h2_connect();
+	h2_send_exampledotcom();
 }
 
 void ssl_close(void) {
+	h2_close();
 	if (ssl) {
 		int rv = SSL_shutdown(ssl);
 		if (rv == 0)
@@ -186,30 +193,28 @@ void ssl_close(void) {
 	rlogprintf("SSL connection closed\n");
 }
 
-// returns the length of the response,0 if failed
-int ssl_rxtx_dns(uint8_t *msg, int cnt) {
-	assert(msg);
+int ssl_get_socket(void) {
+	return SSL_get_fd(ssl);
+}
 
-	DnsServer *srv = server_get();
-	assert(srv);
+int ssl_tx(uint8_t *buf, int len) {
+	assert(buf);
+	assert(len);
 
-	if (ssl == NULL || ssl_state != SSL_OPEN)
-		return 0;
+	if (ctx == NULL || ssl == NULL || ssl_state != SSL_OPEN)
+		goto errout;
 
 	assert(bio);
 	assert(ctx);
 	assert(ssl);
 
-	char buf[MAXBUF];
-	sprintf(buf, srv->request, cnt);
-	int len = strlen(buf);
-	assert(cnt < MAXBUF - len);
-
-	memcpy(buf + len, msg, cnt);
-	len += cnt;
-
 	if (arg_debug)
-		printf("(%d) *** SSL transaction ***\n", arg_id);
+		printf("(%d) *** SSL transaction len %d***\n", arg_id, len);
+
+//print_mem(buf, len);
+
+
+
 
 	int lentx;
 	if((lentx = BIO_write(bio, buf, len)) <= 0) {
@@ -218,15 +223,25 @@ int ssl_rxtx_dns(uint8_t *msg, int cnt) {
 			goto errout;
 		}
 		if((lentx = BIO_write(bio, buf, len)) <= 0) {
-			rlogprintf("Error: failed SSL write, retval %d\n", lentx);
+			rlogprintf("Error: failed SSL write, retval %d\n", lentx);\
 			goto errout;
 		}
 	}
 
 	if (arg_debug)
 		printf("(%d) SSL write %d/%d bytes\n", arg_id, len, lentx);
+	return lentx;
+errout:
+	ssl_close();
+	return 0;
+}
 
-	len = BIO_read(bio, buf, MAXBUF);
+int ssl_rx(uint8_t *buf) {
+	assert(buf);
+	if (ctx == NULL || ssl == NULL || ssl_state != SSL_OPEN)
+		goto errout;
+
+	int len = BIO_read(bio, buf, MAXBUF);
 	if(len <= 0) {
 		if(! BIO_should_retry(bio)) {
 			rlogprintf("Error: failed SSL read, retval %d\n", len);
@@ -238,116 +253,16 @@ int ssl_rxtx_dns(uint8_t *msg, int cnt) {
 			goto errout;
 		}
 	}
-	buf[len] = '\0';
-
-	// check 200 OK
-	char *ptr = strstr(buf, "200 OK");
-	if (!ptr) {
-		rlogprintf("Warning: HTTP error, 200 OK not received\n");
-		printf("**************\n%s\n**************\n", buf);
-		fflush(0);
-		goto errout;
-	}
-
-	// look for the end of http header
-	ptr = strstr(buf, "\r\n\r\n");
-	if (!ptr) {
-		rlogprintf("Warning: cannot parse HTTPS response, didn't recieve a full http header\n");
-		printf("**************\n%s\n**************\n", buf);
-		fflush(0);
-		goto errout;
-	}
-	ptr += 4; // length of "\r\n\r\n"
-	ptrdiff_t hlen = ptr - buf; // +4 is the length of \r\n\r\n
-	*(ptr - 1) = 0;
 	if (arg_debug)
-		printf("(%d) http header:\n%s", arg_id, buf);
-
-	// look for Content-Length:
-	char *contlen = "Content-Length: ";
-	ptr = strcasestr(buf, contlen);
-	int datalen = 0;
-	if (!ptr) {
-		rlogprintf("Warning: cannot parse HTTPS response, content-length missing\n");
-		print_mem((uint8_t *) buf, len);
-		goto errout;
-	}
-	else {
-		ptr += strlen(contlen);
-		sscanf(ptr, "%d", &datalen);
-		if (datalen == 0) // we got a "Content-lenght: 0"; this is probably a HTTP error
-			return 0;
-	}
-
-	// do we need to read more data?
-	int totallen = (int) hlen + datalen;
-	if (arg_debug)
-		printf("(%d) SSL read len %d, totallen %d, datalen %d\n",
-		       arg_id, len, totallen, datalen);
-	if (totallen >= MAXBUF) {
-		rlogprintf("Warning: cannot parse HTTPS response, invalid length\n");
-		print_mem((uint8_t *) buf, len);
-		goto errout;
-	}
-
-	while (len < totallen) {
-		int rv = BIO_read(bio, buf + len, totallen - len);
-		if (arg_debug)
-			printf("(%d) SSL read + %d\n", arg_id, rv);
-		if(rv <= 0) {
-			if(! BIO_should_retry(bio)) {
-				rlogprintf("Error: failed SSL read\n");
-				goto errout;
-			}
-			rv = BIO_read(bio, buf, MAXBUF);
-			if (arg_debug)
-				printf("(%d) SSL read + %d\n", arg_id, rv);
-			if(rv <= 0) {
-				rlogprintf("Error: SSL connection is probably closed\n");
-				goto errout;
-			}
-		}
-
-		len += rv;
-	}
-
-	// copy the response in buf
-	memcpy(msg, buf + len - datalen, datalen);
-	if (arg_debug) {
-		printf("(%d) DNS data:\n", arg_id);
-		print_mem((uint8_t *) buf, datalen);
-		printf("(%d) *** SSL transaction end ***\n", arg_id);
-	}
-
-	//
-	// partial response parsing
-	//
-	if (lint_rx(msg, datalen)) {
-		if (lint_error() == DNSERR_NXDOMAIN) {
-			// NXDOMAIN or similar received, cache for 10 minutes
-			cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
-			return datalen;
-		}
-
-		// serveral adblocker/family services return addresses of 0.0.0.0 or 127.0.0.1 for blocked domains
-		const char *str = lint_err2str();
-		if (strstr(str, "0.0.0.0") || strstr(str, "127.0.0.1")) {
-			// set NXDOMAIN bytes in the packet
-			msg[3] = 3;
-			rlogprintf("%s refused by service provider\n", cache_get_name());
-			return datalen;
-		}
-		else
-			rlogprintf("Error: %s %s\n", lint_err2str(), cache_get_name());
-		return 0;
-	}
-
-	// cache the response and exit
-	cache_set_reply(msg, datalen, arg_cache_ttl);
-	return datalen;
-
+		printf("(%d) SSL read %d bytes\n", arg_id, len);
+	return len;
 errout:
 	ssl_close();
 	return 0;
 }
+
+
+
+
+
 
