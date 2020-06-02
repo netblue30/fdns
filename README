@@ -13,7 +13,7 @@ Build and Install
 Dependencies: OpenSSL library, libseccomp
   - Debian/Ubuntu: sudo apt-get install libseccomp-dev libssl-dev
   - Fedora/CentOS: sudo yum install libseccomp-devel openssl-devel
-  - Arch Linux: the libraries are already included in the base group
+  - Arch Linux: the libraries are already included by the base meta package
 
 Build and install: ./configure && make && sudo make install
 If AppArmor is present in the system, enable fdns profile by running
