@@ -54,7 +54,7 @@ Daniel Schildt (https://github.com/d2s)
 rcplab (https://github.com/rcplab)
 	- containerpi and twnic
 
-Incoporating cashpack library, https://github.com/Dridi/cashpack
+Incorporating cashpack library, https://github.com/Dridi/cashpack
 Copyright ©2016-2017 Dridi Boukelmoune, license MIT
 
 Incorporating code from Firejail Security Sandbox, https://github.com/netblue30/firejail
@@ -66,7 +66,7 @@ Copyright © Electronic Frontier Foundation and other contributors, license GPLv
 Incorporating code from Steven Black's hosts project, https://github.com/StevenBlack/hosts
 Copyright © Steven Black, license MIT
 
-Incoporating code from Geoffrey Frogeye first-party trackers host list at
+Incorporating code from Geoffrey Frogeye first-party trackers host list at
 https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt,
 Copyright © Geoffrey Frogeye, license MIT
 
