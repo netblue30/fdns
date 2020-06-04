@@ -5,8 +5,8 @@ include ../common.mk
 %.o : %.c $(H_FILE_LIST)
 	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $(INCLUDE) -c $< -o $@
 
-fdns: $(OBJS) ../cashpack-0.3/lib/.libs/libhpack.a
-	$(CC)  $(LDFLAGS) -o $@ $(OBJS) ../cashpack-0.3/lib/.libs/libhpack.a -lssl -lcrypto -lrt  -lseccomp $(LIBS) $(EXTRA_LDFLAGS)
+fdns: $(OBJS) ../cashpack/libhpack.a
+	$(CC)  $(LDFLAGS) -o $@ $(OBJS) ../cashpack/libhpack.a -lssl -lcrypto -lrt  -lseccomp $(LIBS) $(EXTRA_LDFLAGS)
 
 clean:; rm -f *.o fdns *.gcov *.gcda *.gcno
 

@@ -6,7 +6,7 @@
 #include <string.h>
 #include <assert.h>
 
-#include "../cashpack-0.3/inc/hpack.h"
+#include "../inc/hpack.h"
 #include "h2frame.h"
 #include "fdns.h"
 

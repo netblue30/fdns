@@ -1,0 +1,14 @@
+all: libhpack.a
+
+include ../common.mk
+
+%.o : %.c $(H_FILE_LIST)
+	$(CC) -I../inc $(CFLAGS) $(EXTRA_CFLAGS) $(INCLUDE) -c $< -o $@
+
+libhpack.a: $(OBJS)
+	ar cru $@ $(OBJS)
+
+clean:; rm -f *.o *.a *.gcov *.gcda *.gcno
+
+distclean: clean
+	rm -fr Makefile
