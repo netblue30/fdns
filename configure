@@ -3952,9 +3952,7 @@ if test "$prefix" = /usr; then
 	test "$sysconfdir" = '${prefix}/etc' && sysconfdir="/etc"
 fi
 
-cd src && tar -xzvf cashpack-0.3.tar.gz && cd cashpack-0.3 && ./configure && cd ../..
-
-ac_config_files="$ac_config_files Makefile src/common.mk src/fdns/Makefile test/src/fdnstress/Makefile"
+ac_config_files="$ac_config_files Makefile src/common.mk src/cashpack/Makefile src/fdns/Makefile test/src/fdnstress/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -4665,6 +4663,7 @@ do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/common.mk") CONFIG_FILES="$CONFIG_FILES src/common.mk" ;;
+    "src/cashpack/Makefile") CONFIG_FILES="$CONFIG_FILES src/cashpack/Makefile" ;;
     "src/fdns/Makefile") CONFIG_FILES="$CONFIG_FILES src/fdns/Makefile" ;;
     "test/src/fdnstress/Makefile") CONFIG_FILES="$CONFIG_FILES test/src/fdnstress/Makefile" ;;
 

@@ -77,9 +77,7 @@ if test "$prefix" = /usr; then
 	test "$sysconfdir" = '${prefix}/etc' && sysconfdir="/etc"
 fi
 
-cd src && tar -xzvf cashpack-0.3.tar.gz && cd cashpack-0.3 && ./configure && cd ../..
-
-AC_OUTPUT(Makefile src/common.mk src/fdns/Makefile test/src/fdnstress/Makefile)
+AC_OUTPUT(Makefile src/common.mk src/cashpack/Makefile src/fdns/Makefile test/src/fdnstress/Makefile)
 
 echo
 echo "Configuration options:"
