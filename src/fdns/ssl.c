@@ -208,14 +208,6 @@ int ssl_tx(uint8_t *buf, int len) {
 	assert(ctx);
 	assert(ssl);
 
-	if (arg_debug)
-		printf("(%d) *** SSL transaction len %d***\n", arg_id, len);
-
-//print_mem(buf, len);
-
-
-
-
 	int lentx;
 	if((lentx = BIO_write(bio, buf, len)) <= 0) {
 		if(! BIO_should_retry(bio)) {
@@ -253,8 +245,10 @@ int ssl_rx(uint8_t *buf) {
 			goto errout;
 		}
 	}
-	if (arg_debug)
+	if (arg_debug) {
 		printf("(%d) SSL read %d bytes\n", arg_id, len);
+		fflush(0);
+	}
 	return len;
 errout:
 	ssl_close();

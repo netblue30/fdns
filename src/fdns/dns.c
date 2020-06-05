@@ -224,12 +224,6 @@ int dns_query(uint8_t *msg, int cnt) {
 	if (datalen == 0)
 		goto errout;
 
-	if (arg_debug) {
-		printf("(%d) DNS data:\n", arg_id);
-		print_mem(msg, datalen);
-		printf("(%d) *** SSL transaction end ***\n", arg_id);
-	}
-
 	//
 	// partial response parsing
 	//
