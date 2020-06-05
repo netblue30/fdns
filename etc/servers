@@ -66,20 +66,42 @@ keepalive: 30
 #host: dns-nyc.aaflalo.me/dns-query
 #keepalive: 30
 
+name: abmb-jp
+website: https://abmb.win/
+zone: Asia-Pacific
+tags: geocast, Japan, Asia-Pacific
+address: doh-jp.abmb.win:443
+host: doh-jp.abmb.win/dns-query
+sni: yes
+keepalive: 20
+
 name: abmb-sg
 website: https://abmb.win/
 zone: Asia-Pacific
-tags: Singapore, Asia-Pacific
-address: 3.0.59.48:443
+tags: geocast, Singapore, Asia-Pacific
+#address: 3.0.59.48:443
+address: doh.abmb.win:443
 host: doh.abmb.win/dns-query
+sni: yes
 keepalive: 20
 
 name: abmb-sg2
 website: https://abmb.win/
 zone: Asia-Pacific
-tags: Singapore, Asia-Pacific
-address: 54.169.103.244:443
+tags: geocast, Singapore, Asia-Pacific
+#address: 54.169.103.244:443
+address: doh2.abmb.win:443
 host: doh2.abmb.win/dns-query
+sni: yes
+keepalive: 20
+
+name: abmb-sk
+website: https://abmb.win/
+zone: Asia-Pacific
+tags: geocast, South-Korea, Asia-Pacific
+address: doh-sk.abmb.win:443
+host: doh-sk.abmb.win/dns-query
+sni: yes
 keepalive: 20
 
 # two more abmb servers in Japan and South Korea:

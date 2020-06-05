@@ -55,7 +55,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	}
 
 	// we allow exactly one question
-	if (h->questions != 1 || h->answer != 0 || h->authority || h->additional != 0) {
+	if (h->questions != 1 || h->answer || h->authority || h->additional) {
 		rlogprintf("Error LANrx: invalid DNS section counts: %x %x %x %x, dropped\n",
 			 h->questions, h->answer, h->authority,  h->additional);
 		*dest = DEST_DROP;
