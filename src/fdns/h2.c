@@ -52,7 +52,7 @@ static void print_headers(enum hpack_event_e evt, const char *buf, size_t len, v
 		printf(": ");
 	/* fall through */
 	case HPACK_EVT_NAME:
-		printf("%s", buf);
+		printf("    %s", buf);
 		(void)len;
 	/* fall through */
 	default:
@@ -301,10 +301,6 @@ void h2_send_exampledotcom(void) {
 
 	ssl_tx(buf_query, len + len2);
 	int rv = h2_exchange(buf_query);
-	if (arg_debug) {
-		printf("DNS response (%d bytes):\n", rv);
-		print_mem(buf_query, rv);
-	}
 }
 
 
@@ -356,8 +352,13 @@ int h2_exchange(uint8_t *response) {
 		int rv = select(fd + 1, &readfds, NULL, NULL, &timeout);
 		if (rv <= 0)
 			return 0;
-		if (rv == 0)
+		if (rv == 0) {
+			if (arg_debug  || arg_debug_h2)
+				printf("(%d) ***** h2 timeout *****\n", arg_id);
+			if (ssl_state == SSL_OPEN)
+				ssl_close();
 			return 0;
+		}
 
 		if (FD_ISSET(fd, &readfds)) {
 			int rv = ssl_rx(buf);
