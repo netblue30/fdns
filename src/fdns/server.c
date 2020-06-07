@@ -25,6 +25,7 @@ int server_print_zone = 0;
 int server_print_servers = 0;
 
 
+static int admin_down = 0; // set to 1 if --test-server=admin-down -> testing only servers disabled by admin-down flag
 static char *fdns_zone = NULL;
 static DnsServer *slist = NULL;
 static DnsServer *scurrent = NULL;
@@ -195,6 +196,20 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			if (arg_disable_local_doh)
 				filter_add('D', s->host);
 
+
+			// servers tagged as admin-down or firefox-only are not take into calculation
+			if (admin_down == 0 && (strstr(s->tags, "admin-down") || strstr(s->tags, "firefox-only"))) {
+				free(s);
+				// go to next server in the list
+				return read_one_server(fp, linecnt, fname);
+			}
+			// only admin-down servers
+			else if (admin_down == 1 && strstr(s->tags, "admin-down") == NULL) {
+				free(s);
+				// go to next server in the list
+				return read_one_server(fp, linecnt, fname);
+			}
+
 			return s;
 		}
 	}
@@ -232,13 +247,15 @@ static void load_list(void) {
 		DnsServer *s = read_one_server(fp, &linecnt, PATH_ETC_SERVER_LIST);
 		if (!s)
 			break;
-		// push it to the end of the list
+
+		// push the server to the end of the list
 		*ptr = s;
 		ptr = &s->next;
 	}
 
 	fclose(fp);
 }
+
 // return 0 if ok, 1 if failed
 int test_server(const char *server_name)  {
 	if (arg_fallback_only)
@@ -343,7 +360,7 @@ void server_list(const char *tag) {
 	// process tag "all"
 	DnsServer *s = slist;
 	int cnt = 0;
-	if (strcmp(tag, "all") == 0) {
+	if (strcmp(tag, "all") == 0 || strcmp(tag, "admin-down") == 0) {
 		while (s) {
 			print_server(s);
 			s->active = ++cnt;
@@ -489,11 +506,11 @@ errout:
 	exit(1);
 }
 
-
-
-
 void server_test_tag(const char *tag)  {
+	if (strcmp(tag, "admin-down") == 0)
+		admin_down = 1;
 	server_list(tag);
+
 	// walk the list
 	DnsServer *s = slist;
 	while (s) {
