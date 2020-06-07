@@ -346,15 +346,17 @@ int h2_exchange(uint8_t *response) {
 		int fd = ssl_get_socket();
 		FD_SET(fd, &readfds);
 		struct timeval timeout;
-		timeout.tv_sec = 5;
+		timeout.tv_sec = H2_TIMEOUT;
 		timeout.tv_usec = 0;
 
 		int rv = select(fd + 1, &readfds, NULL, NULL, &timeout);
-		if (rv <= 0)
+		if (rv < 0)
 			return 0;
 		if (rv == 0) {
-			if (arg_debug  || arg_debug_h2)
-				printf("(%d) ***** h2 timeout *****\n", arg_id);
+			if (arg_id > 0)
+				rlogprintf("Error: h2 timeout\n");
+			else
+				fprintf(stderr, "Error: h2 timeout\n");
 			if (ssl_state == SSL_OPEN)
 				ssl_close();
 			return 0;

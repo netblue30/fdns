@@ -75,6 +75,8 @@ static inline int check_addr_port(const char *str) {
 #define SSL_REOPEN_TIMER 2	// try to reopen a failed SSL connection after this time
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
 
+#define H2_TIMEOUT 5 // wait time for HTTP2 answer - will close the connection
+
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (60 * 60)
