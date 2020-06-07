@@ -616,7 +616,7 @@ keepalive: 30
 ##keepalive: 3
 
 name: nixnet
-website: https://nixnet.services/dns/
+website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas-East, Americas-West, Europe
 tags: LasVegas, NY, Americas, Americas-East, Americas-West, Luxembourg, Europe
 address: 198.251.90.114:443
@@ -624,7 +624,7 @@ host: uncensored.any.dns.nixnet.xyz/dns-query
 keepalive: 30
 
 name: nixnet-adblocker
-website: https://nixnet.services/dns/
+website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas-East, Americas-West, Europe
 tags: LasVegas, NY, Americas, Americas-East, Americas-West, Luxembourg, Europe, adblocker
 address: 198.251.90.89:443
