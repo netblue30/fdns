@@ -354,6 +354,7 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 				memcpy(dnserror_ipv4, pkt, 4);
 				return -1;
 			}
+			printf("(%d) %s %u.%u.%u.%u\n", arg_id, cache_get_name(), *pkt, *(pkt + 1), *(pkt + 2), *(pkt +3));
 		}
 		else if (rr.type == 5) { // CNAME
 			if (rr.rlen > 253) {

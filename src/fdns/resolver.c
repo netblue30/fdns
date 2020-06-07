@@ -125,8 +125,14 @@ void resolver(void) {
 			time_t ts = time(NULL);
 			if (ts - timestamp > OUT_OF_SLEEP) {
 				rlogprintf("Suspend detected, restarting SSL connection\n");
+				// send a keepalive to frontend in order not to get killed
+				rlogprintf("resolver keepalive\n");
+				resolver_keepalive_cnt = RESOLVER_KEEPALIVE_TIMER;
+				// assume the frontend is still alive
+				frontend_keepalive_cnt = 0;
+				// clear DNS cache
 				cache_init();
-				// force a PING - if the connection is already down, close SSL
+				// force a HTTP2 PING - if the connection is already down, it will close SSL
 				dns_keepalive();
 			}
 			timestamp = ts;
