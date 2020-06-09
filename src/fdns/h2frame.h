@@ -1,7 +1,6 @@
 #ifndef H2FRAME_H
 #define H2FRAME_H
-#include <stdint.h>
-#include <stdio.h>
+#include "fdns.h"
 
 //
 // http2 header definitions
@@ -73,7 +72,8 @@ static inline void h2frame_set_length(H2Frame *frm, uint32_t length) {
 static inline void h2frame_print(H2Frame *frm) {
 	uint32_t len = h2frame_extract_length(frm);
 	uint32_t stream = h2frame_extract_stream(frm);
-	printf("stream %u, len %u, type 0x%02u %s, flags 0x%02u (",
+	print_gmtime();
+	printf("s %u, len %u, 0x%02u %s, 0x%02u (",
 	       stream,
 	       len,
 	       frm->type, h2frame_type2str(frm->type),

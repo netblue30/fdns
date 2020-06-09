@@ -18,6 +18,7 @@
 */
 #include "fdns.h"
 #include <syslog.h>
+
 static LogMsg msg;
 static int disabled = 0;
 
@@ -66,6 +67,7 @@ void logprintf(const char *format, ...) {
 	}
 	else {
 		// print on stdout
+		print_gmtime();
 		vprintf(format, valist);
 	}
 

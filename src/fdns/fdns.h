@@ -33,6 +33,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <time.h>
 
 #define errExit(msg)    do { char msgout[500]; snprintf(msgout, 500, "Error %s: %s:%d %s", msg, __FILE__, __LINE__, __FUNCTION__); perror(msgout); exit(1);} while (0)
 
@@ -62,6 +63,13 @@ static inline int check_addr_port(const char *str) {
 	if (rv != 5 || a > 255 || b > 255 || c > 255 || d > 255 || e < 0 || e > 0xffff)
 		return -1;
 	return 0;
+}
+
+// print a timestamp (standard Greenwich time)
+static inline void print_gmtime(void) {
+	time_t t = time(NULL);
+	struct tm *ts =gmtime(&t);
+	printf("%d:%d:%d ", ts->tm_hour, ts->tm_min, ts->tm_sec);
 }
 
 // all timers are in seconds
