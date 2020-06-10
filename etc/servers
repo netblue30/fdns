@@ -86,11 +86,10 @@ host: doh.abmb.win/dns-query
 sni: yes
 keepalive: 20
 
-# server down for administrative purposes
 name: abmb-sg2
 website: https://abmb.win/
 zone: Asia-Pacific
-tags: admin-down, geocast, Singapore, Asia-Pacific
+tags: geocast, Singapore, Asia-Pacific
 #address: 54.169.103.244:443
 address: doh2.abmb.win:443
 host: doh2.abmb.win/dns-query
@@ -139,50 +138,41 @@ address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
 keepalive: 30
 
-# server down for administrative purposes
+# very short timeout; works fine on Firefox
 name: alekberg
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Europe
-tags: Netherlands, Europe
+tags: firefox-only, Netherlands, Europe
 address: 51.15.124.208:443
 host: dns.alekberg.net/
 sni: yes
 keepalive: 7
 
-# server down for administrative purposes
+# very short timeout; works fine on Firefox
 name: alekberg-adblocker
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Europe
-tags: Netherlands, Europe, adblocker
+tags: firefox-only, Netherlands, Europe, adblocker
 address: 51.15.124.208:443
 host: dns.alekberg.net/noads
 keepalive: 7
 
-# server down for administrative purposes
-name: alekberg2
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-zone: Americas-West
-tags: Washington, Americas, Americas-West
-address: 104.168.247.138:443
-host: dns2.alekberg.net/dns-query
-keepalive: 7
-
-# server down for administrative purposes
-name: alekberg-adblocker2
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-zone: Americas-West
-tags: Washington, Americas, Americas-West, adblocker
-address: 104.168.247.138:443
-host: dns2.alekberg.net/noads
-keepalive: 7
-
-# server down for administrative purposes
-name: alekberg3
+# very short timeout; works fine on Firefox
+name: alekberg-se
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
 zone: Europe
-tags: Sweden, Europe
+tags: firefox-only, Sweden, Europe
 address: 45.153.187.96:443
 host: dnsse.alekberg.net/
+keepalive: 7
+
+# very short timeout; works fine on Firefox
+name: alekberg-se-adblocker
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+zone: Europe
+tags: firefox-only, Sweden, Europe
+address: 45.153.187.96:443
+host: dnsse.alekberg.net/noads
 keepalive: 7
 
 name: appliedprivacy
@@ -564,10 +554,11 @@ address: 35.198.2.76:443
 host: ibuki.cgnat.net/dns-query
 keepalive: 20
 
+# server down for administrative purposes
 name: jcdns
 website: https://jcdns.fun/
 zone: Europe
-tags: Netherlands, Europe
+tags: admin-down, Netherlands, Europe
 address: 178.62.214.105:443
 host: jcdns.fun/dns-query
 keepalive: 30
