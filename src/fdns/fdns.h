@@ -265,7 +265,7 @@ void filter_test_list(void);
 
 // log.c
 typedef struct logmsgheader_t {
-	uint16_t len; // packet length
+	uint16_t len;	// packet length
 } LogMsgHeader; // 24 bytes
 
 typedef struct logmsg_t {
