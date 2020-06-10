@@ -208,8 +208,10 @@ void dns_keepalive(void) {
 	if (ssl_state == SSL_CLOSED)
 		return;
 
-	if (arg_debug)
+	if (arg_debug) {
+		print_gmtime();
 		printf("(%d) send keepalive\n", arg_id);
+	}
 	h2_send_ping();
 }
 

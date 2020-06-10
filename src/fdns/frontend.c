@@ -393,7 +393,8 @@ void frontend(void) {
 						shmem_store_stats(proxy_addr);
 					}
 					else if (strncmp(msg.buf, "Request: ", 9) == 0) {
-						printf("%s", msg.buf + 9);
+						print_gmtime();
+						printf("(%d) %s", i, msg.buf + 9);
 						shmem_store_log(msg.buf + 9);
 					}
 					else if (strncmp(msg.buf, "resolver keepalive", 16) == 0)
@@ -411,8 +412,12 @@ void frontend(void) {
 						char *tmp;
 						if (asprintf(&tmp, "(%d) %s", i, msg.buf) == -1)
 							errExit("asprintf");
-						logprintf("%s", tmp);
 						shmem_store_log(tmp);
+
+						// trick logprintf in printing the timestamp
+						arg_id = i;
+						logprintf("%s", tmp);
+						arg_id = -1;
 						free(tmp);
 					}
 

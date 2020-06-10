@@ -67,7 +67,8 @@ void logprintf(const char *format, ...) {
 	}
 	else {
 		// print on stdout
-		print_gmtime();
+		if (arg_id != -1)
+			print_gmtime();
 		vprintf(format, valist);
 	}
 
