@@ -36,6 +36,7 @@ static int arg_asia_pacific = 0;
 static int arg_europe = 0;
 
 // returns NULL for end of list
+// returns NULL for end of list
 static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 	assert(fp);
 	assert(linecnt);
@@ -50,75 +51,61 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 	buf[0] = '\0';
 	int found = 0;
 	while (fgets(buf, 4096, fp)) {
-		char *start = buf;
 		(*linecnt)++;
 
-		if (strncmp(start, "##", 2) == 0)
-			start += 2;
-
 		// comments
-		if (*start == '#')
+		if (*buf == '#')
 			continue;
 
 		// remove \n
-		char *ptr = strchr(start, '\n');
+		char *ptr = strchr(buf, '\n');
 		if (ptr)
 			*ptr = '\0';
 
-		if (strncmp(start, "name: ", 6) == 0) {
+		if (strncmp(buf, "name: ", 6) == 0) {
 			if (s->name)
 				goto errout;
-			s->name = strdup(start + 6);
+			s->name = strdup(buf + 6);
 			if (!s->name)
 				errExit("strdup");
 			found = 1;
 		}
-		else if (strncmp(start, "website: ", 9) == 0) {
+		else if (strncmp(buf, "website: ", 9) == 0) {
 			if (s->website)
 				goto errout;
-			s->website = strdup(start + 9);
+			s->website = strdup(buf + 9);
 			if (!s->website)
 				errExit("strdup");
 			found = 1;
 		}
-		else if (strncmp(start, "zone: ", 6) == 0) {
+		else if (strncmp(buf, "zone: ", 6) == 0) {
 			if (s->zone)
 				goto errout;
-			s->zone = strdup(start + 6);
+			s->zone = strdup(buf + 6);
 			if (!s->zone)
 				errExit("strdup");
 			found = 1;
 		}
-		else if (strncmp(start, "tags: ", 6) == 0) {
+		else if (strncmp(buf, "tags: ", 6) == 0) {
 			if (s->tags)
 				goto errout;
-			s->tags = strdup(start + 6);
+			s->tags = strdup(buf + 6);
 			if (!s->tags)
 				errExit("strdup");
 			found = 1;
 		}
-		else if (strncmp(start, "address: ", 9) == 0) {
+		else if (strncmp(buf, "address: ", 9) == 0) {
 			if (s->address)
 				goto errout;
-			s->address = strdup(start + 9);
+			s->address = strdup(buf + 9);
 			if (!s->address)
 				errExit("strdup");
-
-			// check address:port
-			// commons.host is a geocast host
-			// OpenSSL will find out the IP address using regular DNS over UDP
-			if (strcmp(s->name, "commons-host") != 0) {
-				if (check_addr_port(s->address)) {
-					fprintf(stderr, "Error: file %s, line %d, invalid address:port\n", fname, *linecnt);
-					exit(1);
-				}
-			}
 			found = 1;
 		}
-		else if (strncmp(start, "host: ", 6) == 0) {
+		else if (strncmp(buf, "host: ", 6) == 0) {
 			if (s->host)
 				goto errout;
-			s->host = strdup(start + 6);
+			s->host = strdup(buf + 6);
 			if (!s->host)
 				errExit("strdup");
 			found = 1;
@@ -136,22 +123,22 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				errExit("strdup");
 			*str++ = '\0';
 		}
-		else if (strncmp(start, "sni: ", 5) == 0) {
+		else if (strncmp(buf, "sni: ", 5) == 0) {
 			if (s->sni)
 				goto errout;
-			if (strcmp(start + 5, "yes") == 0)
+			if (strcmp(buf + 5, "yes") == 0)
 				s->sni = 1;
-			else if (strcmp(start + 5, "no") == 0)
+			else if (strcmp(buf + 5, "no") == 0)
 				s->sni = 0;
 			else {
 				fprintf(stderr, "Error: file %s, line %d, wrong SNI setting\n", fname, *linecnt);
 				exit(1);
 			}
 		}
-		else if (strncmp(start, "keepalive: ", 11) == 0) {
+		else if (strncmp(buf, "keepalive: ", 11) == 0) {
 			if (s->keepalive)
 				goto errout;
-			if (sscanf(start + 11, "%d", &s->keepalive) != 1 || s->keepalive <= 0) {
+			if (sscanf(buf + 11, "%d", &s->keepalive) != 1 || s->keepalive <= 0) {
 				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
 				exit(1);
 			}
@@ -166,6 +153,14 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			// add host to filter
 			if (arg_disable_local_doh)
 				filter_add('D', s->host);
+
+
+			// servers tagged as admin-down or firefox-only are not take into calculation
+			if (strstr(s->tags, "admin-down")) {
+				free(s);
+				// go to next server in the list
+				return read_one_server(fp, linecnt, fname);
+			}
 
 			return s;
 		}
@@ -268,7 +263,8 @@ char *clean_tags(char *tag) {
 		    strncmp(ptr, "America-East",  12) == 0 ||
 		    strncmp(ptr, "America-West", 12) == 0 ||
 		    strncmp(ptr, "Asia-Pacific", 12) == 0 ||
-		    strncmp(ptr, "Europe", 6) == 0)
+		    strncmp(ptr, "Europe", 6) == 0 ||
+		    strncmp(ptr, "firefox-only", 12) == 0)
 			skip = 1;
 
 		if (skip) {
@@ -299,7 +295,8 @@ char *clean_tags(char *tag) {
 
 }
 
-void print_server(DnsServer *ptr) {
+
+void print_server(DnsServer *ptr, char *extra) {
 	assert(ptr);
 
 	ptr->tags = clean_tags(ptr->tags);
@@ -318,8 +315,12 @@ void print_server(DnsServer *ptr) {
 			geocast = 1;
 		}
 
+		printf("(");
 		if (ptr)
-			printf("(%s)", ptr->tags);
+			printf("%s", ptr->tags);
+		if (extra)
+			printf("%s", extra);
+		printf(")");
 	}
 
 	printf("<br />\n");
@@ -337,6 +338,10 @@ void print_end(void) {
 }
 
 
+// commons-host
+//    Americas - 7 servers US+Canda
+//    Asia-Pacific - 9 servers
+//    Europe: - 5 servers Europe, 1 Middle-East
 void print_list(void) {
 	DnsServer *ptr;
 
@@ -345,7 +350,7 @@ void print_list(void) {
 		printf("\n<table><tr><td><ul>\n");
 		ptr = slist_anycast;
 		while (ptr) {
-			print_server(ptr);
+			print_server(ptr, NULL);
 			ptr = ptr->next;
 		}
 		printf("</ul></td></tr></table>\n\n\n");
@@ -358,7 +363,10 @@ void print_list(void) {
 		printf("<td><p style=\"text-align:center;\"><b>Americas</b></p><ul>\n");
 		ptr = slist_americas;
 		while (ptr) {
-			print_server(ptr);
+			char *extra = NULL;
+			if (strcmp(ptr->name, "commons-host") == 0)
+				extra = "7 servers US+Canada";
+			print_server(ptr, extra);
 			ptr = ptr->next;
 		}
 		printf("</ul>\n");
@@ -369,7 +377,10 @@ void print_list(void) {
 		printf("<p style=\"text-align:center;\"><b>Asia-Pacific</b></p><ul>\n");
 		ptr = slist_asiapac;
 		while (ptr) {
-			print_server(ptr);
+			char *extra = NULL;
+			if (strcmp(ptr->name, "commons-host") == 0)
+				extra = "9 servers";
+			print_server(ptr, extra);
 			ptr = ptr->next;
 		}
 		printf("</ul>\n");
@@ -383,7 +394,10 @@ void print_list(void) {
 		while (ptr) {
 			if (i == 5)
 				printf("</ul></td><td><p style=\"text-align:center;\"><b>Europe, Middle-East, Africa (cont.)</b></p><ul>\n");
-			print_server(ptr);
+			char *extra = NULL;
+			if (strcmp(ptr->name, "commons-host") == 0)
+				extra = "5 servers Europe, 1 Middle-East";
+			print_server(ptr, extra);
 			ptr = ptr->next;
 			i++;
 		}

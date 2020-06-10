@@ -323,9 +323,9 @@ int test_server(const char *server_name)  {
 		sleep(1);
 		i++;
 	}
-	while (i < 10); // 10 second wait
+	while (i < 15); // 15 second wait
 
-	if (i == 10) {
+	if (i == 15) {
 		printf("\tError: server %s failed\n", arg_server);
 		fflush(0);
 		kill(child, SIGKILL);
@@ -517,6 +517,7 @@ void server_test_tag(const char *tag)  {
 		if (s->active) {
 			scurrent = s;
 			test_server(s->name);
+			usleep(500000);
 		}
 		s = s->next;
 	}
