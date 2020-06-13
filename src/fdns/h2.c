@@ -272,7 +272,7 @@ void h2_connect(void) {
 	};
 
 	if (arg_debug) {
-		print_gmtime();
+		print_time();
 		printf("(%d) h2 send connect\n", arg_id);
 	}
 
@@ -364,7 +364,7 @@ int h2_exchange(uint8_t *response) {
 			}
 
 			if (arg_debug) {
-				print_gmtime();
+				print_time();
 				printf("(%d) h2 rx %d bytes\n", arg_id, rv);
 				print_mem(buf, rv);
 			}
@@ -409,7 +409,7 @@ int h2_exchange(uint8_t *response) {
 					return retval; // disregard the rest!
 				offset += sizeof(H2Frame) + h2frame_extract_length(frm);
 				if (arg_debug) {
-					print_gmtime();
+					print_time();
 					printf("(%d) h2 rx data offset %d\n", arg_id, offset);
 				}
 			}

@@ -393,7 +393,7 @@ void frontend(void) {
 						shmem_store_stats(proxy_addr);
 					}
 					else if (strncmp(msg.buf, "Request: ", 9) == 0) {
-						print_gmtime();
+						print_time();
 						printf("(%d) %s", i, msg.buf + 9);
 						shmem_store_log(msg.buf + 9);
 					}

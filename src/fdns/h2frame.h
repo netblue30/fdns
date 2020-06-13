@@ -1,6 +1,7 @@
 #ifndef H2FRAME_H
 #define H2FRAME_H
 #include "fdns.h"
+#include "timetrace.h"
 
 //
 // http2 header definitions
@@ -75,7 +76,7 @@ static inline void h2frame_print(int id, const char *direction, H2Frame *frm) {
 
 	uint32_t len = h2frame_extract_length(frm);
 	uint32_t stream = h2frame_extract_stream(frm);
-	print_gmtime();
+	print_time();
 	printf("(%d) h2 %s s %u, len %u, 0x%02u %s, 0x%02u (",
 	       id,
 	       direction,

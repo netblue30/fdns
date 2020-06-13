@@ -216,7 +216,7 @@ void resolver(void) {
 			if (len == -1) // todo: parse errno - EINTR
 				errExit("recvfrom");
 			if(arg_debug) {
-				print_gmtime();
+				print_time();
 				printf("(%d) rx fallback len %ld\n", arg_id, len);
 			}
 
@@ -243,7 +243,7 @@ void resolver(void) {
 			errno = 0;
 			len = sendto(slocal, buf, len, 0, (struct sockaddr *) addr_client, addr_client_len);
 			if(arg_debug) {
-				print_gmtime();
+				print_time();
 				printf("(%d) tx local len %ld, errno %d\n", arg_id, len, errno);
 			}
 			if (len == -1) // todo: parse errno - EAGAIN
@@ -266,7 +266,7 @@ void resolver(void) {
 				continue;
 
 			if(arg_debug) {
-				print_gmtime();
+				print_time();
 				printf("(%d) rx local packet len %ld\n", arg_id, len);
 			}
 			stats.rx++;
@@ -288,7 +288,7 @@ void resolver(void) {
 				// send the loopback response
 				len = sendto(slocal, r, len, 0, (struct sockaddr *) &addr_client, addr_client_len);
 				if(arg_debug) {
-					print_gmtime();
+					print_time();
 					printf("(%d) tx local len %ld, errno %d\n", arg_id, len, errno);
 				}
 				if (len == -1) // todo: parse errno - EAGAIN
@@ -302,7 +302,7 @@ void resolver(void) {
 				errno = 0;
 				len = sendto(fwd_active->sock, buf, len, 0, (struct sockaddr *) &fwd_active->saddr, fwd_active->slen);
 				if(arg_debug) {
-					print_gmtime();
+					print_time();
 					printf("(%d) tx forwarding len %ld, errno %d\n", arg_id, len, errno);
 				}
 				if (len == -1) // todo: parse errno - EAGAIN
@@ -327,7 +327,7 @@ void resolver(void) {
 			// a HTTP error from SSL, with no DNS data comming back
 			if (ssl_state == SSL_OPEN && ssl_len == 0) {
 				if (arg_debug) {
-					print_gmtime();
+					print_time();
 					printf("(%d) no data received, dropping...\n", arg_id);
 				}
 				continue;	// drop the packet
@@ -343,7 +343,7 @@ void resolver(void) {
 				errno = 0;
 				len = sendto(slocal, buf, len, 0, (struct sockaddr *) &addr_client, addr_client_len);
 				if(arg_debug) {
-					print_gmtime();
+					print_time();
 					printf("(%d) tx local len %ld, errno %d\n", arg_id, len, errno);
 				}
 				if (len == -1) // todo: parse errno - EAGAIN
@@ -361,7 +361,7 @@ void resolver(void) {
 				errno = 0;
 				len = sendto(sremote, buf, len, 0, (struct sockaddr *) &addr_fallback, addr_fallback_len);
 				if(arg_debug) {
-					print_gmtime();
+					print_time();
 					printf("(%d) tx fallback len %ld, errno %d\n", arg_id, len, errno);
 				}
 				if (len == -1) // todo: parse errno - EAGAIN
@@ -387,7 +387,7 @@ void resolver(void) {
 					if (len == -1) // todo: parse errno - EINTR
 						errExit("recvfrom");
 					if(arg_debug) {
-						print_gmtime();
+						print_time();
 						printf("(%d) rx forwarding len %ld\n", arg_id, len);
 					}
 
@@ -409,7 +409,7 @@ void resolver(void) {
 					errno = 0;
 					len = sendto(slocal, buf, len, 0, (struct sockaddr *) addr_client, addr_client_len);
 					if(arg_debug) {
-						print_gmtime();
+						print_time();
 						printf("(%d) tx local len %ld, errno %d\n", arg_id, len, errno);
 					}
 					if (len == -1) // todo: parse errno - EAGAIN

@@ -19,6 +19,8 @@
 #include "timetrace.h"
 #include <assert.h>
 #include <unistd.h>
+#include <time.h>
+#include <stdio.h>
 
 //**************************
 // time trace based on getticks function
@@ -26,6 +28,7 @@
 static int tt_not_implemented = 0; // not implemented for the current architecture
 static unsigned long long tt_1ms = 0;
 static unsigned long long tt = 0;	// start time
+static  int gm_delta = 0;
 
 void timetrace_start(void) {
 	if (tt_not_implemented)
@@ -57,4 +60,20 @@ float timetrace_end(void) {
 	assert(tt_1ms);
 
 	return (float) delta / (float) tt_1ms;
+}
+
+// calculate GMT / local time difference
+void init_time_delta(void) {
+	time_t t = time(NULL);
+	struct tm *ts =gmtime(&t);
+	int gmh = ts->tm_hour;
+	ts =localtime(&t);
+	gm_delta = ts->tm_hour - gmh;
+}
+
+// print a timestamp - local time
+void print_time(void) {
+	time_t t = time(NULL);
+	struct tm *ts =gmtime(&t);
+	printf("%02d:%02d:%02d ", ts->tm_hour + gm_delta, ts->tm_min, ts->tm_sec);
 }

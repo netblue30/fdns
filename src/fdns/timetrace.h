@@ -38,5 +38,7 @@ static inline unsigned long long getticks(void) {
 
 void timetrace_start(void);
 float timetrace_end(void);
+void init_time_delta(void);
+void print_time(void);
 
 #endif

@@ -17,6 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "fdns.h"
+#include "timetrace.h"
 #include <syslog.h>
 
 static LogMsg msg;
@@ -68,7 +69,7 @@ void logprintf(const char *format, ...) {
 	else {
 		// print on stdout
 		if (arg_id != -1)
-			print_gmtime();
+			print_time();
 		vprintf(format, valist);
 	}
 

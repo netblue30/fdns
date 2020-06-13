@@ -209,7 +209,7 @@ void dns_keepalive(void) {
 		return;
 
 	if (arg_debug) {
-		print_gmtime();
+		print_time();
 		printf("(%d) send keepalive\n", arg_id);
 	}
 	h2_send_ping();

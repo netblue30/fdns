@@ -17,6 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "fdns.h"
+#include "timetrace.h"
 #include <time.h>
 int arg_argc = 0;
 int arg_debug = 0;
@@ -94,6 +95,7 @@ static void usage(void) {
 
 int main(int argc, char **argv) {
 	// init
+	init_time_delta();
 	arg_argc = argc;
 	memset(&stats, 0, sizeof(stats));
 	memset(encrypted, 0, sizeof(encrypted));
