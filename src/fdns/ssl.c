@@ -221,7 +221,7 @@ int ssl_tx(uint8_t *buf, int len) {
 	}
 
 	if (arg_debug) {
-		print_gmtime();
+		print_time();
 		printf("(%d) SSL write %d/%d bytes\n", arg_id, len, lentx);
 		fflush(0);
 	}
@@ -249,7 +249,7 @@ int ssl_rx(uint8_t *buf) {
 		}
 	}
 	if (arg_debug) {
-		print_gmtime();
+		print_time();
 		printf("(%d) SSL read %d bytes\n", arg_id, len);
 		fflush(0);
 	}

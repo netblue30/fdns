@@ -65,13 +65,6 @@ static inline int check_addr_port(const char *str) {
 	return 0;
 }
 
-// print a timestamp (standard Greenwich time)
-static inline void print_gmtime(void) {
-	time_t t = time(NULL);
-	struct tm *ts =gmtime(&t);
-	printf("%d:%d:%d ", ts->tm_hour, ts->tm_min, ts->tm_sec);
-}
-
 // all timers are in seconds
 #define RESOLVER_KEEPALIVE_TIMER 10 // keepalive messages sent by resolver processes
 #define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 3) // timer to detect a dead resolver process
