@@ -24,10 +24,6 @@ package() {
     cd "${srcdir}/${pkgname}-${pkgver}"
     make DESTDIR="$pkgdir" install
 
-    # systemd unit
-    install -d 0755 "${pkgdir}/usr/lib/systemd/system"
-    mv "${pkgdir}/etc/${pkgname}/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/"
-
     # license
     install -d 0755 "${pkgdir}/usr/share/licenses/${pkgname}"
     mv "${pkgdir}/usr/share/doc/${pkgname}/COPYING" \
