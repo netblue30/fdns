@@ -114,7 +114,7 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	// encoding structure
 	char hpack_buf[MAXBUF];
 	struct tmp_buf buf = {
-		frame + 9,	// frame header size 9
+		(char *) frame + 9,	// frame header size 9
 		0,
 	};
 	struct hpack_encoding enc;
@@ -242,7 +242,7 @@ uint32_t h2_decode_data(uint8_t *frame, uint32_t *offset, uint32_t *length) {
 
 	uint8_t flg = frm.flag;
 	uint8_t pad = 0;
-	uint32_t stream = h2frame_extract_stream(&frm);
+//	uint32_t stream = h2frame_extract_stream(&frm);
 //todo:  check the current streamid
 	*length = h2frame_extract_length(&frm);
 	*offset = rv;
@@ -299,7 +299,7 @@ void h2_send_exampledotcom(void) {
 		h2frame_print(arg_id, "tx query", (H2Frame *) (buf_query + len));
 
 	ssl_tx(buf_query, len + len2);
-	int rv = h2_exchange(buf_query);
+	h2_exchange(buf_query);
 }
 
 
@@ -395,7 +395,7 @@ int h2_exchange(uint8_t *response) {
 				else if (frm->type == H2_TYPE_PING && frm->flag & H2_FLAG_END_STREAM)
 					return 0;
 				// ping request - set end stream flag and return the packet
-				else if (frm->type == H2_TYPE_PING && frm->flag & H2_FLAG_END_STREAM == 0) {
+				else if (frm->type == H2_TYPE_PING && (frm->flag & H2_FLAG_END_STREAM) == 0) {
 					frm->flag |= H2_FLAG_END_STREAM;
 					ssl_tx((uint8_t *) frm, rv - offset);
 					return 0;
