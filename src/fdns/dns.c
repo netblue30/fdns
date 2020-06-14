@@ -62,7 +62,6 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 		return NULL;
 	}
 
-	unsigned delta;
 	DnsQuestion *q = lint_question(&pkt,  last);
 	if (!q) {
 		rlogprintf("Error LANrx: %s, dropped\n", lint_err2str());

@@ -17,6 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "fdns.h"
+#include "timetrace.h"
 #ifndef  _GNU_SOURCE
 #define _GNU_SOURCE
 #endif

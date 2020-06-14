@@ -132,7 +132,6 @@ int whitelist_blocked(const char *domain) {
 	if (strncmp(domain, "www.", 4) == 0)
 		dm = domain + 4;
 
-	int i = 0;
 	WEntry *w = wlist;
 	while (w) {
 		if (strcmp(w->domain, dm) == 0)

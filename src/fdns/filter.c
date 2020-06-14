@@ -107,33 +107,33 @@ static DFilter default_filter[] = {
 	{'T', "pixel.", NULL, 0},
 
 	// minimize first-party trackers list
-	{'F', "^somniture.", 0}, // 30
-	{'F', "^aa-metrics.", 0}, // 20
-	{'F', "^smetric.", 0}, //  2711
-	{'F', "^smetrics.", 0}, //  2642
-	{'F', "^tr.", 0}, // 1756
-	{'F', "^metric.", 0}, // 950
-	{'F', "^metrics.", 0}, // 644
-	{'F', "^mdws.", 0}, // 193
-	{'F', "^srepdata.", 0}, // 200
-	{'F', "^marketing.net.", 0}, // 66
-	{'F', ".ati-host.net.", 0},  // 91
-	{'F', "^sadbmetrics.", 0}, // 67
-	{'F', "^somni.", 0}, // 198
-	{'F', "^srepdata,", 0}, //198
-	{'F', "^sstats.", 0}, // 339
-	{'F', "^sw88.", 0}, // 63
-	{'F', "^tk.airfrance.", 0}, // 98
+	{'F', "^somniture.", NULL, 0}, // 30
+	{'F', "^aa-metrics.", NULL, 0}, // 20
+	{'F', "^smetric.", NULL, 0}, //  2711
+	{'F', "^smetrics.", NULL, 0}, //  2642
+	{'F', "^tr.", NULL, 0}, // 1756
+	{'F', "^metric.", NULL, 0}, // 950
+	{'F', "^metrics.", NULL, 0}, // 644
+	{'F', "^mdws.", NULL, 0}, // 193
+	{'F', "^srepdata.", NULL, 0}, // 200
+	{'F', "^marketing.net.",NULL,  0}, // 66
+	{'F', ".ati-host.net.", NULL, 0},  // 91
+	{'F', "^sadbmetrics.", NULL, 0}, // 67
+	{'F', "^somni.", NULL, 0}, // 198
+	{'F', "^srepdata,", NULL, 0}, //198
+	{'F', "^sstats.", NULL, 0}, // 339
+	{'F', "^sw88.", NULL, 0}, // 63
+	{'F', "^tk.airfrance.", NULL, 0}, // 98
 
 	// hardcoded DoH servers
 	// this is the last section before the NULL entry
 	// the NULL entry is moved up if  --disable-local-doh is not present
-	{'D', "$dnscrypt-cert.oszx.co", 0},
-	{'D', "$cloudflare-dns.com", 0},
-	{'D', "$anycast.censurfridns.dk", 0},
-	{'D', "$dns.nextdns.io", 0},
+	{'D', "$dnscrypt-cert.oszx.co", NULL, 0},
+	{'D', "$cloudflare-dns.com", NULL, 0},
+	{'D', "$anycast.censurfridns.dk", NULL, 0},
+	{'D', "$dns.nextdns.io", NULL, 0},
 
-	{0, NULL, 0}
+	{0, NULL, NULL, 0}
 };
 
 typedef struct hash_entry_t {

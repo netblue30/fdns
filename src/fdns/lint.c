@@ -126,7 +126,7 @@ errexit:
 
 static void clean_domain(uint8_t *ptr) {
 	assert(ptr);
-	uint8_t *end = ptr + strlen(ptr);
+	uint8_t *end = ptr + strlen((char *) ptr);
 
 	while (*ptr != 0 && ptr < end) {
 		if ((*ptr & 0xc0) == 0) {
@@ -376,7 +376,7 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 			fflush(0);
 
 			// CNAME Cloaking Blocklist
-			if (filter_cname(cname)) {
+			if (filter_cname((char *) cname)) {
 				dnserror = DNSERR_CNAME_CLOAKING;
 				return -1;
 			}

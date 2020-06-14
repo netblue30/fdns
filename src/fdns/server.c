@@ -29,11 +29,6 @@ static int admin_down = 0; // set to 1 if --test-server=admin-down -> testing on
 static char *fdns_zone = NULL;
 static DnsServer *slist = NULL;
 static DnsServer *scurrent = NULL;
-static char *push_request_tail =
-	"Accept: application/dns-message\r\n" \
-	"Content-Type: application/dns-message\r\n" \
-	"Content-Length: %d\r\n" \
-	"\r\n";
 
 static inline void print_server(DnsServer *s) {
 	assert(s);
