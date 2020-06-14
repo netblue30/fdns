@@ -229,6 +229,8 @@ static uint32_t h2_encode_data(uint8_t *frame, uint8_t *data, unsigned length) {
 uint32_t h2_decode_data(uint8_t *frame, uint32_t *offset, uint32_t *length) {
 	assert(frame);
 	assert(length);
+	*offset = 0;
+	*length = 0;
 
 	// decode header
 	// http2 frame

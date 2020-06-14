@@ -502,7 +502,7 @@ errout:
 }
 
 void server_test_tag(const char *tag)  {
-	if (strcmp(tag, "admin-down") == 0)
+	if (tag && strcmp(tag, "admin-down") == 0)
 		admin_down = 1;
 	server_list(tag);
 
