@@ -1,0 +1,14 @@
+diff --git a/Makefile.in b/Makefile.in
+index 56a9932..51a1e99 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -79,9 +79,6 @@ realinstall:
+ 	# bash completion
+ 	install -m 0755 -d $(DESTDIR)/$(datarootdir)/bash-completion/completions
+ 	install -c -m 0644 src/bash_completion/fdns.bash_completion $(DESTDIR)/$(datarootdir)/bash-completion/completions/fdns
+-	# apparmor profile
+-	sh -c "if [ ! -d $(DESTDIR)/$(sysconfdir)/apparmor.d ]; then install -d -m 755 $(DESTDIR)/$(sysconfdir)/apparmor.d; fi;"
+-	install -c -m 0644 etc/apparmor/usr.bin.fdns $(DESTDIR)/$(sysconfdir)/apparmor.d/.
+ 
+ install: all
+ 	$(MAKE) realinstall
