@@ -39,6 +39,7 @@ int arg_cache_ttl = CACHE_TTL_DEFAULT;
 int arg_disable_local_doh = 0;
 char *arg_whitelist_file = NULL;
 int arg_fallback_only = 0;
+int arg_keepalive = 0;
 
 Stats stats;
 
@@ -67,7 +68,9 @@ static void usage(void) {
 	        "\tserver.\n");
 	printf("    --help, -?, -h - show this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
-	printf("    --list - list DoH servers.\n");
+	printf("    --keepalive=number - use this session keepalive value instead of the one in\n"
+	         "\tservers file.\n");
+	printf("    --list - list DoH servers for your geographical zone.\n");
 	printf("    --list=server-name|tag|all - list DoH servers.\n");
 	printf("    --monitor - monitor statistics for the default instance.\n");
 	printf("    --monitor=proxy-address - monitor statistics for a specific instance\n"
@@ -151,6 +154,14 @@ int main(int argc, char **argv) {
 				;
 
 			// options
+			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
+				arg_keepalive = atoi(argv[i] + 12);
+				if (arg_keepalive < H2_SESSION_KEEPALIVE_MIN || arg_keepalive > H2_SESSION_KEEPALIVE_MAX) {
+					fprintf(stderr, "Error: keepalive value out of range. Allowed values " \
+					"between %d and %d \n", H2_SESSION_KEEPALIVE_MIN, H2_SESSION_KEEPALIVE_MAX);
+					exit(1);
+				}
+			}
 #ifdef HAVE_GCOV
 			else if (strcmp(argv[i], "--fallback-only") == 0)
 				arg_fallback_only = 1;

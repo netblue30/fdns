@@ -9,17 +9,24 @@ export MALLOC_CHECK_=3
 export MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
 
 SERVERS=`fdns --list=all | grep -v https | grep -v zone | grep -v server | awk '{ print $1 }'`
+
+let i=1
 for s in $SERVERS
 do
-	./test-server.exp $s
-	status=$?
-	if test $status -eq 0
-	then
-		echo "OK"
-	else
-		sleep 1
-		./test-server.exp $s
-	fi
-	rm -f /tmp/index.html
+	./test-keepalive.exp $s 127.127.1.$i &
+	sleep 3
+	let i=i+1
 done
+echo "TESTING: waiting 30 seconds for keepalive test to finish"
+sleep 30
+
+let i=1
+for s in $SERVERS
+do
+	./test-query.exp $s 127.127.2.$i &
+	sleep 3
+	let i=i+1
+done
+echo "TESTING: waiting 10 seconds for query test to finish"
+sleep 10
 

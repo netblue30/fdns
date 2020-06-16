@@ -77,6 +77,8 @@ static inline int check_addr_port(const char *str) {
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
 
 #define H2_TIMEOUT 5 // wait time for HTTP2 answer - will close the connection
+#define H2_SESSION_KEEPALIVE_MIN 5 // h2 keepalive (PING) min value in seconds for --keepalive option
+#define H2_SESSION_KEEPALIVE_MAX 180 // h2 keepalive (PING) max value in seconds for --keepalive option
 
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
@@ -202,6 +204,7 @@ extern int arg_cache_ttl;
 extern int arg_disable_local_doh;
 extern char *arg_whitelist_file;
 extern int arg_fallback_only;
+extern int arg_keepalive;
 extern Stats stats;
 
 // dnsdb.c
@@ -347,7 +350,7 @@ void procs_list(void);
 void h2_init(void);
 void h2_close(void);
 void h2_connect(void);
-void h2_send_exampledotcom(void);
+int h2_send_exampledotcom(uint8_t *req);
 int h2_send_query(uint8_t *req, int cnt);
 void h2_send_ping(void);
 int h2_exchange(uint8_t *response);

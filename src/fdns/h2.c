@@ -283,29 +283,30 @@ void h2_connect(void) {
 	stream_id = 13;
 }
 
-void h2_send_exampledotcom(void) {
+// the result message is placed in res, the length of the message is returned
+int h2_send_exampledotcom(uint8_t *req) {
 	stream_id += 2;
 
-	uint8_t req[] = {
+	uint8_t dnsmsg[] = {
 		0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00,
 		0x00, 0x00, 0x00, 0x00, 0x01, 0x07, 0x65, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x03, 0x63, 0x6f,
 		0x6d, 0x00, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x29, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x08, 0x00, 0x08, 0x00, 0x04, 0x00, 0x01, 0x00, 0x00
 	};
-	uint32_t len = h2_encode_header(buf_query, sizeof(req));
+	uint32_t len = h2_encode_header(buf_query, sizeof(dnsmsg));
 	if (arg_debug || arg_debug_h2)
 		h2frame_print(arg_id, "tx", (H2Frame *) buf_query);
 
-	int len2 = h2_encode_data(buf_query + len, req, sizeof(req));
+	int len2 = h2_encode_data(buf_query + len, dnsmsg, sizeof(dnsmsg));
 	if (arg_debug || arg_debug_h2)
 		h2frame_print(arg_id, "tx query", (H2Frame *) (buf_query + len));
 
 	ssl_tx(buf_query, len + len2);
-	h2_exchange(buf_query);
+	return h2_exchange(req);
 }
 
 
-
+// the result message is placed in req, the length of the message is returned
 int h2_send_query(uint8_t *req, int cnt) {
 	stream_id += 2;
 	uint32_t len = h2_encode_header(buf_query, cnt);

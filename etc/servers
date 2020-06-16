@@ -32,7 +32,7 @@ zone: Europe
 tags: non-profit, France, Europe
 address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
-keepalive: 30
+keepalive: 60
 
 name: a-and-a
 website: https://www.aa.net.uk/legal/dohdot-disclaimer/
@@ -40,7 +40,7 @@ zone: Europe
 tags: UK, Europe
 address: 217.169.20.23:443
 host: dns.aa.net.uk/dns-query
-keepalive: 30
+keepalive: 20
 
 name: a-and-a2
 website: https://www.aa.net.uk/legal/dohdot-disclaimer/
@@ -48,15 +48,16 @@ zone: Europe
 tags: UK, Europe
 address: 217.169.20.22:443
 host: dns.aa.net.uk/dns-query
-keepalive: 30
+keepalive: 20
 
+# server down for administrative purposes
 name: aaflalo
 website: https://www.aaflalo.me
 zone: Europe
-tags: Netherlands, Europe, adblocker
+tags: admin-down, Netherlands, Europe, adblocker
 address: 176.56.236.175:443
 host: dns.aaflalo.me/dns-query
-keepalive: 30
+keepalive: 60
 
 name: aaflalo-adblocker
 website: https://www.aaflalo.me
@@ -64,7 +65,7 @@ zone: Americas-East
 tags: NY, Americas, Americas-East, adblocker
 address: 168.235.81.167:443
 host: dns-nyc.aaflalo.me/dns-query
-keepalive: 30
+keepalive: 60
 
 # server down for administrative purposes
 name: abmb-jp
@@ -86,10 +87,11 @@ host: doh.abmb.win/dns-query
 sni: yes
 keepalive: 20
 
+# server down for administrative purposes
 name: abmb-sg2
 website: https://abmb.win/
 zone: Asia-Pacific
-tags: geocast, Singapore, Asia-Pacific
+tags: admin-down, geocast, Singapore, Asia-Pacific
 #address: 54.169.103.244:443
 address: doh2.abmb.win:443
 host: doh2.abmb.win/dns-query
@@ -112,7 +114,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
-keepalive: 30
+keepalive: 60
 
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -120,7 +122,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
-keepalive: 30
+keepalive: 60
 
 name: adguard-family
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -128,7 +130,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
-keepalive: 30
+keepalive: 60
 
 name: adguard-family2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -136,7 +138,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
-keepalive: 30
+keepalive: 60
 
 # very short timeout; works fine on Firefox
 name: alekberg
@@ -237,7 +239,7 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 94.130.224.114:443
 host: dns.brahma.world/dns-query
-keepalive: 30
+keepalive: 60
 
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -293,7 +295,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
-keepalive: 30
+keepalive: 60
 
 name: cleanbrowsing-family
 website: https://cleanbrowsing.org
@@ -301,7 +303,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
-keepalive: 30
+keepalive: 60
 
 name: cloudflare
 website: https://www.cloudflare.com
@@ -362,7 +364,7 @@ tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: commons.host:443
 host: commons.host/
 sni: yes
-keepalive: 30
+keepalive: 60
 
 # uncensored server redirected to cloudflare
 name: containerpi
@@ -371,7 +373,7 @@ zone: Asia-Pacific
 tags: Japan, Asia-Pacific
 address: 45.77.180.10:443
 host: dns.containerpi.com/dns-query
-keepalive: 30
+keepalive: 60
 
 # works fine on Firefox
 name: cznic
@@ -398,7 +400,7 @@ tags: Germany, Europe
 address: 5.45.107.88:443
 host: doh.defaultroutes.de/dns-query
 sni: yes
-keepalive: 30
+keepalive: 60
 
 name: digital-society
 website: https://www.digitale-gesellschaft.ch
@@ -406,7 +408,7 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.42:443
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 30
+keepalive: 60
 
 name: digital-society2
 website: https://www.digitale-gesellschaft.ch
@@ -414,25 +416,27 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 30
+keepalive: 60
 
+# server down for administrative purposes
 name: dns-sb
 website: https://dns.sb/
 zone: Europe
-tags: Estonia, Germany, Europe
+tags: admin-down, Estonia, Germany, Europe
 address: 185.222.222.222:443
 host: doh.dns.sb/dns-query
 sni: yes
-keepalive: 30
+keepalive: 60
 
+# server down for administrative purposes
 name: dns-sb2
 website: https://dns.sb/
 zone: Europe
-tags: Estonia, Germany, Europe
+tags: admin-down, Estonia, Germany, Europe
 address: 185.184.222.222:443
 host: doh.dns.sb/dns-query
 sni: yes
-keepalive: 30
+keepalive: 60
 
 name: dnscrypt-ca
 website: https://dnscrypt.ca/
@@ -440,7 +444,7 @@ zone: Americas-East
 tags: Quebec, Americas, Americas-East
 address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
-keepalive: 30
+keepalive: 60
 
 name: dnscrypt-ca2
 website: https://dnscrypt.ca/
@@ -448,7 +452,7 @@ zone: Americas-East
 tags: Quebec, Americas, Americas-East
 address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
-keepalive: 30
+keepalive: 60
 
 name: dnsforge
 website: https://dnsforge.de
@@ -456,7 +460,7 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 176.9.93.198:443
 host: dnsforge.de/dns-query
-keepalive: 30
+keepalive: 60
 
 name: dnshome
 website: https://www.dnshome.de/doh-dot-public-resolver.php
@@ -512,7 +516,7 @@ zone: Europe
 tags: Germany, Europe
 address: 195.30.94.28:443
 host: doh.ffmuc.net/dns-query
-keepalive: 30
+keepalive: 60
 
 name: flatuslifir
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
@@ -520,7 +524,7 @@ zone: Europe
 tags: Iceland, Europe
 address: 46.239.223.80:443
 host: dns.flatuslifir.is/dns-query
-keepalive: 30
+keepalive: 60
 
 name: hostux
 website: https://hostux.network/en/index.html
@@ -528,7 +532,7 @@ zone: Europe
 tags: Luxembourg, Europe
 address: 185.26.126.37:443
 host: dns.hostux.net/dns-query
-keepalive: 30
+keepalive: 60
 
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
@@ -536,7 +540,7 @@ zone: Europe
 tags: Luxembourg, Europe, adblocker
 address: 185.26.126.37:443
 host: dns.hostux.net/ads
-keepalive: 30
+keepalive: 60
 
 name: ibksturm
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
@@ -544,7 +548,7 @@ zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 85.5.93.230:443
 host: ibksturm.synology.me/dns-query
-keepalive: 30
+keepalive: 60
 
 name: ibuki
 website: https://ibuki.cgnat.net/
@@ -564,9 +568,10 @@ host: jcdns.fun/dns-query
 keepalive: 30
 
 name: lelux
+# server down for administrative purposes
 website: https://lelux.fi/resolver/
 zone: Europe
-tags: Netherlands, Europe
+tags: admin-down, Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
 keepalive: 30
@@ -586,7 +591,7 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 116.203.115.192:443
 host: doh.libredns.gr/dns-query
-keepalive: 30
+keepalive: 60
 
 name: libredns-adblocker
 website: https://libredns.gr/
@@ -594,13 +599,13 @@ zone: Europe
 tags: Germany, Europe, OpenNIC, adblocker
 address: 116.203.115.192:443
 host: doh.libredns.gr/ads
-keepalive: 30
+keepalive: 60
 
 # very short timeout; works fine on Firefox
 name: meganerd
 website: https://meganerd.nl/encrypted-dns-server
 zone: Europe
-tags: Netherlands, Europe
+tags: firefox-only, Netherlands, Europe
 address: 209.250.241.25:443
 host: jarjar.meganerd.nl/doh
 keepalive: 3
@@ -630,7 +635,7 @@ tags: UK, Europe, adblocker
 address: 51.38.83.141:443
 host: dns.oszx.co/dns-query
 sni: yes
-keepalive: 30
+keepalive: 60
 
 name: pi-dns
 website: https://pi-dns.com
@@ -638,7 +643,7 @@ zone: Americas-East
 tags: NY, Americas, Americas-East, adblocker
 address: 185.213.26.187:443
 host: doh.eastus.pi-dns.com/dns-query
-keepalive: 30
+keepalive: 60
 
 name: pi-dns2
 website: https://pi-dns.com
@@ -646,7 +651,7 @@ zone: Americas-West
 tags: California, Americas, Americas-West, adblocker
 address: 45.67.219.208:443
 host: doh.westus.pi-dns.com/dns-query
-keepalive: 30
+keepalive: 60
 
 name: pi-dns3
 website: https://pi-dns.com
@@ -654,7 +659,7 @@ zone: Europe
 tags: Finland, Europe, adblocker
 address: 95.216.181.228:443
 host: doh.northeu.pi-dns.com/dns-query
-keepalive: 30
+keepalive: 60
 
 name: pi-dns4
 website: https://pi-dns.com
@@ -662,7 +667,7 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 88.198.91.187:443
 host: doh.centraleu.pi-dns.com/dns-query
-keepalive: 30
+keepalive: 60
 
 name: powerdns
 website: https://powerdns.org
@@ -678,7 +683,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 9.9.9.9:5053
 host: dns.quad9.net/dns-query
-keepalive: 30
+keepalive: 60
 
 name: quad9-2
 website: https://quad9.net
@@ -686,7 +691,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.112:5053
 host: dns.quad9.net/dns-query
-keepalive: 30
+keepalive: 60
 
 name: quad9-unsecured
 website: https://quad9.net
@@ -694,7 +699,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 9.9.9.10:5053
 host: dns.quad9.net/dns-query
-keepalive: 30
+keepalive: 60
 
 name: quad9-unsecured-2
 website: https://quad9.net
@@ -702,7 +707,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.10:5053
 host: dns.quad9.net/dns-query
-keepalive: 30
+keepalive: 60
 
 name: rumpelsepp
 website: https://rumpelsepp.org/2020/03/10/announcing-dns-query.html
@@ -711,7 +716,7 @@ tags: Germany, Europe
 address: 116.203.179.248:443
 sni: yes
 host: rumpelsepp.org/dns-query
-keepalive: 30
+keepalive: 60
 
 name: seby
 website: https://dns.seby.io
@@ -736,7 +741,7 @@ tags: non-profit, Finland, Europe
 address: 95.216.229.153:443
 host: fi.doh.dns.snopyta.org/dns-query
 sni: yes
-keepalive: 30
+keepalive: 60
 
 name: switch
 website: https://www.switch.ch/security/info/public-dns/
@@ -754,13 +759,14 @@ address: 130.59.31.251:443
 host: dns.switch.ch/dns-query
 keepalive: 20
 
+# very short timeout; works fine on Firefox
 name: tiarapp-sg
 website: https://doh.tiar.app
 zone: Asia-Pacific
-tags: Singapore, Asia-Pacific, adblocker
+tags: firefox-only, Singapore, Asia-Pacific, adblocker
 address: 174.138.29.175:443
 host: doh.tiar.app/dns-query
-keepalive: 30
+keepalive: 7
 
 name: tiarapp-us
 website: https://doh.tiarap.org
@@ -769,7 +775,7 @@ tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.44.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
-keepalive: 30
+keepalive: 60
 
 name: tiarapp-us2
 website: https://doh.tiarap.org
@@ -778,15 +784,16 @@ tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.45.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
-keepalive: 30
+keepalive: 60
 
+# very short timeout; works fine on Firefox
 name: tiarapp-jp
 website: https://jp.tiar.app/
 zone: Asia-Pacific
-tags: Japan, Asia-Pacific, adblocker
+tags: firefox-only, Japan, Asia-Pacific, adblocker
 address: 172.104.93.80:443
 host: jp.tiar.app/dns-query
-keepalive: 30
+keepalive: 7
 
 name: twnic
 website: https://101.101.101.101/index_en.html
@@ -794,7 +801,7 @@ zone: Asia-Pacific
 tags: Taiwan, Asia-Pacific
 address: 210.17.9.228:443
 host: dns.twnic.tw/dns-query
-keepalive: 30
+keepalive: 60
 
 name: usableprivacy
 website: https://github.com/usableprivacy/updns
@@ -803,4 +810,4 @@ tags: Austria, Europe, adblocker
 address: 149.154.153.153:443
 host: adfree.usableprivacy.net/
 sni: yes
-keepalive: 30
+keepalive: 60
