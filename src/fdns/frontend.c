@@ -110,6 +110,12 @@ static int sandbox(void *sandbox_arg) {
 	}
 	if (arg_fallback_only)
 		a[last++] = "--fallback-only";
+	if (arg_keepalive) {
+		char *cmd;
+		if (asprintf(&cmd, "--keepalive=%d", arg_keepalive) == -1)
+			errExit("asprintf");
+		a[last++] = cmd;
+	}
 	if (arg_certfile) {
 		char *cmd;
 		if (asprintf(&cmd, "--certfile=%s", arg_certfile) == -1)

@@ -190,7 +190,7 @@ static void rq_engine(void) {
 
 	DListEntry *ptr = dlist;
 	while (ptr) {
-		usleep(250000);
+		usleep(500000);
 		ptr = rq_send(ptr);
 	}
 }

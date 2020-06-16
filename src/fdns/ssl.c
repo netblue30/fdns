@@ -176,7 +176,11 @@ void ssl_open(void) {
 
 	h2_init();
 	h2_connect();
-	h2_send_exampledotcom();
+	uint8_t msg[MAXBUF];
+// todo: check response
+	int len = h2_send_exampledotcom(msg);
+	if (len == 0 || lint_rx(msg, len))
+		ssl_close();
 }
 
 void ssl_close(void) {

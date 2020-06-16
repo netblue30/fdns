@@ -179,7 +179,8 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
 				exit(1);
 			}
-//			s->keepalive = 25;
+			if (arg_keepalive)
+				s->keepalive = arg_keepalive;
 
 			// check server data
 			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {
@@ -283,12 +284,14 @@ int test_server(const char *server_name)  {
 		printf("\tSSL connection opened in %.02f ms\n", ms);
 		fflush(0);
 
+		// is not necessary to check the return data for example.com; this is already done durring SSL connect
 		timetrace_start();
-		h2_send_exampledotcom();
-		h2_send_exampledotcom();
-		h2_send_exampledotcom();
-		h2_send_exampledotcom();
-		h2_send_exampledotcom();
+		uint8_t buf[MAXBUF];
+		h2_send_exampledotcom(buf);
+		h2_send_exampledotcom(buf);
+		h2_send_exampledotcom(buf);
+		h2_send_exampledotcom(buf);
+		h2_send_exampledotcom(buf);
 		ms = timetrace_end();
 
 		if (ssl_state == SSL_CLOSED) {
