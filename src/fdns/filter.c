@@ -107,6 +107,7 @@ static DFilter default_filter[] = {
 	{'T', "pixel.", NULL, 0},
 
 	// minimize first-party trackers list
+	{'F', "$metric.gstatic.com", NULL, 0}, // Google first-party tracker
 	{'F', "^somniture.", NULL, 0}, // 30
 	{'F', "^aa-metrics.", NULL, 0}, // 20
 	{'F', "^smetric.", NULL, 0}, //  2711
