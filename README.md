@@ -48,6 +48,7 @@ Development version 0.9.63:
 <li>HTTP1.1 removed and replaced with HTTP2.</li>
 <li>Adding support for https://commons.host network of DoH servers (20+ servers).</li>
 <li>Replaced --allow-local-doh with --disable-local-doh.</li>
+<li>Version 0.9.62.6 included in Arch Linux: https://aur.archlinux.org/packages/fdns/</li>
 </ul>
 
 <div style="height:20px;">&nbsp;</div>
