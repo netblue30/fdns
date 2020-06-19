@@ -262,7 +262,7 @@ void resolver(void) {
 			ssize_t len = recvfrom(slocal, buf, MAXBUF, 0, (struct sockaddr *) &addr_client, &addr_client_len);
 			if (len == -1) // todo: parse errno - EAGAIN
 				errExit("recvfrom");
-			if (++query_second > 5)
+			if (++query_second > arg_qps)
 				continue;
 
 			if(arg_debug) {

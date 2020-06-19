@@ -40,6 +40,7 @@ int arg_disable_local_doh = 0;
 char *arg_whitelist_file = NULL;
 int arg_fallback_only = 0;
 int arg_keepalive = 0;
+int arg_qps = QPS_DEFAULT;
 
 Stats stats;
 
@@ -80,6 +81,7 @@ static void usage(void) {
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
 	printf("    --proxy-addr-any - listen on all available network interfaces.\n");
+	printf("    --qps=number - queries per second limit for each resolver process.\n");
 	printf("    --resolvers=number - the number of resolver processes, between %d and %d,\n"
 	       "\tdefault %d.\n",
 	       RESOLVERS_CNT_MIN, RESOLVERS_CNT_MAX, RESOLVERS_CNT_DEFAULT);
@@ -269,6 +271,14 @@ int main(int argc, char **argv) {
 				whitelist_add(argv[i] + 12);
 			else if (strncmp(argv[i], "--whitelist-file=", 17) == 0)
 				whitelist_load_file(argv[i] + 17);
+			else if (strncmp(argv[i], "--qps=", 6) == 0) {
+				arg_qps = atoi(argv[i] + 6);
+				if (arg_qps < QPS_MIN || arg_qps > QPS_MAX) {
+					fprintf(stderr, "Error: invalid --qps value; valid range %d to %d queries per second\n",
+						QPS_MIN, QPS_MAX);
+					exit(1);
+				}
+			}
 			else {
 				fprintf(stderr, "Error: invalid command line argument %s\n", argv[i]);
 				return 1;
