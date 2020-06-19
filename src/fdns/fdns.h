@@ -84,7 +84,9 @@ static inline int check_addr_port(const char *str) {
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (60 * 60)
 #define CACHE_TTL_ERROR (10 * 60)	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
-#define MAX_QUERY_SECOND 5
+#define QPS_DEFAULT 5	// default queries per second limit for each resolver
+#define QPS_MAX 20		// max --qps value
+#define QPS_MIN 3		// min --qps value
 
 // number of resolver processes
 #define RESOLVERS_CNT_MIN 1	// number of resolver processes
@@ -133,11 +135,10 @@ typedef struct dnsserver_t {
 	char *name;	// name
 	char *website;	// website
 	char *zone;		// geographical zone
-	char *tags;	// description
+	char *tags;		// description
 	char *address;	// IP address
 	char *host;		// authority in http2
 	char *path;
-	char *request;	// full POST request
 	int sni;		// 1 or 0
 	int keepalive;	// keepalive in seconds
 } DnsServer;
@@ -205,6 +206,7 @@ extern int arg_disable_local_doh;
 extern char *arg_whitelist_file;
 extern int arg_fallback_only;
 extern int arg_keepalive;
+extern int arg_qps;
 extern Stats stats;
 
 // dnsdb.c

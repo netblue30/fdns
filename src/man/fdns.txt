@@ -197,6 +197,10 @@ $ sudo fdns --proxy-addr=127.0.0.1
 \fB\-\-proxy-addr-any
 Listen on all available system interfaces and 127.0.0.1 for loopback interface.
 .TP
+\fB\-\-qpr=number
+Queries per second limit for each resolver process., default 5. When the limit is reached, incoming
+packets from the local network are dropped.
+.TP
 \fB\-\-resolvers=number
 The number of resolver processes, between 1 and 10, default 3.
 .TP

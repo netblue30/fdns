@@ -142,6 +142,15 @@ static int sandbox(void *sandbox_arg) {
 		a[last++] = cmd;
 	}
 
+	{
+		char *cmd;
+		if (asprintf(&cmd, "--qps=%d", arg_qps) == -1)
+			errExit("asprintf");
+		a[last++] = cmd;
+	}
+
+
+
 
 	Forwarder *f = fwd_list;
 	while (f) {
