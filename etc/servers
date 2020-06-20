@@ -366,7 +366,6 @@ host: commons.host/
 sni: yes
 keepalive: 60
 
-# uncensored server redirected to cloudflare
 name: containerpi
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
 zone: Asia-Pacific
@@ -568,10 +567,9 @@ host: jcdns.fun/dns-query
 keepalive: 30
 
 name: lelux
-# server down for administrative purposes
 website: https://lelux.fi/resolver/
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
 keepalive: 30
@@ -610,6 +608,17 @@ address: 209.250.241.25:443
 host: jarjar.meganerd.nl/doh
 keepalive: 3
 
+# Requires a real DNS query for keepalive -  PING wion't work!
+# It will send GOAWAY after  30 s from the previous query.
+#name: nextdns
+#website: https://nextdns.io/
+#zone: Americas-East, Americas-West, Asia-Pacific, Europe
+#tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+#address: dns.nextdns.io:443
+#host: trr.dns.nextdns.io/
+#sni: yes
+#keepalive: 20
+
 # server down for administrative purposes
 name: nixnet
 website: https://docs.nixnet.services/NixNet_DNS
@@ -639,13 +648,22 @@ keepalive: 60
 
 name: pi-dns
 website: https://pi-dns.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: doh.pi-dns.com:443
+host: doh.pi-dns.com/dns-query
+sni: yes
+keepalive: 60
+
+name: pi-dns-eastus
+website: https://pi-dns.com
 zone: Americas-East
 tags: NY, Americas, Americas-East, adblocker
 address: 185.213.26.187:443
 host: doh.eastus.pi-dns.com/dns-query
 keepalive: 60
 
-name: pi-dns2
+name: pi-dns-westus
 website: https://pi-dns.com
 zone: Americas-West
 tags: California, Americas, Americas-West, adblocker
@@ -653,7 +671,7 @@ address: 45.67.219.208:443
 host: doh.westus.pi-dns.com/dns-query
 keepalive: 60
 
-name: pi-dns3
+name: pi-dns-northeu
 website: https://pi-dns.com
 zone: Europe
 tags: Finland, Europe, adblocker
@@ -661,12 +679,28 @@ address: 95.216.181.228:443
 host: doh.northeu.pi-dns.com/dns-query
 keepalive: 60
 
-name: pi-dns4
+name: pi-dns-centraleu
 website: https://pi-dns.com
 zone: Europe
 tags: Germany, Europe, adblocker
 address: 88.198.91.187:443
 host: doh.centraleu.pi-dns.com/dns-query
+keepalive: 60
+
+name: pi-dns-eastau
+website: https://pi-dns.com
+zone: Asia-Pacific
+tags: Australia, Asia-Pacific, adblocker
+address: 45.63.30.163:443
+host: doh.eastau.pi-dns.com/dns-query
+keepalive: 60
+
+name: pi-dns-eastas
+website: https://pi-dns.com
+zone: Asia-Pacific
+tags: Japan, Asia-Pacific, adblocker
+address: 66.42.33.135:443
+host: doh.eastas.pi-dns.com/dns-query
 keepalive: 60
 
 name: powerdns
