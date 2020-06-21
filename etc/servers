@@ -50,16 +50,7 @@ address: 217.169.20.22:443
 host: dns.aa.net.uk/dns-query
 keepalive: 20
 
-# server down for administrative purposes
 name: aaflalo
-website: https://www.aaflalo.me
-zone: Europe
-tags: admin-down, Netherlands, Europe, adblocker
-address: 176.56.236.175:443
-host: dns.aaflalo.me/dns-query
-keepalive: 60
-
-name: aaflalo-adblocker
 website: https://www.aaflalo.me
 zone: Americas-East
 tags: NY, Americas, Americas-East, adblocker
