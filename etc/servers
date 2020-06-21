@@ -140,42 +140,42 @@ address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
 keepalive: 60
 
-# very short timeout; works fine on Firefox
-name: alekberg
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-zone: Europe
-tags: firefox-only, Netherlands, Europe
-address: 51.15.124.208:443
-host: dns.alekberg.net/
-sni: yes
-keepalive: 7
-
-# very short timeout; works fine on Firefox
-name: alekberg-adblocker
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-zone: Europe
-tags: firefox-only, Netherlands, Europe, adblocker
-address: 51.15.124.208:443
-host: dns.alekberg.net/noads
-keepalive: 7
-
-# very short timeout; works fine on Firefox
-name: alekberg-se
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-zone: Europe
-tags: firefox-only, Sweden, Europe
-address: 45.153.187.96:443
-host: dnsse.alekberg.net/
-keepalive: 7
-
-# very short timeout; works fine on Firefox
-name: alekberg-se-adblocker
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-zone: Europe
-tags: firefox-only, Sweden, Europe
-address: 45.153.187.96:443
-host: dnsse.alekberg.net/noads
-keepalive: 7
+# server down for administrative purposes
+#name: alekberg
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+#zone:Europe
+#tags: admin-down, Netherlands, Europe
+#address: 51.15.124.208:443
+#host: dns.alekberg.net/
+#sni: yes
+#keepalive: 7
+#
+## server down for administrative purposes
+#name: alekberg-adblocker
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+#zone: Europe
+#tags: admin-down, Netherlands, Europe, adblocker
+#address: 51.15.124.208:443
+#host: dns.alekberg.net/noads
+#keepalive: 7
+#
+## server down for administrative purposes
+#name: alekberg-se
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+#zone: Europe
+#tags: admin-down, Sweden, Europe
+#address: 45.153.187.96:443
+#host: dnsse.alekberg.net/
+#keepalive: 7
+#
+## server down for administrative purposes
+#name: alekberg-se-adblocker
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+#zone: Europe
+#tags: admin-down, Sweden, Europe
+#address: 45.153.187.96:443
+#host: dnsse.alekberg.net/noads
+#keepalive: 7
 
 name: appliedprivacy
 website: https://appliedprivacy.net
@@ -195,7 +195,7 @@ host: doh-fi.blahdns.com/dns-query
 sni: yes
 keepalive: 30
 
-# very short timeout; works fine on Firefox
+# short keepalive
 name: blahdns-de
 website: https://blahdns.com
 zone: Europe
@@ -205,7 +205,7 @@ host: doh-de.blahdns.com/dns-query
 sni: yes
 keepalive: 4
 
-# very short timeout; works fine on Firefox
+# short keepalive
 name: blahdns-jp
 website: https://blahdns.com
 zone: Asia-Pacific
@@ -215,7 +215,7 @@ host: doh-jp.blahdns.com/dns-query
 sni: yes
 keepalive: 4
 
-# very short timeout; works fine on Firefox
+#short keepalive
 name: blahdns-sg
 website: https://blahdns.com
 zone: Asia-Pacific
@@ -374,7 +374,7 @@ address: 45.77.180.10:443
 host: dns.containerpi.com/dns-query
 keepalive: 60
 
-# works fine on Firefox
+# short keepalive
 name: cznic
 website: https://www.nic.cz/odvr/
 zone: Europe
@@ -383,7 +383,7 @@ address: 185.43.135.1:443
 host: odvr.nic.cz/doh
 keepalive: 7
 
-# works fine on Firefox
+# short keepalive
 name: cznic2
 website: https://www.nic.cz/odvr/
 zone: Europe
@@ -479,11 +479,28 @@ keepalive: 20
 
 name: dnslify
 website: https://www.dnslify.com/
-zone: Asia-Pacific, Americas-East, Americas-West, Asia-Pacific, Europe
-tags: Americas, Americas-East, Americas-West, Asia-Pacific, Europe, Netherlands, Germany, UK, NY, Califronia, Singapore
+zone: Americas-East, Americas-West
+tags: Americas, Americas-East, Americas-West, NY, Califronia
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 20
+
+name: dnslify2
+website: https://www.dnslify.com/
+zone: Asia-Pacific
+tags: Asia-Pacific, Singapore
+address: 185.235.81.1:443
+host: doh.dnslify.com/dns-query
+keepalive: 20
+
+name: dnslify3
+website: https://www.dnslify.com/
+zone: Europe
+tags: Europe, Netherlands, Germany, UK
+address: 185.235.81.1:443
+host: doh.dnslify.com/dns-query
+keepalive: 20
+
 
 name: faelix
 website: https://faelix.net/ref/dns/#privacy-dns
@@ -496,16 +513,48 @@ keepalive: 20
 name: faelix2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
+tags: UK, Europe, adblocker
+address: 46.227.203.52:443
+host: pdns.faelix.net/
+keepalive: 20
+
+name: faelix3
+website: https://faelix.net/ref/dns/#privacy-dns
+zone: Europe
 tags: Switzerland, Europe, adblocker
 address: 185.134.196.52:443
 host: pdns.faelix.net/
 keepalive: 20
 
-name: faelix3
+name: faelix4
 website: https://faelix.net/ref/dns
 zone: Europe
 tags: UK, Europe
 address: 46.227.200.54:443
+host: rdns.faelix.net/
+keepalive: 20
+
+name: faelix5
+website: https://faelix.net/ref/dns
+zone: Europe
+tags: UK, Europe
+address: 46.227.200.55:443
+host: rdns.faelix.net/
+keepalive: 20
+
+name: faelix6
+website: https://faelix.net/ref/dns/#privacy-dns
+zone: Europe
+tags: Switzerland, Europe
+address: 185.134.197.54:443
+host: rdns.faelix.net/
+keepalive: 20
+
+name: faelix7
+website: https://faelix.net/ref/dns/#privacy-dns
+zone: Europe
+tags: Switzerland, Europe
+address: 185.134.196.54:443
 host: rdns.faelix.net/
 keepalive: 20
 
@@ -587,7 +636,8 @@ name: libredns
 website: https://libredns.gr/
 zone: Europe
 tags: Germany, Europe, OpenNIC
-address: 116.203.115.192:443
+#old address: 116.203.115.192:443
+address: 116.202.176.26:443
 host: doh.libredns.gr/dns-query
 keepalive: 60
 
@@ -595,11 +645,12 @@ name: libredns-adblocker
 website: https://libredns.gr/
 zone: Europe
 tags: Germany, Europe, OpenNIC, adblocker
-address: 116.203.115.192:443
+#old address: 116.203.115.192:443
+address: 116.202.176.26:443
 host: doh.libredns.gr/ads
 keepalive: 60
 
-# very short timeout; works fine on Firefox
+# short keepalive
 name: meganerd
 website: https://meganerd.nl/encrypted-dns-server
 zone: Europe
@@ -608,7 +659,7 @@ address: 209.250.241.25:443
 host: jarjar.meganerd.nl/doh
 keepalive: 3
 
-# Requires a real DNS query for keepalive -  PING wion't work!
+# Requires a real DNS query for keepalive -  PING won't work!
 # It will send GOAWAY after  30 s from the previous query.
 #name: nextdns
 #website: https://nextdns.io/
@@ -624,7 +675,7 @@ name: nixnet
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas-East, Americas-West, Europe
 tags: admin-down, LasVegas, NY, Americas, Americas-East, Americas-West, Luxembourg, Europe
-address: 198.251.90.114:443
+address: 198.251.90.91:443
 host: uncensored.any.dns.nixnet.xyz/dns-query
 keepalive: 30
 
@@ -635,6 +686,7 @@ zone: Americas-East, Americas-West, Europe
 tags: admin-down, LasVegas, NY, Americas, Americas-East, Americas-West, Luxembourg, Europe, adblocker
 address: 198.251.90.89:443
 host: adblock.any.dns.nixnet.xyz/dns-query
+sny: yes
 keepalive: 30
 
 name: oszx
@@ -793,7 +845,7 @@ address: 130.59.31.251:443
 host: dns.switch.ch/dns-query
 keepalive: 20
 
-# very short timeout; works fine on Firefox
+# short keepalive
 name: tiarapp-sg
 website: https://doh.tiar.app
 zone: Asia-Pacific
@@ -820,7 +872,7 @@ host: doh.tiarap.org/dns-query
 sni: yes
 keepalive: 60
 
-# very short timeout; works fine on Firefox
+# short keepalive
 name: tiarapp-jp
 website: https://jp.tiar.app/
 zone: Asia-Pacific
