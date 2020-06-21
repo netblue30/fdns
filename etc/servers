@@ -502,7 +502,7 @@ host: doh.dnslify.com/dns-query
 keepalive: 20
 
 
-name: faelix
+name: faelix-uk-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
 tags: UK, Europe, adblocker
@@ -510,7 +510,7 @@ address: 46.227.200.52:443
 host: pdns.faelix.net/
 keepalive: 20
 
-name: faelix2
+name: faelix-uk-adblocker2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
 tags: UK, Europe, adblocker
@@ -518,7 +518,7 @@ address: 46.227.203.52:443
 host: pdns.faelix.net/
 keepalive: 20
 
-name: faelix3
+name: faelix-ch-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
 tags: Switzerland, Europe, adblocker
@@ -526,7 +526,7 @@ address: 185.134.196.52:443
 host: pdns.faelix.net/
 keepalive: 20
 
-name: faelix4
+name: faelix-uk
 website: https://faelix.net/ref/dns
 zone: Europe
 tags: UK, Europe
@@ -534,7 +534,7 @@ address: 46.227.200.54:443
 host: rdns.faelix.net/
 keepalive: 20
 
-name: faelix5
+name: faelix-uk2
 website: https://faelix.net/ref/dns
 zone: Europe
 tags: UK, Europe
@@ -542,7 +542,7 @@ address: 46.227.200.55:443
 host: rdns.faelix.net/
 keepalive: 20
 
-name: faelix6
+name: faelix-ch
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
 tags: Switzerland, Europe
@@ -550,7 +550,7 @@ address: 185.134.197.54:443
 host: rdns.faelix.net/
 keepalive: 20
 
-name: faelix7
+name: faelix-ch2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
 tags: Switzerland, Europe
