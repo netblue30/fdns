@@ -271,6 +271,7 @@ DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last) {
 	return &question;
 }
 
+
 // return -1 if error, 0 if fine
 // pkt positioned at start of packet
 int lint_rx(uint8_t *pkt, unsigned len) {
@@ -284,6 +285,11 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 	if (!h)
 		return -1;
 
+	// check response field
+	if ((h->flags & 0x8000) == 0) {
+		dnserror = DNSERR_INVALID_HEADER;
+		return -1;
+	}
 	// check errors such as NXDOMAIN -> caching the response for a very short time
 	if ((h->flags & 0x000f) != 0) {
 		dnserror = DNSERR_NXDOMAIN;
@@ -334,6 +340,12 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 		rr.cls = ntohs(rr.cls);
 		rr.ttl = ntohl(rr.ttl);
 		rr.rlen = ntohs(rr.rlen);
+		// replace ttl with 600
+		*(pkt + 4) = 0;
+		*(pkt + 5) = 0;
+		*(pkt + 6) = 2;
+		*(pkt + 7) = 0x58;
+
 		pkt += sizeof(DnsRR);
 
 		if (pkt + rr.rlen > (last + 1)) {

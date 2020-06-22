@@ -44,12 +44,17 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 
 	// check flags
 	if (h->flags & 0x8000) {
-		rlogprintf("Error LANrx: this is not a DNS query, dropped\n");
+		rlogprintf("Error LANrx: this is a DNS response, dropped\n");
 		*dest = DEST_DROP;
 		return NULL;
 	}
 	if (h->flags & 0x7800) {
-		rlogprintf("Error LANrx:  invalid DNS flags %4x, dropped\n", h->flags);
+		rlogprintf("Error LANrx: this is not a starndard DNS query, dropped\n", h->flags);
+		*dest = DEST_DROP;
+		return NULL;
+	}
+	if ((h->flags & 0x0100) == 0) {
+		rlogprintf("Error LANrx: RD bit is not set, dropped\n", h->flags);
 		*dest = DEST_DROP;
 		return NULL;
 	}
