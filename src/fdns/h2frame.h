@@ -9,13 +9,15 @@
 typedef struct h2frame_t {
 	uint8_t len[3];
 
-#define H2_TYPE_DATA	0x00
+#define H2_TYPE_DATA		0x00
 #define H2_TYPE_HEADERS	0x01
 #define H2_TYPE_PRIORITY	0x02
 #define H2_TYPE_RESET	0x03
 #define H2_TYPE_SETTINGS 	0x04
+#define H2_TYPE_PUSH_PROMISE	0x05
 #define H2_TYPE_PING 		0x06
 #define H2_TYPE_GOAWAY	0x07
+#define H2_TYPE_WIN_UPDATE	0x08
 	uint8_t type;
 
 #define H2_FLAG_END_STREAM	0x01
@@ -39,10 +41,14 @@ static inline char *h2frame_type2str(uint8_t type) {
 		return "RESET";
 	case H2_TYPE_SETTINGS:
 		return "SETTINGS";
+	case H2_TYPE_PUSH_PROMISE:
+		return "PUSH-PROMISE";
 	case H2_TYPE_PING:
 		return "PING";
 	case H2_TYPE_GOAWAY:
 		return "GOAWAY";
+	case H2_TYPE_WIN_UPDATE:
+		return "WINDOW-UPDATE";
 	};
 	return "UNKNOWN";
 }

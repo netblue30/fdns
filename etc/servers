@@ -650,23 +650,58 @@ keepalive: 3
 #sni: yes
 #keepalive: 20
 
-# server down for administrative purposes
-name: nixnet
+# http 1.1
+name: nixnet-lv
 website: https://docs.nixnet.services/NixNet_DNS
-zone: Americas-East, Americas-West, Europe
-tags: admin-down, LasVegas, NY, Americas, Americas-East, Americas-West, Luxembourg, Europe
-address: 198.251.90.91:443
-host: uncensored.any.dns.nixnet.xyz/dns-query
+zone: Americas-West
+tags: firefox-only, LasVegas, Americas, Americas-West
+address: 209.141.34.95:443
+host: uncensored.lv1.dns.nixnet.xyz/dns-query
 keepalive: 30
 
-# server down for administrative purposes
-name: nixnet-adblocker
+# http 1.1
+name: nixnet-lv-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
-zone: Americas-East, Americas-West, Europe
-tags: admin-down, LasVegas, NY, Americas, Americas-East, Americas-West, Luxembourg, Europe, adblocker
-address: 198.251.90.89:443
-host: adblock.any.dns.nixnet.xyz/dns-query
-sny: yes
+zone: Americas-West
+tags: firefox-only, LasVegas, Americas, Americas-West
+address: 209.141.34.95:443
+host: adblock.lv1.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+# http 1.1
+name: nixnet-ny
+website: https://docs.nixnet.services/NixNet_DNS
+zone: Americas-East
+tags: firefox-only, NY, Americas, Americas-East
+address: 199.195.251.84:443
+host: uncensored.ny1.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+# http 1.1
+name: nixnet-ny-adblocker
+website: https://docs.nixnet.services/NixNet_DNS
+zone: Americas-East
+tags: firefox-only, NY, Americas, Americas-East
+address: 199.195.251.84:443
+host: adblock.ny1.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+# http 1.1
+name: nixnet-lux
+website: https://docs.nixnet.services/NixNet_DNS
+zone: Europe
+tags: firefox-only, Luxemburg, Europe
+address: 104.244.78.231:443
+host: uncensored.lux1.dns.nixnet.xyz/dns-query
+keepalive: 30
+
+# http 1.1
+name: nixnet-lux-adblocker
+website: https://docs.nixnet.services/NixNet_DNS
+zone: Europe
+tags: firefox-only, Luxemburg, Europe
+address: 104.244.78.231:443
+host: adblock.lux1.dns.nixnet.xyz/dns-query
 keepalive: 30
 
 name: oszx
