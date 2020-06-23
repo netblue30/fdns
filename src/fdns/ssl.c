@@ -146,6 +146,9 @@ void ssl_open(void) {
 	}
 	// inform the server we are using http2
 	SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
+#if 0
+SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
+#endif
 
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
@@ -170,17 +173,26 @@ void ssl_open(void) {
 	// set alert callback
 	SSL_set_info_callback(ssl, ssl_alert_callback);
 
+#if 0
+int lenp = 0;
+const unsigned char *datap[100];
+SSL_get0_alpn_selected(ssl, datap, &lenp);
+assert(lenp == 2);
+#endif
 
 	ssl_state = SSL_OPEN;
 	rlogprintf("SSL connection opened\n");
 
+	// h2 connect
 	h2_init();
 	h2_connect();
+
+	// ... followed by a simple query
 	uint8_t msg[MAXBUF];
-// todo: check response
 	int len = h2_send_exampledotcom(msg);
 	if (len == 0 || lint_rx(msg, len))
 		ssl_close();
+	rlogprintf("h2 connection opened\n");
 }
 
 void ssl_close(void) {

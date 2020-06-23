@@ -273,9 +273,9 @@ void h2_connect(void) {
 		0x00, 0x00, 0x00, 0xf0
 	};
 
-	if (arg_debug) {
+	if (arg_debug || arg_debug_h2) {
 		print_time();
-		printf("(%d) h2 send connect\n", arg_id);
+		printf("(%d) h2 tx connect\n", arg_id);
 	}
 
 	ssl_tx(connect, sizeof(connect));
