@@ -172,6 +172,18 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				exit(1);
 			}
 		}
+		else if (strncmp(buf, "keepalive-query: ", 17) == 0) {
+			if (s->keepalive_query)
+				goto errout;
+			if (strcmp(buf + 17, "yes") == 0)
+				s->keepalive_query = 1;
+			else if (strcmp(buf + 17, "no") == 0)
+				s->keepalive_query = 0;
+			else {
+				fprintf(stderr, "Error: file %s, line %d, wrong keepalive-query setting\n", fname, *linecnt);
+				exit(1);
+			}
+		}
 		else if (strncmp(buf, "keepalive: ", 11) == 0) {
 			if (s->keepalive)
 				goto errout;
