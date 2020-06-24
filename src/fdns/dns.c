@@ -216,7 +216,17 @@ void dns_keepalive(void) {
 		print_time();
 		printf("(%d) send keepalive\n", arg_id);
 	}
-	h2_send_ping();
+
+	DnsServer *srv = server_get();
+	assert(srv);
+	if (srv->keepalive_query) {
+		uint8_t msg[MAXBUF];
+		int len = h2_send_exampledotcom(msg);
+		if (len == 0 || lint_rx(msg, len))
+			ssl_close();
+	}
+	else
+		h2_send_ping();
 }
 
 // returns the length of the response,,0 if failed

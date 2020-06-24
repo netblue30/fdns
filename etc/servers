@@ -20,6 +20,9 @@
 # host: URL
 # sni: yes/no
 #	If yes we add SNI when we establish the connection. Optional, default no.
+# keepalive-query: yes/no
+#	Use a regular DNS query to keep the HTTP2 connection open instead of PING.
+#	Optional, default no.
 # keepalive: how often we sent a request to keep the connection going
 #	This entry also marks the end of the server description
 #
@@ -98,6 +101,22 @@ address: doh-sk.abmb.win:443
 host: doh-sk.abmb.win/dns-query
 sni: yes
 keepalive: 20
+
+name: adguard-unfiltered
+website: https://adguard.com/en/adguard-dns/overview.html
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 176.103.130.136:443
+host: dns-unfiltered.adguard.com/dns-query
+keepalive: 60
+
+name: adguard-unfiltered2
+website: https://adguard.com/en/adguard-dns/overview.html
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 176.103.130.137:443
+host: dns-unfiltered.adguard.com/dns-query
+keepalive: 60
 
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -294,6 +313,14 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
+keepalive: 60
+
+name: cleanbrowsing-adult
+website: https://cleanbrowsing.org
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: adult
+address: 185.228.168.168:443
+host: doh.cleanbrowsing.org/doh/adult-filter
 keepalive: 60
 
 name: cloudflare
@@ -639,16 +666,15 @@ address: 209.250.241.25:443
 host: jarjar.meganerd.nl/doh
 keepalive: 3
 
-# Requires a real DNS query for keepalive -  PING won't work!
-# It will send GOAWAY after  30 s from the previous query.
-#name: nextdns
-#website: https://nextdns.io/
-#zone: Americas-East, Americas-West, Asia-Pacific, Europe
-#tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
-#address: dns.nextdns.io:443
-#host: trr.dns.nextdns.io/
-#sni: yes
-#keepalive: 20
+name: nextdns
+website: https://nextdns.io/
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: dns.nextdns.io:443
+host: trr.dns.nextdns.io/
+sni: yes
+keepalive-query: yes
+keepalive: 20
 
 # http 1.1
 name: nixnet-lv
@@ -663,7 +689,7 @@ keepalive: 30
 name: nixnet-lv-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas-West
-tags: firefox-only, LasVegas, Americas, Americas-West
+tags: firefox-only, LasVegas, Americas, Americas-West, adblocker
 address: 209.141.34.95:443
 host: adblock.lv1.dns.nixnet.xyz/dns-query
 keepalive: 30
@@ -681,7 +707,7 @@ keepalive: 30
 name: nixnet-ny-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas-East
-tags: firefox-only, NY, Americas, Americas-East
+tags: firefox-only, NY, Americas, Americas-East, adblocker
 address: 199.195.251.84:443
 host: adblock.ny1.dns.nixnet.xyz/dns-query
 keepalive: 30
@@ -699,7 +725,7 @@ keepalive: 30
 name: nixnet-lux-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Europe
-tags: firefox-only, Luxemburg, Europe
+tags: firefox-only, Luxemburg, Europe, adblocker
 address: 104.244.78.231:443
 host: adblock.lux1.dns.nixnet.xyz/dns-query
 keepalive: 30
@@ -791,6 +817,14 @@ website: https://quad9.net
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.112:5053
+host: dns.quad9.net/dns-query
+keepalive: 60
+
+name: quad9-3
+website: https://quad9.net
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 149.112.112.9:5053
 host: dns.quad9.net/dns-query
 keepalive: 60
 

@@ -140,6 +140,7 @@ typedef struct dnsserver_t {
 	char *host;		// authority in http2
 	char *path;
 	int sni;		// 1 or 0
+	int keepalive_query;	// 1 or 0
 	int keepalive;	// keepalive in seconds
 } DnsServer;
 
