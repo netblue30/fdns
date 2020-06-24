@@ -318,7 +318,7 @@ keepalive: 60
 name: cleanbrowsing-adult
 website: https://cleanbrowsing.org
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: adult
+tags: safe-for-work
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/adult-filter
 keepalive: 60
@@ -637,6 +637,7 @@ zone: Europe
 tags: admin-down, UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
+
 keepalive: 30
 
 name: libredns
