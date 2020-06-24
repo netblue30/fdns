@@ -209,20 +209,24 @@ static void load_list(void) {
 		if (!s)
 			break;
 
-		// push it to the end of the list
-		if (strstr(s->tags, "anycast") || strstr(s->name, "cloudflare")) {
+		// push the server to the end of the list
+		if (strstr(s->name, "cloudflare") ||
+		    strstr(s->name, "nextdns") ||
+		    strstr(s->name, "adguard") ||
+		    strstr(s->name, "cleanbrowsing") ||
+		    strstr(s->name, "quad9")) {
 			*ptr_anycast = s;
 			ptr_anycast = &s->next;
 		}
 		else {
 			int added = 0;
-			if (strstr(s->tags, "Americas") && !strstr(s->tags, "anycast")) {
+			if (strstr(s->tags, "Americas")) {
 				*ptr_americas = s;
 				ptr_americas = &s->next;
 				cnt++;
 				added = 1;
 			}
-			if (strstr(s->tags, "Asia-Pacific") && !strstr(s->tags, "anycast")) {
+			if (strstr(s->tags, "Asia-Pacific")) {
 				if (added) {
 					s = duplicate(s);
 				}
@@ -232,7 +236,7 @@ static void load_list(void) {
 				cnt++;
 				added = 1;
 			}
-			if (strstr(s->tags, "Europe") && !strstr(s->tags, "anycast")) {
+			if (strstr(s->tags, "Europe")) {
 				if (added) {
 					s = duplicate(s);
 				}
