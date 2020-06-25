@@ -670,8 +670,18 @@ keepalive: 3
 name: nextdns
 website: https://nextdns.io/
 zone: Americas-East, Americas-West, Asia-Pacific, Europe
-tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
-address: dns.nextdns.io:443
+tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 45.90.30.0:443
+host: trr.dns.nextdns.io/
+sni: yes
+keepalive-query: yes
+keepalive: 20
+
+name: nextdns2
+website: https://nextdns.io/
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
 sni: yes
 keepalive-query: yes

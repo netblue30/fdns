@@ -1,4 +1,19 @@
-fdns (0.9.62.6) baseline; urgency=low
+ffdns (0.9.62.8) baseline; urgency=low
+  * HTTP1.1 removed and replaced with HTTP2
+  * Adding support for https://commons.host network
+  * Replaced --allow-local-doh with --disable-local-doh
+  * systemd support
+  * FDNS included in Arch Linux: https://aur.archlinux.org/packages/fdns
+  * forcing RD flag (recursion desired) to 1 on all outgoing packets
+  * setting rr TTL to 600 seconds on incoming and cached packets
+  * --qps (queries per second)
+  * --keepalive
+  * adding geocast and safe-for-work tags
+  * server list update
+  * lots of bugfixes
+ -- netblue30 <netblue30@yahoo.com>  Thu, 25 Jun 2020 08:00:00 -0500
+
+dns (0.9.62.6) baseline; urgency=low
   * gcov regression test coverage support
   * lgtm.com security scanning
   * whitelisting domains functionality (--whitelist, --whitelist-file)
