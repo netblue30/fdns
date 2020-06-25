@@ -10,7 +10,7 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 1
 
-send -- "fdns --allow-local-doh\r"
+send -- "fdns\r"
 set server_id $spawn_id
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}

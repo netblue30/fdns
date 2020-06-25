@@ -22,7 +22,7 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
-	"nixnet"
+	"nextdns"
 }
 expect {
 	timeout {puts "TESTING ERROR 4\n";exit}

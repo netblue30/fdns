@@ -10,7 +10,7 @@ match_max 100000
 send -- "fdns --test-server\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
-	"adguard"
+	"Testing server"
 }
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
@@ -22,7 +22,7 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
-	"cleanbrowsing"
+	"Testing server"
 }
 expect {
 	timeout {puts "TESTING ERROR 4\n";exit}
@@ -34,7 +34,7 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 6\n";exit}
-	"cloudflare"
+	"Testing server"
 }
 expect {
 	timeout {puts "TESTING ERROR 7\n";exit}
@@ -44,18 +44,9 @@ expect {
 	timeout {puts "TESTING ERROR 8\n";exit}
 	"response average"
 }
-expect {
-	timeout {puts "TESTING ERROR 9\n";exit}
-	"quad9"
-}
-expect {
-	timeout {puts "TESTING ERROR 10\n";exit}
-	"connection opened in"
-}
-expect {
-	timeout {puts "TESTING ERROR 2\n";exit}
-	"response average"
-}
+
+
+
 
 after 100
 puts "\nall done\n"
