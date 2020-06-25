@@ -2,7 +2,7 @@ Package: fdns
 Version: FDNSVER-1
 Architecture: amd64
 Maintainer: netblue30 <netblue30@yahoo.com>
-Installed-Size: 2024
+Installed-Size: 2184
 Depends: libc6,libseccomp-dev,libssl-dev
 Section: admin
 Priority: optional
