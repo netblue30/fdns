@@ -108,6 +108,7 @@ dist:
 	mkdir $(NAME)-$(VERSION)
 	cp -a "$(DISTFILES)" $(NAME)-$(VERSION)
 	rm -rf $(NAME)-$(VERSION)/src/tools
+	rm -rf $(NAME)-$(VERSION)/src/cashpack-0.3.tar.gz
 	find $(NAME)-$(VERSION) -name .svn -delete
 	tar -cJvf $(NAME)-$(VERSION).tar.xz $(NAME)-$(VERSION)
 	rm -fr $(NAME)-$(VERSION)
