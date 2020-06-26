@@ -11,7 +11,7 @@ send -- "pkill fdns\r"
 sleep 1
 
 send -- "fdns --daemonize --forwarder=gentoo.org@127.2.2.2\r"
-sleep 1
+sleep 3
 send -- "fdns --proxy-addr=127.2.2.2 --daemonize\r"
 sleep 3
 
