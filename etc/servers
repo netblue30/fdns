@@ -150,43 +150,6 @@ address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
 keepalive: 60
 
-# server down for administrative purposes
-#name: alekberg
-#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-#zone:Europe
-#tags: admin-down, Netherlands, Europe
-#address: 51.15.124.208:443
-#host: dns.alekberg.net/
-#sni: yes
-#keepalive: 7
-#
-## server down for administrative purposes
-#name: alekberg-adblocker
-#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-#zone: Europe
-#tags: admin-down, Netherlands, Europe, adblocker
-#address: 51.15.124.208:443
-#host: dns.alekberg.net/noads
-#keepalive: 7
-#
-## server down for administrative purposes
-#name: alekberg-se
-#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-#zone: Europe
-#tags: admin-down, Sweden, Europe
-#address: 45.153.187.96:443
-#host: dnsse.alekberg.net/
-#keepalive: 7
-#
-## server down for administrative purposes
-#name: alekberg-se-adblocker
-#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
-#zone: Europe
-#tags: admin-down, Sweden, Europe
-#address: 45.153.187.96:443
-#host: dnsse.alekberg.net/noads
-#keepalive: 7
-
 name: appliedprivacy
 website: https://appliedprivacy.net
 zone: Europe
@@ -409,6 +372,14 @@ tags: firefox-only, Czechia, Europe
 address: 193.17.47.1:443
 host: odvr.nic.cz/doh
 keepalive: 7
+
+name: declouds
+website: https://decloudus.com/
+zone: Europe
+tags: adblocker, Germany, Europe
+address: 176.9.199.158:443
+host: dns.decloudus.com/dns-query
+keepalive: 60
 
 name: defaultroutes
 website: https://doh.defaultroutes.de/
@@ -637,7 +608,6 @@ zone: Europe
 tags: admin-down, UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
-
 keepalive: 30
 
 name: libredns
