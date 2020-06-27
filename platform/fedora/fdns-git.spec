@@ -1,6 +1,6 @@
 Name:           fdns
 Version:        0.9.63
-Release:        1%{?dist}
+Release:        1.git%{?dist}
 Summary:        Firejail DNS-over-HTTPS Proxy Server
 
 License:        GPLv3+
@@ -39,8 +39,3 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/systemd/system/fdns.service
 %{_datadir}/bash-completion/completions/fdns
 %{_mandir}/man1/fdns.1.gz
-
-
-
-#TODO: %%changelog
-
