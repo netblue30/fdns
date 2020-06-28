@@ -1,5 +1,8 @@
 #
 # Firejail DoH server list
+# The list was compiled from various Internet sources, notably:
+#	- https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
+#	- https://github.com/curl/curl/wiki/DNS-over-HTTPS#publicly-available-servers
 #
 #
 # We are using only DoH services from zero-logging providers, based on the
@@ -28,6 +31,7 @@
 #
 # Servers tagged admin-down or firefox-only are included for testing only. fdns will not attempt
 # to connect to these servers.
+#
 
 name: 42l
 website: https://42l.fr
@@ -151,7 +155,7 @@ host: dns-family.adguard.com/dns-query
 keepalive: 60
 
 name: ams-doh-nl
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
 zone: Europe
 tags: Netherlands, Europe
 address: 51.15.124.208:443
@@ -577,7 +581,7 @@ host: dns.hostux.net/ads
 keepalive: 60
 
 name: ibksturm
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
 zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 85.5.93.230:443
