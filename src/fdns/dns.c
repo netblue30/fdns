@@ -222,7 +222,8 @@ void dns_keepalive(void) {
 	if (srv->keepalive_query) {
 		uint8_t msg[MAXBUF];
 		int len = h2_send_exampledotcom(msg);
-		if (len == 0 || lint_rx(msg, len))
+		// some servers return NXDOMAIN for example.com
+		if (len == 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 			ssl_close();
 	}
 	else

@@ -190,17 +190,19 @@ assert(lenp == 2);
 	// ... followed by a simple query
 	uint8_t msg[MAXBUF];
 	int len = h2_send_exampledotcom(msg);
-	if (len == 0 || lint_rx(msg, len))
+	// some servers return NXDOMAIN for example.com
+	if (len == 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN)) {
+		ssl_state = SSL_CLOSED;
 		ssl_close();
+		return;
+	}
 	rlogprintf("h2 connection opened\n");
 }
 
 void ssl_close(void) {
 	h2_close();
 	if (ssl) {
-		int rv = SSL_shutdown(ssl);
-		if (rv == 0)
-			SSL_shutdown(ssl);
+		SSL_shutdown(ssl);
 		SSL_free(ssl);
 	}
 
