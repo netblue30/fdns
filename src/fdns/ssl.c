@@ -226,6 +226,11 @@ int ssl_tx(uint8_t *buf, int len) {
 	assert(ctx);
 	assert(ssl);
 
+	if (arg_debug_ssl || arg_debug) {
+		print_time();
+		printf("(%d) ssl tx len %u\n", arg_id, len);
+	}
+
 	int lentx;
 	if((lentx = BIO_write(bio, buf, len)) <= 0) {
 		if(! BIO_should_retry(bio)) {
@@ -238,11 +243,6 @@ int ssl_tx(uint8_t *buf, int len) {
 		}
 	}
 
-	if (arg_debug) {
-		print_time();
-		printf("(%d) SSL write %d/%d bytes\n", arg_id, len, lentx);
-		fflush(0);
-	}
 	return lentx;
 errout:
 	ssl_close();
@@ -266,11 +266,11 @@ int ssl_rx(uint8_t *buf) {
 			goto errout;
 		}
 	}
-	if (arg_debug) {
+	if (arg_debug_ssl || arg_debug) {
 		print_time();
-		printf("(%d) SSL read %d bytes\n", arg_id, len);
-		fflush(0);
+		printf("(%d) ssl rx len %u\n", arg_id, len);
 	}
+
 	return len;
 errout:
 	ssl_close();
