@@ -107,7 +107,7 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	HEADER(":scheme", "https");
 	HEADER("accept", "application/dns-message");
 	HEADER("content-type", "application/dns-message");
-	HEADER("content-length", slen); //"48");
+	HEADER("content-length", slen);
 	HEADER("pragma", "no-cache");
 //	HEADER("te", "trailers");
 
@@ -400,6 +400,8 @@ int h2_exchange(uint8_t *response) {
 				// ping request - set end stream flag and return the packet
 				else if (frm->type == H2_TYPE_PING && (frm->flag & H2_FLAG_END_STREAM) == 0) {
 					frm->flag |= H2_FLAG_END_STREAM;
+					if (arg_debug || arg_debug_h2)
+						h2frame_print(arg_id, "tx", frm);
 					ssl_tx((uint8_t *) frm, rv - offset);
 					return 0;
 				}

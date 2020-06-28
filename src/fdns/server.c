@@ -288,10 +288,11 @@ int test_server(const char *server_name)  {
 		timetrace_start();
 		ssl_open();
 		if (ssl_state == SSL_CLOSED) {
-			fprintf(stderr, "\tError: cannot open SSL connection to server %s\n", arg_server);
+			fprintf(stderr, "\tError: cannot open SSL/H2 connection to server %s\n", arg_server);
 			fflush(0);
 			exit(1);
 		}
+
 		float ms = timetrace_end();
 		printf("\tSSL connection opened in %.02f ms\n", ms);
 		fflush(0);
