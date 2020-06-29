@@ -70,7 +70,7 @@ void resolver(void) {
 	int resolver_keepalive_cnt = (RESOLVER_KEEPALIVE_TIMER * arg_id) / arg_resolvers;
 	DnsServer *srv = server_get();
 	assert(srv);
-	int dns_keepalive_cnt = srv->keepalive;
+	int dns_keepalive_cnt = rand_range(srv->keepalive_min, srv->keepalive_max);
 	int console_printout_cnt = CONSOLE_PRINTOUT_TIMER;
 	int ssl_reopen_cnt = SSL_REOPEN_TIMER;
 
@@ -172,7 +172,7 @@ void resolver(void) {
 
 			if (--dns_keepalive_cnt <= 0)  {
 				dns_keepalive();
-				dns_keepalive_cnt = srv->keepalive;
+				dns_keepalive_cnt = rand_range(srv->keepalive_min, srv->keepalive_max);
 			}
 
 			// send resolver keepalive
@@ -349,7 +349,7 @@ void resolver(void) {
 				if (len == -1) // todo: parse errno - EAGAIN
 					errExit("sendto");
 				else
-					dns_keepalive_cnt = srv->keepalive;
+					dns_keepalive_cnt = rand_range(srv->keepalive_min, srv->keepalive_max);
 			}
 			// send the data to the remote fallback server; store the request in the database
 			else {
