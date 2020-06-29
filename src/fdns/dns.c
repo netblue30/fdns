@@ -217,17 +217,27 @@ void dns_keepalive(void) {
 		printf("(%d) send keepalive\n", arg_id);
 	}
 
+	uint8_t msg[MAXBUF];
+	int len;
 	DnsServer *srv = server_get();
 	assert(srv);
-	if (srv->keepalive_query) {
-		uint8_t msg[MAXBUF];
-		int len = h2_send_exampledotcom(msg);
-		// some servers return NXDOMAIN for example.com
-		if (len == 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
-			ssl_close();
+	if (srv->keepalive_query)
+		goto sendex;
+	else {
+		// randomly send example.com (1 in 3)
+		int r = rand();
+		if (r % 3)
+			h2_send_ping();
+		else
+			goto sendex;
 	}
-	else
-		h2_send_ping();
+	return;
+
+sendex:
+	len = h2_send_exampledotcom(msg);
+	// some servers return NXDOMAIN for example.com
+	if (len == 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
+		ssl_close();
 }
 
 // returns the length of the response,,0 if failed
