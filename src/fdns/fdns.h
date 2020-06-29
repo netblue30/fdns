@@ -65,6 +65,16 @@ static inline int check_addr_port(const char *str) {
 	return 0;
 }
 
+// random value from a range
+static inline int rand_range(int min, int max) {
+	if (min == max)
+		return min;
+
+	assert(min <= max);
+	int delta = rand() % (max - min);
+	return min + delta;
+}
+
 // all timers are in seconds
 #define RESOLVER_KEEPALIVE_TIMER 10 // keepalive messages sent by resolver processes
 #define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 3) // timer to detect a dead resolver process
@@ -141,7 +151,8 @@ typedef struct dnsserver_t {
 	char *path;
 	int sni;		// 1 or 0
 	int keepalive_query;	// 1 or 0
-	int keepalive;	// keepalive in seconds
+	int keepalive_min;	// minimum value of keepalive in seconds
+	int keepalive_max;	// maximum vallue of keepalive in seconds
 } DnsServer;
 
 static inline void ansi_topleft(void) {

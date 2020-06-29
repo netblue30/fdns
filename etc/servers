@@ -47,7 +47,7 @@ zone: Europe
 tags: UK, Europe
 address: 217.169.20.23:443
 host: dns.aa.net.uk/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: a-and-a2
 website: https://www.aa.net.uk/legal/dohdot-disclaimer/
@@ -55,7 +55,7 @@ zone: Europe
 tags: UK, Europe
 address: 217.169.20.22:443
 host: dns.aa.net.uk/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: aaflalo
 website: https://www.aaflalo.me
@@ -63,7 +63,7 @@ zone: Americas-East
 tags: NY, Americas, Americas-East, adblocker
 address: 168.235.81.167:443
 host: dns-nyc.aaflalo.me/dns-query
-keepalive: 60
+keepalive: 60,90
 
 # server down for administrative purposes
 name: abmb-jp
@@ -73,7 +73,7 @@ tags: admin-down, geocast, Japan, Asia-Pacific
 address: doh-jp.abmb.win:443
 host: doh-jp.abmb.win/dns-query
 sni: yes
-keepalive: 20
+keepalive: 20,25
 
 # server down for administrative purposes
 name: abmb-sg
@@ -83,7 +83,7 @@ tags: admin-down, geocast, Singapore, Asia-Pacific
 address: doh.abmb.win:443
 host: doh.abmb.win/dns-query
 sni: yes
-keepalive: 20
+keepalive: 20,25
 
 # server down for administrative purposes
 name: abmb-sg2
@@ -94,7 +94,7 @@ tags: admin-down, geocast, Singapore, Asia-Pacific
 address: doh2.abmb.win:443
 host: doh2.abmb.win/dns-query
 sni: yes
-keepalive: 20
+keepalive: 20,25
 
 # server down for administrative purposes
 name: abmb-sk
@@ -104,7 +104,7 @@ tags: admin-down, geocast, South-Korea, Asia-Pacific
 address: doh-sk.abmb.win:443
 host: doh-sk.abmb.win/dns-query
 sni: yes
-keepalive: 20
+keepalive: 20,25
 
 name: adguard-unfiltered
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -112,7 +112,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.136:443
 host: dns-unfiltered.adguard.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: adguard-unfiltered2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -120,7 +120,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.137:443
 host: dns-unfiltered.adguard.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -128,7 +128,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -136,7 +136,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: adguard-family
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -144,7 +144,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: adguard-family2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -152,7 +152,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: ams-doh-nl
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
@@ -160,7 +160,7 @@ zone: Europe
 tags: Netherlands, Europe
 address: 51.15.124.208:443
 host: dnsnl.alekberg.net/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: appliedprivacy
 website: https://appliedprivacy.net
@@ -169,7 +169,7 @@ tags: non-profit, Austria, Europe
 address: 93.177.65.183:443
 host: doh.appliedprivacy.net/query
 sni: yes
-keepalive: 20
+keepalive: 20,25
 
 name: blahdns-fi
 website: https://blahdns.com
@@ -178,7 +178,7 @@ tags: Finland, Europe, adblocker
 address: 95.216.212.177:443
 host: doh-fi.blahdns.com/dns-query
 sni: yes
-keepalive: 30
+keepalive: 30,50
 
 # short keepalive
 name: blahdns-de
@@ -216,7 +216,7 @@ zone: Europe
 tags: France, Europe
 address: 193.70.85.11:443
 host: doh.bortzmeyer.fr/
-keepalive: 20
+keepalive: 20,25
 
 name: brahmaworld
 website: https://dns.brahma.world/
@@ -224,7 +224,7 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 94.130.224.114:443
 host: dns.brahma.world/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -280,7 +280,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
-keepalive: 60
+keepalive: 60,90
 
 name: cleanbrowsing-family
 website: https://cleanbrowsing.org
@@ -288,7 +288,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
-keepalive: 60
+keepalive: 60,90
 
 name: cleanbrowsing-adult
 website: https://cleanbrowsing.org
@@ -296,7 +296,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: safe-for-work
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/adult-filter
-keepalive: 60
+keepalive: 60,90
 
 name: cloudflare
 website: https://www.cloudflare.com
@@ -304,7 +304,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: cloudflare2
 website: https://www.cloudflare.com
@@ -312,7 +312,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: cloudflare-security
 website: https://www.cloudflare.com
@@ -321,7 +321,7 @@ tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, E
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: cloudflare-security2
 website: https://www.cloudflare.com
@@ -330,7 +330,7 @@ tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, E
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: cloudflare-family
 website: https://www.cloudflare.com
@@ -339,7 +339,7 @@ tags: family
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: cloudflare-family2
 website: https://www.cloudflare.com
@@ -348,7 +348,7 @@ tags: family
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: commons-host
 website: https://dev.to/commonshost/how-we-built-a-doh-cdn-with-20-global-edge-servers-in-10-days-1man
@@ -357,7 +357,7 @@ tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: commons.host:443
 host: commons.host/
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: containerpi
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
@@ -365,7 +365,7 @@ zone: Asia-Pacific
 tags: Japan, Asia-Pacific
 address: 45.77.180.10:443
 host: dns.containerpi.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 # short keepalive
 name: cznic
@@ -391,7 +391,7 @@ zone: Europe
 tags: adblocker, Germany, Europe
 address: 176.9.199.158:443
 host: dns.decloudus.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: defaultroutes
 website: https://doh.defaultroutes.de/
@@ -400,7 +400,7 @@ tags: Germany, Europe
 address: 5.45.107.88:443
 host: doh.defaultroutes.de/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: digital-society
 website: https://www.digitale-gesellschaft.ch
@@ -408,7 +408,7 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.42:443
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: digital-society2
 website: https://www.digitale-gesellschaft.ch
@@ -416,7 +416,7 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: dns-sb
 website: https://dns.sb/
@@ -425,7 +425,7 @@ tags: geocast, Estonia, Germany, Europe
 address: doh.dns.sb:443
 host: doh.dns.sb/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: dnscrypt-ca
 website: https://dnscrypt.ca/
@@ -433,7 +433,7 @@ zone: Americas-East
 tags: Quebec, Americas, Americas-East
 address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: dnscrypt-ca2
 website: https://dnscrypt.ca/
@@ -441,7 +441,7 @@ zone: Americas-East
 tags: Quebec, Americas, Americas-East
 address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: dnsforge
 website: https://dnsforge.de
@@ -449,7 +449,7 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 176.9.93.198:443
 host: dnsforge.de/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: dnshome
 website: https://www.dnshome.de/doh-dot-public-resolver.php
@@ -457,7 +457,7 @@ zone: Europe
 tags: Germany, Europe
 address: 185.233.106.232:443
 host: dns.dnshome.de/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: dnshome2
 website: https://www.dnshome.de/doh-dot-public-resolver.php
@@ -465,7 +465,7 @@ zone: Europe
 tags: Germany, Europe
 address: 185.233.107.4:443
 host: dns.dnshome.de/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: dnslify
 website: https://www.dnslify.com/
@@ -473,7 +473,7 @@ zone: Americas-East, Americas-West
 tags: Americas, Americas-East, Americas-West, NY, Califronia
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: dnslify2
 website: https://www.dnslify.com/
@@ -481,7 +481,7 @@ zone: Asia-Pacific
 tags: Asia-Pacific, Singapore
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: dnslify3
 website: https://www.dnslify.com/
@@ -489,7 +489,7 @@ zone: Europe
 tags: Europe, Netherlands, Germany, UK
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
-keepalive: 20
+keepalive: 20,25
 
 
 name: faelix-uk-adblocker
@@ -498,7 +498,7 @@ zone: Europe
 tags: UK, Europe, adblocker
 address: 46.227.200.52:443
 host: pdns.faelix.net/
-keepalive: 20
+keepalive: 20,25
 
 name: faelix-uk-adblocker2
 website: https://faelix.net/ref/dns/#privacy-dns
@@ -506,7 +506,7 @@ zone: Europe
 tags: UK, Europe, adblocker
 address: 46.227.203.52:443
 host: pdns.faelix.net/
-keepalive: 20
+keepalive: 20,25
 
 name: faelix-ch-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
@@ -514,7 +514,7 @@ zone: Europe
 tags: Switzerland, Europe, adblocker
 address: 185.134.196.52:443
 host: pdns.faelix.net/
-keepalive: 20
+keepalive: 20,25
 
 name: faelix-uk
 website: https://faelix.net/ref/dns
@@ -522,7 +522,7 @@ zone: Europe
 tags: UK, Europe
 address: 46.227.200.54:443
 host: rdns.faelix.net/
-keepalive: 20
+keepalive: 20,25
 
 name: faelix-uk2
 website: https://faelix.net/ref/dns
@@ -530,7 +530,7 @@ zone: Europe
 tags: UK, Europe
 address: 46.227.200.55:443
 host: rdns.faelix.net/
-keepalive: 20
+keepalive: 20,25
 
 name: faelix-ch
 website: https://faelix.net/ref/dns/#privacy-dns
@@ -538,7 +538,7 @@ zone: Europe
 tags: Switzerland, Europe
 address: 185.134.197.54:443
 host: rdns.faelix.net/
-keepalive: 20
+keepalive: 20,25
 
 name: faelix-ch2
 website: https://faelix.net/ref/dns/#privacy-dns
@@ -546,7 +546,7 @@ zone: Europe
 tags: Switzerland, Europe
 address: 185.134.196.54:443
 host: rdns.faelix.net/
-keepalive: 20
+keepalive: 20,25
 
 name: ffmuc
 website: https://ffmuc.net/
@@ -554,7 +554,7 @@ zone: Europe
 tags: Germany, Europe
 address: 195.30.94.28:443
 host: doh.ffmuc.net/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: flatuslifir
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
@@ -562,7 +562,7 @@ zone: Europe
 tags: Iceland, Europe
 address: 46.239.223.80:443
 host: dns.flatuslifir.is/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: hostux
 website: https://hostux.network/en/index.html
@@ -570,7 +570,7 @@ zone: Europe
 tags: Luxembourg, Europe
 address: 185.26.126.37:443
 host: dns.hostux.net/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
@@ -578,7 +578,7 @@ zone: Europe
 tags: Luxembourg, Europe, adblocker
 address: 185.26.126.37:443
 host: dns.hostux.net/ads
-keepalive: 60
+keepalive: 60,90
 
 name: ibksturm
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
@@ -586,7 +586,7 @@ zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 85.5.93.230:443
 host: ibksturm.synology.me/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: ibuki
 website: https://ibuki.cgnat.net/
@@ -594,7 +594,7 @@ zone: Americas-West
 tags: California, Americas, Americas-West
 address: 35.198.2.76:443
 host: ibuki.cgnat.net/dns-query
-keepalive: 20
+keepalive: 20,25
 
 # server down for administrative purposes
 name: jcdns
@@ -603,7 +603,7 @@ zone: Europe
 tags: admin-down, Netherlands, Europe
 address: 178.62.214.105:443
 host: jcdns.fun/dns-query
-keepalive: 30
+keepalive: 30,50
 
 name: lelux
 website: https://lelux.fi/resolver/
@@ -611,7 +611,7 @@ zone: Europe
 tags: Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
-keepalive: 30
+keepalive: 30,50
 
 # server down for administrative purposes
 name: li
@@ -620,7 +620,7 @@ zone: Europe
 tags: admin-down, UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
-keepalive: 30
+keepalive: 30,50
 
 name: libredns
 website: https://libredns.gr/
@@ -629,7 +629,7 @@ tags: Germany, Europe, OpenNIC
 #old address: 116.203.115.192:443
 address: 116.202.176.26:443
 host: doh.libredns.gr/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: libredns-adblocker
 website: https://libredns.gr/
@@ -638,7 +638,7 @@ tags: Germany, Europe, OpenNIC, adblocker
 #old address: 116.203.115.192:443
 address: 116.202.176.26:443
 host: doh.libredns.gr/ads
-keepalive: 60
+keepalive: 60,90
 
 # short keepalive
 name: meganerd
@@ -657,7 +657,7 @@ address: 45.90.30.0:443
 host: trr.dns.nextdns.io/
 sni: yes
 keepalive-query: yes
-keepalive: 20
+keepalive: 20,25
 
 name: nextdns2
 website: https://nextdns.io/
@@ -667,7 +667,7 @@ address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
 sni: yes
 keepalive-query: yes
-keepalive: 20
+keepalive: 20,25
 
 # http 1.1
 name: nixnet-lv
@@ -676,7 +676,7 @@ zone: Americas-West
 tags: firefox-only, LasVegas, Americas, Americas-West
 address: 209.141.34.95:443
 host: uncensored.lv1.dns.nixnet.xyz/dns-query
-keepalive: 30
+keepalive: 30,50
 
 # http 1.1
 name: nixnet-lv-adblocker
@@ -685,7 +685,7 @@ zone: Americas-West
 tags: firefox-only, LasVegas, Americas, Americas-West, adblocker
 address: 209.141.34.95:443
 host: adblock.lv1.dns.nixnet.xyz/dns-query
-keepalive: 30
+keepalive: 30,50
 
 # http 1.1
 name: nixnet-ny
@@ -694,7 +694,7 @@ zone: Americas-East
 tags: firefox-only, NY, Americas, Americas-East
 address: 199.195.251.84:443
 host: uncensored.ny1.dns.nixnet.xyz/dns-query
-keepalive: 30
+keepalive: 30,50
 
 # http 1.1
 name: nixnet-ny-adblocker
@@ -703,7 +703,7 @@ zone: Americas-East
 tags: firefox-only, NY, Americas, Americas-East, adblocker
 address: 199.195.251.84:443
 host: adblock.ny1.dns.nixnet.xyz/dns-query
-keepalive: 30
+keepalive: 30,50
 
 # http 1.1
 name: nixnet-lux
@@ -712,7 +712,7 @@ zone: Europe
 tags: firefox-only, Luxemburg, Europe
 address: 104.244.78.231:443
 host: uncensored.lux1.dns.nixnet.xyz/dns-query
-keepalive: 30
+keepalive: 30,50
 
 # http 1.1
 name: nixnet-lux-adblocker
@@ -721,7 +721,7 @@ zone: Europe
 tags: firefox-only, Luxemburg, Europe, adblocker
 address: 104.244.78.231:443
 host: adblock.lux1.dns.nixnet.xyz/dns-query
-keepalive: 30
+keepalive: 30,50
 
 name: oszx
 website: https://dns.oszx.co
@@ -730,7 +730,7 @@ tags: UK, Europe, adblocker
 address: 51.38.83.141:443
 host: dns.oszx.co/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: pi-dns
 website: https://pi-dns.com
@@ -739,7 +739,7 @@ tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: doh.pi-dns.com:443
 host: doh.pi-dns.com/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: pi-dns-eastus
 website: https://pi-dns.com
@@ -747,7 +747,7 @@ zone: Americas-East
 tags: NY, Americas, Americas-East, adblocker
 address: 185.213.26.187:443
 host: doh.eastus.pi-dns.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: pi-dns-westus
 website: https://pi-dns.com
@@ -755,7 +755,7 @@ zone: Americas-West
 tags: California, Americas, Americas-West, adblocker
 address: 45.67.219.208:443
 host: doh.westus.pi-dns.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: pi-dns-northeu
 website: https://pi-dns.com
@@ -763,7 +763,7 @@ zone: Europe
 tags: Finland, Europe, adblocker
 address: 95.216.181.228:443
 host: doh.northeu.pi-dns.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: pi-dns-centraleu
 website: https://pi-dns.com
@@ -771,7 +771,7 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 88.198.91.187:443
 host: doh.centraleu.pi-dns.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: pi-dns-eastau
 website: https://pi-dns.com
@@ -779,7 +779,7 @@ zone: Asia-Pacific
 tags: Australia, Asia-Pacific, adblocker
 address: 45.63.30.163:443
 host: doh.eastau.pi-dns.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: pi-dns-eastas
 website: https://pi-dns.com
@@ -787,7 +787,7 @@ zone: Asia-Pacific
 tags: Japan, Asia-Pacific, adblocker
 address: 66.42.33.135:443
 host: doh.eastas.pi-dns.com/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: powerdns
 website: https://powerdns.org
@@ -795,7 +795,7 @@ zone: Europe
 tags: Netherlands, Europe
 address: 136.144.215.158:443
 host: doh.powerdns.org/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: quad9
 website: https://quad9.net
@@ -803,7 +803,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 9.9.9.9:5053
 host: dns.quad9.net/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: quad9-2
 website: https://quad9.net
@@ -811,7 +811,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.112:5053
 host: dns.quad9.net/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: quad9-3
 website: https://quad9.net
@@ -819,7 +819,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.9:5053
 host: dns.quad9.net/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: quad9-unsecured
 website: https://quad9.net
@@ -827,7 +827,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 9.9.9.10:5053
 host: dns.quad9.net/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: quad9-unsecured-2
 website: https://quad9.net
@@ -835,7 +835,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.10:5053
 host: dns.quad9.net/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: rumpelsepp
 website: https://rumpelsepp.org/2020/03/10/announcing-dns-query.html
@@ -844,7 +844,7 @@ tags: Germany, Europe
 address: 116.203.179.248:443
 sni: yes
 host: rumpelsepp.org/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: seby
 website: https://dns.seby.io
@@ -852,7 +852,7 @@ zone: Asia-Pacific
 tags: Australia, Asia-Pacific, OpenNIC
 address: 45.76.113.31:8443
 host: dns.seby.io/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: seby2
 website: https://dns.seby.io
@@ -860,7 +860,7 @@ zone: Asia-Pacific
 tags: Australia, Asia-Pacific, OpenNIC
 address: 139.99.222.72:443
 host: doh-2.seby.io/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: snopyta
 website: https://snopyta.org
@@ -869,7 +869,7 @@ tags: non-profit, Finland, Europe
 address: 95.216.229.153:443
 host: fi.doh.dns.snopyta.org/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: switch
 website: https://www.switch.ch/security/info/public-dns/
@@ -877,7 +877,7 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 130.59.31.248:443
 host: dns.switch.ch/dns-query
-keepalive: 20
+keepalive: 20,25
 
 name: switch2
 website: https://www.switch.ch/security/info/public-dns/
@@ -885,7 +885,7 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 130.59.31.251:443
 host: dns.switch.ch/dns-query
-keepalive: 20
+keepalive: 20,25
 
 # short keepalive
 name: tiarapp-sg
@@ -903,7 +903,7 @@ tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.44.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 name: tiarapp-us2
 website: https://doh.tiarap.org
@@ -912,7 +912,7 @@ tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.45.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
-keepalive: 60
+keepalive: 60,90
 
 # short keepalive
 name: tiarapp-jp
@@ -929,7 +929,7 @@ zone: Asia-Pacific
 tags: Taiwan, Asia-Pacific
 address: 210.17.9.228:443
 host: dns.twnic.tw/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: usableprivacy
 website: https://github.com/usableprivacy/updns
@@ -938,4 +938,4 @@ tags: Austria, Europe, adblocker
 address: 149.154.153.153:443
 host: adfree.usableprivacy.net/
 sni: yes
-keepalive: 60
+keepalive: 60,90

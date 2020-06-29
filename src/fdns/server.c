@@ -185,14 +185,29 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 		}
 		else if (strncmp(buf, "keepalive: ", 11) == 0) {
-			if (s->keepalive)
+			if (s->keepalive_min)
 				goto errout;
-			if (sscanf(buf + 11, "%d", &s->keepalive) != 1 || s->keepalive <= 0) {
-				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
-				exit(1);
+			// detect keepalive range
+			if (strchr(buf + 11, ',')) {
+				if (sscanf(buf + 11, "%d,%d", &s->keepalive_min, &s->keepalive_max) != 2 ||
+				                s->keepalive_min <= 0 ||
+				                s->keepalive_max <= 0 ||
+				                s->keepalive_min > s->keepalive_max) {
+					fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
+					exit(1);
+				}
 			}
-			if (arg_keepalive)
-				s->keepalive = arg_keepalive;
+			else {
+				if (sscanf(buf + 11, "%d", &s->keepalive_min) != 1 || s->keepalive_min <= 0) {
+					fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
+					exit(1);
+				}
+				s->keepalive_max = s->keepalive_min;
+			}
+			if (arg_keepalive) {
+				s->keepalive_min = arg_keepalive;
+				s->keepalive_max = arg_keepalive;
+			}
 
 			// check server data
 			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {
