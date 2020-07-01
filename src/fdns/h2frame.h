@@ -18,6 +18,7 @@ typedef struct h2frame_t {
 #define H2_TYPE_PING 		0x06
 #define H2_TYPE_GOAWAY	0x07
 #define H2_TYPE_WIN_UPDATE	0x08
+#define H2_TYPE_MAX		0x08 // the last one
 	uint8_t type;
 
 #define H2_FLAG_END_STREAM	0x01

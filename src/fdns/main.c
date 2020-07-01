@@ -321,11 +321,6 @@ int main(int argc, char **argv) {
 		logprintf("fdns starting\n");
 		if (!arg_fallback_only) {
 			logprintf("connecting to %s server\n", s->name);
-			logprintf("\t%s\n", s->tags);
-			if (s->keepalive_min == s->keepalive_max)
-				logprintf("\tkeepalive %d seconds\n", s->keepalive_min);
-			else
-				logprintf("\tkeepalive %d - %d seconds\n", s->keepalive_min, s->keepalive_max);
 		}
 		frontend();
 	}

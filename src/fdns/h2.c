@@ -10,7 +10,14 @@
 #include "h2frame.h"
 #include "fdns.h"
 
+static unsigned long long h2_header_total = 0;
+static unsigned long long h2_header_cnt = 0;
 static uint32_t stream_id;
+
+// average length of the
+int h2_header_average(void) {
+	return (int) (h2_header_total / h2_header_cnt);
+}
 
 #define MAX_HEADER_FIELDS 64
 #define HEADER(name, value) fields[pos++] = (struct hpack_field){ \
@@ -39,9 +46,6 @@ static void header_encode_cb(enum hpack_event_e evt, const char *buf, size_t len
 
 static void print_headers(enum hpack_event_e evt, const char *buf, size_t len, void *priv) {
 	(void)priv;
-	if (!arg_debug)
-		return;
-
 	/* print "\n${name}: ${value}" for each header field */
 
 	switch (evt) {
@@ -52,13 +56,15 @@ static void print_headers(enum hpack_event_e evt, const char *buf, size_t len, v
 		printf(": ");
 	/* fall through */
 	case HPACK_EVT_NAME:
-		printf("    %s", buf);
+		printf("   %s", buf);
 		(void)len;
 	/* fall through */
 	default:
 		/* ignore other events */
 		break;
 	}
+
+	fflush(0);
 }
 
 
@@ -156,11 +162,13 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 		fprintf(stderr, "Not a header header\n");
 		return 0;
 	}
+	size_t len = h2frame_extract_length(&frm);
+	h2_header_total += len;
+	h2_header_cnt++;
 
 	uint8_t flg = frm.flag;
 	uint8_t pad = 0;
 	uint32_t str = h2frame_extract_stream(&frm);
-	size_t len = h2frame_extract_length(&frm);
 //todo		if (len > sizeof blk)
 //			return (EXIT_FAILURE); /* DIY */
 
@@ -171,7 +179,10 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 	dec.blk_len = 0;
 	dec.buf = buf;
 	dec.buf_len = sizeof buf;
-	dec.cb = print_headers;
+	if (arg_debug || arg_debug_h2)
+		dec.cb = print_headers;
+	else
+		dec.cb = NULL;
 	dec.priv = NULL;
 
 	if (flg & H2_FLAG_PADDED)
@@ -182,10 +193,6 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 	memcpy(blk, frame + offset, len);
 	offset += len;
 
-	/* decode the HPACK block */
-	if (flg & H2_FLAG_END_HEADERS && arg_debug)
-		printf("=== stream %u", str);
-
 	dec.cut = ~flg & H2_FLAG_END_HEADERS;
 	dec.blk_len = len;
 
@@ -195,8 +202,8 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 
 	if (flg & H2_FLAG_PADDED)
 		offset += pad;
-	if (arg_debug)
-		printf("\n");
+	if (arg_debug || arg_debug_h2)
+		printf("\n\n");
 	return offset;
 }
 
@@ -258,7 +265,8 @@ uint32_t h2_decode_data(uint8_t *frame, uint32_t *offset, uint32_t *length) {
 
 
 static uint8_t buf_query[MAXBUF];
-void h2_connect(void) {
+// returns -1 if error
+int h2_connect(void) {
 	stream_id = 0;
 	uint8_t connect[] = {
 		0x50, 0x52, 0x49, 0x20, 0x2a, 0x20, 0x48, 0x54, 0x54, 0x50, 0x2f, 0x32, 0x2e, 0x30, 0x0d, 0x0a,
@@ -279,11 +287,13 @@ void h2_connect(void) {
 	}
 
 	ssl_tx(connect, sizeof(connect));
-	h2_exchange(buf_query);
+	int rv = h2_exchange(buf_query);
 	stream_id = 13;
+	return rv;
 }
 
 // the result message is placed in res, the length of the message is returned
+// returns -1 if error
 int h2_send_exampledotcom(uint8_t *req) {
 	stream_id += 2;
 
@@ -318,6 +328,7 @@ int h2_send_exampledotcom(uint8_t *req) {
 
 
 // the result message is placed in req, the length of the message is returned
+// returns -1 if error
 int h2_send_query(uint8_t *req, int cnt) {
 	stream_id += 2;
 	uint32_t len = h2_encode_header(buf_query, cnt);
@@ -332,16 +343,18 @@ int h2_send_query(uint8_t *req, int cnt) {
 	return h2_exchange(req);
 }
 
-void h2_send_ping(void) {
+// returns -1 if error
+int h2_send_ping(void) {
 	uint8_t frame[] = {0, 0, 8, 6,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	if (arg_debug || arg_debug_h2)
 		h2frame_print(arg_id, "tx", (H2Frame *) frame);
 
 	ssl_tx(frame, sizeof(frame));
-	h2_exchange(buf_query);
+	return h2_exchange(buf_query);
 }
 
 // copy rx data in response and return the length
+// return -1 if error
 int h2_exchange(uint8_t *response) {
 	assert(response);
 	int retval = 0;
@@ -358,7 +371,7 @@ int h2_exchange(uint8_t *response) {
 
 		int rv = select(fd + 1, &readfds, NULL, NULL, &timeout);
 		if (rv < 0)
-			return 0;
+			return -1;
 		if (rv == 0) {
 			if (arg_id > 0)
 				rlogprintf("Error: h2 timeout\n");
@@ -366,7 +379,7 @@ int h2_exchange(uint8_t *response) {
 				fprintf(stderr, "Error: h2 timeout\n");
 			if (ssl_state == SSL_OPEN)
 				ssl_close();
-			return 0;
+			return -1;
 		}
 
 		if (FD_ISSET(fd, &readfds)) {
@@ -376,6 +389,7 @@ int h2_exchange(uint8_t *response) {
 					ssl_close();
 				return 0;
 			}
+			// todo: handle an incomplete frame
 
 			if (arg_debug) {
 				print_time();
@@ -419,6 +433,12 @@ int h2_exchange(uint8_t *response) {
 				else if (frm->type == H2_TYPE_GOAWAY) {
 					ssl_close();
 					return 0;
+				}
+				else {
+					if (frm->type > H2_TYPE_MAX && strncmp((char *) frm, "HTTP", 4) == 0) {
+						fprintf(stderr, "Error: invalid HTTP version\n");
+						return -1;
+					}
 				}
 
 				if (frm->flag & H2_FLAG_END_STREAM)

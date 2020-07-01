@@ -362,12 +362,13 @@ void procs_add(void);
 void procs_list(void);
 
 // h2.c
+int h2_header_average(void);
 void h2_init(void);
 void h2_close(void);
-void h2_connect(void);
+int h2_connect(void);
 int h2_send_exampledotcom(uint8_t *req);
 int h2_send_query(uint8_t *req, int cnt);
-void h2_send_ping(void);
+int h2_send_ping(void);
 int h2_exchange(uint8_t *response);
 
 
