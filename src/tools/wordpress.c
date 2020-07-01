@@ -136,9 +136,9 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 		}
 		else if (strncmp(buf, "keepalive: ", 11) == 0) {
-			if (s->keepalive)
+			if (s->keepalive_min)
 				goto errout;
-			if (sscanf(buf + 11, "%d", &s->keepalive) != 1 || s->keepalive <= 0) {
+			if (sscanf(buf + 11, "%d", &s->keepalive_min) != 1 || s->keepalive_min <= 0) {
 				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
 				exit(1);
 			}

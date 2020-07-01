@@ -298,6 +298,9 @@ int test_server(const char *server_name)  {
 		log_disable();
 		ssl_init();
 		printf("Testing server %s\n", arg_server);
+		DnsServer *s = server_get();
+		assert(s);
+		printf("\ttags: %s\n", s->tags);
 		fflush(0);
 
 		timetrace_start();
@@ -328,6 +331,13 @@ int test_server(const char *server_name)  {
 			exit(1);
 		}
 		printf("\tDoH response average %.02f ms\n", ms / 5);
+		if (s->keepalive_min == s->keepalive_max)
+			printf("\tkeepalive %d seconds\n", s->keepalive_min);
+		else
+			printf("\tkeepalive %d to %d seconds\n", s->keepalive_min, s->keepalive_max);
+		printf("\tSNI %s\n", (s->sni)? "yes": "no");
+		printf("\taverage HTTP2 header overhead: %d bytes\n", h2_header_average()); // plus the frame  size for header and data
+
 		fflush(0);
 
 		exit(0);

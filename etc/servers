@@ -39,7 +39,7 @@ zone: Europe
 tags: non-profit, France, Europe
 address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
-keepalive: 60
+keepalive: 60,90
 
 name: a-and-a
 website: https://www.aa.net.uk/legal/dohdot-disclaimer/
@@ -161,6 +161,15 @@ tags: Netherlands, Europe
 address: 51.15.124.208:443
 host: dnsnl.alekberg.net/dns-query
 keepalive: 20,25
+
+name: arapurayil
+website: https://www.dns.arapurayil.com
+zone: Asia-Pacific
+tags: India, Asia-Pacific
+address: 3.7.156.128:443
+host: dns.arapurayil.com/dns-query
+#keepalive-query: yes
+keepalive: 7
 
 name: appliedprivacy
 website: https://appliedprivacy.net
@@ -617,7 +626,7 @@ keepalive: 30,50
 name: li
 website: https://doh.li/
 zone: Europe
-tags: admin-down, UK, Europe
+tags: admin-down,UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
 keepalive: 30,50

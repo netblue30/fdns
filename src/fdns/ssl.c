@@ -185,18 +185,22 @@ assert(lenp == 2);
 
 	// h2 connect
 	h2_init();
-	h2_connect();
+	if (h2_connect() == -1)
+		goto errh2;
 
 	// ... followed by a simple query
 	uint8_t msg[MAXBUF];
 	int len = h2_send_exampledotcom(msg);
 	// some servers return NXDOMAIN for example.com
-	if (len == 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN)) {
-		ssl_state = SSL_CLOSED;
-		ssl_close();
-		return;
-	}
+	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
+		goto errh2;
 	rlogprintf("h2 connection opened\n");
+	return;
+
+errh2:
+	rlogprintf("h2 connection failed\n");
+	ssl_state = SSL_CLOSED;
+	ssl_close();
 }
 
 void ssl_close(void) {

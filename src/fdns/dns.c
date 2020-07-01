@@ -226,8 +226,12 @@ void dns_keepalive(void) {
 	else {
 		// randomly send example.com (1 in 3)
 		int r = rand();
-		if (r % 3)
-			h2_send_ping();
+		if (r % 3) {
+			if (h2_send_ping() == -1) {
+				rlogprintf("Error: ping failed, closing SSL connection\n");
+				ssl_close();
+			}
+		}
 		else
 			goto sendex;
 	}
@@ -236,7 +240,7 @@ void dns_keepalive(void) {
 sendex:
 	len = h2_send_exampledotcom(msg);
 	// some servers return NXDOMAIN for example.com
-	if (len == 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
+	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 		ssl_close();
 }
 
@@ -248,7 +252,7 @@ int dns_query(uint8_t *msg, int cnt) {
 
 
 	int datalen = h2_send_query(msg, cnt);
-	if (datalen == 0)
+	if (datalen <= 0)
 		goto errout;
 
 	//
