@@ -189,6 +189,15 @@ host: doh-fi.blahdns.com/dns-query
 sni: yes
 keepalive: 30,50
 
+# under development
+#name: bcn-doh
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
+#zone: Europe
+#tags: Spain, Europe
+#address: 185.253.154.66:443
+#host: dnses.alekberg.net/dns-query
+#keepalive: 20,25
+
 # short keepalive
 name: blahdns-de
 website: https://blahdns.com
@@ -383,6 +392,7 @@ zone: Europe
 tags: firefox-only, Czechia, Europe
 address: 185.43.135.1:443
 host: odvr.nic.cz/doh
+keepalive-query: yes
 keepalive: 7
 
 # short keepalive
@@ -392,6 +402,7 @@ zone: Europe
 tags: firefox-only, Czechia, Europe
 address: 193.17.47.1:443
 host: odvr.nic.cz/doh
+keepalive-query: yes
 keepalive: 7
 
 name: declouds
