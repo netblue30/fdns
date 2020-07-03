@@ -129,6 +129,15 @@ int main(int argc, char **argv) {
 				arg_debug_h2 = 1;
 			else if (strcmp(argv[i], "--debug-ssl") == 0)
 				arg_debug_ssl = 1;
+			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
+				arg_keepalive = atoi(argv[i] + 12);
+				if (arg_keepalive < H2_SESSION_KEEPALIVE_MIN || arg_keepalive > H2_SESSION_KEEPALIVE_MAX) {
+					fprintf(stderr, "Error: keepalive value out of range. Allowed values " \
+					"between %d and %d \n", H2_SESSION_KEEPALIVE_MIN, H2_SESSION_KEEPALIVE_MAX);
+					exit(1);
+				}
+			}
+
 		}
 	}
 
@@ -160,16 +169,8 @@ int main(int argc, char **argv) {
 				;
 			else if (strncmp(argv[i], "--zone=", 7) == 0)
 				;
-
-			// options
-			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
-				arg_keepalive = atoi(argv[i] + 12);
-				if (arg_keepalive < H2_SESSION_KEEPALIVE_MIN || arg_keepalive > H2_SESSION_KEEPALIVE_MAX) {
-					fprintf(stderr, "Error: keepalive value out of range. Allowed values " \
-					"between %d and %d \n", H2_SESSION_KEEPALIVE_MIN, H2_SESSION_KEEPALIVE_MAX);
-					exit(1);
-				}
-			}
+			else if (strncmp(argv[i], "--keepalive=", 12) == 0)
+				;
 #ifdef HAVE_GCOV
 			else if (strcmp(argv[i], "--fallback-only") == 0)
 				arg_fallback_only = 1;
@@ -207,6 +208,8 @@ int main(int argc, char **argv) {
 			else if (strncmp(argv[i], "--fd=", 5) == 0)
 				arg_fd = atoi(argv[i] + 5);
 			else if (strncmp(argv[i], "--server=", 9) == 0) {
+				if (strncmp(argv[i] + 9, "https://", 8) == 0)
+					server_set_custom(argv[i] + 9);
 				arg_server = strdup(argv[i] + 9);
 				if (!arg_server)
 					errExit("strdup");
@@ -270,7 +273,12 @@ int main(int argc, char **argv) {
 				return 0;
 			}
 			else if (strncmp(argv[i], "--test-server=", 14) == 0) {
-				server_test_tag(argv[i] + 14);
+				if (strncmp(argv[i] + 14, "https://", 8) == 0) {
+					server_set_custom(argv[i] + 14);
+					server_test_tag(argv[i] + 14);
+				}
+				else
+					server_test_tag(argv[i] + 14);
 				return 0;
 			}
 			else if (strncmp(argv[i], "--whitelist=", 12) == 0)
