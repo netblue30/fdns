@@ -228,7 +228,7 @@ void dns_keepalive(void) {
 		int r = rand();
 		if (r % 3) {
 			if (h2_send_ping() == -1) {
-				rlogprintf("Error: ping failed, closing SSL connection\n");
+				rlogprintf("Error: h2 ping failed, closing SSL connection\n");
 				ssl_close();
 			}
 		}

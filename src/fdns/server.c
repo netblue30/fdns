@@ -279,6 +279,7 @@ static void load_list(void) {
 	fclose(fp);
 }
 
+
 // return 0 if ok, 1 if failed
 int test_server(const char *server_name)  {
 	if (arg_fallback_only)
@@ -300,7 +301,8 @@ int test_server(const char *server_name)  {
 		printf("Testing server %s\n", arg_server);
 		DnsServer *s = server_get();
 		assert(s);
-		printf("\ttags: %s\n", s->tags);
+		if (s->tags)
+			printf("\ttags: %s\n", s->tags);
 		fflush(0);
 
 		timetrace_start();
@@ -559,4 +561,47 @@ void server_test_tag(const char *tag)  {
 	}
 
 	printf("\nTesting completed\n");
+}
+
+
+void server_set_custom(const char *url) {
+	set_zone();
+	slist = malloc(sizeof(DnsServer));
+	if (!slist)
+		errExit("malloc");
+	memset(slist, 0, sizeof(DnsServer));
+
+	DnsServer *s = slist;
+	s->host = strdup(url + 8);
+	if (!s->host)
+		errExit("strdup");
+
+	// build the DNS/HTTP request
+	char *str = strchr(s->host, '/');
+	if (!str) {
+		free(s);
+		fprintf(stderr, "Error: invalid URL %s\n", url);
+		exit(1);
+	}
+	s->path = strdup(str);
+	if (!s->path)
+		errExit("strdup");
+	*str++ = '\0';
+	if (asprintf(&s->address, "%s:443", s->host) == -1)
+		errExit("asprintf");
+	s->name = strdup(url);
+	if (!s->name)
+		errExit("strdup");
+	s->website = "unknown";
+	s->zone = "unknown";
+	s->sni = 1;
+	if (arg_keepalive) {
+		s->keepalive_min = arg_keepalive;
+		s->keepalive_max = arg_keepalive;
+	}
+	else {
+		s->keepalive_min = 60;
+		s->keepalive_max = 60;
+	}
+	scurrent = s;
 }
