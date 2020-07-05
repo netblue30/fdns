@@ -34,7 +34,6 @@ char *arg_server = NULL;
 char *arg_proxy_addr = NULL;
 int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
-int arg_test_hosts = 0;
 char *arg_zone = NULL;
 int arg_cache_ttl = CACHE_TTL_DEFAULT;
 int arg_disable_local_doh = 0;
@@ -88,7 +87,6 @@ static void usage(void) {
 	       "\tdefault %d.\n",
 	       RESOLVERS_CNT_MIN, RESOLVERS_CNT_MAX, RESOLVERS_CNT_DEFAULT);
 	printf("    --server=server-name|tag|all - DoH server to connect to.\n");
-	printf("    --test-hosts - test the domains in /etc/fdns/hosts file.\n");
 	printf("    --test-server - test the DoH servers in your current zone.\n");
 	printf("    --test-server=server-name|tag|all - test DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
@@ -250,22 +248,16 @@ int main(int argc, char **argv) {
 			}
 
 			// test options
-			else if (strcmp(argv[i], "--test-hosts") == 0) {
-				arg_test_hosts = 1;
+			else if (strcmp(argv[i], "--test-url-list") == 0) {
 				server_list("any");
 				filter_load_all_lists();
+				filter_test_list();
 				return 0;
 			}
 			else if (strncmp(argv[i], "--test-url=", 11) == 0) {
 				server_list("any");
 				filter_load_all_lists();
 				filter_test(argv[i] + 11);
-				return 0;
-			}
-			else if (strcmp(argv[i], "--test-url-list") == 0) {
-				server_list("any");
-				filter_load_all_lists();
-				filter_test_list();
 				return 0;
 			}
 			else if (strcmp(argv[i], "--test-server") == 0) {

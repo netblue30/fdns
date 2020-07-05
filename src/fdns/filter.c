@@ -89,6 +89,7 @@ static DFilter default_filter[] = {
 	{'A', "^oascentral.", NULL, 0},
 	{'T', "^stats.", NULL, 0},
 	{'T', "^tag.", NULL, 0},
+	{'M', "^hostmaster.hostmaster", NULL, 0},
 
 	{'A', ".ad.", ".ad.jp", 0},	// .ad.jp is popular Japanese domain
 	{'A', ".ads.", NULL, 0},
@@ -184,6 +185,9 @@ static inline int hash(const char *str) {
 }
 
 void filter_add(char label, const char *domain) {
+//if (label == 'M')
+//printf("127.0.0.1 %s\n", domain);
+
 	assert(domain);
 	HashEntry *h = malloc(sizeof(HashEntry));
 	if (!h)
@@ -224,10 +228,6 @@ static void filter_load_list(char label, const char *fname) {
 	FILE *fp = fopen(fname, "r");
 	if (!fp)
 		return;  // nothing to do
-
-	int test_hosts = 0;
-	if (arg_test_hosts && strcmp(fname,PATH_ETC_HOSTS_LIST) == 0)
-		test_hosts = 1;
 
 	char buf[MAXBUF];
 	int cnt = 0;
@@ -275,12 +275,6 @@ static void filter_load_list(char label, const char *fname) {
 
 		// add it to the hash table
 		if (!filter_blocked(ptr, 0)) {
-			if (test_hosts) {
-				// if the name starts in www,. remove it
-				if (strncmp(ptr, "www.", 4) == 0)
-					ptr += 4;
-				printf("127.0.0.1 %s\n", ptr);
-			}
 			filter_add(label, ptr);
 			cnt++;
 		}
@@ -322,7 +316,7 @@ static int extract_domains(const char *ptr) {
 	return i - 1;
 }
 
-// return 1 if the site is blocked
+// return NULL if the site is not blocked
 const char *filter_blocked(const char *str, int verbose) {
 #ifdef DEBUG_STATS
 	timetrace_start();
@@ -397,44 +391,60 @@ const char *filter_blocked(const char *str, int verbose) {
 
 void filter_test(char *url) {
 	assert(url);
-
-	char *ptr = strtok(url, ",");
-	while (ptr) {
-		filter_blocked(ptr, 1);
-		ptr = strtok(NULL, ",");
-	}
+	filter_blocked(url, 1);
 }
 
+
+// supported formats:
+//    - lines in regular hosts files with ip addresses of 127.0.0.1 and 0.0.0.0
+//    - lists of domain names, one domain per line
 void filter_test_list(void) {
 	char buf[MAXBUF];
 	while (fgets(buf, MAXBUF, stdin)) {
-		// some basic cleanup
 		char *ptr = strchr(buf, '\n');
 		if (ptr)
 			*ptr = '\0';
-
 		ptr = buf;
-		if (*ptr == '\0')
-			continue;
 		while (*ptr == ' ' || *ptr == '\t')
 			ptr++;
-		if (*ptr == '\0')
-			continue;
-		char *start = ptr;
-		if (*start == '#')	// comments
-			continue;
-		while (*ptr != '\0') {
-			if (*ptr == ' ' || *ptr == '\t') {
-				*ptr = '\0';
-				break;
-			}
-			ptr++;
-		}
 
-		filter_test(start);
+		// comments
+		char *start = ptr;
+		if (*start == '#' || *start == '\0') // comment
+			continue;
+		ptr = strchr(start, '#');
+		if (ptr)
+			*ptr = '\0';
+
+		// regular hosts files:
+		// 127.0.0.1 domain.name
+		if (strncmp(start, "127.0.0.1", 9) == 0)
+			start += 9;
+		else if (strncmp(start, "0.0.0.0", 7) == 0)
+			start += 7;
+		while (*start == ' ' || *start == '\t')
+			start++;
+
+		// clean end spaces
+		ptr = strchr(start, ' ');
+		if (ptr)
+			*ptr = '\0';
+		ptr = strchr(start, '\t');
+		if (ptr)
+			*ptr = '\0';
+
+		// clean www.
+		if (strncmp(start, "www.", 4) == 0)
+			start += 4;
+		if (*start == '\0')
+			continue;
+		if (strstr(start, "::")) // IPv6 addresses!
+			continue;
+		const char *str = filter_blocked(start, 0);
+		if (!str)
+			printf("127.0.0.1 %s\n", start);
 	}
 }
-
 
 //************************************
 // CNAME cloaking based on rx DoH packet
