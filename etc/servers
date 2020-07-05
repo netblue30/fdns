@@ -338,7 +338,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
-sni: yes
 keepalive: 60,90
 
 name: cloudflare-security2
@@ -347,7 +346,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
-sni: yes
 keepalive: 60,90
 
 name: cloudflare-family
@@ -356,7 +354,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
-sni: yes
 keepalive: 60,90
 
 name: cloudflare-family2
@@ -365,7 +362,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
-sni: yes
 keepalive: 60,90
 
 name: commons-host
@@ -385,21 +381,19 @@ address: 45.77.180.10:443
 host: dns.containerpi.com/dns-query
 keepalive: 60,90
 
-# short keepalive
 name: cznic
 website: https://www.nic.cz/odvr/
 zone: Europe
-tags: firefox-only, Czechia, Europe
+tags: Czechia, Europe
 address: 185.43.135.1:443
 host: odvr.nic.cz/doh
 keepalive-query: yes
 keepalive: 7
 
-# short keepalive
 name: cznic2
 website: https://www.nic.cz/odvr/
 zone: Europe
-tags: firefox-only, Czechia, Europe
+tags: Czechia, Europe
 address: 193.17.47.1:443
 host: odvr.nic.cz/doh
 keepalive-query: yes
@@ -675,7 +669,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 45.90.30.0:443
 host: trr.dns.nextdns.io/
-sni: yes
 keepalive-query: yes
 keepalive: 20,25
 
@@ -685,7 +678,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
-sni: yes
 keepalive-query: yes
 keepalive: 20,25
 

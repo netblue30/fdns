@@ -212,7 +212,6 @@ extern char *arg_proxy_addr;
 extern int arg_proxy_addr_any;
 extern char *arg_certfile;
 extern char *arg_forwarder;
-extern int arg_test_hosts;
 extern char *arg_zone;
 extern int arg_cache_ttl;
 extern int arg_disable_local_doh;
