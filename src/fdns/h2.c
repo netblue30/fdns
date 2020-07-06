@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <assert.h>
+#include <stddef.h>
 
 #include "../inc/hpack.h"
 #include "h2frame.h"
@@ -92,61 +93,61 @@ void h2_close(void) {
 static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	assert(frame);
 
-	char slen[20];
-	sprintf(slen, "%d", len);
-
-	// extract server data
+	// server data
 	DnsServer *srv = server_get();
 	assert(srv);
 	assert(srv->path);
 	assert(srv->host);
 
+	uint8_t *ptr = frame + sizeof(H2Frame);
+//	HEADER(":method", "POST");
+	*ptr++ = 3 | 0x80;
 
-	// hpack encode
-	struct hpack_field fields[MAX_HEADER_FIELDS];
-	size_t pos = 0;
+//	HEADER(":path", srv->path);
+	*ptr++ = 4 | 0x40;
+	uint8_t sz = strlen(srv->path);
+	*ptr++ = sz;
+	memcpy(ptr, srv->path, sz);
+	ptr += sz;
 
-	HEADER(":method", "POST");
-	HEADER(":path", srv->path);
-	HEADER(":authority", srv->host);
-	HEADER(":scheme", "https");
-	HEADER("accept", "application/dns-message");
-	HEADER("content-type", "application/dns-message");
-	HEADER("content-length", slen);
-//	HEADER("pragma", "no-cache");
-//	HEADER("te", "trailers");
+// 	HEADER(":authority", srv->host);
+	*ptr++ = 1 | 0x40;
+	sz = (uint8_t) strlen(srv->host);
+	*ptr++ = sz;
+	memcpy(ptr, srv->host, sz);
+	ptr += sz;
 
-	// encoding structure
-	char hpack_buf[MAXBUF];
-	struct tmp_buf buf = {
-		(char *) frame + 9,	// frame header size 9
-		0,
-	};
+//	HEADER(":scheme", "https");
+	*ptr++ = 7 | 0x80;
 
-	struct hpack_encoding enc;
-	enc.fld = fields;
-	enc.fld_cnt = pos;
-	enc.buf = hpack_buf;
-	enc.buf_len = MAXBUF;
-	enc.cb = header_encode_cb,
-	enc.priv = &buf,
-	enc.cut = 0;
+//disabled	HEADER("accept", "application/dns-message");
+//	HEADER("content-type", "application/dns-message");
+	*ptr++ = 31 | 0x40;
+	*ptr++ = 23;
+	memcpy(ptr, "application/dns-message", 23);
+	ptr += 23;
 
-	// encoding
-	int rv = hpack_encode(hpe, &enc);
-	if (rv != HPACK_RES_OK) {
-		fprintf(stderr, "hpack encoding error: %s\n", hpack_strerror(rv));
-		exit(1);
-	}
+//	HEADER("content-length", slen);
+	char slen[20];
+	sprintf(slen, "%d", len);
+	*ptr++ = 28 | 0x40;
+	sz = strlen(slen);
+	*ptr++ = sz;
+	memcpy(ptr, slen, sz);
+	ptr += sz;
 
-	// build header
+//disabled	HEADER("pragma", "no-cache");
+//disabled	HEADER("te", "trailers");
+	ptrdiff_t length = ptr - (frame + sizeof(H2Frame));
+
+	// add the frame header
 	H2Frame *frm = (H2Frame *) frame;
-	uint32_t length = buf.offset;
 	h2frame_set_length(frm, length);
 	frm->type = H2_TYPE_HEADERS;
 	frm->flag = H2_FLAG_END_HEADERS;// | H2_FLAG_END_STREAM;
 	h2frame_set_stream(frm, stream_id);
 
+//print_mem(frame, sizeof(H2Frame) + length);
 	return sizeof(H2Frame) + length;
 }
 
