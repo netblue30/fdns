@@ -163,7 +163,7 @@ void resolver(void) {
 			// ssl keepalive:
 			// if any incoming data, probably is the session going down
 			if (ssl_status_check()) {
-				h2_exchange(buf);
+				h2_exchange(buf, 0);
 				if (ssl_state == SSL_CLOSED) {
 					ssl_open();
 					ssl_reopen_cnt = SSL_REOPEN_TIMER;

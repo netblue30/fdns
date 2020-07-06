@@ -337,8 +337,8 @@ int test_server(const char *server_name)  {
 			printf("\tkeepalive %d seconds\n", s->keepalive_min);
 		else
 			printf("\tkeepalive %d to %d seconds\n", s->keepalive_min, s->keepalive_max);
-		printf("\tSNI %s\n", (s->sni)? "yes": "no");
 		printf("\taverage HTTP2 header overhead: %d bytes\n", h2_header_average()); // plus the frame  size for header and data
+		printf("\tSNI %s\n", (s->sni)? "yes": "no");
 
 		fflush(0);
 
