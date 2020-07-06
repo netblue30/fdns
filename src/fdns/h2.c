@@ -46,7 +46,6 @@ static void header_encode_cb(enum hpack_event_e evt, const char *buf, size_t len
 
 static void print_headers(enum hpack_event_e evt, const char *buf, size_t len, void *priv) {
 	(void)priv;
-	/* print "\n${name}: ${value}" for each header field */
 
 	switch (evt) {
 	case HPACK_EVT_FIELD:
@@ -71,8 +70,8 @@ static void print_headers(enum hpack_event_e evt, const char *buf, size_t len, v
 struct hpack *hpe = NULL;
 struct hpack *hpd = NULL;
 void h2_init(void) {
-	hpe = hpack_encoder(4096, -1, hpack_default_alloc);
-	hpd = hpack_decoder(4096, -1, hpack_default_alloc);
+	hpe = hpack_encoder(0x4000, -1, hpack_default_alloc);
+	hpd = hpack_decoder(0x4000, -1, hpack_default_alloc);
 }
 
 void h2_close(void) {
@@ -114,7 +113,7 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	HEADER("accept", "application/dns-message");
 	HEADER("content-type", "application/dns-message");
 	HEADER("content-length", slen);
-	HEADER("pragma", "no-cache");
+//	HEADER("pragma", "no-cache");
 //	HEADER("te", "trailers");
 
 	// encoding structure
@@ -123,6 +122,7 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 		(char *) frame + 9,	// frame header size 9
 		0,
 	};
+
 	struct hpack_encoding enc;
 	enc.fld = fields;
 	enc.fld_cnt = pos;
@@ -163,8 +163,6 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 		return 0;
 	}
 	size_t len = h2frame_extract_length(&frm);
-	h2_header_total += len;
-	h2_header_cnt++;
 
 	uint8_t flg = frm.flag;
 	uint8_t pad = 0;
@@ -175,14 +173,12 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 	uint8_t blk[4096];
 	uint8_t buf[1024];
 	struct hpack_decoding dec;
+	memset(&dec, 0, sizeof(dec));
 	dec.blk = blk;
 	dec.blk_len = 0;
 	dec.buf = buf;
 	dec.buf_len = sizeof buf;
-	if (arg_debug || arg_debug_h2)
-		dec.cb = print_headers;
-	else
-		dec.cb = NULL;
+	dec.cb = print_headers;
 	dec.priv = NULL;
 
 	if (flg & H2_FLAG_PADDED)
@@ -197,8 +193,11 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 	dec.blk_len = len;
 
 	int rv = hpack_decode(hpd, &dec);
-	if (rv < 0)
+	if (rv < 0) {
+		// print error
+		fprintf(stderr, "Error: hpack decode error %d\n", rv);
 		return 0;
+	}
 
 	if (flg & H2_FLAG_PADDED)
 		offset += pad;
@@ -287,7 +286,7 @@ int h2_connect(void) {
 	}
 
 	ssl_tx(connect, sizeof(connect));
-	int rv = h2_exchange(buf_query);
+	int rv = h2_exchange(buf_query, stream_id);
 	stream_id = 13;
 	return rv;
 }
@@ -323,7 +322,7 @@ int h2_send_exampledotcom(uint8_t *req) {
 		h2frame_print(arg_id, "tx query", (H2Frame *) (buf_query + len));
 
 	ssl_tx(buf_query, len + len2);
-	return h2_exchange(req);
+	return h2_exchange(req, stream_id);
 }
 
 
@@ -340,7 +339,7 @@ int h2_send_query(uint8_t *req, int cnt) {
 		h2frame_print(arg_id, "tx query", (H2Frame *) (buf_query + len));
 	ssl_tx(buf_query, len + len2);
 
-	return h2_exchange(req);
+	return h2_exchange(req, stream_id);
 }
 
 // returns -1 if error
@@ -350,12 +349,12 @@ int h2_send_ping(void) {
 		h2frame_print(arg_id, "tx", (H2Frame *) frame);
 
 	ssl_tx(frame, sizeof(frame));
-	return h2_exchange(buf_query);
+	return h2_exchange(buf_query, 0);
 }
 
 // copy rx data in response and return the length
 // return -1 if error
-int h2_exchange(uint8_t *response) {
+int h2_exchange(uint8_t *response, uint32_t stream) {
 	assert(response);
 	int retval = 0;
 
@@ -404,8 +403,24 @@ int h2_exchange(uint8_t *response) {
 				if (arg_debug || arg_debug_h2)
 					h2frame_print(arg_id, "rx", frm);
 
-				if (frm->type == H2_TYPE_HEADERS)
-					h2_decode_header((uint8_t *) frm);
+				// go away conditions
+				if (frm->type == H2_TYPE_GOAWAY) {
+					ssl_close();
+					return 0;
+				}
+				else if (frm->type > H2_TYPE_MAX && strncmp((char *) frm, "HTTP", 4) == 0) {
+					fprintf(stderr, "Error: invalid HTTP version\n");
+					return -1;
+				}
+
+				// normal header type processing
+				if (frm->type == H2_TYPE_HEADERS) {
+					size_t len = h2frame_extract_length(frm);
+					h2_header_total += len;
+					h2_header_cnt++;
+					if (arg_debug || arg_debug_h2)
+						h2_decode_header((uint8_t *) frm);
+				}
 				else if (frm->type == H2_TYPE_DATA) {
 					uint32_t offset;
 					uint32_t length;
@@ -422,27 +437,23 @@ int h2_exchange(uint8_t *response) {
 				// ping response - do nothing
 				else if (frm->type == H2_TYPE_PING && frm->flag & H2_FLAG_END_STREAM)
 					return 0;
+
 				// ping request - set end stream flag and return the packet
 				else if (frm->type == H2_TYPE_PING && (frm->flag & H2_FLAG_END_STREAM) == 0) {
 					frm->flag |= H2_FLAG_END_STREAM;
 					if (arg_debug || arg_debug_h2)
 						h2frame_print(arg_id, "tx", frm);
+
 					ssl_tx((uint8_t *) frm, rv - offset);
-					return 0;
-				}
-				else if (frm->type == H2_TYPE_GOAWAY) {
-					ssl_close();
-					return 0;
-				}
-				else {
-					if (frm->type > H2_TYPE_MAX && strncmp((char *) frm, "HTTP", 4) == 0) {
-						fprintf(stderr, "Error: invalid HTTP version\n");
-						return -1;
-					}
+					if (stream == 0)
+						return 0;
+
+					frm->flag &= ~H2_FLAG_END_STREAM;
 				}
 
 				if (frm->flag & H2_FLAG_END_STREAM)
 					return retval; // disregard the rest!
+
 				offset += sizeof(H2Frame) + h2frame_extract_length(frm);
 				if (arg_debug) {
 					print_time();

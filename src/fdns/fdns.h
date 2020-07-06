@@ -369,7 +369,7 @@ int h2_connect(void);
 int h2_send_exampledotcom(uint8_t *req);
 int h2_send_query(uint8_t *req, int cnt);
 int h2_send_ping(void);
-int h2_exchange(uint8_t *response);
+int h2_exchange(uint8_t *response, uint32_t stream);
 
 
 
