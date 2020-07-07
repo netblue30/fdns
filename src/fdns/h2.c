@@ -70,9 +70,11 @@ static void print_headers(enum hpack_event_e evt, const char *buf, size_t len, v
 
 struct hpack *hpe = NULL;
 struct hpack *hpd = NULL;
+static int first_header_sent = 0;
 void h2_init(void) {
 	hpe = hpack_encoder(0x4000, -1, hpack_default_alloc);
 	hpd = hpack_decoder(0x4000, -1, hpack_default_alloc);
+	first_header_sent = 0;
 }
 
 void h2_close(void) {
@@ -84,7 +86,7 @@ void h2_close(void) {
 		hpack_free(&hpd);
 		hpd = NULL;
 	}
-
+	first_header_sent = 0;
 }
 
 // encode a header frame
@@ -100,34 +102,60 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	assert(srv->host);
 
 	uint8_t *ptr = frame + sizeof(H2Frame);
+	uint8_t sz;
+
 //	HEADER(":method", "POST");
 	*ptr++ = 3 | 0x80;
 
 //	HEADER(":path", srv->path);
-	*ptr++ = 4 | 0x40;
-	uint8_t sz = strlen(srv->path);
-	*ptr++ = sz;
-	memcpy(ptr, srv->path, sz);
-	ptr += sz;
+	if (!first_header_sent) {
+		*ptr++ = 4 | 0x40;
+		sz = strlen(srv->path);
+		*ptr++ = sz;
+		memcpy(ptr, srv->path, sz);
+		ptr += sz;
+	}
+	else
+		*ptr++ = 65 | 0x80;
 
 // 	HEADER(":authority", srv->host);
-	*ptr++ = 1 | 0x40;
-	sz = (uint8_t) strlen(srv->host);
-	*ptr++ = sz;
-	memcpy(ptr, srv->host, sz);
-	ptr += sz;
+	if (!first_header_sent) {
+		*ptr++ = 1 | 0x40;
+		sz = (uint8_t) strlen(srv->host);
+		*ptr++ = sz;
+		memcpy(ptr, srv->host, sz);
+		ptr += sz;
+	}
+	else
+		*ptr++ = 64 | 0x80;
 
 //	HEADER(":scheme", "https");
 	*ptr++ = 7 | 0x80;
 
-//disabled	HEADER("accept", "application/dns-message");
+//	HEADER("accept", "application/dns-message");
+	if (!first_header_sent) {
+		*ptr++ = 19 | 0x40;
+		*ptr++ = 23;
+		memcpy(ptr, "application/dns-message", 23);
+		ptr += 23;
+	}
+	else
+		*ptr++ = 63 | 0x80;
+
+
 //	HEADER("content-type", "application/dns-message");
-	*ptr++ = 31 | 0x40;
-	*ptr++ = 23;
-	memcpy(ptr, "application/dns-message", 23);
-	ptr += 23;
+	if (!first_header_sent) {
+		*ptr++ = 31 | 0x40;
+		*ptr++ = 23;
+		memcpy(ptr, "application/dns-message", 23);
+		ptr += 23;
+	}
+	else
+		*ptr++ = 62 | 0x80;
 
 //	HEADER("content-length", slen);
+#if 0
+	// Literal Header Field with Incremental Indexing
 	char slen[20];
 	sprintf(slen, "%d", len);
 	*ptr++ = 28 | 0x40;
@@ -135,6 +163,33 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	*ptr++ = sz;
 	memcpy(ptr, slen, sz);
 	ptr += sz;
+#endif
+
+#if 0
+	//Literal Header Field without Indexing - non-indexed name
+	char slen[20];
+	sprintf(slen, "%d", len);
+	*ptr++ = 0;
+	*ptr++ = 14;
+	memcpy(ptr, "content-length", 14);
+	ptr += 14;
+	sz = strlen(slen);
+	*ptr++ = sz;
+	memcpy(ptr, slen, sz);
+	ptr += sz;
+#endif
+
+//#if 0
+	// Literal Header Field without Indexing - indexed name
+	char slen[20];
+	sprintf(slen, "%d", len);
+	*ptr++ = 0x0f; // 28 represented as 4-bit encoded
+	*ptr++ = 28 - 15; //13;
+	sz = strlen(slen);
+	*ptr++ = sz;
+	memcpy(ptr, slen, sz);
+	ptr += sz;
+//#endif
 
 //disabled	HEADER("pragma", "no-cache");
 //disabled	HEADER("te", "trailers");
@@ -146,6 +201,7 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	frm->type = H2_TYPE_HEADERS;
 	frm->flag = H2_FLAG_END_HEADERS;// | H2_FLAG_END_STREAM;
 	h2frame_set_stream(frm, stream_id);
+	first_header_sent = 1;
 
 //print_mem(frame, sizeof(H2Frame) + length);
 	return sizeof(H2Frame) + length;
@@ -406,6 +462,11 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 
 				// go away conditions
 				if (frm->type == H2_TYPE_GOAWAY) {
+					ssl_close();
+					return 0;
+				}
+				// reset strean - something is very wrong!
+				if (frm->type == H2_TYPE_RESET) {
 					ssl_close();
 					return 0;
 				}
