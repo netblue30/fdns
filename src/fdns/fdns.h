@@ -371,6 +371,8 @@ int h2_send_query(uint8_t *req, int cnt);
 int h2_send_ping(void);
 int h2_exchange(uint8_t *response, uint32_t stream);
 
+// huffman.c
+char *huffman_search(uint8_t *hstr, int len);
 
 
 #endif
