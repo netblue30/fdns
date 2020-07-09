@@ -5,24 +5,21 @@ FDNS was designed to run as a local DoH proxy on a Linux desktop, or as a server
 
 FDNS is written in C and licensed under GPLv3. The number one job is privacy. We use <b>only</b> DoH services from non-logging providers, while preferring small operators such as open-source enthusiasts and privacy-oriented non-profit organizations.
 
+![FDNS monitor](monitor1.png)
+
 <div style="height:20px;">&nbsp;</div>
 
 <h2>Features</h2>
 <ul>
 <li>Works out of the box with little or no configuration changes.</li>
-<li>Network of 60+ non-logging DoH service providers spread around the globe. The servers are organized in several categories using a simple geographically-aware tagging system.</li>
-<li>Access to specialized DoH services such as family filtering, adblocking, security, OpenNIC.</li>
-<li>DNS resolver cache with a fixed TTL (default 40 minutes).</li>
+<li>Network of 60+ non-logging DoH service providers spread across the globe. Access to specialized services such as family filtering, adblocking, security, OpenNIC.</li>
 <li>Blocking ads, first and third-party trackers, coinminers, etc. The filters are configurable, the user can add his own hosts filter.</li>
-<li>Blocking IPv6 queries by default to reduce the DNS traffic on IPv4 networks.</li>
-<li>Anti-tunneling technology: by default only A and AAAA queries are forwarded.</li>
-<li>Conditional DNS forwarding support.</li>
-<li>Whitelisting mode.</li>
+<li>DNS resolver cache and firewall: by default only A and AAAA queries are forwarded.</li>
+<li>Conditional DNS forwarding support and whitelisting mode.</li>
 <li>Regular DNS over UDP fallback in case the DoH service becomes unavailable.</li>
 <li>Live DNS request monitoring and statistics.</li>
-<li>Multiproxy support.</li>
-<li>Scalable multi-process design with a frontend process and several independent resolver processes. Security technologies: chroot, seccomp, Linux namespaces, and AppArmor.</li>
-<li>Seamless integration with <a href="https://firejail.wordpress.com">Firejail security sandbox</a>.</li>
+<li>Highly scalable multi-process design and built-in support for various security technologies: chroot, seccomp, Linux namespaces, and AppArmor.</li>
+<li>Seamless integration with <a href="https://firejail.wordpress.com">Firejail Security Sandbox</a>.</li>
 </ul>
 <div style="height:20px;">&nbsp;</div>
 
@@ -43,13 +40,7 @@ FDNS is a community project. We are not affiliated with any company, and we donâ
 
 ## Project Status
 
-Development version 0.9.63:
-<ul>
-<li>HTTP1.1 removed and replaced with HTTP2.</li>
-<li>Adding support for https://commons.host network of DoH servers (20+ servers).</li>
-<li>Replaced --allow-local-doh with --disable-local-doh.</li>
-<li>Version 0.9.62.6 included in Arch Linux: https://aur.archlinux.org/packages/fdns/</li>
-</ul>
+Development version 0.9.63.
 
 <div style="height:20px;">&nbsp;</div>
 
