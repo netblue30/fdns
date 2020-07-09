@@ -637,7 +637,7 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 					size_t len = h2frame_extract_length(frm);
 					h2_header_total += len;
 					h2_header_cnt++;
-//					if (arg_debug || arg_debug_h2)
+					if (arg_debug || arg_debug_header)
 						h2_decode_header((uint8_t *) frm);
 				}
 				else if (frm->type == H2_TYPE_DATA) {

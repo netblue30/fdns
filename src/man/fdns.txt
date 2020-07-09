@@ -69,7 +69,13 @@ $ sudo fdns --proxy-addr-any --daemonize
 Print debug messages.
 .TP
 \fB\-\-debug-h2
-Print debug messages for HTTP2 protocol.
+Print HTTP2 debug messages.
+.TP
+\fB\-\-debug-header
+Print HTTP2 protocol header.
+.TP
+\fB\-\-debug-ssl
+Print SSL/TLS debug messages.
 .TP
 \fB\-\-disable-local-doh
 Disable DoH services for applications running on the local network.
@@ -198,14 +204,16 @@ $ sudo fdns --proxy-addr=127.0.0.1
 Listen on all available system interfaces and 127.0.0.1 for loopback interface.
 .TP
 \fB\-\-qpr=number
-Queries per second limit for each resolver process., default 5. When the limit is reached, incoming
+Queries per second rate limit for resolver processes, default 5. When the limit is reached, incoming
 packets from the local network are dropped.
 .TP
 \fB\-\-resolvers=number
 The number of resolver processes, between 1 and 10, default 3.
 .TP
-\fB\-\-server=server-name|tag|all
+\fB\-\-server=server-name|tag|all|url
 Connect to a specific server, or to a random one based on the tag and your geographical location.
+Using "all", it will instruct FDNS to chose a server at random from all the list, regardless where
+the server is located. You can also specify a DoH URL for servers not yet supported by FDNS.
 .br
 
 .br
@@ -217,12 +225,11 @@ $ sudo fdns --server=non-profit
 .br
 $ sudo fdns --server=family
 .br
-.TP
-\fB\-\-test-hosts
-Test the domains in /etc/fdns/hosts file.
+$ sudo fdns --server=https://dns.google/dns-query
+.br
 .TP
 \fB\-\-test-server
-Test the servers from your geographical zone.
+Test all the servers from your geographical zone.
 .br
 
 .br
@@ -264,11 +271,22 @@ Testing server dnscrypt-ca
 
 .TP
 \fB\-\-test-server=server-name|tag|all
-Test the servers based on a tag, server name, or all.
+Test the servers based on a tag, server name, or all. Specifying a URL allows you to test servers
+not yet supported by FDNS.
 .br
 
 .br
 Example:
+.br
+$ src/fdns/fdns --test-server=https://dns.google/dns-query
+.br
+Testing server https://dns.google/dns-query
+.br
+   SSL connection opened in 405.68 ms
+.br
+   DoH response average 78.86 ms
+.br
+
 .br
 $ fdns --test-server=digital-society
 .br
@@ -286,6 +304,16 @@ Example:
 $ fdns --test-url=amazon-adsystem.com
 .br
 URL amazon-adsystem.com dropped by "amazon-adsystem.com" rule
+.TP
+\fB\-\-test-url-list
+Check URLs as they are introduced on STDIN.
+.br
+
+.br
+Example:
+.br
+$ cat biglist.txt | fdns --test-url-list
+.br
 .TP
 \fB\-\-version
 Print program version and exit.
