@@ -627,11 +627,11 @@ address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
 keepalive: 30,50
 
-# server down for administrative purposes
+# using HTTP 1.1
 name: li
 website: https://doh.li/
 zone: Europe
-tags: admin-down,UK, Europe
+tags: firefox-only,UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
 keepalive: 30,50

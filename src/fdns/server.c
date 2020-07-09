@@ -424,8 +424,15 @@ void server_list(const char *tag) {
 	s = slist;
 	cnt = 0;
 	while (s) {
-		// match the tag
-		if (strstr(s->tags, tag) == NULL) {
+		// match tag
+		char *ptr = strstr(s->tags, tag);
+		if (ptr == NULL) {
+			s = s->next;
+			continue;
+		}
+		// match end of tag
+		ptr += strlen(tag);
+		if (*ptr != '\0' && *ptr != ',') { // we are somewhere in the middle of a tag
 			s = s->next;
 			continue;
 		}
