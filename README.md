@@ -5,7 +5,9 @@ FDNS was designed to run as a local DoH proxy on a Linux desktop, or as a server
 
 FDNS is written in C and licensed under GPLv3. The number one job is privacy. We use <b>only</b> DoH services from non-logging providers, while preferring small operators such as open-source enthusiasts and privacy-oriented non-profit organizations.
 
+<p align="center">
 ![FDNS monitor](monitor1.png)
+</p>
 
 <div style="height:20px;">&nbsp;</div>
 
