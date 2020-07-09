@@ -16,13 +16,13 @@ fdns --monitor
 
 .SH DESCRIPTION
 FDNS is a DNS-over-HTTPS proxy server for small networks and Linux desktops.
-To speed up the name resolution the proxy caches the responses, and uses a configurable
+To speed up the name resolution FDNS caches the responses, and uses a configurable
 adblocker and privacy filter to cut down the unnecessary traffic.
 
 We preconfigure FDNS with a large list of DoH service providers. For privacy reasons we
 use only DoH services from non-logging providers. We prefer servers run out-of-pocket by
 students, engineers, open-source enthusiasts, privacy-oriented non-profit organizations, etc.
-Currently there are more than 60 such DoH servers on our list.
+Currently there are more than 100 such DoH servers on our list.
 
 We also track a corporate category with four providers: Adguard, CleanBrowsing, Cloudflare,
 and Quad9. All have a non-logging privacy policy that will work in most parts of the world.
@@ -394,7 +394,7 @@ $ fdns --monitor
 .br
 .br
 .SH Setup FDNS as a network server
-Install FDNS and set "nameserver 127.0.0.1" in /etc/resolv.conf. Start fdns using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface. The default 127.1.1.1 is not used in this case.
+Install FDNS and set "nameserver 127.0.0.1" in /etc/resolv.conf. Start FDNS using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface. The default 127.1.1.1 is not used in this case.
 .PP
 .RS
 $ sudo fdns --proxy-addr-any --daemonize
@@ -470,7 +470,7 @@ In about 30 seconds all processes associated with this specific proxy will exit.
 .SH FAQ
 
 .TP
-\fBHow do I start fdns when I power-on the computer?
+\fBHow do I start FDNS when I power-on the computer?
 One solution that will work on any Linux computer is to start it from /etc/rc.local.
 .br
 
@@ -488,7 +488,7 @@ exit 0
 For systemd users, we have a fdns.service file in /etc/fdns directory.
 
 .TP
-\fBHow do I configure Firejail to send all the DNS traffic to fdns by default?
+\fBHow do I configure Firejail to send all the DNS traffic to FDNS by default?
 As root user, add the following two lines in /etc/firejail/golbals.local. If the file doesn't exist, create it:
 .br
 
@@ -502,7 +502,7 @@ ignore dns
 
 .TP
 \fBHow do I save a list with all the DNS requests?
-Start fdns this way:
+Start FDNS this way:
 .br
 
 .br
@@ -510,7 +510,7 @@ $ sudo fdns | tee dnslist.txt
 .br
 
 .TP
-\fBHow do I check fdns is running in the background?
+\fBHow do I check FDNS is running in the background?
 Use "--proxies" command to list all FDNS proxies running on your computer:
 .br
 
@@ -538,28 +538,28 @@ UNCONN    0         0                127.1.1.1:53               0.0.0.0:*       
 
 
 .TP
-\fBHow do I shut down fdns?
+\fBHow do I shut down FDNS?
 $ sudo pkill fdns
 .br
 
 .SH FILES
-/etc/fdns/adblocker - adblocker filter distributed with fdns
+/etc/fdns/adblocker - adblocker filter distributed with FDNS
 .br
-/etc/fdns/coinblocker - cryptomining filter distributed with fdns
+/etc/fdns/coinblocker - cryptomining filter distributed with FDNS
 .br
 /etc/fdns/doh - DoH filter
 .br
-/etc/fdns/fdns.service - systemd service unit for fdns
+/etc/fdns/fdns.service - systemd service unit for FDNS
 .br
 /etc/fdns/fp-trackers - first-party tracker filter
 .br
 /etc/fdns/hosts - user hosts file
 .br
-/etc/fdns/servers - DoH server fdns know about
+/etc/fdns/servers - DoH servers FDNS know about
 .br
-/etc/fdns/trackers - tracker filter distributed with fdns
+/etc/fdns/trackers - tracker filter distributed with FDNS
 .br
-/etc/fdns/worker.seccomp - seccomp filter applied to fdns' workers
+/etc/fdns/worker.seccomp - seccomp filter applied to resolver processes
 
 .SH LICENSE
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
