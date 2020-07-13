@@ -150,6 +150,7 @@ typedef struct dnsserver_t {
 	char *host;		// authority in http2
 	char *path;
 	int sni;		// 1 or 0
+	int test_sni;		// not read from the config file; 1 only when the server is specified by url with --server or --test-server
 	int keepalive_query;	// 1 or 0
 	int keepalive_min;	// minimum value of keepalive in seconds
 	int keepalive_max;	// maximum vallue of keepalive in seconds

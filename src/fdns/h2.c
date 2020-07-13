@@ -14,12 +14,12 @@
 
 
 static unsigned long long h2_header_total = 0;
-static unsigned long long h2_header_cnt = 0;
+static int h2_header_cnt = -1;	// skip the first header
 static uint32_t stream_id;
 
 // average length of the
 int h2_header_average(void) {
-	return (int) (h2_header_total / h2_header_cnt);
+	return (h2_header_cnt <= 0)? 0: (int) (h2_header_total / (unsigned long long) h2_header_cnt);
 }
 
 #define MAX_HEADER_FIELDS 64
@@ -228,12 +228,7 @@ static uint8_t extract_string(uint8_t *ptr) {
 	return retval;
 }
 
-static int hpack_header_decoded = 0;
 static uint32_t h2_decode_header(uint8_t *frame) {
-	if (hpack_header_decoded)
-		return 0;
-	hpack_header_decoded = 1;
-
 	// http2 frame
 	H2Frame frm;
 	memcpy(&frm, frame, sizeof(H2Frame));
@@ -635,10 +630,13 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 				// normal header type processing
 				if (frm->type == H2_TYPE_HEADERS) {
 					size_t len = h2frame_extract_length(frm);
-					h2_header_total += len;
+					if (h2_header_cnt < 0) { // skip the first frame, print header
+						if (arg_debug || arg_debug_header)
+							h2_decode_header((uint8_t *) frm);
+					}
+					else
+						h2_header_total += len;
 					h2_header_cnt++;
-					if (arg_debug || arg_debug_header)
-						h2_decode_header((uint8_t *) frm);
 				}
 				else if (frm->type == H2_TYPE_DATA) {
 					uint32_t offset;
