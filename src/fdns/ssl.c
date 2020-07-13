@@ -156,11 +156,23 @@ SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
 
 	// set connection and SNI
 	BIO_set_conn_hostname(bio, srv->address);
-	if (srv->sni)
+	if (srv->test_sni)
+		; // testing sni: first try goes without any sni
+	else if (srv->sni)
 		SSL_set_tlsext_host_name(ssl, srv->host);
+	else
+		; // no sni configured
 
 	if(BIO_do_connect(bio) <= 0) {
 //		rlogprintf("Error: cannot connect SSL.\n");
+		if (srv->test_sni) {
+			// try again, this time with sni
+			srv->test_sni = 0;
+			srv->sni = 1;
+			usleep(100000);
+			return ssl_open();
+		}
+
 		return;
 	}
 

@@ -189,14 +189,13 @@ host: doh-fi.blahdns.com/dns-query
 sni: yes
 keepalive: 30,50
 
-# under development
-#name: bcn-doh
-#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-#zone: Europe
-#tags: Spain, Europe
-#address: 185.253.154.66:443
-#host: dnses.alekberg.net/dns-query
-#keepalive: 20,25
+name: bcn-doh
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
+zone: Europe
+tags: Spain, Europe
+address: 185.253.154.66:443
+host: dnses.alekberg.net/dns-query
+keepalive: 20,25
 
 # short keepalive
 name: blahdns-de

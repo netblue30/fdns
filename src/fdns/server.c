@@ -601,7 +601,7 @@ void server_set_custom(const char *url) {
 		errExit("strdup");
 	s->website = "unknown";
 	s->zone = "unknown";
-	s->sni = 1;
+	s->test_sni = 1;
 	if (arg_keepalive) {
 		s->keepalive_min = arg_keepalive;
 		s->keepalive_max = arg_keepalive;
