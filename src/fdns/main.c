@@ -110,11 +110,21 @@ int main(int argc, char **argv) {
 	cache_init();
 	srand(time(NULL));
 
-	// processing: daemonize, zone, debug
+	// first pass: extracting data
 	if (argc != 1) {
 		int i;
 		for (i = 1; i < argc; i++) {
-			if (strcmp(argv[i], "--daemonize") == 0) {
+			if (strcmp(argv[i], "--help") == 0 ||
+			    strcmp(argv[i], "-?") == 0 ||
+			    strcmp(argv[i], "-h") == 0) {
+				usage();
+				return 0;
+			}
+			else if (strcmp(argv[i], "--version") == 0) {
+				printf("fdns version %s\n", VERSION);
+				return 0;
+			}
+			else if (strcmp(argv[i], "--daemonize") == 0) {
 				daemonize();
 				arg_daemonize = 1;
 			}
@@ -139,42 +149,6 @@ int main(int argc, char **argv) {
 					exit(1);
 				}
 			}
-
-		}
-	}
-
-
-	// parse command line arguments
-	if (argc != 1) {
-		// parse arguments
-		int i;
-		for (i = 1; i < argc; i++) {
-			if (strcmp(argv[i], "--help") == 0 ||
-			    strcmp(argv[i], "-?") == 0 ||
-			    strcmp(argv[i], "-h") == 0) {
-				usage();
-				return 0;
-			}
-			else if (strcmp(argv[i], "--version") == 0) {
-				printf("fdns version %s\n", VERSION);
-				return 0;
-			}
-
-			// already processed
-			else if (strcmp(argv[i], "--debug") == 0) // already processed
-				;
-			else if (strcmp(argv[i], "--debug-h2") == 0) // already processed
-				;
-			else if (strcmp(argv[i], "--debug-header") == 0) // already processed
-				;
-			else if (strcmp(argv[i], "--debug-ssl") == 0) // already processed
-				;
-			else if (strcmp(argv[i], "--daemonize") == 0)
-				;
-			else if (strncmp(argv[i], "--zone=", 7) == 0)
-				;
-			else if (strncmp(argv[i], "--keepalive=", 12) == 0)
-				;
 #ifdef HAVE_GCOV
 			else if (strcmp(argv[i], "--fallback-only") == 0)
 				arg_fallback_only = 1;
@@ -218,7 +192,55 @@ int main(int argc, char **argv) {
 				if (!arg_server)
 					errExit("strdup");
 			}
-			else if (strcmp(argv[i], "--list") == 0) {
+			else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {
+				net_check_proxy_addr(argv[i] + 13); // will exit if error
+				arg_proxy_addr = argv[i] + 13;
+			}
+			else if (strcmp(argv[i], "--proxy-addr-any") == 0)
+				arg_proxy_addr_any = 1;
+			else if (strncmp(argv[i], "--forwarder=", 12) == 0) {
+				forwarder_set(argv[i] + 12);
+			}
+			else if (strncmp(argv[i], "--whitelist=", 12) == 0)
+				whitelist_add(argv[i] + 12);
+			else if (strncmp(argv[i], "--whitelist-file=", 17) == 0)
+				whitelist_load_file(argv[i] + 17);
+			else if (strncmp(argv[i], "--qps=", 6) == 0) {
+				arg_qps = atoi(argv[i] + 6);
+				if (arg_qps < QPS_MIN || arg_qps > QPS_MAX) {
+					fprintf(stderr, "Error: invalid --qps value; valid range %d to %d queries per second\n",
+						QPS_MIN, QPS_MAX);
+					exit(1);
+				}
+			}
+
+
+			// handled in second pass
+			else if (strcmp(argv[i], "--list") == 0);
+			else if (strncmp(argv[i], "--list=", 7) == 0);
+			else if (strcmp(argv[i], "--proxies") == 0);
+			else if (strcmp(argv[i], "--monitor") == 0);
+			else if (strncmp(argv[i], "--monitor=", 10) == 0);
+			else if (strcmp(argv[i], "--test-url-list") == 0);
+			else if (strncmp(argv[i], "--test-url=", 11) == 0);
+			else if (strcmp(argv[i], "--test-server") == 0);
+			else if (strncmp(argv[i], "--test-server=", 14) == 0);
+
+			// errors
+			else {
+				fprintf(stderr, "Error: invalid command line argument %s\n", argv[i]);
+				return 1;
+			}
+
+		}
+	}
+
+
+	// second pass
+	if (argc != 1) {
+		int i;
+		for (i = 1; i < argc; i++) {
+			if (strcmp(argv[i], "--list") == 0) {
 				server_print_zone = 1;
 				server_print_servers = 1;
 				server_list(NULL);
@@ -234,12 +256,6 @@ int main(int argc, char **argv) {
 				procs_list();
 				return 0;
 			}
-			else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {
-				net_check_proxy_addr(argv[i] + 13); // will exit if error
-				arg_proxy_addr = argv[i] + 13;
-			}
-			else if (strcmp(argv[i], "--proxy-addr-any") == 0)
-				arg_proxy_addr_any = 1;
 			else if (strcmp(argv[i], "--monitor") == 0) {
 				shmem_monitor_stats(NULL);
 				return 0;
@@ -248,9 +264,6 @@ int main(int argc, char **argv) {
 				net_check_proxy_addr(argv[i] + 10); // will exit if error
 				shmem_monitor_stats(argv[i] + 10);
 				return 0;
-			}
-			else if (strncmp(argv[i], "--forwarder=", 12) == 0) {
-				forwarder_set(argv[i] + 12);
 			}
 
 			// test options
@@ -278,22 +291,6 @@ int main(int argc, char **argv) {
 				else
 					server_test_tag(argv[i] + 14);
 				return 0;
-			}
-			else if (strncmp(argv[i], "--whitelist=", 12) == 0)
-				whitelist_add(argv[i] + 12);
-			else if (strncmp(argv[i], "--whitelist-file=", 17) == 0)
-				whitelist_load_file(argv[i] + 17);
-			else if (strncmp(argv[i], "--qps=", 6) == 0) {
-				arg_qps = atoi(argv[i] + 6);
-				if (arg_qps < QPS_MIN || arg_qps > QPS_MAX) {
-					fprintf(stderr, "Error: invalid --qps value; valid range %d to %d queries per second\n",
-						QPS_MIN, QPS_MAX);
-					exit(1);
-				}
-			}
-			else {
-				fprintf(stderr, "Error: invalid command line argument %s\n", argv[i]);
-				return 1;
 			}
 		}
 	}
