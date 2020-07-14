@@ -216,6 +216,8 @@ errh2:
 }
 
 void ssl_close(void) {
+	if (ssl_state == SSL_OPEN)
+		rlogprintf("SSL connection closed\n");
 	h2_close();
 	if (ssl) {
 		SSL_shutdown(ssl);
@@ -224,7 +226,6 @@ void ssl_close(void) {
 
 	ssl = NULL;
 	ssl_state = SSL_CLOSED;
-	rlogprintf("SSL connection closed\n");
 }
 
 int ssl_get_socket(void) {
