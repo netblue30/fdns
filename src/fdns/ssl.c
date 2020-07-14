@@ -146,9 +146,7 @@ void ssl_open(void) {
 	}
 	// inform the server we are using http2
 	SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
-#if 0
-SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
-#endif
+//SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
 
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
@@ -185,12 +183,25 @@ SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
 	// set alert callback
 	SSL_set_info_callback(ssl, ssl_alert_callback);
 
-#if 0
-int lenp = 0;
-const unsigned char *datap[100];
-SSL_get0_alpn_selected(ssl, datap, &lenp);
-assert(lenp == 2);
-#endif
+	// check ALPN negotiation
+	{
+		const char *ver = SSL_get_version(ssl);
+		int len = 0;
+		const unsigned char *alpn;
+
+		SSL_get0_alpn_selected(ssl, &alpn, &len);
+		if (alpn == NULL)
+			printf("   TLS %s, ALPN not negotiated\n", ver);
+		else if (len < 100) {
+			char http[100 + 1];
+			memcpy(http, alpn, len);
+			http[len] = '\0';
+			printf("   TLS %s, ALPN %s\n", ver, http);
+		}
+		else
+			fprintf(stderr, "Error: invalid ALPN string of length %d\n", len);
+		free((char *) alpn);
+	}
 
 	ssl_state = SSL_OPEN;
 	rlogprintf("SSL connection opened\n");
