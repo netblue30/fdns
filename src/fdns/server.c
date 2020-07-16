@@ -301,7 +301,7 @@ int test_server(const char *server_name)  {
 		printf("\nTesting server %s\n", arg_server);
 		DnsServer *s = server_get();
 		assert(s);
-		if (s->tags)
+		if (s->tags)  // servers set from command line don't have a tag
 			printf("   tags: %s\n", s->tags);
 		fflush(0);
 
@@ -333,11 +333,14 @@ int test_server(const char *server_name)  {
 			exit(1);
 		}
 		printf("   DoH response average %.02f ms\n", ms / 5);
-		if (s->keepalive_min == s->keepalive_max)
-			printf("   keepalive %d seconds\n", s->keepalive_min);
-		else
-			printf("   keepalive %d to %d seconds\n", s->keepalive_min, s->keepalive_max);
-		printf("   average HTTP2 header overhead: %d bytes\n", h2_header_average()); // plus the frame  size for header and data
+		printf("   First HTTP2 header: %d bytes\n", h2_first_header());
+		printf("   Average HTTP2 header: %d bytes\n", h2_header_average());
+		if (s->tags) { // servers set from command line don't have a tag
+			if (s->keepalive_min == s->keepalive_max)
+				printf("   keepalive %d seconds\n", s->keepalive_min);
+			else
+				printf("   keepalive %d to %d seconds\n", s->keepalive_min, s->keepalive_max);
+		}
 		printf("   SNI %s\n", (s->sni)? "yes": "no");
 
 		fflush(0);
@@ -579,21 +582,27 @@ void server_set_custom(const char *url) {
 	memset(slist, 0, sizeof(DnsServer));
 
 	DnsServer *s = slist;
-	s->host = strdup(url + 8);
+	s->host = strdup(url + 8); // skip https://
 	if (!s->host)
 		errExit("strdup");
 
 	// build the DNS/HTTP request
 	char *str = strchr(s->host, '/');
-	if (!str) {
+	if (!str)
+		s->path = "/";
+#if 0
+	 {
 		free(s);
 		fprintf(stderr, "Error: invalid URL %s\n", url);
 		exit(1);
 	}
-	s->path = strdup(str);
-	if (!s->path)
-		errExit("strdup");
-	*str++ = '\0';
+#endif
+	else {
+		s->path = strdup(str);
+		if (!s->path)
+			errExit("strdup");
+		*str++ = '\0';
+	}
 	if (asprintf(&s->address, "%s:443", s->host) == -1)
 		errExit("asprintf");
 	s->name = strdup(url);

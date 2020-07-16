@@ -22,7 +22,8 @@
 
 typedef struct db_elem_t {
 	uint8_t active;
-#define MAX_TIMEOUT 64 // clear the element if no response back in MAX_TIMEOUT seconds
+#define MAX_TIMEOUT 30 // clear the element if no response back in 30 seconds;
+		   // NAT traversal - this is the default in /proc/sys/net/netfilter/nf_conntrack_udp_timeout
 	uint8_t timeout;
 #define ID_SIZE 2 	// 2 bytes matching DNS id
 	uint8_t *buf[ID_SIZE];

@@ -364,6 +364,7 @@ void procs_add(void);
 void procs_list(void);
 
 // h2.c
+int h2_first_header(void);
 int h2_header_average(void);
 void h2_init(void);
 void h2_close(void);

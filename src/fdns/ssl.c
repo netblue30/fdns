@@ -184,7 +184,7 @@ void ssl_open(void) {
 	SSL_set_info_callback(ssl, ssl_alert_callback);
 
 	// check ALPN negotiation
-	{
+	if (arg_id == -1) {
 		const char *ver = SSL_get_version(ssl);
 		int len = 0;
 		const unsigned char *alpn;
@@ -196,7 +196,7 @@ void ssl_open(void) {
 			char http[100 + 1];
 			memcpy(http, alpn, len);
 			http[len] = '\0';
-			printf("   TLS %s, ALPN %s\n", ver, http);
+			printf("   %s, ALPN %s\n", ver, http);
 		}
 		else
 			fprintf(stderr, "Error: invalid ALPN string of length %d\n", len);
