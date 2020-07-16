@@ -14,12 +14,19 @@
 
 
 static unsigned long long h2_header_total = 0;
-static int h2_header_cnt = -1;	// skip the first header
+static int h2_header_cnt = 0;	// skip the first header
+static int h2_first_header_len = 0;
 static uint32_t stream_id;
+static int printing = 0; // used to print server: header field for --test-server option
+
 
 // average length of the
 int h2_header_average(void) {
 	return (h2_header_cnt <= 0)? 0: (int) (h2_header_total / (unsigned long long) h2_header_cnt);
+}
+
+int h2_first_header(void) {
+	return h2_first_header_len;
 }
 
 #define MAX_HEADER_FIELDS 64
@@ -199,6 +206,16 @@ static int extract_number(uint8_t *ptr, uint8_t prefix, unsigned *value) {
 	return rv;
 }
 
+
+static void printh(char* fmt, ...) {
+	if ((arg_debug || arg_debug_header || printing) && arg_id == -1) {
+		va_list args;
+		va_start(args,fmt);
+		vprintf(fmt, args);
+		va_end(args);
+	}
+}
+
 // return length of consumed data
 static uint8_t extract_string(uint8_t *ptr) {
 	unsigned retval;
@@ -210,7 +227,7 @@ static uint8_t extract_string(uint8_t *ptr) {
 		unsigned rv  = extract_number(ptr, 0x7f, &value);
 		ptr += rv;
 		char *out_str = huffman_search(ptr, value);
-		printf("   %s", out_str);
+		printh("  %s", out_str);
 		retval = value + rv;
 	}
 	else { // regular string
@@ -221,7 +238,7 @@ static uint8_t extract_string(uint8_t *ptr) {
 		char str[value + 1];
 		memset(str, 0, value + 1);
 		memcpy(str, ptr, value);
-		printf("   %s", str);
+		printh("  %s", str);
 		retval = value + rv;
 	}
 
@@ -234,9 +251,13 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 	memcpy(&frm, frame, sizeof(H2Frame));
 	int offset = sizeof(H2Frame);
 	if (frm.type != H2_TYPE_HEADERS) {
-		fprintf(stderr, "Not a header header\n");
+		fprintf(stderr, "Not a http2 header\n");
 		return 0;
 	}
+
+	if (arg_debug || arg_debug_header)
+		printf("-----------------------------\n");
+
 	size_t len = h2frame_extract_length(&frm);
 
 	uint8_t flg = frm.flag;
@@ -245,26 +266,33 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 //todo		if (len > sizeof blk)
 //			return (EXIT_FAILURE); /* DIY */
 
-	printf("\n");
 	uint8_t *ptr = frame + sizeof(H2Frame);
 //print_mem(ptr, len);
 	int cnt = 0;
 	while (cnt < len) {
+		if (arg_debug || arg_debug_header)
+			printf("|");
 //printf("procesing 0x%02x ", *ptr);
 		if (*ptr & 0x80) { // indexed header field
 			unsigned index;
 			int rv = extract_number(ptr, 0x7f, &index);
 			HpackStatic *hp = hpack_static_get(index);
 			if (!hp)
-				printf("Unknown indexed header field 0x%02x, position %u\n", *ptr, cnt);
+				printh("Unknown indexed header field 0x%02x, position %u\n", *ptr, cnt);
 			else
-				printf("   %s:   %s\n", hp->name, hp->value);
+				printh("  %s:  %s\n", hp->name, hp->value);
 			ptr += rv;
 			cnt += rv;
 		}
 		else if (*ptr & 0x40) {  // literal header
 			unsigned index;
 			int rv = extract_number(ptr, 0x3f, &index);
+			if (index == 54) { // server: -> turn on printing
+				printing = 1;
+				if (!(arg_debug || arg_debug_header))
+					printf(" ");
+			}
+
 			HpackStatic *hp = hpack_static_get(index);
 			ptr += rv;
 			cnt += rv;
@@ -272,31 +300,35 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 			if (!hp) {
 				// read two strings
 				uint8_t rv = extract_string(ptr);
-				printf(":");
+				printh(":");
 				ptr += rv;
 				cnt += rv;
 				rv = extract_string(ptr);
-				printf("\n");
+				printh("\n");
 				ptr += rv;
 				cnt += rv;
 			}
 			else {
-				printf("   %s: ", hp->name);
+				printh("  %s: ", hp->name);
 				uint8_t rv = extract_string(ptr);
-				printf("\n");
+				printh("\n");
 				ptr += rv;
 				cnt += rv;
 			}
+			printing = 0;
 		}
-		else if (*ptr & 0x20) { // ldynamic table size update
+		else if (*ptr & 0x20) { // dynamic table size update
 			unsigned value;
 			int rv = extract_number(ptr, 0x1f, &value);
+			printh("  (HPACK dynamic table size: %u)\n", value);
 			ptr += rv;
 			cnt += rv;
 		}
 		else if (*ptr & 0x10) { // literal header field never indexed
 			unsigned index;
 			int rv = extract_number(ptr, 0x0f, &index);
+			if (index == 54) // server: -> turn on printing
+				printing = 1;
 			HpackStatic *hp = hpack_static_get(index);
 			ptr += rv;
 			cnt += rv;
@@ -304,26 +336,29 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 			if (!hp) {
 				// read two strings
 				uint8_t rv = extract_string(ptr);
-				printf(":");
+				printh(":");
 				ptr += rv;
 				cnt += rv;
 				rv = extract_string(ptr);
-				printf("\n");
+				printh("\n");
 				ptr += rv;
 				cnt += rv;
 			}
 			else {
-				printf("   %s: ", hp->name);
+				printh("  %s: ", hp->name);
 
 				uint8_t rv = extract_string(ptr);
-				printf("\n");
+				printh("\n");
 				ptr += rv;
 				cnt += rv;
 			}
+			printing = 0;
 		}
 		else if ((*ptr & 0xf0) == 0) { // literal header field without indexing
 			unsigned index;
 			int rv = extract_number(ptr, 0x0f, &index);
+			if (index == 54) // server: -> turn on printing
+				printing = 1;
 			HpackStatic *hp = hpack_static_get(index);
 			ptr += rv;
 			cnt += rv;
@@ -331,30 +366,32 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 			if (!hp) {
 				// read two strings
 				uint8_t rv = extract_string(ptr);
-				printf(":");
+				printh(":");
 				ptr += rv;
 				cnt += rv;
 				rv = extract_string(ptr);
-				printf("\n");
+				printh("\n");
 				ptr += rv;
 				cnt += rv;
 			}
 			else {
-				printf("   %s:", hp->name);
+				printh("  %s:", hp->name);
 
 				uint8_t rv = extract_string(ptr);
-				printf("\n");
+				printh("\n");
 				ptr += rv;
 				cnt += rv;
 			}
+			printing = 0;
 		}
 		else {
-			printf("unknown field 0x%02x, position %u\n", *ptr, cnt);
+			printh("unknown field 0x%02x, position %u\n", *ptr, cnt);
 			ptr++;
 			cnt++;
 		}
 	}
-	printf("\n");
+	if (arg_debug || arg_debug_header)
+		printf("-----------------------------\n");
 }
 
 #if 0
@@ -630,13 +667,14 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 				// normal header type processing
 				if (frm->type == H2_TYPE_HEADERS) {
 					size_t len = h2frame_extract_length(frm);
-					if (h2_header_cnt < 0) { // skip the first frame, print header
-						if (arg_debug || arg_debug_header)
-							h2_decode_header((uint8_t *) frm);
+					if (h2_first_header_len == 0) { // print header, don't include it in the average
+						h2_decode_header((uint8_t *) frm);
+						h2_first_header_len = len;
 					}
-					else
+					else {
 						h2_header_total += len;
-					h2_header_cnt++;
+						h2_header_cnt++;
+					}
 				}
 				else if (frm->type == H2_TYPE_DATA) {
 					uint32_t offset;
