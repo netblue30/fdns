@@ -51,7 +51,7 @@ realinstall:
 	install -c -m 0644 RELNOTES $(DESTDIR)/$(DOCDIR)/.
 	# etc files
 	install -m 0755 -d $(DESTDIR)$(sysconfdir)/fdns
-	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/adblocker etc/coinblocker etc/doh etc/fp-trackers etc/resolver.seccomp etc/servers  etc/trackers
+	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/adblocker etc/coinblocker etc/fp-trackers etc/resolver.seccomp etc/servers  etc/trackers
 	# systemd service unit
 	install -Dm0644 etc/fdns.service $(DESTDIR)$(libdir)/systemd/system/fdns.service
 	# man pages
