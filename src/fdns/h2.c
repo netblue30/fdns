@@ -7,7 +7,6 @@
 #include <assert.h>
 #include <stddef.h>
 
-#include "../inc/hpack.h"
 #include "h2frame.h"
 #include "hpack_static.h"
 #include "fdns.h"
@@ -29,72 +28,13 @@ int h2_first_header(void) {
 	return h2_first_header_len;
 }
 
-#define MAX_HEADER_FIELDS 64
-#define HEADER(name, value) fields[pos++] = (struct hpack_field){ \
-		.nam = (name), \
-		.val = (value), \
-		.flg = HPACK_FLG_TYP_LIT | HPACK_FLG_NAM_HUF | HPACK_FLG_VAL_HUF \
-	}
 
-
-struct tmp_buf {
-	char *data;
-	size_t offset;
-};
-
-static void header_encode_cb(enum hpack_event_e evt, const char *buf, size_t len, void *priv) {
-	struct tmp_buf *out = priv;
-	switch (evt) {
-	case HPACK_EVT_DATA:
-		memcpy(out->data + out->offset, buf, len);
-		out->offset += len;
-		break;
-	default:
-		break;
-	}
-}
-
-static void print_headers(enum hpack_event_e evt, const char *buf, size_t len, void *priv) {
-	(void)priv;
-
-	switch (evt) {
-	case HPACK_EVT_FIELD:
-		printf("\n");
-		break;
-	case HPACK_EVT_VALUE:
-		printf(": ");
-	/* fall through */
-	case HPACK_EVT_NAME:
-		printf("   %s", buf);
-		(void)len;
-	/* fall through */
-	default:
-		/* ignore other events */
-		break;
-	}
-
-	fflush(0);
-}
-
-
-struct hpack *hpe = NULL;
-struct hpack *hpd = NULL;
 static int first_header_sent = 0;
 void h2_init(void) {
-	hpe = hpack_encoder(0x4000, -1, hpack_default_alloc);
-	hpd = hpack_decoder(0x4000, -1, hpack_default_alloc);
 	first_header_sent = 0;
 }
 
 void h2_close(void) {
-	if (hpe != NULL) {
-		hpack_free(&hpe);
-		hpe = NULL;
-	}
-	if (hpd != NULL) {
-		hpack_free(&hpd);
-		hpd = NULL;
-	}
 	first_header_sent = 0;
 }
 
@@ -394,63 +334,6 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 		printf("-----------------------------\n");
 }
 
-#if 0
-// decode a header frame
-// frame - http2 frame
-// return offset for the end of frame
-static uint32_t h2_decode_header(uint8_t *frame) {
-	// http2 frame
-	H2Frame frm;
-	memcpy(&frm, frame, sizeof(H2Frame));
-	int offset = sizeof(H2Frame);
-	if (frm.type != H2_TYPE_HEADERS) {
-		fprintf(stderr, "Not a header header\n");
-		return 0;
-	}
-	size_t len = h2frame_extract_length(&frm);
-
-	uint8_t flg = frm.flag;
-	uint8_t pad = 0;
-	uint32_t str = h2frame_extract_stream(&frm);
-//todo		if (len > sizeof blk)
-//			return (EXIT_FAILURE); /* DIY */
-
-	uint8_t blk[4096];
-	uint8_t buf[1024];
-	struct hpack_decoding dec;
-	memset(&dec, 0, sizeof(dec));
-	dec.blk = blk;
-	dec.blk_len = 0;
-	dec.buf = buf;
-	dec.buf_len = sizeof buf;
-	dec.cb = print_headers;
-	dec.priv = NULL;
-
-	if (flg & H2_FLAG_PADDED)
-		offset += 1;
-	if (flg & H2_FLAG_PRIORITY)
-		offset += 5;
-
-	memcpy(blk, frame + offset, len);
-	offset += len;
-
-	dec.cut = ~flg & H2_FLAG_END_HEADERS;
-	dec.blk_len = len;
-
-	int rv = hpack_decode(hpd, &dec);
-	if (rv < 0) {
-		// print error
-		fprintf(stderr, "Error: hpack decode error %d\n", rv);
-		return 0;
-	}
-
-	if (flg & H2_FLAG_PADDED)
-		offset += pad;
-	if (arg_debug || arg_debug_h2)
-		printf("\n\n");
-	return offset;
-}
-#endif
 
 // encode a data frame
 // frame - http2 frame
