@@ -372,6 +372,46 @@ host: commons.host/
 sni: yes
 keepalive: 60,90
 
+name: commsone
+website: https://www.comss.ru/page.php?id=7315
+zone: Europe
+tags: Moscow, Russia, Europe, adblocker
+address: 92.38.152.163:443
+host: dns.comss.one/dns-query
+keepalive: 60,90
+
+name: commsone2
+website: https://www.comss.ru/page.php?id=7315
+zone: Europe
+tags: Lithuania, Europe, adblocker
+address: 93.115.24.204:443
+host: dns.comss.one/dns-query
+keepalive: 60,90
+
+name: commsone3
+website: https://www.comss.ru/page.php?id=7315
+zone: Europe
+tags: Lithuania, Europe, adblocker
+address: 93.115.24.205:443
+host: dns.comss.one/dns-query
+keepalive: 60,90
+
+name: commsone4
+website: https://www.comss.ru/page.php?id=7315
+zone: Europe
+tags: Yekaterinburg, Russia, Asia-Pacific, adblocker
+address: 92.223.109.31:443
+host: dns.comss.one/dns-query
+keepalive: 60,90
+
+name: commsone5
+website: https://www.comss.ru/page.php?id=7315
+zone: Europe
+tags: Krasnoyarsk, Russia, Asia-Pacific, adblocker
+address: 91.230.211.67:443
+host: dns.comss.one/dns-query
+keepalive: 60,90
+
 name: containerpi
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
 zone: Asia-Pacific
@@ -501,6 +541,30 @@ website: https://www.dnslify.com/
 zone: Europe
 tags: Europe, Netherlands, Germany, UK
 address: 185.235.81.1:443
+host: doh.dnslify.com/dns-query
+keepalive: 20,25
+
+name: dnslify4
+website: https://www.dnslify.com/
+zone: Americas-East, Americas-West
+tags: Americas, Americas-East, Americas-West, NY, Califronia
+address: 185.235.81.2:443
+host: doh.dnslify.com/dns-query
+keepalive: 20,25
+
+name: dnslify5
+website: https://www.dnslify.com/
+zone: Asia-Pacific
+tags: Asia-Pacific, Singapore
+address: 185.235.81.2:443
+host: doh.dnslify.com/dns-query
+keepalive: 20,25
+
+name: dnslify6
+website: https://www.dnslify.com/
+zone: Europe
+tags: Europe, Netherlands, Germany, UK
+address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
 
