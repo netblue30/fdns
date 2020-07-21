@@ -882,6 +882,14 @@ host: fi.doh.dns.snopyta.org/dns-query
 sni: yes
 keepalive: 60,90
 
+name: sth-doh-se
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v2/public-resolvers.md
+zone: Europe
+tags: Sweden, Europe
+address: 45.153.187.96:443
+host: dnsse.alekberg.net/dns
+keepalive: 20,25
+
 name: switch
 website: https://www.switch.ch/security/info/public-dns/
 zone: Europe
