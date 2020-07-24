@@ -12,30 +12,67 @@
 #include "fdns.h"
 
 
-static unsigned long long h2_header_total = 0;
-static int h2_header_cnt = 0;	// skip the first header
-static int h2_first_header_len = 0;
+static unsigned h2_header_total_len = 0;	// accumulated header length
+static int h2_header_cnt = 0;		// counting number of headers frames
+static int http_header_size = 0;		// header size
+static int h2_rx = 0; // received bytes, including IP/TCP/TLS headers
+static int h2_rx_dns = 0; // received DNS bytes over H2 plus IP/UDP
+
+
 static uint32_t stream_id;
-static int printing = 0; // used to print server: header field for --test-server option
-
-
-// average length of the
-int h2_header_average(void) {
-	return (h2_header_cnt <= 0)? 0: (int) (h2_header_total / (unsigned long long) h2_header_cnt);
-}
-
-int h2_first_header(void) {
-	return h2_first_header_len;
-}
-
-
+//static int printing = 0; // used to print server: header field for --test-server option
 static int first_header_sent = 0;
+static int first_query = 1;	// don't include the first query in network byte count
+static int second_query = 0;	// grab the network trace
+
+
+// network trace
+#define PKTBUFMAX 4096
+static char pktbuf[4096];
+static char *ptrbuf = pktbuf;
+static void printn(char* fmt, ...) {
+	if (!second_query)
+		return;
+	if ((arg_debug || arg_details) && arg_id == -1) {
+		// check  space left
+		ptrdiff_t delta = ptrbuf - pktbuf;
+		if (delta > (PKTBUFMAX - 1024))
+			return;
+	
+		va_list args;
+		va_start(args,fmt);
+		vsprintf(ptrbuf, fmt, args);
+		ptrbuf += strlen(ptrbuf);
+		va_end(args);
+	}
+}
+
+
+void h2_header_stats(void) {
+	if (http_header_size == 0 || h2_header_cnt == 0)
+		return;
+	int average = h2_header_total_len / h2_header_cnt;
+	printf("   Header uncompressed | compressed | ratio:  %d | %d | %0.02f:1\n",
+		http_header_size,
+		h2_header_total_len / h2_header_cnt,
+		(float) http_header_size / (float) average);
+}
+
+// Do53 / DoH ratio
+double h2_bandwidth(void) {
+	return (double) h2_rx / (double) h2_rx_dns;
+}
+
 void h2_init(void) {
 	first_header_sent = 0;
+	first_query = 1;
+	second_query = 0;
 }
 
 void h2_close(void) {
 	first_header_sent = 0;
+	first_query = 1;
+	second_query = 0;
 }
 
 // encode a header frame
@@ -102,7 +139,8 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	else
 		*ptr++ = 62 | 0x80;
 
-	// Literal Header Field without Indexing - indexed name
+//	HEADER("content-length", "56");
+	// Literal Header Field without Indexing - indexed name: 28 (content-length:)
 	char slen[20];
 	sprintf(slen, "%d", len);
 	*ptr++ = 0x0f; // 28 represented as 4-bit encoded
@@ -120,7 +158,7 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	H2Frame *frm = (H2Frame *) frame;
 	h2frame_set_length(frm, length);
 	frm->type = H2_TYPE_HEADERS;
-	frm->flag = H2_FLAG_END_HEADERS;// | H2_FLAG_END_STREAM;
+	frm->flag = H2_FLAG_END_HEADERS;
 	h2frame_set_stream(frm, stream_id);
 	first_header_sent = 1;
 
@@ -148,7 +186,7 @@ static int extract_number(uint8_t *ptr, uint8_t prefix, unsigned *value) {
 
 
 static void printh(char* fmt, ...) {
-	if ((arg_debug || arg_debug_header || printing) && arg_id == -1) {
+	if ((arg_debug || arg_details) && arg_id == -1) {
 		va_list args;
 		va_start(args,fmt);
 		vprintf(fmt, args);
@@ -167,6 +205,7 @@ static uint8_t extract_string(uint8_t *ptr) {
 		unsigned rv  = extract_number(ptr, 0x7f, &value);
 		ptr += rv;
 		char *out_str = huffman_search(ptr, value);
+		http_header_size += strlen(out_str);
 		printh("  %s", out_str);
 		retval = value + rv;
 	}
@@ -178,6 +217,7 @@ static uint8_t extract_string(uint8_t *ptr) {
 		char str[value + 1];
 		memset(str, 0, value + 1);
 		memcpy(str, ptr, value);
+		http_header_size += value;
 		printh("  %s", str);
 		retval = value + rv;
 	}
@@ -195,7 +235,7 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 		return 0;
 	}
 
-	if (arg_debug || arg_debug_header)
+	if (arg_debug || arg_details)
 		printf("-----------------------------\n");
 
 	size_t len = h2frame_extract_length(&frm);
@@ -210,8 +250,7 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 //print_mem(ptr, len);
 	int cnt = 0;
 	while (cnt < len) {
-		if (arg_debug || arg_debug_header)
-			printf("|");
+		printh("|");
 //printf("procesing 0x%02x ", *ptr);
 		if (*ptr & 0x80) { // indexed header field
 			unsigned index;
@@ -219,20 +258,16 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 			HpackStatic *hp = hpack_static_get(index);
 			if (!hp)
 				printh("Unknown indexed header field 0x%02x, position %u\n", *ptr, cnt);
-			else
+			else {
 				printh("  %s:  %s\n", hp->name, hp->value);
+				http_header_size += strlen(hp->name) + strlen(hp->value) + 1; // + \n
+			}
 			ptr += rv;
 			cnt += rv;
 		}
 		else if (*ptr & 0x40) {  // literal header
 			unsigned index;
 			int rv = extract_number(ptr, 0x3f, &index);
-			if (index == 54) { // server: -> turn on printing
-				printing = 1;
-				if (!(arg_debug || arg_debug_header))
-					printf(" ");
-			}
-
 			HpackStatic *hp = hpack_static_get(index);
 			ptr += rv;
 			cnt += rv;
@@ -245,17 +280,19 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 				cnt += rv;
 				rv = extract_string(ptr);
 				printh("\n");
+				http_header_size++;
 				ptr += rv;
 				cnt += rv;
 			}
 			else {
 				printh("  %s: ", hp->name);
+				http_header_size += strlen(hp->name);
 				uint8_t rv = extract_string(ptr);
 				printh("\n");
+				http_header_size++;
 				ptr += rv;
 				cnt += rv;
 			}
-			printing = 0;
 		}
 		else if (*ptr & 0x20) { // dynamic table size update
 			unsigned value;
@@ -267,8 +304,6 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 		else if (*ptr & 0x10) { // literal header field never indexed
 			unsigned index;
 			int rv = extract_number(ptr, 0x0f, &index);
-			if (index == 54) // server: -> turn on printing
-				printing = 1;
 			HpackStatic *hp = hpack_static_get(index);
 			ptr += rv;
 			cnt += rv;
@@ -281,6 +316,7 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 				cnt += rv;
 				rv = extract_string(ptr);
 				printh("\n");
+				http_header_size++;
 				ptr += rv;
 				cnt += rv;
 			}
@@ -289,16 +325,14 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 
 				uint8_t rv = extract_string(ptr);
 				printh("\n");
+				http_header_size++;
 				ptr += rv;
 				cnt += rv;
 			}
-			printing = 0;
 		}
 		else if ((*ptr & 0xf0) == 0) { // literal header field without indexing
 			unsigned index;
 			int rv = extract_number(ptr, 0x0f, &index);
-			if (index == 54) // server: -> turn on printing
-				printing = 1;
 			HpackStatic *hp = hpack_static_get(index);
 			ptr += rv;
 			cnt += rv;
@@ -307,10 +341,12 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 				// read two strings
 				uint8_t rv = extract_string(ptr);
 				printh(":");
+				http_header_size++;
 				ptr += rv;
 				cnt += rv;
 				rv = extract_string(ptr);
 				printh("\n");
+				http_header_size++;
 				ptr += rv;
 				cnt += rv;
 			}
@@ -319,10 +355,10 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 
 				uint8_t rv = extract_string(ptr);
 				printh("\n");
+				http_header_size++;
 				ptr += rv;
 				cnt += rv;
 			}
-			printing = 0;
 		}
 		else {
 			printh("unknown field 0x%02x, position %u\n", *ptr, cnt);
@@ -330,8 +366,7 @@ static uint32_t h2_decode_header(uint8_t *frame) {
 			cnt++;
 		}
 	}
-	if (arg_debug || arg_debug_header)
-		printf("-----------------------------\n");
+	printh("-----------------------------\n");
 }
 
 
@@ -448,10 +483,17 @@ int h2_send_exampledotcom(uint8_t *req) {
 
 	int len2 = h2_encode_data(buf_query + len, dnsmsg, sizeof(dnsmsg));
 	if (arg_debug || arg_debug_h2)
-		h2frame_print(arg_id, "tx query", (H2Frame *) (buf_query + len));
+		h2frame_print(arg_id, "tx", (H2Frame *) (buf_query + len));
 
 	ssl_tx(buf_query, len + len2);
-	return h2_exchange(req, stream_id);
+
+	if (arg_details && first_query && first_header_sent)
+		printf("\n   HTTP Header:\n");
+	printn("\n   Network Trace:");
+	int rv = h2_exchange(req, stream_id);
+	second_query = (first_query)? 1: 0;
+	first_query = 0;
+	return rv;
 }
 
 
@@ -465,7 +507,7 @@ int h2_send_query(uint8_t *req, int cnt) {
 
 	int len2 = h2_encode_data(buf_query + len, req, cnt);
 	if (arg_debug || arg_debug_h2)
-		h2frame_print(arg_id, "tx query", (H2Frame *) (buf_query + len));
+		h2frame_print(arg_id, "tx", (H2Frame *) (buf_query + len));
 	ssl_tx(buf_query, len + len2);
 
 	return h2_exchange(req, stream_id);
@@ -480,6 +522,7 @@ int h2_send_ping(void) {
 	ssl_tx(frame, sizeof(frame));
 	return h2_exchange(buf_query, 0);
 }
+
 
 // copy rx data in response and return the length
 // return -1 if error
@@ -519,11 +562,16 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 			}
 			// todo: handle an incomplete frame
 
+
 			if (arg_debug) {
 				print_time();
-				printf("(%d) h2 rx %d bytes\n", arg_id, rv);
+				printf("(%d) h2 rx packet %d bytes\n", arg_id, rv);
 				print_mem(buf, rv);
 			}
+
+			if (first_header_sent)
+				h2_rx += 20 + 20 + 5 + rv; // ip + tcp + tls + h2
+			printn("\n-----> rx %d bytes: IP + TCP + TLS ", 20 + 20 + 5 + rv);
 
 			int offset = 0;
 			while (offset < rv) {
@@ -548,23 +596,30 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 				}
 
 				// normal header type processing
-				if (frm->type == H2_TYPE_HEADERS) {
+				if (frm->type == H2_TYPE_WIN_UPDATE) {
+					printn("+ H2-WINDOW-UPDATE ");
+				}
+				else if (frm->type == H2_TYPE_HEADERS) {
+					printn("+ H2-HEADERS ");
+
 					size_t len = h2frame_extract_length(frm);
-					if (h2_first_header_len == 0) { // print header, don't include it in the average
+					if (first_query) { // print header, don't include it in the average
 						h2_decode_header((uint8_t *) frm);
-						h2_first_header_len = len;
 					}
 					else {
-						h2_header_total += len;
+						h2_header_total_len += len;
 						h2_header_cnt++;
 					}
 				}
 				else if (frm->type == H2_TYPE_DATA) {
+					printn("+ H2-DATA ");
+
 					uint32_t offset;
 					uint32_t length;
 					h2_decode_data((uint8_t *) frm, &offset, &length);
 					if (arg_debug)
 						print_mem((uint8_t *) frm + offset, length);
+					h2_rx_dns += 20 + 8 + length; // ip + tcp + tls + h2
 
 					// copy response in buf_query_data
 					if (length != 0) {
@@ -578,9 +633,12 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 
 				// ping request - set end stream flag and return the packet
 				else if (frm->type == H2_TYPE_PING && (frm->flag & H2_FLAG_END_STREAM) == 0) {
+					printn("+ H2-PING ");
 					frm->flag |= H2_FLAG_END_STREAM;
 					if (arg_debug || arg_debug_h2)
 						h2frame_print(arg_id, "tx", frm);
+
+					printn("\n<----- tx %d bytes: IP + TCP + TLS + H2-PING  (end stream)", 20 + 20 + 5 + rv);
 
 					ssl_tx((uint8_t *) frm, rv - offset);
 					if (stream == 0)
@@ -589,8 +647,11 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 					frm->flag &= ~H2_FLAG_END_STREAM;
 				}
 
-				if (frm->flag & H2_FLAG_END_STREAM)
+				if (frm->flag & H2_FLAG_END_STREAM) {
+					if (arg_details && second_query)
+						printf("%s (end stream)\n\n", pktbuf);
 					return retval; // disregard the rest!
+				}
 
 				offset += sizeof(H2Frame) + h2frame_extract_length(frm);
 				if (arg_debug) {

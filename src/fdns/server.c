@@ -302,7 +302,7 @@ int test_server(const char *server_name)  {
 		DnsServer *s = server_get();
 		assert(s);
 		if (s->tags)  // servers set from command line don't have a tag
-			printf("   tags: %s\n", s->tags);
+			printf("   Tags: %s\n", s->tags);
 		fflush(0);
 
 		timetrace_start();
@@ -314,7 +314,7 @@ int test_server(const char *server_name)  {
 		}
 
 		float ms = timetrace_end();
-		printf("   SSL connection opened in %.02f ms\n", ms);
+		printf("   SSL/TLS connection: %.02f ms\n", ms);
 		fflush(0);
 
 		// is not necessary to check the return data for example.com; this is already done durring SSL connect
@@ -326,25 +326,32 @@ int test_server(const char *server_name)  {
 		h2_send_exampledotcom(buf);
 		h2_send_exampledotcom(buf);
 		ms = timetrace_end();
+		sleep(1);
+		timetrace_start();
+		h2_send_exampledotcom(buf);
+		h2_send_exampledotcom(buf);
+		h2_send_exampledotcom(buf);
+		h2_send_exampledotcom(buf);
+		h2_send_exampledotcom(buf);
+		float ms2 = timetrace_end();
 
 		if (ssl_state == SSL_CLOSED) {
 			fprintf(stderr, "   Error: SSL connection closed\n");
 			fflush(0);
 			exit(1);
 		}
-		printf("   DoH response average %.02f ms\n", ms / 5);
-		printf("   First HTTP2 header: %d bytes\n", h2_first_header());
-		printf("   Average HTTP2 header: %d bytes\n", h2_header_average());
+		printf("   DoH query average: %.02f ms\n", (ms + ms2) / 10);
+		if (arg_details)
+			h2_header_stats();
+		printf("   DoH/Do53 bandwidth ratio: %0.02f\n", h2_bandwidth());
 		if (s->tags) { // servers set from command line don't have a tag
 			if (s->keepalive_min == s->keepalive_max)
-				printf("   keepalive %d seconds\n", s->keepalive_min);
+				printf("   Keepalive: %d seconds\n", s->keepalive_min);
 			else
-				printf("   keepalive %d to %d seconds\n", s->keepalive_min, s->keepalive_max);
+				printf("   Keepalive: %d to %d seconds\n", s->keepalive_min, s->keepalive_max);
 		}
-		printf("   SNI %s\n", (s->sni)? "yes": "no");
 
 		fflush(0);
-
 		exit(0);
 	}
 	int status = 0;
