@@ -22,6 +22,7 @@
 #include <openssl/bio.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
+#include <netdb.h>
 
 SSLState ssl_state = SSL_CLOSED;
 static BIO *bio = NULL;
@@ -174,6 +175,34 @@ void ssl_open(void) {
 		return;
 	}
 
+	if (arg_details && arg_id == -1)
+		printf("   URL: https://%s%s\n", srv->host, srv->path);
+
+	uint32_t ip;
+	if (arg_details && arg_id == -1 && atoip(srv->address, &ip) == 0)
+		printf("   Bootstrap IP address: %d.%d.%d.%d\n", PRINT_IP(ip));
+	else if (arg_details && arg_id == -1 && arg_test_server) {
+		char *domain  = strdup(srv->address);
+		if (!domain)
+			errExit("strdup");
+		char *ptr = strchr(domain, ':');
+		if (ptr) {
+			*ptr = '\0';
+			struct hostent *hp = gethostbyname(domain);
+			if (hp) {
+				int i=0;
+				printf("   Bootstrap IP address: ");
+				while ( hp -> h_addr_list[i] != NULL) {
+					if (i != 0)
+						printf(", ");
+					printf( "%s", inet_ntoa( *( struct in_addr*)( hp -> h_addr_list[i])));
+					i++;
+				}
+				printf("\n");
+			}
+		}
+	}
+
 	int val;
 	if ((val = SSL_get_verify_result(ssl)) != X509_V_OK) {
 		rlogprintf("Error: cannot handle certificate verification (error %d), shutting down...\n", val);
@@ -190,18 +219,23 @@ void ssl_open(void) {
 		const unsigned char *alpn;
 
 		SSL_get0_alpn_selected(ssl, &alpn, &len);
-		if (alpn == NULL)
-			printf("   TLS %s, ALPN not negotiated\n", ver);
+		if (alpn == NULL) {
+			if (arg_details && arg_id == -1)
+				printf("   TLS %s, ALPN not negotiated, ", ver);
+		}
 		else if (len < 100) {
 			char http[100 + 1];
 			memcpy(http, alpn, len);
 			http[len] = '\0';
-			printf("   %s, ALPN %s\n", ver, http);
+			if (arg_details && arg_id == -1)
+				printf("   %s, ALPN %s, ", ver, http);
 		}
 		else
 			fprintf(stderr, "Error: invalid ALPN string of length %d\n", len);
 		free((char *) alpn);
 	}
+	if (arg_details && arg_id == -1)
+		printf("SNI %s\n", (srv->sni)? "yes": "no");
 
 	ssl_state = SSL_OPEN;
 	rlogprintf("SSL connection opened\n");
@@ -217,6 +251,7 @@ void ssl_open(void) {
 	// some servers return NXDOMAIN for example.com
 	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 		goto errh2;
+
 	rlogprintf("h2 connection opened\n");
 	return;
 

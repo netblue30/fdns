@@ -200,7 +200,6 @@ static inline void print_mem(const unsigned char *msg, int len) {
 extern int arg_argc;
 extern int arg_debug;
 extern int arg_debug_h2;
-extern int arg_debug_header;
 extern int arg_debug_ssl;
 extern int arg_resolvers;
 extern int arg_id;
@@ -210,6 +209,7 @@ extern int arg_ipv6;
 extern int arg_daemonize;
 extern int arg_allow_all_queries;
 extern char *arg_server;
+extern char *arg_test_server;
 extern char *arg_proxy_addr;
 extern int arg_proxy_addr_any;
 extern char *arg_certfile;
@@ -221,6 +221,7 @@ extern char *arg_whitelist_file;
 extern int arg_fallback_only;
 extern int arg_keepalive;
 extern int arg_qps;
+extern int arg_details;
 extern Stats stats;
 
 // dnsdb.c
@@ -262,6 +263,7 @@ typedef enum {
 	DEST_FORWARDING,	// forwarding
 	DEST_MAX // always the last one
 } DnsDestination;
+double dns_bandwidth(void);
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 void dns_keepalive(void);
 int dns_query(uint8_t *msg, int cnt);
@@ -364,8 +366,8 @@ void procs_add(void);
 void procs_list(void);
 
 // h2.c
-int h2_first_header(void);
-int h2_header_average(void);
+void h2_header_stats(void);
+double h2_bandwidth(void);
 void h2_init(void);
 void h2_close(void);
 int h2_connect(void);

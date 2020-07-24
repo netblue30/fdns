@@ -27,6 +27,7 @@ inline static void build_response_nxdomain(uint8_t *pkt) {
 	pkt[3] = 0x83;
 }
 
+
 // attempt to extract the domain name and run it through the filter
 uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	assert(buf);

@@ -22,7 +22,6 @@
 int arg_argc = 0;
 int arg_debug = 0;
 int arg_debug_h2 = 0;
-int arg_debug_header = 0;
 int arg_debug_ssl = 0;
 int arg_resolvers = RESOLVERS_CNT_DEFAULT;
 int arg_id = -1;
@@ -32,6 +31,7 @@ int arg_ipv6 = 0;
 int arg_daemonize = 0;
 int arg_allow_all_queries = 0;
 char *arg_server = NULL;
+char *arg_test_server = NULL;
 char *arg_proxy_addr = NULL;
 int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
@@ -42,6 +42,7 @@ char *arg_whitelist_file = NULL;
 int arg_fallback_only = 0;
 int arg_keepalive = 0;
 int arg_qps = QPS_DEFAULT;
+int arg_details = 0;
 
 Stats stats;
 
@@ -137,8 +138,6 @@ int main(int argc, char **argv) {
 				arg_debug = 1;
 			else if (strcmp(argv[i], "--debug-h2") == 0)
 				arg_debug_h2 = 1;
-			else if (strcmp(argv[i], "--debug-header") == 0)
-				arg_debug_header = 1;
 			else if (strcmp(argv[i], "--debug-ssl") == 0)
 				arg_debug_ssl = 1;
 			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
@@ -213,6 +212,8 @@ int main(int argc, char **argv) {
 					exit(1);
 				}
 			}
+			else if (strcmp(argv[i], "--details") == 0)
+				arg_details = 1;
 
 
 			// handled in second pass
@@ -225,6 +226,7 @@ int main(int argc, char **argv) {
 			else if (strncmp(argv[i], "--test-url=", 11) == 0);
 			else if (strcmp(argv[i], "--test-server") == 0);
 			else if (strncmp(argv[i], "--test-server=", 14) == 0);
+			else if (strcmp(argv[i], "--details") == 0);
 
 			// errors
 			else {
@@ -280,10 +282,14 @@ int main(int argc, char **argv) {
 				return 0;
 			}
 			else if (strcmp(argv[i], "--test-server") == 0) {
+				arg_test_server = "test all local servers";
 				server_test_tag(NULL);
 				return 0;
 			}
 			else if (strncmp(argv[i], "--test-server=", 14) == 0) {
+				arg_test_server = strdup(argv[i] + 14);
+				if (!arg_test_server)
+					errExit("strdup");
 				if (strncmp(argv[i] + 14, "https://", 8) == 0) {
 					server_set_custom(argv[i] + 14);
 					server_test_tag(argv[i] + 14);
