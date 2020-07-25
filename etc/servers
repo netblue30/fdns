@@ -245,39 +245,39 @@ keepalive: 60,90
 
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas-East
-tags: non-profit, Ontario, Americas, Americas-East
+zone: Americas-East, Americas-West, Americas
+tags: non-profit, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
 
 name: cira2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas-East
-tags: non-profit, Ontario, Americas, Americas-East
+zone: Americas-East, Americas-West, Americas
+tags: non-profit, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
 
 name: cira-security
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas-East
-tags: non-profit, security, Ontario, Americas, Americas-East
+zone: Americas-East, Americas-West, Americas
+tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
 
 name: cira-security2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas-East
-tags: non-profit, security, Ontario, Americas, Americas-East
+zone: Americas-East, Americas-West, Americas
+tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
 
 name: cira-family
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas-East, Americas-West
+zone: Americas-East, Americas-West, Americas
 tags: family
 address: 149.112.121.30:443
 host: family.canadianshield.cira.ca/dns-query
