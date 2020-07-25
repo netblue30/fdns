@@ -371,9 +371,9 @@ int test_server(const char *server_name)  {
 		sleep(1);
 		i++;
 	}
-	while (i < 15); // 15 second wait
+	while (i < 20); // 20 second wait
 
-	if (i == 15) {
+	if (i == 20) {
 		printf("   Error: server %s failed\n", arg_server);
 		fflush(0);
 		kill(child, SIGKILL);

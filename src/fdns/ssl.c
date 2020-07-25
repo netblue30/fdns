@@ -272,6 +272,9 @@ void ssl_close(void) {
 
 	ssl = NULL;
 	ssl_state = SSL_CLOSED;
+
+	// clear DNS cache
+	cache_init();
 }
 
 int ssl_get_socket(void) {
