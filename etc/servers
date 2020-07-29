@@ -65,47 +65,6 @@ address: 168.235.81.167:443
 host: dns-nyc.aaflalo.me/dns-query
 keepalive: 60,90
 
-# server down for administrative purposes
-name: abmb-jp
-website: https://abmb.win/
-zone: Asia-Pacific
-tags: admin-down, geocast, Japan, Asia-Pacific
-address: doh-jp.abmb.win:443
-host: doh-jp.abmb.win/dns-query
-sni: yes
-keepalive: 20,25
-
-# server down for administrative purposes
-name: abmb-sg
-website: https://abmb.win/
-zone: Asia-Pacific
-tags: admin-down, geocast, Singapore, Asia-Pacific
-address: doh.abmb.win:443
-host: doh.abmb.win/dns-query
-sni: yes
-keepalive: 20,25
-
-# server down for administrative purposes
-name: abmb-sg2
-website: https://abmb.win/
-zone: Asia-Pacific
-tags: admin-down, geocast, Singapore, Asia-Pacific
-#address: 54.169.103.244:443
-address: doh2.abmb.win:443
-host: doh2.abmb.win/dns-query
-sni: yes
-keepalive: 20,25
-
-# server down for administrative purposes
-name: abmb-sk
-website: https://abmb.win/
-zone: Asia-Pacific
-tags: admin-down, geocast, South-Korea, Asia-Pacific
-address: doh-sk.abmb.win:443
-host: doh-sk.abmb.win/dns-query
-sni: yes
-keepalive: 20,25
-
 name: adguard-unfiltered
 website: https://adguard.com/en/adguard-dns/overview.html
 zone: Americas-East, Americas-West, Asia-Pacific, Europe

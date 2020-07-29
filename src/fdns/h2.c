@@ -38,7 +38,7 @@ static void printn(char* fmt, ...) {
 		ptrdiff_t delta = ptrbuf - pktbuf;
 		if (delta > (PKTBUFMAX - 1024))
 			return;
-	
+
 		va_list args;
 		va_start(args,fmt);
 		vsprintf(ptrbuf, fmt, args);
@@ -444,7 +444,7 @@ int h2_connect(void) {
 		0x00, 0x00, 0x00, 0xf0
 	};
 
-	if (arg_debug || arg_debug_h2) {
+	if (arg_debug || arg_debug_transport) {
 		print_time();
 		printf("(%d) h2 tx connect\n", arg_id);
 	}
@@ -478,11 +478,11 @@ int h2_send_exampledotcom(uint8_t *req) {
 	};
 
 	uint32_t len = h2_encode_header(buf_query, sizeof(dnsmsg));
-	if (arg_debug || arg_debug_h2)
+	if (arg_debug || arg_debug_transport)
 		h2frame_print(arg_id, "tx", (H2Frame *) buf_query);
 
 	int len2 = h2_encode_data(buf_query + len, dnsmsg, sizeof(dnsmsg));
-	if (arg_debug || arg_debug_h2)
+	if (arg_debug || arg_debug_transport)
 		h2frame_print(arg_id, "tx", (H2Frame *) (buf_query + len));
 
 	ssl_tx(buf_query, len + len2);
@@ -502,11 +502,11 @@ int h2_send_exampledotcom(uint8_t *req) {
 int h2_send_query(uint8_t *req, int cnt) {
 	stream_id += 2;
 	uint32_t len = h2_encode_header(buf_query, cnt);
-	if (arg_debug || arg_debug_h2)
+	if (arg_debug || arg_debug_transport)
 		h2frame_print(arg_id, "tx", (H2Frame *) buf_query);
 
 	int len2 = h2_encode_data(buf_query + len, req, cnt);
-	if (arg_debug || arg_debug_h2)
+	if (arg_debug || arg_debug_transport)
 		h2frame_print(arg_id, "tx", (H2Frame *) (buf_query + len));
 	ssl_tx(buf_query, len + len2);
 
@@ -516,7 +516,7 @@ int h2_send_query(uint8_t *req, int cnt) {
 // returns -1 if error
 int h2_send_ping(void) {
 	uint8_t frame[] = {0, 0, 8, 6,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	if (arg_debug || arg_debug_h2)
+	if (arg_debug || arg_debug_transport)
 		h2frame_print(arg_id, "tx", (H2Frame *) frame);
 
 	ssl_tx(frame, sizeof(frame));
@@ -577,7 +577,7 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 			while (offset < rv) {
 				H2Frame *frm = (H2Frame *) (buf + offset);
 
-				if (arg_debug || arg_debug_h2)
+				if (arg_debug || arg_debug_transport)
 					h2frame_print(arg_id, "rx", frm);
 
 				// go away conditions
@@ -635,7 +635,7 @@ int h2_exchange(uint8_t *response, uint32_t stream) {
 				else if (frm->type == H2_TYPE_PING && (frm->flag & H2_FLAG_END_STREAM) == 0) {
 					printn("+ H2-PING ");
 					frm->flag |= H2_FLAG_END_STREAM;
-					if (arg_debug || arg_debug_h2)
+					if (arg_debug || arg_debug_transport)
 						h2frame_print(arg_id, "tx", frm);
 
 					printn("\n<----- tx %d bytes: IP + TCP + TLS + H2-PING  (end stream)", 20 + 20 + 5 + rv);

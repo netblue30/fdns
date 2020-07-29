@@ -199,7 +199,7 @@ static inline void print_mem(const unsigned char *msg, int len) {
 // main.c
 extern int arg_argc;
 extern int arg_debug;
-extern int arg_debug_h2;
+extern int arg_debug_transport;
 extern int arg_debug_ssl;
 extern int arg_resolvers;
 extern int arg_id;

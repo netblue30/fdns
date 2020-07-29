@@ -21,7 +21,7 @@
 #include <time.h>
 int arg_argc = 0;
 int arg_debug = 0;
-int arg_debug_h2 = 0;
+int arg_debug_transport = 0;
 int arg_debug_ssl = 0;
 int arg_resolvers = RESOLVERS_CNT_DEFAULT;
 int arg_id = -1;
@@ -59,10 +59,11 @@ static void usage(void) {
 	printf("    --certfile=filename - SSL certificate file in PEM format.\n");
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
-	printf("    --debug - print debug messages.\n");
-	printf("    --debug-h2 - print HTTP2 debug messages.\n");
-	printf("    --debug-header - print HTTP2 header.\n");
+	printf("    --debug - print all debug messages.\n");
+	printf("    --debug-transport - print HTTP2 debug messages.\n");
 	printf("    --debug-ssl  - print SSL/TLS debug messages.\n");
+	printf("    --details - SSL connection information, HTTP headers and network traces are\n"
+	       "\tprinted on the screen during the testing phase.\n");
 	printf("    --disable-local-doh - blacklist DoH services for applications running on\n"
 	       "\tlocal network.\n");
 
@@ -136,8 +137,8 @@ int main(int argc, char **argv) {
 			}
 			else if (strcmp(argv[i], "--debug") == 0)
 				arg_debug = 1;
-			else if (strcmp(argv[i], "--debug-h2") == 0)
-				arg_debug_h2 = 1;
+			else if (strcmp(argv[i], "--debug-transport") == 0)
+				arg_debug_transport = 1;
 			else if (strcmp(argv[i], "--debug-ssl") == 0)
 				arg_debug_ssl = 1;
 			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {

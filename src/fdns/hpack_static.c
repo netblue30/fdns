@@ -17,13 +17,6 @@
  *  You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-/*-
- * Written by Dridi Boukelmoune <dridi.boukelmoune@gmail.com>
- *
- * This file is in the public domain.
- *
- * HPACK: Static Table Definition (RFC 7540 Appendix A)
- */
 
 #include "hpack_static.h"
 #include <stdio.h>

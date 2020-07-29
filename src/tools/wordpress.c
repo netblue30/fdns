@@ -307,7 +307,7 @@ void print_server(DnsServer *ptr, char *extra) {
 	char *c = strchr(ptr->address, ':');
 	if (c)
 		*c = '\0';
-	printf("<li><a href=\"%s\">%s</a> ", ptr->website, ptr->name);
+	printf("<li><b><a href=\"%s\">%s</a></b> ", ptr->website, ptr->name);
 	int geocast = 0;
 	if (*ptr->tags) {
 		if (strstr(ptr->tags, "geocast")) {
