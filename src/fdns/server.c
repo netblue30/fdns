@@ -320,19 +320,19 @@ int test_server(const char *server_name)  {
 		// is not necessary to check the return data for example.com; this is already done durring SSL connect
 		timetrace_start();
 		uint8_t buf[MAXBUF];
-		h2_send_exampledotcom(buf);
-		h2_send_exampledotcom(buf);
-		h2_send_exampledotcom(buf);
-		h2_send_exampledotcom(buf);
-		h2_send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
 		ms = timetrace_end();
 		sleep(1);
 		timetrace_start();
-		h2_send_exampledotcom(buf);
-		h2_send_exampledotcom(buf);
-		h2_send_exampledotcom(buf);
-		h2_send_exampledotcom(buf);
-		h2_send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
+		transport->send_exampledotcom(buf);
 		float ms2 = timetrace_end();
 
 		if (ssl_state == SSL_CLOSED) {
@@ -342,8 +342,8 @@ int test_server(const char *server_name)  {
 		}
 		printf("   DoH query average: %.02f ms\n", (ms + ms2) / 10);
 		if (arg_details)
-			h2_header_stats();
-		printf("   DoH/Do53 bandwidth ratio: %0.02f\n", h2_bandwidth());
+			transport->header_stats();
+		printf("   DoH/Do53 bandwidth ratio: %0.02f\n", transport->bandwidth());
 		if (s->tags) { // servers set from command line don't have a tag
 			if (s->keepalive_min == s->keepalive_max)
 				printf("   Keepalive: %d seconds\n", s->keepalive_min);

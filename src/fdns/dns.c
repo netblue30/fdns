@@ -20,6 +20,10 @@
 #include "lint.h"
 #include "timetrace.h"
 
+
+DnsTransport *transport = &h2_transport;
+
+
 // build a NXDOMAIN package on top of the existing dns request
 inline static void build_response_nxdomain(uint8_t *pkt) {
 	// lenptr remains unchanged
@@ -228,7 +232,7 @@ void dns_keepalive(void) {
 		// randomly send example.com (1 in 3)
 		int r = rand();
 		if (r % 3) {
-			if (h2_send_ping() == -1) {
+			if (transport->send_ping() == -1) {
 				rlogprintf("Error: h2 ping failed, closing SSL connection\n");
 				ssl_close();
 			}
@@ -239,7 +243,7 @@ void dns_keepalive(void) {
 	return;
 
 sendex:
-	len = h2_send_exampledotcom(msg);
+	len = transport->send_exampledotcom(msg);
 	// some servers return NXDOMAIN for example.com
 	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 		ssl_close();
@@ -252,7 +256,7 @@ int dns_query(uint8_t *msg, int cnt) {
 	assert(cnt);
 
 
-	int datalen = h2_send_query(msg, cnt);
+	int datalen = transport->send_query(msg, cnt);
 	if (datalen <= 0)
 		goto errout;
 
