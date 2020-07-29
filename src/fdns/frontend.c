@@ -97,7 +97,7 @@ static int sandbox(void *sandbox_arg) {
 	if (arg_debug)
 		a[last++] = "--debug";
 	if (arg_debug_transport)
-		a[last++] = "--debug-h2";
+		a[last++] = "--debug-transport";
 	if (arg_debug_ssl)
 		a[last++] = "--debug-ssl";
 	if (arg_nofilter)
