@@ -12,6 +12,28 @@
 #include "fdns.h"
 
 
+static void h2_header_stats(void);
+static double h2_bandwidth(void);
+static void h2_init(void);
+static void h2_close(void);
+static int h2_connect(void);
+static int h2_send_exampledotcom(uint8_t *req);
+static int h2_send_query(uint8_t *req, int cnt);
+static int h2_send_ping(void);
+static int h2_exchange(uint8_t *response, uint32_t stream);
+DnsTransport h2_transport = {
+	h2_init,
+	h2_close,
+	h2_connect,
+	h2_send_exampledotcom,
+	h2_send_query,
+	h2_send_ping,
+	h2_exchange,
+	h2_header_stats,
+	h2_bandwidth
+};
+
+
 static unsigned h2_header_total_len = 0;	// accumulated header length
 static int h2_header_cnt = 0;		// counting number of headers frames
 static int http_header_size = 0;		// header size
@@ -48,7 +70,7 @@ static void printn(char* fmt, ...) {
 }
 
 
-void h2_header_stats(void) {
+static void h2_header_stats(void) {
 	if (http_header_size == 0 || h2_header_cnt == 0)
 		return;
 	int average = h2_header_total_len / h2_header_cnt;
@@ -59,17 +81,17 @@ void h2_header_stats(void) {
 }
 
 // Do53 / DoH ratio
-double h2_bandwidth(void) {
+static double h2_bandwidth(void) {
 	return (double) h2_rx / (double) h2_rx_dns;
 }
 
-void h2_init(void) {
+static void h2_init(void) {
 	first_header_sent = 0;
 	first_query = 1;
 	second_query = 0;
 }
 
-void h2_close(void) {
+static void h2_close(void) {
 	first_header_sent = 0;
 	first_query = 1;
 	second_query = 0;
@@ -396,7 +418,7 @@ static uint32_t h2_encode_data(uint8_t *frame, uint8_t *data, unsigned length) {
 // offset - offset to data section in frame
 // length - length of data section
 // return offset for the end of the frame
-uint32_t h2_decode_data(uint8_t *frame, uint32_t *offset, uint32_t *length) {
+static uint32_t h2_decode_data(uint8_t *frame, uint32_t *offset, uint32_t *length) {
 	assert(frame);
 	assert(length);
 	*offset = 0;
@@ -429,7 +451,7 @@ uint32_t h2_decode_data(uint8_t *frame, uint32_t *offset, uint32_t *length) {
 
 static uint8_t buf_query[MAXBUF];
 // returns -1 if error
-int h2_connect(void) {
+static int h2_connect(void) {
 	stream_id = 0;
 	uint8_t connect[] = {
 		0x50, 0x52, 0x49, 0x20, 0x2a, 0x20, 0x48, 0x54, 0x54, 0x50, 0x2f, 0x32, 0x2e, 0x30, 0x0d, 0x0a,
@@ -457,7 +479,7 @@ int h2_connect(void) {
 
 // the result message is placed in res, the length of the message is returned
 // returns -1 if error
-int h2_send_exampledotcom(uint8_t *req) {
+static int h2_send_exampledotcom(uint8_t *req) {
 	stream_id += 2;
 
 #if 0
@@ -499,7 +521,7 @@ int h2_send_exampledotcom(uint8_t *req) {
 
 // the result message is placed in req, the length of the message is returned
 // returns -1 if error
-int h2_send_query(uint8_t *req, int cnt) {
+static int h2_send_query(uint8_t *req, int cnt) {
 	stream_id += 2;
 	uint32_t len = h2_encode_header(buf_query, cnt);
 	if (arg_debug || arg_debug_transport)
@@ -514,7 +536,7 @@ int h2_send_query(uint8_t *req, int cnt) {
 }
 
 // returns -1 if error
-int h2_send_ping(void) {
+static int h2_send_ping(void) {
 	uint8_t frame[] = {0, 0, 8, 6,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	if (arg_debug || arg_debug_transport)
 		h2frame_print(arg_id, "tx", (H2Frame *) frame);
@@ -526,7 +548,7 @@ int h2_send_ping(void) {
 
 // copy rx data in response and return the length
 // return -1 if error
-int h2_exchange(uint8_t *response, uint32_t stream) {
+static int h2_exchange(uint8_t *response, uint32_t stream) {
 	assert(response);
 	int retval = 0;
 

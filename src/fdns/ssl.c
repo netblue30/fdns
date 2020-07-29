@@ -241,13 +241,13 @@ void ssl_open(void) {
 	rlogprintf("SSL connection opened\n");
 
 	// h2 connect
-	h2_init();
-	if (h2_connect() == -1)
+	transport->init();
+	if (transport->connect() == -1)
 		goto errh2;
 
 	// ... followed by a simple query
 	uint8_t msg[MAXBUF];
-	int len = h2_send_exampledotcom(msg);
+	int len = transport->send_exampledotcom(msg);
 	// some servers return NXDOMAIN for example.com
 	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 		goto errh2;
@@ -264,7 +264,7 @@ errh2:
 void ssl_close(void) {
 	if (ssl_state == SSL_OPEN)
 		rlogprintf("SSL connection closed\n");
-	h2_close();
+	transport->close();
 	if (ssl) {
 		SSL_shutdown(ssl);
 		SSL_free(ssl);

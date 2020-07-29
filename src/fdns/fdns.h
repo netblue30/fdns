@@ -156,6 +156,24 @@ typedef struct dnsserver_t {
 	int keepalive_max;	// maximum vallue of keepalive in seconds
 } DnsServer;
 
+typedef struct dnstransport_t {
+	// connect
+	void (*init)(void);
+	void (*close)(void);
+	int (*connect)(void);
+
+	// traffic
+	int (*send_exampledotcom)(uint8_t *req);
+	int (*send_query)(uint8_t *req, int cnt);
+	int (*send_ping)(void);
+	int (*exchange)(uint8_t *response, uint32_t stream);
+
+	// stats
+	void (*header_stats)(void);
+	double (*bandwidth)(void);
+} DnsTransport;
+
+
 static inline void ansi_topleft(void) {
 	char str[] = {0x1b, '[', '1', ';',  '1', 'H', '\0'};
 	printf("%s", str);
@@ -256,6 +274,7 @@ int seccomp_load_filter_list(void);
 void seccomp_resolver(void);
 
 // dns.c
+extern DnsTransport *transport;
 typedef enum {
 	DEST_DROP = 0,	// drop the packet
 	DEST_SSL,		// send the packet over SSL
@@ -366,15 +385,7 @@ void procs_add(void);
 void procs_list(void);
 
 // h2.c
-void h2_header_stats(void);
-double h2_bandwidth(void);
-void h2_init(void);
-void h2_close(void);
-int h2_connect(void);
-int h2_send_exampledotcom(uint8_t *req);
-int h2_send_query(uint8_t *req, int cnt);
-int h2_send_ping(void);
-int h2_exchange(uint8_t *response, uint32_t stream);
+DnsTransport h2_transport;
 
 // huffman.c
 char *huffman_search(uint8_t *hstr, int len);
