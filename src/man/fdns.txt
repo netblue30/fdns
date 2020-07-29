@@ -60,22 +60,29 @@ FDNS as network proxy is
 .br
 
 .br
-Example:
-.br
 $ sudo fdns --proxy-addr-any --daemonize
 .br
 .TP
 \fB\-\-debug
 Print debug messages.
 .TP
-\fB\-\-debug-h2
+\fB\-\-debug-transport
 Print HTTP2 debug messages.
-.TP
-\fB\-\-debug-header
-Print HTTP2 protocol header.
 .TP
 \fB\-\-debug-ssl
 Print SSL/TLS debug messages.
+.TP
+\fB\-\-details
+SSL connection information, HTTP headers and network traces are printed on the screen during the testing
+phase of the connection.
+.br
+
+.br
+Example:
+.br
+$ fdns --test-server=cloudflare --details
+.br
+$ sudo fdns --server=cloudflare --details
 .TP
 \fB\-\-disable-local-doh
 Disable DoH services for applications running on the local network.
@@ -105,9 +112,9 @@ Allow AAAA requests. Use this option if you have Internet IPv6 connectivity. By 
 
 .TP
 \fB\-\-keepalive=value
-Use this session keepalive value instead of the one in the server file. A HTTP2 PING exchange is initiated by if there is
-no DNS query activity in order to keep the HTTP 2 connection option. For most servers we are using a value of 60 seconds.
-In many cases you can bump it up to 120 seconds.
+Use this session keepalive value instead of the one in the server file. A HTTP2 PING exchange is initiated if there is
+no DNS query activity in order to keep the HTTP 2 connection option. For most servers we are using a random value between 60 and 90 seconds.
+In many cases you can bump it above 120 seconds.
 .br
 
 .br
@@ -171,8 +178,7 @@ $ fdns --monitor=127.2.2.2
 .TP
 \fB\-\-nofilter
 No DNS request filtering. This disables the adblocker, the tracker filter, the coinblocker filter,
-and the user hosts file installed in /etc/fdns directory. Connections to DoH services are allowed
-from the local network (equivalent to --allow-local-doh).
+and the user hosts file installed in /etc/fdns directory.
 
 .TP
 \fB\-\-proxies
@@ -212,7 +218,7 @@ The number of resolver processes, between 1 and 10, default 3.
 .TP
 \fB\-\-server=server-name|tag|all|url
 Connect to a specific server, or to a random one based on the tag and your geographical location.
-Using "all", it will instruct FDNS to chose a server at random from all the list, regardless where
+Using "all" will instruct FDNS to chose a server at random from the list, regardless where
 the server is located. You can also specify a DoH URL for servers not yet supported by FDNS.
 .br
 
