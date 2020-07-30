@@ -707,7 +707,7 @@ keepalive: 20,25
 name: nixnet-lv
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas-West
-tags: firefox-only, LasVegas, Americas, Americas-West
+tags: LasVegas, Americas, Americas-West
 address: 209.141.34.95:443
 host: uncensored.lv1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -716,7 +716,7 @@ keepalive: 30,50
 name: nixnet-lv-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas-West
-tags: firefox-only, LasVegas, Americas, Americas-West, adblocker
+tags: LasVegas, Americas, Americas-West, adblocker
 address: 209.141.34.95:443
 host: adblock.lv1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -725,7 +725,7 @@ keepalive: 30,50
 name: nixnet-ny
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas-East
-tags: firefox-only, NY, Americas, Americas-East
+tags: NY, Americas, Americas-East
 address: 199.195.251.84:443
 host: uncensored.ny1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -734,7 +734,7 @@ keepalive: 30,50
 name: nixnet-ny-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas-East
-tags: firefox-only, NY, Americas, Americas-East, adblocker
+tags: NY, Americas, Americas-East, adblocker
 address: 199.195.251.84:443
 host: adblock.ny1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -743,7 +743,7 @@ keepalive: 30,50
 name: nixnet-lux
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Europe
-tags: firefox-only, Luxemburg, Europe
+tags: Luxemburg, Europe
 address: 104.244.78.231:443
 host: uncensored.lux1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -752,7 +752,7 @@ keepalive: 30,50
 name: nixnet-lux-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Europe
-tags: firefox-only, Luxemburg, Europe, adblocker
+tags: Luxemburg, Europe, adblocker
 address: 104.244.78.231:443
 host: adblock.lux1.dns.nixnet.xyz/dns-query
 keepalive: 30,50

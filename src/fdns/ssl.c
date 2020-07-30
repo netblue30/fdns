@@ -151,8 +151,9 @@ void ssl_open(void) {
 		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
 	else if (strcmp(arg_transport, "h2") == 0)
 		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
-	else if (strcmp(arg_transport, "http/1.1") == 0)
-		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
+	else if (strcmp(arg_transport, "http/1.1") == 0);
+		// ALPN was mandated starting with h2, more likely a http/1.1 server won't implement ALPN
+//		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
 
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
@@ -225,8 +226,9 @@ void ssl_open(void) {
 
 		SSL_get0_alpn_selected(ssl, &alpn, &len);
 		if (alpn == NULL) {
-			if (arg_details && arg_id == -1)
-				printf("   TLS %s, ALPN not negotiated, ", ver);
+			if (arg_details && arg_id == -1 || arg_debug)
+				printf("   TLS %s, ALPN not negotiated - assuming http/1.1, ", ver);
+			dns_set_transport("http/1.1");
 		}
 		else if (len < 100) {
 			char http[100 + 1];
@@ -349,6 +351,26 @@ errout:
 	return 0;
 }
 
+
+// return 0 if nothing read, or error
+int ssl_rx_timeout(uint8_t *buf, int timeout) {
+	fd_set readfds;
+	FD_ZERO(&readfds);
+	int fd = ssl_get_socket();
+	FD_SET(fd, &readfds);
+	struct timeval t;
+	t.tv_sec = timeout;
+	t.tv_usec = 0;
+
+	int rv = select(fd + 1, &readfds, NULL, NULL, &t);
+	if (rv <= 0)
+		return 0;
+
+	if (FD_ISSET(fd, &readfds))
+		return ssl_rx(buf);
+		
+	return 0;
+}
 
 
 
