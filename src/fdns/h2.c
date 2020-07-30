@@ -1,4 +1,21 @@
-// gcc -lhpack -o cashbld cashbld.c
+/*
+ * Copyright (C) 2019-2020 FDNS Authors
+ *
+ * This file is part of fdns project
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,7 +59,6 @@ static int h2_rx_dns = 0; // received DNS bytes over H2 plus IP/UDP
 
 
 static uint32_t stream_id;
-//static int printing = 0; // used to print server: header field for --test-server option
 static int first_header_sent = 0;
 static int first_query = 1;	// don't include the first query in network byte count
 static int second_query = 0;	// grab the network trace
@@ -82,6 +98,8 @@ static void h2_header_stats(void) {
 
 // Do53 / DoH ratio
 static double h2_bandwidth(void) {
+	if (h2_rx_dns == 0)
+		return 0;
 	return (double) h2_rx / (double) h2_rx_dns;
 }
 

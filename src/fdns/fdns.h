@@ -86,6 +86,7 @@ static inline int rand_range(int min, int max) {
 #define SSL_REOPEN_TIMER 2	// try to reopen a failed SSL connection after this time
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
 
+#define H11_TIMEOUT 5 // wait time for HTTP1 answer - will close the connection
 #define H2_TIMEOUT 5 // wait time for HTTP2 answer - will close the connection
 #define H2_SESSION_KEEPALIVE_MIN 5 // h2 keepalive (PING) min value in seconds for --keepalive option
 #define H2_SESSION_KEEPALIVE_MAX 180 // h2 keepalive (PING) max value in seconds for --keepalive option
@@ -240,6 +241,7 @@ extern int arg_fallback_only;
 extern int arg_keepalive;
 extern int arg_qps;
 extern int arg_details;
+extern char *arg_transport;
 extern Stats stats;
 
 // dnsdb.c
@@ -282,7 +284,8 @@ typedef enum {
 	DEST_FORWARDING,	// forwarding
 	DEST_MAX // always the last one
 } DnsDestination;
-double dns_bandwidth(void);
+
+void dns_set_transport(const char *tname);
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 void dns_keepalive(void);
 int dns_query(uint8_t *msg, int cnt);
@@ -390,5 +393,7 @@ DnsTransport h2_transport;
 // huffman.c
 char *huffman_search(uint8_t *hstr, int len);
 
+// h11.c
+DnsTransport h11_transport;
 
 #endif

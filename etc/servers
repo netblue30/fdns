@@ -653,7 +653,7 @@ keepalive: 30,50
 name: li
 website: https://doh.li/
 zone: Europe
-tags: firefox-only,UK, Europe
+tags: UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
 keepalive: 30,50

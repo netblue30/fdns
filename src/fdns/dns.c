@@ -23,6 +23,19 @@
 
 DnsTransport *transport = &h2_transport;
 
+void dns_set_transport(const char *tname) {
+	assert(tname);
+	
+	if (strcmp(tname, "h2") == 0)
+		transport = &h2_transport;
+	else if (strcmp(tname, "http/1.1") == 0)
+		transport = &h11_transport;
+	else {
+		fprintf(stderr, "Error: DNS transport %s not supported\n", tname);
+		exit(1);
+	}
+}
+
 
 // build a NXDOMAIN package on top of the existing dns request
 inline static void build_response_nxdomain(uint8_t *pkt) {
