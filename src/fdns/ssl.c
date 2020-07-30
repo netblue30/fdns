@@ -145,9 +145,14 @@ void ssl_open(void) {
 			}
 		}
 	}
-	// inform the server we are using http2
-	SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
-//SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
+
+	if (arg_transport == NULL)
+		// inform the server we prefere in order http2, http/1.1
+		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
+	else if (strcmp(arg_transport, "h2") == 0)
+		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
+	else if (strcmp(arg_transport, "http/1.1") == 0)
+		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
 
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
@@ -213,7 +218,7 @@ void ssl_open(void) {
 	SSL_set_info_callback(ssl, ssl_alert_callback);
 
 	// check ALPN negotiation
-	if (arg_id == -1) {
+	{
 		const char *ver = SSL_get_version(ssl);
 		int len = 0;
 		const unsigned char *alpn;
@@ -229,6 +234,7 @@ void ssl_open(void) {
 			http[len] = '\0';
 			if (arg_details && arg_id == -1)
 				printf("   %s, ALPN %s, ", ver, http);
+			dns_set_transport(http);
 		}
 		else
 			fprintf(stderr, "Error: invalid ALPN string of length %d\n", len);

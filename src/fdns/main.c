@@ -43,6 +43,7 @@ int arg_fallback_only = 0;
 int arg_keepalive = 0;
 int arg_qps = QPS_DEFAULT;
 int arg_details = 0;
+char *arg_transport = NULL;
 
 Stats stats;
 
@@ -216,6 +217,17 @@ int main(int argc, char **argv) {
 			else if (strcmp(argv[i], "--details") == 0)
 				arg_details = 1;
 
+			else if (strncmp(argv[i], "--transport=", 12) == 0) {
+				arg_transport = strdup(argv[i] + 12);
+				if (!arg_transport)
+					errExit("strdup");
+				if (strcmp(arg_transport, "h2") == 0);
+				else if (strcmp(arg_transport, "http/1.1") == 0);
+				else {
+					fprintf(stderr, "Error: invalid transport\n");
+					exit(1);
+				}
+			}
 
 			// handled in second pass
 			else if (strcmp(argv[i], "--list") == 0);
