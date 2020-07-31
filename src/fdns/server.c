@@ -280,8 +280,8 @@ static void load_list(void) {
 }
 
 
-// return 0 if ok, 1 if failed
-int test_server(const char *server_name)  {
+// return the average query time in ms, or 0 if failed
+static uint8_t test_server(const char *server_name)  {
 	if (arg_fallback_only)
 		return 0;
 
@@ -293,6 +293,8 @@ int test_server(const char *server_name)  {
 
 	pid_t child = fork();
 	if (child == 0) { // child
+// exit 0 - error
+// exit 1 - 255 - average query in ms
 		assert(scurrent);
 
 		// disable logging
@@ -310,7 +312,7 @@ int test_server(const char *server_name)  {
 		if (ssl_state == SSL_CLOSED) {
 			fprintf(stderr, "   Error: cannot open SSL/H2 connection to server %s\n", arg_server);
 			fflush(0);
-			exit(1);
+			exit(0);
 		}
 
 		float ms = timetrace_end();
@@ -334,7 +336,7 @@ int test_server(const char *server_name)  {
 		if (ssl_state == SSL_CLOSED) {
 			fprintf(stderr, "   Error: SSL connection closed\n");
 			fflush(0);
-			exit(1);
+			exit(0);
 		}
 		float average = (ms + ms2) / 6;
 		printf("   DoH query average: %.02f ms\n", average);
@@ -349,22 +351,25 @@ int test_server(const char *server_name)  {
 		}
 
 		fflush(0);
-		exit(0);
-// exit 0 - all fine
-// exit 1 - server failed
+		uint8_t qaverage = (average > 255)? 255: average;
+		if (qaverage == 0)
+			qaverage = 1;
+		exit(qaverage);
 	}
 
 	// wait for the child to finish
 	int i = 0;
+	uint8_t qaverage = 0; // query average time in ms
 	do {
 		int status = 0;
 		int rv = waitpid(child, &status, WNOHANG);
 		if (rv  == child) {
+			qaverage = WEXITSTATUS(status);		
 			// check child status
-			if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
+			if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
 				printf("   Error: server %s failed\n", arg_server);
 				fflush(0);
-				return 1;
+				return 0;
 			}
 			break;
 		}
@@ -377,10 +382,10 @@ int test_server(const char *server_name)  {
 		printf("   Error: server %s failed\n", arg_server);
 		fflush(0);
 		kill(child, SIGKILL);
-		return 1;
+		return 0;
 	}
 
-	return 0;
+	return qaverage;
 }
 
 //**************************************************************************
@@ -411,7 +416,8 @@ void server_list(const char *tag) {
 	if (strcmp(tag, "all") == 0 || strcmp(tag, "admin-down") == 0) {
 		while (s) {
 			print_server(s);
-			s->active = ++cnt;
+			s->active = 1;
+			cnt++;
 			s = s->next;
 		}
 		if (server_print_servers)
@@ -454,7 +460,8 @@ void server_list(const char *tag) {
 		}
 
 		print_server(s);
-		s->active = ++cnt;
+		s->active = 1;
+		cnt++;
 		s = s->next;
 	}
 
@@ -480,14 +487,10 @@ static int count_active_servers(void) {
 	DnsServer *s = slist;
 	while (s) {
 		if (s->active)
-{
-//printf("name %s\n", s->name);
 			cnt++;
-}
 		s = s->next;
 	}
 
-//printf("cnt %d\n", cnt);
 	return cnt;
 }
 
@@ -545,17 +548,38 @@ DnsServer *server_get(void) {
 
 
 	// choose a random server
+	int cnt = count_active_servers();
 	DnsServer *s = random_server();
 	if (s == NULL)
 		goto errout;
 
 	while (s) {
 		scurrent = s;
-		if (arg_id == -1 && test_server(s->name)) {
-			s->active = 0;
-			s = random_server();
-			continue;
+		if (arg_id == -1) { // testing only in frontend process
+			uint8_t qaverage = test_server(s->name);
+			if (qaverage == 0) {
+				s->active = 0;
+				s = random_server();
+				continue;
+			}
+			else if (cnt > 1) {
+				// try another server
+				DnsServer *first = s;
+				uint8_t first_average = qaverage;
+				s = random_server();
+				if (s == first) // try again
+					s = random_server();
+				scurrent = s;
+				qaverage = test_server(s->name);
+				// grab the fastest one
+				if (qaverage == 0 || qaverage > first_average) {
+					// revert back to the first server
+					scurrent = first;
+					s = first;
+				}
+			}
 		}
+		// else - no testing in the resolver processes
 
 		free(arg_server);
 		arg_server = strdup(s->name);
