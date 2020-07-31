@@ -33,6 +33,37 @@
 # to connect to these servers.
 #
 
+//ns3.de.dns.opennic.glue
+name: boothlabs
+website: https://servers.opennic.org/
+zone: Americas-East, Americas
+tags: Quebec, Canada, Americas-East, Americas, OpenNIC
+address: 158.69.53.73:443
+host: doh.boothlabs.me/dns-query
+keepalive: 60,90
+
+// ns1.pra.cz.dns.opennic.glue
+name: wil.cloud
+website: https://servers.opennic.org/
+zone: Europe
+tags: Czechia, Europe, OpenNIC
+address: 51.254.25.115:443
+host: dns-2.wil.cloud/dns-query
+keepalive: 60,90
+
+name: eth-services
+website: https://servers.opennic.org/
+zone: Europe
+tags: Germany, Europe, OpenNIC
+address: 94.247.43.254:853
+host: opennic1.eth-services.de:853/
+keepalive: 60,90
+
+
+
+
+
+
 name: 42l
 website: https://42l.fr
 zone: Europe
