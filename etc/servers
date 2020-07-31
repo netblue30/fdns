@@ -33,37 +33,6 @@
 # to connect to these servers.
 #
 
-//ns3.de.dns.opennic.glue
-name: boothlabs
-website: https://servers.opennic.org/
-zone: Americas-East, Americas
-tags: Quebec, Canada, Americas-East, Americas, OpenNIC
-address: 158.69.53.73:443
-host: doh.boothlabs.me/dns-query
-keepalive: 60,90
-
-// ns1.pra.cz.dns.opennic.glue
-name: wil.cloud
-website: https://servers.opennic.org/
-zone: Europe
-tags: Czechia, Europe, OpenNIC
-address: 51.254.25.115:443
-host: dns-2.wil.cloud/dns-query
-keepalive: 60,90
-
-name: eth-services
-website: https://servers.opennic.org/
-zone: Europe
-tags: Germany, Europe, OpenNIC
-address: 94.247.43.254:853
-host: opennic1.eth-services.de:853/
-keepalive: 60,90
-
-
-
-
-
-
 name: 42l
 website: https://42l.fr
 zone: Europe
@@ -216,6 +185,15 @@ address: 139.180.141.57:443
 host: doh-sg.blahdns.com/dns-query
 sni: yes
 keepalive: 4
+
+# ns3.de.dns.opennic.glue
+name: boothlabs
+website: https://servers.opennic.org/
+zone: Americas-East, Americas
+tags: Quebec, Americas-East, Americas, OpenNIC
+address: 158.69.53.73:443
+host: doh.boothlabs.me/dns-query
+keepalive: 60,90
 
 name: bortzmeyer
 website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
@@ -558,6 +536,24 @@ address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
 
+# ns8.he.de.dns.opennic.glue
+# http/1.1
+name: eth-services
+website: https://servers.opennic.org/
+zone: Europe
+tags: Germany, Europe, OpenNIC
+address: 94.247.43.254:853
+host: opennic1.eth-services.de:853/
+keepalive: 20,25
+
+# http/1.1
+name: eth-services2
+website: https://servers.opennic.org/
+zone: Europe
+tags: Germany, Europe, OpenNIC
+address: 195.10.195.195:853
+host: opennic2.eth-services.de:853/
+keepalive: 20,25
 
 name: faelix-uk-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
@@ -662,6 +658,24 @@ tags: California, Americas, Americas-West
 address: 35.198.2.76:443
 host: ibuki.cgnat.net/dns-query
 keepalive: 20,25
+
+# ns3.fr.dns.opennic.glue
+name: iriseden
+website: https://servers.opennic.org/
+zone: Europe
+tags: France, Europe, OpenNIC
+address: 62.210.177.189:443
+host: ns1.iriseden.fr/dns-query
+keepalive: 60,90
+
+# ns4.fr.dns.opennic.glue
+name: iriseden2
+website: https://servers.opennic.org/
+zone: Europe
+tags: France, Europe, OpenNIC
+address: 62.210.180.71:443
+host: ns2.iriseden.fr/dns-query
+keepalive: 60,90
 
 # server down for administrative purposes
 name: jcdns
@@ -996,6 +1010,32 @@ address: 172.104.93.80:443
 host: jp.tiar.app/dns-query
 keepalive: 7
 
+# ns2.fi.dns.opennic.glue
+name: tin-fan
+website: https://servers.opennic.org/
+zone: Europe
+tags: Germany, Europe, OpenNIC
+address: 95.217.16.205:443
+host: ns01.dns.tin-fan.com/dns-query
+keepalive: 60,90
+
+name: tin-fan2
+website: https://servers.opennic.org/
+zone: Europe
+tags: Poland, Europe, OpenNIC
+address: 145.239.92.241:443
+host: ns02.dns.tin-fan.com/dns-query
+keepalive: 60,90
+
+# ns1.tx.us.dns.opennic.glue
+name: tin-fan3
+website: https://servers.opennic.org/
+zone: Americas-East
+tags: Texas, Americas-East, OpenNIC
+address: 155.138.240.237:443
+host: ns03.dns.tin-fan.com/dns-query
+keepalive: 60,90
+
 name: twnic
 website: https://101.101.101.101/index_en.html
 zone: Asia-Pacific
@@ -1011,4 +1051,22 @@ tags: Austria, Europe, adblocker
 address: 149.154.153.153:443
 host: adfree.usableprivacy.net/
 sni: yes
+keepalive: 60,90
+
+# ns1.pra.cz.dns.opennic.glue
+name: wil.cloud
+website: https://servers.opennic.org/
+zone: Europe
+tags: Czechia, Europe, OpenNIC
+address: 51.254.25.115:443
+host: dns-2.wil.cloud/dns-query
+keepalive: 60,90
+
+#ns10.fr.dns.opennic.glue
+name: wil.cloud2
+website: https://servers.opennic.org/
+zone: Europe
+tags: France, Europe, OpenNIC
+address: 87.98.175.85:443
+host: dns-1.wil.cloud/dns-query
 keepalive: 60,90
