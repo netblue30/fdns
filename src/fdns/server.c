@@ -323,13 +323,9 @@ int test_server(const char *server_name)  {
 		transport->send_exampledotcom(buf);
 		transport->send_exampledotcom(buf);
 		transport->send_exampledotcom(buf);
-		transport->send_exampledotcom(buf);
-		transport->send_exampledotcom(buf);
 		ms = timetrace_end();
 		sleep(1);
 		timetrace_start();
-		transport->send_exampledotcom(buf);
-		transport->send_exampledotcom(buf);
 		transport->send_exampledotcom(buf);
 		transport->send_exampledotcom(buf);
 		transport->send_exampledotcom(buf);
@@ -340,7 +336,8 @@ int test_server(const char *server_name)  {
 			fflush(0);
 			exit(1);
 		}
-		printf("   DoH query average: %.02f ms\n", (ms + ms2) / 10);
+		float average = (ms + ms2) / 6;
+		printf("   DoH query average: %.02f ms\n", average);
 		if (arg_details)
 			transport->header_stats();
 		printf("   DoH/Do53 bandwidth ratio: %0.02f\n", transport->bandwidth());
@@ -353,14 +350,17 @@ int test_server(const char *server_name)  {
 
 		fflush(0);
 		exit(0);
+// exit 0 - all fine
+// exit 1 - server failed
 	}
-	int status = 0;
+
 	// wait for the child to finish
 	int i = 0;
 	do {
+		int status = 0;
 		int rv = waitpid(child, &status, WNOHANG);
 		if (rv  == child) {
-			// check status
+			// check child status
 			if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
 				printf("   Error: server %s failed\n", arg_server);
 				fflush(0);
@@ -473,6 +473,48 @@ void server_list(const char *tag) {
 		printf("Sorry, no such server available.\n");
 }
 
+
+static int count_active_servers(void) {
+	int cnt = 0;
+	assert(slist);
+	DnsServer *s = slist;
+	while (s) {
+		if (s->active)
+{
+//printf("name %s\n", s->name);
+			cnt++;
+}
+		s = s->next;
+	}
+
+//printf("cnt %d\n", cnt);
+	return cnt;
+}
+
+
+static DnsServer *random_server(void) {
+	int cnt = count_active_servers();
+	if (cnt == 0)
+		return NULL;
+	int index = rand() % cnt;
+//printf("index %d\n", index);
+	int i = 0;
+	DnsServer *s = slist;
+	while (s) {
+		if (!s->active) {
+			s = s->next;
+			continue;
+		}
+
+		if (i == index)
+			return s;
+		i++;
+		s = s->next;
+	}
+	assert(0);
+	return NULL;
+}
+
 // get a pointer to the current server
 // if arg_server was not set, use the current zone as a tag
 DnsServer *server_get(void) {
@@ -485,7 +527,6 @@ DnsServer *server_get(void) {
 		exit(1);
 	}
 
-
 	// update arg_server
 	if (arg_server == NULL) {
 		assert(fdns_zone);
@@ -493,6 +534,7 @@ DnsServer *server_get(void) {
 		if (!arg_server)
 			errExit("strdup");
 	} // arg_server is in mallocated memory
+
 	if (arg_fallback_only) {
 		scurrent = slist;
 		return scurrent;
@@ -502,59 +544,26 @@ DnsServer *server_get(void) {
 	server_list(arg_server);
 
 
-	// count the servers
-	int cnt = 0;
-	assert(slist);
-	DnsServer *s = slist;
-	while (s) {
-		if (s->active)
-			cnt++;
-		s = s->next;
-	}
-	if (cnt == 0)
+	// choose a random server
+	DnsServer *s = random_server();
+	if (s == NULL)
 		goto errout;
 
-	// choose a random server
-	int index = rand() % cnt + 1;
-	if (arg_debug)
-		printf("tag index %d\n", index);
-	s = slist;
 	while (s) {
-		if (s->active == index) {
-			scurrent = s;
-			if (arg_id == -1 && test_server(s->name)) {
-				// mark the server as inactive and try again
-				s->active = 0;
-				// set new active count
-				s = slist;
-				int cnt2 = 0;
-				while (s) {
-					if (s->active)
-						s->active = ++cnt2;
-					s = s->next;
-				}
-				s = slist;
-				assert(cnt2 == (cnt - 1));
-				cnt = cnt2;
-				if (cnt == 0)
-					goto errout;
-
-				// try again
-				index = rand() % cnt + 1;
-				if (arg_debug)
-					printf("new tag index %d\n", index);
-
-				continue;
-			}
-
-			free(arg_server);
-			arg_server = strdup(s->name);
-			if (!arg_server)
-				errExit("strdup");
-			return scurrent;
+		scurrent = s;
+		if (arg_id == -1 && test_server(s->name)) {
+			s->active = 0;
+			s = random_server();
+			continue;
 		}
-		s = s->next;
+
+		free(arg_server);
+		arg_server = strdup(s->name);
+		if (!arg_server)
+			errExit("strdup");
+		return scurrent;
 	}
+
 
 errout:
 	fprintf(stderr, "Error: cannot connect to server %s\n", arg_server);
@@ -597,13 +606,6 @@ void server_set_custom(const char *url) {
 	char *str = strchr(s->host, '/');
 	if (!str)
 		s->path = "/";
-#if 0
-	 {
-		free(s);
-		fprintf(stderr, "Error: invalid URL %s\n", url);
-		exit(1);
-	}
-#endif
 	else {
 		s->path = strdup(str);
 		if (!s->path)
