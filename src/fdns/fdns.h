@@ -389,12 +389,12 @@ void procs_add(void);
 void procs_list(void);
 
 // h2.c
-DnsTransport h2_transport;
+extern DnsTransport h2_transport;
 
 // huffman.c
 char *huffman_search(uint8_t *hstr, int len);
 
 // h11.c
-DnsTransport h11_transport;
+extern DnsTransport h11_transport;
 
 #endif
