@@ -265,30 +265,23 @@ static uint8_t extract_string(uint8_t *ptr) {
 	return retval;
 }
 
-static uint32_t h2_decode_header(uint8_t *frame) {
+static void h2_decode_header(uint8_t *frame) {
 	// http2 frame
 	H2Frame frm;
 	memcpy(&frm, frame, sizeof(H2Frame));
-	int offset = sizeof(H2Frame);
 	if (frm.type != H2_TYPE_HEADERS) {
 		fprintf(stderr, "Not a http2 header\n");
-		return 0;
+		assert(0);
+		return;
 	}
 
 	if (arg_debug || arg_details)
 		printf("-----------------------------\n");
 
 	size_t len = h2frame_extract_length(&frm);
-
-	uint8_t flg = frm.flag;
-	uint8_t pad = 0;
-	uint32_t str = h2frame_extract_stream(&frm);
-//todo		if (len > sizeof blk)
-//			return (EXIT_FAILURE); /* DIY */
-
 	uint8_t *ptr = frame + sizeof(H2Frame);
 //print_mem(ptr, len);
-	int cnt = 0;
+	unsigned cnt = 0;
 	while (cnt < len) {
 		printh("|");
 //printf("procesing 0x%02x ", *ptr);

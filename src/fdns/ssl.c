@@ -151,9 +151,11 @@ void ssl_open(void) {
 		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
 	else if (strcmp(arg_transport, "h2") == 0)
 		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
-	else if (strcmp(arg_transport, "http/1.1") == 0);
+	else if (strcmp(arg_transport, "http/1.1") == 0) {}
 		// ALPN was mandated starting with h2, more likely a http/1.1 server won't implement ALPN
 //		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
+	else
+		assert(0);
 
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
@@ -165,8 +167,9 @@ void ssl_open(void) {
 		; // testing sni: first try goes without any sni
 	else if (srv->sni)
 		SSL_set_tlsext_host_name(ssl, srv->host);
-	else
+	else {
 		; // no sni configured
+	}
 
 	if(BIO_do_connect(bio) <= 0) {
 //		rlogprintf("Error: cannot connect SSL.\n");
@@ -207,6 +210,7 @@ void ssl_open(void) {
 				printf("\n");
 			}
 		}
+		free(domain);
 	}
 
 	int val;
@@ -221,12 +225,12 @@ void ssl_open(void) {
 	// check ALPN negotiation
 	{
 		const char *ver = SSL_get_version(ssl);
-		int len = 0;
+		unsigned len = 0;
 		const unsigned char *alpn;
 
 		SSL_get0_alpn_selected(ssl, &alpn, &len);
 		if (alpn == NULL) {
-			if (arg_details && arg_id == -1 || arg_debug)
+			if ((arg_details && arg_id == -1) || arg_debug)
 				printf("   TLS %s, ALPN not negotiated - assuming http/1.1, ", ver);
 			dns_set_transport("http/1.1");
 		}
@@ -255,7 +259,7 @@ void ssl_open(void) {
 
 	// ... followed by a simple query
 	uint8_t msg[MAXBUF];
-	int len = transport->send_exampledotcom(msg);
+	unsigned len = transport->send_exampledotcom(msg);
 	// some servers return NXDOMAIN for example.com
 	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 		goto errh2;
@@ -368,7 +372,7 @@ int ssl_rx_timeout(uint8_t *buf, int timeout) {
 
 	if (FD_ISSET(fd, &readfds))
 		return ssl_rx(buf);
-		
+
 	return 0;
 }
 

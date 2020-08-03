@@ -188,8 +188,9 @@ static inline void ansi_clrscr(void) {
 	fflush(0);
 }
 
-static inline void print_mem(const unsigned char *msg, int len) {
+static inline void print_mem(void *m, int len) {
 	int i;
+	unsigned char *msg = (unsigned char *) m;
 
 	char buf[16 + 1];
 	char *ptr = buf;

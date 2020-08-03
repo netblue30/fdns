@@ -316,7 +316,7 @@ static HTable *ht_search_char(uint8_t *input, int offset) {
 		// build huffman tree
 		htree = ht_new(); // top of the tree
 
-		int i;
+		unsigned i;
 		for (i = 0; i < sizeof(htable) / sizeof(HTable); i++)
 			ht_add(htable + i);
 	}
