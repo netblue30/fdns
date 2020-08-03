@@ -124,14 +124,14 @@ static int h11_send_exampledotcom(uint8_t *req) {
 	};
 
 	DnsServer *s = server_get();
-	sprintf(buf_query, "POST %s HTTP/1.1\r\nHost: %s\r\n",  s->path, s->host);
-	char *ptr = buf_query + strlen(buf_query);
-	sprintf(ptr, push_request_tail, sizeof(dnsmsg));
-	ptr += strlen(ptr);
+	sprintf((char *) buf_query, "POST %s HTTP/1.1\r\nHost: %s\r\n",  s->path, s->host);
+	uint8_t *ptr = buf_query + strlen((char *) buf_query);
+	sprintf((char *) ptr, push_request_tail, sizeof(dnsmsg));
+	ptr += strlen((char *) ptr);
 	memcpy(ptr, dnsmsg, sizeof(dnsmsg));
 	ptr += sizeof(dnsmsg);
 
-	ptrdiff_t len = (uint8_t *) ptr - buf_query;
+	ptrdiff_t len = ptr - buf_query;
 	if (arg_debug || arg_debug_transport) {
 		print_time();
 		printf("(%d) tx len %d http/1.1 POST\n", arg_id, (int) len);
@@ -149,10 +149,10 @@ static int h11_send_exampledotcom(uint8_t *req) {
 // returns -1 if error
 static int h11_send_query(uint8_t *req, int cnt) {
 	DnsServer *s = server_get();
-	sprintf(buf_query, "POST %s HTTP/1.1\r\nHost: %s\r\n",  s->path, s->host);
-	char *ptr = buf_query + strlen(buf_query);
-	sprintf(ptr, push_request_tail, cnt);
-	ptr += strlen(ptr);
+	sprintf((char *) buf_query, "POST %s HTTP/1.1\r\nHost: %s\r\n",  s->path, s->host);
+	uint8_t *ptr = buf_query + strlen((char *) buf_query);
+	sprintf((char *) ptr, push_request_tail, cnt);
+	ptr += strlen((char *) ptr);
 	memcpy(ptr, req, cnt);
 	ptr += cnt;
 
@@ -186,6 +186,7 @@ static void print_header(const char *str) {
 		ptr = strtok(NULL, "\n");
 	}
 	printf("-----------------------------\n");
+	free(buf);
 }
 
 // copy rx data in response and return the length
@@ -193,13 +194,12 @@ static void print_header(const char *str) {
 static int h11_exchange(uint8_t *response, uint32_t stream) {
 	assert(response);
 	(void) stream;
-	int retval = 0;
 
-	uint8_t buf[MAXBUF];
-	int total_len = ssl_rx_timeout(buf, H11_TIMEOUT);
+	char buf[MAXBUF];
+	int total_len = ssl_rx_timeout((uint8_t *) buf, H11_TIMEOUT);
 	if (total_len == 0)
 		goto errout;
-		
+
 	if (arg_debug)
 		print_mem(buf, total_len);
 
@@ -224,8 +224,8 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 		goto errout;
 	}
 	ptr += 4; // length of "\r\n\r\n"
-	ptrdiff_t hlen = (uint8_t *)ptr - buf;
-	
+	ptrdiff_t hlen = ptr - buf;
+
 	h11_header_total_len += hlen;
 	h11_header_cnt++;
 	*(ptr - 1) = 0;
@@ -234,7 +234,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 		printf("\n   Network trace:\n");
 		printf("-----> rx %d bytes: IP + TCP + TLS + HTTP/1.1\n", 20 + 20 + 5 + total_len);
 	}
-		
+
 	// look for Content-Length:
 	char *contlen = "Content-Length: ";
 	ptr = strcasestr(buf, contlen);
@@ -252,7 +252,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 
 	// give it another chance
 	if ((hlen + datalen) > total_len) {
-		int len = ssl_rx_timeout(buf + hlen, H11_TIMEOUT);
+		int len = ssl_rx_timeout((uint8_t *) buf + hlen, H11_TIMEOUT);
 		if (len == 0)
 			goto errout;
 		total_len += len;
@@ -262,7 +262,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 	}
 	if ((arg_debug || arg_details) && first_query)
 		printf("\n");
-	
+
 	// bailout!
 	if ((hlen + datalen) > total_len)
 		goto errout;

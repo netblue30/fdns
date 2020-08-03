@@ -313,6 +313,11 @@ static int extract_domains(const char *ptr) {
 	domains[i] = NULL;
 	return i - 1;
 }
+void clear_domains(void) {
+	int i;
+	for (i = 0; i < MAX_DOMAINS; i++)
+		domains[i] = NULL;
+}
 
 // return NULL if the site is not blocked
 const char *filter_blocked(const char *str, int verbose) {
@@ -364,11 +369,13 @@ const char *filter_blocked(const char *str, int verbose) {
 	for (i = cnt; i >= 0; i--) {
 		HashEntry *ptr = filter_search(domains[i]);
 		if (ptr) {
+			clear_domains(); // remove scan-build warnings
 			if (verbose)
 				printf("URL %s dropped by \"%s\" rule as a %s\n", str, ptr->name, label2str(ptr->label));
 			return label2str(ptr->label);
 		}
 	}
+	clear_domains(); // remove scan-build warnings
 
 	if (verbose)
 		printf("URL %s is not dropped\n", str);

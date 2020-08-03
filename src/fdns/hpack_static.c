@@ -86,7 +86,7 @@ static HpackStatic hps[] = {
 	{"www-authenticate",            ""},
 };
 
-HpackStatic *hpack_static_get(int id) {
+HpackStatic *hpack_static_get(unsigned id) {
 	if (id <= 0 || id > sizeof(hps) / sizeof(HpackStatic))
 		return NULL;
 	return &hps[id];

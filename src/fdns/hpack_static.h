@@ -32,6 +32,6 @@ typedef struct hpac_static_t {
 	char *value;
 } HpackStatic;
 
-HpackStatic *hpack_static_get(int id);
+HpackStatic *hpack_static_get(unsigned id);
 
 #endif
