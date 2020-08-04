@@ -158,6 +158,8 @@ typedef struct dnsserver_t {
 } DnsServer;
 
 typedef struct dnstransport_t {
+	const char *name;
+
 	// connect
 	void (*init)(void);
 	void (*close)(void);
@@ -288,6 +290,7 @@ typedef enum {
 } DnsDestination;
 
 void dns_set_transport(const char *tname);
+const char *dns_get_transport(void);
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
 void dns_keepalive(void);
 int dns_query(uint8_t *msg, int cnt);
