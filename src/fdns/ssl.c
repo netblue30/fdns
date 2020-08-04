@@ -252,7 +252,7 @@ void ssl_open(void) {
 	ssl_state = SSL_OPEN;
 	rlogprintf("SSL connection opened\n");
 
-	// h2 connect
+	// transport connect
 	transport->init();
 	if (transport->connect() == -1)
 		goto errh2;
@@ -264,11 +264,11 @@ void ssl_open(void) {
 	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 		goto errh2;
 
-	rlogprintf("h2 connection opened\n");
+	rlogprintf("%s connection opened\n", dns_get_transport());
 	return;
 
 errh2:
-	rlogprintf("h2 connection failed\n");
+	rlogprintf("%s connection failed\n", dns_get_transport());
 	ssl_state = SSL_CLOSED;
 	ssl_close();
 }

@@ -25,7 +25,7 @@ DnsTransport *transport = &h2_transport;
 
 void dns_set_transport(const char *tname) {
 	assert(tname);
-	
+
 	if (strcmp(tname, "h2") == 0)
 		transport = &h2_transport;
 	else if (strcmp(tname, "http/1.1") == 0)
@@ -36,6 +36,9 @@ void dns_set_transport(const char *tname) {
 	}
 }
 
+const char *dns_get_transport(void) {
+	return transport->name;
+}
 
 // build a NXDOMAIN package on top of the existing dns request
 inline static void build_response_nxdomain(uint8_t *pkt) {
@@ -246,7 +249,7 @@ void dns_keepalive(void) {
 		int r = rand();
 		if (r % 3) {
 			if (transport->send_ping() == -1) {
-				rlogprintf("Error: h2 ping failed, closing SSL connection\n");
+				rlogprintf("Error: %s ping failed, closing SSL connection\n", dns_get_transport());
 				ssl_close();
 			}
 		}

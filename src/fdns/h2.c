@@ -39,6 +39,7 @@ static int h2_send_query(uint8_t *req, int cnt);
 static int h2_send_ping(void);
 static int h2_exchange(uint8_t *response, uint32_t stream);
 DnsTransport h2_transport = {
+	"h2",
 	h2_init,
 	h2_close,
 	h2_connect,

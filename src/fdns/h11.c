@@ -40,6 +40,7 @@ static int h11_send_query(uint8_t *req, int cnt);
 static int h11_send_ping(void);
 static int h11_exchange(uint8_t *response, uint32_t stream);
 DnsTransport h11_transport = {
+	"http/1.1",
 	h11_init,
 	h11_close,
 	h11_connect,
