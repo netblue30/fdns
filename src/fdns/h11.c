@@ -203,7 +203,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 	if (arg_debug)
 		print_mem(buf, total_len);
 
-	h11_rx += 20 + 20 + 5 + total_len; // ip + tcp + tls + http/1.1
+	h11_rx += 20 + 20 + 5 +  (int) ((float) total_len * 1.2); // ip + tcp + tls + http/1.1
 
 	// check 200 OK
 	char *ptr = strstr(buf, "200 OK");
@@ -232,7 +232,9 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 	if ((arg_debug || arg_details) && first_query) {
 		print_header(buf);
 		printf("\n   Network trace:\n");
-		printf("-----> rx %d bytes: IP + TCP + TLS + HTTP/1.1\n", 20 + 20 + 5 + total_len);
+printf("***%d/%d\n", total_len,  (int) ((float) total_len * 1.2));
+
+		printf("-----> rx %d bytes: IP + TCP + TLS + HTTP/1.1\n", 20 + 20 + 5 + (int) ((float) total_len * 1.2));
 	}
 
 	// look for Content-Length:
@@ -256,9 +258,9 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 		if (len == 0)
 			goto errout;
 		total_len += len;
-		h11_rx += 20 + 20 + 5 + total_len; // ip + tcp + tls + http/1.1
+		h11_rx += 20 + 20 + 5 + (int) ((float) len * 1.2); // ip + tcp + tls + http/1.1
 		if ((arg_debug || arg_details) && first_query)
-			printf("-----> rx %d bytes: IP + TCP + TLS + HTTP/1.1\n", 20 + 20 + 5 + len);
+			printf("-----> rx %d bytes: IP + TCP + TLS + HTTP/1.1\n", 20 + 20 + 5 + (int) ((float) len * 1.2));
 	}
 	if ((arg_debug || arg_details) && first_query)
 		printf("\n");

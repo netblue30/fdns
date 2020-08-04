@@ -603,8 +603,8 @@ static int h2_exchange(uint8_t *response, uint32_t stream) {
 			}
 
 			if (first_header_sent)
-				h2_rx += 20 + 20 + 5 + rv; // ip + tcp + tls + h2
-			printn("\n-----> rx %d bytes: IP + TCP + TLS ", 20 + 20 + 5 + rv);
+				h2_rx += 20 + 20 + 5 + (int) ((float) rv * 1.2); // ip + tcp + tls + h2
+			printn("\n-----> rx %d bytes: IP + TCP + TLS ", 20 + 20 + 5 + (int) ((float) rv * 1.2));
 
 			int offset = 0;
 			while (offset < rv) {
@@ -671,7 +671,7 @@ static int h2_exchange(uint8_t *response, uint32_t stream) {
 					if (arg_debug || arg_debug_transport)
 						h2frame_print(arg_id, "tx", frm);
 
-					printn("\n<----- tx %d bytes: IP + TCP + TLS + H2-PING  (end stream)", 20 + 20 + 5 + rv);
+					printn("\n<----- tx %d bytes: IP + TCP + TLS + H2-PING  (end stream)", 20 + 20 + 5 + (int) ((float) rv * 1.2));
 
 					ssl_tx((uint8_t *) frm, rv - offset);
 					if (stream == 0)
