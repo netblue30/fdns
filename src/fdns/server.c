@@ -172,6 +172,14 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				exit(1);
 			}
 		}
+		else if (strncmp(buf, "transport: ", 11) == 0) {
+			if (s->transport)
+				goto errout;
+			s->transport = strdup(buf + 11);
+			if (!s->transport)
+				errExit("strdup");
+			// todo: parser transport line
+		}
 		else if (strncmp(buf, "keepalive-query: ", 17) == 0) {
 			if (s->keepalive_query)
 				goto errout;
@@ -187,6 +195,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strncmp(buf, "keepalive: ", 11) == 0) {
 			if (s->keepalive_min)
 				goto errout;
+
 			// detect keepalive range
 			if (strchr(buf + 11, ',')) {
 				if (sscanf(buf + 11, "%d,%d", &s->keepalive_min, &s->keepalive_max) != 2 ||
@@ -208,9 +217,33 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				s->keepalive_min = arg_keepalive;
 				s->keepalive_max = arg_keepalive;
 			}
-
+		}
+		else if (strncmp(buf, "keepalive-dot: ", 15) == 0 && arg_transport && strcmp(arg_transport, "dot") == 0) {
+			// detect keepalive range
+			if (strchr(buf + 15, ',')) {
+				if (sscanf(buf + 15, "%d,%d", &s->keepalive_min, &s->keepalive_max) != 2 ||
+				                s->keepalive_min <= 0 ||
+				                s->keepalive_max <= 0 ||
+				                s->keepalive_min > s->keepalive_max) {
+					fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
+					exit(1);
+				}
+			}
+			else {
+				if (sscanf(buf + 15, "%d", &s->keepalive_min) != 1 || s->keepalive_min <= 0) {
+					fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
+					exit(1);
+				}
+				s->keepalive_max = s->keepalive_min;
+			}
+			if (arg_keepalive) {
+				s->keepalive_min = arg_keepalive;
+				s->keepalive_max = arg_keepalive;
+			}
+		}
+		else if (strcmp(buf, "end;") == 0) {
 			// check server data
-			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {
+			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host || !s->transport) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
 				exit(1);
 			}
@@ -415,6 +448,13 @@ void server_list(const char *tag) {
 	int cnt = 0;
 	if (strcmp(tag, "all") == 0 || strcmp(tag, "admin-down") == 0) {
 		while (s) {
+			// match transport
+			if (arg_transport) {
+				if (strstr(s->transport, arg_transport) == NULL) {
+					s = s->next;
+					continue;
+				}
+			}
 			print_server(s);
 			s->active = 1;
 			cnt++;
@@ -457,6 +497,14 @@ void server_list(const char *tag) {
 		if (strcmp(fdns_zone, "any") && strstr(s->zone, fdns_zone) == NULL) {
 			s = s->next;
 			continue;
+		}
+
+		// match transport
+		if (arg_transport) {
+			if (strstr(s->transport, arg_transport) == NULL) {
+				s = s->next;
+				continue;
+			}
 		}
 
 		print_server(s);

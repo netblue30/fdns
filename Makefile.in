@@ -121,8 +121,8 @@ test: test-fdns
 test-keepalive:
 	cd test/stress;su -c ./test.sh | grep TESTING
 
-test-keepalive-tls:
-	cd test/stress;su -c ./test-tls.sh | grep TESTING
+test-keepalive-dot:
+	cd test/stress;su -c ./test-dot.sh | grep TESTING
 
 test-compile: dist
 	cd test/compile; ./compile.sh $(NAME)-$(VERSION)

@@ -28,61 +28,61 @@
 #include "fdns.h"
 #include "timetrace.h"
 
-static void tls_header_stats(void);
-static double tls_bandwidth(void);
-static void tls_init(void);
-static void tls_close(void);
-static int tls_connect(void);
-static int tls_send_exampledotcom(uint8_t *req);
-static int tls_send_query(uint8_t *req, int cnt);
-static int tls_send_ping(void);
-static int tls_exchange(uint8_t *response, uint32_t stream);
-DnsTransport tls_transport = {
-	"tls",
+static void dot_header_stats(void);
+static double dot_bandwidth(void);
+static void dot_init(void);
+static void dot_close(void);
+static int dot_connect(void);
+static int dot_send_exampledotcom(uint8_t *req);
+static int dot_send_query(uint8_t *req, int cnt);
+static int dot_send_ping(void);
+static int dot_exchange(uint8_t *response, uint32_t stream);
+DnsTransport dot_transport = {
+	"dot",
 	"DoT",
-	tls_init,
-	tls_close,
-	tls_connect,
-	tls_send_exampledotcom,
-	tls_send_query,
-	tls_send_ping,
-	tls_exchange,
-	tls_header_stats,
-	tls_bandwidth
+	dot_init,
+	dot_close,
+	dot_connect,
+	dot_send_exampledotcom,
+	dot_send_query,
+	dot_send_ping,
+	dot_exchange,
+	dot_header_stats,
+	dot_bandwidth
 };
 
 
-static int tls_rx = 0; // received bytes, including IP/TCP/TLS headers
-static int tls_rx_dns = 0; // received DNS bytes over H2 plus IP/UDP
+static int dot_rx = 0; // received bytes, including IP/TCP/TLS headers
+static int dot_rx_dns = 0; // received DNS bytes over H2 plus IP/UDP
 static int first_query = 1;	// don't include the first query in network byte count
 
-static void tls_header_stats(void) {
+static void dot_header_stats(void) {
 }
 
 // Do53 / DoH ratio
-static double tls_bandwidth(void) {
-	if (tls_rx_dns == 0)
+static double dot_bandwidth(void) {
+	if (dot_rx_dns == 0)
 		return 0;
-	return (double) tls_rx / (double) tls_rx_dns;
+	return (double) dot_rx / (double) dot_rx_dns;
 }
 
-static void tls_init(void) {
+static void dot_init(void) {
 	first_query = 1;
 }
 
-static void tls_close(void) {
+static void dot_close(void) {
 	first_query = 1;
 }
 
 static uint8_t buf_query[MAXBUF];
 // returns -1 if error
-static int tls_connect(void) {
+static int dot_connect(void) {
 	return 0;
 }
 
 // the result message is placed in res, the length of the message is returned
 // returns -1 if error
-static int tls_send_exampledotcom(uint8_t *req) {
+static int dot_send_exampledotcom(uint8_t *req) {
 #if 0
 	uint8_t dnsmsg[] = {
 		0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00,
@@ -107,10 +107,10 @@ static int tls_send_exampledotcom(uint8_t *req) {
 
 	if (arg_debug || arg_debug_transport) {
 		print_time();
-		printf("(%d) tx len %d tls\n", arg_id, (int) sizeof(dnsmsg) + 2);
+		printf("(%d) tx len %d dot\n", arg_id, (int) sizeof(dnsmsg) + 2);
 	}
 	ssl_tx(buf_query, sizeof(dnsmsg) + 2);
-	int rv = tls_exchange(req, 0);
+	int rv = dot_exchange(req, 0);
 	first_query = 0;
 	return rv;
 }
@@ -118,7 +118,7 @@ static int tls_send_exampledotcom(uint8_t *req) {
 
 // the result message is placed in req, the length of the message is returned
 // returns -1 if error
-static int tls_send_query(uint8_t *req, int cnt) {
+static int dot_send_query(uint8_t *req, int cnt) {
 	// two bytes length field
 	uint16_t len = htons(cnt);
 	memcpy(buf_query, &len, 2);
@@ -126,27 +126,27 @@ static int tls_send_query(uint8_t *req, int cnt) {
 
 	if (arg_debug || arg_debug_transport) {
 		print_time();
-		printf("(%d) tx len %d tls\n", arg_id, cnt + 2);
+		printf("(%d) tx len %d dot\n", arg_id, cnt + 2);
 	}
 	ssl_tx(buf_query, cnt + 2);
-	int rv = tls_exchange(req, 0);
+	int rv = dot_exchange(req, 0);
 	first_query = 0;
 	return rv;
 }
 
 // returns -1 if error
-static int tls_send_ping(void) {
-	return tls_send_exampledotcom(buf_query);
+static int dot_send_ping(void) {
+	return dot_send_exampledotcom(buf_query);
 }
 
 // copy rx data in response and return the length
 // return -1 if error
-static int tls_exchange(uint8_t *response, uint32_t stream) {
+static int dot_exchange(uint8_t *response, uint32_t stream) {
 	assert(response);
 	(void) stream;
 
 	uint8_t buf[MAXBUF];
-	int total_len = ssl_rx_timeout((uint8_t *) buf, TLS_TIMEOUT);
+	int total_len = ssl_rx_timeout((uint8_t *) buf, DOT_TIMEOUT);
 	if (total_len == 0)
 		goto errout;
 
@@ -155,10 +155,10 @@ static int tls_exchange(uint8_t *response, uint32_t stream) {
 
 	if (arg_debug || arg_debug_transport) {
 		print_time();
-		printf("(%d) rx len %d tls\n", arg_id, total_len);
+		printf("(%d) rx len %d dot\n", arg_id, total_len);
 	}
 
-	tls_rx += 20 + 20 + 5 +  (int) ((float) total_len * 1.2); // ip + tcp + tls
+	dot_rx += 20 + 20 + 5 +  (int) ((float) total_len * 1.2); // ip + tcp + dot
 
 	uint16_t len;
 	memcpy(&len, buf, 2);
@@ -173,15 +173,15 @@ static int tls_exchange(uint8_t *response, uint32_t stream) {
 
 	if ((total_len - 2) > len) {
 		// read some more data
-		int newlen = ssl_rx_timeout(buf + total_len, TLS_TIMEOUT);
+		int newlen = ssl_rx_timeout(buf + total_len, DOT_TIMEOUT);
 		if (len == 0)
 			goto errout;
 		if (arg_debug || arg_debug_transport) {
 			print_time();
-			printf("(%d) rx len %d tls\n", arg_id, total_len);
+			printf("(%d) rx len %d dot\n", arg_id, total_len);
 		}
 		total_len += newlen;
-		tls_rx += 20 + 20 + 5 + (int) ((float) newlen * 1.2); // ip + tcp + tls
+		dot_rx += 20 + 20 + 5 + (int) ((float) newlen * 1.2); // ip + tcp + dot
 		if ((arg_debug || arg_details) && first_query)
 			printf("-----> rx %d bytes: IP + TCP + TLS\n", 20 + 20 + 5 + (int) ((float) newlen * 1.2));
 	}
@@ -195,7 +195,7 @@ static int tls_exchange(uint8_t *response, uint32_t stream) {
 	if (arg_debug)
 		print_mem(buf + 2, len);
 
-	tls_rx_dns += 20 + 8 + len; // ip + tcp + tls + dns
+	dot_rx_dns += 20 + 8 + len; // ip + tcp + dot + dns
 
 	// copy response in buf_query_data
 	if (len != 0) {
@@ -206,9 +206,9 @@ static int tls_exchange(uint8_t *response, uint32_t stream) {
 
 errout:
 	if (arg_id > 0)
-		rlogprintf("Error: tls timeout\n");
+		rlogprintf("Error: dot timeout\n");
 	else
-		fprintf(stderr, "Error: tls timeout\n");
+		fprintf(stderr, "Error: dot timeout\n");
 	fflush(0);
 	if (ssl_state == SSL_OPEN)
 		ssl_close();

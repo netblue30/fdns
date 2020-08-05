@@ -222,7 +222,7 @@ int main(int argc, char **argv) {
 				if (!arg_transport)
 					errExit("strdup");
 				if (strcmp(arg_transport, "h2") == 0);
-				else if (strcmp(arg_transport, "tls") == 0);
+				else if (strcmp(arg_transport, "dot") == 0);
 				else if (strcmp(arg_transport, "http/1.1") == 0);
 				else {
 					fprintf(stderr, "Error: invalid transport\n");

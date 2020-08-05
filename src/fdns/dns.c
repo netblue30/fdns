@@ -30,8 +30,8 @@ void dns_set_transport(const char *tname) {
 		transport = &h2_transport;
 	else if (strcmp(tname, "http/1.1") == 0)
 		transport = &h11_transport;
-	else if (strcmp(tname, "tls") == 0)
-		transport = &tls_transport;
+	else if (strcmp(tname, "dot") == 0)
+		transport = &dot_transport;
 	else {
 		fprintf(stderr, "Error: DNS transport %s not supported\n", tname);
 		exit(1);
