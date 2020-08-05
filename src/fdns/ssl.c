@@ -155,7 +155,7 @@ void ssl_open(void) {
 	else if (strcmp(arg_transport, "http/1.1") == 0) {}
 		// ALPN was mandated starting with h2, more likely a http/1.1 server won't implement ALPN
 //		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
-	else if (strcmp(arg_transport, "tls") == 0) {
+	else if (strcmp(arg_transport, "dot") == 0) {
 		// no ALPS assigned; use port 853
 		char *ptr =strstr(srv->address, ":");
 		if (ptr == NULL || strlen(ptr) < 4) {
@@ -163,7 +163,7 @@ void ssl_open(void) {
 			goto errh2;
 		}
 		sprintf(ptr, "%s", ":853");
-		dns_set_transport("tls");
+		dns_set_transport("dot");
 		dot = 1;
 	}
 	else

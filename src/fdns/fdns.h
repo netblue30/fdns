@@ -86,7 +86,7 @@ static inline int rand_range(int min, int max) {
 #define SSL_REOPEN_TIMER 2	// try to reopen a failed SSL connection after this time
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
 
-#define TLS_TIMEOUT 5 // wait time for TLS (DoT) answer - will close the connection
+#define DOT_TIMEOUT 5 // wait time for DoT answer - will close the connection
 #define H11_TIMEOUT 5 // wait time for HTTP1 (DoH) answer - will close the connection
 #define H2_TIMEOUT 5 // wait time for HTTP2 (DoH) answer - will close the connection
 #define TRANSPORT_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
@@ -151,6 +151,7 @@ typedef struct dnsserver_t {
 	char *address;	// IP address
 	char *host;		// authority in http2
 	char *path;
+	char *transport;	// supported transport types
 	int sni;		// 1 or 0
 	int test_sni;		// not read from the config file; 1 only when the server is specified by url with --server or --test-server
 	int keepalive_query;	// 1 or 0
@@ -403,7 +404,7 @@ char *huffman_search(uint8_t *hstr, int len);
 // h11.c
 extern DnsTransport h11_transport;
 
-// tls.c
-extern DnsTransport tls_transport;
+// dot.c
+extern DnsTransport dot_transport;
 
 #endif
