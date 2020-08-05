@@ -27,6 +27,7 @@
 #include "h2frame.h"
 #include "hpack_static.h"
 #include "fdns.h"
+#include "timetrace.h"
 
 
 static void h2_header_stats(void);
@@ -40,6 +41,7 @@ static int h2_send_ping(void);
 static int h2_exchange(uint8_t *response, uint32_t stream);
 DnsTransport h2_transport = {
 	"h2",
+	"DoH",
 	h2_init,
 	h2_close,
 	h2_connect,
@@ -653,7 +655,7 @@ static int h2_exchange(uint8_t *response, uint32_t stream) {
 					h2_decode_data((uint8_t *) frm, &offset, &length);
 					if (arg_debug)
 						print_mem((uint8_t *) frm + offset, length);
-					h2_rx_dns += 20 + 8 + length; // ip + tcp + tls + h2
+					h2_rx_dns += 20 + 8 + length; // ip + udp + dns
 
 					// copy response in buf_query_data
 					if (length != 0) {

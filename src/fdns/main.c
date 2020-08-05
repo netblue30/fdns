@@ -144,9 +144,9 @@ int main(int argc, char **argv) {
 				arg_debug_ssl = 1;
 			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
 				arg_keepalive = atoi(argv[i] + 12);
-				if (arg_keepalive < H2_SESSION_KEEPALIVE_MIN || arg_keepalive > H2_SESSION_KEEPALIVE_MAX) {
+				if (arg_keepalive < TRANSPORT_KEEPALIVE_MIN || arg_keepalive > TRANSPORT_KEEPALIVE_MAX) {
 					fprintf(stderr, "Error: keepalive value out of range. Allowed values " \
-					"between %d and %d \n", H2_SESSION_KEEPALIVE_MIN, H2_SESSION_KEEPALIVE_MAX);
+					"between %d and %d \n", TRANSPORT_KEEPALIVE_MIN, TRANSPORT_KEEPALIVE_MAX);
 					exit(1);
 				}
 			}
@@ -222,6 +222,7 @@ int main(int argc, char **argv) {
 				if (!arg_transport)
 					errExit("strdup");
 				if (strcmp(arg_transport, "h2") == 0);
+				else if (strcmp(arg_transport, "tls") == 0);
 				else if (strcmp(arg_transport, "http/1.1") == 0);
 				else {
 					fprintf(stderr, "Error: invalid transport\n");

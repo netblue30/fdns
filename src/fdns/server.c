@@ -339,10 +339,10 @@ static uint8_t test_server(const char *server_name)  {
 			exit(0);
 		}
 		float average = (ms + ms2) / 6;
-		printf("   DoH query average: %.02f ms\n", average);
+		printf("   %s query average: %.02f ms\n", transport->dns_type, average);
 		if (arg_details)
 			transport->header_stats();
-		printf("   DoH/Do53 bandwidth ratio: %0.02f\n", transport->bandwidth());
+		printf("   %s/Do53 bandwidth ratio: %0.02f\n", transport->dns_type, transport->bandwidth());
 		if (s->tags) { // servers set from command line don't have a tag
 			if (s->keepalive_min == s->keepalive_max)
 				printf("   Keepalive: %d seconds\n", s->keepalive_min);
@@ -364,7 +364,7 @@ static uint8_t test_server(const char *server_name)  {
 		int status = 0;
 		int rv = waitpid(child, &status, WNOHANG);
 		if (rv  == child) {
-			qaverage = WEXITSTATUS(status);		
+			qaverage = WEXITSTATUS(status);
 			// check child status
 			if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
 				printf("   Error: server %s failed\n", arg_server);

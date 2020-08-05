@@ -13,7 +13,7 @@ SERVERS=`fdns --list=all | grep -v https | grep -v zone | grep -v server | awk '
 let i=1
 for s in $SERVERS
 do
-	./test-keepalive.exp $s 127.127.1.$i &
+	./test-keepalive-tls.exp $s 127.127.1.$i &
 	sleep 3
 	let i=i+1
 done

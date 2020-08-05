@@ -146,6 +146,7 @@ void ssl_open(void) {
 		}
 	}
 
+	int dot = 0;
 	if (arg_transport == NULL)
 		// inform the server we prefere in order http2, http/1.1
 		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
@@ -154,6 +155,17 @@ void ssl_open(void) {
 	else if (strcmp(arg_transport, "http/1.1") == 0) {}
 		// ALPN was mandated starting with h2, more likely a http/1.1 server won't implement ALPN
 //		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
+	else if (strcmp(arg_transport, "tls") == 0) {
+		// no ALPS assigned; use port 853
+		char *ptr =strstr(srv->address, ":");
+		if (ptr == NULL || strlen(ptr) < 4) {
+			fprintf(stdout, "Error: no DNS over TLS support for this server (%s)\n", srv->address);
+			goto errh2;
+		}
+		sprintf(ptr, "%s", ":853");
+		dns_set_transport("tls");
+		dot = 1;
+	}
 	else
 		assert(0);
 
@@ -223,15 +235,19 @@ void ssl_open(void) {
 	SSL_set_info_callback(ssl, ssl_alert_callback);
 
 	// check ALPN negotiation
-	{
-		const char *ver = SSL_get_version(ssl);
+	const char *ver = SSL_get_version(ssl);
+	if (dot) {
+		if (arg_details && arg_id == -1)
+			printf("   %s, ", ver);
+	}
+	else {
 		unsigned len = 0;
 		const unsigned char *alpn;
 
 		SSL_get0_alpn_selected(ssl, &alpn, &len);
 		if (alpn == NULL) {
 			if ((arg_details && arg_id == -1) || arg_debug)
-				printf("   TLS %s, ALPN not negotiated - assuming http/1.1, ", ver);
+				printf("   %s, ALPN not negotiated - assuming http/1.1, ", ver);
 			dns_set_transport("http/1.1");
 		}
 		else if (len < 100) {
@@ -246,6 +262,7 @@ void ssl_open(void) {
 			fprintf(stderr, "Error: invalid ALPN string of length %d\n", len);
 		free((char *) alpn);
 	}
+
 	if (arg_details && arg_id == -1)
 		printf("SNI %s\n", (srv->sni)? "yes": "no");
 
@@ -264,11 +281,11 @@ void ssl_open(void) {
 	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 		goto errh2;
 
-	rlogprintf("%s connection opened\n", dns_get_transport());
+	rlogprintf("%s transport up\n", dns_get_transport());
 	return;
 
 errh2:
-	rlogprintf("%s connection failed\n", dns_get_transport());
+	rlogprintf("%s transport failed\n", dns_get_transport());
 	ssl_state = SSL_CLOSED;
 	ssl_close();
 }

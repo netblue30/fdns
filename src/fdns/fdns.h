@@ -86,10 +86,11 @@ static inline int rand_range(int min, int max) {
 #define SSL_REOPEN_TIMER 2	// try to reopen a failed SSL connection after this time
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
 
-#define H11_TIMEOUT 5 // wait time for HTTP1 answer - will close the connection
-#define H2_TIMEOUT 5 // wait time for HTTP2 answer - will close the connection
-#define H2_SESSION_KEEPALIVE_MIN 5 // h2 keepalive (PING) min value in seconds for --keepalive option
-#define H2_SESSION_KEEPALIVE_MAX 180 // h2 keepalive (PING) max value in seconds for --keepalive option
+#define TLS_TIMEOUT 5 // wait time for TLS (DoT) answer - will close the connection
+#define H11_TIMEOUT 5 // wait time for HTTP1 (DoH) answer - will close the connection
+#define H2_TIMEOUT 5 // wait time for HTTP2 (DoH) answer - will close the connection
+#define TRANSPORT_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
+#define TRANSPORT_KEEPALIVE_MAX 180 // transport keepalive (PING) max value in seconds for --keepalive option
 
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
@@ -158,7 +159,8 @@ typedef struct dnsserver_t {
 } DnsServer;
 
 typedef struct dnstransport_t {
-	const char *name;
+	const char *name;	// ALPN transport name
+	const char *dns_type;	// dns type (DoH, DoT etc.
 
 	// connect
 	void (*init)(void);
@@ -400,5 +402,8 @@ char *huffman_search(uint8_t *hstr, int len);
 
 // h11.c
 extern DnsTransport h11_transport;
+
+// tls.c
+extern DnsTransport tls_transport;
 
 #endif
