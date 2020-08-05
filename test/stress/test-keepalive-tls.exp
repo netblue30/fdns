@@ -15,7 +15,7 @@ if { $argc != 2 } {
 
 puts "TESTING keepalive: [lindex $argv  0] [lindex $argv  1]"
 
-send -- "fdns --proxy-addr=[lindex $argv  1] --server=[lindex $argv  0] --debug-transport --resolvers=1 2>&1\r"
+send -- "fdns --proxy-addr=[lindex $argv  1] --server=[lindex $argv  0] --debug-transport --resolvers=1 --transport=tls 2>&1\r"
 expect {
 	timeout {puts "TESTING ERROR 0 - $argv\n";exit 1}
 	"fdns starting"

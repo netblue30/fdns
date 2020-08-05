@@ -41,6 +41,7 @@ static int h11_send_ping(void);
 static int h11_exchange(uint8_t *response, uint32_t stream);
 DnsTransport h11_transport = {
 	"http/1.1",
+	"DoH",
 	h11_init,
 	h11_close,
 	h11_connect,
@@ -203,6 +204,10 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 
 	if (arg_debug)
 		print_mem(buf, total_len);
+	if (arg_debug || arg_debug_transport) {
+		print_time();
+		printf("(%d) rx len %d http/1.1 200 OK\n", arg_id, total_len);
+	}
 
 	h11_rx += 20 + 20 + 5 +  (int) ((float) total_len * 1.2); // ip + tcp + tls + http/1.1
 
@@ -212,10 +217,6 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 		buf[16] = '\0';
 		rlogprintf("Warning: HTTP/1.1 error: %s\n", buf);
 		goto errout;
-	}
-	if (arg_debug || arg_debug_transport) {
-		print_time();
-		printf("(%d) rx len %d http/1.1 200 OK\n", arg_id, total_len);
 	}
 
 	// look for the end of http header
@@ -233,8 +234,6 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 	if ((arg_debug || arg_details) && first_query) {
 		print_header(buf);
 		printf("\n   Network trace:\n");
-printf("***%d/%d\n", total_len,  (int) ((float) total_len * 1.2));
-
 		printf("-----> rx %d bytes: IP + TCP + TLS + HTTP/1.1\n", 20 + 20 + 5 + (int) ((float) total_len * 1.2));
 	}
 
@@ -262,6 +261,10 @@ printf("***%d/%d\n", total_len,  (int) ((float) total_len * 1.2));
 		h11_rx += 20 + 20 + 5 + (int) ((float) len * 1.2); // ip + tcp + tls + http/1.1
 		if ((arg_debug || arg_details) && first_query)
 			printf("-----> rx %d bytes: IP + TCP + TLS + HTTP/1.1\n", 20 + 20 + 5 + (int) ((float) len * 1.2));
+		if (arg_debug || arg_debug_transport) {
+			print_time();
+			printf("(%d) rx len %d http/1.1 200 OK (cont)\n", arg_id, len);
+		}
 	}
 	if ((arg_debug || arg_details) && first_query)
 		printf("\n");
@@ -274,8 +277,7 @@ printf("***%d/%d\n", total_len,  (int) ((float) total_len * 1.2));
 	if (arg_debug)
 		print_mem(ptr, datalen);
 
-	h11_rx_dns += 20 + 8 + datalen; // ip + tcp + tls + h2
-
+	h11_rx_dns += 20 + 8 + datalen; // ip + udp + dns
 	// copy response in buf_query_data
 	if (datalen != 0) {
 		memcpy(response, ptr, datalen);
