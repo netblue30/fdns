@@ -148,7 +148,7 @@ void ssl_open(void) {
 
 	int dot = 0;
 	if (arg_transport == NULL)
-		// inform the server we prefere in order http2, http/1.1
+		// inform the server we prefer http2 over http/1.1
 		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
 	else if (strcmp(arg_transport, "h2") == 0)
 		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
@@ -156,13 +156,6 @@ void ssl_open(void) {
 		// ALPN was mandated starting with h2, more likely a http/1.1 server won't implement ALPN
 //		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
 	else if (strcmp(arg_transport, "dot") == 0) {
-		// no ALPS assigned; use port 853
-		char *ptr =strstr(srv->address, ":");
-		if (ptr == NULL || strlen(ptr) < 4) {
-			fprintf(stdout, "Error: no DNS over TLS support for this server (%s)\n", srv->address);
-			goto errh2;
-		}
-		sprintf(ptr, "%s", ":853");
 		dns_set_transport("dot");
 		dot = 1;
 	}
@@ -174,6 +167,8 @@ void ssl_open(void) {
 	SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);
 
 	// set connection and SNI
+	if (arg_debug)
+		printf("Server address #%s# ***\n", srv->address);
 	BIO_set_conn_hostname(bio, srv->address);
 	if (srv->test_sni)
 		; // testing sni: first try goes without any sni
@@ -197,7 +192,8 @@ void ssl_open(void) {
 	}
 
 	if (arg_details && arg_id == -1)
-		printf("   URL: https://%s%s\n", srv->host, srv->path);
+		transport->print_url();
+//		printf("   URL: https://%s%s\n", srv->host, srv->path);
 
 	uint32_t ip;
 	if (arg_details && arg_id == -1 && atoip(srv->address, &ip) == 0)
@@ -224,6 +220,9 @@ void ssl_open(void) {
 		}
 		free(domain);
 	}
+	char *portstr = strchr(srv->address, ':');
+	if (portstr && arg_details && arg_id == -1)
+		printf("   Port: %s\n", portstr + 1);
 
 	int val;
 	if ((val = SSL_get_verify_result(ssl)) != X509_V_OK) {

@@ -39,6 +39,7 @@ static int h11_send_exampledotcom(uint8_t *req);
 static int h11_send_query(uint8_t *req, int cnt);
 static int h11_send_ping(void);
 static int h11_exchange(uint8_t *response, uint32_t stream);
+static void h11_print_url(void);
 DnsTransport h11_transport = {
 	"http/1.1",
 	"DoH",
@@ -50,7 +51,8 @@ DnsTransport h11_transport = {
 	h11_send_ping,
 	h11_exchange,
 	h11_header_stats,
-	h11_bandwidth
+	h11_bandwidth,
+	h11_print_url
 };
 
 
@@ -63,7 +65,11 @@ static int h11_rx_dns = 0; // received DNS bytes over H2 plus IP/UDP
 static int first_query = 1;	// don't include the first query in network byte count
 
 
-
+static void h11_print_url(void) {
+	DnsServer *srv = server_get();
+	assert(srv);
+	printf("   URL: https://%s%s\n", srv->host, srv->path);
+}
 
 static void h11_header_stats(void) {
 	if (h11_header_cnt == 0)

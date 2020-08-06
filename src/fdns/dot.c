@@ -37,6 +37,7 @@ static int dot_send_exampledotcom(uint8_t *req);
 static int dot_send_query(uint8_t *req, int cnt);
 static int dot_send_ping(void);
 static int dot_exchange(uint8_t *response, uint32_t stream);
+static void dot_print_url(void);
 DnsTransport dot_transport = {
 	"dot",
 	"DoT",
@@ -48,13 +49,17 @@ DnsTransport dot_transport = {
 	dot_send_ping,
 	dot_exchange,
 	dot_header_stats,
-	dot_bandwidth
+	dot_bandwidth,
+	dot_print_url
 };
 
 
 static int dot_rx = 0; // received bytes, including IP/TCP/TLS headers
 static int dot_rx_dns = 0; // received DNS bytes over H2 plus IP/UDP
 static int first_query = 1;	// don't include the first query in network byte count
+
+static void dot_print_url(void) {
+}
 
 static void dot_header_stats(void) {
 }

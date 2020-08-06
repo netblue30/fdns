@@ -19,7 +19,7 @@
 #	This way we can restrict a specific service to a specific geographical area.
 #	If a server zone is not specified, the tag is available in all zones.
 # tags: filtering tags
-# address: IP address and port in IP:PORT format
+# address: IP address and port in IP:PORT format or DOMAIN:PORT format
 # host: URL
 # sni: yes/no
 #	If yes we add SNI when we establish the connection. Optional, default no.
@@ -42,7 +42,6 @@ zone: Europe
 tags: non-profit, France, Europe
 address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -52,7 +51,6 @@ zone: Europe
 tags: UK, Europe
 address: 217.169.20.23:443
 host: dns.aa.net.uk/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -62,7 +60,6 @@ zone: Europe
 tags: admin-down, UK, Europe
 address: 217.169.20.22:443
 host: dns.aa.net.uk/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -72,7 +69,6 @@ zone: Americas-East
 tags: NY, Americas, Americas-East, adblocker
 address: 168.235.81.167:443
 host: dns-nyc.aaflalo.me/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -82,9 +78,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.136:443
 host: dns-unfiltered.adguard.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: adguard-unfiltered2
@@ -93,9 +87,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.137:443
 host: dns-unfiltered.adguard.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: adguard
@@ -104,9 +96,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: adguard2
@@ -115,9 +105,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: adguard-family
@@ -126,9 +114,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: adguard-family2
@@ -137,9 +123,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: ams-doh-nl
@@ -148,7 +132,6 @@ zone: Europe
 tags: Netherlands, Europe
 address: 51.15.124.208:443
 host: dnsnl.alekberg.net/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -159,9 +142,18 @@ tags: non-profit, Austria, Europe
 address: 93.177.65.183:443
 host: doh.appliedprivacy.net/query
 sni: yes
-transport: h2, http/1.1, dot
 keepalive: 20,25
-keepalive-dot: 60,90
+end;
+
+name: appliedprivacy-dot
+website: https://appliedprivacy.net
+zone: Europe
+tags: non-profit, Austria, Europe
+address: 93.177.65.183:853
+host: doh.appliedprivacy.net/query
+sni: yes
+transport: dot
+keepalive: 60,90
 end;
 
 name: arapurayil
@@ -170,8 +162,16 @@ zone: Asia-Pacific
 tags: India, Asia-Pacific
 address: 3.7.156.128:443
 host: dns.arapurayil.com/dns-query
-transport: h2, http/1.1
 keepalive: 7
+end;
+
+name: bcn-doh
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
+zone: Europe
+tags: Spain, Europe
+address: 185.253.154.66:443
+host: dnses.alekberg.net/dns-query
+keepalive: 20,25
 end;
 
 name: blahdns-fi
@@ -181,18 +181,7 @@ tags: Finland, Europe, adblocker
 address: 95.216.212.177:443
 host: doh-fi.blahdns.com/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 30,50
-end;
-
-name: bcn-doh
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-zone: Europe
-tags: Spain, Europe
-address: 185.253.154.66:443
-host: dnses.alekberg.net/dns-query
-transport: h2, http/1.1
-keepalive: 20,25
 end;
 
 # short keepalive
@@ -203,7 +192,6 @@ tags: firefox-only, Germany, Europe, adblocker
 address: 159.69.198.101:443
 host: doh-de.blahdns.com/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 4
 end;
 
@@ -215,7 +203,6 @@ tags: firefox-only, Japan, Asia-Pacific, adblocker
 address: 45.32.55.94:443
 host: doh-jp.blahdns.com/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 4
 end;
 
@@ -227,7 +214,6 @@ tags: firefox-only, Singapore, Asia-Pacific, adblocker
 address: 139.180.141.57:443
 host: doh-sg.blahdns.com/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 4
 end;
 
@@ -238,7 +224,6 @@ zone: Americas-East, Americas
 tags: Quebec, Americas-East, Americas, OpenNIC
 address: 158.69.53.73:443
 host: doh.boothlabs.me/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -248,7 +233,6 @@ zone: Europe
 tags: France, Europe
 address: 193.70.85.11:443
 host: doh.bortzmeyer.fr/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -258,9 +242,7 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 94.130.224.114:443
 host: dns.brahma.world/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: cira
@@ -269,8 +251,6 @@ zone: Americas-East, Americas-West, Americas
 tags: non-profit, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
-transport: h2, http/1.1, dot
-keepalive: 7
 end;
 
 name: cira2
@@ -279,8 +259,6 @@ zone: Americas-East, Americas-West, Americas
 tags: non-profit, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
-transport: h2, http/1.1, dot
-keepalive: 7
 end;
 
 name: cira-security
@@ -289,8 +267,6 @@ zone: Americas-East, Americas-West, Americas
 tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
-transport: h2, http/1.1, dot
-keepalive: 7
 end;
 
 name: cira-security2
@@ -299,8 +275,6 @@ zone: Americas-East, Americas-West, Americas
 tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
-transport: h2, http/1.1, dot
-keepalive: 7
 end;
 
 name: cira-family
@@ -309,8 +283,6 @@ zone: Americas-East, Americas-West, Americas
 tags: family
 address: 149.112.121.30:443
 host: family.canadianshield.cira.ca/dns-query
-transport: h2, http/1.1, dot
-keepalive: 7
 end;
 
 name: cira-family2
@@ -319,8 +291,6 @@ zone: Americas-East, Americas-West
 tags: family
 address: 149.112.122.30:443
 host: family.canadianshield.cira.ca/dns-query
-transport: h2, http/1.1, dot
-keepalive: 7
 end;
 
 name: cleanbrowsing
@@ -329,9 +299,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: cleanbrowsing-family
@@ -340,9 +308,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: cleanbrowsing-adult
@@ -351,9 +317,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: safe-for-work
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/adult-filter
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: cloudflare
@@ -362,7 +326,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
 end;
 
@@ -372,7 +335,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
 end;
 
@@ -382,7 +344,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
 end;
 
@@ -392,7 +353,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
 end;
 
@@ -402,7 +362,6 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
 end;
 
@@ -412,8 +371,67 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
+end;
+
+name: cloudflare-dot
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 1.1.1.1:853
+host: cloudflare-dns.com/dns-query
+keepalive: 60,90
+transport: dot
+end;
+
+name: cloudflare2-dot
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 1.0.0.1:853
+host: cloudflare-dns.com/dns-query
+keepalive: 60,90
+transport: dot
+end;
+
+name: cloudflare-security-dot
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 1.1.1.2:853
+host: security.cloudflare-dns.com/dns-query
+transport: dot
+keepalive: 60,90
+end;
+
+name: cloudflare-security2-dot
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
+address: 1.0.0.2:853
+host: security.cloudflare-dns.com/dns-query
+keepalive: 60,90
+transport: dot
+end;
+
+name: cloudflare-family-dot
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: family
+address: 1.0.0.3:853
+host: family.cloudflare-dns.com/dns-query
+keepalive: 60,90
+transport: dot
+end;
+
+name: cloudflare-family2-dot
+website: https://www.cloudflare.com
+zone: Americas-East, Americas-West, Asia-Pacific, Europe
+tags: family
+address: 1.1.1.3:853
+host: family.cloudflare-dns.com/dns-query
+keepalive: 60,90
+transport: dot
 end;
 
 name: commons-host
@@ -423,7 +441,6 @@ tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: commons.host:443
 host: commons.host/
 sni: yes
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -433,9 +450,7 @@ zone: Europe
 tags: Moscow, Russia, Europe, adblocker
 address: 92.38.152.163:443
 host: dns.comss.one/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: commsone2
@@ -444,9 +459,7 @@ zone: Europe
 tags: Lithuania, Europe, adblocker
 address: 93.115.24.204:443
 host: dns.comss.one/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: commsone3
@@ -455,9 +468,7 @@ zone: Europe
 tags: Lithuania, Europe, adblocker
 address: 93.115.24.205:443
 host: dns.comss.one/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: commsone4
@@ -466,9 +477,7 @@ zone: Europe
 tags: Yekaterinburg, Russia, Asia-Pacific, adblocker
 address: 92.223.109.31:443
 host: dns.comss.one/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: commsone5
@@ -477,9 +486,7 @@ zone: Europe
 tags: Krasnoyarsk, Russia, Asia-Pacific, adblocker
 address: 91.230.211.67:443
 host: dns.comss.one/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: containerpi
@@ -488,8 +495,17 @@ zone: Asia-Pacific
 tags: Japan, Asia-Pacific
 address: 45.77.180.10:443
 host: dns.containerpi.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
+end;
+
+name: containerpi-dot
+website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+zone: Asia-Pacific
+tags: Japan, Asia-Pacific
+address: 45.77.180.10:853
+host: dns.containerpi.com/dns-query
+keepalive: 60,90
+transport: dot
 end;
 
 name: cznic
@@ -498,9 +514,7 @@ zone: Europe
 tags: Czechia, Europe
 address: 185.43.135.1:443
 host: odvr.nic.cz/doh
-transport: h2, http/1.1, dot
 keepalive-query: yes
-keepalive: 7
 end;
 
 name: cznic2
@@ -509,9 +523,7 @@ zone: Europe
 tags: Czechia, Europe
 address: 193.17.47.1:443
 host: odvr.nic.cz/doh
-transport: h2, http/1.1, dot
 keepalive-query: yes
-keepalive: 7
 end;
 
 name: declouds
@@ -520,9 +532,7 @@ zone: Europe
 tags: adblocker, Germany, Europe
 address: 176.9.199.158:443
 host: dns.decloudus.com/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: defaultroutes
@@ -532,7 +542,6 @@ tags: Germany, Europe
 address: 5.45.107.88:443
 host: doh.defaultroutes.de/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -542,7 +551,6 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.42:443
 host: dns.digitale-gesellschaft.ch/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
 end;
 
@@ -552,8 +560,27 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
+end;
+
+name: digital-society-dot
+website: https://www.digitale-gesellschaft.ch
+zone: Europe
+tags: non-profit, Switzerland, Europe
+address: 185.95.218.42:853
+host: dns.digitale-gesellschaft.ch/dns-query
+keepalive: 60,90
+transport: dot
+end;
+
+name: digital-society2-dot
+website: https://www.digitale-gesellschaft.ch
+zone: Europe
+tags: non-profit, Switzerland, Europe
+address: 185.95.218.43:853
+host: dns.digitale-gesellschaft.ch/dns-query
+keepalive: 60,90
+transport: dot
 end;
 
 name: dns-sb
@@ -563,7 +590,6 @@ tags: geocast, Estonia, Germany, Europe
 address: doh.dns.sb:443
 host: doh.dns.sb/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -573,7 +599,6 @@ zone: Americas-East
 tags: Quebec, Americas, Americas-East
 address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -583,7 +608,6 @@ zone: Americas-East
 tags: Quebec, Americas, Americas-East
 address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -593,7 +617,6 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 176.9.93.198:443
 host: dnsforge.de/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -603,7 +626,6 @@ zone: Europe
 tags: Germany, Europe
 address: 185.233.106.232:443
 host: dns.dnshome.de/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -613,7 +635,6 @@ zone: Europe
 tags: Germany, Europe
 address: 185.233.107.4:443
 host: dns.dnshome.de/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -623,7 +644,6 @@ zone: Americas-East, Americas-West
 tags: Americas, Americas-East, Americas-West, NY, Califronia
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -633,7 +653,6 @@ zone: Asia-Pacific
 tags: Asia-Pacific, Singapore
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -643,7 +662,6 @@ zone: Europe
 tags: Europe, Netherlands, Germany, UK
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -653,7 +671,6 @@ zone: Americas-East, Americas-West
 tags: Americas, Americas-East, Americas-West, NY, Califronia
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -663,7 +680,6 @@ zone: Asia-Pacific
 tags: Asia-Pacific, Singapore
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -673,7 +689,6 @@ zone: Europe
 tags: Europe, Netherlands, Germany, UK
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -685,7 +700,6 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 94.247.43.254:853
 host: opennic1.eth-services.de:853/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -696,7 +710,6 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 195.10.195.195:853
 host: opennic2.eth-services.de:853/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -706,7 +719,6 @@ zone: Europe
 tags: UK, Europe, adblocker
 address: 46.227.200.52:443
 host: pdns.faelix.net/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -716,7 +728,6 @@ zone: Europe
 tags: UK, Europe, adblocker
 address: 46.227.203.52:443
 host: pdns.faelix.net/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -726,7 +737,6 @@ zone: Europe
 tags: Switzerland, Europe, adblocker
 address: 185.134.196.52:443
 host: pdns.faelix.net/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -736,7 +746,6 @@ zone: Europe
 tags: UK, Europe
 address: 46.227.200.54:443
 host: rdns.faelix.net/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -746,7 +755,6 @@ zone: Europe
 tags: UK, Europe
 address: 46.227.200.55:443
 host: rdns.faelix.net/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -756,7 +764,6 @@ zone: Europe
 tags: Switzerland, Europe
 address: 185.134.197.54:443
 host: rdns.faelix.net/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -766,7 +773,6 @@ zone: Europe
 tags: Switzerland, Europe
 address: 185.134.196.54:443
 host: rdns.faelix.net/
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -776,7 +782,6 @@ zone: Europe
 tags: Germany, Europe
 address: 195.30.94.28:443
 host: doh.ffmuc.net/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -786,8 +791,17 @@ zone: Europe
 tags: Iceland, Europe
 address: 46.239.223.80:443
 host: dns.flatuslifir.is/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
+end;
+
+name: flatuslifir-dot
+website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+zone: Europe
+tags: Iceland, Europe
+address: 46.239.223.80:853
+host: dns.flatuslifir.is/dns-query
+keepalive: 60,90
+transport: dot
 end;
 
 name: hostux
@@ -796,7 +810,6 @@ zone: Europe
 tags: Luxembourg, Europe
 address: 185.26.126.37:443
 host: dns.hostux.net/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -806,7 +819,6 @@ zone: Europe
 tags: Luxembourg, Europe, adblocker
 address: 185.26.126.37:443
 host: dns.hostux.net/ads
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -816,7 +828,6 @@ zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 85.5.93.230:443
 host: ibksturm.synology.me/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -826,7 +837,6 @@ zone: Americas-West
 tags: California, Americas, Americas-West
 address: 35.198.2.76:443
 host: ibuki.cgnat.net/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -837,9 +847,7 @@ zone: Europe
 tags: France, Europe, OpenNIC
 address: 62.210.177.189:443
 host: ns1.iriseden.fr/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 20,25
 end;
 
 # ns4.fr.dns.opennic.glue
@@ -849,9 +857,7 @@ zone: Europe
 tags: France, Europe, OpenNIC
 address: 62.210.180.71:443
 host: ns2.iriseden.fr/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 20,25
 end;
 
 # server down for administrative purposes
@@ -861,7 +867,6 @@ zone: Europe
 tags: admin-down, Netherlands, Europe
 address: 178.62.214.105:443
 host: jcdns.fun/dns-query
-transport: h2, http/1.1
 keepalive: 30,50
 end;
 
@@ -871,7 +876,6 @@ zone: Europe
 tags: Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
-transport: h2, http/1.1
 keepalive: 30,50
 end;
 
@@ -882,9 +886,17 @@ zone: Europe
 tags: UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
-transport: h2, http/1.1, dot
 keepalive: 30,50
-keepalive-dot: 60,90
+end;
+
+name: li-dot
+website: https://doh.li/
+zone: Europe
+tags: UK, Europe
+address: 46.101.66.244:853
+host: doh.li/dns-query
+keepalive: 60,90
+transport: dot
 end;
 
 name: libredns
@@ -894,7 +906,6 @@ tags: Germany, Europe, OpenNIC
 #old address: 116.203.115.192:443
 address: 116.202.176.26:443
 host: doh.libredns.gr/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -905,7 +916,6 @@ tags: Germany, Europe, OpenNIC, adblocker
 #old address: 116.203.115.192:443
 address: 116.202.176.26:443
 host: doh.libredns.gr/ads
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -916,7 +926,6 @@ zone: Europe
 tags: firefox-only, Netherlands, Europe
 address: 209.250.241.25:443
 host: jarjar.meganerd.nl/doh
-transport: h2, http/1.1
 keepalive: 3
 end;
 
@@ -927,7 +936,6 @@ tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 45.90.30.0:443
 host: trr.dns.nextdns.io/
 keepalive-query: yes
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -938,7 +946,6 @@ tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
 keepalive-query: yes
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -949,7 +956,6 @@ zone: Americas-West
 tags: LasVegas, Americas, Americas-West
 address: 209.141.34.95:443
 host: uncensored.lv1.dns.nixnet.xyz/dns-query
-transport: h2, http/1.1
 keepalive: 30,50
 end;
 
@@ -960,7 +966,6 @@ zone: Americas-West
 tags: LasVegas, Americas, Americas-West, adblocker
 address: 209.141.34.95:443
 host: adblock.lv1.dns.nixnet.xyz/dns-query
-transport: h2, http/1.1
 keepalive: 30,50
 end;
 
@@ -971,7 +976,6 @@ zone: Americas-East
 tags: NY, Americas, Americas-East
 address: 199.195.251.84:443
 host: uncensored.ny1.dns.nixnet.xyz/dns-query
-transport: h2, http/1.1
 keepalive: 30,50
 end;
 
@@ -982,7 +986,6 @@ zone: Americas-East
 tags: NY, Americas, Americas-East, adblocker
 address: 199.195.251.84:443
 host: adblock.ny1.dns.nixnet.xyz/dns-query
-transport: h2, http/1.1
 keepalive: 30,50
 end;
 
@@ -993,7 +996,6 @@ zone: Europe
 tags: Luxemburg, Europe
 address: 104.244.78.231:443
 host: uncensored.lux1.dns.nixnet.xyz/dns-query
-transport: h2, http/1.1
 keepalive: 30,50
 end;
 
@@ -1004,7 +1006,6 @@ zone: Europe
 tags: Luxemburg, Europe, adblocker
 address: 104.244.78.231:443
 host: adblock.lux1.dns.nixnet.xyz/dns-query
-transport: h2, http/1.1
 keepalive: 30,50
 end;
 
@@ -1015,9 +1016,7 @@ tags: UK, Europe, adblocker
 address: 51.38.83.141:443
 host: dns.oszx.co/dns-query
 sni: yes
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 20,25
 end;
 
 name: pi-dns
@@ -1027,7 +1026,6 @@ tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: doh.pi-dns.com:443
 host: doh.pi-dns.com/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1037,7 +1035,6 @@ zone: Americas-East
 tags: NY, Americas, Americas-East, adblocker
 address: 185.213.26.187:443
 host: doh.eastus.pi-dns.com/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1047,7 +1044,6 @@ zone: Americas-West
 tags: California, Americas, Americas-West, adblocker
 address: 45.67.219.208:443
 host: doh.westus.pi-dns.com/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1057,7 +1053,6 @@ zone: Europe
 tags: Finland, Europe, adblocker
 address: 95.216.181.228:443
 host: doh.northeu.pi-dns.com/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1067,7 +1062,6 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 88.198.91.187:443
 host: doh.centraleu.pi-dns.com/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1077,7 +1071,6 @@ zone: Asia-Pacific
 tags: Australia, Asia-Pacific, adblocker
 address: 45.63.30.163:443
 host: doh.eastau.pi-dns.com/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1087,7 +1080,6 @@ zone: Asia-Pacific
 tags: Japan, Asia-Pacific, adblocker
 address: 66.42.33.135:443
 host: doh.eastas.pi-dns.com/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1097,7 +1089,6 @@ zone: Europe
 tags: Netherlands, Europe
 address: 136.144.215.158:443
 host: doh.powerdns.org/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -1107,9 +1098,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 9.9.9.9:5053
 host: dns.quad9.net/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: quad9-2
@@ -1118,9 +1107,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.112:5053
 host: dns.quad9.net/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: quad9-3
@@ -1129,9 +1116,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.9:5053
 host: dns.quad9.net/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: quad9-unsecured
@@ -1140,9 +1125,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 9.9.9.10:5053
 host: dns.quad9.net/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: quad9-unsecured-2
@@ -1151,9 +1134,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.10:5053
 host: dns.quad9.net/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
-keepalive-dot: 7
 end;
 
 name: rumpelsepp
@@ -1163,7 +1144,6 @@ tags: Germany, Europe
 address: 116.203.179.248:443
 sni: yes
 host: rumpelsepp.org/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1173,7 +1153,6 @@ zone: Asia-Pacific
 tags: Australia, Asia-Pacific, OpenNIC
 address: 45.76.113.31:8443
 host: dns.seby.io/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -1183,9 +1162,17 @@ zone: Asia-Pacific
 tags: Australia, Asia-Pacific, OpenNIC
 address: 139.99.222.72:443
 host: doh-2.seby.io/dns-query
-transport: h2, http/1.1, dot
 keepalive: 20,25
-keepalive-dot: 60,90
+end;
+
+name: seby2-dot
+website: https://dns.seby.io
+zone: Asia-Pacific
+tags: Australia, Asia-Pacific, OpenNIC
+address: 139.99.222.72:853
+host: doh-2.seby.io/dns-query
+keepalive: 60,90
+transport: dot
 end;
 
 name: snopyta
@@ -1195,7 +1182,6 @@ tags: non-profit, Finland, Europe
 address: 95.216.229.153:443
 host: fi.doh.dns.snopyta.org/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1205,7 +1191,6 @@ zone: Europe
 tags: Sweden, Europe
 address: 45.153.187.96:443
 host: dnsse.alekberg.net/dns
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -1215,7 +1200,6 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 130.59.31.248:443
 host: dns.switch.ch/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -1225,7 +1209,6 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 130.59.31.251:443
 host: dns.switch.ch/dns-query
-transport: h2, http/1.1
 keepalive: 20,25
 end;
 
@@ -1236,7 +1219,6 @@ zone: Asia-Pacific
 tags: firefox-only, Singapore, Asia-Pacific, adblocker
 address: 174.138.29.175:443
 host: doh.tiar.app/dns-query
-transport: h2, http/1.1
 keepalive: 7
 end;
 
@@ -1247,7 +1229,6 @@ tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.44.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1258,7 +1239,6 @@ tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.45.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1269,7 +1249,6 @@ zone: Asia-Pacific
 tags: firefox-only, Japan, Asia-Pacific, adblocker
 address: 172.104.93.80:443
 host: jp.tiar.app/dns-query
-transport: h2, http/1.1
 keepalive: 7
 end;
 
@@ -1280,7 +1259,6 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 95.217.16.205:443
 host: ns01.dns.tin-fan.com/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1290,7 +1268,6 @@ zone: Europe
 tags: Poland, Europe, OpenNIC
 address: 145.239.92.241:443
 host: ns02.dns.tin-fan.com/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1301,7 +1278,6 @@ zone: Americas-East
 tags: Texas, Americas-East, OpenNIC
 address: 155.138.240.237:443
 host: ns03.dns.tin-fan.com/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1311,7 +1287,6 @@ zone: Asia-Pacific
 tags: Taiwan, Asia-Pacific
 address: 210.17.9.228:443
 host: dns.twnic.tw/dns-query
-transport: h2, http/1.1, dot
 keepalive: 60,90
 keepalive-dot: 20,25
 end;
@@ -1323,7 +1298,6 @@ tags: Austria, Europe, adblocker
 address: 149.154.153.153:443
 host: adfree.usableprivacy.net/
 sni: yes
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1334,7 +1308,6 @@ zone: Europe
 tags: Czechia, Europe, OpenNIC
 address: 51.254.25.115:443
 host: dns-2.wil.cloud/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
 
@@ -1345,6 +1318,5 @@ zone: Europe
 tags: France, Europe, OpenNIC
 address: 87.98.175.85:443
 host: dns-1.wil.cloud/dns-query
-transport: h2, http/1.1
 keepalive: 60,90
 end;
