@@ -134,9 +134,21 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strncmp(buf, "address: ", 9) == 0) {
 			if (s->address)
 				goto errout;
-			s->address = strdup(buf + 9);
+			// check format: ip:port or domain:port
+			char *ptr = strchr(buf + 9, ':');
+			if (!ptr) {
+				free(s);
+				fprintf(stderr, "Error: file %s, line %d, invalid address\n", fname, *linecnt);
+				exit(1);
+			}
+			s->address = malloc(strlen(buf + 9) + 3 + 1); // leave room  to switc port to 853 (dot)
 			if (!s->address)
-				errExit("strdup");
+				errExit("malloc");
+			strcpy(s->address, buf + 9);
+			if (arg_transport && strcmp(arg_transport, "dot") == 0) {
+				ptr =strstr(s->address, ":");
+				sprintf(ptr, "%s", ":853");
+			}
 			found = 1;
 		}
 		else if (strncmp(buf, "host: ", 6) == 0) {
@@ -218,35 +230,14 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				s->keepalive_max = arg_keepalive;
 			}
 		}
-		else if (strncmp(buf, "keepalive-dot: ", 15) == 0 && arg_transport && strcmp(arg_transport, "dot") == 0) {
-			// detect keepalive range
-			if (strchr(buf + 15, ',')) {
-				if (sscanf(buf + 15, "%d,%d", &s->keepalive_min, &s->keepalive_max) != 2 ||
-				                s->keepalive_min <= 0 ||
-				                s->keepalive_max <= 0 ||
-				                s->keepalive_min > s->keepalive_max) {
-					fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
-					exit(1);
-				}
-			}
-			else {
-				if (sscanf(buf + 15, "%d", &s->keepalive_min) != 1 || s->keepalive_min <= 0) {
-					fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
-					exit(1);
-				}
-				s->keepalive_max = s->keepalive_min;
-			}
-			if (arg_keepalive) {
-				s->keepalive_min = arg_keepalive;
-				s->keepalive_max = arg_keepalive;
-			}
-		}
 		else if (strcmp(buf, "end;") == 0) {
 			// check server data
-			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host || !s->transport) {
+			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
 				exit(1);
 			}
+			if (!s->transport)
+				s->transport = "h2, http/1.1";
 
 			// add host to filter
 			if (arg_disable_local_doh)
@@ -275,6 +266,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		fprintf(stderr, "Error: file %s, line %d, keepalive missing\n", fname, *linecnt);
 		exit(1);
 	}
+
 	free(s);
 	return NULL;	// no  more servers in the configuration file
 
@@ -460,6 +452,7 @@ void server_list(const char *tag) {
 			cnt++;
 			s = s->next;
 		}
+
 		if (server_print_servers)
 			printf("%d servers found\n", cnt);
 		return;
@@ -471,6 +464,8 @@ void server_list(const char *tag) {
 		if (strcmp(tag, s->name) == 0) {
 			s->active = 1;
 			print_server(s);
+			if (!arg_transport && s->transport && strstr(s->transport, "dot"))
+				arg_transport = "dot";
 			return;
 		}
 		s = s->next;
@@ -661,7 +656,9 @@ void server_test_tag(const char *tag)  {
 	printf("\nTesting completed\n");
 }
 
-
+// todo: support for tls://dns.quad9.net    tls://1.1.1.1    tls://dot1.applied-privacy.net   tls://dns.adguard.com   tls://dns-family.adguard.com
+// tls://dns.google
+// todo: test --server and --test-server
 void server_set_custom(const char *url) {
 	set_zone();
 	slist = malloc(sizeof(DnsServer));
@@ -670,7 +667,12 @@ void server_set_custom(const char *url) {
 	memset(slist, 0, sizeof(DnsServer));
 
 	DnsServer *s = slist;
-	s->host = strdup(url + 8); // skip https://
+	if (strncmp(url, "https://", 8) == 0)
+		s->host = strdup(url + 8); // skip https://
+	else if (strncmp(url, "tls://", 6)  == 0)
+		s->host = strdup(url + 6); // skip https://
+	else
+		assert(0);
 	if (!s->host)
 		errExit("strdup");
 
@@ -684,8 +686,22 @@ void server_set_custom(const char *url) {
 			errExit("strdup");
 		*str++ = '\0';
 	}
-	if (asprintf(&s->address, "%s:443", s->host) == -1)
-		errExit("asprintf");
+	if (strchr(s->host, ':') == NULL) {
+		if (arg_transport && strcmp(arg_transport, "dot") == 0) {
+			if (asprintf(&s->address, "%s:853", s->host) == -1)
+				errExit("asprintf");
+		}
+		else {
+			if (asprintf(&s->address, "%s:443", s->host) == -1)
+				errExit("asprintf");
+		}
+	}
+	else {
+		s->address = strdup(s->host);
+		if (!s->address)
+			errExit("strdup");
+	}
+
 	s->name = strdup(url);
 	if (!s->name)
 		errExit("strdup");

@@ -39,6 +39,7 @@ static int h2_send_exampledotcom(uint8_t *req);
 static int h2_send_query(uint8_t *req, int cnt);
 static int h2_send_ping(void);
 static int h2_exchange(uint8_t *response, uint32_t stream);
+static void h2_print_url(void);
 DnsTransport h2_transport = {
 	"h2",
 	"DoH",
@@ -50,7 +51,8 @@ DnsTransport h2_transport = {
 	h2_send_ping,
 	h2_exchange,
 	h2_header_stats,
-	h2_bandwidth
+	h2_bandwidth,
+	h2_print_url
 };
 
 
@@ -88,6 +90,11 @@ static void printn(char* fmt, ...) {
 	}
 }
 
+static void h2_print_url(void) {
+	DnsServer *srv = server_get();
+	assert(srv);
+	printf("   URL: https://%s%s\n", srv->host, srv->path);
+}
 
 static void h2_header_stats(void) {
 	if (http_header_size == 0 || h2_header_cnt == 0)

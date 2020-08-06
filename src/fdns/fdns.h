@@ -177,6 +177,7 @@ typedef struct dnstransport_t {
 	// stats
 	void (*header_stats)(void);
 	double (*bandwidth)(void);
+	void (*print_url)(void);
 } DnsTransport;
 
 
