@@ -17,8 +17,8 @@ do
 	sleep 3
 	let i=i+1
 done
-echo "TESTING: waiting 100 seconds for keepalive test to finish"
-sleep 100
+echo "TESTING: waiting 330 seconds for keepalive test to finish"
+sleep 330
 
 #let i=1
 #for s in $SERVERS
