@@ -272,6 +272,7 @@ zone: Americas-East, Americas-West, Americas
 tags: non-profit, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
+keepalive: 7
 end;
 
 name: cira2
@@ -280,6 +281,7 @@ zone: Americas-East, Americas-West, Americas
 tags: non-profit, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
+keepalive: 7
 end;
 
 name: cira-security
@@ -288,6 +290,7 @@ zone: Americas-East, Americas-West, Americas
 tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
+keepalive: 7
 end;
 
 name: cira-security2
@@ -296,6 +299,7 @@ zone: Americas-East, Americas-West, Americas
 tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas, Americas-East, Americas-West
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
+keepalive: 7
 end;
 
 name: cira-family
@@ -304,6 +308,7 @@ zone: Americas-East, Americas-West, Americas
 tags: family
 address: 149.112.121.30:443
 host: family.canadianshield.cira.ca/dns-query
+keepalive: 7
 end;
 
 name: cira-family2
@@ -312,6 +317,7 @@ zone: Americas-East, Americas-West
 tags: family
 address: 149.112.122.30:443
 host: family.canadianshield.cira.ca/dns-query
+keepalive: 7
 end;
 
 name: cleanbrowsing
@@ -536,6 +542,7 @@ tags: Czechia, Europe
 address: 185.43.135.1:443
 host: odvr.nic.cz/doh
 keepalive-query: yes
+keepalive: 7
 end;
 
 name: cznic2
@@ -545,6 +552,7 @@ tags: Czechia, Europe
 address: 193.17.47.1:443
 host: odvr.nic.cz/doh
 keepalive-query: yes
+keepalive: 7
 end;
 
 name: declouds
