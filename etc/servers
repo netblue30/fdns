@@ -245,7 +245,7 @@ zone: Americas-East, Americas
 tags: Quebec, Americas-East, Americas, OpenNIC
 address: 158.69.53.73:443
 host: doh.boothlabs.me/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: bortzmeyer
@@ -263,7 +263,7 @@ zone: Europe
 tags: Germany, Europe, adblocker
 address: 94.130.224.114:443
 host: dns.brahma.world/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: cira
@@ -468,6 +468,7 @@ tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: commons.host:443
 host: commons.host/
 sni: yes
+keepalive-query: yes
 keepalive: 100,150
 end;
 
@@ -571,7 +572,7 @@ tags: Germany, Europe
 address: 5.45.107.88:443
 host: doh.defaultroutes.de/dns-query
 sni: yes
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: digital-society
@@ -619,7 +620,7 @@ tags: geocast, Estonia, Germany, Europe
 address: doh.dns.sb:443
 host: doh.dns.sb/dns-query
 sni: yes
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: dnscrypt-ca
@@ -628,7 +629,7 @@ zone: Americas-East
 tags: Quebec, Americas, Americas-East
 address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: dnscrypt-ca2
@@ -637,7 +638,7 @@ zone: Americas-East
 tags: Quebec, Americas, Americas-East
 address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: dnsforge
@@ -821,16 +822,6 @@ tags: Iceland, Europe
 address: 46.239.223.80:443
 host: dns.flatuslifir.is/dns-query
 keepalive: 60,90
-end;
-
-name: flatuslifir-dot
-website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-zone: Europe
-tags: Iceland, Europe
-address: 46.239.223.80:853
-host: dns.flatuslifir.is/dns-query
-keepalive: 60,90
-transport: dot
 end;
 
 name: getdnsapi-dot
@@ -1065,7 +1056,7 @@ tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: doh.pi-dns.com:443
 host: doh.pi-dns.com/dns-query
 sni: yes
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: pi-dns-eastus
@@ -1183,7 +1174,7 @@ tags: Germany, Europe
 address: 116.203.179.248:443
 sni: yes
 host: rumpelsepp.org/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: seby
@@ -1268,7 +1259,7 @@ tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.44.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: tiarapp-us2
@@ -1278,7 +1269,7 @@ tags: Texas, Americas, Americas-East, adblocker
 address: 104.18.45.204:443
 host: doh.tiarap.org/dns-query
 sni: yes
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 # short keepalive
@@ -1326,8 +1317,8 @@ zone: Asia-Pacific
 tags: Taiwan, Asia-Pacific
 address: 210.17.9.228:443
 host: dns.twnic.tw/dns-query
+keepalive-query: yes
 keepalive: 60,90
-keepalive-dot: 20,25
 end;
 
 name: usableprivacy
@@ -1337,6 +1328,7 @@ tags: Austria, Europe, adblocker
 address: 149.154.153.153:443
 host: adfree.usableprivacy.net/
 sni: yes
+keepalive-query: yes
 keepalive: 60,90
 end;
 
