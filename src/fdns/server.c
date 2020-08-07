@@ -669,8 +669,11 @@ void server_set_custom(const char *url) {
 	DnsServer *s = slist;
 	if (strncmp(url, "https://", 8) == 0)
 		s->host = strdup(url + 8); // skip https://
-	else if (strncmp(url, "tls://", 6)  == 0)
-		s->host = strdup(url + 6); // skip https://
+	else if (strncmp(url, "dot://", 6)  == 0) {
+		s->host = strdup(url + 6); // skip dot://
+		if (arg_transport == NULL)
+			arg_transport = "dot";
+	}
 	else
 		assert(0);
 	if (!s->host)

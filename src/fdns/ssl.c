@@ -156,6 +156,7 @@ void ssl_open(void) {
 		// ALPN was mandated starting with h2, more likely a http/1.1 server won't implement ALPN
 //		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
 	else if (strcmp(arg_transport, "dot") == 0) {
+//		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x03dot", 4);
 		dns_set_transport("dot");
 		dot = 1;
 	}

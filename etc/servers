@@ -78,7 +78,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.136:443
 host: dns-unfiltered.adguard.com/dns-query
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: adguard-unfiltered2
@@ -87,7 +87,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.137:443
 host: dns-unfiltered.adguard.com/dns-query
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: adguard
@@ -96,7 +96,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: adguard2
@@ -105,7 +105,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, adblocker, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: adguard-family
@@ -114,7 +114,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: adguard-family2
@@ -123,7 +123,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: ams-doh-nl
@@ -151,6 +151,27 @@ zone: Europe
 tags: non-profit, Austria, Europe
 address: 93.177.65.183:853
 host: doh.appliedprivacy.net/query
+sni: yes
+transport: dot
+keepalive: 60,90
+end;
+
+name: appliedprivacy2
+website: https://appliedprivacy.net
+zone: Europe
+tags: non-profit, Austria, Europe
+address: 94.130.106.88:443
+host: doh.applied-privacy.net/query
+sni: yes
+keepalive: 20,25
+end;
+
+name: appliedprivacy2-dot
+website: https://appliedprivacy.net
+zone: Europe
+tags: non-profit, Austria, Europe
+address: 94.130.106.88:853
+host: dot1.applied-privacy.net/
 sni: yes
 transport: dot
 keepalive: 60,90
@@ -299,7 +320,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: cleanbrowsing-family
@@ -308,7 +329,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: cleanbrowsing-adult
@@ -317,7 +338,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: safe-for-work
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/adult-filter
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: cloudflare
@@ -326,7 +347,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: cloudflare2
@@ -335,7 +356,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: cloudflare-security
@@ -344,7 +365,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: cloudflare-security2
@@ -353,7 +374,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: cloudflare-family
@@ -362,7 +383,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: cloudflare-family2
@@ -371,7 +392,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: cloudflare-dot
@@ -380,7 +401,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.1.1.1:853
 host: cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 transport: dot
 end;
 
@@ -390,7 +411,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.1:853
 host: cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 transport: dot
 end;
 
@@ -401,7 +422,7 @@ tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, E
 address: 1.1.1.2:853
 host: security.cloudflare-dns.com/dns-query
 transport: dot
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: cloudflare-security2-dot
@@ -410,7 +431,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 1.0.0.2:853
 host: security.cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 transport: dot
 end;
 
@@ -420,7 +441,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 1.0.0.3:853
 host: family.cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 transport: dot
 end;
 
@@ -430,7 +451,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: family
 address: 1.1.1.3:853
 host: family.cloudflare-dns.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 transport: dot
 end;
 
@@ -441,7 +462,7 @@ tags: geocast, Americas, Americas-East, Americas-West, Asia-Pacific, Europe
 address: commons.host:443
 host: commons.host/
 sni: yes
-keepalive: 60,90
+keepalive: 100,150
 end;
 
 name: commsone
@@ -450,7 +471,7 @@ zone: Europe
 tags: Moscow, Russia, Europe, adblocker
 address: 92.38.152.163:443
 host: dns.comss.one/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: commsone2
@@ -459,7 +480,7 @@ zone: Europe
 tags: Lithuania, Europe, adblocker
 address: 93.115.24.204:443
 host: dns.comss.one/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: commsone3
@@ -468,7 +489,7 @@ zone: Europe
 tags: Lithuania, Europe, adblocker
 address: 93.115.24.205:443
 host: dns.comss.one/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: commsone4
@@ -477,7 +498,7 @@ zone: Europe
 tags: Yekaterinburg, Russia, Asia-Pacific, adblocker
 address: 92.223.109.31:443
 host: dns.comss.one/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: commsone5
@@ -486,7 +507,7 @@ zone: Europe
 tags: Krasnoyarsk, Russia, Asia-Pacific, adblocker
 address: 91.230.211.67:443
 host: dns.comss.one/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: containerpi
@@ -504,7 +525,7 @@ zone: Asia-Pacific
 tags: Japan, Asia-Pacific
 address: 45.77.180.10:853
 host: dns.containerpi.com/dns-query
-keepalive: 60,90
+keepalive: 200,250
 transport: dot
 end;
 
@@ -804,6 +825,16 @@ keepalive: 60,90
 transport: dot
 end;
 
+name: getdnsapi-dot
+website: https://getdnsapi.net/
+zone: Europe
+tags: Netherlands, Europe
+address: 185.49.141.37:853
+host: getdnsapi.net/
+keepalive: 60,90
+transport: dot
+end;
+
 name: hostux
 website: https://hostux.network/en/index.html
 zone: Europe
@@ -895,7 +926,7 @@ zone: Europe
 tags: UK, Europe
 address: 46.101.66.244:853
 host: doh.li/dns-query
-keepalive: 60,90
+keepalive: 200,250
 transport: dot
 end;
 
@@ -1098,7 +1129,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 9.9.9.9:5053
 host: dns.quad9.net/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: quad9-2
@@ -1107,7 +1138,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.112:5053
 host: dns.quad9.net/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: quad9-3
@@ -1116,7 +1147,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, security, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.9:5053
 host: dns.quad9.net/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: quad9-unsecured
@@ -1125,7 +1156,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 9.9.9.10:5053
 host: dns.quad9.net/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: quad9-unsecured-2
@@ -1134,7 +1165,7 @@ zone: Americas-East, Americas-West, Asia-Pacific, Europe
 tags: anycast, Americas-East, Americas-West, Asia-Pacific, Europe
 address: 149.112.112.10:5053
 host: dns.quad9.net/dns-query
-keepalive: 60,90
+keepalive: 200,250
 end;
 
 name: rumpelsepp
