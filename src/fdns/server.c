@@ -335,7 +335,7 @@ static uint8_t test_server(const char *server_name)  {
 		timetrace_start();
 		ssl_open();
 		if (ssl_state == SSL_CLOSED) {
-			fprintf(stderr, "   Error: cannot open SSL/H2 connection to server %s\n", arg_server);
+			fprintf(stderr, "   Error: cannot open SSL connection to server %s\n", arg_server);
 			fflush(0);
 			exit(0);
 		}
@@ -647,6 +647,10 @@ void server_test_tag(const char *tag)  {
 	while (s) {
 		if (s->active) {
 			scurrent = s;
+			if (s->transport)
+				arg_transport = s->transport;
+			else
+				arg_transport = NULL;
 			test_server(s->name);
 			usleep(500000);
 		}
@@ -719,5 +723,7 @@ void server_set_custom(const char *url) {
 		s->keepalive_min = 60;
 		s->keepalive_max = 60;
 	}
+
+	s->transport = arg_transport;
 	scurrent = s;
 }

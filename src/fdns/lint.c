@@ -355,6 +355,7 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 
 //printf("type %u, class %u, ttl %u, rlen %u\n",
 //rr.type, rr.cls, rr.ttl, rr.rlen);
+
 		if (rr.type == 1) { // A
 			if (rr.rlen != 4) {
 				dnserror = DNSERR_INVALID_RLEN;
