@@ -303,7 +303,7 @@ static void h2_decode_header(uint8_t *frame) {
 				printh("Unknown indexed header field 0x%02x, position %u\n", *ptr, cnt);
 			else {
 				printh("  %s:  %s\n", hp->name, hp->value);
-				http_header_size += strlen(hp->name) + strlen(hp->value) + 1; // + \n
+				http_header_size += strlen(hp->name) + 2 + strlen(hp->value) + 1; // + ": " + '\n'
 			}
 			ptr += rv;
 			cnt += rv;
@@ -319,6 +319,7 @@ static void h2_decode_header(uint8_t *frame) {
 				// read two strings
 				uint8_t rv = extract_string(ptr);
 				printh(":");
+				http_header_size += 2;
 				ptr += rv;
 				cnt += rv;
 				rv = extract_string(ptr);
@@ -329,7 +330,7 @@ static void h2_decode_header(uint8_t *frame) {
 			}
 			else {
 				printh("  %s: ", hp->name);
-				http_header_size += strlen(hp->name);
+				http_header_size += strlen(hp->name) + 2;
 				uint8_t rv = extract_string(ptr);
 				printh("\n");
 				http_header_size++;
@@ -355,6 +356,7 @@ static void h2_decode_header(uint8_t *frame) {
 				// read two strings
 				uint8_t rv = extract_string(ptr);
 				printh(":");
+				http_header_size += 2;
 				ptr += rv;
 				cnt += rv;
 				rv = extract_string(ptr);
@@ -365,6 +367,7 @@ static void h2_decode_header(uint8_t *frame) {
 			}
 			else {
 				printh("  %s: ", hp->name);
+				http_header_size += strlen(hp->name) + 2;
 
 				uint8_t rv = extract_string(ptr);
 				printh("\n");
@@ -384,7 +387,7 @@ static void h2_decode_header(uint8_t *frame) {
 				// read two strings
 				uint8_t rv = extract_string(ptr);
 				printh(":");
-				http_header_size++;
+				http_header_size += 2;
 				ptr += rv;
 				cnt += rv;
 				rv = extract_string(ptr);
@@ -395,6 +398,7 @@ static void h2_decode_header(uint8_t *frame) {
 			}
 			else {
 				printh("  %s:", hp->name);
+				http_header_size += strlen(hp->name) + 2;
 
 				uint8_t rv = extract_string(ptr);
 				printh("\n");
@@ -408,6 +412,7 @@ static void h2_decode_header(uint8_t *frame) {
 			ptr++;
 			cnt++;
 		}
+//printf("http_header_size %d\n", http_header_size);
 	}
 	printh("-----------------------------\n");
 }

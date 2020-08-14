@@ -109,6 +109,8 @@ deb: dist
 cppcheck: clean
 	cppcheck --force .
 
+filtercheck:; ./filtercheck.sh
+
 scan-build: clean
 	NO_EXTRA_CFLAGS="yes" scan-build make
 

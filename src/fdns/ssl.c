@@ -129,6 +129,10 @@ void ssl_open(void) {
 	if (arg_fallback_only)
 		return;
 
+	if (arg_debug)
+		printf("%d: opening ssl connection\n", arg_id);
+	fflush(0);
+
 	if (ctx == NULL) {
 		ctx = SSL_CTX_new(TLS_client_method());
 		char *certfile = get_cert_file();
@@ -146,30 +150,44 @@ void ssl_open(void) {
 		}
 	}
 
+	if (arg_debug)
+		printf("%d: arg_transport %s\n", arg_id, arg_transport);
+
+//printf("*** %s: arg_transport: #%s#\n", __FUNCTION__, arg_transport);
 	int dot = 0;
-	if (arg_transport == NULL)
+	if (arg_transport == NULL) {
 		// inform the server we prefer http2 over http/1.1
 		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
-	else if (strcmp(arg_transport, "h2") == 0)
-		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
-	else if (strcmp(arg_transport, "http/1.1") == 0) {}
-		// ALPN was mandated starting with h2, more likely a http/1.1 server won't implement ALPN
-//		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
-	else if (strcmp(arg_transport, "dot") == 0) {
+		if (arg_debug)
+			printf("%d: Send ALPN h2, http/1.1\n", arg_id);
+	}
+	else if (strstr(arg_transport, "dot")) {
 //		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x03dot", 4);
 		dns_set_transport("dot");
 		dot = 1;
+		if (arg_debug)
+			printf("%d: No ALPN configured\n", arg_id);
+	}
+	else if (strstr(arg_transport, "h2")) {
+		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2", 3);
+		if (arg_debug)
+			printf("%d: Send ALPN h2\n", arg_id);
+	}
+	else if (strstr(arg_transport, "http/1.1")) {
+		// ALPN was mandated starting with h2, more likely a http/1.1 server won't implement ALPN
+//		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x08http/1.1", 9);
+		if (arg_debug)
+			printf("%d: No ALPN configured\n", arg_id);
 	}
 	else
 		assert(0);
 
+	fflush(0);
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
 	SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);
 
 	// set connection and SNI
-	if (arg_debug)
-		printf("Server address #%s# ***\n", srv->address);
 	BIO_set_conn_hostname(bio, srv->address);
 	if (srv->test_sni)
 		; // testing sni: first try goes without any sni
@@ -179,6 +197,10 @@ void ssl_open(void) {
 		; // no sni configured
 	}
 
+	if (arg_debug) {
+		printf("%d: Connecting to the server %s\n", arg_id, srv->address);
+		fflush(0);
+	}
 	if(BIO_do_connect(bio) <= 0) {
 //		rlogprintf("Error: cannot connect SSL.\n");
 		if (srv->test_sni) {
@@ -190,6 +212,10 @@ void ssl_open(void) {
 		}
 
 		return;
+	}
+	if (arg_debug) {
+		printf("%d: Server connected!\n", arg_id);
+		fflush(0);
 	}
 
 	if (arg_details && arg_id == -1)
@@ -247,7 +273,7 @@ void ssl_open(void) {
 		SSL_get0_alpn_selected(ssl, &alpn, &len);
 		if (alpn == NULL) {
 			if ((arg_details && arg_id == -1) || arg_debug)
-				printf("   %s, ALPN not negotiated - assuming http/1.1, ", ver);
+				printf("   %s, ALPN not negotiated - assuming http/1.1\n", ver);
 			dns_set_transport("http/1.1");
 		}
 		else if (len < 100) {

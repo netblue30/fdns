@@ -38,7 +38,7 @@ static inline uint8_t mask2bits(uint32_t mask) {
 
 void net_check_proxy_addr(const char *str) {
 	if (arg_debug)
-		printf("Checking proxy address %s\n", str);
+		printf("%d: Checking proxy address %s\n", arg_id, str);
 	if (str == NULL || *str == '\0')
 		goto errout;
 
@@ -69,8 +69,8 @@ void net_check_proxy_addr(const char *str) {
 				status = 1;
 
 			if (arg_debug)
-				printf("Checking interface %s, %d.%d.%d.%d/%u\n",
-				       ifa->ifa_name, PRINT_IP(ifip), mask2bits(ifmask));
+				printf("%d: Checking interface %s, %d.%d.%d.%d/%u\n",
+				       arg_id, ifa->ifa_name, PRINT_IP(ifip), mask2bits(ifmask));
 
 			// is the address in the network range?
 			if ((ip & ifmask) == (ifip & ifmask)) {
