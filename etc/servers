@@ -1244,17 +1244,7 @@ host: dns.switch.ch/dns-query
 keepalive: 20,25
 end;
 
-# short keepalive
-name: tiarapp-sg
-website: https://doh.tiar.app
-zone: AsiaPacific
-tags: firefox-only, Singapore, AsiaPacific, adblocker
-address: 174.138.29.175:443
-host: doh.tiar.app/dns-query
-keepalive: 7
-end;
-
-name: tiarapp-us
+name: tiarap-us
 website: https://doh.tiarap.org
 zone: EastAmerica
 tags: Texas, EastAmerica, adblocker
@@ -1264,7 +1254,7 @@ sni: yes
 keepalive: 250,290
 end;
 
-name: tiarapp-us2
+name: tiarap-us2
 website: https://doh.tiarap.org
 zone: EastAmerica
 tags: Texas, EastAmerica, adblocker
@@ -1275,12 +1265,22 @@ keepalive: 250,290
 end;
 
 # short keepalive
-name: tiarapp-jp
+name: tiarap-jp
 website: https://jp.tiar.app/
 zone: AsiaPacific
 tags: firefox-only, Japan, AsiaPacific, adblocker
 address: 172.104.93.80:443
 host: jp.tiar.app/dns-query
+keepalive: 7
+end;
+
+# short keepalive
+name: tiarapp-sg
+website: https://doh.tiar.app
+zone: AsiaPacific
+tags: firefox-only, Singapore, AsiaPacific, adblocker
+address: 174.138.29.175:443
+host: doh.tiar.app/dns-query
 keepalive: 7
 end;
 
@@ -1352,4 +1352,14 @@ tags: France, Europe, OpenNIC
 address: 87.98.175.85:443
 host: dns-1.wil.cloud/dns-query
 keepalive: 80,110
+end;
+
+name: wugui
+website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+zone: Europe
+tags: Moscow, Russia, Europe,
+address: 45.151.144.10:443
+host: dns.wugui.zone/dns-query
+sni: yes
+keepalive: 250,290
 end;
