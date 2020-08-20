@@ -151,15 +151,23 @@ void ssl_open(void) {
 	}
 
 	if (arg_debug)
-		printf("%d: arg_transport %s\n", arg_id, arg_transport);
+		printf("%d: arg_transport %s, srv->transport %s\n", arg_id, arg_transport, srv->transport);
 
 //printf("*** %s: arg_transport: #%s#\n", __FUNCTION__, arg_transport);
 	int dot = 0;
-	if (arg_transport == NULL) {
+	if (arg_transport == NULL && strstr(srv->transport, "dot")) {
+//		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x03dot", 4);
+		dns_set_transport("dot");
+		dot = 1;
+		if (arg_debug)
+			printf("%d: No ALPN configured\n", arg_id);
+	}
+	else if (arg_transport == NULL) {
 		// inform the server we prefer http2 over http/1.1
 		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
 		if (arg_debug)
 			printf("%d: Send ALPN h2, http/1.1\n", arg_id);
+
 	}
 	else if (strstr(arg_transport, "dot")) {
 //		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x03dot", 4);

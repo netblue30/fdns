@@ -419,7 +419,6 @@ static uint8_t test_server(const char *server_name)  {
 static int second_try = 0;
 // mark all the servers corresponding to the given tag (s->active)
 void server_list(const char *tag) {
-printf("here %d: listing %s\n", __LINE__, tag);
 	load_list();
 	assert(slist);
 	assert(fdns_zone);
