@@ -22,6 +22,10 @@ expect {
 	"connecting to cloudflare2 server" {puts "3"}
 	"connecting to cloudflare-security server" {puts "3"}
 	"connecting to cloudflare-security2 server" {puts "3"}
+	"connecting to cloudflare-dot server" {puts "3"}
+	"connecting to cloudflare2-dot server" {puts "3"}
+	"connecting to cloudflare-security-dot server" {puts "3"}
+	"connecting to cloudflare-security2-dot server" {puts "3"}
 	"connecting to nextdns server" {puts "4"}
 	"connecting to nextdns2 server" {puts "4"}
 	"connecting to quad9 server" {puts "5"}

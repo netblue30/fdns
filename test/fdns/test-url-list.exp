@@ -10,24 +10,17 @@ match_max 100000
 send -- "fdns --test-url-list\r"
 after 200
 
-send -- "doubleclick.net\r"
+send -- "gentoo.org\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
-	"URL doubleclick.net dropped by default rule \"click.\""
+	"127.0.0.1 gentoo.org"
 }
 after 100
 
-send -- "amazon-adsystem.com\r"
+send -- "127.0.0.1 gentoo.org\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"URL amazon-adsystem.com dropped by \"amazon-adsystem.com\" rule"
-}
-after 100
-
-send -- "debian.org\r"
-expect {
-	timeout {puts "TESTING ERROR 2\n";exit}
-	"URL debian.org is not dropped"
+	"127.0.0.1 gentoo.org"
 }
 
 after 100

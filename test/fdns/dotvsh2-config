@@ -1,0 +1,18 @@
+name: cloudflare-dot
+website: https://www.cloudflare.com
+zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+address: 1.1.1.1:853
+host: cloudflare-dns.com/dns-query
+keepalive: 250,290
+transport: dot
+end;
+
+name: dnslify
+website: https://www.dnslify.com/
+zone: EastAmerica, WestAmerica
+tags: EastAmerica, WestAmerica, NY, California
+address: 185.235.81.1:443
+host: doh.dnslify.com/dns-query
+keepalive: 20,25
+end;

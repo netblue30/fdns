@@ -13,6 +13,11 @@ printf "TESTING: running as user "
 whoami
 echo "TESTING: ********************"
 
+echo "TESTING: dot vs h2 (test/fdns/dotvsh2.exp)"
+./dotvsh2.exp
+
+echo "TESTING: transport (test/fdns/transport.exp)"
+./transport.exp
 
 echo "TESTING: already running (test/fdns/already-running.exp)"
 ./already-running.exp

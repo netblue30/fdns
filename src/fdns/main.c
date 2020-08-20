@@ -19,6 +19,8 @@
 #include "fdns.h"
 #include "timetrace.h"
 #include <time.h>
+#include <signal.h>
+
 int arg_argc = 0;
 int arg_debug = 0;
 int arg_debug_transport = 0;
@@ -46,6 +48,30 @@ int arg_details = 0;
 char *arg_transport = NULL;
 
 Stats stats;
+
+// clear /run/fdns/#pid# file
+static void my_handler(int s) {
+	procs_exit();
+}
+
+static void install_handler(void) {
+	struct sigaction sga;
+
+	// block SIGTERM while handling SIGINT
+	sigemptyset(&sga.sa_mask);
+	sigaddset(&sga.sa_mask, SIGTERM);
+	sga.sa_handler = my_handler;
+	sga.sa_flags = 0;
+	sigaction(SIGINT, &sga, NULL);
+
+	// block SIGINT while handling SIGTERM
+	sigemptyset(&sga.sa_mask);
+	sigaddset(&sga.sa_mask, SIGINT);
+	sga.sa_handler = my_handler;
+	sga.sa_flags = 0;
+	sigaction(SIGTERM, &sga, NULL);
+}
+
 
 static void usage(void) {
 	printf("fdns - DNS over HTTPS proxy server\n\n");
@@ -347,6 +373,7 @@ int main(int argc, char **argv) {
 		if (!arg_fallback_only) {
 			logprintf("connecting to %s server\n", s->name);
 		}
+		install_handler();
 		frontend();
 	}
 

@@ -7,18 +7,18 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "fdns --test-server=anycas\r"
+send -- "fdns --test-server=anycast\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"adguard"
 }
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"connection opened in"
+	"SSL/TLS connection"
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"response average"
+	"DoH query average"
 }
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
@@ -26,11 +26,11 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 4\n";exit}
-	"connection opened in"
+	"SSL/TLS connection"
 }
 expect {
 	timeout {puts "TESTING ERROR 5\n";exit}
-	"response average"
+	"DoH query average"
 }
 expect {
 	timeout {puts "TESTING ERROR 6\n";exit}
@@ -38,23 +38,23 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 7\n";exit}
-	"connection opened in"
+	"SSL/TLS connection"
 }
 expect {
 	timeout {puts "TESTING ERROR 8\n";exit}
-	"response average"
+	"DoH query average"
 }
 expect {
 	timeout {puts "TESTING ERROR 9\n";exit}
-	"quad9"
+	"cloudflare-dot"
 }
 expect {
 	timeout {puts "TESTING ERROR 10\n";exit}
-	"connection opened in"
+	"SSL/TLS connection"
 }
 expect {
-	timeout {puts "TESTING ERROR 2\n";exit}
-	"response average"
+	timeout {puts "TESTING ERROR 11\n";exit}
+	"DoT query average"
 }
 
 after 100

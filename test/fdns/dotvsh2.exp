@@ -1,0 +1,68 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019-2020 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 1
+send -- "cp dotvsh2-config /tmp/.\r"
+after 100
+
+send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"Error" {puts "TESTING ERROR 0.1\n";exit}
+	"2 servers found"
+}
+sleep 1
+
+send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list=Americas\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"Error" {puts "TESTING ERROR 1.1\n";exit}
+	"2 servers found"
+}
+sleep 1
+
+send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns\r"
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"Error" {puts "TESTING ERROR 2.1\n";exit}
+	"Testing server"
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"Error" {puts "TESTING ERROR 3.1\n";exit}
+	"DoT/Do53 bandwidth ratio" {puts "dot\n"}
+	"DoH/Do53 bandwidth ratio" {puts "doh\n"}
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"Error" {puts "TESTING ERROR 4.1\n";exit}
+	"Testing server"
+}
+expect {
+	timeout {puts "TESTING ERROR 5\n";exit}
+	"Error" {puts "TESTING ERROR 5.1\n";exit}
+	"DoT/Do53 bandwidth ratio" {puts "dot\n"}
+	"DoH/Do53 bandwidth ratio" {puts "doh\n"}
+}
+expect {
+	timeout {puts "TESTING ERROR 6\n";exit}
+	"Error" {puts "TESTING ERROR 6.1\n";exit}
+	"fdns starting"
+}
+expect {
+	timeout {puts "TESTING ERROR 7\n";exit}
+	"Error" {puts "TESTING ERROR 7.1\n";exit}
+	"SSL connection opened"
+}
+sleep 1
+send -- "pkill fdns\r"
+
+after 100
+puts "\nall done\n"

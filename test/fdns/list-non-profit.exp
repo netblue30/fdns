@@ -25,7 +25,7 @@ expect {
 	"servers found"
 }
 
-send -- "fdns --list=non-profit --zone=Asia-Pacific\r"
+send -- "fdns --list=non-profit --zone=AsiaPacific\r"
 expect {
 	timeout {puts "TESTING ERROR 10\n";exit}
 	"Current zone:"

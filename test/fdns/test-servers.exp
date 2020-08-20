@@ -14,11 +14,11 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"connection opened in"
+	"SSL/TLS connection"
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"response average"
+	"DoH query average"
 }
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
@@ -26,11 +26,11 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 4\n";exit}
-	"connection opened in"
+	"SSL/TLS connection"
 }
 expect {
 	timeout {puts "TESTING ERROR 5\n";exit}
-	"response average"
+	"DoH query average"
 }
 expect {
 	timeout {puts "TESTING ERROR 6\n";exit}
@@ -38,11 +38,11 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 7\n";exit}
-	"connection opened in"
+	"SSL/TLS connection"
 }
 expect {
 	timeout {puts "TESTING ERROR 8\n";exit}
-	"response average"
+	"DoH query average"
 }
 
 
