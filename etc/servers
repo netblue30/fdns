@@ -681,7 +681,7 @@ end;
 name: dnslify
 website: https://www.dnslify.com/
 zone: EastAmerica, WestAmerica
-tags: EastAmerica, WestAmerica, NY, Califronia
+tags: EastAmerica, WestAmerica, NY, California
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -708,7 +708,7 @@ end;
 name: dnslify4
 website: https://www.dnslify.com/
 zone: EastAmerica, WestAmerica
-tags: EastAmerica, WestAmerica, NY, Califronia
+tags: EastAmerica, WestAmerica, NY, California
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25

@@ -419,6 +419,7 @@ static uint8_t test_server(const char *server_name)  {
 static int second_try = 0;
 // mark all the servers corresponding to the given tag (s->active)
 void server_list(const char *tag) {
+printf("here %d: listing %s\n", __LINE__, tag);
 	load_list();
 	assert(slist);
 	assert(fdns_zone);
@@ -431,7 +432,8 @@ void server_list(const char *tag) {
 	if (strcmp(tag, "Europe") == 0 ||
 	    strcmp(tag, "AsiaPacific") == 0 ||
 	    strcmp(tag, "EastAmerica") == 0 ||
-	    strcmp(tag, "WestAmerica") == 0)
+	    strcmp(tag, "WestAmerica") == 0 ||
+	    strcmp(tag, "Americas") == 0)
 	    	fdns_zone = "any";
 
 	// process tag "all"
@@ -477,14 +479,22 @@ void server_list(const char *tag) {
 		// match tag
 		char *ptr = strstr(s->tags, tag);
 		if (ptr == NULL) {
-			s = s->next;
-			continue;
+			// try to match Americas
+			if (strcmp(tag, "Americas") == 0 && strstr(s->tags, "America"))
+				;
+			else {
+				s = s->next;
+				continue;
+			}
 		}
+
 		// match end of tag
-		ptr += strlen(tag);
-		if (*ptr != '\0' && *ptr != ',') { // we are somewhere in the middle of a tag
-			s = s->next;
-			continue;
+		if (ptr) {
+			ptr += strlen(tag);
+			if (*ptr != '\0' && *ptr != ',') { // we are somewhere in the middle of a tag
+				s = s->next;
+				continue;
+			}
 		}
 
 		// match the zone if the zone is not "any"
