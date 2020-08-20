@@ -15,9 +15,16 @@ expect {
 	timeout {puts "TESTING ERROR 4\n";exit}
 	"connecting to 42l server"  {puts "1"}
 	"connecting to appliedprivacy server"  {puts "2"}
+	"connecting to appliedprivacy2 server"  {puts "2"}
+	"connecting to appliedprivacy-dot server"  {puts "2"}
+	"connecting to appliedprivacy2-dot server"  {puts "2"}
 	"connecting to digital-society server" {puts "3"}
 	"connecting to digital-society2 server" {puts "3"}
+	"connecting to digital-society-dot server" {puts "3"}
+	"connecting to digital-society2-dot server" {puts "3"}
 	"connecting to snopyta server" {puts "4"}
+	"connecting to switch server" {puts "5"}
+	"connecting to switch2 server" {puts "5"}
 }
 
 after 100

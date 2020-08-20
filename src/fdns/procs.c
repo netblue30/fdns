@@ -56,6 +56,17 @@ static void procs_dir_cleanup(void) {
 	closedir(dir);
 }
 
+
+void procs_exit(void) {
+	pid_t pid = getpid();
+	char *runfname;
+	if (asprintf(&runfname, "/run/fdns/%d", pid) == -1)
+		errExit("asprintf");
+	int rv = unlink(runfname);
+	(void) rv;
+	free(runfname);
+}
+
 void procs_add(void) {
 	assert(getuid() == 0);
 
@@ -85,6 +96,7 @@ void procs_add(void) {
 	fprintf(fp, "%s\n", tmp);
 	fclose(fp);
 	free(fname);
+	atexit(procs_exit);
 }
 
 void procs_list(void) {

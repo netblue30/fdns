@@ -11,9 +11,9 @@ send -- "pkill fdns\r"
 sleep 1
 
 send -- "fdns --daemonize\r"
-sleep 1
+sleep 6
 send -- "fdns --proxy-addr=127.2.2.2 --daemonize\r"
-sleep 1
+sleep 6
 send -- "fdns --proxy-addr=127.3.3.3 --debug&\r"
 expect {
 	timeout {puts "TESTING ERROR 0.1\n";exit}

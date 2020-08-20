@@ -42,14 +42,10 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 7\n";exit}
-	"tiarapp"
-}
-expect {
-	timeout {puts "TESTING ERROR 8\n";exit}
 	"twnic"
 }
 expect {
-	timeout {puts "TESTING ERROR 9\n";exit}
+	timeout {puts "TESTING ERROR 8\n";exit}
 	"servers found"
 }
 
