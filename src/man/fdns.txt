@@ -41,6 +41,9 @@ Asia-Pacific and Europe. Use --list=all option to print all the servers and the 
 Allow all DNS query types; by default only A queries are allowed. In case --ipv6 is set,
 AAAA queries are also allowed.
 .TP
+\fB\-\-allow--self-signed-certs
+Allow self-signed SSL certificates during SSL connection. Use this option for bringing up new servers.
+.TP
 \fB\-\-cache-ttl=seconds
 Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 40 minutes.
 .TP
@@ -209,7 +212,7 @@ $ sudo fdns --proxy-addr=127.0.0.1
 \fB\-\-proxy-addr-any
 Listen on all available system interfaces and 127.0.0.1 for loopback interface.
 .TP
-\fB\-\-qpr=number
+\fB\-\-qps=number
 Queries per second rate limit for resolver processes, default 5. When the limit is reached, incoming
 packets from the local network are dropped.
 .TP
