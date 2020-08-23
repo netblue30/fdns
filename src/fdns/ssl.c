@@ -259,10 +259,16 @@ void ssl_open(void) {
 	if (portstr && arg_details && arg_id == -1)
 		printf("   Port: %s\n", portstr + 1);
 
-	int val;
-	if ((val = SSL_get_verify_result(ssl)) != X509_V_OK) {
-		rlogprintf("Error: cannot handle certificate verification (error %d), shutting down...\n", val);
-		return;	// give the program a chance to switch to fallback
+	int err;
+	if ((err = SSL_get_verify_result(ssl)) != X509_V_OK) {
+printf("%d/%d\n", err, X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT);
+		if (arg_allow_self_signed_certs && err == X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT)
+			printf("   Warning: %s\n", X509_verify_cert_error_string(err));
+		else {
+			printf("   Error: %s\n", X509_verify_cert_error_string(err));
+			rlogprintf("Error: %s\n", X509_verify_cert_error_string(err));
+			return;	// give the program a chance to switch to fallback
+		}
 	}
 
 	// set alert callback

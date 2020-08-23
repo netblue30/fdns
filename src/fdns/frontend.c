@@ -110,6 +110,8 @@ static int sandbox(void *sandbox_arg) {
 			errExit("asprintf");
 		a[last++] = cmd;
 	}
+	if (arg_allow_self_signed_certs)
+		a[last++] = "--allow-self-signed-certs";
 	if (arg_fallback_only)
 		a[last++] = "--fallback-only";
 	if (arg_keepalive) {
