@@ -1124,6 +1124,42 @@ host: doh.eastas.pi-dns.com/dns-query
 keepalive: 80,110
 end;
 
+name: pi-hole
+website: https://public-pihole.com
+zone: Europe
+tags: Netherlands, Europe, adblocker
+address: 51.158.168.202:443
+host: 51.158.168.202/dns-query
+keepalive: 550,590
+end;
+
+name: pi-hole2
+website: https://public-pihole.com
+zone: Europe
+tags: France, Europe, adblocker
+address: 163.172.170.19:443
+host: 163.172.170.19/dns-query
+keepalive: 550,590
+end;
+
+name: pi-hole3
+website: https://public-pihole.com
+zone: EastAmerica
+tags: Quebec,  EastAmerica, adblocker
+address: 54.39.97.51:443
+host: 54.39.97.51/dns-query
+keepalive: 550,590
+end;
+
+name: pi-hole4
+website: https://public-pihole.com
+zone: AsiaPacific
+tags: Singapore, AsiaPacific, adblocker
+address: 139.99.74.182:443
+host: 139.99.74.182/dns-query
+keepalive: 550,590
+end;
+
 name: powerdns
 website: https://powerdns.org
 zone: Europe

@@ -153,9 +153,8 @@ void ssl_open(void) {
 	if (arg_debug)
 		printf("%d: arg_transport %s, srv->transport %s\n", arg_id, arg_transport, srv->transport);
 
-//printf("*** %s: arg_transport: #%s#\n", __FUNCTION__, arg_transport);
 	int dot = 0;
-	if (arg_transport == NULL && strstr(srv->transport, "dot")) {
+	if (arg_transport == NULL && srv->transport && strstr(srv->transport, "dot")) {
 //		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x03dot", 4);
 		dns_set_transport("dot");
 		dot = 1;
