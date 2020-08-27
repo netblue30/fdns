@@ -26,8 +26,8 @@ expect {
 }
 sleep 1
 
-set timeout 320
-puts "waiting 95 seconds for keepalive test to finish"
+set timeout 620
+puts "waiting 620 seconds for keepalive test to finish"
 
 expect {
 	timeout {puts "\nTESTING: all done [lindex $argv  0]\n";exit 0}

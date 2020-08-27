@@ -187,9 +187,10 @@ void resolver(void) {
 				exit(1);
 			}
 
-			// database cleanup
+			// database/cache cleanup
 			dnsdb_timeout();
 			cache_timeout();
+			print_cache();
 			t.tv_sec = 1;
 			t.tv_usec = 0;
 			continue;

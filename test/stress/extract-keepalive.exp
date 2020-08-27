@@ -13,9 +13,7 @@ if { $argc != 2 } {
 	exit
 }
 
-puts "TESTING keepalive: [lindex $argv  0] [lindex $argv  1]"
-
-send -- "fdns --proxy-addr=[lindex $argv  1] --server=[lindex $argv  0] --debug-transport --resolvers=1 --transport=dot 2>&1\r"
+send -- "fdns --proxy-addr=[lindex $argv  1] --server=[lindex $argv  0] --debug-transport --resolvers=1 --keepalive=600>&1\r"
 expect {
 	timeout {puts "TESTING ERROR 0 - $argv\n";exit 1}
 	"fdns starting"
@@ -24,14 +22,15 @@ expect {
 	timeout {puts "TESTING ERROR 2 - $argv\n";exit 1}
 	"SSL connection opened"
 }
+set start [exec "date" "+%s"]
 sleep 1
 
-set timeout 95
-puts "waiting 95 seconds for keepalive test to finish"
+set timeout 620
+puts "waiting 620 seconds for keepalive test to finish"
 
 expect {
-	timeout {puts "\nTESTING: all done [lindex $argv  0]\n";exit 0}
-	"SSL connection closed" {puts "TESTING ERROR 3 - $argv\n";exit 1}
+	timeout {puts "\nTESTING: [lindex $argv  0] - 600+\n";exit 0}
+	"SSL connection closed" {set end [exec "date" "+%s"]; set delta [expr "$end - $start"]; puts "TESTING: [lindex $argv  0] - $delta\n";exit 1}
 	"it will never get here"
 }
 
