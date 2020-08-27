@@ -96,6 +96,7 @@ static inline int rand_range(int min, int max) {
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (60 * 60)
 #define CACHE_TTL_ERROR (10 * 60)	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
+#define CACHE_PRINT_TIMEOUT	60	// list the domain in the cache
 #define QPS_DEFAULT 5	// default queries per second limit for each resolver
 #define QPS_MAX 20		// max --qps value
 #define QPS_MIN 3		// min --qps value
@@ -356,6 +357,7 @@ void cache_set_reply(uint8_t *reply, ssize_t len, int ttl);
 uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6);
 void cache_timeout(void);
 void cache_init(void);
+void print_cache(void);
 
 // resolver.c
 void resolver(void);

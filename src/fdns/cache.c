@@ -37,6 +37,7 @@ typedef struct cache_entry_t {
 
 #define MAX_HASH_ARRAY 256
 static CacheEntry *clist[MAX_HASH_ARRAY];
+static int ccnt = 0;
 static char cname[CACHE_NAME_LEN + 1] = {0};
 static int cname_type;	// 0 - ipv4, 1 - ipv6
 static uint8_t creply[MAX_REPLY];
@@ -88,6 +89,7 @@ void cache_set_reply(uint8_t *reply, ssize_t len, int ttl) {
 	if (!ptr)
 		errExit("malloc");
 	clean_entry(ptr);
+	ccnt++;
 #ifdef DEBUG_STATS
 	sentries++;
 #endif
@@ -146,6 +148,7 @@ void cache_timeout(void) {
 				CacheEntry *tmp = ptr;
 				ptr = ptr->next;
 				free(tmp);
+				ccnt--;
 #ifdef DEBUG_STATS
 				sentries--;
 #endif
@@ -165,4 +168,33 @@ void cache_timeout(void) {
 		scnt = 0;
 	}
 #endif
+}
+
+static int ctimer = CACHE_PRINT_TIMEOUT;
+void print_cache(void) {
+	if (arg_daemonize)
+		return;
+	if (--ctimer > 0)
+		return;
+	if (ccnt == 0)
+		return;
+
+	ctimer = CACHE_PRINT_TIMEOUT;
+	printf("Cache %d: ", arg_id);
+
+	int i;
+	for (i = 0; i < MAX_HASH_ARRAY; i++) {
+		CacheEntry *ptr = clist[i];
+
+		while (ptr) {
+			printf("%s, ", ptr->name);
+			ptr = ptr->next;
+		}
+	}
+
+	if (ccnt == 1)
+		printf("(%d domain)\n", ccnt);
+	else
+		printf("(%d domains)\n", ccnt);
+	fflush(0);
 }
