@@ -196,10 +196,8 @@ int main(int argc, char **argv) {
 				arg_certfile = argv[i] + 11;
 			else if (strcmp(argv[i], "--allow-all-queries") == 0)
 				arg_allow_all_queries = 1;
-			else if (strcmp(argv[i], "--disable-local-doh") == 0) {
+			else if (strcmp(argv[i], "--disable-local-doh") == 0)
 				arg_disable_local_doh = 1;
-				filter_postinit();
-			}
 			else if (strcmp(argv[i], "--nofilter") == 0)
 				arg_nofilter = 1;
 			else if (strcmp(argv[i], "--ipv6") == 0)

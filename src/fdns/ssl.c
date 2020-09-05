@@ -260,7 +260,6 @@ void ssl_open(void) {
 
 	int err;
 	if ((err = SSL_get_verify_result(ssl)) != X509_V_OK) {
-printf("%d/%d\n", err, X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT);
 		if (arg_allow_self_signed_certs && err == X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT)
 			printf("   Warning: %s\n", X509_verify_cert_error_string(err));
 		else {
