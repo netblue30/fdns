@@ -84,13 +84,28 @@ static inline void h2frame_print(int id, const char *direction, H2Frame *frm) {
 	uint32_t len = h2frame_extract_length(frm);
 	uint32_t stream = h2frame_extract_stream(frm);
 	print_time();
-	printf("(%d) h2 %s s %u, len %u, 0x%02u %s, 0x%02u (",
-	       id,
-	       direction,
-	       stream,
-	       len,
-	       frm->type, h2frame_type2str(frm->type),
-	       frm->flag);
+	if (frm->type != H2_TYPE_WIN_UPDATE)
+		printf("(%d) h2 %s s %u, len %u, 0x%02u %s, 0x%02u (",
+		       id,
+		       direction,
+		       stream,
+		       len,
+		       frm->type, h2frame_type2str(frm->type),
+		       frm->flag);
+	else {
+		uint8_t *wstart = (uint8_t *) frm + sizeof(H2Frame);
+		uint32_t window;
+		memcpy(&window, wstart, 4);
+		window &= 0x7fffffff;
+		window = ntohl(window);
+		printf("(%d) h2 %s s %u, len %u, 0x%02u %s(%d), 0x%02u (",
+		       id,
+		       direction,
+		       stream,
+		       len,
+		       frm->type, h2frame_type2str(frm->type), window,
+		       frm->flag);
+	}
 
 	if (frm->flag & H2_FLAG_END_STREAM)
 		printf("end stream,");

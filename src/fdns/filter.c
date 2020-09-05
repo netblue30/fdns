@@ -126,16 +126,7 @@ static DFilter default_filter[] = {
 	{'F', "^sstats.", NULL, 0}, // 339
 	{'F', "^sw88.", NULL, 0}, // 63
 	{'F', "^tk.airfrance.", NULL, 0}, // 98
-
-	// hardcoded DoH servers
-	// this is the last section before the NULL entry
-	// the NULL entry is moved up if  --disable-local-doh is not present
-	{'D', "$dnscrypt-cert.oszx.co", NULL, 0},
-	{'D', "$cloudflare-dns.com", NULL, 0},
-	{'D', "$anycast.censurfridns.dk", NULL, 0},
-	{'D', "$dns.nextdns.io", NULL, 0},
-
-	{0, NULL, NULL, 0}
+	{0, NULL, NULL, 0}	// last entry
 };
 
 typedef struct hash_entry_t {
@@ -158,19 +149,6 @@ void filter_init(void) {
 		i++;
 	}
 	memset(&blist[0], 0, sizeof(blist));
-}
-
-void filter_postinit(void) {
-	int i = 0;
-
-	// move the NULL entry up
-	if (!arg_disable_local_doh) {
-		while (default_filter[i].label != 'D' && default_filter[i].label != 0)
-			i++;
-		assert(default_filter[i].label == 'D');
-		default_filter[i].label = 0;
-		default_filter[i].name = NULL;
-	}
 }
 
 // djb2 hash function by Dan Bernstein

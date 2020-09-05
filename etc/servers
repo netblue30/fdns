@@ -157,8 +157,10 @@ name: appliedprivacy
 website: https://appliedprivacy.net
 zone: Europe
 tags: non-profit, Austria, Europe
-address: 93.177.65.183:443
-host: doh.appliedprivacy.net/query
+address: 146.255.56.98:443
+#address: 94.130.106.88:443
+#address: 93.177.65.183:443
+host: doh.applied-privacy.net/query
 sni: yes
 keepalive: 20,25
 end;
@@ -167,28 +169,7 @@ name: appliedprivacy-dot
 website: https://appliedprivacy.net
 zone: Europe
 tags: non-profit, Austria, Europe
-address: 93.177.65.183:853
-host: doh.appliedprivacy.net/query
-sni: yes
-transport: dot
-keepalive: 80,110
-end;
-
-name: appliedprivacy2
-website: https://appliedprivacy.net
-zone: Europe
-tags: non-profit, Austria, Europe
-address: 94.130.106.88:443
-host: doh.applied-privacy.net/query
-sni: yes
-keepalive: 20,25
-end;
-
-name: appliedprivacy2-dot
-website: https://appliedprivacy.net
-zone: Europe
-tags: non-profit, Austria, Europe
-address: 94.130.106.88:853
+address: 146.255.56.98:853
 host: dot1.applied-privacy.net/
 sni: yes
 transport: dot
@@ -273,6 +254,16 @@ tags: Germany, Europe, adblocker
 address: 94.237.80.211:443
 host: dns.brahma.world/dns-query
 keepalive: 550,590
+end;
+
+name: bravedns
+website: https://bravedns.com
+zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+tags: geocast, EastAmerica, WestAmerica, AsiaPacific, Europe
+address: free.bravedns.com:443
+host: free.bravedns.com/dns-query
+keepalive: 350,390
+sni: yes
 end;
 
 name: cira
@@ -747,7 +738,7 @@ end;
 name: faelix-uk-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: UK, Europe, adblocker
+tags: admin-down, UK, Europe, adblocker
 address: 46.227.200.52:443
 host: pdns.faelix.net/
 keepalive: 20,25
@@ -756,7 +747,7 @@ end;
 name: faelix-uk-adblocker2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: UK, Europe, adblocker
+tags: admin-down, UK, Europe, adblocker
 address: 46.227.203.52:443
 host: pdns.faelix.net/
 keepalive: 20,25
@@ -765,7 +756,7 @@ end;
 name: faelix-ch-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: Switzerland, Europe, adblocker
+tags: admin-down, Switzerland, Europe, adblocker
 address: 185.134.196.52:443
 host: pdns.faelix.net/
 keepalive: 20,25
@@ -1279,21 +1270,11 @@ host: dns.switch.ch/dns-query
 keepalive: 20,25
 end;
 
-name: tiarap-us
+name: tiarap
 website: https://doh.tiarap.org
-zone: EastAmerica
-tags: Texas, EastAmerica, adblocker
-address: 104.18.44.204:443
-host: doh.tiarap.org/dns-query
-sni: yes
-keepalive: 350,390
-end;
-
-name: tiarap-us2
-website: https://doh.tiarap.org
-zone: EastAmerica
-tags: Texas, EastAmerica, adblocker
-address: 104.18.45.204:443
+zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+tags: geocast, EastAmerica, WestAmerica, AsiaPacific, Europe
+address: doh.tiarap.org:443
 host: doh.tiarap.org/dns-query
 sni: yes
 keepalive: 350,390
@@ -1303,18 +1284,18 @@ end;
 name: tiarap-jp
 website: https://jp.tiar.app/
 zone: AsiaPacific
-tags: firefox-only, Japan, AsiaPacific, adblocker
-address: 172.104.93.80:443
+tags: firfox-only, Japan, AsiaPacific, adblocker
+address: jp.tiar.app:443
 host: jp.tiar.app/dns-query
 keepalive: 7
 end;
 
 # short keepalive
-name: tiarapp-sg
+name: tiarap-sg
 website: https://doh.tiar.app
 zone: AsiaPacific
 tags: firefox-only, Singapore, AsiaPacific, adblocker
-address: 174.138.29.175:443
+address: doh.tiar.app:443
 host: doh.tiar.app/dns-query
 keepalive: 7
 end;

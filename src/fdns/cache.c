@@ -63,6 +63,7 @@ static inline int hash(const char *str, int type) {
 void cache_init(void) {
 	memset(&clist[0], 0, sizeof(clist));
 	memset(cname, 0, sizeof(cname));
+	ccnt = 0;
 }
 
 void cache_set_name(const char *name, int ipv6) {
@@ -133,7 +134,8 @@ uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6) {
 
 void cache_timeout(void) {
 	int i;
-
+	
+	int cnt = 0;
 	for (i = 0; i < MAX_HASH_ARRAY; i++) {
 		CacheEntry *ptr = clist[i];
 		CacheEntry *last = NULL;
@@ -148,7 +150,6 @@ void cache_timeout(void) {
 				CacheEntry *tmp = ptr;
 				ptr = ptr->next;
 				free(tmp);
-				ccnt--;
 #ifdef DEBUG_STATS
 				sentries--;
 #endif
@@ -157,8 +158,10 @@ void cache_timeout(void) {
 				last = ptr;
 				ptr = ptr->next;
 			}
+			cnt++;
 		}
 	}
+	ccnt = cnt;
 
 #ifdef DEBUG_STATS
 	scnt++;

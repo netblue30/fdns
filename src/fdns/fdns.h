@@ -303,7 +303,6 @@ int dns_query(uint8_t *msg, int cnt);
 
 // filter.c
 void filter_init(void);
-void filter_postinit(void);
 void filter_load_all_lists(void);
 void filter_add(char label, const char *domain);
 const char *filter_blocked(const char *str, int verbose);
