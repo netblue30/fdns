@@ -1,0 +1,13 @@
+diff --git a/Makefile.in b/Makefile.in
+index 972ffd2..e5d84f2 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -65,7 +65,7 @@ realinstall:
+ 	install -m 0755 -d $(DESTDIR)$(sysconfdir)/fdns
+ 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/adblocker etc/coinblocker etc/doh etc/fp-trackers etc/resolver.seccomp etc/servers  etc/trackers
+ 	# systemd service unit
+-	install -Dm0644 etc/fdns.service $(DESTDIR)$(libdir)/systemd/system/fdns.service
++	install -Dm0644 etc/fdns.service $(DESTDIR)/usr/lib/systemd/system/fdns.service
+ 	# man pages
+ 	install -m 0755 -d $(DESTDIR)/$(mandir)/man1
+ 	for man in $(MANPAGES); do \
