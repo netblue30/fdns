@@ -14,7 +14,7 @@ ExecStart=/usr/bin/fdns
 # start fdns as a network server listening on a specific network interface address
 # --proxy-addr is broken when enabling RestrictAddressFamilies, see #15
 #ExecStart=/usr/bin/fdns --proxy-addr=192.168.1.200
-# For more options like --allow-local-doh or --allow-all-queries see man 1 fdns.
+# For more options like --allow-all-queries see man 1 fdns.
 Restart=on-failure
 
 # Log all queries to /tmp/fdns-log.txt.
@@ -33,8 +33,10 @@ Restart=on-failure
 AmbientCapabilities=
 LockPersonality=true
 MountFlags=private
+ProtectClock=true
 ProtectControlGroups=true
 ProtectHostname=true
+ProtectKernelLogs=true
 ProtectKernelModules=true
 ProtectKernelTunables=true
 RestrictNamespaces=ipc mnt pid uts
@@ -128,10 +130,12 @@ ProtectSystem=strict
 RuntimeDirectory=fdns
 ReadWritePaths=/run/fdns
 
-# FJ: --seccomp.drop=@aio,@chown,@ipc,@keyring,@memlock,@resources,@sync,@timer
-SystemCallFilter=~@aio @chown @ipc @keyring @memlock @resources @sync @timer
-# FJ: --seccomp.keep=@system-service,@mount,seccomp
-SystemCallFilter=@system-service @mount seccomp
+# FJ: --seccomp.keep=@system-service,seccomp
+SystemCallFilter=@system-service seccomp
+# FJ: --seccomp.drop=@aio,@chown,@ipc,@keyring,@memlock,@privileged,@resources,@sync,@timer
+SystemCallFilter=~@aio @chown @ipc @keyring @memlock @privileged @resources @sync @timer
+# FJ: --seccomp.keep=@mount,@setuid
+SystemCallFilter=@mount @setuid
 # FJ: --seccomp.block-secondary
 SystemCallArchitectures=native
 
