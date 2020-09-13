@@ -563,6 +563,7 @@ $ sudo pkill fdns
 .br
 /etc/fdns/doh - DoH filter
 .br
+/etc/fdns/fp-trackers - first-party tracker filter
 .br
 /etc/fdns/hosts - user hosts file
 .br
