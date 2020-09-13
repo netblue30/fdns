@@ -41,7 +41,7 @@ Asia-Pacific and Europe. Use --list=all option to print all the servers and the 
 Allow all DNS query types; by default only A queries are allowed. In case --ipv6 is set,
 AAAA queries are also allowed.
 .TP
-\fB\-\-allow--self-signed-certs
+\fB\-\-allow-self-signed-certs
 Allow self-signed SSL certificates during SSL connection. Use this option for bringing up new servers.
 .TP
 \fB\-\-cache-ttl=seconds
@@ -494,7 +494,12 @@ exit 0
 .br
 
 .br
-For systemd users, we have a fdns.service file in /etc/fdns directory.
+Systemd users, can alternative enable the fdns.service unit.
+.br
+
+.br
+$ sudo systemctl enable --now fdns.service
+.br
 
 .TP
 \fBHow do I configure Firejail to send all the DNS traffic to FDNS by default?
@@ -558,9 +563,6 @@ $ sudo pkill fdns
 .br
 /etc/fdns/doh - DoH filter
 .br
-/etc/fdns/fdns.service - systemd service unit for FDNS
-.br
-/etc/fdns/fp-trackers - first-party tracker filter
 .br
 /etc/fdns/hosts - user hosts file
 .br
