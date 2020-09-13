@@ -1,15 +1,18 @@
 #!/bin/bash
 
-set -euo pipefail
+set -e
 
-if ! command -v spectool; then
-	echo "Please install spectool: sudo dnf install rpmdevtools"
-	exit 1
-fi
-if ! command -v rpmbuild; then
-	echo "Please install rpmbuild: sudo dnf install rpm-build"
-	exit 1
-fi
+usage() {
+	cat <<EOM
+USAGE
+
+    $0 [--help|--use-mock]
+
+        --help  Show this help and exit.
+        --use-mock  Build the rpm using mock.
+          This requires that mock is installed and the user is allowed to use it.
+EOM
+}
 
 find_repo_root() {
 	local CWD="$PWD"
@@ -25,6 +28,12 @@ find_repo_root() {
 	fi
 }
 
+# Basic setup
+#  - Create a build dir under $TMP or /tmp as fallback.
+#  - Register a trap to delete this build dir on exit.
+#  - Download the source form the spec-file under $1.
+#  - Copy spec-file $1 and rename it to fdns.spec.
+#  - Copy all patches.
 setup() {
 	TOPDIR=$(mktemp -dt fdns-build.XXXXXX)
 	SOURCEDIR=$(rpm --define "_topdir $TOPDIR" --eval %_sourcedir)
@@ -41,6 +50,21 @@ setup() {
 	cp "$1" "$SPECDIR"/fdns.spec
 	cp "$(dirname "$0")"/*.patch "$SOURCEDIR"
 }
+
+if [ "$1" == "--help" ]; then
+	usage
+	exit 0
+fi
+
+# Ensure that spectool and rpmbuild are installed, if not show a helpful error.
+if ! command -v spectool >/dev/null; then
+	echo "Please install spectool: sudo dnf install rpmdevtools"
+	exit 1
+fi
+if ! command -v rpmbuild >/dev/null; then
+	echo "Please install rpmbuild: sudo dnf install rpm-build"
+	exit 1
+fi
 
 echo "Which version of fdns do you want to build?"
 select version in local git stable help; do
