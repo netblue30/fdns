@@ -139,5 +139,11 @@ SystemCallFilter=@mount @setuid
 # FJ: --seccomp.block-secondary
 SystemCallArchitectures=native
 
+# If you use a static server (--server=name|url), you can enable ip address whitelisting
+# by adding the IP of your DoH-Server below and uncomment the next lines.
+#IPAddressDeny=any
+#IPAddressAllow=localhost
+#IPAddressAllow=<IP-ADDR1> <IP-ADDR2> ...
+
 [Install]
 WantedBy=multi-user.target
