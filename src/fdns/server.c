@@ -655,10 +655,13 @@ void server_test_tag(const char *tag)  {
 	while (s) {
 		if (s->active) {
 			scurrent = s;
-			if (s->transport)
-				arg_transport = s->transport;
-			else
-				arg_transport = NULL;
+			if (!s->transport) {
+				if (s->transport)
+					arg_transport = s->transport;
+				else
+					arg_transport = NULL;
+			}
+
 			test_server(s->name);
 			usleep(500000);
 		}

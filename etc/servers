@@ -404,7 +404,7 @@ end;
 name: cloudflare-dot
 website: https://www.cloudflare.com
 zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+tags: admin-down, anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
 address: 1.1.1.1:853
 host: cloudflare-dns.com/dns-query
 keepalive: 550,590
@@ -414,7 +414,7 @@ end;
 name: cloudflare2-dot
 website: https://www.cloudflare.com
 zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+tags: admin-down, anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
 address: 1.0.0.1:853
 host: cloudflare-dns.com/dns-query
 keepalive: 550,590
@@ -424,7 +424,7 @@ end;
 name: cloudflare-security-dot
 website: https://www.cloudflare.com
 zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
+tags: admin-down, anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
 address: 1.1.1.2:853
 host: security.cloudflare-dns.com/dns-query
 transport: dot
@@ -434,7 +434,7 @@ end;
 name: cloudflare-security2-dot
 website: https://www.cloudflare.com
 zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
+tags: admin-down, anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
 address: 1.0.0.2:853
 host: security.cloudflare-dns.com/dns-query
 keepalive: 550,590
@@ -444,7 +444,7 @@ end;
 name: cloudflare-family-dot
 website: https://www.cloudflare.com
 zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: family
+tags: admin-down, family
 address: 1.0.0.3:853
 host: family.cloudflare-dns.com/dns-query
 keepalive: 550,590
@@ -454,7 +454,7 @@ end;
 name: cloudflare-family2-dot
 website: https://www.cloudflare.com
 zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: family
+tags: admin-down, family
 address: 1.1.1.3:853
 host: family.cloudflare-dns.com/dns-query
 keepalive: 550,590
@@ -889,16 +889,6 @@ tags: France, Europe, OpenNIC
 address: 62.210.180.71:443
 host: ns2.iriseden.fr/dns-query
 keepalive: 140,170
-end;
-
-# server down for administrative purposes
-name: jcdns
-website: https://jcdns.fun/
-zone: Europe
-tags: admin-down, Netherlands, Europe
-address: 178.62.214.105:443
-host: jcdns.fun/dns-query
-keepalive: 30,50
 end;
 
 name: lelux
