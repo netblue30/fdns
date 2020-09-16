@@ -1,5 +1,5 @@
 Name:           fdns
-Version:        0.9.62.8
+Version:        0.9.62.10
 Release:        1%{?dist}
 Summary:        Firejail DNS-over-HTTPS Proxy Server
 
@@ -7,7 +7,7 @@ License:        GPLv3+
 URL:            https://github.com/netblue30/fdns
 Source0:        https://github.com/netblue30/fdns/releases/download/v%{version}/fdns-%{version}.tar.xz
 Patch0:         disable-apparmor.patch
-Patch1:         install-units-to-unitdir_stable.patch
+Patch1:         install-units-to-unitdir.patch
 
 BuildRequires:  gcc
 BuildRequires:  git
