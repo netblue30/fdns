@@ -561,13 +561,13 @@ $ sudo pkill fdns
 .br
 /etc/fdns/coinblocker - cryptomining filter distributed with FDNS
 .br
-/etc/fdns/doh - DoH filter
+/etc/fdns/fdns.service - systemd service unit for FDNS
 .br
 /etc/fdns/fp-trackers - first-party tracker filter
 .br
 /etc/fdns/hosts - user hosts file
 .br
-/etc/fdns/servers - DoH servers FDNS know about
+/etc/fdns/servers - DoH/DoT servers FDNS knows about
 .br
 /etc/fdns/trackers - tracker filter distributed with FDNS
 .br

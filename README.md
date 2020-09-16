@@ -13,6 +13,7 @@ FDNS is written in C and licensed under GPLv3. The number one job is privacy. We
 <ul>
 <li>Works out of the box with little or no configuration changes.</li>
 <li>Network of 60+ non-logging DoH service providers spread across the globe. Access to specialized services such as family filtering, adblocking, security, OpenNIC.</li>
+<li><a href="https://en.wikipedia.org/wiki/DNS_over_TLS">DNS over TLS</a> support.</li>
 <li>Blocking ads, first and third-party trackers, coinminers, etc. The filters are configurable, the user can add his own hosts filter.</li>
 <li>DNS resolver cache and firewall: by default only A and AAAA queries are forwarded.</li>
 <li>Conditional DNS forwarding support and whitelisting mode.</li>
@@ -28,10 +29,12 @@ FDNS is written in C and licensed under GPLv3. The number one job is privacy. We
 
 FDNS is a community project. We are not affiliated with any company, and we don’t have any commercial goals. Our focus is the Linux desktop. Home users and Linux beginners are our target market. The software is built by a large international team of volunteers on GitHub. Expert or regular Linux user, you are welcome to join us!
 
+Security bugs are taken seriously, please email them to netblue30 at protonmail.com.
+
 <ul>
 <li>Webpage: <a href="https://firejaildns.wordpress.com">https://firejaildns.wordpress.com</a></li>
 <li>Development: <a href="https://github.com/netblue30/fdns">https://github.com/netblue30/fdns</a></li>
-<li>Documentation: <a href="https://github.com/netblue30/fdns/wiki/Introduction">https://github.com/netblue30/fdns/wiki/Introduction</a> (wiki)</li>
+<li>Documentation: <a href="https://github.com/netblue30/fdns/wiki">https://github.com/netblue30/fdns/wiki</a> (wiki)</li>
 <li>Download: <a href="https://github.com/netblue30/fdns/releases">https://github.com/netblue30/fdns/releases</a></li>
 <li>Support: <a href="https://github.com/netblue30/fdns/issues">https://github.com/netblue30/fdns/issues</a> (GitHub)
 <li>FAQ: <a href="https://github.com/netblue30/fdns/wiki/FAQ">https://github.com/netblue30/fdns/wiki/FAQ</a> (wiki)</li>
