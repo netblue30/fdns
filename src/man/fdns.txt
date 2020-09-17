@@ -1,6 +1,6 @@
 .TH FDNS 1 "MONTH YEAR" "VERSION" "fdns man page"
 .SH NAME
-fdns \- Firejail DNS over HTTPS proxy
+fdns \- Firejail DNS over HTTPS/TLS proxy
 .SH SYNOPSIS
 Start the server (root user):
 .PP
@@ -15,14 +15,14 @@ fdns --monitor
 .RE
 
 .SH DESCRIPTION
-FDNS is a DNS-over-HTTPS proxy server for small networks and Linux desktops.
+FDNS is an encrypted DNS proxy server for small networks and Linux desktops.
 To speed up the name resolution FDNS caches the responses, and uses a configurable
 adblocker and privacy filter to cut down the unnecessary traffic.
 
-We preconfigure FDNS with a large list of DoH service providers. For privacy reasons we
-use only DoH services from non-logging providers. We prefer servers run out-of-pocket by
+We preconfigure FDNS with a large list of DoH/DoT service providers. For privacy reasons we
+use only services from non-logging providers. We prefer servers run out-of-pocket by
 students, engineers, open-source enthusiasts, privacy-oriented non-profit organizations, etc.
-Currently there are more than 100 such DoH servers on our list.
+Currently there are more than 100 such servers on our list.
 
 We also track a corporate category with four providers: Adguard, CleanBrowsing, Cloudflare,
 and Quad9. All have a non-logging privacy policy that will work in most parts of the world.
@@ -32,8 +32,8 @@ user to request specialized services such as adblocking, security, family filter
 
 Once started, FDNS chooses a server at random, as close geographically as possible.
 We derive the computer location from the timezone setting. There are no IP packets sent
-out to geolocation services. Four zones are defined so far: Americas-East, Americas-West,
-Asia-Pacific and Europe. Use --list=all option to print all the servers and the corresponding tags.
+out to geolocation services. Four zones are defined so far: EastAmerica, WestAmerica,
+AsiaPacific and Europe. Use --list=all option to print all the servers and the corresponding tags.
 
 .SH OPTIONS
 .TP
@@ -236,6 +236,8 @@ $ sudo fdns --server=family
 .br
 $ sudo fdns --server=https://dns.google/dns-query
 .br
+$ sudo fdns --server=dot://dot1.applied-privacy.net
+.br
 .TP
 \fB\-\-test-server
 Test all the servers from your geographical zone.
@@ -287,9 +289,15 @@ not yet supported by FDNS.
 .br
 Example:
 .br
-$ src/fdns/fdns --test-server=https://dns.google/dns-query
+$ fdns --test-server=digital-society
 .br
-Testing server https://dns.google/dns-query
+   SSL connection opened in 640.53 ms
+.br
+   DoH response average 155.22 ms
+.br
+
+.br
+$ fdns --test-server=https://dns.google/dns-query
 .br
    SSL connection opened in 405.68 ms
 .br
@@ -297,11 +305,12 @@ Testing server https://dns.google/dns-query
 .br
 
 .br
-$ fdns --test-server=digital-society
+$ fdns --test-server=dot://dot1.applied-privacy.net
 .br
-     SSL connection opened in 640.53 ms
+   SSL/TLS connection: 770.46 ms
 .br
-     DoH response average 155.22 ms
+   DoT query average: 137.26 ms
+
 .TP
 \fB\-\-test-url=URL
 Check if URL is dropped by the adblock/tracker filters.
@@ -365,7 +374,7 @@ $ sudo fdns --whitelist-file=/etc/fdns/whitelist-gentoo
 .TP
 \fB\-\-zone=zone-name
 Set a different geographical zone.
-The zones defined so far are Americas-East, Americas-West, Asia-Pacific and Europe.
+The zones defined so far are EastAmerica, WestAmerica, AsiaPacific and Europe.
 
 .SH Setup FDNS on a workstation
 You would need to set FDNS as your DNS server in /etc/resolv.conf:
