@@ -1,4 +1,4 @@
-ffdns (0.9.62.10) baseline; urgency=low
+fdns (0.9.62.10) baseline; urgency=low
   * DNS over TLS support
   * HTTP/1.1 support
   * replaced cashpack library with our own implementation
@@ -10,9 +10,9 @@ ffdns (0.9.62.10) baseline; urgency=low
   * update keepalive timer for all servers
   * server list update
   * bug fixes
- -- netblue30 <netblue30@yahoo.com>  Wed, 16 Sep 2020 08:00:00 -0500
+ -- netblue30 <netblue30@yahoo.com>  Sun, 20 Sep 2020 08:00:00 -0500
 
-ffdns (0.9.62.8) baseline; urgency=low
+fdns (0.9.62.8) baseline; urgency=low
   * HTTP/1.1 removed and replaced with HTTP2
   * Adding support for https://commons.host network
   * Replaced --allow-local-doh with --disable-local-doh
@@ -27,7 +27,7 @@ ffdns (0.9.62.8) baseline; urgency=low
   * lots of bugfixes
  -- netblue30 <netblue30@yahoo.com>  Thu, 25 Jun 2020 08:00:00 -0500
 
-dns (0.9.62.6) baseline; urgency=low
+fdns (0.9.62.6) baseline; urgency=low
   * gcov regression test coverage support
   * lgtm.com security scanning
   * whitelisting domains functionality (--whitelist, --whitelist-file)
