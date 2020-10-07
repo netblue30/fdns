@@ -179,7 +179,7 @@ end;
 name: arapurayil
 website: https://www.dns.arapurayil.com
 zone: AsiaPacific
-tags: India, AsiaPacific
+tags: admin-down, India, AsiaPacific
 address: 3.7.156.128:443
 host: dns.arapurayil.com/dns-query
 keepalive: 10,15
@@ -401,66 +401,6 @@ host: family.cloudflare-dns.com/dns-query
 keepalive: 350,390
 end;
 
-name: cloudflare-dot
-website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: admin-down, anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
-address: 1.1.1.1:853
-host: cloudflare-dns.com/dns-query
-keepalive: 550,590
-transport: dot
-end;
-
-name: cloudflare2-dot
-website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: admin-down, anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
-address: 1.0.0.1:853
-host: cloudflare-dns.com/dns-query
-keepalive: 550,590
-transport: dot
-end;
-
-name: cloudflare-security-dot
-website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: admin-down, anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
-address: 1.1.1.2:853
-host: security.cloudflare-dns.com/dns-query
-transport: dot
-keepalive: 550,590
-end;
-
-name: cloudflare-security2-dot
-website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: admin-down, anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
-address: 1.0.0.2:853
-host: security.cloudflare-dns.com/dns-query
-keepalive: 550,590
-transport: dot
-end;
-
-name: cloudflare-family-dot
-website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: admin-down, family
-address: 1.0.0.3:853
-host: family.cloudflare-dns.com/dns-query
-keepalive: 550,590
-transport: dot
-end;
-
-name: cloudflare-family2-dot
-website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: admin-down, family
-address: 1.1.1.3:853
-host: family.cloudflare-dns.com/dns-query
-keepalive: 550,590
-transport: dot
-end;
-
 name: commons-host
 website: https://dev.to/commonshost/how-we-built-a-doh-cdn-with-20-global-edge-servers-in-10-days-1man
 zone: EastAmerica, WestAmerica, AsiaPacific, Europe
@@ -568,7 +508,7 @@ end;
 name: defaultroutes
 website: https://doh.defaultroutes.de/
 zone: Europe
-tags: Germany, Europe
+tags: admin-down, Germany, Europe
 address: 5.45.107.88:443
 host: doh.defaultroutes.de/dns-query
 sni: yes
@@ -894,7 +834,7 @@ end;
 name: lelux
 website: https://lelux.fi/resolver/
 zone: Europe
-tags: Netherlands, Europe
+tags: admin-down, Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
 keepalive: 30,50
@@ -1014,7 +954,7 @@ end;
 name: nixnet-lux
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Europe
-tags: Luxemburg, Europe
+tags: admin-down, Luxemburg, Europe
 address: 104.244.78.231:443
 host: uncensored.lux1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -1024,7 +964,7 @@ end;
 name: nixnet-lux-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Europe
-tags: Luxemburg, Europe, adblocker
+tags: admin-down, Luxemburg, Europe, adblocker
 address: 104.244.78.231:443
 host: adblock.lux1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -1107,7 +1047,7 @@ end;
 name: pi-hole
 website: https://public-pihole.com
 zone: Europe
-tags: Netherlands, Europe, adblocker
+tags: admin-down, Netherlands, Europe, adblocker
 address: 51.158.168.202:443
 host: 51.158.168.202/dns-query
 keepalive: 550,590
@@ -1116,7 +1056,7 @@ end;
 name: pi-hole2
 website: https://public-pihole.com
 zone: Europe
-tags: France, Europe, adblocker
+tags: admin-down, France, Europe, adblocker
 address: 163.172.170.19:443
 host: 163.172.170.19/dns-query
 keepalive: 550,590
@@ -1125,7 +1065,7 @@ end;
 name: pi-hole3
 website: https://public-pihole.com
 zone: EastAmerica
-tags: Quebec,  EastAmerica, adblocker
+tags: admin-down, Quebec,  EastAmerica, adblocker
 address: 54.39.97.51:443
 host: 54.39.97.51/dns-query
 keepalive: 550,590
@@ -1134,7 +1074,7 @@ end;
 name: pi-hole4
 website: https://public-pihole.com
 zone: AsiaPacific
-tags: Singapore, AsiaPacific, adblocker
+tags: admin-down, Singapore, AsiaPacific, adblocker
 address: 139.99.74.182:443
 host: 139.99.74.182/dns-query
 keepalive: 550,590
@@ -1225,7 +1165,7 @@ end;
 name: seby2-dot
 website: https://dns.seby.io
 zone: AsiaPacific
-tags: Australia, AsiaPacific, OpenNIC
+tags: admin-down, Australia, AsiaPacific, OpenNIC
 address: 139.99.222.72:853
 host: doh-2.seby.io/dns-query
 keepalive: 80,110
@@ -1363,7 +1303,7 @@ end;
 name: wugui
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
 zone: Europe
-tags: Moscow, Russia, Europe,
+tags: admin-down, Moscow, Russia, Europe,
 address: 45.151.144.10:443
 host: dns.wugui.zone/dns-query
 sni: yes
