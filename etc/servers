@@ -36,6 +36,7 @@
 # to connect to these servers.
 #
 
+
 name: 42l
 website: https://42l.fr
 zone: Europe
@@ -1267,6 +1268,69 @@ address: 210.17.9.228:443
 host: dns.twnic.tw/dns-query
 keepalive-query: yes
 keepalive: 80,110
+end;
+
+name: uncensoreddns
+website: https://blog.uncensoreddns.org/
+zone: Europe
+tags: Denmark, Europe
+address: 91.239.100.100:443
+host: anycast.censurfridns.dk/dns-query
+keepalive: 20,25
+end;
+
+name: uncensoreddns2
+website: https://blog.uncensoreddns.org/
+zone: Europe
+tags: Denmark, Europe
+address: 89.233.43.71:443
+host: unicast.censurfridns.dk/dns-query
+keepalive: 20,25
+end;
+
+name: uncensoreddns3
+website: https://blog.uncensoreddns.org/
+zone: Europe
+tags: Denmark, Europe
+address: 185.109.89.254:443
+host: unicast.censurfridns.dk/dns-query
+keepalive: 20,25
+end;
+
+name: uncensoreddns4
+website: https://blog.uncensoreddns.org/
+zone: Europe
+tags: Denmark, Europe
+address: 130.225.244.166:443
+host: unicast.censurfridns.dk/dns-query
+keepalive: 20,25
+end;
+
+name: uncensoreddns5
+website: https://blog.uncensoreddns.org/
+zone: Europe
+tags: Denmark, Europe
+address: 130.226.161.34:443
+host: unicast.censurfridns.dk/dns-query
+keepalive: 20,25
+end;
+
+name: uncensoreddns6
+website: https://blog.uncensoreddns.org/
+zone: Europe
+tags: admin-down, Denmark, Europe
+address: 185.38.24.52:443
+host: unicast.censurfridns.dk/dns-query
+keepalive: 20,25
+end;
+
+name: uncensoreddns7
+website: https://blog.uncensoreddns.org/
+zone: Europe
+tags: Denmark, Europe
+address: 94.126.178.9:443
+host: unicast.censurfridns.dk/dns-query
+keepalive: 20,25
 end;
 
 name: usableprivacy
