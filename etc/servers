@@ -517,6 +517,16 @@ keepalive-query: yes
 keepalive: 250,290
 end;
 
+name: digitalcourage-dot
+website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
+zone: Europe
+tags: Germany, Europe
+address: 46.182.19.48:853
+host: digitalcourage.de/
+keepalive: 20,25
+transport: dot
+end;
+
 name: digital-society
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
@@ -542,6 +552,26 @@ tags: non-profit, Switzerland, Europe
 address: 185.95.218.42:853
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 80,110
+transport: dot
+end;
+
+name: dismail-dot
+website: https://dismail.de/info.html
+zone: Europe
+tags: adblocker, Germany, Europe
+address: 80.241.218.68:853
+host: fdns1.dismail.de/
+keepalive: 20,25
+transport: dot
+end;
+
+name: dismail2-dot
+website: https://dismail.de/info.html
+zone: Europe
+tags: adblocker, Germany, Europe
+address: 159.69.114.157:853
+host: fdns2.dismail.de/
+keepalive: 20,25
 transport: dot
 end;
 
@@ -1133,6 +1163,16 @@ tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
 address: 149.112.112.10:5053
 host: dns.quad9.net/dns-query
 keepalive: 550,590
+end;
+
+name: radeksprta
+website: https://dns.radeksprta.eu/
+zone: Europe
+tags: OpenNIC, Czechia, Europe
+address: 80.211.208.74:853
+host: dns.radeksprta.eu/
+keepalive: 30,50
+transport: dot
 end;
 
 name: rumpelsepp
