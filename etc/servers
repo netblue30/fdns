@@ -985,7 +985,7 @@ end;
 name: nixnet-lux
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Europe
-tags: admin-down, Luxemburg, Europe
+tags: Luxemburg, Europe
 address: 104.244.78.231:443
 host: uncensored.lux1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -995,7 +995,7 @@ end;
 name: nixnet-lux-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Europe
-tags: admin-down, Luxemburg, Europe, adblocker
+tags: Luxemburg, Europe, adblocker
 address: 104.244.78.231:443
 host: adblock.lux1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
