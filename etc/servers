@@ -36,7 +36,6 @@
 # to connect to these servers.
 #
 
-
 name: 42l
 website: https://42l.fr
 zone: Europe
@@ -1011,6 +1010,17 @@ sni: yes
 keepalive: 140,170
 end;
 
+name: oszx-dot
+website: https://dns.oszx.co
+zone: Europe
+tags: UK, Europe, adblocker
+address: 51.38.83.141:853
+host: dns.oszx.co/
+sni: yes
+keepalive: 20,25
+transport: dot
+end;
+
 name: pi-dns
 website: https://pi-dns.com
 zone: EastAmerica, WestAmerica, AsiaPacific, Europe
@@ -1210,6 +1220,46 @@ tags: admin-down, Australia, AsiaPacific, OpenNIC
 address: 139.99.222.72:853
 host: doh-2.seby.io/dns-query
 keepalive: 80,110
+transport: dot
+end;
+
+name: sinodun-dot
+website: https://dnsprivacy.org
+zone: Europe
+tags: Netherlands, Europe
+address: 145.100.185.15:443
+host: dnsovertls.sinodun.com/
+keepalive: 20,25
+transport: dot
+end;
+
+name: sinodun2-dot
+website: https://dnsprivacy.org
+zone: Europe
+tags: Netherlands, Europe
+address: 145.100.185.16:443
+host: dnsovertls1.sinodun.com/
+keepalive: 20,25
+transport: dot
+end;
+
+name: sinodun3-dot
+website: https://dnsprivacy.org
+zone: Europe
+tags: Netherlands, Europe
+address: 145.100.185.17:853
+host: dnsovertls1.sinodun.com/
+keepalive: 20,25
+transport: dot
+end;
+
+name: sinodun4-dot
+website: https://dnsprivacy.org
+zone: Europe
+tags: Netherlands, Europe
+address: 145.100.185.18:853
+host: dnsovertls1.sinodun.com/
+keepalive: 20,25
 transport: dot
 end;
 
