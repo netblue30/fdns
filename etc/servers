@@ -1195,6 +1195,15 @@ host: rumpelsepp.org/dns-query
 keepalive: 550,590
 end;
 
+name: ryan-palmer
+website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
+zone: Europe
+tags: UK, Europe
+address: 68.183.253.200:443
+host: ns1.ryan-palmer.com/dns-query
+keepalive: 20,25
+end;
+
 name: seby
 website: https://dns.seby.io
 zone: AsiaPacific
