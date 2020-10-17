@@ -91,6 +91,8 @@ static inline int rand_range(int min, int max) {
 #define H2_TIMEOUT 5 // wait time for HTTP2 (DoH) answer - will close the connection
 #define TRANSPORT_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
 #define TRANSPORT_KEEPALIVE_MAX 600 // transport keepalive (PING) max value in seconds for --keepalive option
+#define SERVER_RESPONSE_LIMIT 80 // milliseconds - try another server if the first one responds above this limit
+#define SERVER_KEEPALIVE_LIMIT 110 // seconds
 
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)

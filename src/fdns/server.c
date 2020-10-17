@@ -617,16 +617,22 @@ DnsServer *server_get(void) {
 				// try another server
 				DnsServer *first = s;
 				uint8_t first_average = qaverage;
-				s = random_server();
-				if (s == first) // try again
+				scurrent = first;
+				s = first;
+				if (first_average > SERVER_RESPONSE_LIMIT || s->keepalive_max < SERVER_KEEPALIVE_LIMIT) {
+					// try another server if the first one responds in more than 70 ms
+					// or if it has a keepalive under 110 seconds
 					s = random_server();
-				scurrent = s;
-				qaverage = test_server(s->name);
-				// grab the fastest one
-				if (qaverage == 0 || qaverage > first_average) {
-					// revert back to the first server
-					scurrent = first;
-					s = first;
+					if (s == first) // try again
+						s = random_server();
+					scurrent = s;
+					qaverage = test_server(s->name);
+					// grab the fastest one
+					if (qaverage == 0 || qaverage > first_average) {
+						// revert back to the first server
+						scurrent = first;
+						s = first;
+					}
 				}
 			}
 		}

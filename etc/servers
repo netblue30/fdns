@@ -126,6 +126,42 @@ host: dns-family.adguard.com/dns-query
 keepalive: 140,170
 end;
 
+name: adhole
+website: https://adhole.org/
+zone: Europe
+tags: UK, Europe, adblocker
+address: 5.253.114.91:443
+host: uk.adhole.org/dns-query
+keepalive: 550,590
+end;
+
+name: adhole2
+website: https://adhole.org/
+zone: Europe
+tags: Germany, Europe, adblocker
+address: 46.4.165.226:443
+host: de.adhole.org/dns-query
+keepalive: 550,590
+end;
+
+name: adhole3
+website: https://adhole.org/
+zone: AsiaPacific
+tags: Singapore, AsiaPacific, adblocker
+address: 210.16.120.48:443
+host: sg.adhole.org/dns-query
+keepalive: 550,590
+end;
+
+name: adhole4
+website: https://adhole.org/
+zone: EastAmerica
+tags: Texas,  EastAmerica, adblocker
+address: 63.142.251.101:443
+host: us.adhole.org/dns-query
+keepalive: 550,590
+end;
+
 name: alekberg-nl
 website: https://alekberg.net/
 zone: Europe
@@ -153,13 +189,41 @@ host: dnsse.alekberg.net/dns-query
 keepalive: 140,170
 end;
 
+name: alekberg-nl-dot
+website: https://alekberg.net/
+zone: Europe
+tags: Netherlands, Europe
+address: 51.15.124.208:853
+host: dnsnl.alekberg.net/dns-query
+transport: dot
+keepalive: 20,25
+end;
+
+name: alekberg-es-dot
+website: https://alekberg.net/
+zone: Europe
+tags: Spain, Europe
+address: 185.253.154.66:853
+host: dnses.alekberg.net/dns-query
+transport: dot
+keepalive: 550,590
+end;
+
+name: alekberg-se-dot
+website: https://alekberg.net/
+zone: Europe
+tags: Sweden, Europe
+address: 45.153.187.96:853
+host: dnsse.alekberg.net/dns-query
+transport: dot
+keepalive: 20,25
+end;
+
 name: appliedprivacy
 website: https://appliedprivacy.net
 zone: Europe
 tags: non-profit, Austria, Europe
 address: 146.255.56.98:443
-#address: 94.130.106.88:443
-#address: 93.177.65.183:443
 host: doh.applied-privacy.net/query
 sni: yes
 keepalive: 20,25
@@ -861,10 +925,32 @@ host: ns2.iriseden.fr/dns-query
 keepalive: 140,170
 end;
 
+# ns3.fr.dns.opennic.glue
+name: iriseden-dot
+website: https://servers.opennic.org/
+zone: Europe
+tags: France, Europe, OpenNIC
+address: 62.210.177.189:853
+host: ns1.iriseden.fr/dns-query
+transport: dot
+keepalive: 20,25
+end;
+
+# ns4.fr.dns.opennic.glue
+name: iriseden2-dot
+website: https://servers.opennic.org/
+zone: Europe
+tags: France, Europe, OpenNIC
+address: 62.210.180.71:853
+host: ns2.iriseden.fr/dns-query
+transport: dot
+keepalive: 20,25
+end;
+
 name: lelux
 website: https://lelux.fi/resolver/
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
 keepalive: 30,50
@@ -1085,42 +1171,6 @@ host: doh.eastas.pi-dns.com/dns-query
 keepalive: 140,170
 end;
 
-name: pi-hole
-website: https://public-pihole.com
-zone: Europe
-tags: admin-down, Netherlands, Europe, adblocker
-address: 51.158.168.202:443
-host: 51.158.168.202/dns-query
-keepalive: 550,590
-end;
-
-name: pi-hole2
-website: https://public-pihole.com
-zone: Europe
-tags: admin-down, France, Europe, adblocker
-address: 163.172.170.19:443
-host: 163.172.170.19/dns-query
-keepalive: 550,590
-end;
-
-name: pi-hole3
-website: https://public-pihole.com
-zone: EastAmerica
-tags: admin-down, Quebec,  EastAmerica, adblocker
-address: 54.39.97.51:443
-host: 54.39.97.51/dns-query
-keepalive: 550,590
-end;
-
-name: pi-hole4
-website: https://public-pihole.com
-zone: AsiaPacific
-tags: admin-down, Singapore, AsiaPacific, adblocker
-address: 139.99.74.182:443
-host: 139.99.74.182/dns-query
-keepalive: 550,590
-end;
-
 name: powerdns
 website: https://powerdns.org
 zone: Europe
@@ -1175,13 +1225,13 @@ host: dns.quad9.net/dns-query
 keepalive: 550,590
 end;
 
-name: radeksprta
+name: radeksprta-dot
 website: https://dns.radeksprta.eu/
 zone: Europe
 tags: OpenNIC, Czechia, Europe
 address: 80.211.208.74:853
 host: dns.radeksprta.eu/
-keepalive: 30,50
+keepalive: 20,25
 transport: dot
 end;
 
