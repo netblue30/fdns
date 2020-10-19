@@ -13,6 +13,9 @@ rm -f tmp
 echo "TESTING: list (test/fdns/list.exp)"
 ./list.exp
 
+echo "TESTING: transport (test/fdns/transport.exp)"
+./transport.exp
+
 echo "TESTING: list=anycast (test/fdns/list-anycast.exp)"
 ./list-anycast.exp
 

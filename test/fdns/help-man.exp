@@ -7,9 +7,6 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "pkill fdns\r"
-sleep 1
-
 send -- "fdns --help\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
@@ -38,7 +35,7 @@ after 100
 send -- "cat tmp\r"
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
-	"fdns - Firejail DNS over HTTPS proxy"
+	"fdns - Firejail DNS over HTTPS/TLS proxy"
 }
 after 100
 send -- "rm -f tmp"
