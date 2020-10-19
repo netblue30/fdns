@@ -28,7 +28,8 @@ typedef struct dns_report_t {
 	char header1[MAX_ENTRY_LEN];
 	char header2[MAX_ENTRY_LEN];
 	int logindex;
-#define MAX_LOG_ENTRIES 256 	// 18 lines on the screen in order to handle tab terminals
+#define MAX_LOG_ENTRIES 512 	// 18 lines on the screen in order to handle tab terminals
+	time_t tstamp[MAX_LOG_ENTRIES];
 	char logentry[MAX_LOG_ENTRIES][MAX_ENTRY_LEN];
 } DnsReport;
 DnsReport *report = NULL;
@@ -137,9 +138,11 @@ void shmem_store_log(const char *str) {
 	if (strcmp(lastentry, str) == 0) {
 		lastentry_cnt++;
 		snprintf(report->logentry[lastentry_index], MAX_ENTRY_LEN, "%dx  %s", lastentry_cnt, str);
+		report->tstamp[lastentry_index] = time(NULL);
 	}
 	else {
 		snprintf(report->logentry[report->logindex], MAX_ENTRY_LEN, "%s", str);
+		report->tstamp[report->logindex] = time(NULL);
 		snprintf(lastentry, MAX_ENTRY_LEN, "%s", str);
 		lastentry_cnt = 1;
 		lastentry_index = report->logindex;
