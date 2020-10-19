@@ -27,6 +27,11 @@
 
   /etc/fdns/** r,
 
+# we need to be able to read these (symlinks) - Arch Linux
+  /etc/ca-certificates/extracted/tls-ca-bundle.pem r,
+  /var/db/nscd/hosts r,
+  /var/db/nscd/passwd r,
+
  # mount required for setting up the mount namespace in the resolver processes - Debian 10
   mount,
 
@@ -35,4 +40,6 @@
 
   deny ptrace (r, rw, read, readby, trace, tracedby),
 
+# Site-specific additions and overrides. See local/README for details.
+#include <local/usr.bin.fdns>
 }
