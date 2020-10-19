@@ -1,18 +1,30 @@
-name: cloudflare-dot
+name: appliedprivacy-dot
+website: https://appliedprivacy.net
+zone: EastAmerica
+tags: non-profit, EastAmerica
+address: 146.255.56.98:853
+host: dot1.applied-privacy.net/
+sni: yes
+transport: dot
+keepalive: 80,110
+end;
+
+name: cloudflare
 website: https://www.cloudflare.com
 zone: EastAmerica, WestAmerica, AsiaPacific, Europe
 tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
-address: 1.1.1.1:853
+address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
-keepalive: 250,290
-transport: dot
+keepalive: 350,390
 end;
 
-name: dnslify
-website: https://www.dnslify.com/
-zone: EastAmerica, WestAmerica
-tags: EastAmerica, WestAmerica, NY, California
-address: 185.235.81.1:443
-host: doh.dnslify.com/dns-query
-keepalive: 20,25
+name: quad9
+website: https://quad9.net
+zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+tags: anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
+address: 9.9.9.9:5053
+host: dns.quad9.net/dns-query
+keepalive: 550,590
+transport: http/1.1
 end;
+
