@@ -262,6 +262,8 @@ void ssl_open(void) {
 	if ((err = SSL_get_verify_result(ssl)) != X509_V_OK) {
 		if (arg_allow_self_signed_certs && err == X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT)
 			printf("   Warning: %s\n", X509_verify_cert_error_string(err));
+		else if (arg_allow_expired_certs && err == X509_V_ERR_CERT_HAS_EXPIRED)
+			printf("   Warning: %s\n", X509_verify_cert_error_string(err));
 		else {
 			printf("   Error: %s\n", X509_verify_cert_error_string(err));
 			rlogprintf("Error: %s\n", X509_verify_cert_error_string(err));
