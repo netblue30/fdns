@@ -75,7 +75,7 @@ static inline int rand_range(int min, int max) {
 	return min + delta;
 }
 
-// resolvers/forntend timers in seconds
+// resolvers/frontend timers in seconds
 #define RESOLVER_KEEPALIVE_TIMER 10 // keepalive messages sent by resolver processes
 #define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 3) // timer to detect a dead resolver process
 #define FRONTEND_KEEPALIVE_TIMER 10 // keepalive messages sent by frontend processes
