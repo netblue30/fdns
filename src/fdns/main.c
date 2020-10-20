@@ -47,6 +47,7 @@ int arg_qps = QPS_DEFAULT;
 int arg_details = 0;
 char *arg_transport = NULL;
 int arg_allow_self_signed_certs = 0;
+int arg_allow_expired_certs = 0;
 
 Stats stats;
 
@@ -83,7 +84,8 @@ static void usage(void) {
 	printf("Options:\n");
 	printf("    --allow-all-queries - allow all DNS query types; by default only\n"
 	       "\tA queries are allowed.\n");
-	printf("    --allow-self-signed-certs - allow self-signed SSL certificates\n");
+	printf("    --allow-expired-certs - allow expired SSL certificates.\n");
+	printf("    --allow-self-signed-certs - allow self-signed SSL certificates.\n");
 	printf("    --cache-ttl=seconds - change DNS cache TTL (default %ds).\n", CACHE_TTL_DEFAULT);
 	printf("    --certfile=filename - SSL certificate file in PEM format.\n");
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
@@ -180,6 +182,8 @@ int main(int argc, char **argv) {
 			}
 			else if (strcmp(argv[i], "--allow-self-signed-certs") == 0)
 				arg_allow_self_signed_certs = 1;
+			else if (strcmp(argv[i], "--allow-expired-certs") == 0)
+				arg_allow_expired_certs = 1;
 #ifdef HAVE_GCOV
 			else if (strcmp(argv[i], "--fallback-only") == 0)
 				arg_fallback_only = 1;

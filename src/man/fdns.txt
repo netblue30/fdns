@@ -41,6 +41,9 @@ AsiaPacific and Europe. Use --list=all option to print all the servers and the c
 Allow all DNS query types; by default only A queries are allowed. In case --ipv6 is set,
 AAAA queries are also allowed.
 .TP
+\fB\-\-allow-expired-certs
+Allow expired SSL certificates during SSL connection.
+.TP
 \fB\-\-allow-self-signed-certs
 Allow self-signed SSL certificates during SSL connection. Use this option for bringing up new servers.
 .TP

@@ -253,6 +253,7 @@ extern int arg_qps;
 extern int arg_details;
 extern char *arg_transport;
 extern int arg_allow_self_signed_certs;
+extern int arg_allow_expired_certs;
 extern Stats stats;
 
 // dnsdb.c
