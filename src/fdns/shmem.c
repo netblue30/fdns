@@ -294,3 +294,24 @@ void shmem_monitor_stats(const char *proxy_addr) {
 		}
 	}
 }
+
+void shm_timeout(void) {
+	static int cnt = 0;
+	if (!report)
+		return;
+	if (++cnt < 10) // run the cleanup every 10 seconds
+		return;
+	time_t t = time(NULL);
+	if (arg_log_timeout != 0)
+		t -= arg_log_timeout * 60;
+	else
+		t -= LOG_TIMEOUT_DEFAULT * 60;
+
+	int i;
+	for (i = 0; i < MAX_LOG_ENTRIES; i++) {
+		if (report->tstamp[i] != 0 && report->tstamp[i] < t) {
+			report->tstamp[i] = 0;
+			memset(report->logentry[i], 0, MAX_ENTRY_LEN);
+		}
+	}
+}

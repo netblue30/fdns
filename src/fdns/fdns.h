@@ -75,7 +75,7 @@ static inline int rand_range(int min, int max) {
 	return min + delta;
 }
 
-// all timers are in seconds
+// resolvers/forntend timers in seconds
 #define RESOLVER_KEEPALIVE_TIMER 10 // keepalive messages sent by resolver processes
 #define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 3) // timer to detect a dead resolver process
 #define FRONTEND_KEEPALIVE_TIMER 10 // keepalive messages sent by frontend processes
@@ -86,6 +86,7 @@ static inline int rand_range(int min, int max) {
 #define SSL_REOPEN_TIMER 2	// try to reopen a failed SSL connection after this time
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
 
+// transport protocol timeout
 #define DOT_TIMEOUT 5 // wait time for DoT answer - will close the connection
 #define H11_TIMEOUT 5 // wait time for HTTP1 (DoH) answer - will close the connection
 #define H2_TIMEOUT 5 // wait time for HTTP2 (DoH) answer - will close the connection
@@ -94,11 +95,17 @@ static inline int rand_range(int min, int max) {
 #define SERVER_RESPONSE_LIMIT 80 // milliseconds - try another server if the first one responds above this limit
 #define SERVER_KEEPALIVE_LIMIT 110 // seconds
 
+// logging
+#define LOG_TIMEOUT_DEFAULT 10		// amount of time to keep the log entries in shared memory in minutes
+#define LOG_TIMEOUT_MAX 1140		// 1 day maximum
+// cache
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (60 * 60)
 #define CACHE_TTL_ERROR (10 * 60)	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
 #define CACHE_PRINT_TIMEOUT	60	// list the domain in the cache
+
+// rate limitation
 #define QPS_DEFAULT 5	// default queries per second limit for each resolver
 #define QPS_MAX 20		// max --qps value
 #define QPS_MIN 3		// min --qps value
@@ -254,6 +261,7 @@ extern int arg_details;
 extern char *arg_transport;
 extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
+extern int arg_log_timeout;
 extern Stats stats;
 
 // dnsdb.c
@@ -340,6 +348,8 @@ void shmem_store_log(const char *str);
 void shmem_print_stats(void);
 void shmem_monitor_stats(const char *proxy_addr);
 void shmem_keepalive(void);
+void shm_timeout(void);
+
 
 // server.c
 extern int server_print_zone;
