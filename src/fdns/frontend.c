@@ -327,6 +327,9 @@ void frontend(void) {
 			time_t ts = time(NULL);
 			int i;
 
+			// clean shared memory logs
+			shm_timeout();
+
 			// decrease keepalive wait when coming out of sleep/hibernation
 			if (ts - timestamp > OUT_OF_SLEEP) {
 				for (i = 0; i < arg_resolvers; i++) {

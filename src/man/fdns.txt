@@ -164,6 +164,15 @@ cznic - Czechia, Europe
 \fB\-\-list=server-name|tag|all
 List the available DoH service providers based on a tag, server name, or all.
 .TP
+\fB\-\-log-timeout=minutes
+Amount of time queries are kept for monitoring, default 10 minutes, maximum 1140 (one day).
+.br
+
+.br
+Example:
+.br
+$ sudo fdns --log-timeout=60
+.TP
 \fB\-\-monitor
 Start the stats monitor for the default FDNS instance (127.1.1.1). Run this command as a regular user in a terminal.
 .br

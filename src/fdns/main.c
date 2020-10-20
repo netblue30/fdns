@@ -48,6 +48,7 @@ int arg_details = 0;
 char *arg_transport = NULL;
 int arg_allow_self_signed_certs = 0;
 int arg_allow_expired_certs = 0;
+int arg_log_timeout = 0;
 
 Stats stats;
 
@@ -109,6 +110,8 @@ static void usage(void) {
 	         "\tservers file.\n");
 	printf("    --list - list DoH servers for your geographical zone.\n");
 	printf("    --list=server-name|tag|all - list DoH servers.\n");
+	printf("    --log-timeout=minutes - amount of time log entries are kept in shared\n"
+	         "\tmemory, default %d minutes, maximum %d.\n", LOG_TIMEOUT_DEFAULT, LOG_TIMEOUT_MAX);
 	printf("    --monitor - monitor statistics for the default instance.\n");
 	printf("    --monitor=proxy-address - monitor statistics for a specific instance\n"
 	         "\tof FDNS.\n");
@@ -184,6 +187,13 @@ int main(int argc, char **argv) {
 				arg_allow_self_signed_certs = 1;
 			else if (strcmp(argv[i], "--allow-expired-certs") == 0)
 				arg_allow_expired_certs = 1;
+			else if (strncmp(argv[i], "--log-timeout=", 14) == 0) {
+				arg_log_timeout = atoi(argv[i] + 14);
+				if (arg_log_timeout < 0 || arg_log_timeout > LOG_TIMEOUT_MAX) {
+					fprintf(stderr, "Error: invalid --log-timeout value, use a value from 0 to %d\n", LOG_TIMEOUT_MAX);
+					exit(1);
+				}
+			}
 #ifdef HAVE_GCOV
 			else if (strcmp(argv[i], "--fallback-only") == 0)
 				arg_fallback_only = 1;
