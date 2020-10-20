@@ -27,6 +27,7 @@
 #include <stddef.h>
 #include "fdns.h"
 #include "timetrace.h"
+#include "lint.h"
 
 static void dot_header_stats(void);
 static double dot_bandwidth(void);
@@ -124,6 +125,9 @@ static int dot_send_exampledotcom(uint8_t *req) {
 // the result message is placed in req, the length of the message is returned
 // returns -1 if error
 static int dot_send_query(uint8_t *req, int cnt) {
+	if (cnt <= 0 || cnt > DNS_MAX_DOMAIN_NAME)
+		return 0;
+
 	// two bytes length field
 	uint16_t len = htons(cnt);
 	memcpy(buf_query, &len, 2);
@@ -151,7 +155,7 @@ static int dot_exchange(uint8_t *response, uint32_t stream) {
 	(void) stream;
 
 	uint8_t buf[MAXBUF];
-	int total_len = ssl_rx_timeout((uint8_t *) buf, DOT_TIMEOUT);
+	int total_len = ssl_rx_timeout((uint8_t *) buf, MAXBUF, DOT_TIMEOUT);
 	if (total_len == 0)
 		goto errout;
 
@@ -178,7 +182,7 @@ static int dot_exchange(uint8_t *response, uint32_t stream) {
 
 	if ((total_len - 2) > len) {
 		// read some more data
-		int newlen = ssl_rx_timeout(buf + total_len, DOT_TIMEOUT);
+		int newlen = ssl_rx_timeout(buf + total_len, MAXBUF - total_len, DOT_TIMEOUT);
 		if (len == 0)
 			goto errout;
 		if (arg_debug || arg_debug_transport) {

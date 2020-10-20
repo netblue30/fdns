@@ -28,7 +28,7 @@
 
 #include "fdns.h"
 #include "timetrace.h"
-
+#include "lint.h"
 
 static void h11_header_stats(void);
 static double h11_bandwidth(void);
@@ -156,6 +156,9 @@ static int h11_send_exampledotcom(uint8_t *req) {
 // the result message is placed in req, the length of the message is returned
 // returns -1 if error
 static int h11_send_query(uint8_t *req, int cnt) {
+	if (cnt <= 0 || cnt > DNS_MAX_DOMAIN_NAME)
+		return 0;
+
 	DnsServer *s = server_get();
 	sprintf((char *) buf_query, "POST %s HTTP/1.1\r\nHost: %s\r\n",  s->path, s->host);
 	uint8_t *ptr = buf_query + strlen((char *) buf_query);
@@ -204,7 +207,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 	(void) stream;
 
 	char buf[MAXBUF];
-	int total_len = ssl_rx_timeout((uint8_t *) buf, H11_TIMEOUT);
+	int total_len = ssl_rx_timeout((uint8_t *) buf, MAXBUF, H11_TIMEOUT);
 	if (total_len == 0)
 		goto errout;
 
@@ -260,7 +263,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 
 	// give it another chance
 	if ((hlen + datalen) > total_len) {
-		int len = ssl_rx_timeout((uint8_t *) buf + hlen, H11_TIMEOUT);
+		int len = ssl_rx_timeout((uint8_t *) buf + hlen, MAXBUF - hlen, H11_TIMEOUT);
 		if (len == 0)
 			goto errout;
 		total_len += len;

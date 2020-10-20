@@ -382,12 +382,12 @@ errout:
 	return 0;
 }
 
-int ssl_rx(uint8_t *buf) {
+int ssl_rx(uint8_t *buf, int size) {
 	assert(buf);
-	if (ctx == NULL || ssl == NULL || ssl_state != SSL_OPEN)
+	if (size < 1 || ctx == NULL || ssl == NULL || ssl_state != SSL_OPEN)
 		goto errout;
 
-	int len = BIO_read(bio, buf, MAXBUF);
+	int len = BIO_read(bio, buf, size - 1);
 	if(len <= 0) {
 		if(! BIO_should_retry(bio)) {
 			rlogprintf("Error: failed SSL read, retval %d\n", len);
@@ -403,6 +403,7 @@ int ssl_rx(uint8_t *buf) {
 		print_time();
 		printf("(%d) ssl rx len %u\n", arg_id, len);
 	}
+	buf[len] = '\0';
 
 	return len;
 errout:
@@ -412,7 +413,7 @@ errout:
 
 
 // return 0 if nothing read, or error
-int ssl_rx_timeout(uint8_t *buf, int timeout) {
+int ssl_rx_timeout(uint8_t *buf, int size, int timeout) {
 	fd_set readfds;
 	FD_ZERO(&readfds);
 	int fd = ssl_get_socket();
@@ -426,7 +427,7 @@ int ssl_rx_timeout(uint8_t *buf, int timeout) {
 		return 0;
 
 	if (FD_ISSET(fd, &readfds))
-		return ssl_rx(buf);
+		return ssl_rx(buf, size);
 
 	return 0;
 }

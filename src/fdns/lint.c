@@ -97,7 +97,7 @@ static int domain_size_no_crossreference(const uint8_t *data, char *domain_name,
 		if (chunk_size > 63)
 			goto errexit;
 		i += chunk_size + 1;
-		if (i > 255)
+		if (i > DNS_MAX_DOMAIN_NAME)
 			goto errexit;
 
 		// check chars in domain name

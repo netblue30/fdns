@@ -272,8 +272,8 @@ void ssl_init(void);
 void ssl_open(void);
 void ssl_close(void);
 int ssl_status_check(void);
-int ssl_rx(uint8_t *buf);
-int ssl_rx_timeout(uint8_t *buf, int timeout);
+int ssl_rx(uint8_t *buf, int size);
+int ssl_rx_timeout(uint8_t *buf, int size, int timeout);
 int ssl_tx(uint8_t *buf, int len);
 int ssl_get_socket(void);
 
