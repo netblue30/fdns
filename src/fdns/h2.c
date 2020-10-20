@@ -23,12 +23,12 @@
 #include <string.h>
 #include <assert.h>
 #include <stddef.h>
+#include "lint.h"
 
 #include "h2frame.h"
 #include "hpack_static.h"
 #include "fdns.h"
 #include "timetrace.h"
-
 
 static void h2_header_stats(void);
 static double h2_bandwidth(void);
@@ -548,6 +548,9 @@ static int h2_send_exampledotcom(uint8_t *req) {
 // the result message is placed in req, the length of the message is returned
 // returns -1 if error
 static int h2_send_query(uint8_t *req, int cnt) {
+	if (cnt <= 0 || cnt > DNS_MAX_DOMAIN_NAME)
+		return 0;
+
 	stream_id += 2;
 	uint32_t len = h2_encode_header(buf_query, cnt);
 	if (arg_debug || arg_debug_transport)
@@ -602,7 +605,7 @@ static int h2_exchange(uint8_t *response, uint32_t stream) {
 		}
 
 		if (FD_ISSET(fd, &readfds)) {
-			int rv = ssl_rx(buf);
+			int rv = ssl_rx(buf, MAXBUF);
 			if (rv == 0) {
 				if (ssl_state == SSL_OPEN)
 					ssl_close();
