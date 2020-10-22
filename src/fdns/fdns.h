@@ -116,6 +116,7 @@ static inline int rand_range(int min, int max) {
 #define RESOLVERS_CNT_DEFAULT 3
 #define UNIX_ADDRESS "fdns"	// internal UNIX socket address for communication between frontend and resolvers
 #define DEFAULT_PROXY_ADDR "127.1.1.1"
+#define DEFAULT_PROXY_LOOPBACK "127.0.0.1"
 #define FALLBACK_SERVER "9.9.9.9"
 
 // filesystem paths
@@ -408,6 +409,9 @@ void whitelist_command(char **argv);
 int whitelist_blocked(const char *domain);
 
 // procs.c
+extern int procs_addr_default;
+extern int procs_addr_loopback;
+extern char *procs_addr_real;
 void procs_add(void);
 void procs_exit(void);
 void procs_list(void);

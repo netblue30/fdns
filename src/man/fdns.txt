@@ -174,7 +174,8 @@ Example:
 $ sudo fdns --log-timeout=60
 .TP
 \fB\-\-monitor
-Start the stats monitor for the default FDNS instance (127.1.1.1). Run this command as a regular user in a terminal.
+Start the stats monitor. Without specifying an IP address (see below), the monitor is looking for a proxy at 127.1.1.1. If it fails,
+it looks for a proxy on the regular loopback address 127.0.0.1. If it fails again, it will display a proxy found on any other addresses.
 .br
 
 .br
