@@ -209,8 +209,20 @@ void shmem_monitor_stats(const char *proxy_addr) {
 	signal(SIGCONT,  wins_resize_sighandler);
 	signal(SIGWINCH, wins_resize_sighandler);
 
-	if (proxy_addr == NULL)
-		proxy_addr = DEFAULT_PROXY_ADDR;
+	if (proxy_addr == NULL) {
+		procs_list();
+		if (procs_addr_default)
+			proxy_addr = DEFAULT_PROXY_ADDR;
+		else if (procs_addr_loopback)
+			proxy_addr = DEFAULT_PROXY_LOOPBACK;
+		else if (procs_addr_real)
+			proxy_addr = procs_addr_real;
+		else {
+			printf("No FDNS proxy running on the system\n");
+			exit(1);
+		}
+	}
+	assert(proxy_addr);
 
 	while (1) {
 #ifdef HAVE_GCOV
