@@ -7,7 +7,7 @@ fdns (0.9.64) baseline; urgency=low
   * adding more DoT servers to the list
   * server list update
   * bug fixes
- -- netblue30 <netblue30@yahoo.com>  Thu, 22 Oct 2020 08:00:00 -0500
+ -- netblue30 <netblue30@yahoo.com>  Thu, 24 Oct 2020 08:00:00 -0500
 
 fdns (0.9.62.10) baseline; urgency=low
   * DNS over TLS support
