@@ -157,7 +157,9 @@ void procs_list(void) {
 			}
 			printf("\n");
 			fclose(fp);
+			free(runfname);
 		}
+		free(fname);
 	}
 	closedir(dir);
 	printf("\n");
