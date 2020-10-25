@@ -12,7 +12,7 @@
 #
 
 AC_PREREQ([2.68])
-AC_INIT(fdns, 0.9.64, netblue30@yahoo.com, , https://firejail.wordpress.com)
+AC_INIT(fdns, 0.9.65, netblue30@yahoo.com, , https://firejail.wordpress.com)
 AC_CONFIG_SRCDIR([src/fdns/main.c])
 
 AC_CONFIG_MACRO_DIR([m4])

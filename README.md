@@ -43,7 +43,7 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 
 ## Project Status
 
-Development version 0.9.63.
+Development version 0.9.65.
 
 <div style="height:20px;">&nbsp;</div>
 
