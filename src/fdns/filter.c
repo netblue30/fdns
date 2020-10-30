@@ -43,6 +43,8 @@ static inline const char *label2str(char label) {
 		return "reserved";
 	else if (label == 'D')
 		return "doh";
+	else if (label == 'B')
+		return "bulkmailer";
 
 	return "?";
 }
@@ -268,6 +270,7 @@ void filter_load_all_lists(void) {
 	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST);
 	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST);
 	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST);
+	filter_load_list('B', PATH_ETC_BULKMAILER_LIST);
 	filter_load_list('H', PATH_ETC_HOSTS_LIST);
 }
 
