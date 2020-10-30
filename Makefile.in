@@ -70,6 +70,7 @@ realinstall:
 	# apparmor profile
 	sh -c "if [ ! -d $(DESTDIR)/$(sysconfdir)/apparmor.d ]; then install -d -m 755 $(DESTDIR)/$(sysconfdir)/apparmor.d; fi;"
 	install -c -m 0644 etc/apparmor/usr.bin.fdns $(DESTDIR)/$(sysconfdir)/apparmor.d/.
+	install -c -m 0644 etc/apparmor/fdns-local $(DESTDIR)/$(sysconfdir)/apparmor.d/local/usr.bin.fdns
 
 install: all
 	$(MAKE) realinstall
