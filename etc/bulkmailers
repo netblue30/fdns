@@ -1,0 +1,47 @@
+#
+# Firejail DNS bulk/mass mailers drop list - some of them are also trackers
+#
+
+127.0.0.1 32bit.com
+127.0.0.1 activecampaign.com
+127.0.0.1 atompark.com
+127.0.0.1 automizy.com
+127.0.0.1 aweber.com
+127.0.0.1 bulkmail.co.za
+127.0.0.1 bulkmailerpro.com
+127.0.0.1 constantcontact.com
+127.0.0.1 convertkit.com
+127.0.0.1 dnbmassmailingsolutions.com
+127.0.0.1 drip.com
+127.0.0.1 elasticemail.com
+127.0.0.1 getresponse.com
+127.0.0.1 gmass.co
+127.0.0.1 leadersend.com
+127.0.0.1 mailerlite.com
+127.0.0.1 mailerq.com
+127.0.0.1 mailgun.com
+127.0.0.1 mailing.com
+127.0.0.1 mailjet.com
+127.0.0.1 mandrillapp.com
+127.0.0.1 mandrill.com
+127.0.0.1 massmailsoftware.com
+127.0.0.1 moosend.com
+127.0.0.1 mysmtp.com
+127.0.0.1 newsman.app
+127.0.0.1 pabbly.com
+127.0.0.1 pepipost.com
+127.0.0.1 postmarkapp.com
+127.0.0.1 postmastery.com
+127.0.0.1 postyman.com
+127.0.0.1 sendblaster.com
+127.0.0.1 sendgrid.com
+127.0.0.1 sendinblue.com
+127.0.0.1 sendpulse.com
+127.0.0.1 smtp2go.com
+127.0.0.1 sparkpost.com
+127.0.0.1 thundermailer.com
+127.0.0.1 tinyletter.com
+127.0.0.1 tipimail.com
+127.0.0.1 touchpointspro.com
+127.0.0.1 uprinting.com
+127.0.0.1 vibemail.in
