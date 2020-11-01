@@ -42,6 +42,14 @@ AX_CHECK_COMPILE_FLAG(
 AC_SUBST([EXTRA_CFLAGS])
 AC_SUBST([EXTRA_LDFLAGS])
 
+HAVE_APPARMOR=""
+AC_ARG_ENABLE([apparmor],
+    AS_HELP_STRING([--enable-apparmor], [enable apparmor]))
+AS_IF([test "x$enable_apparmor" = "xyes"], [
+	HAVE_APPARMOR="-DHAVE_APPARMOR"
+	AC_SUBST(HAVE_APPARMOR)
+])
+
 HAVE_FATAL_WARNINGS=""
 AC_ARG_ENABLE([fatal_warnings],
     AS_HELP_STRING([--enable-fatal-warnings], [-W -Wall -Werror]))
@@ -84,6 +92,7 @@ echo "Configuration options:"
 echo "   prefix: $prefix"
 echo "   sysconfdir: $sysconfdir"
 echo "   Spectre compiler patch: $HAVE_SPECTRE"
+echo "   apparmor: $HAVE_APPARMOR"
 echo "   EXTRA_LDFLAGS: $EXTRA_LDFLAGS"
 echo "   EXTRA_CFLAGS: $EXTRA_CFLAGS"
 echo "   fatal warnings: $HAVE_FATAL_WARNINGS"
