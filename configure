@@ -633,6 +633,7 @@ GREP
 CPP
 HAVE_GCOV
 HAVE_FATAL_WARNINGS
+HAVE_APPARMOR
 EXTRA_LDFLAGS
 EXTRA_CFLAGS
 RANLIB
@@ -688,6 +689,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+enable_apparmor
 enable_fatal_warnings
 enable_gcov
 with_openssl
@@ -1321,6 +1323,7 @@ Optional Features:
   --disable-option-checking  ignore unrecognized --enable/--with options
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --enable-apparmor       enable apparmor
   --enable-fatal-warnings -W -Wall -Werror
   --enable-gcov           Gcov instrumentation
 
@@ -3213,6 +3216,19 @@ fi
 
 
 
+
+HAVE_APPARMOR=""
+# Check whether --enable-apparmor was given.
+if test "${enable_apparmor+set}" = set; then :
+  enableval=$enable_apparmor;
+fi
+
+if test "x$enable_apparmor" = "xyes"; then :
+
+	HAVE_APPARMOR="-DHAVE_APPARMOR"
+
+
+fi
 
 HAVE_FATAL_WARNINGS=""
 # Check whether --enable-fatal_warnings was given.
@@ -5125,6 +5141,7 @@ echo "Configuration options:"
 echo "   prefix: $prefix"
 echo "   sysconfdir: $sysconfdir"
 echo "   Spectre compiler patch: $HAVE_SPECTRE"
+echo "   apparmor: $HAVE_APPARMOR"
 echo "   EXTRA_LDFLAGS: $EXTRA_LDFLAGS"
 echo "   EXTRA_CFLAGS: $EXTRA_CFLAGS"
 echo "   fatal warnings: $HAVE_FATAL_WARNINGS"
