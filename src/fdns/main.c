@@ -54,6 +54,7 @@ Stats stats;
 
 // clear /run/fdns/#pid# file
 static void my_handler(int s) {
+	(void) s;
 	procs_exit();
 }
 
