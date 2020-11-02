@@ -10,9 +10,17 @@
 # the macros from m4 directory are not picked up by default by automake.
 # "autoreconf -i --install" seems to fix the problem.
 #
+# Config options for various distros:
+#    - Debian: ./configure --prefix=/usr --enable-apparmor --with-systemd=/lib/systemd/system
+#    - Fedora: ./configure --prefix=/usr --with-systemd=/usr/lib/systemd
+#    - Arch:./configure --prefix=/usr --enable-apparmor --with-systemd=/usr/lib/systemd/system
+#
+# Run "pkg-config systemd --variable=systemdsystemunitdir" to find out where systemd unit
+# files are stored on your system.
+
 
 AC_PREREQ([2.68])
-AC_INIT(fdns, 0.9.65, netblue30@yahoo.com, , https://firejail.wordpress.com)
+AC_INIT(fdns, 0.9.65, netblue30@protonmail.com, , https://firejaildns.wordpress.com)
 AC_CONFIG_SRCDIR([src/fdns/main.c])
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -71,7 +79,7 @@ AS_IF([test "x$enable_gcov" = "xyes"], [
 AC_CHECK_LIB([pthread], [main], [], AC_MSG_ERROR([*** POSIX thread support not installed ***]))
 AC_CHECK_HEADER(pthread.h,,AC_MSG_ERROR([*** POSIX thread support not installed ***]))
 
-# bring in seccomp library
+# bring in seccomp and openssl libraries
 AC_CHECK_LIB([seccomp], [main], [], AC_MSG_ERROR([*** libseccomp not installed ***]))
 AC_CHECK_HEADER(seccomp.h,,AC_MSG_ERROR([*** libseccomp development headers not installed ***]))
 echo libseccomp library found
@@ -85,12 +93,21 @@ if test "$prefix" = /usr; then
 	test "$sysconfdir" = '${prefix}/etc' && sysconfdir="/etc"
 fi
 
+# set systemd unit file
+SYSTEMD_DIR="$sysconfdir/fdns"
+AC_ARG_WITH([systemd],
+        AC_HELP_STRING([--with-systemd=DIR],
+	[Pathname to systemd unit directory. Without this option, a copy of the unit file is installed in ${sysconfdir}/fdns directory]),
+	[SYSTEMD_DIR="$withval"])
+AC_SUBST(SYSTEMD_DIR)
+
 AC_OUTPUT(Makefile src/common.mk src/fdns/Makefile test/src/fdnstress/Makefile)
 
 echo
 echo "Configuration options:"
 echo "   prefix: $prefix"
 echo "   sysconfdir: $sysconfdir"
+echo "   systemd directory: $SYSTEMD_DIR"
 echo "   Spectre compiler patch: $HAVE_SPECTRE"
 echo "   apparmor: $HAVE_APPARMOR"
 echo "   EXTRA_LDFLAGS: $EXTRA_LDFLAGS"

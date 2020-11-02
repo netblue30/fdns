@@ -15,6 +15,7 @@ NAME=@PACKAGE_NAME@
 PACKAGE_TARNAME=@PACKAGE_TARNAME@
 DOCDIR=@docdir@
 HAVE_APPARMOR=@HAVE_APPARMOR@
+SYSTEMD_DIR=@SYSTEMD_DIR@
 
 .PHONY: apps $(APPS)
 apps: $(APPS)
@@ -56,7 +57,7 @@ realinstall:
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/servers etc/trackers etc/bulkmailers
 
 	# systemd service unit
-	install -Dm0644 etc/fdns.service $(DESTDIR)$(libdir)/systemd/system/fdns.service
+	install -Dm0644 etc/fdns.service $(DESTDIR)$(SYSTEMD_DIR)/fdns.service
 	# man pages
 	install -m 0755 -d $(DESTDIR)/$(mandir)/man1
 	for man in $(MANPAGES); do \
