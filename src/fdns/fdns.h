@@ -106,14 +106,14 @@ static inline int rand_range(int min, int max) {
 #define CACHE_PRINT_TIMEOUT	60	// list the domain in the cache
 
 // rate limitation
-#define QPS_DEFAULT 5	// default queries per second limit for each resolver
+#define QPS_DEFAULT 10	// default queries per second limit for each resolver
 #define QPS_MAX 20		// max --qps value
 #define QPS_MIN 3		// min --qps value
 
 // number of resolver processes
 #define RESOLVERS_CNT_MIN 1	// number of resolver processes
 #define RESOLVERS_CNT_MAX 10
-#define RESOLVERS_CNT_DEFAULT 3
+#define RESOLVERS_CNT_DEFAULT 2
 #define UNIX_ADDRESS "fdns"	// internal UNIX socket address for communication between frontend and resolvers
 #define DEFAULT_PROXY_ADDR "127.1.1.1"
 #define DEFAULT_PROXY_LOOPBACK "127.0.0.1"

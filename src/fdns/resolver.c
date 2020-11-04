@@ -124,7 +124,6 @@ void resolver(void) {
 			// attempting to detect the computer coming out of sleep mode
 			time_t ts = time(NULL);
 			if (ts - timestamp > OUT_OF_SLEEP) {
-				rlogprintf("Resolver timeout, restoring SSL connection\n");
 				// send a keepalive to frontend in order not to get killed
 				rlogprintf("resolver keepalive\n");
 				resolver_keepalive_cnt = RESOLVER_KEEPALIVE_TIMER;
