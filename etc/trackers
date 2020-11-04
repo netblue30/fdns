@@ -7,6 +7,9 @@
 #         https://github.com/EFForg/privacybadger/blob/master/LICENSE
 #
 
+127.0.0.1 financialjuice.com
+127.0.0.1 clickfunnels.com
+127.0.0.1 purechat.com
 127.0.0.1 powr-media.com
 127.0.0.1 ssl.bing.com
 127.0.0.1 1rx.io

@@ -283,6 +283,7 @@ int dns_query(uint8_t *msg, int cnt) {
 	//
 	if (lint_rx(msg, datalen)) {
 		if (lint_error() == DNSERR_NXDOMAIN) {
+			rlogprintf("%s nxdomain\n", cache_get_name());
 			// NXDOMAIN or similar received, cache for 10 minutes
 			cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
 			return datalen;

@@ -12,7 +12,7 @@
 #
 # Config options for various distros:
 #    - Debian: ./configure --prefix=/usr --enable-apparmor --with-systemd=/lib/systemd/system
-#    - Fedora: ./configure --prefix=/usr --with-systemd=/usr/lib/systemd
+#    - Fedora: ./configure --prefix=/usr --with-systemd=/usr/lib/systemd/system
 #    - Arch:./configure --prefix=/usr --enable-apparmor --with-systemd=/usr/lib/systemd/system
 #
 # Run "pkg-config systemd --variable=systemdsystemunitdir" to find out where systemd unit
