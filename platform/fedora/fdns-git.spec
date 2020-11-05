@@ -6,8 +6,6 @@ Summary:        Firejail DNS-over-HTTPS Proxy Server
 License:        GPLv3+
 URL:            https://github.com/netblue30/fdns
 Source0:        https://github.com/netblue30/fdns/archive/master.tar.gz
-Patch0:         disable-apparmor-git.patch
-Patch1:         install-units-to-unitdir-git.patch
 
 BuildRequires:  gcc
 BuildRequires:  git
@@ -27,7 +25,7 @@ unnecessary traffic. The software is written in C, and is licensed under GPLv3.
 
 
 %build
-%configure
+%configure --with-systemd=%{_unitdir}
 %make_build
 
 
