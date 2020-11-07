@@ -120,7 +120,6 @@ static inline int rand_range(int min, int max) {
 #define UNIX_ADDRESS "fdns"	// internal UNIX socket address for communication between frontend and resolvers
 #define DEFAULT_PROXY_ADDR "127.1.1.1"
 #define DEFAULT_PROXY_LOOPBACK "127.0.0.1"
-#define DEFAULT_FALLBACK_SERVER "9.9.9.9"
 #define MAX_FALLBACK_POOL 8	// fallback socket pool size
 
 // filesystem paths
@@ -161,10 +160,10 @@ typedef struct dnsserver_t {
 
 	// server data
 	char *name;	// name
+	char *address;	// IP address
 	char *website;	// website
 	char *zone;		// geographical zone
 	char *tags;		// description
-	char *address;	// IP address
 	char *host;		// authority in http2
 	char *path;
 	char *transport;	// supported transport types
@@ -367,6 +366,7 @@ DnsServer *server_get(void);
 // return 0 if ok, 1 if failed
 void server_test_tag(const char *tag);
 void server_set_custom(const char *url);
+DnsServer *server_fallback_get(void);
 
 // cache.c
 #define CACHE_NAME_LEN 100 // requests for domain names bigger than this value are not cached

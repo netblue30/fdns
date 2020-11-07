@@ -49,7 +49,7 @@ char *arg_transport = NULL;
 int arg_allow_self_signed_certs = 0;
 int arg_allow_expired_certs = 0;
 int arg_log_timeout = 0;
-char *arg_fallback_server = DEFAULT_FALLBACK_SERVER;
+char *arg_fallback_server = NULL;
 
 Stats stats;
 
@@ -392,7 +392,18 @@ int main(int argc, char **argv) {
 		resolver();
 	}
 	else {
+		// init fallback server
+		if (arg_fallback_server == NULL) {
+			printf("\n");
+			DnsServer *srv = server_fallback_get();
+			assert(srv);
+			arg_fallback_server = strdup(srv->address);
+			if (!arg_fallback_server)
+				errExit("strdup");
+			printf("\n");
+		}
 		logprintf("fdns starting\n");
+
 		if (!arg_fallback_only) {
 			logprintf("connecting to %s server\n", s->name);
 		}
