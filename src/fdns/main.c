@@ -93,7 +93,7 @@ static void usage(void) {
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
 	printf("    --debug - print all debug messages.\n");
-	printf("    --debug-transport - print HTTP2 debug messages.\n");
+	printf("    --debug-transport - print transport protocol debug messages.\n");
 	printf("    --debug-ssl  - print SSL/TLS debug messages.\n");
 	printf("    --details - SSL connection information, HTTP headers and network traces are\n"
 	       "\tprinted on the screen during the testing phase.\n");
@@ -130,6 +130,7 @@ static void usage(void) {
 	printf("    --test-server=server-name|tag|all - test DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --test-url-list - check all URLs form stdin.\n");
+	printf("    --transport - DNS protocol transport: h2, http/1.1, dot.\n");
 	printf("    --version - print program version and exit.\n");
 	printf("    --whitelist=domain - whitelisting domains.\n");
 	printf("    --whitelist-file=filename - whitelisting domains.\n");
@@ -195,10 +196,6 @@ int main(int argc, char **argv) {
 					exit(1);
 				}
 			}
-#ifdef HAVE_GCOV
-			else if (strcmp(argv[i], "--fallback-only") == 0)
-				arg_fallback_only = 1;
-#endif
 			else if (strncmp(argv[i], "--cache-ttl=", 12) == 0) {
 				arg_cache_ttl = atoi(argv[i] + 12);
 				if (arg_cache_ttl < CACHE_TTL_MIN || arg_cache_ttl > CACHE_TTL_MAX) {
@@ -265,11 +262,13 @@ int main(int argc, char **argv) {
 				arg_transport = strdup(argv[i] + 12);
 				if (!arg_transport)
 					errExit("strdup");
-				if (strcmp(arg_transport, "h2") == 0);
+				if (strcmp(arg_transport, "h2") == 0); // http 2
 				else if (strcmp(arg_transport, "dot") == 0);
 				else if (strcmp(arg_transport, "http/1.1") == 0);
+				else if (strcmp(arg_transport, "udp") == 0)
+					arg_fallback_only = 1;
 				else {
-					fprintf(stderr, "Error: invalid transport\n");
+					fprintf(stderr, "Error: invalid DNS transport %s\n", arg_transport);
 					exit(1);
 				}
 			}

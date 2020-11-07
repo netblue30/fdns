@@ -58,8 +58,11 @@ void resolver(void) {
 #endif
 
 	// Remote dns server fallback server
+	int sfallback[MAX_FALLBACK_POOL] = {0};
 	struct sockaddr_in addr_fallback;
-	int sremote = net_remote_dns_socket(&addr_fallback, FALLBACK_SERVER);
+	int i;
+	for (i = 0; i < MAX_FALLBACK_POOL; i++)
+		sfallback[i] = net_remote_dns_socket(&addr_fallback, FALLBACK_SERVER);
 	socklen_t addr_fallback_len = sizeof(addr_fallback);
 
 	// initialize database - we use this database for the fallback server
@@ -76,6 +79,7 @@ void resolver(void) {
 
 	console_printout_cnt = (CONSOLE_PRINTOUT_TIMER * arg_id) / arg_resolvers;
 	int dns_over_udp = 0;
+	int fallback_update_cnt = 0;
 
 	struct timeval t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
@@ -83,14 +87,17 @@ void resolver(void) {
 	int query_second = 0;
 	while (1) {
 #ifdef HAVE_GCOV
-	__gcov_flush();
+		__gcov_flush();
 #endif
 		fd_set fds;
 		FD_ZERO(&fds);
 		// UDP sockets
 		FD_SET(slocal, &fds);
-		FD_SET(sremote, &fds);
-		int nfds = ((slocal > sremote) ? slocal : sremote);
+		int nfds = slocal;
+		for (i = 0; i < MAX_FALLBACK_POOL; i++) {
+			FD_SET(sfallback[i], &fds);
+			nfds = ((nfds > sfallback[i]) ? nfds : sfallback[i]);
+		}
 		// forwarding sockets
 		Forwarder *f = fwd_list;
 		while (f) {
@@ -187,7 +194,16 @@ void resolver(void) {
 			}
 
 			// database/cache cleanup
-			dnsdb_timeout();
+			if (dnsdb_timeout() == 0 && ++fallback_update_cnt > FALLBACK_UPDATE_TIMEOUT) {
+				if (arg_debug)
+					rlogprintf("Info: randomizing fallback sockets\n");
+				// close fallback sockets and open them again in order to randomize port numbers
+				for (i = 0; i < MAX_FALLBACK_POOL; i++) {
+					close(sfallback[i]);
+					sfallback[i] = net_remote_dns_socket(&addr_fallback, FALLBACK_SERVER);
+				}
+				fallback_update_cnt = 0;
+			}
 			cache_timeout();
 			print_cache();
 			t.tv_sec = 1;
@@ -208,47 +224,49 @@ void resolver(void) {
 		//***********************************************
 		// data coming from remote DNS fallback server
 		//***********************************************
-		if (FD_ISSET(sremote, &fds)) {
-			struct sockaddr_in remote;
-			memset(&remote, 0, sizeof(remote));
-			socklen_t remote_len = sizeof(struct sockaddr_in);
-			ssize_t len = recvfrom(sremote, buf, MAXBUF, 0, (struct sockaddr *) &remote, &remote_len);
-			if (len == -1) // todo: parse errno - EINTR
-				errExit("recvfrom");
-			if(arg_debug) {
-				print_time();
-				printf("(%d) rx fallback len %d\n", arg_id, (int) len);
-			}
+		for (i = 0; i < MAX_FALLBACK_POOL; i++) {
+			if (FD_ISSET(sfallback[i], &fds)) {
+				struct sockaddr_in remote;
+				memset(&remote, 0, sizeof(remote));
+				socklen_t remote_len = sizeof(struct sockaddr_in);
+				ssize_t len = recvfrom(sfallback[i], buf, MAXBUF, 0, (struct sockaddr *) &remote, &remote_len);
+				if (len == -1) // todo: parse errno - EINTR
+					errExit("recvfrom");
+				if(arg_debug) {
+					print_time();
+					printf("(%d) rx fallback %d len %d\n", arg_id, i, (int) len);
+				}
 
-			// check remote ip address - RFC 5452 (todo - more matches)
-			if (remote.sin_addr.s_addr != addr_fallback.sin_addr.s_addr) {
-				rlogprintf("Error: wrong IP address for fallback response: %d.%d.%d.%d\n",
-					   PRINT_IP(ntohs(remote.sin_addr.s_addr)));
+				// check remote ip address - RFC 5452 (todo - more matches)
+				if (remote.sin_addr.s_addr != addr_fallback.sin_addr.s_addr) {
+					rlogprintf("Error: wrong IP address for fallback %d response: %d.%d.%d.%d\n",
+						   i, PRINT_IP(ntohs(remote.sin_addr.s_addr)));
+					continue;
+				}
+				if (remote.sin_port != addr_fallback.sin_port) {
+					rlogprintf("Error: wrong UDP port for fallback %d response: %d\n",
+						   i, ntohs(remote.sin_port));
+					continue;
+				}
+
+				struct sockaddr_in *addr_client = dnsdb_retrieve(i, buf);
+				if (!addr_client) {
+					rlogprintf("Warning: DNS over UDP request timeout\n");
+					continue;
+				}
+				socklen_t addr_client_len = sizeof(struct sockaddr_in);
+
+				// send the data to the local client
+				errno = 0;
+				len = sendto(slocal, buf, len, 0, (struct sockaddr *) addr_client, addr_client_len);
+				if(arg_debug) {
+					print_time();
+					printf("(%d) tx local len %d, errno %d\n", arg_id, (int) len, errno);
+				}
+				if (len == -1) // todo: parse errno - EAGAIN
+					errExit("sendto");
 				continue;
 			}
-			if (remote.sin_port != addr_fallback.sin_port) {
-				rlogprintf("Error: wrong UDP port for fallback response: %d\n",
-					   PRINT_IP(ntohs(remote.sin_port)));
-				continue;
-			}
-
-			struct sockaddr_in *addr_client = dnsdb_retrieve(buf);
-			if (!addr_client) {
-				rlogprintf("Warning: DNS over UDP request timeout\n");
-				continue;
-			}
-			socklen_t addr_client_len = sizeof(struct sockaddr_in);
-
-			// send the data to the local client
-			errno = 0;
-			len = sendto(slocal, buf, len, 0, (struct sockaddr *) addr_client, addr_client_len);
-			if(arg_debug) {
-				print_time();
-				printf("(%d) tx local len %d, errno %d\n", arg_id, (int) len, errno);
-			}
-			if (len == -1) // todo: parse errno - EAGAIN
-				errExit("sendto");
-			continue;
 		}
 
 
@@ -309,10 +327,10 @@ void resolver(void) {
 					errExit("sendto");
 
 				// store the incoming request in the database
-				dnsdb_store(buf, &addr_client);
+				dnsdb_store(rand() % MAX_FALLBACK_POOL, buf, &addr_client);
 				fwd_active = NULL;
 #ifdef HAVE_GCOV
-	__gcov_flush();
+				__gcov_flush();
 #endif
 				continue;
 			}
@@ -359,16 +377,17 @@ void resolver(void) {
 					rlogprintf("Warning: sending requests in clear\n");
 				dns_over_udp = 1;
 				errno = 0;
-				len = sendto(sremote, buf, len, 0, (struct sockaddr *) &addr_fallback, addr_fallback_len);
+				i = rand() % MAX_FALLBACK_POOL;
+				len = sendto(sfallback[i], buf, len, 0, (struct sockaddr *) &addr_fallback, addr_fallback_len);
 				if(arg_debug) {
 					print_time();
-					printf("(%d) tx fallback len %d, errno %d\n", arg_id, (int) len, errno);
+					printf("(%d) tx fallback %d len %d, errno %d\n", arg_id, i, (int) len, errno);
 				}
 				if (len == -1) // todo: parse errno - EAGAIN
 					errExit("sendto");
 
 				// store the incoming request in the database
-				dnsdb_store(buf, &addr_client);
+				dnsdb_store(i, buf, &addr_client);
 			}
 			continue;
 		}
@@ -398,7 +417,7 @@ void resolver(void) {
 						continue;
 					}
 
-					struct sockaddr_in *addr_client = dnsdb_retrieve(buf);
+					struct sockaddr_in *addr_client = dnsdb_retrieve(0, buf);
 					if (!addr_client) {
 						rlogprintf("Warning: fwd DNS over UDP request timeout\n");
 						continue;
@@ -418,7 +437,7 @@ void resolver(void) {
 
 				f = f->next;
 #ifdef HAVE_GCOV
-	__gcov_flush();
+				__gcov_flush();
 #endif
 			}
 			continue;

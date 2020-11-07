@@ -94,6 +94,9 @@ static inline int rand_range(int min, int max) {
 #define TRANSPORT_KEEPALIVE_MAX 600 // transport keepalive (PING) max value in seconds for --keepalive option
 #define SERVER_RESPONSE_LIMIT 80 // milliseconds - try another server if the first one responds above this limit
 #define SERVER_KEEPALIVE_LIMIT 110 // seconds
+#define FALLBACK_TIMEOUT 10 // wait time for responses on fallback
+	// for NAT traversal, this value should be smaller than 30 seconds - the default is in /proc/sys/net/netfilter/nf_conntrack_udp_timeout
+#define FALLBACK_UPDATE_TIMEOUT (15 * 60)	// randomize fallback sockets every 15 minutes
 
 // logging
 #define LOG_TIMEOUT_DEFAULT 10		// amount of time to keep the log entries in shared memory in minutes
@@ -118,6 +121,7 @@ static inline int rand_range(int min, int max) {
 #define DEFAULT_PROXY_ADDR "127.1.1.1"
 #define DEFAULT_PROXY_LOOPBACK "127.0.0.1"
 #define FALLBACK_SERVER "9.9.9.9"
+#define MAX_FALLBACK_POOL 8	// fallback socket pool size
 
 // filesystem paths
 #define PATH_FDNS (PREFIX "/bin/fdns")
@@ -268,9 +272,9 @@ extern Stats stats;
 
 // dnsdb.c
 void dnsdb_init(void);
-void dnsdb_store(uint8_t *buf, struct sockaddr_in *addr);
-struct sockaddr_in *dnsdb_retrieve(uint8_t *buf);
-void dnsdb_timeout(void);
+void dnsdb_store(int pool_index, uint8_t *buf, struct sockaddr_in *addr);
+struct sockaddr_in *dnsdb_retrieve(int pool_index, uint8_t *buf);
+int dnsdb_timeout(void);
 
 // ssl.c
 typedef enum {

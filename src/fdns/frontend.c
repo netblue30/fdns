@@ -114,8 +114,8 @@ static int sandbox(void *sandbox_arg) {
 		a[last++] = "--allow-self-signed-certs";
 	if (arg_allow_expired_certs)
 		a[last++] = "--allow-expired-certs";
-	if (arg_fallback_only)
-		a[last++] = "--fallback-only";
+//	if (arg_fallback_only)
+//		a[last++] = "--fallback-only";
 	if (arg_keepalive) {
 		char *cmd;
 		if (asprintf(&cmd, "--keepalive=%d", arg_keepalive) == -1)

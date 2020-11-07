@@ -22,13 +22,12 @@
 
 typedef struct db_elem_t {
 	uint8_t active;
-#define MAX_TIMEOUT 30 // clear the element if no response back in 30 seconds;
-		   // NAT traversal - this is the default in /proc/sys/net/netfilter/nf_conntrack_udp_timeout
 	uint8_t timeout;
 #define ID_SIZE 2 	// 2 bytes matching DNS id
 	uint8_t *buf[ID_SIZE];
 	struct db_elem_t *next;
 	struct sockaddr_in addr;
+	int pool_index;
 } DbElem;
 
 #define MAX_HASH_ARRAY 256
@@ -48,7 +47,8 @@ static inline int hash(const uint8_t *buf) {
 	return (int) h;
 }
 
-struct sockaddr_in *dnsdb_retrieve(uint8_t *buf) {
+struct sockaddr_in *dnsdb_retrieve(int pool_index, uint8_t *buf) {
+	assert(pool_index < MAX_FALLBACK_POOL);
 	assert(buf);
 	if(arg_debug)
 		printf("retrieve %u %u\n", buf[0], buf[1]);
@@ -58,7 +58,7 @@ struct sockaddr_in *dnsdb_retrieve(uint8_t *buf) {
 	DbElem *ptr = &db[h];
 	assert(ptr);
 	do {
-		if (ptr->active && memcmp(ptr->buf, buf, ID_SIZE) == 0) {
+		if (ptr->active && memcmp(ptr->buf, buf, ID_SIZE) == 0 && pool_index == ptr->pool_index) {
 			ptr->active = 0;
 			return &ptr->addr;
 		}
@@ -70,11 +70,12 @@ struct sockaddr_in *dnsdb_retrieve(uint8_t *buf) {
 	return NULL;
 }
 
-void dnsdb_store(uint8_t *buf, struct sockaddr_in *addr) {
+void dnsdb_store(int pool_index, uint8_t *buf, struct sockaddr_in *addr) {
+	assert(pool_index < MAX_FALLBACK_POOL);
 	assert(buf);
 	assert(addr);
 	if(arg_debug)
-		printf("store %u, %u\n", buf[0], buf[1]);
+		printf("store %u, %u, poool_index %d\n", buf[0], buf[1], pool_index);
 
 	int h = hash(buf);
 	assert(h < MAX_HASH_ARRAY);
@@ -83,7 +84,7 @@ void dnsdb_store(uint8_t *buf, struct sockaddr_in *addr) {
 	assert(ptr);
 	DbElem *found = NULL;
 	do {
-		if (!ptr->active || (ptr->active && memcmp(buf, ptr->buf, ID_SIZE) == 0)) {
+		if (!ptr->active || (ptr->active && memcmp(buf, ptr->buf, ID_SIZE) == 0 && ptr->pool_index == pool_index)) {
 			found = ptr;
 			break;
 		}
@@ -109,20 +110,25 @@ void dnsdb_store(uint8_t *buf, struct sockaddr_in *addr) {
 	memcpy(found->buf, buf, ID_SIZE);
 	memcpy(&found->addr, addr, sizeof(struct sockaddr_in));
 	found->active = 1;
-	found->timeout = MAX_TIMEOUT;
+	found->timeout = FALLBACK_TIMEOUT;
+	found->pool_index = pool_index;
 }
 
-void dnsdb_timeout(void) {
+int dnsdb_timeout(void) {
 	int i;
+	int cnt = 0;
 	for (i = 0; i < MAX_HASH_ARRAY; i++) {
 		DbElem *ptr = &db[i];
 		while (ptr) {
 			if (ptr->active) {
 				if (--ptr->timeout <= 0)
 					ptr->active = 0;
+				else
+					cnt++;
 			}
 			ptr = ptr->next;
 		}
 	}
+	return cnt;
 }
 
