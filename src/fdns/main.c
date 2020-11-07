@@ -49,6 +49,7 @@ char *arg_transport = NULL;
 int arg_allow_self_signed_certs = 0;
 int arg_allow_expired_certs = 0;
 int arg_log_timeout = 0;
+char *arg_fallback_server = DEFAULT_FALLBACK_SERVER;
 
 Stats stats;
 
@@ -99,10 +100,8 @@ static void usage(void) {
 	       "\tprinted on the screen during the testing phase.\n");
 	printf("    --disable-local-doh - blacklist DoH services for applications running on\n"
 	       "\tlocal network.\n");
-
-#ifdef HAVE_GCOV
-	printf("    --fallback-only - operate strictly in fallback mode.\n");
-#endif
+	printf("    --fallback-server=address - fallback server IP address, default 9.9.9.9\n"
+	       "\t(Quad9).\n");
 	printf("    --forwarder=domain@address - conditional forwarding to a different DNS\n"
 	        "\tserver.\n");
 	printf("    --help, -?, -h - show this help screen.\n");
@@ -233,6 +232,14 @@ int main(int argc, char **argv) {
 				arg_server = strdup(argv[i] + 9);
 				if (!arg_server)
 					errExit("strdup");
+			}
+			else if (strncmp(argv[i], "--fallback-server=", 18) == 0) {
+				uint32_t ip;
+				if (atoip(argv[i] + 18, &ip)) {
+					fprintf(stderr, "Error: invalid fallback server IP address\n");
+					exit(1);
+				}
+				arg_fallback_server = argv[i] + 18;
 			}
 			else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {
 				net_check_proxy_addr(argv[i] + 13); // will exit if error

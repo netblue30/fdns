@@ -162,7 +162,12 @@ static int sandbox(void *sandbox_arg) {
 		a[last++] = cmd;
 	}
 
-
+	{
+		char *cmd;
+		if (asprintf(&cmd, "--fallback-server=%s", arg_fallback_server) == -1)
+			errExit("asprintf");
+		a[last++] = cmd;
+	}
 
 
 	Forwarder *f = fwd_list;
@@ -185,6 +190,7 @@ static int sandbox(void *sandbox_arg) {
 		whitelist_command(a + last);
 		last += wcnt;
 	}
+
 
 	a[last] = NULL;
 	assert(last < (arg_argc + wcnt + 20));
