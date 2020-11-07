@@ -62,7 +62,7 @@ void resolver(void) {
 	struct sockaddr_in addr_fallback;
 	int i;
 	for (i = 0; i < MAX_FALLBACK_POOL; i++)
-		sfallback[i] = net_remote_dns_socket(&addr_fallback, FALLBACK_SERVER);
+		sfallback[i] = net_remote_dns_socket(&addr_fallback, arg_fallback_server);
 	socklen_t addr_fallback_len = sizeof(addr_fallback);
 
 	// initialize database - we use this database for the fallback server
@@ -200,7 +200,7 @@ void resolver(void) {
 				// close fallback sockets and open them again in order to randomize port numbers
 				for (i = 0; i < MAX_FALLBACK_POOL; i++) {
 					close(sfallback[i]);
-					sfallback[i] = net_remote_dns_socket(&addr_fallback, FALLBACK_SERVER);
+					sfallback[i] = net_remote_dns_socket(&addr_fallback, arg_fallback_server);
 				}
 				fallback_update_cnt = 0;
 			}

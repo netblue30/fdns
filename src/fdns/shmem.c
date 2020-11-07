@@ -112,7 +112,7 @@ void shmem_store_stats(const char *proxy_addr) {
 		snprintf(report->header1, MAX_ENTRY_LEN,
 			 "%s %s %s",
 			 proxy_addr,
-			 FALLBACK_SERVER,
+			 arg_fallback_server,
 			 encstatus);
 
 	else {

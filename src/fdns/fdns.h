@@ -120,7 +120,7 @@ static inline int rand_range(int min, int max) {
 #define UNIX_ADDRESS "fdns"	// internal UNIX socket address for communication between frontend and resolvers
 #define DEFAULT_PROXY_ADDR "127.1.1.1"
 #define DEFAULT_PROXY_LOOPBACK "127.0.0.1"
-#define FALLBACK_SERVER "9.9.9.9"
+#define DEFAULT_FALLBACK_SERVER "9.9.9.9"
 #define MAX_FALLBACK_POOL 8	// fallback socket pool size
 
 // filesystem paths
@@ -268,6 +268,7 @@ extern char *arg_transport;
 extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
 extern int arg_log_timeout;
+char *arg_fallback_server;
 extern Stats stats;
 
 // dnsdb.c
