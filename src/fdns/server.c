@@ -33,11 +33,11 @@ static DnsServer *scurrent = NULL;	// curernt DoH/DoT server
 static DnsServer *fcurrent = NULL;	// current fallback server
 
 static DnsServer fallback[] = {
-	{ NULL, 0, "adguard", "94.140.14.14"},	// adblock
-	{ NULL, 0, "cleanbrowsing", "185.228.168.9"},	// security
-	{ NULL, 0, "cloudflare", "1.1.1.2"},		// security
-	{ NULL, 0, "nextdns", "45.90.28.141" },	// security
-	{ NULL, 0, "quad9", "9.9.9.9"}		// security
+	{ .name = "adguard", .address = "94.140.14.14"},	// adblock
+	{ .name = "cleanbrowsing", .address = "185.228.168.9"},	// security
+	{ .name = "cloudflare", .address = "1.1.1.2"},		// security
+	{ .name = "nextdns", .address = "45.90.28.141" },	// security
+	{ .name = "quad9", .address = "9.9.9.9"}		// security
 };
 
 static inline void print_server(DnsServer *s) {
@@ -828,14 +828,14 @@ DnsServer *server_fallback_get(void) {
 				}
 			}
 		}
-		break;	
-	}		
+		break;
+	}
 
 	close(sock);
 	if (fcurrent == NULL) {
 		fprintf(stderr, "Warning: fallback test failed, using Quad9 (9.9.9.9) server\n");
 		fcurrent = &fallback[0];
 	}
-	
+
 	return fcurrent;
 }
