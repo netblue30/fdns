@@ -267,7 +267,7 @@ extern char *arg_transport;
 extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
 extern int arg_log_timeout;
-char *arg_fallback_server;
+extern char *arg_fallback_server;
 extern Stats stats;
 
 // dnsdb.c
