@@ -243,10 +243,10 @@ end;
 name: arapurayil
 website: https://www.dns.arapurayil.com
 zone: AsiaPacific
-tags: admin-down, India, AsiaPacific
+tags: India, AsiaPacific
 address: 3.7.156.128:443
 host: dns.arapurayil.com/dns-query
-keepalive: 10,15
+keepalive: 20,25
 end;
 
 name: blahdns-fi
@@ -296,7 +296,7 @@ end;
 name: boothlabs
 website: https://servers.opennic.org/
 zone: EastAmerica
-tags: Quebec, EastAmerica, OpenNIC
+tags: admin-down, Quebec, EastAmerica, OpenNIC
 address: 158.69.53.73:443
 host: doh.boothlabs.me/dns-query
 keepalive: 550,590
@@ -696,7 +696,7 @@ end;
 name: dnslify
 website: https://www.dnslify.com/
 zone: EastAmerica, WestAmerica
-tags: EastAmerica, WestAmerica, NY, California
+tags: admin-down, EastAmerica, WestAmerica, NY, California
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -705,7 +705,7 @@ end;
 name: dnslify2
 website: https://www.dnslify.com/
 zone: AsiaPacific
-tags: AsiaPacific, Singapore
+tags: admin-down, AsiaPacific, Singapore
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -714,7 +714,7 @@ end;
 name: dnslify3
 website: https://www.dnslify.com/
 zone: Europe
-tags: Europe, Netherlands, Germany, UK
+tags: admin-down, Europe, Netherlands, Germany, UK
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -723,7 +723,7 @@ end;
 name: dnslify4
 website: https://www.dnslify.com/
 zone: EastAmerica, WestAmerica
-tags: EastAmerica, WestAmerica, NY, California
+tags: admin-down, EastAmerica, WestAmerica, NY, California
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -732,7 +732,7 @@ end;
 name: dnslify5
 website: https://www.dnslify.com/
 zone: AsiaPacific
-tags: AsiaPacific, Singapore
+tags: admin-down, AsiaPacific, Singapore
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -741,7 +741,7 @@ end;
 name: dnslify6
 website: https://www.dnslify.com/
 zone: Europe
-tags: Europe, Netherlands, Germany, UK
+tags: admin-down, Europe, Netherlands, Germany, UK
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -891,7 +891,7 @@ name: ibksturm
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
 zone: Europe
 tags: Switzerland, Europe, OpenNIC
-address: 85.5.93.230:443
+address: 83.78.120.227:443
 host: ibksturm.synology.me/dns-query
 keepalive: 550,590
 end;
@@ -899,17 +899,17 @@ end;
 name: ibuki
 website: https://ibuki.cgnat.net/
 zone: WestAmerica
-tags: California, WestAmerica
-address: 35.198.2.76:443
+tags: Brazil, EastAmerica
+address: 168.138.243.216:443
 host: ibuki.cgnat.net/dns-query
-keepalive: 20,25
+keepalive: 140,170
 end;
 
 # ns3.fr.dns.opennic.glue
 name: iriseden
 website: https://servers.opennic.org/
 zone: Europe
-tags: France, Europe, OpenNIC
+tags: admin-down, France, Europe, OpenNIC
 address: 62.210.177.189:443
 host: ns1.iriseden.fr/dns-query
 keepalive: 140,170
@@ -919,7 +919,7 @@ end;
 name: iriseden2
 website: https://servers.opennic.org/
 zone: Europe
-tags: France, Europe, OpenNIC
+tags: admin-down, France, Europe, OpenNIC
 address: 62.210.180.71:443
 host: ns2.iriseden.fr/dns-query
 keepalive: 140,170
@@ -1272,16 +1272,6 @@ host: doh-2.seby.io/dns-query
 keepalive: 20,25
 end;
 
-name: seby2-dot
-website: https://dns.seby.io
-zone: AsiaPacific
-tags: admin-down, Australia, AsiaPacific, OpenNIC
-address: 139.99.222.72:853
-host: doh-2.seby.io/dns-query
-keepalive: 80,110
-transport: dot
-end;
-
 name: sinodun-dot
 website: https://dnsprivacy.org
 zone: Europe
@@ -1467,8 +1457,8 @@ end;
 name: uncensoreddns6
 website: https://blog.uncensoreddns.org/
 zone: Europe
-tags: admin-down, Denmark, Europe
-address: 185.38.24.52:443
+tags: Denmark, Europe
+address: 185.38.27.139:443
 host: unicast.censurfridns.dk/dns-query
 keepalive: 20,25
 end;
@@ -1511,14 +1501,4 @@ tags: France, Europe, OpenNIC
 address: 87.98.175.85:443
 host: dns-1.wil.cloud/dns-query
 keepalive: 140,170
-end;
-
-name: wugui
-website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-zone: Europe
-tags: admin-down, Moscow, Russia, Europe,
-address: 45.151.144.10:443
-host: dns.wugui.zone/dns-query
-sni: yes
-keepalive: 550,590
 end;

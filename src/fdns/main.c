@@ -137,6 +137,14 @@ static void usage(void) {
 	printf("\n");
 }
 
+static char *alias(char *name) {
+	assert(name);
+	if (strcmp(name, "Asia-Pacific") == 0)
+		return "AsiaPacific";
+	return name;
+}
+
+
 int main(int argc, char **argv) {
 	// init
 	init_time_delta();
@@ -166,7 +174,7 @@ int main(int argc, char **argv) {
 				arg_daemonize = 1;
 			}
 			else if (strncmp(argv[i], "--zone=", 7) == 0) {
-				arg_zone = strdup(argv[i] + 7);
+				arg_zone = strdup(alias(argv[i] + 7));
 				if (!arg_zone)
 					errExit("strdup");
 			}
@@ -229,7 +237,7 @@ int main(int argc, char **argv) {
 				if (strncmp(argv[i] + 9, "https://", 8) == 0 ||
 				    strncmp(argv[i] + 9, "dot://", 6)  == 0)
 					server_set_custom(argv[i] + 9);
-				arg_server = strdup(argv[i] + 9);
+				arg_server = strdup(alias(argv[i] + 9));
 				if (!arg_server)
 					errExit("strdup");
 			}
@@ -315,7 +323,7 @@ int main(int argc, char **argv) {
 			else if (strncmp(argv[i], "--list=", 7) == 0) {
 				server_print_zone = 1;
 				server_print_servers = 1;
-				server_list(argv[i] + 7);
+				server_list(alias(argv[i] + 7));
 				return 0;
 			}
 			else if (strcmp(argv[i], "--proxies") == 0) {
@@ -351,7 +359,7 @@ int main(int argc, char **argv) {
 				return 0;
 			}
 			else if (strncmp(argv[i], "--test-server=", 14) == 0) {
-				arg_test_server = strdup(argv[i] + 14);
+				arg_test_server = strdup(alias(argv[i] + 14));
 				if (!arg_test_server)
 					errExit("strdup");
 				if (strncmp(argv[i] + 14, "https://", 8) == 0 ||
@@ -360,7 +368,7 @@ int main(int argc, char **argv) {
 					server_test_tag(argv[i] + 14);
 				}
 				else
-					server_test_tag(argv[i] + 14);
+					server_test_tag(arg_test_server);
 				return 0;
 			}
 		}
