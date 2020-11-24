@@ -32,7 +32,7 @@ user to request specialized services such as adblocking, security, family filter
 
 Once started, FDNS chooses a server at random, as close geographically as possible.
 We derive the computer location from the timezone setting. There are no IP packets sent
-out to geolocation services. Four zones are defined so far: EastAmerica, WestAmerica,
+out to geolocation services. Three geographical zones are defined so far: Americas,
 AsiaPacific and Europe. Use --list=all option to print all the servers and the corresponding tags.
 
 .SH OPTIONS
@@ -387,7 +387,7 @@ $ sudo fdns --whitelist-file=/etc/fdns/whitelist-gentoo
 .TP
 \fB\-\-zone=zone-name
 Set a different geographical zone.
-The zones defined so far are EastAmerica, WestAmerica, AsiaPacific and Europe.
+The zones defined so far are Americas, AsiaPacific and Europe.
 
 .SH Setup FDNS on a workstation
 You would need to set FDNS as your DNS server in /etc/resolv.conf:
