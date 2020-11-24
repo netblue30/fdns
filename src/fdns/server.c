@@ -53,8 +53,7 @@ static void set_zone(void) {
 		// check valid zone
 		if (strcmp(arg_zone, "Europe") != 0 &&
 		    strcmp(arg_zone, "AsiaPacific") != 0 &&
-		    strcmp(arg_zone, "EastAmerica") != 0 &&
-		    strcmp(arg_zone, "WestAmerica") != 0) {
+		    strcmp(arg_zone, "Americas") != 0) {
 		    	fprintf(stderr, "Error: invalid zone\n");
 		    	exit(1);
 		}
@@ -74,10 +73,8 @@ static void set_zone(void) {
 		fdns_zone = "AsiaPacific";
 	else if (tz <= 3 && tz >= -1)
 		fdns_zone = "Europe";
-	else if (tz <= -3 && tz >= -6)
-		fdns_zone = "EastAmerica";
-	else if (tz <= -7 && tz >= -11)
-		fdns_zone = "WestAmerica";
+	else if (tz <= -3 && tz >= -11)
+		fdns_zone = "Americas";
 
 	if (server_print_zone)
 		printf("Current zone: %s\n", fdns_zone);
@@ -440,8 +437,6 @@ void server_list(const char *tag) {
 	// if the tag is the name of a zone use zone "any"
 	if (strcmp(tag, "Europe") == 0 ||
 	    strcmp(tag, "AsiaPacific") == 0 ||
-	    strcmp(tag, "EastAmerica") == 0 ||
-	    strcmp(tag, "WestAmerica") == 0 ||
 	    strcmp(tag, "Americas") == 0)
 	    	fdns_zone = "any";
 

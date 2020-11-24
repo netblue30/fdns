@@ -13,7 +13,7 @@
 # website: service website
 # zone: geographical zone where the server is located
 #	Your fdns proxy is located in a very specific geographical zone, such as
-#	Europe, AsiaPacific, EastAmerica, WestAmerica (... so far, more to be added).
+#	Europe, AsiaPacific, Americas (... so far, more to be added).
 #	The fdns zone is detected based on the timezone setting of the computer running fdns.
 #	We match fdns zone with the server zone, and use it to filter adblocker and family tags.
 #	This way we can restrict a specific service to a specific geographical area.
@@ -65,8 +65,8 @@ end;
 
 name: aaflalo
 website: https://www.aaflalo.me
-zone: EastAmerica
-tags: NY, EastAmerica, adblocker
+zone: Americas
+tags: NY, Americas, adblocker
 address: 168.235.81.167:443
 host: dns-nyc.aaflalo.me/dns-query
 keepalive: 80,110
@@ -74,8 +74,8 @@ end;
 
 name: adguard-unfiltered
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.136:443
 host: dns-unfiltered.adguard.com/dns-query
 keepalive: 140,170
@@ -83,8 +83,8 @@ end;
 
 name: adguard-unfiltered2
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.137:443
 host: dns-unfiltered.adguard.com/dns-query
 keepalive: 140,170
@@ -92,8 +92,8 @@ end;
 
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, adblocker, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
 keepalive: 140,170
@@ -101,8 +101,8 @@ end;
 
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, adblocker, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
 keepalive: 140,170
@@ -110,7 +110,7 @@ end;
 
 name: adguard-family
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
@@ -119,7 +119,7 @@ end;
 
 name: adguard-family2
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
@@ -155,8 +155,8 @@ end;
 
 name: adhole4
 website: https://adhole.org/
-zone: EastAmerica
-tags: Texas,  EastAmerica, adblocker
+zone: Americas
+tags: Texas,  Americas, adblocker
 address: 63.142.251.101:443
 host: us.adhole.org/dns-query
 keepalive: 550,590
@@ -295,8 +295,8 @@ end;
 # ns3.de.dns.opennic.glue
 name: boothlabs
 website: https://servers.opennic.org/
-zone: EastAmerica
-tags: admin-down, Quebec, EastAmerica, OpenNIC
+zone: Americas
+tags: admin-down, Quebec, Americas, OpenNIC
 address: 158.69.53.73:443
 host: doh.boothlabs.me/dns-query
 keepalive: 550,590
@@ -322,8 +322,8 @@ end;
 
 name: bravedns
 website: https://bravedns.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: geocast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe
 address: free.bravedns.com:443
 host: free.bravedns.com/dns-query
 keepalive: 350,390
@@ -332,8 +332,8 @@ end;
 
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: EastAmerica, WestAmerica
-tags: non-profit, Ontario, Quebec, BritishColumbia, EastAmerica, WestAmerica
+zone: Americas
+tags: non-profit, Ontario, Quebec, BritishColumbia, Americas
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -341,8 +341,8 @@ end;
 
 name: cira2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: EastAmerica, WestAmerica
-tags: non-profit, Ontario, Quebec, BritishColumbia, EastAmerica, WestAmerica
+zone: Americas
+tags: non-profit, Ontario, Quebec, BritishColumbia, Americas
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -350,8 +350,8 @@ end;
 
 name: cira-security
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: EastAmerica, WestAmerica
-tags: non-profit, security, Ontario, Quebec, BritishColumbia, EastAmerica, WestAmerica
+zone: Americas
+tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -359,8 +359,8 @@ end;
 
 name: cira-security2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: EastAmerica, WestAmerica
-tags: non-profit, security, Ontario, Quebec, BritishColumbia, EastAmerica, WestAmerica
+zone: Americas
+tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -368,7 +368,7 @@ end;
 
 name: cira-family
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: EastAmerica, WestAmerica
+zone: Americas
 tags: family
 address: 149.112.121.30:443
 host: family.canadianshield.cira.ca/dns-query
@@ -377,7 +377,7 @@ end;
 
 name: cira-family2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: EastAmerica, WestAmerica
+zone: Americas
 tags: family
 address: 149.112.122.30:443
 host: family.canadianshield.cira.ca/dns-query
@@ -386,8 +386,8 @@ end;
 
 name: cleanbrowsing
 website: https://cleanbrowsing.org
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, security, Americas, AsiaPacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
 keepalive: 140,170
@@ -395,7 +395,7 @@ end;
 
 name: cleanbrowsing-family
 website: https://cleanbrowsing.org
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
 tags: family
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
@@ -404,7 +404,7 @@ end;
 
 name: cleanbrowsing-adult
 website: https://cleanbrowsing.org
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
 tags: safe-for-work
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/adult-filter
@@ -413,8 +413,8 @@ end;
 
 name: cloudflare
 website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
 keepalive: 350,390
@@ -422,8 +422,8 @@ end;
 
 name: cloudflare2
 website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
 keepalive: 350,390
@@ -431,8 +431,8 @@ end;
 
 name: cloudflare-security
 website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, security, Americas, AsiaPacific, Europe
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
 keepalive: 350,390
@@ -440,8 +440,8 @@ end;
 
 name: cloudflare-security2
 website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, security, Americas, AsiaPacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
 keepalive: 350,390
@@ -449,7 +449,7 @@ end;
 
 name: cloudflare-family
 website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
 tags: family
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
@@ -458,7 +458,7 @@ end;
 
 name: cloudflare-family2
 website: https://www.cloudflare.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
 tags: family
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
@@ -467,8 +467,8 @@ end;
 
 name: commons-host
 website: https://dev.to/commonshost/how-we-built-a-doh-cdn-with-20-global-edge-servers-in-10-days-1man
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: geocast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe
 address: commons.host:443
 host: commons.host/
 sni: yes
@@ -543,7 +543,7 @@ end;
 name: cznic
 website: https://www.nic.cz/odvr/
 zone: Europe
-tags: Czechia, Europe
+tags: admin-down, Czechia, Europe
 address: 185.43.135.1:443
 host: odvr.nic.cz/doh
 keepalive-query: yes
@@ -553,7 +553,7 @@ end;
 name: cznic2
 website: https://www.nic.cz/odvr/
 zone: Europe
-tags: Czechia, Europe
+tags: admin-down, Czechia, Europe
 address: 193.17.47.1:443
 host: odvr.nic.cz/doh
 keepalive-query: yes
@@ -611,8 +611,18 @@ end;
 name: digital-society-dot
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: non-profit, Switzerland, Europe
+tags: admin-down, non-profit, Switzerland, Europe
 address: 185.95.218.42:853
+host: dns.digitale-gesellschaft.ch/dns-query
+keepalive: 80,110
+transport: dot
+end;
+
+name: digital-society-dot2
+website: https://www.digitale-gesellschaft.ch
+zone: Europe
+tags: non-profit, Switzerland, Europe
+address: 185.95.218.43:853
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 80,110
 transport: dot
@@ -650,8 +660,8 @@ end;
 
 name: dnscrypt-ca
 website: https://dnscrypt.ca/
-zone: EastAmerica
-tags: Quebec, EastAmerica
+zone: Americas
+tags: Quebec, Americas
 address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
 keepalive: 550,590
@@ -659,8 +669,8 @@ end;
 
 name: dnscrypt-ca2
 website: https://dnscrypt.ca/
-zone: EastAmerica
-tags: Quebec, EastAmerica
+zone: Americas
+tags: Quebec, Americas
 address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
 keepalive: 550,590
@@ -695,8 +705,8 @@ end;
 
 name: dnslify
 website: https://www.dnslify.com/
-zone: EastAmerica, WestAmerica
-tags: admin-down, EastAmerica, WestAmerica, NY, California
+zone: Americas
+tags: admin-down, Americas, NY, California
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -722,8 +732,8 @@ end;
 
 name: dnslify4
 website: https://www.dnslify.com/
-zone: EastAmerica, WestAmerica
-tags: admin-down, EastAmerica, WestAmerica, NY, California
+zone: Americas
+tags: admin-down, Americas, NY, California
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -853,7 +863,7 @@ end;
 name: fossdaily
 website: https://fossdaily.xyz/
 zone: AsiaPacific
-tags: Australia, AsiaPacific, adblocker
+tags: admin-down, Australia, AsiaPacific, adblocker
 address: 172.105.171.229:443
 host: dns.fossdaily.xyz/dns-query
 keepalive: 140,170
@@ -898,8 +908,8 @@ end;
 
 name: ibuki
 website: https://ibuki.cgnat.net/
-zone: WestAmerica
-tags: Brazil, EastAmerica
+zone: Americas
+tags: Brazil, Americas
 address: 168.138.243.216:443
 host: ibuki.cgnat.net/dns-query
 keepalive: 140,170
@@ -1008,8 +1018,8 @@ end;
 
 name: nextdns
 website: https://nextdns.io/
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.30.0:443
 host: trr.dns.nextdns.io/
 keepalive-query: yes
@@ -1018,8 +1028,8 @@ end;
 
 name: nextdns2
 website: https://nextdns.io/
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
 keepalive-query: yes
@@ -1029,8 +1039,8 @@ end;
 # http 1.1
 name: nixnet-lv
 website: https://docs.nixnet.services/NixNet_DNS
-zone: WestAmerica
-tags: LasVegas, WestAmerica
+zone: Americas
+tags: LasVegas, Americas
 address: 209.141.34.95:443
 host: uncensored.lv1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -1039,8 +1049,8 @@ end;
 # http 1.1
 name: nixnet-lv-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
-zone: WestAmerica
-tags: LasVegas, WestAmerica, adblocker
+zone: Americas
+tags: LasVegas, Americas, adblocker
 address: 209.141.34.95:443
 host: adblock.lv1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -1049,8 +1059,8 @@ end;
 # http 1.1
 name: nixnet-ny
 website: https://docs.nixnet.services/NixNet_DNS
-zone: EastAmerica
-tags: NY, EastAmerica
+zone: Americas
+tags: NY, Americas
 address: 199.195.251.84:443
 host: uncensored.ny1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -1059,8 +1069,8 @@ end;
 # http 1.1
 name: nixnet-ny-adblocker
 website: https://docs.nixnet.services/NixNet_DNS
-zone: EastAmerica
-tags: NY, EastAmerica, adblocker
+zone: Americas
+tags: NY, Americas, adblocker
 address: 199.195.251.84:443
 host: adblock.ny1.dns.nixnet.xyz/dns-query
 keepalive: 30,50
@@ -1109,8 +1119,8 @@ end;
 
 name: pi-dns
 website: https://pi-dns.com
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: geocast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe
 address: doh.pi-dns.com:443
 host: doh.pi-dns.com/dns-query
 sni: yes
@@ -1119,8 +1129,8 @@ end;
 
 name: pi-dns-eastus
 website: https://pi-dns.com
-zone: EastAmerica
-tags: NY, EastAmerica, adblocker
+zone: Americas
+tags: NY, Americas, adblocker
 address: 185.213.26.187:443
 host: doh.eastus.pi-dns.com/dns-query
 keepalive: 140,170
@@ -1128,8 +1138,8 @@ end;
 
 name: pi-dns-westus
 website: https://pi-dns.com
-zone: WestAmerica
-tags: California, WestAmerica, adblocker
+zone: Americas
+tags: California, Americas, adblocker
 address: 45.67.219.208:443
 host: doh.westus.pi-dns.com/dns-query
 keepalive: 140,170
@@ -1174,7 +1184,7 @@ end;
 name: powerdns
 website: https://powerdns.org
 zone: Europe
-tags: Netherlands, Europe
+tags: admin-down, Netherlands, Europe
 address: 136.144.215.158:443
 host: doh.powerdns.org/dns-query
 keepalive: 20,25
@@ -1182,8 +1192,8 @@ end;
 
 name: quad9
 website: https://quad9.net
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, security, Americas, AsiaPacific, Europe
 address: 9.9.9.9:5053
 host: dns.quad9.net/dns-query
 keepalive: 550,590
@@ -1191,8 +1201,8 @@ end;
 
 name: quad9-2
 website: https://quad9.net
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, security, Americas, AsiaPacific, Europe
 address: 149.112.112.112:5053
 host: dns.quad9.net/dns-query
 keepalive: 550,590
@@ -1200,8 +1210,8 @@ end;
 
 name: quad9-3
 website: https://quad9.net
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, security, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, security, Americas, AsiaPacific, Europe
 address: 149.112.112.9:5053
 host: dns.quad9.net/dns-query
 keepalive: 550,590
@@ -1209,8 +1219,8 @@ end;
 
 name: quad9-unsecured
 website: https://quad9.net
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 9.9.9.10:5053
 host: dns.quad9.net/dns-query
 keepalive: 550,590
@@ -1218,8 +1228,8 @@ end;
 
 name: quad9-unsecured-2
 website: https://quad9.net
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: anycast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 149.112.112.10:5053
 host: dns.quad9.net/dns-query
 keepalive: 550,590
@@ -1342,8 +1352,8 @@ end;
 
 name: tiarap
 website: https://doh.tiarap.org
-zone: EastAmerica, WestAmerica, AsiaPacific, Europe
-tags: geocast, EastAmerica, WestAmerica, AsiaPacific, Europe
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe
 address: doh.tiarap.org:443
 host: doh.tiarap.org/dns-query
 sni: yes
@@ -1392,8 +1402,8 @@ end;
 # ns1.tx.us.dns.opennic.glue
 name: tin-fan3
 website: https://servers.opennic.org/
-zone: EastAmerica
-tags: Texas, EastAmerica, OpenNIC
+zone: Americas
+tags: Texas, Americas, OpenNIC
 address: 155.138.240.237:443
 host: ns03.dns.tin-fan.com/dns-query
 keepalive: 140,170
