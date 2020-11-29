@@ -30,22 +30,18 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 4\n";exit}
-	"powerdns"
-}
-expect {
-	timeout {puts "TESTING ERROR 5\n";exit}
 	"quad9"
 }
 expect {
-	timeout {puts "TESTING ERROR 6\n";exit}
+	timeout {puts "TESTING ERROR 5\n";exit}
 	"snopyta"
 }
 expect {
-	timeout {puts "TESTING ERROR 7\n";exit}
+	timeout {puts "TESTING ERROR 6\n";exit}
 	"twnic"
 }
 expect {
-	timeout {puts "TESTING ERROR 8\n";exit}
+	timeout {puts "TESTING ERROR 7\n";exit}
 	"servers found"
 }
 

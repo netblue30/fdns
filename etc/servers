@@ -15,11 +15,12 @@
 #	Your fdns proxy is located in a very specific geographical zone, such as
 #	Europe, AsiaPacific, Americas (... so far, more to be added).
 #	The fdns zone is detected based on the timezone setting of the computer running fdns.
-#	We match fdns zone with the server zone, and use it to filter adblocker and family tags.
-#	This way we can restrict a specific service to a specific geographical area.
-#	If a server zone is not specified, the tag is available in all zones.
+#	We match fdns zone with the server zone, this way we can restrict a specific service
+#	to a specific geographical area. Servers tagged as anycast are available in all zones.
 # tags: filtering tags
-# address: IP address and port in IP:PORT format or DOMAIN:PORT format
+#	In a specific zone, we can further filter the servers based on a tag such as non-profit,
+#	family, OpenNIC, etc.
+# address: IP address and port in IP:PORT or DOMAIN:PORT format
 # host: URL
 # sni: yes/no
 #	If yes we add SNI when we establish the connection. Optional, default no.
@@ -28,11 +29,11 @@
 # keepalive-query: yes/no
 #	Use a regular DNS query to keep the HTTP2 connection open instead of PING.
 #	Optional, default no.
-# keepalive: how often we sent a request to keep the connection going
+# keepalive: how often we sent a request to keep the connection going.
 #
 # end;	Marks the end of the server description
 #
-# Servers tagged admin-down or firefox-only are included for testing only. fdns will not attempt
+# Servers tagged admin-down are included for testing only. fdns will not attempt
 # to connect to these servers.
 #
 
@@ -162,10 +163,11 @@ host: us.adhole.org/dns-query
 keepalive: 550,590
 end;
 
+# short keepalive
 name: alekberg-nl
 website: https://alekberg.net/
 zone: Europe
-tags: Netherlands, Europe
+tags: admin-down, Netherlands, Europe
 address: 51.15.124.208:443
 host: dnsnl.alekberg.net/dns-query
 keepalive: 7
@@ -180,10 +182,11 @@ host: dnses.alekberg.net/dns-query
 keepalive: 140,170
 end;
 
+# short keepalive
 name: alekberg-se
 website: https://alekberg.net/
 zone: Europe
-tags: Sweden, Europe
+tags: admin-down, Sweden, Europe
 address: 45.153.187.96:443
 host: dnsse.alekberg.net/dns-query
 keepalive: 140,170
@@ -229,10 +232,11 @@ sni: yes
 keepalive: 20,25
 end;
 
+# short keepalive
 name: appliedprivacy-dot
 website: https://appliedprivacy.net
 zone: Europe
-tags: non-profit, Austria, Europe
+tags: admin-down, non-profit, Austria, Europe
 address: 146.255.56.98:853
 host: dot1.applied-privacy.net/
 sni: yes
@@ -246,7 +250,7 @@ zone: AsiaPacific
 tags: India, AsiaPacific
 address: 3.7.156.128:443
 host: dns.arapurayil.com/dns-query
-keepalive: 20,25
+keepalive: 7
 end;
 
 name: blahdns-fi
@@ -263,7 +267,7 @@ end;
 name: blahdns-de
 website: https://blahdns.com
 zone: Europe
-tags: firefox-only, Germany, Europe, adblocker
+tags: admin-down, Germany, Europe, adblocker
 address: 159.69.198.101:443
 host: doh-de.blahdns.com/dns-query
 sni: yes
@@ -274,7 +278,7 @@ end;
 name: blahdns-jp
 website: https://blahdns.com
 zone: AsiaPacific
-tags: firefox-only, Japan, AsiaPacific, adblocker
+tags: admin-down, Japan, AsiaPacific, adblocker
 address: 45.32.55.94:443
 host: doh-jp.blahdns.com/dns-query
 sni: yes
@@ -285,7 +289,7 @@ end;
 name: blahdns-sg
 website: https://blahdns.com
 zone: AsiaPacific
-tags: firefox-only, Singapore, AsiaPacific, adblocker
+tags: admin-down, Singapore, AsiaPacific, adblocker
 address: 139.180.141.57:443
 host: doh-sg.blahdns.com/dns-query
 sni: yes
@@ -628,10 +632,10 @@ end;
 name: digital-society-dot
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: admin-down, non-profit, Switzerland, Europe
+tags: non-profit, Switzerland, Europe
 address: 185.95.218.42:853
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 80,110
+keepalive: 20,25
 transport: dot
 end;
 
@@ -641,7 +645,7 @@ zone: Europe
 tags: non-profit, Switzerland, Europe
 address: 185.95.218.43:853
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 80,110
+keepalive: 20,25
 transport: dot
 end;
 
@@ -966,7 +970,7 @@ end;
 name: meganerd
 website: https://meganerd.nl/encrypted-dns-server
 zone: Europe
-tags: firefox-only, Netherlands, Europe
+tags: admin-down, Netherlands, Europe
 address: 209.250.241.25:443
 host: jarjar.meganerd.nl/doh
 keepalive: 3
@@ -1258,10 +1262,11 @@ keepalive: 20,25
 transport: dot
 end;
 
+# keepalive 10???
 name: sinodun3-dot
 website: https://dnsprivacy.org
 zone: Europe
-tags: Netherlands, Europe
+tags: admin-down, Netherlands, Europe
 address: 145.100.185.17:853
 host: dnsovertls1.sinodun.com/
 keepalive: 20,25
@@ -1320,7 +1325,7 @@ end;
 name: tiarap-jp
 website: https://jp.tiar.app/
 zone: AsiaPacific
-tags: firfox-only, Japan, AsiaPacific, adblocker
+tags: admin-down, Japan, AsiaPacific, adblocker
 address: jp.tiar.app:443
 host: jp.tiar.app/dns-query
 keepalive: 7
@@ -1330,7 +1335,7 @@ end;
 name: tiarap-sg
 website: https://doh.tiar.app
 zone: AsiaPacific
-tags: firefox-only, Singapore, AsiaPacific, adblocker
+tags: admin-down, Singapore, AsiaPacific, adblocker
 address: doh.tiar.app:443
 host: doh.tiar.app/dns-query
 keepalive: 7
