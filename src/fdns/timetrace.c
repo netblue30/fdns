@@ -25,41 +25,26 @@
 //**************************
 // time trace based on getticks function
 //**************************
-static int tt_not_implemented = 0; // not implemented for the current architecture
-static unsigned long long tt_1ms = 0;
-static unsigned long long tt = 0;	// start time
 static  int gm_delta = 0;
+struct timespec start_time; // start time
+
+// time difference in milliseconds
+static inline float msdelta(struct timespec *end, struct timespec *start) {
+	unsigned sec = end->tv_sec - start->tv_sec;
+	long nsec = end->tv_nsec - start->tv_nsec;
+
+	return (float) sec * 1000 + (float) nsec / 1000000;
+}
+
 
 void timetrace_start(void) {
-	if (tt_not_implemented)
-		return;
-	unsigned long long t1 = getticks();
-	if (t1 == 0) {
-		tt_not_implemented = 1;
-		return;
-	}
-
-	if (tt_1ms == 0) {
-		usleep(1000);	// sleep 1 ms
-		unsigned long long t2 = getticks();
-		tt_1ms = t2 - t1;
-		if (tt_1ms == 0) {
-			tt_not_implemented = 1;
-			return;
-		}
-	}
-
-	tt = getticks();
+	clock_gettime(CLOCK_MONOTONIC, &start_time);
 }
 
 float timetrace_end(void) {
-	if (tt_not_implemented)
-		return 0;
-
-	unsigned long long delta = getticks() - tt;
-	assert(tt_1ms);
-
-	return (float) delta / (float) tt_1ms;
+	struct timespec end_time; // end time
+	clock_gettime(CLOCK_MONOTONIC, &end_time);
+	return msdelta(&end_time, &start_time);
 }
 
 // calculate GMT / local time difference
