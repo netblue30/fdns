@@ -16,7 +16,7 @@ after 100
 send -- "fdns --list --transport=bla\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"invalid transport"
+	"invalid DNS transport"
 }
 after 100
 
@@ -43,7 +43,7 @@ expect {
 	timeout {puts "TESTING ERROR 8\n";exit}
 	"appliedprivacy" {puts "TESTING ERROR 9\n";exit}
 	"appliedprivacy-dot" {puts "TESTING ERROR 10\n";exit}
-	"DoT/Do53 bandwidth ratio"
+	"no such server available"
 }
 
 after 100

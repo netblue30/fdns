@@ -251,8 +251,8 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				filter_add('D', s->host);
 
 
-			// servers tagged as admin-down or firefox-only are not take into calculation
-			if (admin_down == 0 && (strstr(s->tags, "admin-down") || strstr(s->tags, "firefox-only"))) {
+			// servers tagged as admin-down are not taken into calculation
+			if (admin_down == 0 && strstr(s->tags, "admin-down")) {
 				free(s);
 				// go to next server in the list
 				return read_one_server(fp, linecnt, fname);
