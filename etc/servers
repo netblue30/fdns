@@ -168,7 +168,7 @@ zone: Europe
 tags: Netherlands, Europe
 address: 51.15.124.208:443
 host: dnsnl.alekberg.net/dns-query
-keepalive: 20,25
+keepalive: 7
 end;
 
 name: alekberg-es
@@ -196,7 +196,7 @@ tags: Netherlands, Europe
 address: 51.15.124.208:853
 host: dnsnl.alekberg.net/dns-query
 transport: dot
-keepalive: 20,25
+keepalive: 40,50
 end;
 
 name: alekberg-es-dot
@@ -256,7 +256,7 @@ tags: Finland, Europe, adblocker
 address: 95.216.212.177:443
 host: doh-fi.blahdns.com/dns-query
 sni: yes
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 # short keepalive
@@ -393,6 +393,15 @@ host: doh.cleanbrowsing.org/doh/security-filter
 keepalive: 140,170
 end;
 
+name: cleanbrowsing2
+website: https://cleanbrowsing.org
+zone: Americas, AsiaPacific, Europe
+tags: anycast, security, Americas, AsiaPacific, Europe
+address: 185.228.168.10:443
+host: doh.cleanbrowsing.org/doh/security-filter
+keepalive: 140,170
+end;
+
 name: cleanbrowsing-family
 website: https://cleanbrowsing.org
 zone: Americas, AsiaPacific, Europe
@@ -402,11 +411,29 @@ host: doh.cleanbrowsing.org/doh/family-filter
 keepalive: 140,170
 end;
 
+name: cleanbrowsing-family2
+website: https://cleanbrowsing.org
+zone: Americas, AsiaPacific, Europe
+tags: family
+address: 185.228.168.10:443
+host: doh.cleanbrowsing.org/doh/family-filter
+keepalive: 140,170
+end;
+
 name: cleanbrowsing-adult
 website: https://cleanbrowsing.org
 zone: Americas, AsiaPacific, Europe
 tags: safe-for-work
 address: 185.228.168.168:443
+host: doh.cleanbrowsing.org/doh/adult-filter
+keepalive: 140,170
+end;
+
+name: cleanbrowsing-adult2
+website: https://cleanbrowsing.org
+zone: Americas, AsiaPacific, Europe
+tags: safe-for-work
+address: 185.228.168.10:443
 host: doh.cleanbrowsing.org/doh/adult-filter
 keepalive: 140,170
 end;
@@ -528,16 +555,6 @@ tags: Japan, AsiaPacific
 address: 45.77.180.10:443
 host: dns.containerpi.com/dns-query
 keepalive: 140,170
-end;
-
-name: containerpi-dot
-website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-zone: AsiaPacific
-tags: Japan, AsiaPacific
-address: 45.77.180.10:853
-host: dns.containerpi.com/dns-query
-keepalive: 550,590
-transport: dot
 end;
 
 name: cznic
@@ -705,8 +722,8 @@ end;
 
 name: dnslify
 website: https://www.dnslify.com/
-zone: Americas
-tags: admin-down, Americas, NY, California
+zone: Americas, AsiaPacific, Europe
+tags: admin-down, Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -714,44 +731,8 @@ end;
 
 name: dnslify2
 website: https://www.dnslify.com/
-zone: AsiaPacific
-tags: admin-down, AsiaPacific, Singapore
-address: 185.235.81.1:443
-host: doh.dnslify.com/dns-query
-keepalive: 20,25
-end;
-
-name: dnslify3
-website: https://www.dnslify.com/
-zone: Europe
-tags: admin-down, Europe, Netherlands, Germany, UK
-address: 185.235.81.1:443
-host: doh.dnslify.com/dns-query
-keepalive: 20,25
-end;
-
-name: dnslify4
-website: https://www.dnslify.com/
-zone: Americas
-tags: admin-down, Americas, NY, California
-address: 185.235.81.2:443
-host: doh.dnslify.com/dns-query
-keepalive: 20,25
-end;
-
-name: dnslify5
-website: https://www.dnslify.com/
-zone: AsiaPacific
-tags: admin-down, AsiaPacific, Singapore
-address: 185.235.81.2:443
-host: doh.dnslify.com/dns-query
-keepalive: 20,25
-end;
-
-name: dnslify6
-website: https://www.dnslify.com/
-zone: Europe
-tags: admin-down, Europe, Netherlands, Germany, UK
+zone: Americas, AsiaPacific, Europe
+tags: admin-down, Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -765,7 +746,7 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 94.247.43.254:853
 host: opennic1.eth-services.de:853/
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 # ns31.de.dns.opennic.glue
@@ -776,7 +757,7 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 195.10.195.195:853
 host: opennic2.eth-services.de:853/
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 name: faelix-uk-adblocker
@@ -828,7 +809,7 @@ name: faelix-ch
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
 tags: Switzerland, Europe
-address: 185.134.197.54:443
+address: 185.134.196.54:443
 host: rdns.faelix.net/
 keepalive: 20,25
 end;
@@ -837,7 +818,16 @@ name: faelix-ch2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
 tags: Switzerland, Europe
-address: 185.134.196.54:443
+address: 185.134.196.55:443
+host: rdns.faelix.net/
+keepalive: 20,25
+end;
+
+name: faelix-ch3
+website: https://faelix.net/ref/dns/#privacy-dns
+zone: Europe
+tags: Switzerland, Europe
+address: 185.134.197.54:443
 host: rdns.faelix.net/
 keepalive: 20,25
 end;
@@ -847,6 +837,15 @@ website: https://ffmuc.net/
 zone: Europe
 tags: Germany, Europe
 address: 195.30.94.28:443
+host: doh.ffmuc.net/dns-query
+keepalive: 140,170
+end;
+
+name: ffmuc2
+website: https://ffmuc.net/
+zone: Europe
+tags: Germany, Europe
+address: 5.1.66.255:443
 host: doh.ffmuc.net/dns-query
 keepalive: 140,170
 end;
@@ -915,47 +914,6 @@ host: ibuki.cgnat.net/dns-query
 keepalive: 140,170
 end;
 
-# ns3.fr.dns.opennic.glue
-name: iriseden
-website: https://servers.opennic.org/
-zone: Europe
-tags: admin-down, France, Europe, OpenNIC
-address: 62.210.177.189:443
-host: ns1.iriseden.fr/dns-query
-keepalive: 140,170
-end;
-
-# ns4.fr.dns.opennic.glue
-name: iriseden2
-website: https://servers.opennic.org/
-zone: Europe
-tags: admin-down, France, Europe, OpenNIC
-address: 62.210.180.71:443
-host: ns2.iriseden.fr/dns-query
-keepalive: 140,170
-end;
-
-# ns3.fr.dns.opennic.glue
-name: iriseden-dot
-website: https://servers.opennic.org/
-zone: Europe
-tags: France, Europe, OpenNIC
-address: 62.210.177.189:853
-host: ns1.iriseden.fr/dns-query
-transport: dot
-keepalive: 20,25
-end;
-
-# ns4.fr.dns.opennic.glue
-name: iriseden2-dot
-website: https://servers.opennic.org/
-zone: Europe
-tags: France, Europe, OpenNIC
-address: 62.210.180.71:853
-host: ns2.iriseden.fr/dns-query
-transport: dot
-keepalive: 20,25
-end;
 
 name: lelux
 website: https://lelux.fi/resolver/
@@ -963,7 +921,7 @@ zone: Europe
 tags: Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 # using HTTP 1.1
@@ -973,7 +931,7 @@ zone: Europe
 tags: UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 name: li-dot
@@ -990,7 +948,6 @@ name: libredns
 website: https://libredns.gr/
 zone: Europe
 tags: Germany, Europe, OpenNIC
-#old address: 116.203.115.192:443
 address: 116.202.176.26:443
 host: doh.libredns.gr/dns-query
 keepalive: 140,170
@@ -1000,7 +957,6 @@ name: libredns-adblocker
 website: https://libredns.gr/
 zone: Europe
 tags: Germany, Europe, OpenNIC, adblocker
-#old address: 116.203.115.192:443
 address: 116.202.176.26:443
 host: doh.libredns.gr/ads
 keepalive: 140,170
@@ -1043,7 +999,7 @@ zone: Americas
 tags: LasVegas, Americas
 address: 209.141.34.95:443
 host: uncensored.lv1.dns.nixnet.xyz/dns-query
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 # http 1.1
@@ -1053,7 +1009,7 @@ zone: Americas
 tags: LasVegas, Americas, adblocker
 address: 209.141.34.95:443
 host: adblock.lv1.dns.nixnet.xyz/dns-query
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 # http 1.1
@@ -1063,7 +1019,7 @@ zone: Americas
 tags: NY, Americas
 address: 199.195.251.84:443
 host: uncensored.ny1.dns.nixnet.xyz/dns-query
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 # http 1.1
@@ -1073,7 +1029,7 @@ zone: Americas
 tags: NY, Americas, adblocker
 address: 199.195.251.84:443
 host: adblock.ny1.dns.nixnet.xyz/dns-query
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 # http 1.1
@@ -1083,7 +1039,7 @@ zone: Europe
 tags: Luxemburg, Europe
 address: 104.244.78.231:443
 host: uncensored.lux1.dns.nixnet.xyz/dns-query
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 # http 1.1
@@ -1093,7 +1049,7 @@ zone: Europe
 tags: Luxemburg, Europe, adblocker
 address: 104.244.78.231:443
 host: adblock.lux1.dns.nixnet.xyz/dns-query
-keepalive: 30,50
+keepalive: 40,50
 end;
 
 name: oszx
