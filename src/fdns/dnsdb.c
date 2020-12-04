@@ -50,8 +50,8 @@ static inline int hash(const uint8_t *buf) {
 struct sockaddr_in *dnsdb_retrieve(int pool_index, uint8_t *buf) {
 	assert(pool_index < MAX_FALLBACK_POOL);
 	assert(buf);
-	if(arg_debug)
-		printf("retrieve %u %u\n", buf[0], buf[1]);
+	if (arg_debug)
+		printf("dbretrieve %u %u, pool index %d\n", buf[0], buf[1], pool_index);
 	int h = hash(buf);
 	assert(h < MAX_HASH_ARRAY);
 
@@ -74,8 +74,8 @@ void dnsdb_store(int pool_index, uint8_t *buf, struct sockaddr_in *addr) {
 	assert(pool_index < MAX_FALLBACK_POOL);
 	assert(buf);
 	assert(addr);
-	if(arg_debug)
-		printf("store %u, %u, poool_index %d\n", buf[0], buf[1], pool_index);
+	if (arg_debug)
+		printf("dbstore %u, %u, pool_index %d\n", buf[0], buf[1], pool_index);
 
 	int h = hash(buf);
 	assert(h < MAX_HASH_ARRAY);

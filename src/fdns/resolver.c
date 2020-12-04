@@ -37,7 +37,10 @@ void resolver(void) {
 
 	// connect SSL/DNS server
 	ssl_init();
-	ssl_open();
+	if (ssl_test_open())
+		ssl_open();
+	else
+		rlogprintf("Warning: resolver starting in fallback mode\n");
 
 	// start the local DNS server on 127.0.0.1 only
 	// in order to mitigate DDoS amplification attacks
@@ -75,11 +78,9 @@ void resolver(void) {
 	assert(srv);
 	int dns_keepalive_cnt = rand_range(srv->keepalive_min, srv->keepalive_max);
 	int console_printout_cnt = CONSOLE_PRINTOUT_TIMER;
-	int ssl_reopen_cnt = SSL_REOPEN_TIMER;
 
 	console_printout_cnt = (CONSOLE_PRINTOUT_TIMER * arg_id) / arg_resolvers;
 	int dns_over_udp = 0;
-	int fallback_update_cnt = 0;
 
 	struct timeval t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
@@ -158,23 +159,10 @@ void resolver(void) {
 				console_printout_cnt = CONSOLE_PRINTOUT_TIMER;
 			}
 
-			// reopen SSL connection
-			if (ssl_state == SSL_CLOSED) {
-				if (--ssl_reopen_cnt <= 0) {
-					ssl_open();
-					ssl_reopen_cnt = SSL_REOPEN_TIMER;
-				}
-			}
-
 			// ssl keepalive:
 			// if any incoming data, probably is the session going down
-			if (ssl_status_check()) {
+			if (ssl_status_check())
 				transport->exchange(buf, 0);
-				if (ssl_state == SSL_CLOSED) {
-					ssl_open();
-					ssl_reopen_cnt = SSL_REOPEN_TIMER;
-				}
-			}
 
 			if (--dns_keepalive_cnt <= 0)  {
 				dns_keepalive();
@@ -183,7 +171,8 @@ void resolver(void) {
 
 			// send resolver keepalive
 			if (--resolver_keepalive_cnt <= 0)  {
-				rlogprintf("resolver keepalive\n");
+				if (ssl_state == SSL_OPEN)
+					rlogprintf("resolver keepalive\n");
 				resolver_keepalive_cnt = RESOLVER_KEEPALIVE_TIMER;
 			}
 
@@ -193,17 +182,6 @@ void resolver(void) {
 				exit(1);
 			}
 
-			// database/cache cleanup
-			if (dnsdb_timeout() == 0 && ++fallback_update_cnt > FALLBACK_UPDATE_TIMEOUT) {
-				if (arg_debug)
-					rlogprintf("Info: randomizing fallback sockets\n");
-				// close fallback sockets and open them again in order to randomize port numbers
-				for (i = 0; i < MAX_FALLBACK_POOL; i++) {
-					close(sfallback[i]);
-					sfallback[i] = net_remote_dns_socket(&addr_fallback, arg_fallback_server);
-				}
-				fallback_update_cnt = 0;
-			}
 			cache_timeout();
 			print_cache();
 			t.tv_sec = 1;
@@ -327,7 +305,7 @@ void resolver(void) {
 					errExit("sendto");
 
 				// store the incoming request in the database
-				dnsdb_store(rand() % MAX_FALLBACK_POOL, buf, &addr_client);
+				dnsdb_store(0, buf, &addr_client);
 				fwd_active = NULL;
 #ifdef HAVE_GCOV
 				__gcov_flush();

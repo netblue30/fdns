@@ -83,7 +83,6 @@ static inline int rand_range(int min, int max) {
 #define RESOLVER_KEEPALIVE_AFTER_SLEEP (RESOLVER_KEEPALIVE_TIMER * 1.2) // after sleep detection
 #define MONITOR_WAIT_TIMER 2	// wait for this number of seconds before restarting a failed resolver process
 #define CONSOLE_PRINTOUT_TIMER 5	// transfer stats from resolver to frontend
-#define SSL_REOPEN_TIMER 2	// try to reopen a failed SSL connection after this time
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
 
 // transport protocol timeout
@@ -96,7 +95,6 @@ static inline int rand_range(int min, int max) {
 #define SERVER_KEEPALIVE_LIMIT 110 // seconds
 #define FALLBACK_TIMEOUT 10 // wait time for responses on fallback
 	// for NAT traversal, this value should be smaller than 30 seconds - the default is in /proc/sys/net/netfilter/nf_conntrack_udp_timeout
-#define FALLBACK_UPDATE_TIMEOUT (15 * 60)	// randomize fallback sockets every 15 minutes
 
 // logging
 #define LOG_TIMEOUT_DEFAULT 10		// amount of time to keep the log entries in shared memory in minutes
@@ -283,6 +281,7 @@ typedef enum {
 } SSLState;
 extern SSLState ssl_state;
 
+int ssl_test_open(void);
 void ssl_init(void);
 void ssl_open(void);
 void ssl_close(void);
