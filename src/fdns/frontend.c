@@ -39,8 +39,6 @@ int __clone2(int (*fn)(void *),
 	     /* pid_t *ptid, struct user_desc *tls, pid_t *ctid */ );
 #endif
 
-int encrypted[RESOLVERS_CNT_MAX];
-
 typedef struct resolver_t {
 	pid_t pid;
 	int keepalive;
@@ -203,7 +201,8 @@ static int sandbox(void *sandbox_arg) {
 
 static void start_sandbox(int id) {
 	assert(id < RESOLVERS_CNT_MAX);
-	encrypted[id] = 0;
+	stats.encrypted[id] = 0;
+	stats.peer_ip[id] = 0;
 
 	if (w[id].fd[0] == 0) {
 		if (socketpair(AF_UNIX, SOCK_DGRAM, 0, w[id].fd) < 0)
@@ -439,11 +438,19 @@ void frontend(void) {
 						w[i].keepalive = RESOLVER_KEEPALIVE_SHUTDOWN;
 					else {
 						if (strncmp(msg.buf, "SSL connection opened", 21) == 0) {
-							encrypted[i] = 1;
+							stats.encrypted[i] = 1;
+							// extract ip address
+							if (strncmp(msg.buf + 21, " to ", 4) == 0) {
+								uint32_t ip = 0;
+								if (0 == atoip(msg.buf + 25, &ip))
+									stats.peer_ip[i] = ip;
+printf("ip %d.%d.%d.%d\n", PRINT_IP(ip));
+							}
 							shmem_store_stats(proxy_addr);
 						}
 						else if (strncmp(msg.buf, "SSL connection closed", 21) == 0) {
-							encrypted[i] = 0;;
+							stats.encrypted[i] = 0;;
+							stats.peer_ip[i] = 0;
 							shmem_store_stats(proxy_addr);
 						}
 

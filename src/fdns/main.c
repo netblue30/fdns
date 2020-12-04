@@ -150,7 +150,6 @@ int main(int argc, char **argv) {
 	init_time_delta();
 	arg_argc = argc;
 	memset(&stats, 0, sizeof(stats));
-	memset(encrypted, 0, sizeof(encrypted));
 	filter_init();
 	cache_init();
 	srand(time(NULL));

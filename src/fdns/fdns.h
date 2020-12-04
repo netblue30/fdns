@@ -150,6 +150,10 @@ typedef struct stats_t {
 	// average time
 	double ssl_pkts_timetrace;
 	unsigned ssl_pkts_cnt;
+
+	// per-resolver stats
+	int encrypted[RESOLVERS_CNT_MAX];
+	uint32_t peer_ip[RESOLVERS_CNT_MAX];
 } Stats;
 
 typedef struct dnsserver_t {
@@ -292,7 +296,6 @@ int ssl_tx(uint8_t *buf, int len);
 int ssl_get_socket(void);
 
 // frontend.c
-extern int encrypted[RESOLVERS_CNT_MAX];
 void frontend(void);
 
 // security.c
