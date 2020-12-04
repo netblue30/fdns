@@ -34,6 +34,11 @@ typedef struct dns_report_t {
 #define MAX_ENTRY_LEN 82 	// a full line on a terminal screen, \n and \0
 	char fallback[MAX_ENTRY_LEN];
 
+	// resolvers
+	int resolvers;
+	int encrypted[RESOLVERS_CNT_MAX];
+	uint32_t peer_ip[RESOLVERS_CNT_MAX];
+
 	// header
 	char header1[MAX_ENTRY_LEN];
 	char header2[MAX_ENTRY_LEN];
@@ -106,9 +111,14 @@ void shmem_store_stats(const char *proxy_addr) {
 	// encryption status
 	int i;
 	for (i = 0; i < arg_resolvers; i++)
-		if (encrypted[i] == 0)
+		if (stats.encrypted[i] == 0)
 			break;
 	char *encstatus = (i == arg_resolvers) ? "ENCRYPTED" : "NOT ENCRYPTED";
+	report->resolvers = arg_resolvers;
+	for (i = 0; i < arg_resolvers; i++) {
+		report->encrypted[i] = stats.encrypted[i];
+		report->peer_ip[i] = stats.peer_ip[i];
+	}
 
 	if (arg_fallback_only)
 		snprintf(report->header1, MAX_ENTRY_LEN,

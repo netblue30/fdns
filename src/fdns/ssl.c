@@ -24,6 +24,7 @@
 #include <openssl/err.h>
 #include <netdb.h>
 #include <sys/wait.h>
+#include <sys/socket.h>
 
 SSLState ssl_state = SSL_CLOSED;
 static BIO *bio = NULL;
@@ -349,7 +350,18 @@ void ssl_open(void) {
 		printf("SNI %s\n", (srv->sni)? "yes": "no");
 
 	ssl_state = SSL_OPEN;
-	rlogprintf("SSL connection opened\n");
+
+
+
+	int fd = SSL_get_fd(ssl);
+	struct sockaddr_in remote;
+	int addrlen_remote = sizeof(remote);
+	if (getpeername(fd, (struct sockaddr *) &remote, &addrlen_remote))
+		rlogprintf("SSL connection opened\n");
+	else {
+		uint32_t ip = ntohl(remote.sin_addr.s_addr);
+		rlogprintf("SSL connection opened to %d.%d.%d.%d\n", PRINT_IP(ip));
+	}
 
 	// transport connect
 	transport->init();
