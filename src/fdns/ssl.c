@@ -23,12 +23,54 @@
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <netdb.h>
+#include <sys/wait.h>
 
 SSLState ssl_state = SSL_CLOSED;
 static BIO *bio = NULL;
 static SSL_CTX *ctx = NULL;
 static SSL *ssl = NULL;
 
+// return 1 if ok, 0 if error
+int ssl_test_open(void)  {
+	if (arg_fallback_only)
+		return 1;
+
+	pid_t child = fork();
+	if (child == 0) { // child
+		log_disable();
+		ssl_open();
+		if (ssl_state == SSL_CLOSED)
+			exit(1);
+		ssl_close();
+		exit(0);
+	}
+
+	// wait for the child to finish
+	int i = 0;
+	do {
+		int status = 0;
+		pid_t rv = waitpid(child, &status, WNOHANG);
+		if (rv == child) {
+			if (WIFEXITED(status) && WEXITSTATUS(status) == 1) {
+				printf(" Error: SSL connect test failed\n");
+				fflush(0);
+				return 0;
+			}
+			break;
+		}
+
+		sleep(1);
+		i++;
+	}
+	while (i < 5); // 5 seconds test
+
+	kill(child, SIGKILL);
+	usleep(10000);
+
+	if (i >= 5)
+		return 0;
+	return 1;
+}
 
 static void ssl_alert_callback(const SSL *s, int where, int ret) {
 	const char *str;
@@ -45,25 +87,25 @@ static void ssl_alert_callback(const SSL *s, int where, int ret) {
 		str = "undefined";
 
 	if (where & SSL_CB_LOOP) {
-		printf("Alert: %s:%s\n", str, SSL_state_string_long(s));
+		printf("(%d) Alert: %s:%s\n", arg_id, str, SSL_state_string_long(s));
 		fflush(0);
 	}
 	else if (where & SSL_CB_ALERT) {
 		str = (where & SSL_CB_READ) ? "read" : "write";
-		printf("Alert: SSL3 alert %s:%s:%s\n", str,
+		printf("(%d) Alert: SSL3 alert %s:%s:%s\n", arg_id, str,
 			   SSL_alert_type_string_long(ret),
 			   SSL_alert_desc_string_long(ret));
 		fflush(0);
 	}
 	else if (where & SSL_CB_EXIT) {
 		if (ret == 0) {
-			printf("Alert: %s:failed in %s\n",
-				   str, SSL_state_string_long(s));
+			printf("(%d) Alert: %s:failed in %s\n",
+				   arg_id, str, SSL_state_string_long(s));
 			fflush(0);
 		}
 		else if (ret < 0) {
-			printf("Alert: %s:error in %s\n",
-				   str, SSL_state_string_long(s));
+			printf("(%d) Alert: %s:error in %s\n",
+				   arg_id, str, SSL_state_string_long(s));
 			fflush(0);
 		}
 	}
@@ -267,7 +309,7 @@ void ssl_open(void) {
 		else {
 			printf("   Error: %s\n", X509_verify_cert_error_string(err));
 			rlogprintf("Error: %s\n", X509_verify_cert_error_string(err));
-			return;	// give the program a chance to switch to fallback
+			exit(1);
 		}
 	}
 
