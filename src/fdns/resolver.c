@@ -76,7 +76,7 @@ void resolver(void) {
 	int resolver_keepalive_cnt = (RESOLVER_KEEPALIVE_TIMER * arg_id) / arg_resolvers;
 	DnsServer *srv = server_get();
 	assert(srv);
-	int dns_keepalive_cnt = rand_range(srv->keepalive_min, srv->keepalive_max);
+	int dns_keepalive_cnt = (srv->keepalive_max * arg_id) / arg_resolvers;
 	int console_printout_cnt = CONSOLE_PRINTOUT_TIMER;
 
 	console_printout_cnt = (CONSOLE_PRINTOUT_TIMER * arg_id) / arg_resolvers;

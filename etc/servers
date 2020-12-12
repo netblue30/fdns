@@ -167,10 +167,10 @@ end;
 name: alekberg-nl
 website: https://alekberg.net/
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 51.15.124.208:443
 host: dnsnl.alekberg.net/dns-query
-keepalive: 7
+keepalive: 140,170
 end;
 
 name: alekberg-es
@@ -186,7 +186,7 @@ end;
 name: alekberg-se
 website: https://alekberg.net/
 zone: Europe
-tags: admin-down, Sweden, Europe
+tags: Sweden, Europe
 address: 45.153.187.96:443
 host: dnsse.alekberg.net/dns-query
 keepalive: 140,170
@@ -199,13 +199,13 @@ tags: Netherlands, Europe
 address: 51.15.124.208:853
 host: dnsnl.alekberg.net/dns-query
 transport: dot
-keepalive: 40,50
+keepalive: 20,25
 end;
 
 name: alekberg-es-dot
 website: https://alekberg.net/
 zone: Europe
-tags: Spain, Europe
+tags: admin-down,Spain, Europe
 address: 185.253.154.66:853
 host: dnses.alekberg.net/dns-query
 transport: dot
@@ -215,7 +215,7 @@ end;
 name: alekberg-se-dot
 website: https://alekberg.net/
 zone: Europe
-tags: Sweden, Europe
+tags: admin-down,Sweden, Europe
 address: 45.153.187.96:853
 host: dnsse.alekberg.net/dns-query
 transport: dot
