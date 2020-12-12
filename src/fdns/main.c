@@ -152,7 +152,7 @@ int main(int argc, char **argv) {
 	memset(&stats, 0, sizeof(stats));
 	filter_init();
 	cache_init();
-	srand(time(NULL));
+	srand(time(NULL) + getpid());
 
 	// first pass: extracting data
 	if (argc != 1) {
