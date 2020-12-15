@@ -697,6 +697,25 @@ host: dns2.dnscrypt.ca:453/dns-query
 keepalive: 550,590
 end;
 
+name: dnsforfamily
+website: https://dnsforfamily.com
+zone: Europe
+tags: family, Germany, Europe
+address: 95.217.213.94:443
+host: dns-doh.dnsforfamily.com/dns-query
+keepalive: 140,170
+end;
+
+name: dnsforfamily-dot
+website: https://dnsforfamily.com
+zone: Europe
+tags: faimly, Germany, Europe
+address: 95.217.213.94:853
+host: dns-dot.dnsforfamily.com/dns-query
+keepalive: 550,590
+transport: dot
+end;
+
 name: dnsforge
 website: https://dnsforge.de
 zone: Europe
@@ -1054,6 +1073,15 @@ tags: Luxemburg, Europe, adblocker
 address: 104.244.78.231:443
 host: adblock.lux1.dns.nixnet.xyz/dns-query
 keepalive: 40,50
+end;
+
+name: njalla
+website: https://njal.la
+zone: Europe
+tags: Sweden, Europe
+address: 95.215.19.53:443
+host: dns.njal.la/dns-query
+keepalive: 140,170
 end;
 
 name: oszx
