@@ -163,6 +163,24 @@ host: us.adhole.org/dns-query
 keepalive: 550,590
 end;
 
+name: ahadns-nl
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Netherlands, Europe
+address: 5.2.75.75:443
+host: doh.nl.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
+name: ahadns-in
+website: https://ahadns.com
+zone: AsiaPacific
+tags: adblocker, India, AsiaPacific
+address: 45.79.120.233:443
+host: doh.in.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
 # short keepalive
 name: alekberg-nl
 website: https://alekberg.net/
@@ -746,7 +764,7 @@ end;
 name: dnslify
 website: https://www.dnslify.com/
 zone: Americas, AsiaPacific, Europe
-tags: admin-down, Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
+tags: Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -755,7 +773,7 @@ end;
 name: dnslify2
 website: https://www.dnslify.com/
 zone: Americas, AsiaPacific, Europe
-tags: admin-down, Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
+tags: Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 20,25
@@ -937,6 +955,23 @@ host: ibuki.cgnat.net/dns-query
 keepalive: 140,170
 end;
 
+name: lavadns-us
+website: https://dns.lavate.ch
+zone: Americas
+tags: OpenNIC, California, Americas
+address: 79.110.170.43:443
+host: us1.dns.lavate.ch/dns-query
+keepalive: 40,50
+end;
+
+name: lavadns-fi
+website: https://dns.lavate.ch
+zone: Europe
+tags: OpenNIC, Finland, Europe
+address: 95.217.25.217:443
+host: eu1.dns.lavate.ch/dns-query
+keepalive: 40,50
+end;
 
 name: lelux
 website: https://lelux.fi/resolver/
@@ -1172,7 +1207,7 @@ end;
 name: powerdns
 website: https://powerdns.org
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 136.144.215.158:443
 host: doh.powerdns.org/dns-query
 keepalive: 20,25
@@ -1373,7 +1408,7 @@ end;
 name: tin-fan
 website: https://servers.opennic.org/
 zone: Europe
-tags: Germany, Europe, OpenNIC
+tags: admin-down, Germany, Europe, OpenNIC
 address: 95.217.16.205:443
 host: ns01.dns.tin-fan.com/dns-query
 keepalive: 140,170
@@ -1382,7 +1417,7 @@ end;
 name: tin-fan2
 website: https://servers.opennic.org/
 zone: Europe
-tags: Poland, Europe, OpenNIC
+tags: admin-down, Poland, Europe, OpenNIC
 address: 145.239.92.241:443
 host: ns02.dns.tin-fan.com/dns-query
 keepalive: 140,170
