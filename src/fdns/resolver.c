@@ -167,6 +167,8 @@ void resolver(void) {
 			if (--dns_keepalive_cnt <= 0)  {
 				dns_keepalive();
 				dns_keepalive_cnt = rand_range(srv->keepalive_min, srv->keepalive_max);
+				print_time();
+				printf("(%d) keepalive %d\n", arg_id, dns_keepalive_cnt);
 			}
 
 			// send resolver keepalive
