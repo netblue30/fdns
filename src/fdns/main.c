@@ -41,6 +41,7 @@ char *arg_zone = NULL;
 int arg_cache_ttl = CACHE_TTL_DEFAULT;
 int arg_disable_local_doh = 0;
 char *arg_whitelist_file = NULL;
+char *arg_blocklist_file = NULL;
 int arg_fallback_only = 0;
 int arg_keepalive = 0;
 int arg_qps = QPS_DEFAULT;
@@ -89,6 +90,8 @@ static void usage(void) {
 	       "\tA queries are allowed.\n");
 	printf("    --allow-expired-certs - allow expired SSL certificates.\n");
 	printf("    --allow-self-signed-certs - allow self-signed SSL certificates.\n");
+	printf("    --blocklist=domain - block the domain and return NXDOMAIN.\n");
+	printf("    --blocklist-file=filename - block the domains in the file.\n");
 	printf("    --cache-ttl=seconds - change DNS cache TTL (default %ds).\n", CACHE_TTL_DEFAULT);
 	printf("    --certfile=filename - SSL certificate file in PEM format.\n");
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
@@ -98,7 +101,7 @@ static void usage(void) {
 	printf("    --debug-ssl  - print SSL/TLS debug messages.\n");
 	printf("    --details - SSL connection information, HTTP headers and network traces are\n"
 	       "\tprinted on the screen during the testing phase.\n");
-	printf("    --disable-local-doh - blacklist DoH services for applications running on\n"
+	printf("    --disable-local-doh - blocklist DoH services for applications running on\n"
 	       "\tlocal network.\n");
 	printf("    --fallback-server=address - fallback server IP address, default 9.9.9.9\n"
 	       "\t(Quad9).\n");
@@ -131,8 +134,8 @@ static void usage(void) {
 	printf("    --test-url-list - check all URLs form stdin.\n");
 	printf("    --transport - DNS protocol transport: h2, http/1.1, dot.\n");
 	printf("    --version - print program version and exit.\n");
-	printf("    --whitelist=domain - whitelisting domains.\n");
-	printf("    --whitelist-file=filename - whitelisting domains.\n");
+	printf("    --whitelist=domain - whitelist domain.\n");
+	printf("    --whitelist-file=filename - whitelist the domains in the file.\n");
 	printf("    --zone=zone-name - set a different geographical zone.\n");
 	printf("\n");
 }
@@ -261,6 +264,10 @@ int main(int argc, char **argv) {
 				whitelist_add(argv[i] + 12);
 			else if (strncmp(argv[i], "--whitelist-file=", 17) == 0)
 				whitelist_load_file(argv[i] + 17);
+			else if (strncmp(argv[i], "--blocklist=", 12) == 0)
+				blocklist_add(argv[i] + 12);
+			else if (strncmp(argv[i], "--blocklist-file=", 17) == 0)
+				blocklist_load_file(argv[i] + 17);
 			else if (strncmp(argv[i], "--qps=", 6) == 0) {
 				arg_qps = atoi(argv[i] + 6);
 				if (arg_qps < QPS_MIN || arg_qps > QPS_MAX) {

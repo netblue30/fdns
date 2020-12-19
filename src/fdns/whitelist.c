@@ -18,33 +18,50 @@
 */
 #include "fdns.h"
 
-typedef struct wentry_t {
-	struct wentry_t *next;
+// domain list
+typedef struct dentry_t {
+	struct dentry_t *next;
+	int len; // strlen(domain)
 	const char *domain;
-} WEntry;
+} DEntry;
 
-static WEntry *wlist = NULL;
+static DEntry *wlist = NULL; // whitelist
+static DEntry *blist = NULL; // blocklist
 
+
+// is active?
 int whitelist_active(void) {
-	if (wlist)
-		return 1;
-	return 0;
+	return (wlist)? 1: 0;
 }
 
+int blocklist_active(void) {
+	return (blist)? 1: 0;
+}
+
+
 // count entries
-int whitelist_cnt(void) {
+static int list_cnt(DEntry *dlist) {
 	int cnt = 0;
-	WEntry *w = wlist;
-	while (w) {
+	while (dlist) {
 		cnt++;
-		w = w->next;
+		dlist = dlist->next;
 	}
 
 	return cnt;
 }
 
-// add new entry
-void whitelist_add(const char *domain) {
+int whitelist_cnt(void) {
+	return list_cnt(wlist);
+}
+
+int blocklist_cnt(void) {
+	return list_cnt(blist);
+}
+
+
+// return 1 if the domain was added to the list
+int list_add(DEntry **dlist, const char *domain) {
+	assert(dlist);
 	assert(domain);
 
 	// skip www.
@@ -52,31 +69,50 @@ void whitelist_add(const char *domain) {
 	if (strncmp(domain, "www.", 4) == 0)
 		dm = domain + 4;
 
-
-
 	// in list already?
-	WEntry *w = wlist;
-	while (w != NULL) {
-		if (strcmp(dm, w->domain) == 0)
-			return;
-		w = w->next;
+	DEntry *d = *dlist;
+	while (d != NULL) {
+		if (strcmp(dm, d->domain) == 0)
+			return 0;
+		d = d->next;
 	}
 
-	WEntry *wnew = malloc(sizeof(WEntry));
-	if (!wnew)
+	DEntry *dnew = malloc(sizeof(DEntry));
+	if (!dnew)
 		errExit("malloc");
-	wnew->domain = strdup(dm);
-	if (!wnew->domain)
+	dnew->domain = strdup(dm);
+	if (!dnew->domain)
 		errExit("strdup");
-	wnew->next = wlist;
-	wlist = wnew;
-	if (arg_id == 0) {
-		printf("whitelist %s\n", wnew->domain);
+	dnew->len = strlen(dnew->domain);
+	dnew->next = *dlist;
+	*dlist = dnew;
+	return 1;
+}
+
+
+void whitelist_add(const char *domain) {
+	assert(domain);
+	int rv = list_add(&wlist, domain);
+
+	if (rv && arg_id == 0) {
+		printf("whitelist %s\n", domain);
 		fflush(0);
 	}
 }
 
-void whitelist_load_file(const char *fname) {
+void blocklist_add(const char *domain) {
+	assert(domain);
+	int rv = list_add(&blist, domain);
+
+	if (rv && arg_id == 0) {
+		printf("blocklist %s\n", domain);
+		fflush(0);
+	}
+}
+
+// load file
+void list_load_file(DEntry **dlist, const char *fname) {
+	assert(dlist);
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
 	if (!fp) {
@@ -103,10 +139,20 @@ void whitelist_load_file(const char *fname) {
 			ptr--;
 		}
 
-		whitelist_add(start);
+		list_add(dlist, start);
 	}
 
 	fclose(fp);
+}
+
+void whitelist_load_file(const char *fname) {
+	assert(fname);
+	list_load_file(&wlist, fname);
+}
+
+void blocklist_load_file(const char *fname) {
+	assert(fname);
+	list_load_file(&blist, fname);
 }
 
 // re-generate the command line
@@ -114,16 +160,31 @@ void whitelist_command(char **argv) {
 	assert(argv);
 
 	int i = 0;
-	WEntry *w = wlist;
-	while (w) {
-		if (asprintf(&argv[i], "--whitelist=%s", w->domain) == -1)
+	DEntry *d = wlist;
+	while (d) {
+		if (asprintf(&argv[i], "--whitelist=%s", d->domain) == -1)
 			errExit("asprintf");
-		w = w->next;
+		d = d->next;
+		i++;
+	}
+}
+
+void blocklist_command(char **argv) {
+	assert(argv);
+
+	int i = 0;
+	DEntry *d = blist;
+	while (d) {
+		if (asprintf(&argv[i], "--blocklist=%s", d->domain) == -1)
+			errExit("asprintf");
+		d = d->next;
 		i++;
 	}
 }
 
 // 1 not found, 0 found
+// full domain name matching
+// Example: fdns --whitelist=gentoo.org --whitelist=security.gentoo.org
 int whitelist_blocked(const char *domain) {
 	assert(domain);
 
@@ -132,12 +193,37 @@ int whitelist_blocked(const char *domain) {
 	if (strncmp(domain, "www.", 4) == 0)
 		dm = domain + 4;
 
-	WEntry *w = wlist;
-	while (w) {
-		if (strcmp(w->domain, dm) == 0)
+	DEntry *d = wlist;
+	while (d) {
+		if (strcmp(d->domain, dm) == 0)
 			return 0;
-		w = w->next;
+		d = d->next;
 	}
 
 	return 1;
+}
+
+// 0 not found, 1 found
+// partial domain name matching
+// Example: fdns --bloclist=gentoo.org
+//     will block *.gentoo.org
+int blocklist_blocked(const char *domain) {
+	assert(domain);
+
+	// skip www.
+	const char *dm = domain;
+	if (strncmp(domain, "www.", 4) == 0)
+		dm = domain + 4;
+
+	DEntry *d = blist;
+	while (d) {
+		char *ptr = strstr(dm, d->domain);
+		if (ptr) {
+			if (strlen(ptr) == d->len)
+				return 1;
+		}
+		d = d->next;
+	}
+
+	return 0;
 }

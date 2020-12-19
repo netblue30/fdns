@@ -261,6 +261,7 @@ extern char *arg_zone;
 extern int arg_cache_ttl;
 extern int arg_disable_local_doh;
 extern char *arg_whitelist_file;
+extern char *arg_blocklist_file;
 extern int arg_fallback_only;
 extern int arg_keepalive;
 extern int arg_qps;
@@ -410,11 +411,17 @@ int forwarder_check(const char *domain, unsigned len);
 
 // whitelist.c
 int whitelist_cnt(void);
+int blocklist_cnt(void);
 int whitelist_active(void);
+int blocklist_active(void);
 void whitelist_add(const char *domain);
+void blocklist_add(const char *domain);
 void whitelist_load_file(const char *fname);
+void blocklist_load_file(const char *fname);
 void whitelist_command(char **argv);
+void blocklist_command(char **argv);
 int whitelist_blocked(const char *domain);
+int blocklist_blocked(const char *domain);
 
 // procs.c
 extern int procs_addr_default;

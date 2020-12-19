@@ -30,7 +30,6 @@ typedef struct dns_report_t {
 	int log_timeout;
 	int disable_local_doh;
 	int nofilter;
-	int whitelist_active;
 #define MAX_ENTRY_LEN 82 	// a full line on a terminal screen, \n and \0
 	char fallback[MAX_ENTRY_LEN];
 
@@ -156,7 +155,6 @@ void shmem_store_stats(const char *proxy_addr) {
 		report->log_timeout =(arg_log_timeout)? arg_log_timeout: LOG_TIMEOUT_DEFAULT;
 		report->disable_local_doh = arg_disable_local_doh;
 		report->nofilter = arg_nofilter;
-		report->whitelist_active = whitelist_active();
 		DnsServer *srv = server_fallback_get();
 		assert(srv);
 		snprintf(report->fallback, MAX_ENTRY_LEN,
