@@ -71,7 +71,7 @@ static inline int rand_range(int min, int max) {
 		return min;
 
 	assert(min <= max);
-	int delta = rand() % (max - min);
+	int delta = rand() % (max + 1 - min);
 	return min + delta;
 }
 
