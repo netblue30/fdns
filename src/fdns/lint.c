@@ -174,7 +174,10 @@ static inline int check_ipv4(uint8_t *ptr) {
 	     (ip & 0xff000000) == 0x7f000000 ||	// 127.0.0.0/8         Loopback  	RFC 1122, Section 3.2.1.3
 	     (ip & 0xffff0000) == 0xa9fe0000 ||	// 169.254.0.0/16      Link Local  	RFC 3927
 	     (ip & 0xfff00000) == 0xac100000 ||	// 172.16.0.0/12       Private-Use Networks 	RFC 1918
-	     (ip & 0xffffff00) == 0xc0000000 ||	// 192.0.0.0/24        IETF Protocol Assignments 	RFC 5736
+
+//	     (ip & 0xffffff00) == 0xc0000000 ||	// 192.0.0.0/24        IETF Protocol Assignments 	RFC 5736
+// RFC8880 - ipv4only.arpa: 192.0.0.170, 192.0.0.171 - used to detect DNS64 middle boxes
+
 	     (ip & 0xffffff00) == 0xc0000200 ||	// 192.0.2.0/24        TEST-NET-1 	RFC 5737
 	     (ip & 0xffffff00) == 0xc0586300 ||	// 192.88.99.0/24      6to4 Relay Anycast         RFC 3068
 	     (ip & 0xffff0000) == 0xc0a80000 ||	// 192.168.0.0/16      Private-Use Networks       RFC 1918
@@ -362,8 +365,10 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 				return -1;
 			}
 
+if (strcmp("ipv4only.arpa", cache_get_name()) == 0) {
+printf("checking!!!!\n"); fflush(0);
+}
 			if (check_ipv4(pkt)) {
-//if (strcmp("lxer.com", 	cache_get_name()) == 0) {
 				dnserror = DNSERR_REBINDING_ATTACK;
 				memcpy(dnserror_ipv4, pkt, 4);
 				return -1;
