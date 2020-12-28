@@ -182,13 +182,13 @@ void ssl_open(void) {
 		if (certfile == NULL) {
 			if(! SSL_CTX_load_verify_locations(ctx, NULL, "/etc/ssl/certs")) {
 				rlogprintf("Error: cannot find SSL certificates in /etc/ssl/certs\n");
-				exit(1);
+				return;
 			}
 		}
 		else {
 			if(! SSL_CTX_load_verify_locations(ctx, certfile, NULL)) {
 				rlogprintf("Error: cannot find SSL certificate %s\n", certfile);
-				exit(1);
+				return;
 			}
 		}
 	}
@@ -310,7 +310,7 @@ void ssl_open(void) {
 		else {
 			printf("   Error: %s\n", X509_verify_cert_error_string(err));
 			rlogprintf("Error: %s\n", X509_verify_cert_error_string(err));
-			exit(1);
+			return;
 		}
 	}
 
