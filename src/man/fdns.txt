@@ -52,6 +52,12 @@ Block domain and return NXDOMAIN.
 .br
 
 .br
+Note: Blocking domains can also be requested in /etc/fdns/hosts file. This setting is global, and it will block the domains in
+all fdns instances running on your computer. Use --blocklist when you have multiple fdns proxies running,
+each instance with a different blocklist.
+.br
+
+.br
 Example:
 .br
 $ fdns --blocklist=fonts.googleaps.com
