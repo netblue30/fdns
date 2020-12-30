@@ -365,9 +365,6 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 				return -1;
 			}
 
-if (strcmp("ipv4only.arpa", cache_get_name()) == 0) {
-printf("checking!!!!\n"); fflush(0);
-}
 			if (check_ipv4(pkt)) {
 				dnserror = DNSERR_REBINDING_ATTACK;
 				memcpy(dnserror_ipv4, pkt, 4);
