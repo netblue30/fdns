@@ -600,7 +600,7 @@ keepalive-query: yes
 keepalive: 7
 end;
 
-#self-signd cert
+#self-signed cert
 name: declouds
 website: https://decloudus.com/
 zone: Europe
