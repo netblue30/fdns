@@ -355,7 +355,7 @@ void ssl_open(void) {
 
 	int fd = SSL_get_fd(ssl);
 	struct sockaddr_in remote;
-	int addrlen_remote = sizeof(remote);
+	socklen_t addrlen_remote = sizeof(remote);
 	if (getpeername(fd, (struct sockaddr *) &remote, &addrlen_remote))
 		rlogprintf("SSL connection opened\n");
 	else {
