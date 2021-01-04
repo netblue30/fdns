@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 FDNS Authors
+ * Copyright (C) 2019-2021 FDNS Authors
  *
  * This file is part of fdns project
  *
@@ -134,7 +134,7 @@ uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6) {
 
 void cache_timeout(void) {
 	int i;
-	
+
 	int cnt = 0;
 	for (i = 0; i < MAX_HASH_ARRAY; i++) {
 		CacheEntry *ptr = clist[i];
