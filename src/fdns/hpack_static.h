@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 FDNS Authors
+ * Copyright (C) 2019-2021 FDNS Authors
  *
  * This file is part of fdns project based on Dridi Boukelmoune implementation,
  * see below.
@@ -24,8 +24,8 @@
  *
  * HPACK: Static Table Definition (RFC 7540 Appendix A)
  */
-#ifndef HPACK_STATOC_H
-#define HPACK_STATOC_H
+#ifndef HPACK_STATIC_H
+#define HPACK_STATIC_H
 
 typedef struct hpac_static_t {
 	char * name;
