@@ -14,20 +14,6 @@ USAGE
 EOM
 }
 
-find_repo_root() {
-	local CWD="$PWD"
-	while [[ ! -d .git && $PWD != / ]]; do
-		cd ..
-	done
-	REPO_ROOT="$PWD"
-	cd "$CWD"
-	if [ "$REPO_ROOT" == / ]; then
-		return 1
-	else
-		return 0
-	fi
-}
-
 # Basic setup
 #  - Create a build dir under $TMP or /tmp as fallback.
 #  - Register a trap to delete this build dir on exit.
@@ -81,8 +67,16 @@ select version in local git stable help; do
 		;;
 		local)
 			setup "$(dirname "$0")"/fdns-local.spec
-			find_repo_root
-			tar --transform "s|${REPO_ROOT#/}|.|" --exclude=".git" -czf "$SOURCEDIR/fdns.tar.gz" "$REPO_ROOT"
+			cd "$(while [[ ! -d .git && $PWD != / ]]; do cd ..; done; echo "$PWD")"
+			if [[ $PWD == / ]]; then
+				exit 1
+			fi
+			if [[ ! -e Makefile ]]; then
+				./configure
+			fi
+			make dist
+			mv fdns-*.tar.xz "$SOURCEDIR"
+			cd -
 			break
 		;;
 		help)
