@@ -1,10 +1,17 @@
 fdns (0.9.64.2) baseline; urgency=low
-  * --allow-expired-certs command line option
-  * --log-timeout command line option
-  * apparmor fixes for Arch Linux
-  * adding timestamp to queries stored in shared memory
-  * --monitor enhancements
-  * adding more DoT servers to the list
+  * --blocklist and --blocklist-file command line options
+  * --fallback-server command line option
+  * randomize UDP port number for fallback mode
+  * resolver statistics in shared memory
+  * removed firefox-only tag
+  * collapse eastamerica and westamerica in americas zone
+  * drop default number of resolver processes to 2
+  * increase default queries per second to 10
+  * various Fedora packaging fixes
+  * added --with-systemd=DIR compile time option
+  * added --enable-apparomr compile time option
+  * Intel 32 bit architecture support
+  * filter out bulk mailer addresses
   * server list update
   * bug fixes
  -- netblue30 <netblue30@yahoo.com>  Mon, 4 Jan 2021 08:00:00 -0500
