@@ -48,7 +48,9 @@ setup() {
 
 	spectool -C "$SOURCEDIR" --gf "$1"
 	cp "$1" "$SPECDIR"/fdns.spec
-	cp "$(dirname "$0")"/*.patch "$SOURCEDIR"
+	if compgen -G "$(dirname "$0")"/*.patch; then
+		cp "$(dirname "$0")"/*.patch "$SOURCEDIR"
+	fi
 }
 
 if [ "$1" == "--help" ]; then
