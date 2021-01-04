@@ -21,7 +21,7 @@
 // domain list
 typedef struct dentry_t {
 	struct dentry_t *next;
-	int len; // strlen(domain)
+	size_t len; // strlen(domain)
 	const char *domain;
 } DEntry;
 
