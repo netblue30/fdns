@@ -70,7 +70,8 @@ zone: Americas
 tags: NY, Americas, adblocker
 address: 168.235.81.167:443
 host: dns-nyc.aaflalo.me/dns-query
-keepalive: 80,110
+keepalive-query: yes
+keepalive: 7
 end;
 
 name: adguard-unfiltered
