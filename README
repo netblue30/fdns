@@ -54,6 +54,9 @@ Daniel Schildt (https://github.com/d2s)
 rcplab (https://github.com/rcplab)
 	- containerpi and twnic
 
+shiraneyo (https://github.com/shiraneyo)
+	- update resolver.seccomp for kernel 5.11
+
 Incorporating code from Firejail Security Sandbox, https://github.com/netblue30/firejail
 Copyright © 2014-2020 Firejail Authors, license GPLv2
 
