@@ -396,6 +396,11 @@ int main(int argc, char **argv) {
 	DnsServer *s = server_get();
 	assert(s);
 	assert(arg_server);
+	if (arg_keepalive) {
+		s->keepalive_min = arg_keepalive;
+		s->keepalive_max = arg_keepalive;
+	}
+
 
 	// reinitialize random number generator (eache resolver seeded differently)
 	srand(time(NULL) + arg_id);
