@@ -1033,6 +1033,48 @@ host: jarjar.meganerd.nl/doh
 keepalive: 3
 end;
 
+name: mullvad
+website: https://mullvad.net/
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe
+address: doh.mullvad.net:443
+host: doh.mullvad.net/dns-query
+keepalive: 20,25
+sni: yes
+end;
+
+name: mullvad-adblocker
+website: https://mullvad.net/
+zone: Americas, AsiaPacific, Europe
+tags: geocast, adblocker, Americas, AsiaPacific, Europe
+address: doh.mullvad.net:443
+host: adblock.doh.mullvad.net/dns-query
+keepalive: 20,25
+sni: yes
+end;
+
+name: mullvad-dot
+website: https://mullvad.net/
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe
+address: doh.mullvad.net:853
+host: doh.mullvad.net/
+keepalive: 20,25
+transport: dot
+sni: yes
+end;
+
+name: mullvad-adblocker-dot
+website: https://mullvad.net/
+zone: Americas, AsiaPacific, Europe
+tags: geocast, adblocker, Americas, AsiaPacific, Europe
+address: doh.mullvad.net:853
+host: adblock.doh.mullvad.net/
+keepalive: 20,25
+transport: dot
+sni: yes
+end;
+
 name: nextdns
 website: https://nextdns.io/
 zone: Americas, AsiaPacific, Europe
