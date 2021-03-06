@@ -182,6 +182,16 @@ host: doh.nl.ahadns.net/dns-query
 keepalive: 140,170
 end;
 
+name: ahadns-nl-dot
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Netherlands, Europe
+address: 5.2.75.75:853
+host: doh.nl.ahadns.net/
+keepalive: 20,25
+transport: dot
+end;
+
 name: ahadns-in
 website: https://ahadns.com
 zone: AsiaPacific
@@ -189,6 +199,168 @@ tags: adblocker, India, AsiaPacific
 address: 45.79.120.233:443
 host: doh.in.ahadns.net/dns-query
 keepalive: 140,170
+end;
+
+name: ahadns-in-dot
+website: https://ahadns.com
+zone: AsiaPacific
+tags: adblocker, India, AsiaPacific
+address: 45.79.120.233:853
+host: doh.in.ahadns.net/
+keepalive: 20,25
+transport: dot
+end;
+
+name: ahadns-westus
+website: https://ahadns.com
+zone: Americas
+tags: adblocker, California, Americas
+address: 45.67.219.208:443
+host: doh.la.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
+name: ahadns-westus-dot
+website: https://ahadns.com
+zone: Americas
+tags: adblocker, California, Americas
+address: 45.67.219.208:853
+host: doh.la.ahadns.net/
+keepalive: 20,25
+transport: dot
+end;
+
+name: ahadns-eastus
+website: https://ahadns.com
+zone: Americas
+tags: adblocker, NY, Americas
+address: 185.213.26.187:443
+host: doh.ny.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
+name: ahadns-eastus-dot
+website: https://ahadns.com
+zone: Americas
+tags: adblocker, NY, Americas
+address: 185.213.26.187:853
+host: doh.ny.ahadns.net/
+keepalive: 20,25
+transport: dot
+end;
+
+name: ahadns-pl
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Poland, Europe
+address: 45.132.75.16:443
+host: doh.pl.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
+name: ahadns-pl-dot
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Poland, Europe
+address: 45.132.75.16:853
+host: doh.pl.ahadns.net/
+keepalive: 20,25
+transport: dot
+end;
+
+name: ahadns-it
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Italy, Europe
+address: 45.91.95.12:443
+host: doh.pl.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
+name: ahadns-it-dot
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Italy, Europe
+address: 45.91.95.12:853
+host: doh.pl.ahadns.net/
+keepalive: 20,25
+transport: dot
+end;
+
+name: ahadns-es
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Spain, Europe
+address: 45.132.74.167:443
+host: doh.es.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
+name: ahadns-es-dot
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Spain, Europe
+address: 45.132.74.167:853
+host: doh.es.ahadns.net/
+keepalive: 140,170
+transport: dot
+end;
+
+name: ahadns-no
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Norway, Europe
+address: 185.175.56.133:443
+host: doh.no.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
+name: ahadns-no-dot
+website: https://ahadns.com
+zone: Europe
+tags: adblocker, Norway, Europe
+address: 185.175.56.133:853
+host: doh.no.ahadns.net/
+keepalive: 20,25
+transport: dot
+end;
+
+name: ahadns-centralus
+website: https://ahadns.com
+zone: Americas
+tags: adblocker, Illinois, Americas
+address: 193.29.62.196:443
+host: doh.chi.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
+name: ahadns-centralus-dot
+website: https://ahadns.com
+zone: Americas
+tags: adblocker, Illinois, Americas
+address: 193.29.62.196:853
+host: doh.chi.ahadns.net/
+keepalive: 20,25
+transport: dot
+end;
+
+name: ahadns-au
+website: https://ahadns.com
+zone: AsiaPacific
+tags: adblocker, Australia, AsiaPacific
+address: 103.73.64.132:443
+host: doh.au.ahadns.net/dns-query
+keepalive: 140,170
+end;
+
+name: ahadns-au-dot
+website: https://ahadns.com
+zone: AsiaPacific
+tags: adblocker, Australia, AsiaPacific
+address: 103.73.64.132:853
+host: doh.au.ahadns.net/
+keepalive: 20,25
+transport: dot
 end;
 
 # short keepalive
@@ -1192,70 +1364,6 @@ host: dns.oszx.co/
 sni: yes
 keepalive: 20,25
 transport: dot
-end;
-
-name: pi-dns
-website: https://pi-dns.com
-zone: Americas, AsiaPacific, Europe
-tags: admin-down, geocast, Americas, AsiaPacific, Europe
-address: doh.pi-dns.com:443
-host: doh.pi-dns.com/dns-query
-sni: yes
-keepalive: 350,390
-end;
-
-name: pi-dns-eastus
-website: https://pi-dns.com
-zone: Americas
-tags: NY, Americas, adblocker
-address: 185.213.26.187:443
-host: doh.eastus.pi-dns.com/dns-query
-keepalive: 140,170
-end;
-
-name: pi-dns-westus
-website: https://pi-dns.com
-zone: Americas
-tags: California, Americas, adblocker
-address: 45.67.219.208:443
-host: doh.westus.pi-dns.com/dns-query
-keepalive: 140,170
-end;
-
-name: pi-dns-northeu
-website: https://pi-dns.com
-zone: Europe
-tags: admin-down, Finland, Europe, adblocker
-address: 95.216.181.228:443
-host: doh.northeu.pi-dns.com/dns-query
-keepalive: 140,170
-end;
-
-name: pi-dns-centraleu
-website: https://pi-dns.com
-zone: Europe
-tags: admin-down, Germany, Europe, adblocker
-address: 88.198.91.187:443
-host: doh.centraleu.pi-dns.com/dns-query
-keepalive: 140,170
-end;
-
-name: pi-dns-eastau
-website: https://pi-dns.com
-zone: AsiaPacific
-tags: admin-down, Australia, AsiaPacific, adblocker
-address: 45.63.30.163:443
-host: doh.eastau.pi-dns.com/dns-query
-keepalive: 140,170
-end;
-
-name: pi-dns-eastas
-website: https://pi-dns.com
-zone: AsiaPacific
-tags: admin-down, Japan, AsiaPacific, adblocker
-address: 66.42.33.135:443
-host: doh.eastas.pi-dns.com/dns-query
-keepalive: 140,170
 end;
 
 name: powerdns
