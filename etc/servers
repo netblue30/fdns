@@ -448,7 +448,7 @@ name: arapurayil
 website: https://www.dns.arapurayil.com
 zone: AsiaPacific
 tags: admin-down, India, AsiaPacific
-address: 3.7.156.128:443
+address: 3.7.176.123:443
 host: dns.arapurayil.com/dns-query
 keepalive: 7
 end;
@@ -1617,8 +1617,8 @@ end;
 
 name: uncensoreddns
 website: https://blog.uncensoreddns.org/
-zone: Europe
-tags: Denmark, Europe
+zone: Americas, Europe
+tags: Denmark, Europe, Americas
 address: 91.239.100.100:443
 host: anycast.censurfridns.dk/dns-query
 keepalive: 20,25
@@ -1635,8 +1635,8 @@ end;
 
 name: uncensoreddns3
 website: https://blog.uncensoreddns.org/
-zone: Europe
-tags: Denmark, Europe
+zone: Americas
+tags: Virginia, Americas
 address: 198.180.150.12:443
 host: unicast.censurfridns.dk/dns-query
 keepalive: 20,25
