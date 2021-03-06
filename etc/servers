@@ -158,9 +158,18 @@ end;
 name: adhole4
 website: https://adhole.org/
 zone: Americas
-tags: admin-down, Texas,  Americas, adblocker
-address: 63.142.251.101:443
-host: us.adhole.org/dns-query
+tags: Texas,  Americas, adblocker
+address: 107.155.83.188:443
+host: us-central.adhole.org/dns-query
+keepalive: 550,590
+end;
+
+name: adhole5
+website: https://adhole.org/
+zone: Americas
+tags: NY,  Americas, adblocker
+address: 162.245.221.19:443
+host: us-east.adhole.org/dns-query
 keepalive: 550,590
 end;
 
