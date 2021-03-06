@@ -1636,8 +1636,8 @@ end;
 name: uncensoreddns3
 website: https://blog.uncensoreddns.org/
 zone: Europe
-tags: admin-down, Denmark, Europe
-address: 185.109.89.254:443
+tags: Denmark, Europe
+address: 198.180.150.12:443
 host: unicast.censurfridns.dk/dns-query
 keepalive: 20,25
 end;
@@ -1665,15 +1665,6 @@ website: https://blog.uncensoreddns.org/
 zone: Europe
 tags: Denmark, Europe
 address: 185.38.27.139:443
-host: unicast.censurfridns.dk/dns-query
-keepalive: 20,25
-end;
-
-name: uncensoreddns7
-website: https://blog.uncensoreddns.org/
-zone: Europe
-tags: admin-down, Denmark, Europe
-address: 94.126.178.9:443
 host: unicast.censurfridns.dk/dns-query
 keepalive: 20,25
 end;
