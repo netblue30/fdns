@@ -158,7 +158,7 @@ end;
 name: adhole4
 website: https://adhole.org/
 zone: Americas
-tags: Texas,  Americas, adblocker
+tags: admin-down, Texas,  Americas, adblocker
 address: 63.142.251.101:443
 host: us.adhole.org/dns-query
 keepalive: 550,590
@@ -255,18 +255,18 @@ end;
 name: appliedprivacy-dot
 website: https://appliedprivacy.net
 zone: Europe
-tags: admin-down, non-profit, Austria, Europe
+tags: applied-privacy, non-profit, Austria, Europe
 address: 146.255.56.98:853
 host: dot1.applied-privacy.net/
 sni: yes
 transport: dot
-keepalive: 80,110
+keepalive: 7
 end;
 
 name: arapurayil
 website: https://www.dns.arapurayil.com
 zone: AsiaPacific
-tags: India, AsiaPacific
+tags: admin-down, India, AsiaPacific
 address: 3.7.156.128:443
 host: dns.arapurayil.com/dns-query
 keepalive: 7
@@ -319,7 +319,7 @@ end;
 name: boothlabs
 website: https://servers.opennic.org/
 zone: Americas
-tags: Quebec, Americas, OpenNIC
+tags: admin-down, Quebec, Americas, OpenNIC
 address: 158.69.53.73:443
 host: doh.boothlabs.me/dns-query
 keepalive: 550,590
@@ -653,7 +653,7 @@ end;
 name: digital-society-dot
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: admin-down, non-profit, Switzerland, Europe
+tags: non-profit, Switzerland, Europe
 address: 185.95.218.42:853
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 20,25
@@ -807,7 +807,7 @@ end;
 name: faelix-uk-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: admin-down, UK, Europe, adblocker
+tags: UK, Europe, adblocker
 address: 46.227.200.52:443
 host: pdns.faelix.net/
 keepalive: 20,25
@@ -816,7 +816,7 @@ end;
 name: faelix-uk-adblocker2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: admin-down, UK, Europe, adblocker
+tags: UK, Europe, adblocker
 address: 46.227.203.52:443
 host: pdns.faelix.net/
 keepalive: 20,25
@@ -825,7 +825,7 @@ end;
 name: faelix-ch-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: admin-down, Switzerland, Europe, adblocker
+tags: Switzerland, Europe, adblocker
 address: 185.134.196.52:443
 host: pdns.faelix.net/
 keepalive: 20,25
@@ -879,7 +879,7 @@ end;
 name: ffmuc
 website: https://ffmuc.net/
 zone: Europe
-tags: Germany, Europe
+tags: admin-down, Germany, Europe
 address: 195.30.94.28:443
 host: doh.ffmuc.net/dns-query
 keepalive: 140,170
@@ -1188,7 +1188,7 @@ end;
 name: pi-dns
 website: https://pi-dns.com
 zone: Americas, AsiaPacific, Europe
-tags: geocast, Americas, AsiaPacific, Europe
+tags: admin-down, geocast, Americas, AsiaPacific, Europe
 address: doh.pi-dns.com:443
 host: doh.pi-dns.com/dns-query
 sni: yes
@@ -1216,7 +1216,7 @@ end;
 name: pi-dns-northeu
 website: https://pi-dns.com
 zone: Europe
-tags: Finland, Europe, adblocker
+tags: admin-down, Finland, Europe, adblocker
 address: 95.216.181.228:443
 host: doh.northeu.pi-dns.com/dns-query
 keepalive: 140,170
@@ -1225,7 +1225,7 @@ end;
 name: pi-dns-centraleu
 website: https://pi-dns.com
 zone: Europe
-tags: Germany, Europe, adblocker
+tags: admin-down, Germany, Europe, adblocker
 address: 88.198.91.187:443
 host: doh.centraleu.pi-dns.com/dns-query
 keepalive: 140,170
@@ -1234,7 +1234,7 @@ end;
 name: pi-dns-eastau
 website: https://pi-dns.com
 zone: AsiaPacific
-tags: Australia, AsiaPacific, adblocker
+tags: admin-down, Australia, AsiaPacific, adblocker
 address: 45.63.30.163:443
 host: doh.eastau.pi-dns.com/dns-query
 keepalive: 140,170
@@ -1243,7 +1243,7 @@ end;
 name: pi-dns-eastas
 website: https://pi-dns.com
 zone: AsiaPacific
-tags: Japan, AsiaPacific, adblocker
+tags: admin-down, Japan, AsiaPacific, adblocker
 address: 66.42.33.135:443
 host: doh.eastas.pi-dns.com/dns-query
 keepalive: 140,170
@@ -1316,7 +1316,7 @@ end;
 name: rumpelsepp
 website: https://rumpelsepp.org/2020/03/10/announcing-dns-query.html
 zone: Europe
-tags: Germany, Europe
+tags: admin-down, Germany, Europe
 address: 116.203.179.248:443
 sni: yes
 host: rumpelsepp.org/dns-query
@@ -1370,14 +1370,13 @@ keepalive: 20,25
 transport: dot
 end;
 
-# keepalive 10???
 name: sinodun3-dot
 website: https://dnsprivacy.org
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 145.100.185.17:853
 host: dnsovertls1.sinodun.com/
-keepalive: 20,25
+keepalive: 7
 transport: dot
 end;
 
@@ -1520,7 +1519,7 @@ end;
 name: uncensoreddns3
 website: https://blog.uncensoreddns.org/
 zone: Europe
-tags: Denmark, Europe
+tags: admin-down, Denmark, Europe
 address: 185.109.89.254:443
 host: unicast.censurfridns.dk/dns-query
 keepalive: 20,25
@@ -1556,7 +1555,7 @@ end;
 name: uncensoreddns7
 website: https://blog.uncensoreddns.org/
 zone: Europe
-tags: Denmark, Europe
+tags: admin-down, Denmark, Europe
 address: 94.126.178.9:443
 host: unicast.censurfridns.dk/dns-query
 keepalive: 20,25
@@ -1577,7 +1576,7 @@ end;
 name: wil.cloud
 website: https://servers.opennic.org/
 zone: Europe
-tags: Czechia, Europe, OpenNIC
+tags: admin-down, Czechia, Europe, OpenNIC
 address: 51.254.25.115:443
 host: dns-2.wil.cloud/dns-query
 keepalive: 140,170
