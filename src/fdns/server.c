@@ -43,7 +43,7 @@ static DnsServer fallback[] = {
 static inline void print_server(DnsServer *s) {
 	assert(s);
 	if (server_print_servers) {
-		printf("%s - %s\n", s->name, s->tags);
+		printf("%s - %s (keepalive %d)\n", s->name, s->tags, s->keepalive_max);
 		printf("\t%s\n", s->website);
 	}
 }
