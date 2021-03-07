@@ -13,6 +13,8 @@ if { $argc != 2 } {
 	exit
 }
 
+set configured [exec fdns --list=[lindex $argv  0]]
+
 send -- "fdns --proxy-addr=[lindex $argv  1] --server=[lindex $argv  0] --debug-transport --resolvers=1 --keepalive=600>&1\r"
 expect {
 	timeout {puts "TESTING ERROR 0 - $argv\n";exit 1}
@@ -30,7 +32,8 @@ puts "waiting 620 seconds for keepalive test to finish"
 
 expect {
 	timeout {puts "\nTESTING: [lindex $argv  0] - 600+\n";exit 0}
-	"SSL connection closed" {set end [exec "date" "+%s"]; set delta [expr "$end - $start"]; puts "TESTING: [lindex $argv  0] - $delta\n";exit 1}
+	"SSL connection closed" {puts "$configured\n"; set end [exec "date" "+%s"]; set delta [expr "$end - $start"]; puts "TESTING: [lindex $argv  0] - $delta\n";
+		puts "TESTING**************************************************\n";exit 1}
 	"it will never get here"
 }
 
