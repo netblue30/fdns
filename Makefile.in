@@ -128,11 +128,21 @@ test-fdns:
 test: test-fdns
 	echo "TEST COMPLETE"
 
-test-keepalive:
-	cd test/stress;su -c ./test.sh | grep TESTING
+test-keepalive-h2:
+	cd test/stress;su -c ./test-keepalive-h2.sh | grep TESTING
 
 test-keepalive-dot:
-	cd test/stress;su -c ./test-dot.sh | grep TESTING
+	cd test/stress;su -c ./test-keepalive-dot.sh | grep TESTING
+
+test-keepalive-list:
+	cd test/stress;su -c ./test-keepalive-list.sh | grep TESTING
+
+extract-keepalive-h2:
+	cd test/stress;su -c ./extract-h2.sh
+
+extract-keepalive-dot:
+	cd test/stress;su -c ./extract-dot.sh
+
 
 test-compile: dist
 	cd test/compile; ./compile.sh $(NAME)-$(VERSION)
