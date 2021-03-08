@@ -13,6 +13,8 @@ if { $argc != 2 } {
 	exit
 }
 
+puts "TESTING: starting [lindex $argv  0]"
+
 set configured [exec fdns --list=[lindex $argv  0]]
 
 send -- "fdns --proxy-addr=[lindex $argv  1] --server=[lindex $argv  0] --debug-transport --resolvers=1 --keepalive=600>&1\r"

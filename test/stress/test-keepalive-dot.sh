@@ -8,7 +8,7 @@
 export MALLOC_CHECK_=3
 export MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
 
-SERVERS=`fdns --list=all | grep -v https | grep -v zone | grep -v server | awk '{ print $1 }'`
+SERVERS=`fdns --list=all --transport=dot | grep -v https | grep -v zone | grep -v server | awk '{ print $1 }'`
 
 let i=1
 for s in $SERVERS
