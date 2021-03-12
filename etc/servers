@@ -819,7 +819,17 @@ website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
 zone: Europe
 tags: Germany, Europe
 address: 46.182.19.48:853
-host: digitalcourage.de/
+host: dns2.digitalcourage.de/
+keepalive: 20,25
+transport: dot
+end;
+
+name: digitalcourage2-dot
+website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
+zone: Europe
+tags: Germany, Europe
+address: 5.9.164.112:853
+host: dns3.digitalcourage.de/
 keepalive: 20,25
 transport: dot
 end;
