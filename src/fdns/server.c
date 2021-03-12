@@ -32,6 +32,10 @@ static DnsServer *slist = NULL;
 static DnsServer *scurrent = NULL;	// curernt DoH/DoT server
 static DnsServer *fcurrent = NULL;	// current fallback server
 
+static char *unlisted[MAX_UNLISTED];
+
+
+
 static DnsServer fallback[] = {
 	{ .name = "adguard", .address = "94.140.14.14"},	// adblock
 	{ .name = "cleanbrowsing", .address = "185.228.168.9"},	// security
@@ -93,7 +97,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 
 	char buf[4096];
 	buf[0] = '\0';
-	int found = 0;
+	int host_block = 0;
 	while (fgets(buf, 4096, fp)) {
 		(*linecnt)++;
 
@@ -112,7 +116,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			s->name = strdup(buf + 6);
 			if (!s->name)
 				errExit("strdup");
-			found = 1;
+			host_block = 1;
 		}
 		else if (strncmp(buf, "website: ", 9) == 0) {
 			if (s->website)
@@ -120,7 +124,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			s->website = strdup(buf + 9);
 			if (!s->website)
 				errExit("strdup");
-			found = 1;
+			host_block = 1;
 		}
 		else if (strncmp(buf, "zone: ", 6) == 0) {
 			if (s->zone)
@@ -128,7 +132,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			s->zone = strdup(buf + 6);
 			if (!s->zone)
 				errExit("strdup");
-			found = 1;
+			host_block = 1;
 		}
 		else if (strncmp(buf, "tags: ", 6) == 0) {
 			if (s->tags)
@@ -136,7 +140,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			s->tags = strdup(buf + 6);
 			if (!s->tags)
 				errExit("strdup");
-			found = 1;
+			host_block = 1;
 		}
 		else if (strncmp(buf, "address: ", 9) == 0) {
 			if (s->address)
@@ -156,7 +160,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				ptr =strstr(s->address, ":");
 				sprintf(ptr, "%s", ":853");
 			}
-			found = 1;
+			host_block = 1;
 		}
 		else if (strncmp(buf, "host: ", 6) == 0) {
 			if (s->host)
@@ -164,7 +168,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			s->host = strdup(buf + 6);
 			if (!s->host)
 				errExit("strdup");
-			found = 1;
+			host_block = 1;
 
 
 			// build the DNS/HTTP request
@@ -243,6 +247,17 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
 				exit(1);
 			}
+
+			// check unlisted servers
+			int i = 0;
+			while (i < MAX_UNLISTED) {
+				if (unlisted[i] == NULL)
+					break;
+				if (strcmp(s->name, unlisted[i]) == 0)
+					return  read_one_server(fp, linecnt, fname);
+				i++;
+			}
+
 			if (!s->transport)
 				s->transport = "h2, http/1.1";
 
@@ -268,7 +283,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		}
 	}
 
-	if (found) {
+	if (host_block) {
 		free(s);
 		fprintf(stderr, "Error: file %s, line %d, keepalive missing\n", fname, *linecnt);
 		exit(1);
@@ -288,6 +303,27 @@ static void load_list(void) {
 		return;
 	if (fdns_zone == NULL)
 		set_zone();
+
+	// process unlisted servers
+	if (arg_unlist) {
+		char *tmp = strdup(arg_unlist);
+		if (!tmp)
+			errExit("strdup");
+		char *token = strtok(tmp, ",");
+		int i = 0;
+
+		while (token && i < MAX_UNLISTED) {
+			unlisted[i] = token;
+			token = strtok(NULL, ",");
+			i++;
+		}
+		if (token && i >= MAX_UNLISTED) {
+			fprintf(stderr, "Error: maximum number of allowed unlisted servers exceeded\n");
+			exit(1);
+		}
+		for (; i < MAX_UNLISTED; i++)
+			unlisted[i] = NULL;
+	}
 
 	// load all server entries from /etc/fdns/servers in list
 	FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
