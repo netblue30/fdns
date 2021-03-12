@@ -271,6 +271,7 @@ extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
 extern int arg_log_timeout;
 extern char *arg_fallback_server;
+extern char *arg_unlist;
 extern Stats stats;
 
 // dnsdb.c
@@ -361,6 +362,7 @@ void shm_timeout(void);
 
 
 // server.c
+#define MAX_UNLISTED 16
 extern int server_print_zone;
 extern int server_print_servers;
 void server_load(void);

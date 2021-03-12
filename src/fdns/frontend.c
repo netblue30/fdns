@@ -168,6 +168,12 @@ static int sandbox(void *sandbox_arg) {
 		a[last++] = cmd;
 	}
 
+	if (arg_unlist) {
+		char *cmd;
+		if (asprintf(&cmd, "--unlist=%s", arg_unlist) == -1)
+			errExit("asprintf");
+		a[last++] = cmd;
+	}
 
 	Forwarder *f = fwd_list;
 	while (f) {
