@@ -25,7 +25,7 @@
 # sni: yes/no
 #	If yes we add SNI when we establish the connection. Optional, default no.
 # transport: h2, http/1.1, dot
-	Transport technologies supported by the server.
+#	Transport technologies supported by the server.
 # keepalive-query: yes/no
 #	Use a regular DNS query to keep the HTTP2 connection open instead of PING.
 #	Optional, default no.
