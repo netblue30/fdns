@@ -32,9 +32,6 @@ static DnsServer *slist = NULL;
 static DnsServer *scurrent = NULL;	// curernt DoH/DoT server
 static DnsServer *fcurrent = NULL;	// current fallback server
 
-static char *unlisted[MAX_UNLISTED];
-
-
 
 static DnsServer fallback[] = {
 	{ .name = "adguard", .address = "94.140.14.14"},	// adblock
@@ -43,6 +40,48 @@ static DnsServer fallback[] = {
 	{ .name = "nextdns", .address = "45.90.28.141" },	// security
 	{ .name = "quad9", .address = "9.9.9.9"}		// security
 };
+
+
+
+typedef struct unlisted_t {
+	struct unlisted_t *next;
+	char *name;
+} UnlistedElem;
+
+UnlistedElem *unlisted = NULL;
+
+static UnlistedElem *unlisted_find(const char *name) {
+	assert(name);
+	UnlistedElem *ptr = unlisted;
+
+	while (ptr) {
+		if (strcmp(name, ptr->name) == 0)
+			return ptr;
+		ptr = ptr->next;
+	}
+
+	return NULL;
+}
+
+static void unlisted_add(const char *name) {
+	assert(name);
+	printf("Unlisting %s\n", name);
+
+	UnlistedElem *ptr = malloc(sizeof(UnlistedElem));
+	if (!ptr)
+		errExit("malloc");
+	memset(ptr, 0, sizeof(UnlistedElem));
+	ptr->name = strdup(name);
+	if (!ptr->name)
+		errExit("strdup");
+
+	if (unlisted == NULL)
+		unlisted = ptr;
+	else {
+		ptr->next = unlisted;
+		unlisted = ptr;
+	}
+}
 
 static inline void print_server(DnsServer *s) {
 	assert(s);
@@ -249,14 +288,8 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 
 			// check unlisted servers
-			int i = 0;
-			while (i < MAX_UNLISTED) {
-				if (unlisted[i] == NULL)
-					break;
-				if (strcmp(s->name, unlisted[i]) == 0)
-					return  read_one_server(fp, linecnt, fname);
-				i++;
-			}
+			if (unlisted_find(s->name))
+				return  read_one_server(fp, linecnt, fname);
 
 			if (!s->transport)
 				s->transport = "h2, http/1.1";
@@ -310,19 +343,10 @@ static void load_list(void) {
 		if (!tmp)
 			errExit("strdup");
 		char *token = strtok(tmp, ",");
-		int i = 0;
-
-		while (token && i < MAX_UNLISTED) {
-			unlisted[i] = token;
+		while (token) {
+			unlisted_add(token);
 			token = strtok(NULL, ",");
-			i++;
 		}
-		if (token && i >= MAX_UNLISTED) {
-			fprintf(stderr, "Error: maximum number of allowed unlisted servers exceeded\n");
-			exit(1);
-		}
-		for (; i < MAX_UNLISTED; i++)
-			unlisted[i] = NULL;
 	}
 
 	// load all server entries from /etc/fdns/servers in list

@@ -297,9 +297,18 @@ int main(int argc, char **argv) {
 			}
 
 			else if (strncmp(argv[i], "--unlist=", 9) == 0) {
-				arg_unlist = strdup(argv[i] + 9);
-				if (!arg_unlist)
-					errExit("strdup");
+				if (arg_unlist == NULL) {
+					arg_unlist = strdup(argv[i] + 9);
+					if (!arg_unlist)
+						errExit("strdup");
+				}
+				else {
+					char *tmp;
+					if (asprintf(&tmp, "%s,%s", arg_unlist, argv[i] + 9) == -1)
+						errExit("asprintf");
+					free(arg_unlist);
+					arg_unlist = tmp;
+				}
 			}
 
 			// handled in second pass

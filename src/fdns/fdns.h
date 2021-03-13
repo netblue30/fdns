@@ -362,7 +362,6 @@ void shm_timeout(void);
 
 
 // server.c
-#define MAX_UNLISTED 16
 extern int server_print_zone;
 extern int server_print_servers;
 void server_load(void);
