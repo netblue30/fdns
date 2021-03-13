@@ -149,6 +149,16 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		if (ptr)
 			*ptr = '\0';
 
+		if (strlen(buf) == 0)
+			continue;
+
+		if (!host_block) {
+			if (strncmp(buf, "unlist: ", 8) == 0) {
+				unlisted_add(buf + 8);
+				continue;
+			}
+		}
+
 		if (strncmp(buf, "name: ", 6) == 0) {
 			if (s->name)
 				goto errout;
@@ -313,6 +323,10 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 
 			return s;
+		}
+		else {
+			fprintf(stderr, "Error: file %s, line %d, invalid command\n", fname, *linecnt);
+			exit(1);
 		}
 	}
 
