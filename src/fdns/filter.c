@@ -203,6 +203,11 @@ static HashEntry *filter_search(const char *domain) {
 	return NULL; // not found
 }
 
+void filter_serach_add(char label, const char *domain) {
+	if (!filter_search(domain))
+		filter_add(label, domain);
+}
+
 static void filter_load_list(char label, const char *fname) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
