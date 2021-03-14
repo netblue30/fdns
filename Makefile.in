@@ -56,7 +56,7 @@ realinstall:
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/adblocker etc/coinblocker etc/fp-trackers etc/resolver.seccomp
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/servers etc/trackers etc/bulkmailers
 	# install server cusomization file
-	sh -c "if [ ! -f $(DESTDIR)/$(sysconfdir)/servers.local ]; then install -c -m 0644 etc/servers.local $(DESTDIR)/$(sysconfdir)/fdns/servers.local; fi;"
+	sh -c "if [ ! -f $(DESTDIR)/$(sysconfdir)/fdns/servers.local ]; then install -c -m 0644 etc/servers.local $(DESTDIR)/$(sysconfdir)/fdns/servers.local; fi;"
 
 	# systemd service unit
 	install -Dm0644 etc/fdns.service $(DESTDIR)$(SYSTEMD_DIR)/fdns.service
