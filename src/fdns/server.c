@@ -123,6 +123,53 @@ static void set_zone(void) {
 		printf("Current zone: %s\n", fdns_zone);
 }
 
+// split lines formated as tok2: tok2
+static char *tok1;
+static char *tok2;
+int split1(char *buf) {
+	assert(buf);
+	tok1 = NULL;
+	tok2 = NULL;
+
+	char *ptr = strchr(buf, ';');
+	if (!ptr)
+		return 1;
+	*ptr = '\0';
+
+	tok1 = buf;
+	while (*tok1 == ' ' || *tok1 == '\t')
+		tok1++;
+	return 0;
+}
+
+int split2(char *buf) {
+	assert(buf);
+	tok1 = NULL;
+
+	tok2 = strchr(buf, ':');
+	if (!tok2)
+		return 1;
+
+	tok1 = buf;
+	while (*tok1 == ' ' || *tok1 == '\t')
+		tok1++;
+	*tok2 = '\0';
+
+	tok2++;
+	while(*tok2 == ' ' || *tok2 == '\t')
+		tok2++;
+	if (*tok2 == '\0')
+		return 1;
+
+	char *ptr = tok2 + strlen(tok2) - 1;;
+	while (*ptr == ' ' || *ptr == '\t')
+		ptr--;
+	*(ptr + 1) = '\0';
+
+	return 0;
+}
+
+
 // returns NULL for end of list
 static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 	assert(fp);
@@ -136,7 +183,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 
 	char buf[4096];
 	buf[0] = '\0';
-	int host_block = 0;
+	int host = 0;
 	while (fgets(buf, 4096, fp)) {
 		(*linecnt)++;
 
@@ -144,80 +191,91 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		if (*buf == '#')
 			continue;
 
-		// remove \n
+		// remove \n, split line in tok1 and tok2
 		char *ptr = strchr(buf, '\n');
 		if (ptr)
 			*ptr = '\0';
-
 		if (strlen(buf) == 0)
 			continue;
+		if (split2(buf)) {
+			if (split1(buf)) {
+				fprintf(stderr, "Error: file %s, line %d, invalid command\n", fname, *linecnt);
+				exit(1);
+			}
+		}
+//printf("parser: #%s#, #%s#\n", tok1, (tok2)? tok2: "nil");
 
-		if (!host_block) {
-			if (strncmp(buf, "unlist: ", 8) == 0) {
-				unlisted_add(buf + 8);
+		if (!host) {
+			if (strcmp(tok1, "unlist") == 0) {
+				unlisted_add(tok2);
+				continue;
+			}
+			else if (strcmp(tok1, "block-doh") == 0) {
+				if (arg_disable_local_doh)
+					filter_add('D', tok2);
 				continue;
 			}
 		}
 
-		if (strncmp(buf, "name: ", 6) == 0) {
+		if (strcmp(tok1, "name") == 0) {
 			if (s->name)
 				goto errout;
-			s->name = strdup(buf + 6);
+			s->name = strdup(tok2);
 			if (!s->name)
 				errExit("strdup");
-			host_block = 1;
+			host = 1;
 		}
-		else if (strncmp(buf, "website: ", 9) == 0) {
+		else if (strcmp(tok1, "website") == 0) {
 			if (s->website)
 				goto errout;
-			s->website = strdup(buf + 9);
+			s->website = strdup(tok2);
 			if (!s->website)
 				errExit("strdup");
-			host_block = 1;
+			host = 1;
 		}
-		else if (strncmp(buf, "zone: ", 6) == 0) {
+		else if (strcmp(tok1, "zone") == 0) {
 			if (s->zone)
 				goto errout;
-			s->zone = strdup(buf + 6);
+			s->zone = strdup(tok2);
 			if (!s->zone)
 				errExit("strdup");
-			host_block = 1;
+			host = 1;
 		}
-		else if (strncmp(buf, "tags: ", 6) == 0) {
+		else if (strcmp(tok1, "tags") == 0) {
 			if (s->tags)
 				goto errout;
-			s->tags = strdup(buf + 6);
+			s->tags = strdup(tok2);
 			if (!s->tags)
 				errExit("strdup");
-			host_block = 1;
+			host = 1;
 		}
-		else if (strncmp(buf, "address: ", 9) == 0) {
+		else if (strcmp(tok1, "address") == 0) {
 			if (s->address)
 				goto errout;
 			// check format: ip:port or domain:port
-			char *ptr = strchr(buf + 9, ':');
+			char *ptr = strchr(tok2, ':');
 			if (!ptr) {
 				free(s);
 				fprintf(stderr, "Error: file %s, line %d, invalid address\n", fname, *linecnt);
 				exit(1);
 			}
-			s->address = malloc(strlen(buf + 9) + 3 + 1); // leave room  to switc port to 853 (dot)
+			s->address = malloc(strlen(tok2) + 3 + 1); // leave room  to switch port to 853 (dot)
 			if (!s->address)
 				errExit("malloc");
-			strcpy(s->address, buf + 9);
+			strcpy(s->address, tok2);
 			if (arg_transport && strcmp(arg_transport, "dot") == 0) {
 				ptr =strstr(s->address, ":");
 				sprintf(ptr, "%s", ":853");
 			}
-			host_block = 1;
+			host = 1;
 		}
-		else if (strncmp(buf, "host: ", 6) == 0) {
+		else if (strcmp(tok1, "host") == 0) {
 			if (s->host)
 				goto errout;
-			s->host = strdup(buf + 6);
+			s->host = strdup(tok2);
 			if (!s->host)
 				errExit("strdup");
-			host_block = 1;
+			host = 1;
 
 
 			// build the DNS/HTTP request
@@ -232,19 +290,19 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				errExit("strdup");
 			*str++ = '\0';
 		}
-		else if (strncmp(buf, "sni: ", 5) == 0) {
+		else if (strcmp(tok1, "sni") == 0) {
 			if (s->sni)
 				goto errout;
-			if (strcmp(buf + 5, "yes") == 0)
+			if (strcmp(tok2, "yes") == 0)
 				s->sni = 1;
-			else if (strcmp(buf + 5, "no") == 0)
+			else if (strcmp(tok2, "no") == 0)
 				s->sni = 0;
 			else {
 				fprintf(stderr, "Error: file %s, line %d, wrong SNI setting\n", fname, *linecnt);
 				exit(1);
 			}
 		}
-		else if (strncmp(buf, "transport: ", 11) == 0) {
+		else if (strcmp(tok1, "transport") == 0) {
 			if (s->transport)
 				goto errout;
 			s->transport = strdup(buf + 11);
@@ -252,25 +310,25 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				errExit("strdup");
 			// todo: parser transport line
 		}
-		else if (strncmp(buf, "keepalive-query: ", 17) == 0) {
+		else if (strcmp(tok1, "keepalive-query") == 0) {
 			if (s->keepalive_query)
 				goto errout;
-			if (strcmp(buf + 17, "yes") == 0)
+			if (strcmp(tok2, "yes") == 0)
 				s->keepalive_query = 1;
-			else if (strcmp(buf + 17, "no") == 0)
+			else if (strcmp(tok2, "no") == 0)
 				s->keepalive_query = 0;
 			else {
 				fprintf(stderr, "Error: file %s, line %d, wrong keepalive-query setting\n", fname, *linecnt);
 				exit(1);
 			}
 		}
-		else if (strncmp(buf, "keepalive: ", 11) == 0) {
+		else if (strcmp(tok1, "keepalive") == 0) {
 			if (s->keepalive_min)
 				goto errout;
 
 			// detect keepalive range
-			if (strchr(buf + 11, ',')) {
-				if (sscanf(buf + 11, "%d,%d", &s->keepalive_min, &s->keepalive_max) != 2 ||
+			if (strchr(tok2, ',')) {
+				if (sscanf(tok2, "%d,%d", &s->keepalive_min, &s->keepalive_max) != 2 ||
 				                s->keepalive_min <= 0 ||
 				                s->keepalive_max <= 0 ||
 				                s->keepalive_min > s->keepalive_max) {
@@ -279,7 +337,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				}
 			}
 			else {
-				if (sscanf(buf + 11, "%d", &s->keepalive_min) != 1 || s->keepalive_min <= 0) {
+				if (sscanf(tok2, "%d", &s->keepalive_min) != 1 || s->keepalive_min <= 0) {
 					fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
 					exit(1);
 				}
@@ -290,7 +348,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				s->keepalive_max = arg_keepalive;
 			}
 		}
-		else if (strcmp(buf, "end;") == 0) {
+		else if (strcmp(tok1, "end") == 0) {
 			// check server data
 			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
@@ -330,7 +388,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		}
 	}
 
-	if (host_block) {
+	if (host) {
 		free(s);
 		fprintf(stderr, "Error: file %s, line %d, keepalive missing\n", fname, *linecnt);
 		exit(1);
@@ -343,6 +401,30 @@ errout:
 	free(s);
 	fprintf(stderr, "Error: file %s, line %d, field defined twice\n", fname, *linecnt);
 	exit(1);
+}
+
+static int load_file(const char *fname) {
+	assert(fname);
+
+	// load all server entries from /etc/fdns/servers in list
+	FILE *fp = fopen(fname, "r");
+	if (!fp)
+		return 1;
+
+	int linecnt = 0; // line counter
+	DnsServer **ptr = &slist;
+	while (1) {
+		DnsServer *s = read_one_server(fp, &linecnt, fname);
+		if (!s)
+			break;
+
+		// push the server to the end of the list
+		*ptr = s;
+		ptr = &s->next;
+	}
+
+	fclose(fp);
+	return 0;
 }
 
 static void load_list(void) {
@@ -363,26 +445,11 @@ static void load_list(void) {
 		}
 	}
 
-	// load all server entries from /etc/fdns/servers in list
-	FILE *fp = fopen(PATH_ETC_SERVER_LIST, "r");
-	if (!fp) {
+	load_file(PATH_ETC_SERVER_LOCAL_LIST);
+	if (load_file(PATH_ETC_SERVER_LIST)) {
 		fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
 		exit(1);
 	}
-
-	int linecnt = 0; // line counter
-	DnsServer **ptr = &slist;
-	while (1) {
-		DnsServer *s = read_one_server(fp, &linecnt, PATH_ETC_SERVER_LIST);
-		if (!s)
-			break;
-
-		// push the server to the end of the list
-		*ptr = s;
-		ptr = &s->next;
-	}
-
-	fclose(fp);
 }
 
 
