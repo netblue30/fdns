@@ -131,6 +131,7 @@ static inline int rand_range(int min, int max) {
 #define PATH_ETC_DOH_LIST (SYSCONFDIR "/doh")
 #define PATH_ETC_HOSTS_LIST (SYSCONFDIR "/hosts")
 #define PATH_ETC_SERVER_LIST (SYSCONFDIR "/servers")
+#define PATH_ETC_SERVER_LOCAL_LIST (SYSCONFDIR "/servers.local")
 #define PATH_ETC_RESOLVER_SECCOMP (SYSCONFDIR "/resolver.seccomp")
 #define PATH_LOG_FILE "/var/log/fdns.log"
 #define PATH_STATS_FILE "/fdns-stats"	// the actual path is /dev/shm/fdns-stats
