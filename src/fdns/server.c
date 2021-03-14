@@ -212,7 +212,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 			else if (strcmp(tok1, "block-doh") == 0) {
 				if (arg_disable_local_doh)
-					filter_add('D', tok2);
+					filter_serach_add('D', tok2);
 				continue;
 			}
 		}
@@ -364,8 +364,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 
 			// add host to filter
 			if (arg_disable_local_doh)
-				filter_add('D', s->host);
-
+				filter_serach_add('D', s->host);
 
 			// servers tagged as admin-down are not taken into calculation
 			if (admin_down == 0 && strstr(s->tags, "admin-down")) {
