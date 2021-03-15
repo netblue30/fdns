@@ -74,6 +74,10 @@ Incorporating code from Sophos XG Block Lists project at
 https://github.com/austinheap/sophos-xg-block-lists (adguard.txt).
 Copyright © Austin Heap (https://github.com/austinheap), license MIT
 
+Incorporating code from AdGuard CNAME disguised trackers list
+https://github.com/AdguardTeam/cname-trackers
+Copyright 2021 Adguard Software Ltd, MIT license
+
 
 Licensing and Copyright
 -----------------------
