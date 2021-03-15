@@ -365,12 +365,14 @@ int main(int argc, char **argv) {
 
 			// test options
 			else if (strcmp(argv[i], "--test-url-list") == 0) {
+				server_print_unlist = 0;
 				server_list("any");
 				filter_load_all_lists();
 				filter_test_list();
 				return 0;
 			}
 			else if (strncmp(argv[i], "--test-url=", 11) == 0) {
+				server_print_unlist = 0;
 				server_list("any");
 				filter_load_all_lists();
 				filter_test(argv[i] + 11);

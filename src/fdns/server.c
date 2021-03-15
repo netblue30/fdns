@@ -24,6 +24,7 @@
 
 int server_print_zone = 0;
 int server_print_servers = 0;
+int server_print_unlist = 1;
 
 
 static int admin_down = 0; // set to 1 if --test-server=admin-down -> testing only servers disabled by admin-down flag
@@ -65,7 +66,8 @@ static UnlistedElem *unlisted_find(const char *name) {
 
 static void unlisted_add(const char *name) {
 	assert(name);
-	printf("Unlisting %s\n", name);
+	if (server_print_unlist)
+		printf("Unlisting %s\n", name);
 
 	UnlistedElem *ptr = malloc(sizeof(UnlistedElem));
 	if (!ptr)

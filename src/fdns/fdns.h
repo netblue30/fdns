@@ -362,10 +362,10 @@ void shmem_monitor_stats(const char *proxy_addr);
 void shmem_keepalive(void);
 void shm_timeout(void);
 
-
 // server.c
 extern int server_print_zone;
 extern int server_print_servers;
+extern int server_print_unlist;
 void server_load(void);
 void server_list(const char *tag);
 DnsServer *server_get(void);
