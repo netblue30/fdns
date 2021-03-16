@@ -6,6 +6,13 @@ and uses a configurable adblocker and privacy filter to cut down the
 unnecessary traffic.
 
 The software is written in C, and is licensed under GPLv3.
+Adblock filters installed in /etc/fnds directory are preserving the original license
+of the source used for building them:
+
+     /etc/fdns/adblocker - MIT license
+     /etc/fdns/coinblocker - AGPLv3 license
+     /etc/fdns/fp-trackers - MIT license
+     /etc/fdns/trackers - GPLv3 license
 
 
 Build and Install

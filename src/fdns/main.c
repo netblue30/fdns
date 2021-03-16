@@ -52,6 +52,7 @@ int arg_allow_expired_certs = 0;
 int arg_log_timeout = 0;
 char *arg_fallback_server = NULL;
 char *arg_unlist = NULL;
+int arg_clean_filters = 0;
 
 Stats stats;
 
@@ -171,6 +172,11 @@ int main(int argc, char **argv) {
 			}
 			else if (strcmp(argv[i], "--version") == 0) {
 				printf("fdns version %s\n", VERSION);
+				return 0;
+			}
+			else if (strcmp(argv[i], "--clean-filters") == 0) { // undocumented; for development only!
+				arg_clean_filters = 1;
+				filter_load_all_lists();
 				return 0;
 			}
 			else if (strcmp(argv[i], "--daemonize") == 0) {
