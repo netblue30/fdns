@@ -45,16 +45,27 @@ static char *run_program(const char *cmd) {
 // supported formats:
 //    - lines in regular hosts files with ip addresses of 127.0.0.1 and 0.0.0.0
 //    - lists of domain names, one domain per line
-void filter_test_list(const char *fname) {
-	assert(fname);
-	FILE *fp = fopen(fname, "r");
+void filter_test_list(const char *fname_in, const char *fname_out) {
+	assert(fname_in);
+	assert(fname_out);
+	FILE *fp = fopen(fname_in, "r");
 	if (!fp) {
-		perror("fopen");
+		perror("fopen in");
 		exit(1);
 	}
 
+	FILE *fpout = fopen(fname_out, "w");
+	if (!fpout) {
+		perror("fopen out");
+		exit(1);
+	}
+
+
 	char buf[MAXBUF];
+	int i = 0;
+	int j = 0;
 	while (fgets(buf, MAXBUF, fp)) {
+		i++;
 		char *ptr = strchr(buf, '\n');
 		if (ptr)
 			*ptr = '\0';
@@ -104,26 +115,29 @@ void filter_test_list(const char *fname) {
 			exit(1);
 		}
 
-		fprintf(stderr, "Testing %s\n", start);
+		printf("Testing (%d/%d) %s\n", j, i, start);
 		char *output = run_program(cmd);
 		assert(output);
 		if (strstr(output, "NXDOMAIN") == NULL) {
-			fprintf(stderr, "\t127.0.0.1 %s\n", start);
-			printf("127.0.0.1 %s\n", start);
+			j++;
+			printf("\t127.0.0.1 %s\n", start);
+			fprintf(fpout, "127.0.0.1 %s\n", start);
+			fflush(0);
 		}
 		free(cmd);
 	}
 
 	fclose(fp);
+	fclose(fpout);
 }
 
 static void usage(void) {
 	printf("nxdomain - simple utility to remove domains from a list based on NXDOMAIN reported by nslookup\n");
-	printf("Usage: nxdomain file\n");
+	printf("Usage: nxdomain file_in file_out\n");
 }
 
 int main(int argc, char **argv) {
-	if (argc != 2) {
+	if (argc != 3) {
 		usage();
 		return 1;
 	}
@@ -132,6 +146,6 @@ int main(int argc, char **argv) {
 		return 0;
 	}
 
-	filter_test_list(argv[1]);
+	filter_test_list(argv[1], argv[2]);
 	return 0;
 }
