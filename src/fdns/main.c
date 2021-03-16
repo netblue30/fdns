@@ -338,7 +338,6 @@ int main(int argc, char **argv) {
 		}
 	}
 
-
 	// second pass
 	if (argc != 1) {
 		int i;
@@ -404,7 +403,6 @@ int main(int argc, char **argv) {
 			}
 		}
 	}
-
 
 	if (getuid() != 0) {
 		fprintf(stderr, "Error: you need to be root to run this program\n");

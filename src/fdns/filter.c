@@ -285,6 +285,7 @@ static void filter_load_list(char label, const char *fname, int store) {
 	if (store)
 		fclose(fpout);
 
+	fflush(0);
 	if (arg_id == 0)
 		printf("%d filter entries added from %s\n", cnt, fname);
 }
