@@ -210,6 +210,7 @@ static int sandbox(void *sandbox_arg) {
 	assert(last < (arg_argc + wcnt + bcnt + 20));
 
 	// add a small 2 seconds sleep before restarting, just in case we are looping
+	fflush(0);
 	sleep(MONITOR_WAIT_TIMER);
 	execv(a[0], a);
 	exit(1);
