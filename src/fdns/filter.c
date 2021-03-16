@@ -208,11 +208,24 @@ void filter_serach_add(char label, const char *domain) {
 		filter_add(label, domain);
 }
 
-static void filter_load_list(char label, const char *fname) {
+static void filter_load_list(char label, const char *fname, int store) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
 	if (!fp)
 		return;  // nothing to do
+
+	FILE *fpout = NULL;
+	if (store) {
+		char *f = strrchr(fname, '/');
+		if (!f) {
+			fprintf(stderr, "Error: invalid file name %s\n", fname);
+			exit(1);
+		}
+		f++;
+		fpout = fopen(f, "w");
+		if (!fpout)
+			errExit("fopen");
+	}
 
 	char buf[MAXBUF];
 	int cnt = 0;
@@ -223,8 +236,11 @@ static void filter_load_list(char label, const char *fname) {
 			*ptr = '\0';
 
 		// comments, empty lines
-		if (*buf == '#' || *buf == '\0' || strspn(buf, " \t") == strlen(buf))
+		if (*buf == '#' || *buf == '\0' || strspn(buf, " \t") == strlen(buf)) {
+			if (store)
+				fprintf(fpout, "%s\n", buf);
 			continue;
+		}
 
 		ptr = strchr(buf, '#');
 		if (ptr)
@@ -243,7 +259,6 @@ static void filter_load_list(char label, const char *fname) {
 		else
 			continue;
 
-
 		// remove localhost etc
 		if (strstr(ptr, "local"))
 			continue;
@@ -260,22 +275,26 @@ static void filter_load_list(char label, const char *fname) {
 
 		// add it to the hash table
 		if (!filter_blocked(ptr, 0)) {
+			if (store)
+				fprintf(fpout, "127.0.0.1 %s\n", ptr);
 			filter_add(label, ptr);
 			cnt++;
 		}
 	}
 	fclose(fp);
+	if (store)
+		fclose(fpout);
 
 	if (arg_id == 0)
 		printf("%d filter entries added from %s\n", cnt, fname);
 }
 
 void filter_load_all_lists(void) {
-	filter_load_list('T', PATH_ETC_TRACKERS_LIST);
-	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST);
-	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST);
-	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST);
-	filter_load_list('H', PATH_ETC_HOSTS_LIST);
+	filter_load_list('T', PATH_ETC_TRACKERS_LIST, arg_clean_filters);
+	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST, arg_clean_filters);
+	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
+	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
+	filter_load_list('H', PATH_ETC_HOSTS_LIST, arg_clean_filters);
 }
 
 #define MAX_DOMAINS 64

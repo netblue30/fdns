@@ -1,5 +1,7 @@
 #
-# Firejail DNS trackers drop list
+# Firejail DNS Proxy trackers drop list - GPLv3 license
+#
+# Sources:
 #
 # Most of the entires form this list have been extracted from Privacy Badger seed file at
 #         https://github.com/EFForg/privacybadger/blob/master/src/data/seed.json
@@ -86,7 +88,6 @@
 127.0.0.1 diagnostics.support.microsoft.com
 127.0.0.1 i1.services.social.microsoft.com
 127.0.0.1 cache.datamart.windows.com
-127.0.0.1 diagnostics.support.microsoft.com
 127.0.0.1 spynet2.microsoft.com
 127.0.0.1 spynetalt.microsoft.com
 127.0.0.1 prod.nexusrules.live.com.akadns.net
@@ -113,24 +114,20 @@
 127.0.0.1 addthis.com
 127.0.0.1 adform.net
 127.0.0.1 adfox.ru
-127.0.0.1 ad.gt
 127.0.0.1 adinfuse.com
 127.0.0.1 adjust.com
 127.0.0.1 adk2x.com
 127.0.0.1 adkernel.com
-127.0.0.1 admob.com
 127.0.0.1 adnxs.com
 127.0.0.1 adobedtm.com
 127.0.0.1 adroll.com
 127.0.0.1 adrotator.com
 127.0.0.1 adsafeprotected.com
-127.0.0.1 adservice.google.com
 127.0.0.1 adsnative.com
 127.0.0.1 adsrvr.org
 127.0.0.1 ad-stir.com
 127.0.0.1 adswizz.com
 127.0.0.1 adsymptotic.com
-127.0.0.1 advertising.com
 127.0.0.1 adwhirl.com
 127.0.0.1 agkn.com
 127.0.0.1 alcmpn.com
@@ -202,7 +199,6 @@
 127.0.0.1 districtm.io
 127.0.0.1 domdex.com
 127.0.0.1 dotomi.com
-127.0.0.1 doubleclick.net
 127.0.0.1 doubleverify.com
 127.0.0.1 dpmsrv.com
 127.0.0.1 dynamicyield.com
@@ -211,7 +207,6 @@
 127.0.0.1 emxdgt.com
 127.0.0.1 everesttech.net
 127.0.0.1 exelator.com
-127.0.0.1 exoclick.com
 127.0.0.1 eyeota.net
 127.0.0.1 eyeviewads.com
 127.0.0.1 fbc.wcfbc.net
@@ -238,14 +233,12 @@
 127.0.0.1 hearstnp.com
 127.0.0.1 hotjar.com
 127.0.0.1 hubspot.com
-127.0.0.1 ibclick.stream
 127.0.0.1 id5-sync.com
 127.0.0.1 igodigital.com
 127.0.0.1 im-apps.net
 127.0.0.1 impact-ad.jp
 127.0.0.1 imrworldwide.com
 127.0.0.1 indexww.com
-127.0.0.1 in.getclicky.com
 127.0.0.1 inmobi.com
 127.0.0.1 inner-active.mobi
 127.0.0.1 instinctiveads.com
@@ -272,13 +265,11 @@
 127.0.0.1 linksynergy.com
 127.0.0.1 live.com
 127.0.0.1 liveperson.net
-127.0.0.1 localytics.com
 127.0.0.1 lockerdome.com
 127.0.0.1 lytics.io
 127.0.0.1 mailchimp.com
 127.0.0.1 marinsm.com
 127.0.0.1 marketlinc.com
-127.0.0.1 matheranalytics.com
 127.0.0.1 mathtag.com
 127.0.0.1 maxymiser.net
 127.0.0.1 mbtmedia.com
@@ -322,7 +313,6 @@
 127.0.0.1 omaze.com
 127.0.0.1 omnitagjs.com
 127.0.0.1 onclickpredictiv.com
-127.0.0.1 onet.hit.gemius.pl
 127.0.0.1 onetrust.com
 127.0.0.1 onthe.io
 127.0.0.1 ooyala.com
@@ -377,11 +367,9 @@
 127.0.0.1 siftscience.com
 127.0.0.1 simplereach.com
 127.0.0.1 simpli.fi
-127.0.0.1 siteimproveanalytics.io
 127.0.0.1 sitescout.com
 127.0.0.1 skimresources.com
 127.0.0.1 smaato.net
-127.0.0.1 smartadserver.com
 127.0.0.1 snapchat.com
 127.0.0.1 socdm.com
 127.0.0.1 sociomantic.com
@@ -392,14 +380,11 @@
 127.0.0.1 spotxchange.com
 127.0.0.1 spotx.tv
 127.0.0.1 springernature.com
-127.0.0.1 statcounter.com
 127.0.0.1 stat.pl
 127.0.0.1 steelhousemedia.com
 127.0.0.1 stickyadstv.com
-127.0.0.1 storage.cloud.kargo.com
 127.0.0.1 summerhamster.com
 127.0.0.1 sumo.com
-127.0.0.1 sync.ad-stir.com
 127.0.0.1 syndication.twitter.com
 127.0.0.1 taboola.com
 127.0.0.1 tailtarget.com
@@ -412,7 +397,6 @@
 127.0.0.1 thebrighttag.com
 127.0.0.1 timecommerce.net
 127.0.0.1 tinypass.com
-127.0.0.1 tns-counter.ru
 127.0.0.1 trafficjunky.net
 127.0.0.1 trafficz.com
 127.0.0.1 treasuredata.com
@@ -438,7 +422,6 @@
 127.0.0.1 w55c.net
 127.0.0.1 wbtrk.net
 127.0.0.1 wcfbc.net
-127.0.0.1 wcs.naver.com
 127.0.0.1 websponsors.com
 127.0.0.1 webtrendslive.com
 127.0.0.1 xiti.com
@@ -456,7 +439,6 @@
 127.0.0.1 zkcdn.net
 127.0.0.1 bango.combango.org
 127.0.0.1 basic-check.disconnect.me
-127.0.0.1 localytics.com
 127.0.0.1 supercell.net
 127.0.0.1 32bit.com
 127.0.0.1 activecampaign.com
