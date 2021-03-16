@@ -226,7 +226,7 @@ static void filter_load_list(char label, const char *fname) {
 		if (*buf == '#' || *buf == '\0' || strspn(buf, " \t") == strlen(buf))
 			continue;
 
-		ptr =strchr(buf, '#');
+		ptr = strchr(buf, '#');
 		if (ptr)
 			*ptr = '\0';
 
@@ -275,7 +275,6 @@ void filter_load_all_lists(void) {
 	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST);
 	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST);
 	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST);
-	filter_load_list('B', PATH_ETC_BULKMAILER_LIST);
 	filter_load_list('H', PATH_ETC_HOSTS_LIST);
 }
 

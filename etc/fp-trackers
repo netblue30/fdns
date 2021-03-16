@@ -30,7 +30,7 @@
 ######################################
 # More trackers added from AdGuard CNAME disguised trackers list, MIT license
 # https://github.com/AdguardTeam/cname-trackers
-#
+# Download: https://raw.githubusercontent.com/AdguardTeam/cname-trackers/master/combined_disguised_trackers_justdomains.txt
 ######################################
 127.0.0.1 ss-omtrdc.net
 127.0.0.1 omtrdc.net
