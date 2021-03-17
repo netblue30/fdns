@@ -89,12 +89,10 @@ block-doh: dns.nixnet.xyz
 block-doh: dns.pumplex.com
 block-doh: dns.rubyfish.cn
 block-doh: dns1.digitale-gesellschaft.ch
-block-doh: dns10.quad9.net
 block-doh: dns11.quad9.net
 block-doh: dns2.alekberg.net
 block-doh: dns2.developer.li
 block-doh: dns2.digitale-gesellschaft.ch
-block-doh: dns9.quad9.net
 block-doh: dnsotls.lab.nic.cl
 block-doh: dnsovertls2.sinodun.com
 block-doh: dnsovertls3.sinodun.com
@@ -661,6 +659,16 @@ zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: free.bravedns.com:443
 host: free.bravedns.com/dns-query
+keepalive: 350,390
+sni: yes
+end;
+
+name: bravedns2
+website: https://bravedns.com
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe
+address: basic.bravedns.com:443
+host: basic.bravedns.com/
 keepalive: 350,390
 sni: yes
 end;
@@ -1574,7 +1582,7 @@ website: https://quad9.net
 zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 149.112.112.9:5053
-host: dns.quad9.net/dns-query
+host: dns9.quad9.net/dns-query
 keepalive: 550,590
 end;
 
@@ -1583,7 +1591,7 @@ website: https://quad9.net
 zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 9.9.9.10:5053
-host: dns.quad9.net/dns-query
+host: dns10.quad9.net/dns-query
 keepalive: 550,590
 end;
 
@@ -1592,7 +1600,7 @@ website: https://quad9.net
 zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 149.112.112.10:5053
-host: dns.quad9.net/dns-query
+host: dns10.quad9.net/dns-query
 keepalive: 550,590
 end;
 
