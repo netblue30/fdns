@@ -225,7 +225,7 @@ static inline void print_line(const char *str, int col) {
 		printf("\033[91m%.*s\033[0m", col, str);
 	else if (strstr(str, "doh  "))
 		printf("\033[91m%.*s\033[0m", col, str);
-	else if (strstr(str, ", dropped") || strstr(str, "refused by service provider"))
+	else if (strstr(str, ", dropped") || strstr(str, "refused by service provider") || strstr(str, " nxdomain"))
 		printf("\033[92m%.*s\033[0m", col, str);
 	else
 		printf("%.*s", col, str);

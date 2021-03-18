@@ -313,21 +313,13 @@ static void ht_add(HTable *tbl) {
 	for (i = tbl->bits; i > 0; i--, mask >>= 1) {
 		int bitval = (mask & tbl->hvalue)? 1: 0;
 		if (ptr->next[bitval] == NULL) {
-//			printf("adding %d\n", bitval);
 			ptr->next[bitval] = ht_new();
 		}
 		ptr = ptr->next[bitval];
 	}
 	ptr->htable = tbl;
 }
-#if 0
-result 30
-result 31
-result 32
-result 61
-result 25
-result 68
-#endif
+
 // return the table structure for the character char at specified offset
 static HTable *ht_search_char(uint8_t *input, int offset) {
 	assert(offset < 8);
@@ -379,11 +371,9 @@ char *huffman_search(uint8_t *hstr, int len) {
 			if ((*(hstr + bpos) & all_f[boffset]) == all_f[boffset])
 				break;
 		}
-//printf("\n*ptr 0x%02x - len %d, bcnt %d: bpos %d, boffset %d - ", *(hstr + bpos), len, bcnt, bpos, boffset);
 
 		HTable *res = ht_search_char(hstr + bpos, boffset);
 		assert(res);
-//printf("add %c\n", res->avalue);
 		search_out[outpos++] = res->avalue;
 		bcnt += res->bits;
 	}

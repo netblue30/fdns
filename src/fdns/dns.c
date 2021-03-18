@@ -301,6 +301,7 @@ int dns_query(uint8_t *msg, int cnt) {
 			// set NXDOMAIN bytes in the packet
 			msg[3] = 3;
 			rlogprintf("%s refused by service provider\n", cache_get_name());
+			cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
 			return datalen;
 		}
 		else

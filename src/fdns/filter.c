@@ -22,10 +22,10 @@
 // debug statistics
 //#define DEBUG_STATS
 #ifdef DEBUG_STATS
-static unsigned smem = 0;	// memory
-static unsigned sentries = 0;	// entries
-static unsigned scnt = 0;		// print counter
-static double stime = 0;		// accumulated search access time
+static unsigned stats_mem = 0;	// memory
+static unsigned stats_entries = 0;	// entries
+static unsigned stats_cnt = 0;	// print counter
+static double stats_time = 0;		// accumulated search access time
 #endif
 
 static inline const char *label2str(char label) {
@@ -183,8 +183,8 @@ void filter_add(char label, const char *domain) {
 	blist[hval] = h;
 
 #ifdef DEBUG_STATS
-	smem += sizeof(HashEntry) + strlen(domain) + 1;
-	sentries++;
+	stats_mem += sizeof(HashEntry) + strlen(domain) + 1;
+	stats_entries++;
 #endif
 }
 
@@ -296,6 +296,25 @@ void filter_load_all_lists(void) {
 	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
 	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
 	filter_load_list('H', PATH_ETC_HOSTS_LIST, arg_clean_filters);
+
+#ifdef DEBUG_STATS
+	int max_cnt = 0;
+	int i;
+	for (i = 0; i < MAX_HASH_ARRAY; i++) {
+		int cnt = 0;
+		HashEntry *ptr = blist[i];
+		while (ptr) {
+			cnt++;
+			ptr = ptr->next;
+		}
+
+		if (cnt > max_cnt)
+			max_cnt = cnt;
+	}
+
+	printf("*** %u filter entries, total memory %u\n", stats_entries, stats_mem);
+	printf("*** longest filter htable line %d ***\n", max_cnt);
+#endif
 }
 
 #define MAX_DOMAINS 64
@@ -386,13 +405,13 @@ const char *filter_blocked(const char *str, int verbose) {
 		printf("URL %s is not dropped\n", str);
 
 #ifdef DEBUG_STATS
-	stime += timetrace_end();
-	scnt++;
-	if (scnt >= 20) {
-		printf("*** filter entries %u, mem %u, access %.03f ms\n", sentries, smem + (unsigned) sizeof(blist), stime / scnt);
+	stats_time += timetrace_end();
+	stats_cnt++;
+	if (stats_cnt >= 10) {
+		printf("\n*** average filter access %.03f ms\n\n", stats_time / stats_cnt);
 		fflush(0);
-		stime = 0;
-		scnt = 0;
+		stats_time = 0;
+		stats_cnt = 0;
 	}
 #endif
 

@@ -103,7 +103,7 @@ static inline int rand_range(int min, int max) {
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (60 * 60)
-#define CACHE_TTL_ERROR 30	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
+#define CACHE_TTL_ERROR 120	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
 #define CACHE_PRINT_TIMEOUT	60	// list the domain in the cache
 
 // rate limitation
