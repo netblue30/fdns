@@ -50,9 +50,6 @@ echo "TESTING: filter doh (test/fdns/filter-doh.exp)"
 echo "TESTING: nofilter (test/fdns/nofilter.exp)"
 ./nofilter.exp
 
-echo "TESTING: server=non-profit (test/fdns/server-non-profit.exp)"
-./server-non-profit.exp
-
 echo "TESTING: server=anycast (test/fdns/server-anycast.exp)"
 ./server-anycast.exp
 

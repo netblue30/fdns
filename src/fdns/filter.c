@@ -165,10 +165,12 @@ static inline int hash(const char *str) {
 }
 
 void filter_add(char label, const char *domain) {
-//if (label == 'M')
-//printf("127.0.0.1 %s\n", domain);
-
 	assert(domain);
+	if (strlen(domain) < 4) {
+		fprintf(stderr, "Warning: not installing \"%s\" as a %s filter. This could be a full top domain.\n", domain, label2str(label));
+		return;
+	}
+
 	HashEntry *h = malloc(sizeof(HashEntry));
 	if (!h)
 		errExit("malloc");

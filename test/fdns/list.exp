@@ -25,10 +25,6 @@ expect {
 	"nextdns"
 }
 expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
-	"pi-dns"
-}
-expect {
 	timeout {puts "TESTING ERROR 5\n";exit}
 	"servers found"
 }
