@@ -20,7 +20,7 @@
 #	       We match fdns zone with the server zone, this way we can restrict a specific service
 #	       to a specific geographical area. Servers tagged as anycast are available in all zones.
 #	tags: filtering tags
-#	       In a specific zone, we can further filter the servers based on a tag such as non-profit,
+#	       In a specific zone, we can further filter the servers based on a tag such as anycast,
 #	       family, OpenNIC, etc.
 #	address: IP address and port in IP:PORT or DOMAIN:PORT format
 #	host: URL
@@ -165,7 +165,7 @@ block-doh: wdns.233py.com
 name: 42l
 website: https://42l.fr
 zone: Europe
-tags: non-profit, France, Europe
+tags: France, Europe
 address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
 keepalive: 140,170
@@ -555,7 +555,7 @@ end;
 name: appliedprivacy
 website: https://appliedprivacy.net
 zone: Europe
-tags: non-profit, Austria, Europe
+tags: Austria, Europe
 address: 146.255.56.98:443
 host: doh.applied-privacy.net/query
 sni: yes
@@ -566,7 +566,7 @@ end;
 name: appliedprivacy-dot
 website: https://appliedprivacy.net
 zone: Europe
-tags: admin-down, applied-privacy, non-profit, Austria, Europe
+tags: admin-down, Austria, Europe
 address: 146.255.56.98:853
 host: dot1.applied-privacy.net/
 sni: yes
@@ -668,7 +668,7 @@ end;
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas
-tags: non-profit, Ontario, Quebec, BritishColumbia, Americas
+tags: Ontario, Quebec, BritishColumbia, Americas
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -677,7 +677,7 @@ end;
 name: cira2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas
-tags: non-profit, Ontario, Quebec, BritishColumbia, Americas
+tags: Ontario, Quebec, BritishColumbia, Americas
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -686,7 +686,7 @@ end;
 name: cira-security
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas
-tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas
+tags: security, Ontario, Quebec, BritishColumbia, Americas
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -695,7 +695,7 @@ end;
 name: cira-security2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 zone: Americas
-tags: non-profit, security, Ontario, Quebec, BritishColumbia, Americas
+tags: security, Ontario, Quebec, BritishColumbia, Americas
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -962,7 +962,7 @@ end;
 name: digital-society
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: non-profit, Switzerland, Europe
+tags: Switzerland, Europe
 address: 185.95.218.42:443
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 140,170
@@ -971,7 +971,7 @@ end;
 name: digital-society2
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: non-profit, Switzerland, Europe
+tags: Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 140,170
@@ -980,7 +980,7 @@ end;
 name: digital-society-dot
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: non-profit, Switzerland, Europe
+tags: Switzerland, Europe
 address: 185.95.218.42:853
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 20,25
@@ -990,7 +990,7 @@ end;
 name: digital-society-dot2
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: non-profit, Switzerland, Europe
+tags: Switzerland, Europe
 address: 185.95.218.43:853
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 20,25
@@ -1686,7 +1686,7 @@ end;
 name: snopyta
 website: https://snopyta.org
 zone: Europe
-tags: non-profit, Finland, Europe
+tags: Finland, Europe
 address: 95.216.229.153:443
 host: fi.doh.dns.snopyta.org/dns-query
 sni: yes
@@ -1696,7 +1696,7 @@ end;
 name: switch
 website: https://www.switch.ch/security/info/public-dns/
 zone: Europe
-tags: non-profit, Switzerland, Europe
+tags: Switzerland, Europe
 address: 130.59.31.248:443
 host: dns.switch.ch/dns-query
 keepalive: 20,25
@@ -1705,7 +1705,7 @@ end;
 name: switch2
 website: https://www.switch.ch/security/info/public-dns/
 zone: Europe
-tags: non-profit, Switzerland, Europe
+tags: Switzerland, Europe
 address: 130.59.31.251:443
 host: dns.switch.ch/dns-query
 keepalive: 20,25
