@@ -31,7 +31,7 @@ after 100
 send -- "rm -f tmp\r"
 after 100
 send -- "man fdns > tmp\r"
-after 100
+sleep 2
 send -- "cat tmp\r"
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}

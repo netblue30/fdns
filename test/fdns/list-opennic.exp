@@ -7,19 +7,18 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "fdns --list=OpenNIC --zone=Americas\r"
+send -- "fdns --list=OpenNIC --zone=Asia-Pacific\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
-	"Current zone:"
+	"Current zone: AsiaPacific"
 }
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"boothlabs" {puts "1\n"}
-	"tin-fan3" {puts "2\n"}
+	"seby"
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"servers found"
+	"seby2"
 }
 
 

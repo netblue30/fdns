@@ -34,9 +34,6 @@ echo "TESTING: list=OpenNIC (test/fdns/list-opennic.exp)"
 echo "TESTING: list=adblocker (test/fdns/list-adblocker.exp)"
 ./list-adblocker.exp
 
-echo "TESTING: list=non-profit (test/fdns/list-non-profit.exp)"
-./list-non-profit.exp
-
 echo "TESTING: test-url (test/fdns/test-url.exp)"
 ./test-url.exp
 

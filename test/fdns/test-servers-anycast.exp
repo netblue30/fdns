@@ -20,30 +20,6 @@ expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
 	"DoH query average"
 }
-expect {
-	timeout {puts "TESTING ERROR 3\n";exit}
-	"cleanbrowsing"
-}
-expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
-	"SSL/TLS connection"
-}
-expect {
-	timeout {puts "TESTING ERROR 5\n";exit}
-	"DoH query average"
-}
-expect {
-	timeout {puts "TESTING ERROR 6\n";exit}
-	"cloudflare"
-}
-expect {
-	timeout {puts "TESTING ERROR 7\n";exit}
-	"SSL/TLS connection"
-}
-expect {
-	timeout {puts "TESTING ERROR 8\n";exit}
-	"DoH query average"
-}
 
 after 100
 puts "\nall done\n"
