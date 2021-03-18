@@ -219,6 +219,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 		}
 
+		assert(tok2);
 		if (strcmp(tok1, "name") == 0) {
 			if (s->name)
 				goto errout;
@@ -388,6 +389,8 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			exit(1);
 		}
 	}
+	tok1 = NULL;
+	tok2 = NULL;
 
 	if (host) {
 		free(s);
@@ -400,6 +403,8 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 
 errout:
 	free(s);
+	tok1 = NULL;
+	tok2 = NULL;
 	fprintf(stderr, "Error: file %s, line %d, field defined twice\n", fname, *linecnt);
 	exit(1);
 }
@@ -444,6 +449,7 @@ static void load_list(void) {
 			unlisted_add(token);
 			token = strtok(NULL, ",");
 		}
+		free(tmp);
 	}
 
 	load_file(PATH_ETC_SERVER_LOCAL_LIST);
