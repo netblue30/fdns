@@ -208,6 +208,11 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 //printf("parser: #%s#, #%s#\n", tok1, (tok2)? tok2: "nil");
 
 		if (!host) {
+			if (tok2 == NULL) {
+				fprintf(stderr, "Error: file %s, line %d, invalid command\n", fname, *linecnt);
+				exit(1);
+			}
+
 			if (strcmp(tok1, "unlist") == 0) {
 				unlisted_add(tok2);
 				continue;
@@ -219,10 +224,15 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 		}
 
-		assert(tok2);
+		if (strcmp(tok1, "end") != 0 && tok2 == NULL) {
+			fprintf(stderr, "Error: file %s, line %d, invalid command\n", fname, *linecnt);
+			exit(1);
+		}
+
 		if (strcmp(tok1, "name") == 0) {
 			if (s->name)
 				goto errout;
+			assert(tok2);
 			s->name = strdup(tok2);
 			if (!s->name)
 				errExit("strdup");
@@ -231,6 +241,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "website") == 0) {
 			if (s->website)
 				goto errout;
+			assert(tok2);
 			s->website = strdup(tok2);
 			if (!s->website)
 				errExit("strdup");
@@ -239,6 +250,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "zone") == 0) {
 			if (s->zone)
 				goto errout;
+			assert(tok2);
 			s->zone = strdup(tok2);
 			if (!s->zone)
 				errExit("strdup");
@@ -247,6 +259,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "tags") == 0) {
 			if (s->tags)
 				goto errout;
+			assert(tok2);
 			s->tags = strdup(tok2);
 			if (!s->tags)
 				errExit("strdup");
@@ -255,6 +268,8 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "address") == 0) {
 			if (s->address)
 				goto errout;
+			assert(tok2);
+
 			// check format: ip:port or domain:port
 			char *ptr = strchr(tok2, ':');
 			if (!ptr) {
@@ -275,6 +290,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "host") == 0) {
 			if (s->host)
 				goto errout;
+			assert(tok2);
 			s->host = strdup(tok2);
 			if (!s->host)
 				errExit("strdup");
@@ -296,6 +312,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "sni") == 0) {
 			if (s->sni)
 				goto errout;
+			assert(tok2);
 			if (strcmp(tok2, "yes") == 0)
 				s->sni = 1;
 			else if (strcmp(tok2, "no") == 0)
@@ -308,6 +325,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "transport") == 0) {
 			if (s->transport)
 				goto errout;
+			assert(tok2);
 			s->transport = strdup(buf + 11);
 			if (!s->transport)
 				errExit("strdup");
@@ -316,6 +334,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "keepalive-query") == 0) {
 			if (s->keepalive_query)
 				goto errout;
+			assert(tok2);
 			if (strcmp(tok2, "yes") == 0)
 				s->keepalive_query = 1;
 			else if (strcmp(tok2, "no") == 0)
@@ -328,6 +347,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "keepalive") == 0) {
 			if (s->keepalive_min)
 				goto errout;
+			assert(tok2);
 
 			// detect keepalive range
 			if (strchr(tok2, ',')) {
@@ -352,6 +372,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 		}
 		else if (strcmp(tok1, "end") == 0) {
+			assert(tok2 == NULL);
 			// check server data
 			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
