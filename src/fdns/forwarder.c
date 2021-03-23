@@ -24,6 +24,12 @@ Forwarder *fwd_active = NULL;
 
 void forwarder_set(const char *str) {
 	assert(str);
+	if (*str == '.')
+		str++;
+	if (*str == '\0') {
+		fprintf(stderr, "Error: invalid fowardig domain\n");
+		exit(1);
+	}
 
 	Forwarder *f = malloc(sizeof(Forwarder));
 	if (!f)
@@ -35,7 +41,7 @@ void forwarder_set(const char *str) {
 	if (!str)
 		errExit("strdup");
 	char *ptr = strchr(f->name, '@');
-	if (!ptr) {
+	if (!ptr || ptr == f->name) {
 		fprintf(stderr, "Error: invalid forwarding %s\n", str);
 		exit(1);
 	}
@@ -55,7 +61,7 @@ void forwarder_set(const char *str) {
 	f->sock = net_remote_dns_socket(&f->saddr, f->ip);
 	f->slen = sizeof(f->saddr);
 	if (arg_id == 0) {
-		printf("forwarding %s to %s\n", f->name, f->ip);
+		printf("forwardingd \"%s\" to %s\n", f->name, f->ip);
 		fflush(0);
 	}
 

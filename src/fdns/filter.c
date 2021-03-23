@@ -134,6 +134,7 @@ static DFilter default_filter[] = {
 typedef struct hash_entry_t {
 	struct hash_entry_t *next;
 	char label;
+	unsigned short hash2;
 	char *name;
 } HashEntry;
 
@@ -154,13 +155,14 @@ void filter_init(void) {
 }
 
 // djb2 hash function by Dan Bernstein
-static inline int hash(const char *str) {
+static inline int hash(const char *str, unsigned short *hash2) {
 	uint32_t hash = 5381;
 	int c;
 
 	while ((c = *str++) != '\0')
 		hash = ((hash << 5) + hash) ^ c; // hash * 33 ^ c
 
+	*hash2 = hash % 39119;
 	return (int) (hash & (MAX_HASH_ARRAY - 1));
 }
 
@@ -179,7 +181,7 @@ void filter_add(char label, const char *domain) {
 	if (!h->name)
 		errExit("strdup");
 
-	int hval = hash(domain);
+	int hval = hash(domain, &h->hash2);
 	assert(hval < MAX_HASH_ARRAY);
 	h->next = blist[hval];
 	blist[hval] = h;
@@ -192,13 +194,16 @@ void filter_add(char label, const char *domain) {
 
 static HashEntry *filter_search(const char *domain) {
 	assert(domain);
-	int hval = hash(domain);
+	unsigned short hash2;
+	int hval = hash(domain, &hash2);
 	assert(hval < MAX_HASH_ARRAY);
 	HashEntry *ptr = blist[hval];
 
 	while (ptr) {
-		if (strcmp(domain, ptr->name) == 0)
-			return ptr; // found
+		if (hash2 == ptr->hash2) {
+			if (strcmp(domain, ptr->name) == 0)
+				return ptr; // found
+		}
 		ptr = ptr->next;
 	}
 
