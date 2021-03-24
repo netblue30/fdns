@@ -27,7 +27,7 @@ void forwarder_set(const char *str) {
 	if (*str == '.')
 		str++;
 	if (*str == '\0') {
-		fprintf(stderr, "Error: invalid fowardig domain\n");
+		fprintf(stderr, "Error: invalid forwarding domain\n");
 		exit(1);
 	}
 
