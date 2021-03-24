@@ -1056,7 +1056,7 @@ end;
 name: dnsforfamily
 website: https://dnsforfamily.com
 zone: Europe
-tags: family, Germany, Europe
+tags: admin-down, family, Germany, Europe
 address: 95.217.213.94:443
 host: dns-doh.dnsforfamily.com/dns-query
 keepalive: 140,170
@@ -1865,7 +1865,7 @@ end;
 name: unfiltered-id
 website: https://www.linuxsec.org/
 zone: AsiaPacific
-tags: Indonesia, AsiaPacific
+tags: admin-down, Indonesia, AsiaPacific
 address: 116.0.2.86:443
 host: doh.this.web.id/dns-query
 keepalive: 140,170

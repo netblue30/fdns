@@ -162,5 +162,4 @@ void procs_list(void) {
 		free(fname);
 	}
 	closedir(dir);
-	printf("\n");
 }
