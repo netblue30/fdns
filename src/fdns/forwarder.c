@@ -61,7 +61,7 @@ void forwarder_set(const char *str) {
 	f->sock = net_remote_dns_socket(&f->saddr, f->ip);
 	f->slen = sizeof(f->saddr);
 	if (arg_id == 0) {
-		printf("forwardingd \"%s\" to %s\n", f->name, f->ip);
+		printf("forwarding \"%s\" to %s\n", f->name, f->ip);
 		fflush(0);
 	}
 
