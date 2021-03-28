@@ -1,4 +1,3 @@
-#
 # Firejail DNS Proxy trackers drop list - GPLv3 license
 #
 # Sources:
@@ -8,11 +7,8 @@
 # Copyright Electronic Fronteer Foundation, license GPLv3:
 #         https://github.com/EFForg/privacybadger/blob/master/LICENSE
 #
-
 127.0.0.1 data.adobedc.net
-127.0.0.1 sc.adobedc.net
 127.0.0.1 a351fec2c318c11ea9b9b0a0ae18fb0b-1529426863.eu-central-1.elb.amazonaws.com
-127.0.0.1 a5e652663674a11e997c60ac8a4ec150-1684524385.eu-central-1.elb.amazonaws.com
 127.0.0.1 ghochv3eng.trafficmanager.net
 127.0.0.1 7eer.net
 127.0.0.1 at-go.kelkoogroup.net
@@ -128,7 +124,6 @@
 127.0.0.1 ad-stir.com
 127.0.0.1 adswizz.com
 127.0.0.1 adsymptotic.com
-127.0.0.1 adwhirl.com
 127.0.0.1 agkn.com
 127.0.0.1 alcmpn.com
 127.0.0.1 alexametrics.com
@@ -164,7 +159,6 @@
 127.0.0.1 btttag.com
 127.0.0.1 casalemedia.com
 127.0.0.1 celtra.com
-127.0.0.1 chartbit.net
 127.0.0.1 chinaso.com
 127.0.0.1 cintnetworks.com
 127.0.0.1 clck.yandex.ru
@@ -328,7 +322,6 @@
 127.0.0.1 po.st
 127.0.0.1 postrelease.com
 127.0.0.1 powerlinks.com
-127.0.0.1 privacy.purch.com
 127.0.0.1 prod-mng-proxy-connext.azurewebsites.net
 127.0.0.1 pro-market.net
 127.0.0.1 proper.io
@@ -428,7 +421,6 @@
 127.0.0.1 xlisting.jp
 127.0.0.1 xplosion.de
 127.0.0.1 yadro.ru
-127.0.0.1 ybp.yahoo.com
 127.0.0.1 yieldlab.net
 127.0.0.1 yieldoptimizer.com
 127.0.0.1 youmi.net
@@ -437,7 +429,6 @@
 127.0.0.1 zedo.com
 127.0.0.1 zemanta.com
 127.0.0.1 zkcdn.net
-127.0.0.1 bango.combango.org
 127.0.0.1 basic-check.disconnect.me
 127.0.0.1 supercell.net
 127.0.0.1 32bit.com

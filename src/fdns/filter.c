@@ -300,8 +300,8 @@ static void filter_load_list(char label, const char *fname, int store) {
 void filter_load_all_lists(void) {
 	filter_load_list('T', PATH_ETC_TRACKERS_LIST, arg_clean_filters);
 	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST, arg_clean_filters);
-	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
 	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
+	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
 	filter_load_list('H', PATH_ETC_HOSTS_LIST, arg_clean_filters);
 
 #ifdef DEBUG_STATS
