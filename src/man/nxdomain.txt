@@ -1,0 +1,35 @@
+.TH NXDOMAIN 1 "MONTH YEAR" "VERSION" "nxdomain man page"
+.SH NAME
+nxdomain \- simple utility program to clean up hosts files
+.SH SYNOPSIS
+.PP
+nxdomain [options] file-in [file-out]
+
+.SH DESCRIPTION
+nxdomain is a program that removes dead domains from a host list.
+The program accepts regular hosts files with IP addresses of 127.0.0.1 or 0.0.0.0,
+or lists of domain names (one domain per line).
+If no output file is specified, the results are printed on stdout.
+
+.SH OPTIONS
+.TP
+\fB\-\-help, \-?, \-h
+Print command-line options and exit.
+.TP
+\fB\-\-server=ip-address
+Use this DNS server, default 1.1.1.1 (Cloudflare).
+
+.SH EXAMPLE
+$ nxdomain adblocker.txt adblocker.out
+
+.SH LICENSE
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+.PP
+Homepage: https://firejaildns.wordpress.com
+.br
+Development: https://github.com/netblue30/fdns
+
+.SH SEE ALSO
+\&\flfdns\fR\|(1)
+
+
