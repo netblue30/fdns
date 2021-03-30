@@ -640,6 +640,7 @@ Homepage: https://firejaildns.wordpress.com
 Development: https://github.com/netblue30/fdns
 
 .SH SEE ALSO
-\&\flfirejail\fR\|(1)
+\&\flfirejail\fR\|(1),
+\&\flnxdomain\fR\|(1)
 
 

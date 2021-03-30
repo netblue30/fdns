@@ -17,18 +17,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <unistd.h>
-#include <sys/types.h>
+
+//***************************************************************
+// Supported file formats:
+//    - regular hosts files with ip addresses of 127.0.0.1 or 0.0.0.0
+//    - domain name lists, one domain per line
+//***************************************************************
+
+
+#include "nxdomain.h"
 #include <sys/wait.h>
+
+static char *arg_fin = NULL;
+static char *arg_fout = NULL;
+static char *arg_server="1.1.1.1";
 
 #define MAXBUF (10 * 1024)
 static char outbuf[MAXBUF];
-int chunk_size = 100;
 
 static char *run_program(const char *cmd) {
 	assert(cmd);
@@ -46,9 +51,6 @@ static char *run_program(const char *cmd) {
 	return outbuf;
 }
 
-// supported formats:
-//    - lines in regular hosts files with ip addresses of 127.0.0.1 and 0.0.0.0
-//    - lists of domain names, one domain per line
 static void test(FILE *fpin, FILE *fpout) {
 	assert(fpin);
 	assert(fpout);
@@ -102,7 +104,7 @@ static void test(FILE *fpin, FILE *fpout) {
 
 		// run the domain through nslookup
 		char *cmd;
-		if (asprintf(&cmd, "nslookup %s 1.1.1.1", start) == -1) {
+		if (asprintf(&cmd, "nslookup %s %s", start, arg_server) == -1) {
 			perror("asprintf");
 			exit(1);
 		}
@@ -138,7 +140,7 @@ static int split(const char *fname_in, const char *fname_out) {
 	int line = 0;
 	int chunk = 0;
 	while (fgets(buf, MAXBUF, fp)) {
-		if ((line % chunk_size) == 0) {
+		if ((line % FILE_CHUNK_SIZE) == 0) {
 			if (fpout)
 				fclose(fpout);
 			char *f;
@@ -205,17 +207,12 @@ static int split(const char *fname_in, const char *fname_out) {
 	return chunk;
 }
 
-static void usage(void) {
-	printf("nxdomain - simple utility to remove domains from a list based on NXDOMAIN reported by nslookup\n");
-	printf("Usage: nxdomain file_in file_out\n");
-}
-
-static void run_chunk(int chunk, int chunks) {
-	printf("*** chunk %d/%d ***", chunk, chunks);
+static void run_chunk(int chunk, int chunks, const char *tname_in, const char *tname_out) {
+	printf("*** chunk %d/%d ***", chunk + 1, chunks);
 	fflush(0);
 
 	char *fin;
-	if (asprintf(&fin, "temp-%d", chunk) == -1) {
+	if (asprintf(&fin, "%s-%d", tname_in, chunk) == -1) {
 		perror("asprintf");
 		exit(1);
 	}
@@ -226,7 +223,7 @@ static void run_chunk(int chunk, int chunks) {
 	}
 
 	char *fout;
-	if (asprintf(&fout, "tempout-%d", chunk) == -1) {
+	if (asprintf(&fout, "%s-%d", tname_out, chunk) == -1) {
 		perror("asprintf");
 		exit(1);
 	}
@@ -246,20 +243,82 @@ static void run_chunk(int chunk, int chunks) {
 }
 
 
+static void usage(void) {
+	printf("nxdomain - version %s\n", VERSION);
+	printf("nxdomain is an utility program that removes dead domains from a host list.\n");
+	printf("\n");
+	printf("Usage: nxdomain [options] file-in [file-out]\n");
+	printf("\n");
+	printf("If no file-out is specified, the results are printed on stdout.\n");
+	printf("\n");
+	printf("Options:\n");
+	printf("\t--help, -?, -h - show this help screen.\n");
+	printf("\t--server=ip-address - use this DNS server, default 1.1.1.1 (Cloudflare).\n");
+	printf("\n");
+}
+
 int main(int argc, char **argv) {
-	if (argc != 3) {
+	if (argc < 2) {
+		fprintf(stderr, "Error: invalid number of arguments\n");
 		usage();
 		return 1;
 	}
-	if (strcmp(argv[1], "-h") == 0) {
-		usage();
-		return 0;
+
+	int i;
+	for (i = 1; i < argc; i++) {
+		if (strcmp(argv[i], "-h") == 0 ||
+		    strcmp(argv[i], "-?") == 0 ||
+		    strcmp(argv[i], "--help") == 0) {
+		 	usage();
+		 	return 0;
+		}
+		else if (strcmp(argv[i], "--version") == 0) {
+			printf("nxdomain - version %s\n", VERSION);
+			return 0;
+		}
+		else if (strncmp(argv[i], "--server=", 9) == 0) {
+			uint32_t addr;
+			if (atoip(argv[i]+9, &addr)) {
+				fprintf(stderr, "Error: invalid server IPv4 address\n");
+				usage();
+				return 1;
+			}
+			arg_server = strdup(argv[i] + 9);
+			if (!arg_server)
+				errExit("strdup");
+		}
+		else if (arg_fin == NULL) {
+			arg_fin = strdup(argv[i]);
+			if (!arg_fin)
+				errExit("strdup");
+		}
+		else if (arg_fout == NULL) {
+			arg_fout = strdup(argv[i]);
+			if (!arg_fout)
+				errExit("strdup");
+		}
+		else {
+			fprintf(stderr, "Error: invalid command\n");
+			usage();
+			return 1;
+		}
 	}
 
-	int chunks = split(argv[1], "temp");
+	// split input file
+	char tname_in[32] = "/tmp/nxdomainXXXXXX";
+	int tname_fd = mkstemp(tname_in);
+	if (tname_fd == -1)
+		errExit("mkstemp");
+	close(tname_fd);
+	char *tname_out;
+	if (asprintf(&tname_out, "%sout", tname_in) == -1)
+		errExit("asprintf");
+
+	int chunks = split(arg_fin, tname_in);
 	fflush(0);
-	int i;
-	for (i = 0; i < chunks; i += 3) {
+
+	// frocess file chunks
+	for (i = 0; i < chunks; i += 4) {
 		pid_t child = fork();
 		if (child == -1) {
 			perror("fork");
@@ -272,37 +331,68 @@ int main(int argc, char **argv) {
 				exit(1);
 			}
 			if (child == 0) {
-				run_chunk(i, chunks);
+				child = fork();
+				if (child == -1) {
+					perror("fork");
+					exit(1);
+				}
+				if (child == 0) {
+					run_chunk(i, chunks, tname_in, tname_out);
+					exit(0);
+				}
+				else if ((i + 1) < chunks)
+					run_chunk(i + 1, chunks, tname_in, tname_out);
+				int wstatus;
+				waitpid(child, &wstatus, 0);
 				exit(0);
 			}
-			else if ((i + 1) < chunks)
-				run_chunk(i + 1, chunks);
+			else if ((i + 2) < chunks)
+				run_chunk(i + 2, chunks, tname_in, tname_out);
 			int wstatus;
 			waitpid(child, &wstatus, 0);
 			exit(0);
 		}
-		else if ((i + 2) < chunks)
-			run_chunk(i + 2, chunks);
+		else if ((i + 3) < chunks)
+			run_chunk(i + 3, chunks, tname_in, tname_out);
 
 		int wstatus;
 		waitpid(child, &wstatus, 0);
 	}
 
-	int rv = unlink(argv[2]);
-	(void) rv;
+	// print result
+	if (arg_fout) {
+		int rv = unlink(arg_fout);
+		(void) rv;
+	}
+	printf("\n\n\n");
+
 	for (i = 0; i < chunks; i++) {
-		char *cmd;
-		if (asprintf(&cmd, "cat tempout-%d >> %s", i, argv[2]) == -1) {
-			perror("asprintf");
-			exit(1);
+		if (arg_fout) {
+			char *cmd;
+			if (asprintf(&cmd, "cat %s-%d >> %s", tname_out, i, arg_fout) == -1)
+				errExit("asprintf");
+			int rv = system(cmd);
+			(void) rv;
+			free(cmd);
 		}
-		rv = system(cmd);
+
+		char *cmd;
+		if (asprintf(&cmd, "cat %s-%d", tname_out, i) == -1)
+			errExit("asprintf");
+		int rv = system(cmd);
+		(void) rv;
 		free(cmd);
 	}
 
-	rv = system("rm tempout-*");
+	char *cmd;
+	if (asprintf(&cmd, "rm %s-*", tname_out) == -1)
+		errExit("asprintf");
+	int rv = system(cmd);
 	(void) rv;
+
 	printf("\n");
+	unlink(tname_in);
+	free(tname_out);
 
 	return 0;
 }
