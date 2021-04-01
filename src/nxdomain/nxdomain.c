@@ -102,6 +102,12 @@ static void test(FILE *fpin, FILE *fpout) {
 		if (strstr(start, "::")) // IPv6 addresses!
 			continue;
 
+
+		if (strcspn(start, "\\&!?\"'<>%^(){}[];,|") != strlen(start)) {
+			fprintf(stderr, "\nError: invalid domain %s, skipping...\n", start);
+			continue;
+		}
+
 		// run the domain through nslookup
 		char *cmd;
 		if (asprintf(&cmd, "nslookup %s %s", start, arg_server) == -1) {
