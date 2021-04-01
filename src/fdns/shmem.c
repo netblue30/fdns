@@ -219,14 +219,16 @@ static inline void print_line(const char *str, int col) {
 // 31 - red
 // 91 -bright red
 // 92 - bright green
-	if (strstr(str, "Error"))
+
+	if (strstr(str, "Error") || strstr(str, "Warning"))
 		printf("\033[91m%.*s\033[0m", col, str);
-	else if (strstr(str, "fp-tracker  "))
-		printf("\033[91m%.*s\033[0m", col, str);
+//	else if (strstr(str, "fp-tracker  "))
+//		printf("\033[91m%.*s\033[0m", col, str);
 	else if (strstr(str, "doh  "))
 		printf("\033[91m%.*s\033[0m", col, str);
+
 	else if (strstr(str, ", dropped") || strstr(str, "refused by service provider") || strstr(str, " nxdomain"))
-		printf("\033[92m%.*s\033[0m", col, str);
+		printf("\033[31m%.*s\033[0m", col, str);
 	else
 		printf("%.*s", col, str);
 #ifdef HAVE_GCOV
