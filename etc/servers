@@ -1564,7 +1564,7 @@ name: quad9-2
 website: https://quad9.net
 zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
-address: 149.112.112.112:5053
+address: 149.112.112.112:443
 host: dns.quad9.net/dns-query
 keepalive: 550,590
 end;
@@ -1573,7 +1573,7 @@ name: quad9-3
 website: https://quad9.net
 zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
-address: 149.112.112.9:5053
+address: 149.112.112.9:443
 host: dns9.quad9.net/dns-query
 keepalive: 550,590
 end;
@@ -1582,7 +1582,7 @@ name: quad9-unsecured
 website: https://quad9.net
 zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
-address: 9.9.9.10:5053
+address: 9.9.9.10:443
 host: dns10.quad9.net/dns-query
 keepalive: 550,590
 end;
@@ -1591,7 +1591,7 @@ name: quad9-unsecured-2
 website: https://quad9.net
 zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
-address: 149.112.112.10:5053
+address: 149.112.112.10:443
 host: dns10.quad9.net/dns-query
 keepalive: 550,590
 end;
