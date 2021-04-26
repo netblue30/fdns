@@ -835,11 +835,10 @@ host: family.cloudflare-dns.com/dns-query
 keepalive: 350,390
 end;
 
-# expired cert
 name: commons-host
 website: https://dev.to/commonshost/how-we-built-a-doh-cdn-with-20-global-edge-servers-in-10-days-1man
 zone: Americas, AsiaPacific, Europe
-tags: geocast, Americas, AsiaPacific, Europe
+tags: admin-down, geocast, Americas, AsiaPacific, Europe
 address: commons.host:443
 host: commons.host/
 sni: yes
@@ -895,15 +894,6 @@ address: 91.230.211.67:443
 host: dns.comss.one/dns-query
 keepalive: 40,50
 keepalive-query: yes
-end;
-
-name: containerpi
-website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-zone: AsiaPacific
-tags: Japan, AsiaPacific
-address: 45.77.180.10:443
-host: dns.containerpi.com/dns-query
-keepalive: 140,170
 end;
 
 name: cznic
@@ -1368,6 +1358,7 @@ tags: security, Indonesia, AsiaPacific
 address: 103.85.15.60:443
 host: doh.linuxsec.org/dns-query
 keepalive: 140,170
+sni: yes
 end;
 
 name: linuxsec-adblocker
@@ -1377,6 +1368,7 @@ tags: security, adblocker, Indonesia, AsiaPacific
 address: 103.85.15.60:443
 host: doh.linuxsec.org/adguard
 keepalive: 140,170
+sni: yes
 end;
 
 # short keepalive
