@@ -14,9 +14,6 @@ fdns-*.tar.xz
 fdns.1
 src/fdns/fdns
 src/common.mk
-src/filter/trackers
+src/nxdomain/nxdomain
 test/src/fdnstress/fdnstress
-test/src/ptest/ptest
 gcov-dir
-src/cashpack-0.3
-src/cashpack/libhpack.a
