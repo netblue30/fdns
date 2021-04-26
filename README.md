@@ -1,4 +1,9 @@
 # Firejail DNS-over-HTTPS Proxy Server
+
+<a href="https://www.youtube.com/watch?v=qDZ5EYPVF44
+" target="_blank"><img src="http://img.youtube.com/vi/qDZ5EYPVF44/0.jpg"
+alt="Firejail Encrypted DNS HowTo" border="10" /><br/>Firejail Intro</a>
+
 DNS over HTTPS (DoH) is a next-generation communication protocol on track on becoming a major Internet standard (<a href="https://datatracker.ietf.org/doc/rfc8484/">RFC 8484</a>). By adding strong encryption and authentication to the good old DNS protocol, DoH tries to eliminate some of the biggest problems DNS had from the beginning: censorship, surveillance, and man-in-the-middle attacks.
 
 FDNS was designed to run as a local DoH proxy on a Linux desktop, or as a server for a small network. Lean and mean, it protects the computers against some of the most common cyber threats, all while improving the privacy and the system performance.
