@@ -1393,7 +1393,7 @@ end;
 name: mullvad
 website: https://mullvad.net/
 zone: Americas, AsiaPacific, Europe
-tags: geocast, Americas, AsiaPacific, Europe
+tags: admin-down, geocast, Americas, AsiaPacific, Europe
 address: doh.mullvad.net:443
 host: doh.mullvad.net/dns-query
 keepalive: 20,25
@@ -1403,7 +1403,7 @@ end;
 name: mullvad-adblocker
 website: https://mullvad.net/
 zone: Americas, AsiaPacific, Europe
-tags: geocast, adblocker, Americas, AsiaPacific, Europe
+tags: admin-down, geocast, adblocker, Americas, AsiaPacific, Europe
 address: doh.mullvad.net:443
 host: adblock.doh.mullvad.net/dns-query
 keepalive: 20,25

@@ -1,3 +1,16 @@
+fdns (0.9.66) baseline; urgency=low
+  * support for a servers.local file in etc directory
+  * seccomp list update
+  * added block-doh in servers config file
+  * --unlist command line option
+  * support unlist command in servers config file
+  * remove non-profilt tag
+  * nxdomain tool
+  * adblock filter update
+  * server list update
+  * bug fixes
+ -- netblue30 <netblue30@yahoo.com>  Sat, 1 May 2021 08:00:00 -0500
+
 fdns (0.9.64.2) baseline; urgency=low
   * --blocklist and --blocklist-file command line options
   * --fallback-server command line option
