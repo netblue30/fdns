@@ -25,7 +25,7 @@ static void procs_dir_cleanup(void) {
 	if (!(dir = opendir("/run/fdns"))) {
 		// sleep 2 seconds and try again
 		sleep(2);
-		if (!(dir = opendir("/proc"))) {
+		if (!(dir = opendir("/run/fdns"))) {
 			fprintf(stderr, "Error: cannot open /proc directory\n");
 			exit(1);
 		}
@@ -108,7 +108,7 @@ void procs_list(void) {
 	if (!(dir = opendir("/run/fdns"))) {
 		// sleep 2 seconds and try again
 		sleep(2);
-		if (!(dir = opendir("/proc")))
+		if (!(dir = opendir("/run/fdns")))
 			return;
 	}
 
