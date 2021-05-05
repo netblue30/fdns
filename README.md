@@ -2,7 +2,9 @@
 
 <div style="height:20px;">&nbsp;</div>
 
-<iframe width="320" height="180" src="https://www.brighteon.com/embed/e38d4f93-b147-4fa0-b941-cfd8f11bc628" frameborder="0" allowfullscreen></iframe>
+<a href="https://www.brighteon.com/e38d4f93-b147-4fa0-b941-cfd8f11bc628" target="_blank">
+<img src="https://photos.brighteon.com/thumbnail/0c13a550-3d6e-40ef-8497-28aff073eb94"
+alt="Firejail Encrypted DNS HowTo" border="10" /><br/>HowTo</a>
 
 <div style="height:20px;">&nbsp;</div>
 
