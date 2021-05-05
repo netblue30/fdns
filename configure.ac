@@ -20,7 +20,7 @@
 
 
 AC_PREREQ([2.68])
-AC_INIT(fdns, 0.9.66, netblue30@protonmail.com, , https://firejaildns.wordpress.com)
+AC_INIT(fdns, 0.9.67, netblue30@protonmail.com, , https://firejaildns.wordpress.com)
 AC_CONFIG_SRCDIR([src/fdns/main.c])
 
 AC_CONFIG_MACRO_DIR([m4])

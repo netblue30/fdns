@@ -2,8 +2,8 @@
 
 <div style="height:20px;">&nbsp;</div>
 
-<a href="https://www.youtube.com/watch?v=qDZ5EYPVF44
-" target="_blank"><img src="http://img.youtube.com/vi/qDZ5EYPVF44/0.jpg"
+<a href="https://www.brighteon.com/e38d4f93-b147-4fa0-b941-cfd8f11bc628" target="_blank">
+<img src="https://photos.brighteon.com/thumbnail/0c13a550-3d6e-40ef-8497-28aff073eb94"
 alt="Firejail Encrypted DNS HowTo" border="10" /><br/>HowTo</a>
 
 <div style="height:20px;">&nbsp;</div>
@@ -50,9 +50,4 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 </ul>
 <div style="height:20px;">&nbsp;</div>
 
-## Project Status
-
-Development version 0.9.65.
-
-<div style="height:20px;">&nbsp;</div>
 
