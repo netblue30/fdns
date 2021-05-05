@@ -2,7 +2,7 @@
 
 <div style="height:20px;">&nbsp;</div>
 
-<iframe width="854" height="480" src="https://www.brighteon.com/e38d4f93-b147-4fa0-b941-cfd8f11bc628" frameborder="10" allowfullscreen></iframe>
+<iframe width="854" height="480" src="https://www.brighteon.com/embed/e38d4f93-b147-4fa0-b941-cfd8f11bc628" frameborder="0" allowfullscreen></iframe>
 
 <div style="height:20px;">&nbsp;</div>
 
