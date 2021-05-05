@@ -1,5 +1,5 @@
 Name:           fdns
-Version:        0.9.64.2
+Version:        0.9.66
 Release:        1%{?dist}
 Summary:        Firejail DNS-over-HTTPS Proxy Server
 
@@ -37,7 +37,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %license COPYING
 %doc COPYING README RELNOTES
 %{_bindir}/fdns
+%{_bindir}/nxdomain
 %config %{_sysconfdir}/fdns
 %{_unitdir}/fdns.service
 %{_datadir}/bash-completion/completions/fdns
 %{_mandir}/man1/fdns.1.gz
+%{_mandir}/man1/nxdomain.1.gz
