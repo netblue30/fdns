@@ -79,14 +79,28 @@ AS_IF([test "x$enable_gcov" = "xyes"], [
 AC_CHECK_LIB([pthread], [main], [], AC_MSG_ERROR([*** POSIX thread support not installed ***]))
 AC_CHECK_HEADER(pthread.h,,AC_MSG_ERROR([*** POSIX thread support not installed ***]))
 
-# bring in seccomp and openssl libraries
-AC_CHECK_LIB([seccomp], [main], [], AC_MSG_ERROR([*** libseccomp not installed ***]))
-AC_CHECK_HEADER(seccomp.h,,AC_MSG_ERROR([*** libseccomp development headers not installed ***]))
-echo libseccomp library found
+# bring in openssl library
+#AC_CHECK_LIB([seccomp], [main], [], AC_MSG_ERROR([*** libseccomp not installed ***]))
+#AC_CHECK_HEADER(seccomp.h,,AC_MSG_ERROR([*** libseccomp development headers not installed ***]))
+#echo libseccomp library found
 AX_CHECK_OPENSSL([
 	echo OpenSSL library found], [
 	AC_MSG_ERROR([*** OpenSSL development headers not installed - packages: libssl-dev (Debian/Ubuntu), openssl-devel (Fedora)  ***])
 ])
+
+HAVE_SECCOMP="-DHAVE_SECCOMP"
+AC_ARG_ENABLE([seccomp],
+    AS_HELP_STRING([--disable-seccomp], [disable seccomp]))
+AS_IF([test "x$enable_seccomp" == "xno"], [
+	HAVE_SECCOMP=""
+])
+AC_SUBST(HAVE_SECCOMP)
+
+if test "$HAVE_SECCOMP" = "-DHAVE_SECCOMP"; then
+	AC_CHECK_LIB([seccomp], [main], [], AC_MSG_ERROR([*** libseccomp not installed ***]))
+	AC_CHECK_HEADER(seccomp.h,,AC_MSG_ERROR([*** libseccomp development headers not installed ***]))
+fi
+
 
 # set sysconfdir
 if test "$prefix" = /usr; then
@@ -110,6 +124,7 @@ echo "   sysconfdir: $sysconfdir"
 echo "   systemd directory: $SYSTEMD_DIR"
 echo "   Spectre compiler patch: $HAVE_SPECTRE"
 echo "   apparmor: $HAVE_APPARMOR"
+echo "   seccomp: $HAVE_SECCOMP"
 echo "   EXTRA_LDFLAGS: $EXTRA_LDFLAGS"
 echo "   EXTRA_CFLAGS: $EXTRA_CFLAGS"
 echo "   fatal warnings: $HAVE_FATAL_WARNINGS"

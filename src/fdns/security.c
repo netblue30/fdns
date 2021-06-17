@@ -25,7 +25,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
+#ifdef HAVE_SECCOMP
 #include <seccomp.h>
+#endif
 
 void daemonize(void) {
 	if (daemon(0, 0) == -1)
@@ -72,6 +74,12 @@ void chroot_drop_privs(const char *username) {
 //*************************************************
 // seccomp: resolver process
 //*************************************************
+#ifndef HAVE_SECCOMP
+void seccomp_resolver(void) {};
+int seccomp_load_filter_list(void) {
+	return 0;
+}
+#else
 static uint32_t arch_token;	// system architecture as detected by libseccomp
 
 static void trap_handler_resolver(int sig, siginfo_t *siginfo, void *ucontext) {
@@ -153,3 +161,4 @@ errout:
 	rlogprintf("Warning: cannot initialize seccomp\n");
 }
 
+#endif
