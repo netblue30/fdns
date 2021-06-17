@@ -625,6 +625,7 @@ ac_includes_default="\
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 SYSTEMD_DIR
+HAVE_SECCOMP
 OPENSSL_LDFLAGS
 OPENSSL_LIBS
 OPENSSL_INCLUDES
@@ -694,6 +695,7 @@ enable_apparmor
 enable_fatal_warnings
 enable_gcov
 with_openssl
+enable_seccomp
 with_systemd
 '
       ac_precious_vars='build_alias
@@ -1328,6 +1330,7 @@ Optional Features:
   --enable-apparmor       enable apparmor
   --enable-fatal-warnings -W -Wall -Werror
   --enable-gcov           Gcov instrumentation
+  --disable-seccomp       disable seccomp
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -3710,57 +3713,10 @@ fi
 
 
 
-# bring in seccomp and openssl libraries
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lseccomp" >&5
-$as_echo_n "checking for main in -lseccomp... " >&6; }
-if ${ac_cv_lib_seccomp_main+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lseccomp  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-
-int
-main ()
-{
-return main ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_seccomp_main=yes
-else
-  ac_cv_lib_seccomp_main=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_seccomp_main" >&5
-$as_echo "$ac_cv_lib_seccomp_main" >&6; }
-if test "x$ac_cv_lib_seccomp_main" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBSECCOMP 1
-_ACEOF
-
-  LIBS="-lseccomp $LIBS"
-
-else
-  as_fn_error $? "*** libseccomp not installed ***" "$LINENO" 5
-fi
-
-ac_fn_c_check_header_mongrel "$LINENO" "seccomp.h" "ac_cv_header_seccomp_h" "$ac_includes_default"
-if test "x$ac_cv_header_seccomp_h" = xyes; then :
-
-else
-  as_fn_error $? "*** libseccomp development headers not installed ***" "$LINENO" 5
-fi
-
-
-echo libseccomp library found
+# bring in openssl library
+#AC_CHECK_LIB([seccomp], [main], [], AC_MSG_ERROR([*** libseccomp not installed ***]))
+#AC_CHECK_HEADER(seccomp.h,,AC_MSG_ERROR([*** libseccomp development headers not installed ***]))
+#echo libseccomp library found
 
     found=false
 
@@ -3966,6 +3922,72 @@ rm -f core conftest.err conftest.$ac_objext \
 
 
 
+
+
+HAVE_SECCOMP="-DHAVE_SECCOMP"
+# Check whether --enable-seccomp was given.
+if test "${enable_seccomp+set}" = set; then :
+  enableval=$enable_seccomp;
+fi
+
+if test "x$enable_seccomp" == "xno"; then :
+
+	HAVE_SECCOMP=""
+
+fi
+
+
+if test "$HAVE_SECCOMP" = "-DHAVE_SECCOMP"; then
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lseccomp" >&5
+$as_echo_n "checking for main in -lseccomp... " >&6; }
+if ${ac_cv_lib_seccomp_main+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lseccomp  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+
+int
+main ()
+{
+return main ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_seccomp_main=yes
+else
+  ac_cv_lib_seccomp_main=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_seccomp_main" >&5
+$as_echo "$ac_cv_lib_seccomp_main" >&6; }
+if test "x$ac_cv_lib_seccomp_main" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBSECCOMP 1
+_ACEOF
+
+  LIBS="-lseccomp $LIBS"
+
+else
+  as_fn_error $? "*** libseccomp not installed ***" "$LINENO" 5
+fi
+
+	ac_fn_c_check_header_mongrel "$LINENO" "seccomp.h" "ac_cv_header_seccomp_h" "$ac_includes_default"
+if test "x$ac_cv_header_seccomp_h" = xyes; then :
+
+else
+  as_fn_error $? "*** libseccomp development headers not installed ***" "$LINENO" 5
+fi
+
+
+fi
 
 
 # set sysconfdir
@@ -5159,6 +5181,7 @@ echo "   sysconfdir: $sysconfdir"
 echo "   systemd directory: $SYSTEMD_DIR"
 echo "   Spectre compiler patch: $HAVE_SPECTRE"
 echo "   apparmor: $HAVE_APPARMOR"
+echo "   seccomp: $HAVE_SECCOMP"
 echo "   EXTRA_LDFLAGS: $EXTRA_LDFLAGS"
 echo "   EXTRA_CFLAGS: $EXTRA_CFLAGS"
 echo "   fatal warnings: $HAVE_FATAL_WARNINGS"
