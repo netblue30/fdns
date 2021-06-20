@@ -6,7 +6,7 @@ include ../common.mk
 	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $(INCLUDE) -c $< -o $@
 
 fdns: $(OBJS)
-	$(CC)  $(LDFLAGS) -o $@ $(OBJS)  -lssl -lcrypto -lrt $(LIBS) $(EXTRA_LDFLAGS)
+	$(CC)  $(LDFLAGS) -o $@ $(OBJS)  -lssl -lcrypto -lrt -lseccomp $(LIBS) $(EXTRA_LDFLAGS)
 
 clean:; rm -f *.o fdns *.gcov *.gcda *.gcno
 
