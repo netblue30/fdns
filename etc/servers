@@ -203,7 +203,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.136:443
 host: dns-unfiltered.adguard.com/dns-query
-keepalive: 140,170
+keepalive: 80,110
 end;
 
 name: adguard-unfiltered2
@@ -212,7 +212,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.137:443
 host: dns-unfiltered.adguard.com/dns-query
-keepalive: 140,170
+keepalive: 80,110
 end;
 
 name: adguard
@@ -221,7 +221,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
-keepalive: 140,170
+keepalive: 80,110
 end;
 
 name: adguard2
@@ -230,7 +230,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
-keepalive: 140,170
+keepalive: 80,110
 end;
 
 name: adguard-family
@@ -239,7 +239,7 @@ zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
-keepalive: 140,170
+keepalive: 80,110
 end;
 
 name: adguard-family2
@@ -248,7 +248,7 @@ zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
-keepalive: 140,170
+keepalive: 80,110
 end;
 
 name: adhole
@@ -1557,7 +1557,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 9.9.9.9:443
 host: dns.quad9.net/dns-query
-keepalive: 550,590
+keepalive: 20,25
 end;
 
 name: quad9-2
@@ -1566,7 +1566,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 149.112.112.112:443
 host: dns.quad9.net/dns-query
-keepalive: 550,590
+keepalive: 20.25
 end;
 
 name: quad9-3
@@ -1575,7 +1575,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 149.112.112.9:443
 host: dns9.quad9.net/dns-query
-keepalive: 550,590
+keepalive: 20,25
 end;
 
 name: quad9-unsecured
@@ -1584,7 +1584,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 9.9.9.10:443
 host: dns10.quad9.net/dns-query
-keepalive: 550,590
+keepalive: 20,25
 end;
 
 name: quad9-unsecured-2
@@ -1593,7 +1593,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 149.112.112.10:443
 host: dns10.quad9.net/dns-query
-keepalive: 550,590
+keepalive: 20,25
 end;
 
 name: radeksprta-dot
