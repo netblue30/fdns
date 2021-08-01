@@ -166,7 +166,8 @@ zone: Europe
 tags: France, Europe
 address: 185.216.27.142:443
 host: doh.42l.fr/dns-query
-keepalive: 140,170
+keepalive-query: yes
+keepalive: 40,50
 end;
 
 name: a-and-a
@@ -203,7 +204,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.136:443
 host: dns-unfiltered.adguard.com/dns-query
-keepalive: 80,110
+keepalive: 20,25
 end;
 
 name: adguard-unfiltered2
@@ -212,7 +213,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.137:443
 host: dns-unfiltered.adguard.com/dns-query
-keepalive: 80,110
+keepalive: 20,25
 end;
 
 name: adguard
@@ -221,7 +222,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
-keepalive: 80,110
+keepalive: 20,25
 end;
 
 name: adguard2
@@ -230,7 +231,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
-keepalive: 80,110
+keepalive: 20,25
 end;
 
 name: adguard-family
@@ -239,7 +240,7 @@ zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
-keepalive: 80,110
+keepalive: 20,25
 end;
 
 name: adguard-family2
@@ -248,7 +249,7 @@ zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
-keepalive: 80,110
+keepalive: 20,25
 end;
 
 name: adhole
@@ -284,7 +285,7 @@ end;
 name: adhole4
 website: https://adhole.org/
 zone: Americas
-tags: Texas,  Americas, adblocker
+tags: admin-down, Texas,  Americas, adblocker
 address: 107.155.83.188:443
 host: us-central.adhole.org/dns-query
 keepalive: 40,50
@@ -294,7 +295,7 @@ end;
 name: adhole5
 website: https://adhole.org/
 zone: Americas
-tags: NY,  Americas, adblocker
+tags: admin-down, NY,  Americas, adblocker
 address: 162.245.221.19:443
 host: us-east.adhole.org/dns-query
 keepalive: 40,50
@@ -504,7 +505,7 @@ end;
 name: alekberg-nl-dot
 website: https://alekberg.net/
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 51.15.124.208:853
 host: dnsnl.alekberg.net/dns-query
 transport: dot
@@ -517,17 +518,17 @@ zone: Europe
 tags: Spain, Europe
 address: 185.253.154.66:443
 host: dnses.alekberg.net/dns-query
-keepalive: 140,170
+keepalive: 7
 end;
 
 name: alekberg-es-dot
 website: https://alekberg.net/
 zone: Europe
-tags: admin-down,Spain, Europe
+tags: Spain, Europe
 address: 185.253.154.66:853
 host: dnses.alekberg.net/dns-query
 transport: dot
-keepalive: 140,170
+keepalive: 7
 end;
 
 # short keepalive
@@ -537,7 +538,7 @@ zone: Europe
 tags: Sweden, Europe
 address: 45.153.187.96:443
 host: dnsse.alekberg.net/dns-query
-keepalive: 20,25
+keepalive: 7
 end;
 
 name: alekberg-se-dot
@@ -547,7 +548,7 @@ tags: Sweden, Europe
 address: 45.153.187.96:853
 host: dnsse.alekberg.net/dns-query
 transport: dot
-keepalive: 20,25
+keepalive: 7
 end;
 
 name: appliedprivacy
@@ -569,22 +570,22 @@ address: 146.255.56.98:853
 host: dot1.applied-privacy.net/
 sni: yes
 transport: dot
-keepalive: 7
+keepalive: 4
 end;
 
 name: arapurayil
 website: https://www.dns.arapurayil.com
 zone: AsiaPacific
-tags: admin-down, India, AsiaPacific
+tags: India, AsiaPacific
 address: 3.7.176.123:443
 host: dns.arapurayil.com/dns-query
-keepalive: 7
+keepalive: 40,50
 end;
 
 name: blahdns-fi
 website: https://blahdns.com
 zone: Europe
-tags: admin-down, Finland, Europe, adblocker
+tags: Finland, Europe, adblocker
 address: 95.216.212.177:443
 host: doh-fi.blahdns.com/dns-query
 sni: yes
@@ -631,7 +632,7 @@ zone: Americas
 tags: admin-down, Quebec, Americas, OpenNIC
 address: 158.69.53.73:443
 host: doh.boothlabs.me/dns-query
-keepalive: 550,590
+keepalive: 140,170
 end;
 
 name: bortzmeyer
@@ -659,7 +660,7 @@ zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: free.bravedns.com:443
 host: free.bravedns.com/dns-query
-keepalive: 350,390
+keepalive: 140,170
 sni: yes
 end;
 
@@ -669,7 +670,7 @@ zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: basic.bravedns.com:443
 host: basic.bravedns.com/
-keepalive: 350,390
+keepalive: 140,170
 sni: yes
 end;
 
@@ -787,7 +788,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
-keepalive: 350,390
+keepalive: 140,170
 end;
 
 name: cloudflare2
@@ -796,7 +797,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
-keepalive: 350,390
+keepalive: 140,170
 end;
 
 name: cloudflare-security
@@ -805,7 +806,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
-keepalive: 350,390
+keepalive: 140,170
 end;
 
 name: cloudflare-security2
@@ -814,7 +815,7 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
-keepalive: 350,390
+keepalive: 140,170
 end;
 
 name: cloudflare-family
@@ -823,7 +824,7 @@ zone: Americas, AsiaPacific, Europe
 tags: family
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
-keepalive: 350,390
+keepalive: 140,170
 end;
 
 name: cloudflare-family2
@@ -832,7 +833,7 @@ zone: Americas, AsiaPacific, Europe
 tags: family
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
-keepalive: 350,390
+keepalive: 140,170
 end;
 
 name: commons-host
@@ -843,7 +844,7 @@ address: commons.host:443
 host: commons.host/
 sni: yes
 keepalive-query: yes
-keepalive: 250,290
+keepalive: 140,170
 end;
 
 name: commsone
@@ -934,7 +935,7 @@ address: 5.45.107.88:443
 host: doh.defaultroutes.de/dns-query
 sni: yes
 keepalive-query: yes
-keepalive: 250,290
+keepalive: 140,170
 end;
 
 name: digitalcourage-dot
@@ -975,23 +976,25 @@ host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 140,170
 end;
 
+# short keepalive
 name: digital-society-dot
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: Switzerland, Europe
+tags: admin-down, Switzerland, Europe
 address: 185.95.218.42:853
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 20,25
+keepalive: 4
 transport: dot
 end;
 
+# short keepalive
 name: digital-society-dot2
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: Switzerland, Europe
+tags: admin-down, Switzerland, Europe
 address: 185.95.218.43:853
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 20,25
+keepalive: 4
 transport: dot
 end;
 
@@ -1022,7 +1025,7 @@ tags: geocast, Estonia, Germany, Europe
 address: doh.dns.sb:443
 host: doh.dns.sb/dns-query
 sni: yes
-keepalive: 250,290
+keepalive: 140,170
 end;
 
 name: dnscrypt-ca
@@ -1046,10 +1049,10 @@ end;
 name: dnsforfamily
 website: https://dnsforfamily.com
 zone: Europe
-tags: admin-down, family, Germany, Europe
+tags: family, Germany, Europe
 address: 95.217.213.94:443
 host: dns-doh.dnsforfamily.com/dns-query
-keepalive: 140,170
+keepalive: 20,25
 end;
 
 name: dnsforfamily-dot
@@ -1058,17 +1061,18 @@ zone: Europe
 tags: faimly, Germany, Europe
 address: 95.217.213.94:853
 host: dns-dot.dnsforfamily.com/dns-query
-keepalive: 550,590
+keepalive: 140,170
 transport: dot
 end;
 
+# short keepalive
 name: dnsforge
 website: https://dnsforge.de
 zone: Europe
-tags: Germany, Europe, adblocker
+tags: admin-down, Germany, Europe, adblocker
 address: 176.9.93.198:443
 host: dnsforge.de/dns-query
-keepalive: 140,170
+keepalive: 4
 end;
 
 name: dnshome
@@ -1117,7 +1121,7 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 94.247.43.254:853
 host: opennic1.eth-services.de:853/
-keepalive: 40,50
+keepalive: 140,170
 end;
 
 # ns31.de.dns.opennic.glue
@@ -1128,7 +1132,7 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 195.10.195.195:853
 host: opennic2.eth-services.de:853/
-keepalive: 40,50
+keepalive: 140,170
 end;
 
 name: faelix-uk-adblocker
@@ -1152,7 +1156,7 @@ end;
 name: faelix-ch-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: Switzerland, Europe, adblocker
+tags: admin-down, Switzerland, Europe, adblocker
 address: 185.134.196.52:443
 host: pdns.faelix.net/
 keepalive: 20,25
@@ -1218,7 +1222,7 @@ zone: Europe
 tags: Germany, Europe
 address: 5.1.66.255:443
 host: doh.ffmuc.net/dns-query
-keepalive: 140,170
+keepalive: 40,50
 end;
 
 name: flatuslifir
@@ -1252,7 +1256,7 @@ end;
 name: hostux
 website: https://hostux.network/en/index.html
 zone: Europe
-tags: Luxembourg, Europe
+tags: admin-down, Luxembourg, Europe
 address: 185.26.126.37:443
 host: dns.hostux.net/dns-query
 keepalive: 20,25
@@ -1261,7 +1265,7 @@ end;
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
 zone: Europe
-tags: Luxembourg, Europe, adblocker
+tags: admin-down, Luxembourg, Europe, adblocker
 address: 185.26.126.37:443
 host: dns.hostux.net/ads
 keepalive: 20,25
@@ -1273,7 +1277,7 @@ zone: Europe
 tags: admin-down, Switzerland, Europe, OpenNIC
 address: 83.78.120.227:443
 host: ibksturm.synology.me/dns-query
-keepalive: 550,590
+keepalive: 140,170
 end;
 
 name: ibuki
@@ -1282,7 +1286,7 @@ zone: Americas
 tags: Brazil, Americas
 address: 168.138.243.216:443
 host: ibuki.cgnat.net/dns-query
-keepalive: 140,170
+keepalive: 40,50
 end;
 
 name: lavadns-us
@@ -1329,7 +1333,7 @@ zone: Europe
 tags: UK, Europe
 address: 46.101.66.244:853
 host: doh.li/dns-query
-keepalive: 550,590
+keepalive: 140,170
 transport: dot
 end;
 
@@ -1384,52 +1388,10 @@ end;
 name: moulticast
 website: https://www.moulticast.net/dns/
 zone: Europe
-tags: Germany, Europe
+tags: admin-down, Germany, Europe
 address: 140.82.59.231:443
 host: dns.moulticast.net/dns-query
 keepalive: 20,25
-end;
-
-name: mullvad
-website: https://mullvad.net/
-zone: Americas, AsiaPacific, Europe
-tags: admin-down, geocast, Americas, AsiaPacific, Europe
-address: doh.mullvad.net:443
-host: doh.mullvad.net/dns-query
-keepalive: 20,25
-sni: yes
-end;
-
-name: mullvad-adblocker
-website: https://mullvad.net/
-zone: Americas, AsiaPacific, Europe
-tags: admin-down, geocast, adblocker, Americas, AsiaPacific, Europe
-address: doh.mullvad.net:443
-host: adblock.doh.mullvad.net/dns-query
-keepalive: 20,25
-sni: yes
-end;
-
-name: mullvad-dot
-website: https://mullvad.net/
-zone: Americas, AsiaPacific, Europe
-tags: geocast, Americas, AsiaPacific, Europe
-address: doh.mullvad.net:853
-host: doh.mullvad.net/
-keepalive: 20,25
-transport: dot
-sni: yes
-end;
-
-name: mullvad-adblocker-dot
-website: https://mullvad.net/
-zone: Americas, AsiaPacific, Europe
-tags: geocast, adblocker, Americas, AsiaPacific, Europe
-address: doh.mullvad.net:853
-host: adblock.doh.mullvad.net/
-keepalive: 20,25
-transport: dot
-sni: yes
 end;
 
 name: nextdns
@@ -1613,7 +1575,7 @@ tags: admin-down, Germany, Europe
 address: 116.203.179.248:443
 sni: yes
 host: rumpelsepp.org/dns-query
-keepalive: 550,590
+keepalive: 140,170
 end;
 
 name: ryan-palmer
@@ -1646,7 +1608,7 @@ end;
 name: sinodun-dot
 website: https://dnsprivacy.org
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 145.100.185.15:443
 host: dnsovertls.sinodun.com/
 keepalive: 20,25
@@ -1656,7 +1618,7 @@ end;
 name: sinodun2-dot
 website: https://dnsprivacy.org
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 145.100.185.16:443
 host: dnsovertls1.sinodun.com/
 keepalive: 20,25
@@ -1727,7 +1689,7 @@ tags: geocast, Americas, AsiaPacific, Europe
 address: doh.tiarap.org:443
 host: doh.tiarap.org/dns-query
 sni: yes
-keepalive: 350,390
+keepalive: 140,170
 end;
 
 # short keepalive
@@ -1857,7 +1819,7 @@ end;
 name: unfiltered-id
 website: https://www.linuxsec.org/
 zone: AsiaPacific
-tags: admin-down, Indonesia, AsiaPacific
+tags: Indonesia, AsiaPacific
 address: 116.0.2.86:443
 host: doh.this.web.id/dns-query
 keepalive: 140,170
@@ -1878,7 +1840,7 @@ end;
 name: wil.cloud
 website: https://servers.opennic.org/
 zone: Europe
-tags: admin-down, Czechia, Europe, OpenNIC
+tags: Czechia, Europe, OpenNIC
 address: 51.254.25.115:443
 host: dns-2.wil.cloud/dns-query
 keepalive: 140,170
@@ -1888,7 +1850,7 @@ end;
 name: wil.cloud2
 website: https://servers.opennic.org/
 zone: Europe
-tags: France, Europe, OpenNIC
+tags: admin-down, France, Europe, OpenNIC
 address: 87.98.175.85:443
 host: dns-1.wil.cloud/dns-query
 keepalive: 140,170
@@ -1897,7 +1859,7 @@ end;
 name: yepdns
 website: https://get.yepdns.com/
 zone: AsiaPacific
-tags: Singapore, AsiaPacific
+tags: admin-down, Singapore, AsiaPacific
 address: 94.237.2.142:443
 host: sg.yepdns.com/dns-query
 keepalive: 20,25
