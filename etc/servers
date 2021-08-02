@@ -1060,7 +1060,7 @@ website: https://dnsforfamily.com
 zone: Europe
 tags: faimly, Germany, Europe
 address: 95.217.213.94:853
-host: dns-dot.dnsforfamily.com/dns-query
+host: dns-dot.dnsforfamily.com
 keepalive: 140,170
 transport: dot
 end;
