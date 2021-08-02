@@ -89,16 +89,23 @@ static inline int rand_range(int min, int max) {
 #define DOT_TIMEOUT 5 // wait time for DoT answer - will close the connection
 #define H11_TIMEOUT 5 // wait time for HTTP1 (DoH) answer - will close the connection
 #define H2_TIMEOUT 5 // wait time for HTTP2 (DoH) answer - will close the connection
-#define TRANSPORT_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
-#define TRANSPORT_KEEPALIVE_MAX 600 // transport keepalive (PING) max value in seconds for --keepalive option
+
+// transport  keealive
+#define CONFIG_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
+#define CONFIG_KEEPALIVE_MAX 600 // transport keepalive (PING) max value in seconds for --keepalive option
+#define DEFAULT_KEEPALIVE_VALUE 60	// seconds
+#define ADAPTIVE_KEEPALIVE_LEVEL 40	// seconds
+
 #define SERVER_RESPONSE_LIMIT 100 // milliseconds - try another server if the first one responds above this limit
-#define SERVER_KEEPALIVE_LIMIT 50 // seconds
-#define FALLBACK_TIMEOUT 10 // wait time for responses on fallback
+#define SERVER_KEEPALIVE_LIMIT ADAPTIVE_KEEPALIVE_LEVEL // seconds
+
+#define FALLBACK_TIMEOUT 10 // wait time for DNS responses from the server in fallback
 	// for NAT traversal, this value should be smaller than 30 seconds - the default is in /proc/sys/net/netfilter/nf_conntrack_udp_timeout
 
 // logging
 #define LOG_TIMEOUT_DEFAULT 10		// amount of time to keep the log entries in shared memory in minutes
 #define LOG_TIMEOUT_MAX 1140		// 1 day maximum
+
 // cache
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
@@ -172,7 +179,7 @@ typedef struct dnsserver_t {
 	int sni;		// 1 or 0
 	int test_sni;		// not read from the config file; 1 only when the server is specified by url with --server or --test-server
 	int keepalive_query;	// 1 or 0
-	int keepalive_min;	// minimum value of keepalive in seconds
+//	int keepalive_min;	// deprecated
 	int keepalive_max;	// maximum vallue of keepalive in seconds
 } DnsServer;
 
@@ -320,6 +327,7 @@ typedef enum {
 void dns_set_transport(const char *tname);
 const char *dns_get_transport(void);
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
+int dns_current_keepalive(void);
 void dns_keepalive(void);
 int dns_query(uint8_t *msg, int cnt);
 

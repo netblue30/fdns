@@ -196,9 +196,9 @@ int main(int argc, char **argv) {
 				arg_debug_ssl = 1;
 			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
 				arg_keepalive = atoi(argv[i] + 12);
-				if (arg_keepalive < TRANSPORT_KEEPALIVE_MIN || arg_keepalive > TRANSPORT_KEEPALIVE_MAX) {
+				if (arg_keepalive < CONFIG_KEEPALIVE_MIN || arg_keepalive > CONFIG_KEEPALIVE_MAX) {
 					fprintf(stderr, "Error: keepalive value out of range. Allowed values " \
-					"between %d and %d \n", TRANSPORT_KEEPALIVE_MIN, TRANSPORT_KEEPALIVE_MAX);
+					"between %d and %d \n", CONFIG_KEEPALIVE_MIN, CONFIG_KEEPALIVE_MAX);
 					exit(1);
 				}
 			}
@@ -419,11 +419,8 @@ int main(int argc, char **argv) {
 	DnsServer *s = server_get();
 	assert(s);
 	assert(arg_server);
-	if (arg_keepalive) {
-		s->keepalive_min = arg_keepalive;
+	if (arg_keepalive)
 		s->keepalive_max = arg_keepalive;
-	}
-
 
 	// reinitialize random number generator (eache resolver seeded differently)
 	srand(time(NULL) + arg_id);

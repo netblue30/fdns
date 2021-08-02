@@ -320,6 +320,10 @@ void frontend(void) {
 
 	sigemptyset(&empty_mask);
 
+	// server
+	DnsServer *srv = server_get();
+	assert(srv);
+
 	struct timespec t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
 	int send_keepalive_cnt = 0;
@@ -425,13 +429,16 @@ void frontend(void) {
 					// parse incoming message
 					if (strncmp(msg.buf, "Stats: ", 7) == 0) {
 						Stats s;
-						sscanf(msg.buf, "Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %lf",
+						int k;
+						sscanf(msg.buf, "Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %lf %d",
 						       &s.rx,
 						       &s.drop,
 						       &s.fallback,
 						       &s.cached,
 						       &s.fwd,
-						       &s.ssl_pkts_timetrace);
+						       &s.ssl_pkts_timetrace,
+						       &k);
+						srv->keepalive_max = (k > srv->keepalive_max)? k: srv->keepalive_max;
 
 						// calculate global stats
 						stats.rx += s.rx;
