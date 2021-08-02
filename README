@@ -64,6 +64,9 @@ rcplab (https://github.com/rcplab)
 shiraneyo (https://github.com/shiraneyo)
 	- update resolver.seccomp for kernel 5.11
 
+w3goodies (https://github.com/w3goodies)
+	- fixed dnsforfamily DoT server
+
 Incorporating code from Firejail Security Sandbox, https://github.com/netblue30/firejail
 Copyright © 2014-2020 Firejail Authors, license GPLv2
 
