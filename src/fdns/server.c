@@ -345,31 +345,17 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 		}
 		else if (strcmp(tok1, "keepalive") == 0) {
-			if (s->keepalive_min)
+			if (s->keepalive_max)
 				goto errout;
 			assert(tok2);
 
-			// detect keepalive range
-			if (strchr(tok2, ',')) {
-				if (sscanf(tok2, "%d,%d", &s->keepalive_min, &s->keepalive_max) != 2 ||
-				                s->keepalive_min <= 0 ||
-				                s->keepalive_max <= 0 ||
-				                s->keepalive_min > s->keepalive_max) {
-					fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
-					exit(1);
-				}
+			if (sscanf(tok2, "%d", &s->keepalive_max) != 1 || s->keepalive_max <= 0) {
+				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
+				exit(1);
 			}
-			else {
-				if (sscanf(tok2, "%d", &s->keepalive_min) != 1 || s->keepalive_min <= 0) {
-					fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
-					exit(1);
-				}
-				s->keepalive_max = s->keepalive_min;
-			}
-			if (arg_keepalive) {
-				s->keepalive_min = arg_keepalive;
+
+			if (arg_keepalive)
 				s->keepalive_max = arg_keepalive;
-			}
 		}
 		else if (strcmp(tok1, "end") == 0) {
 			assert(tok2 == NULL);
@@ -544,12 +530,8 @@ static uint8_t test_server(const char *server_name)  {
 		if (arg_details)
 			transport->header_stats();
 		printf("   %s/Do53 bandwidth ratio: %0.02f\n", transport->dns_type, transport->bandwidth());
-		if (s->tags) { // servers set from command line don't have a tag
-			if (s->keepalive_min == s->keepalive_max)
-				printf("   Keepalive: %d seconds\n", s->keepalive_min);
-			else
-				printf("   Keepalive: %d to %d seconds\n", s->keepalive_min, s->keepalive_max);
-		}
+		if (s->tags) // servers set from command line don't have a tag, and the keepalive is supposed to be 60
+			printf("   Keepalive: %d seconds\n", s->keepalive_max);
 
 		fflush(0);
 		uint8_t qaverage = (average > 255)? 255: average;
@@ -794,7 +776,7 @@ DnsServer *server_get(void) {
 				scurrent = first;
 				s = first;
 				if (first_average > SERVER_RESPONSE_LIMIT || s->keepalive_max < SERVER_KEEPALIVE_LIMIT) {
-					// try another server if the first one responds in more than 70 ms
+					// try another server if the first one responds in more than 100 ms
 					// or if it has a keepalive under 110 seconds
 					s = random_server();
 					if (s == first) // try again
@@ -906,14 +888,10 @@ void server_set_custom(const char *url) {
 	s->website = "unknown";
 	s->zone = "unknown";
 	s->test_sni = 1;
-	if (arg_keepalive) {
-		s->keepalive_min = arg_keepalive;
+	if (arg_keepalive)
 		s->keepalive_max = arg_keepalive;
-	}
-	else {
-		s->keepalive_min = 60;
-		s->keepalive_max = 60;
-	}
+	else
+		s->keepalive_max = DEFAULT_KEEPALIVE_VALUE;
 
 	s->transport = arg_transport;
 	scurrent = s;

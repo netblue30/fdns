@@ -76,7 +76,7 @@ void resolver(void) {
 	int resolver_keepalive_cnt = (RESOLVER_KEEPALIVE_TIMER * arg_id) / arg_resolvers;
 	DnsServer *srv = server_get();
 	assert(srv);
-	int dns_keepalive_cnt = (srv->keepalive_max * arg_id) / arg_resolvers;
+	int dns_keepalive_cnt = dns_current_keepalive();
 	int console_printout_cnt = CONSOLE_PRINTOUT_TIMER;
 
 	console_printout_cnt = (CONSOLE_PRINTOUT_TIMER * arg_id) / arg_resolvers;
@@ -106,6 +106,7 @@ void resolver(void) {
 			nfds = (f->sock > nfds) ? f->sock : nfds;
 			f = f->next;
 		}
+
 		// communication with the frontend process
 		FD_SET(arg_fd, &fds);
 		nfds = (arg_fd > nfds) ? arg_fd : nfds;
@@ -150,9 +151,10 @@ void resolver(void) {
 				if (stats.changed) {
 					if (stats.ssl_pkts_cnt == 0)
 						stats.ssl_pkts_cnt = 1;
-					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %.02lf\n",
+					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %.02lf %d\n",
 						   stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd,
-						   stats.ssl_pkts_timetrace / stats.ssl_pkts_cnt);
+						   stats.ssl_pkts_timetrace / stats.ssl_pkts_cnt,
+						   dns_current_keepalive());
 					stats.changed = 0;
 					memset(&stats, 0, sizeof(stats));
 				}
@@ -166,9 +168,10 @@ void resolver(void) {
 
 			if (--dns_keepalive_cnt <= 0)  {
 				dns_keepalive();
-				dns_keepalive_cnt = rand_range(srv->keepalive_min, srv->keepalive_max);
+				dns_keepalive_cnt = dns_current_keepalive();
 				print_time();
 				printf("(%d) keepalive %d\n", arg_id, dns_keepalive_cnt);
+				stats.changed = 1;
 			}
 
 			// send resolver keepalive
@@ -347,7 +350,7 @@ void resolver(void) {
 				if (len == -1) // todo: parse errno - EAGAIN
 					errExit("sendto");
 				else
-					dns_keepalive_cnt = rand_range(srv->keepalive_min, srv->keepalive_max);
+					dns_keepalive_cnt = dns_current_keepalive();
 			}
 			// send the data to the remote fallback server; store the request in the database
 			else {
