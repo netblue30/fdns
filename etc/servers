@@ -509,7 +509,7 @@ tags: Netherlands, Europe
 address: 51.15.124.208:853
 host: dnsnl.alekberg.net/dns-query
 transport: dot
-keepalive: 7
+keepalive: 25
 end;
 
 name: alekberg-es
@@ -528,7 +528,7 @@ tags: Spain, Europe
 address: 185.253.154.66:853
 host: dnses.alekberg.net/dns-query
 transport: dot
-keepalive: 7
+keepalive: 25
 end;
 
 # short keepalive
@@ -548,7 +548,7 @@ tags: Sweden, Europe
 address: 45.153.187.96:853
 host: dnsse.alekberg.net/dns-query
 transport: dot
-keepalive: 7
+keepalive: 25
 end;
 
 name: appliedprivacy
@@ -976,14 +976,13 @@ host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 40
 end;
 
-# short keepalive
 name: digital-society-dot
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: admin-down, Switzerland, Europe
+tags: Switzerland, Europe
 address: 185.95.218.42:853
-host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 4
+host: dns.digitale-gesellschaft.ch/
+keepalive: 25
 transport: dot
 end;
 
@@ -1060,7 +1059,7 @@ website: https://dnsforfamily.com
 zone: Europe
 tags: faimly, Germany, Europe
 address: 95.217.213.94:853
-host: dns-dot.dnsforfamily.com
+host: dns-dot.dnsforfamily.com/
 keepalive: 40
 transport: dot
 end;
@@ -1232,6 +1231,16 @@ tags: Iceland, Europe
 address: 46.239.223.80:443
 host: dns.flatuslifir.is/dns-query
 keepalive: 40
+end;
+
+name: flatuslifir-dot
+website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+zone: Europe
+tags: Iceland, Europe
+address: 46.239.223.80:853
+host: dns.flatuslifir.is/
+transport: dot
+keepalive: 25
 end;
 
 name: fossdaily
@@ -1596,6 +1605,16 @@ host: dns.seby.io/dns-query
 keepalive: 25
 end;
 
+name: seby-dot
+website: https://dns.seby.io
+zone: AsiaPacific
+tags: Australia, AsiaPacific, OpenNIC
+address: 45.76.113.31:853
+host: dns.seby.io/
+transport: dot
+keepalive: 40
+end;
+
 name: seby2
 website: https://dns.seby.io
 zone: AsiaPacific
@@ -1603,6 +1622,16 @@ tags: Australia, AsiaPacific, OpenNIC
 address: 139.99.222.72:443
 host: doh-2.seby.io/dns-query
 keepalive: 25
+end;
+
+name: seby2-dot
+website: https://dns.seby.io
+zone: AsiaPacific
+tags: Australia, AsiaPacific, OpenNIC
+address: 139.99.222.72:853
+host: doh-2.seby.io/
+transport: dot
+keepalive: 40
 end;
 
 name: sinodun-dot
