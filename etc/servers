@@ -897,26 +897,6 @@ keepalive: 40
 keepalive-query: yes
 end;
 
-name: cznic
-website: https://www.nic.cz/odvr/
-zone: Europe
-tags: admin-down, Czechia, Europe
-address: 185.43.135.1:443
-host: odvr.nic.cz/dns-query
-keepalive-query: yes
-keepalive: 7
-end;
-
-name: cznic2
-website: https://www.nic.cz/odvr/
-zone: Europe
-tags: admin-down, Czechia, Europe
-address: 193.17.47.1:443
-host: odvr.nic.cz/dns-query
-keepalive-query: yes
-keepalive: 7
-end;
-
 #self-signed cert
 name: declouds
 website: https://decloudus.com/

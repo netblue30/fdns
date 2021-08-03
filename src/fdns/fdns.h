@@ -94,10 +94,10 @@ static inline int rand_range(int min, int max) {
 #define CONFIG_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
 #define CONFIG_KEEPALIVE_MAX 600 // transport keepalive (PING) max value in seconds for --keepalive option
 #define DEFAULT_KEEPALIVE_VALUE 60	// seconds
-#define ADAPTIVE_KEEPALIVE_LEVEL 40	// seconds
 
+// when choosing servers...
 #define SERVER_RESPONSE_LIMIT 100 // milliseconds - try another server if the first one responds above this limit
-#define SERVER_KEEPALIVE_LIMIT ADAPTIVE_KEEPALIVE_LEVEL // seconds
+#define SERVER_KEEPALIVE_LIMIT 40 // seconds
 
 #define FALLBACK_TIMEOUT 10 // wait time for DNS responses from the server in fallback
 	// for NAT traversal, this value should be smaller than 30 seconds - the default is in /proc/sys/net/netfilter/nf_conntrack_udp_timeout
