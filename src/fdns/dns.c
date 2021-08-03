@@ -242,21 +242,27 @@ int dns_current_keepalive(void) {
 	if (arg_keepalive)
 		return arg_keepalive;
 
+	DnsServer *srv = server_get();
+	assert(srv);
 	if (current_keepalive == 0) {
-		DnsServer *srv = server_get();
-		assert(srv);
-		if (srv->keepalive_max < ADAPTIVE_KEEPALIVE_LEVEL)
+		if (srv->keepalive_max < 40)
 			current_keepalive = srv->keepalive_max;
 		else
-			current_keepalive = ADAPTIVE_KEEPALIVE_LEVEL;
+			current_keepalive = 40;
 	}
+
+	if (srv->keepalive_max < 25)
+		return srv->keepalive_max;
+	else if (srv->keepalive_max >= 25 && srv->keepalive_max < 40)
+ 		return rand_range(20, srv->keepalive_max);
+	else if ((rand() % 5) == 0) // one in five for keepalive of 40 and over
+	 	return rand_range(20, current_keepalive);
 
 	return current_keepalive;
 }
 
 void dns_keepalive(void) {
-	if (current_keepalive >= ADAPTIVE_KEEPALIVE_LEVEL)
-		current_keepalive++;
+	current_keepalive++;
 
 	if (ssl_state == SSL_CLOSED)
 		return;
@@ -274,8 +280,7 @@ void dns_keepalive(void) {
 		goto sendex;
 	else {
 		// randomly send example.com (1 in 3)
-		int r = rand();
-		if (r % 3) {
+		if (rand() % 3) {
 			if (transport->send_ping() == -1) {
 				rlogprintf("Error: %s ping failed, closing SSL connection\n", dns_get_transport());
 				ssl_close();

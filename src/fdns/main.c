@@ -108,18 +108,18 @@ static void usage(void) {
 	printf("    --fallback-server=address - fallback server IP address, default 9.9.9.9\n"
 	       "\t(Quad9).\n");
 	printf("    --forwarder=domain@address - conditional forwarding to a different DNS\n"
-	        "\tserver.\n");
+	       "\tserver.\n");
 	printf("    --help, -?, -h - show this help screen.\n");
 	printf("    --ipv6 - allow AAAA requests.\n");
 	printf("    --keepalive=number - use this session keepalive value instead of the one in\n"
-	         "\tservers file.\n");
+	       "\tservers file.\n");
 	printf("    --list - list DoH servers for your geographical zone.\n");
 	printf("    --list=server-name|tag|all - list DoH servers.\n");
 	printf("    --log-timeout=minutes - amount of time log entries are kept in shared\n"
-	         "\tmemory, default %d minutes, maximum %d.\n", LOG_TIMEOUT_DEFAULT, LOG_TIMEOUT_MAX);
+	       "\tmemory, default %d minutes, maximum %d.\n", LOG_TIMEOUT_DEFAULT, LOG_TIMEOUT_MAX);
 	printf("    --monitor - monitor statistics for the default instance.\n");
 	printf("    --monitor=proxy-address - monitor statistics for a specific instance\n"
-	         "\tof FDNS.\n");
+	       "\tof FDNS.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
 	printf("    --proxies - list all running instances of FDNS\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
@@ -198,7 +198,7 @@ int main(int argc, char **argv) {
 				arg_keepalive = atoi(argv[i] + 12);
 				if (arg_keepalive < CONFIG_KEEPALIVE_MIN || arg_keepalive > CONFIG_KEEPALIVE_MAX) {
 					fprintf(stderr, "Error: keepalive value out of range. Allowed values " \
-					"between %d and %d \n", CONFIG_KEEPALIVE_MIN, CONFIG_KEEPALIVE_MAX);
+						"between %d and %d \n", CONFIG_KEEPALIVE_MIN, CONFIG_KEEPALIVE_MAX);
 					exit(1);
 				}
 			}
@@ -422,11 +422,11 @@ int main(int argc, char **argv) {
 	if (arg_keepalive)
 		s->keepalive_max = arg_keepalive;
 
-	// reinitialize random number generator (eache resolver seeded differently)
-	srand(time(NULL) + arg_id);
-
 	// start the frontend or the resolver
 	if (arg_id != -1) {
+		// reinitialize random number generator
+		srand(time(NULL) + arg_id);
+
 		assert(arg_fd != -1);
 		resolver();
 	}
