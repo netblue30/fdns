@@ -684,7 +684,7 @@ void server_list(const char *tag) {
 		return;
 	}
 	else
-		printf("Sorry, no such server available.\n");
+		printf("Error: no such server available.\n");
 }
 
 
