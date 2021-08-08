@@ -115,7 +115,7 @@ AC_ARG_WITH([systemd],
 	[SYSTEMD_DIR="$withval"])
 AC_SUBST(SYSTEMD_DIR)
 
-AC_OUTPUT(Makefile src/common.mk src/fdns/Makefile src/nxdomain/Makefile test/src/fdnstress/Makefile)
+AC_OUTPUT(Makefile src/common.mk src/fdns/Makefile src/nxdomain/Makefile)
 
 echo
 echo "Configuration options:"

@@ -1,5 +1,5 @@
 all: apps man
-APPS = src/fdns test/src/fdnstress src/nxdomain
+APPS = src/fdns src/nxdomain
 MANPAGES = fdns.1 nxdomain.1
 
 prefix=@prefix@
@@ -135,22 +135,6 @@ test-fdns:
 
 test: test-fdns
 	echo "TEST COMPLETE"
-
-test-keepalive-h2:
-	cd test/stress;su -c ./test-keepalive-h2.sh | grep TESTING
-
-test-keepalive-dot:
-	cd test/stress;su -c ./test-keepalive-dot.sh | grep TESTING
-
-test-keepalive-list:
-	cd test/stress;su -c ./test-keepalive-list.sh | grep TESTING
-
-extract-keepalive-h2:
-	cd test/stress;su -c ./extract-h2.sh
-
-extract-keepalive-dot:
-	cd test/stress;su -c ./extract-dot.sh
-
 
 test-compile: dist
 	cd test/compile; ./compile.sh $(NAME)-$(VERSION)

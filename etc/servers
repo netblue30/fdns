@@ -295,8 +295,8 @@ end;
 name: adhole5
 website: https://adhole.org/
 zone: Americas
-tags: admin-down, NY,  Americas, adblocker
-address: 162.245.221.19:443
+tags: NY,  Americas, adblocker
+address: 194.124.76.14:443
 host: us-east.adhole.org/dns-query
 keepalive: 40
 keepalive-query: yes
@@ -582,6 +582,17 @@ host: dns.arapurayil.com/dns-query
 keepalive: 40
 end;
 
+# admin down
+name: blahdns-ch
+website: https://blahdns.com
+zone: Europe
+tags: admin-down, Switzerland, Europe, adblocker
+address: 45.91.92.121:443
+host: doh-fi.blahdns.com/dns-query
+sni: yes
+keepalive: 7
+end;
+
 name: blahdns-fi
 website: https://blahdns.com
 zone: Europe
@@ -607,32 +618,22 @@ end;
 name: blahdns-jp
 website: https://blahdns.com
 zone: AsiaPacific
-tags: admin-down, Japan, AsiaPacific, adblocker
-address: 45.32.55.94:443
+tags: Japan, AsiaPacific, adblocker
+address: 139.162.112.47:443
 host: doh-jp.blahdns.com/dns-query
 sni: yes
-keepalive: 4
+keepalive: 7
 end;
 
-#short keepalive
+#short keepalive, expired certificate
 name: blahdns-sg
 website: https://blahdns.com
 zone: AsiaPacific
-tags: admin-down, Singapore, AsiaPacific, adblocker
-address: 139.180.141.57:443
+tags: Singapore, AsiaPacific, adblocker
+address: 192.53.175.149:443
 host: doh-sg.blahdns.com/dns-query
 sni: yes
 keepalive: 4
-end;
-
-# ns3.de.dns.opennic.glue
-name: boothlabs
-website: https://servers.opennic.org/
-zone: Americas
-tags: admin-down, Quebec, Americas, OpenNIC
-address: 158.69.53.73:443
-host: doh.boothlabs.me/dns-query
-keepalive: 40
 end;
 
 name: bortzmeyer
@@ -1189,9 +1190,10 @@ end;
 name: ffmuc
 website: https://ffmuc.net/
 zone: Europe
-tags: admin-down, Germany, Europe
-address: 195.30.94.28:443
+tags: Germany, Europe
+address: 185.150.99.255:443
 host: doh.ffmuc.net/dns-query
+sni: yes
 keepalive: 40
 end;
 
@@ -1201,6 +1203,7 @@ zone: Europe
 tags: Germany, Europe
 address: 5.1.66.255:443
 host: doh.ffmuc.net/dns-query
+sni: yes
 keepalive: 40
 end;
 
@@ -1223,15 +1226,6 @@ transport: dot
 keepalive: 25
 end;
 
-name: fossdaily
-website: https://fossdaily.xyz/
-zone: AsiaPacific
-tags: admin-down, Australia, AsiaPacific, adblocker
-address: 172.105.171.229:443
-host: dns.fossdaily.xyz/dns-query
-keepalive: 40
-end;
-
 name: getdnsapi-dot
 website: https://getdnsapi.net/
 zone: Europe
@@ -1245,8 +1239,8 @@ end;
 name: hostux
 website: https://hostux.network/en/index.html
 zone: Europe
-tags: admin-down, Luxembourg, Europe
-address: 185.26.126.37:443
+tags: Luxembourg, Europe
+address: 46.226.108.173:443
 host: dns.hostux.net/dns-query
 keepalive: 25
 end;
@@ -1254,8 +1248,8 @@ end;
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
 zone: Europe
-tags: admin-down, Luxembourg, Europe, adblocker
-address: 185.26.126.37:443
+tags: Luxembourg, Europe, adblocker
+address: 46.226.109.82:443
 host: dns.hostux.net/ads
 keepalive: 25
 end;
@@ -1369,8 +1363,8 @@ name: meganerd
 website: https://meganerd.nl/encrypted-dns-server
 zone: Europe
 tags: admin-down, Netherlands, Europe
-address: 209.250.241.25:443
-host: jarjar.meganerd.nl/doh
+address: 136.244.97.114:443
+host: chewbacca.meganerd.nl/doh
 keepalive: 3
 end;
 
@@ -1732,35 +1726,6 @@ transport: dot
 sni: yes
 end;
 
-# ns2.fi.dns.opennic.glue
-name: tin-fan
-website: https://servers.opennic.org/
-zone: Europe
-tags: admin-down, Germany, Europe, OpenNIC
-address: 95.217.16.205:443
-host: ns01.dns.tin-fan.com/dns-query
-keepalive: 40
-end;
-
-name: tin-fan2
-website: https://servers.opennic.org/
-zone: Europe
-tags: admin-down, Poland, Europe, OpenNIC
-address: 145.239.92.241:443
-host: ns02.dns.tin-fan.com/dns-query
-keepalive: 40
-end;
-
-# ns1.tx.us.dns.opennic.glue
-name: tin-fan3
-website: https://servers.opennic.org/
-zone: Americas
-tags: admin-down, Texas, Americas, OpenNIC
-address: 155.138.240.237:443
-host: ns03.dns.tin-fan.com/dns-query
-keepalive: 40
-end;
-
 name: twnic
 website: https://101.101.101.101/index_en.html
 zone: AsiaPacific
@@ -1852,6 +1817,7 @@ zone: Europe
 tags: Czechia, Europe, OpenNIC
 address: 51.254.25.115:443
 host: dns-2.wil.cloud/dns-query
+sni: yes
 keepalive: 40
 end;
 
@@ -1862,15 +1828,36 @@ zone: Europe
 tags: admin-down, France, Europe, OpenNIC
 address: 87.98.175.85:443
 host: dns-1.wil.cloud/dns-query
+sni: yes
 keepalive: 40
 end;
 
-name: yepdns
+name: yepdns-pl
+website: https://get.yepdns.com/
+zone: Europe
+tags: Poland, Europe, adblocker
+address: 185.70.196.151:443
+host: pl.yepdns.com/dns-query
+keepalive: 40
+keepalive-query: yes
+end;
+
+name: yepdns-sg
 website: https://get.yepdns.com/
 zone: AsiaPacific
-tags: admin-down, Singapore, AsiaPacific
-address: 94.237.2.142:443
+tags: Singapore, AsiaPacific, adblocker
+address: 94.237.75.42:443
 host: sg.yepdns.com/dns-query
-keepalive: 25
+keepalive: 40
+keepalive-query: yes
+end;
+
+name: yepdns-es
+website: https://get.yepdns.com/
+zone: Europe
+tags: Spaind, Europe, adblocker
+address: 194.62.96.176:443
+host: es.yepdns.com/dns-query
+keepalive: 40
 keepalive-query: yes
 end;
