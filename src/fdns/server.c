@@ -27,7 +27,6 @@ int server_print_servers = 0;
 int server_print_unlist = 1;
 
 
-static int admin_down = 0; // set to 1 if --test-server=admin-down -> testing only servers disabled by admin-down flag
 static char *fdns_zone = NULL;
 static DnsServer *slist = NULL;
 static DnsServer *scurrent = NULL;	// curernt DoH/DoT server
@@ -377,13 +376,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				filter_serach_add('D', s->host);
 
 			// servers tagged as admin-down are not taken into calculation
-			if (admin_down == 0 && strstr(s->tags, "admin-down")) {
-				free(s);
-				// go to next server in the list
-				return read_one_server(fp, linecnt, fname);
-			}
-			// only admin-down servers
-			else if (admin_down == 1 && strstr(s->tags, "admin-down") == NULL) {
+			if (!env_admin_down && strstr(s->tags, "admin-down")) {
 				free(s);
 				// go to next server in the list
 				return read_one_server(fp, linecnt, fname);
@@ -808,8 +801,6 @@ errout:
 }
 
 void server_test_tag(const char *tag)  {
-	if (tag && strcmp(tag, "admin-down") == 0)
-		admin_down = 1;
 	server_list(tag);
 
 	// walk the list
