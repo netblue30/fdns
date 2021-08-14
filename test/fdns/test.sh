@@ -16,6 +16,9 @@ echo "TESTING: ********************"
 echo "TESTING: dot vs h2 (test/fdns/dotvsh2.exp)"
 ./dotvsh2.exp
 
+echo "TESTING: udp transport (test/fdns/dtransport_udp.exp)"
+./transport-udp.exp
+
 echo "TESTING: already running (test/fdns/already-running.exp)"
 ./already-running.exp
 
