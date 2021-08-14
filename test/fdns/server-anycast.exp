@@ -18,6 +18,7 @@ expect {
 	"connecting to adguard server"  {puts "1"}
 	"connecting to adguard2 server"  {puts "1"}
 	"connecting to cleanbrowsing server"  {puts "2"}
+	"connecting to cleanbrowsing2 server"  {puts "2"}
 	"connecting to cloudflare server" {puts "3"}
 	"connecting to cloudflare2 server" {puts "3"}
 	"connecting to cloudflare-security server" {puts "3"}
@@ -26,6 +27,8 @@ expect {
 	"connecting to cloudflare2-dot server" {puts "3"}
 	"connecting to cloudflare-security-dot server" {puts "3"}
 	"connecting to cloudflare-security2-dot server" {puts "3"}
+	"connecting to dns-sb1 server" {puts "5"}
+	"connecting to dns-sb1 server" {puts "5"}
 	"connecting to nextdns server" {puts "4"}
 	"connecting to nextdns2 server" {puts "4"}
 	"connecting to quad9 server" {puts "5"}

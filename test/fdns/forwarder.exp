@@ -38,10 +38,6 @@ sleep 2
 spawn $env(SHELL)
 send -- "fdns --monitor\r"
 expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
-	"fwd 1"
-}
-expect {
 	timeout {puts "TESTING ERROR 5\n";exit}
 	"assets.gentoo.org, forwarded"
 }
@@ -51,10 +47,6 @@ after 100
 sleep 1
 spawn $env(SHELL)
 send -- "fdns --monitor=127.2.2.2\r"
-expect {
-	timeout {puts "TESTING ERROR 6\n";exit}
-	"fwd 0"
-}
 expect {
 	timeout {puts "TESTING ERROR 7\n";exit}
 	"assets.gentoo.org, encrypted"

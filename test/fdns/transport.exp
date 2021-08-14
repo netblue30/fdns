@@ -25,16 +25,12 @@ expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
 	"digital-society-dot"
 }
-expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
-	"mullvad-dot"
-}
 
 send -- "fdns --list --transport=dot --zone=Europe\r"
 expect {
 	timeout {puts "TESTING ERROR 5\n";exit}
 	"containerpi-dot" {puts "TESTING ERROR 6\n";exit}
-	"mullvad-dot"
+	"digital-society-dot"
 }
 after 100
 
@@ -42,7 +38,7 @@ send -- "fdns --list --transport=dot --zone=AsiaPacific\r"
 expect {
 	timeout {puts "TESTING ERROR 8\n";exit}
 	"digital-society-dot" {puts "TESTING ERROR 9\n";exit}
-	"mullvad-dot"
+	"ahadns-au-do"
 }
 
 after 100
