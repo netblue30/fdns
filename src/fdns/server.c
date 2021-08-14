@@ -65,7 +65,7 @@ static UnlistedElem *unlisted_find(const char *name) {
 
 static void unlisted_add(const char *name) {
 	assert(name);
-	if (server_print_unlist && arg_id == -1)
+	if (server_print_unlist && arg_id == -1 && arg_debug)
 		printf("Unlisting %s\n", name);
 
 	UnlistedElem *ptr = malloc(sizeof(UnlistedElem));

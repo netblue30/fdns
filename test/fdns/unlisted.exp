@@ -1,0 +1,35 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019-2021 FDNS Authors
+# License GPL v2
+
+set timeout 10
+spawn $env(SHELL)
+match_max 100000
+
+send -- "fdns --list=cloudflare\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"anycast"
+}
+after 100
+
+send -- "fdns --list=testserver1\r"
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"no such server available"
+}
+after 100
+
+send -- "fdns --list=testserver2\r"
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"no such server available"
+}
+after 100
+
+
+
+after 100
+puts "\nall done\n"
+

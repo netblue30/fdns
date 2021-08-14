@@ -60,6 +60,9 @@ static int dot_rx_dns = 0; // received DNS bytes over H2 plus IP/UDP
 static int first_query = 1;	// don't include the first query in network byte count
 
 static void dot_print_url(void) {
+	DnsServer *srv = server_get();
+	assert(srv);
+	printf("   URL: dot://%s\n", srv->host);
 }
 
 static void dot_header_stats(void) {
