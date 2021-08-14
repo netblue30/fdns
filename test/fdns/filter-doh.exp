@@ -24,7 +24,7 @@ sleep 1
 
 
 spawn $env(SHELL)
-send -- "firejail --dns=127.1.1.1 ping -c 3 commons.host\r"
+send -- "firejail --dns=127.1.1.1 ping -c 3 doh.applied-privacy.net\r"
 set ping_id $spawn_id
 
 spawn $env(SHELL)
@@ -32,7 +32,7 @@ set monitor_id $spawn_id
 send -- "fdns --monitor\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"commons.host, dropped"
+	"doh.applied-privacy.net, dropped"
 }
 after 100
 
@@ -46,6 +46,19 @@ send -- "fdns --monitor\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
 	"dns.digitale-gesellschaft.ch, dropped"
+}
+after 100
+
+spawn $env(SHELL)
+send -- "firejail --dns=127.1.1.1 ping -c 3 doh.xfinity.com\r"
+set ping_id $spawn_id
+
+spawn $env(SHELL)
+set monitor_id2 $spawn_id
+send -- "fdns --monitor\r"
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"doh.xfinity.com, dropped"
 }
 after 100
 
