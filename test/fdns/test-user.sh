@@ -14,7 +14,7 @@ echo "TESTING: list (test/fdns/list.exp)"
 ./list.exp
 
 echo "TESTING: unlisted (test/fdns/unlisted.exp)"
-./test-url.exp
+./unlisted.exp
 
 echo "TESTING: transport (test/fdns/transport.exp)"
 ./transport.exp
