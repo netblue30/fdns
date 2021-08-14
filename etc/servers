@@ -159,7 +159,30 @@ block-doh: unicast.uncensoreddns.org
 block-doh: uw-dns.rubyfish.cn
 block-doh: wdns.233py.com
 
+############################
+# only for testing
+############################
+unlist: testserver1
+unlist: testserver2
 
+name: testserver1
+website: https://testserver.123
+zone: Europe
+tags: France, Europe
+address: 0.0.0.0:443
+host: testserver.123/dns-query
+keepalive: 40
+end;
+
+name: testserver2
+website: https://testserver.123
+zone: Europe
+tags: France, Europe
+address: 0.0.0.0:443
+host: testserver.123/dns-query
+keepalive: 40
+end;
+############################
 
 name: 42l
 website: https://42l.fr

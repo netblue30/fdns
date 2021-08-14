@@ -140,4 +140,4 @@ test-compile: dist
 	cd test/compile; ./compile.sh $(NAME)-$(VERSION)
 
 gcov:
-	./gcov.sh
+	su -c ./gcov.sh
