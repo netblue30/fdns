@@ -1696,7 +1696,6 @@ tags: anycast, security, Americas, AsiaPacific, Europe
 address: 9.9.9.9:443
 host: dns.quad9.net/dns-query
 keepalive: 25
-keepalive-query: yes
 end;
 
 name: quad9-2
