@@ -29,7 +29,7 @@ typedef struct cache_entry_t {
 	struct cache_entry_t *next;
 	int16_t  ttl;
 	uint16_t len;
-	int type; // 0 - ipv4,, 1 - ipv6
+	int qtype; // query type: 0 - ipv4,, 1 - ipv6
 	char name[CACHE_NAME_LEN + 1];
 #define MAX_REPLY 900
 	uint8_t reply[MAX_REPLY];
@@ -45,19 +45,19 @@ static uint8_t creply[MAX_REPLY];
 static inline void clean_entry(CacheEntry *ptr) {
 	ptr->next = NULL;
 	ptr->ttl = 0;
-	ptr->type = 0;
+	ptr->qtype = 0;
 	ptr->name[0] = '\0';
 }
 
 // djb2 hash function by Dan Bernstein
-static inline int hash(const char *str, int type) {
+static inline int hash(const char *str, int qtype) {
 	uint32_t hash = 5381;
 	int c;
 
 	while ((c = *str++) != '\0')
 		hash = ((hash << 5) + hash) ^ c; // hash * 33 ^ c
 
-	return (int) ((hash & (MAX_HASH_ARRAY - 1)) ^ type);
+	return (int) ((hash & (MAX_HASH_ARRAY - 1)) ^ qtype);
 }
 
 void cache_init(void) {
@@ -66,11 +66,11 @@ void cache_init(void) {
 	ccnt = 0;
 }
 
-void cache_set_name(const char *name, int ipv6) {
+void cache_set_name(const char *name, int qtype) {
 	assert(name);
 	strncpy(cname, name, CACHE_NAME_LEN);
 	cname[CACHE_NAME_LEN] = '\0';
-	cname_type = ipv6;
+	cname_type = qtype;
 }
 
 const char *cache_get_name(void) {
@@ -95,7 +95,7 @@ void cache_set_reply(uint8_t *reply, ssize_t len, int ttl) {
 	sentries++;
 #endif
 	ptr->len = len;
-	ptr->type = cname_type;
+	ptr->qtype = cname_type;
 	assert(sizeof(cname) == sizeof(ptr->name));
 	memcpy(ptr->name, cname, sizeof(cname));
 	memcpy(ptr->reply, reply, len);
@@ -106,13 +106,12 @@ void cache_set_reply(uint8_t *reply, ssize_t len, int ttl) {
 	*cname = '\0';
 }
 
-
-uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int ipv6) {
+uint8_t *cache_check(uint16_t id, const char *name, ssize_t *lenptr, int qtype) {
 	assert(name);
-	int h = hash(name, ipv6);
+	int h = hash(name, qtype);
 	CacheEntry *ptr = clist[h];
 	while (ptr) {
-		if (strcmp(ptr->name, name) == 0 && ptr->type == ipv6) {
+		if (strcmp(ptr->name, name) == 0 && ptr->qtype == qtype) {
 			// store the reply locally
 			assert(ptr->len);
 			assert(ptr->len < MAX_REPLY);
