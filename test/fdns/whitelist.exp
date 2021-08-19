@@ -8,7 +8,7 @@ spawn $env(SHELL)
 match_max 100000
 
 send -- "pkill fdns\r"
-sleep 1
+sleep 2
 
 send -- "fdns --whitelist=gentoo.org --whitelist=assets.gentoo.org --whitelist=security.gentoo.orgfdns\r"
 expect {

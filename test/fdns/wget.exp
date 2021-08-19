@@ -16,7 +16,7 @@ if { $argc != 1 } {
 puts "TESTING: $argv"
 
 send -- "pkill fdns\r"
-sleep 1
+sleep 2
 
 send -- "fdns --server=$argv\r"
 expect {

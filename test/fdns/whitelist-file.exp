@@ -8,9 +8,9 @@ spawn $env(SHELL)
 match_max 100000
 
 send -- "pkill fdns\r"
-sleep 1
+sleep 2
 
-send -- "rm /etd/fdns/whitelist-fdns-test\r"
+send -- "rm /etc/fdns/whitelist-fdns-test\r"
 after 100
 send -- "cp whitelist-fdns-test /etc/fdns/.\r"
 after 100
@@ -55,7 +55,7 @@ expect {
 sleep 1
 send -- "pkill fdns\r"
 after 100
-send -- "rm /etd/fdns/whitelist-fdns-test\r"
+send -- "rm /etc/fdns/whitelist-fdns-test\r"
 
 after 100
 puts "\nall done\n"

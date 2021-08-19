@@ -43,8 +43,6 @@ static inline const char *label2str(char label) {
 		return "reserved";
 	else if (label == 'D')
 		return "doh";
-	else if (label == 'B')
-		return "bulkmailer";
 
 	return "?";
 }
@@ -479,6 +477,10 @@ void filter_test_list(void) {
 		const char *str = filter_blocked(start, 0);
 		if (!str)
 			printf("127.0.0.1 %s\n", start);
+
+#ifdef HAVE_GCOV
+		__gcov_flush();
+#endif
 	}
 }
 

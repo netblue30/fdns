@@ -10,58 +10,67 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --fallback-only --debug --resolvers=1 --details\r"
+send -- "rm /etc/fdns/blocklist-fdns-test\r"
+after 100
+send -- "cp blocklist-fdns-test /etc/fdns/.\r"
+after 100
+
+send -- "fdns --blocklist-file=/etc/fdns/blocklist-fdns-test\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"
 }
 expect {
 	timeout {puts "TESTING ERROR 0.1\n";exit}
-	"filter entries added"
+	"SSL connection opened"
 }
 sleep 1
 
 spawn $env(SHELL)
-send -- "firejail --dns=127.1.1.1 ping -c 3 gentoo.org\r"
+send -- "firejail --dns=127.1.1.1 ping -c 3 google.com\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"icmp_seq=1"
+	"Name or service not known"
 }
+sleep 1
+
+send -- "firejail --dns=127.1.1.1 ping -c 3 youtube.com\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"icmp_seq=2"
+	"Name or service not known"
 }
+sleep 1
+
+send -- "firejail --dns=127.1.1.1 ping -c 3 facebook.com\r"
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
-	"icmp_seq=3"
+	"Name or service not known"
 }
-expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
-	"3 received"
-}
-
 sleep 1
-spawn $env(SHELL)
+
 send -- "firejail --dns=127.1.1.1 ping -c 3 assets.gentoo.org\r"
 expect {
-	timeout {puts "TESTING ERROR 1\n";exit}
+	timeout {puts "TESTING ERROR 4\n";exit}
 	"icmp_seq=1"
 }
 expect {
-	timeout {puts "TESTING ERROR 2\n";exit}
+	timeout {puts "TESTING ERROR 5\n";exit}
 	"icmp_seq=2"
 }
 expect {
-	timeout {puts "TESTING ERROR 3\n";exit}
+	timeout {puts "TESTING ERROR 6\n";exit}
 	"icmp_seq=3"
 }
 expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
+	timeout {puts "TESTING ERROR 7\n";exit}
 	"3 received"
 }
-
 sleep 1
 send -- "pkill fdns\r"
+after 100
+send -- "rm /etc/fdns/blocklist-fdns-test\r"
+
+
 
 after 100
 puts "\nall done\n"
