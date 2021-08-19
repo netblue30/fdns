@@ -1,0 +1,71 @@
+#!/usr/bin/expect -f
+# This file is part of FDNS project
+# Copyright (C) 2019-2021 FDNS Authors
+# License GPL v2
+
+set timeout 20
+spawn $env(SHELL)
+match_max 100000
+
+send -- "pkill fdns\r"
+sleep 2
+
+send -- "fdns --server=https://dns.google/dns-query --fallback-server=8.8.8.8 --proxy-addr=127.8.8.8 --keepalive=7\r"
+expect {
+	timeout {puts "TESTING ERROR 0\n";exit}
+	"fdns starting"
+}
+expect {
+	timeout {puts "TESTING ERROR 0.1\n";exit}
+	"configuring fallback server 8.8.8.8"
+}
+expect {
+	timeout {puts "TESTING ERROR 0.2\n";exit}
+	"SSL connection opened"
+}
+expect {
+	timeout {puts "TESTING ERROR 1\n";exit}
+	"keepalive 7"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"keepalive 7"
+}
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"keepalive 7"
+}
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"keepalive 7"
+}
+sleep 1
+
+spawn $env(SHELL)
+send -- "fdns --test-server=dot://8.8.8.8 --details\r"
+expect {
+	timeout {puts "TESTING ERROR 10\n";exit}
+	"URL: dot://8.8.8.8"
+}
+expect {
+	timeout {puts "TESTING ERROR 11\n";exit}
+	"Port: 853"
+}
+expect {
+	timeout {puts "TESTING ERROR 12\n";exit}
+	"Network trace:"
+}
+expect {
+	timeout {puts "TESTING ERROR 13\n";exit}
+	"DoT query average"
+}
+expect {
+	timeout {puts "TESTING ERROR 14\n";exit}
+	"Testing completed"
+}
+
+after 100
+send -- "pkill fdns\r"
+
+after 100
+puts "\nall done\n"

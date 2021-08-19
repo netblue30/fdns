@@ -824,9 +824,6 @@ void server_test_tag(const char *tag)  {
 	printf("\nTesting completed\n");
 }
 
-// todo: support for tls://dns.quad9.net    tls://1.1.1.1    tls://dot1.applied-privacy.net   tls://dns.adguard.com   tls://dns-family.adguard.com
-// tls://dns.google
-// todo: test --server and --test-server
 void server_set_custom(const char *url) {
 	set_zone();
 	slist = malloc(sizeof(DnsServer));
@@ -889,6 +886,19 @@ void server_set_custom(const char *url) {
 }
 
 DnsServer *server_fallback_get(void) {
+	if (arg_fallback_server) {
+		if (fcurrent == NULL) {
+			fcurrent = malloc(sizeof(DnsServer));
+			if (!fcurrent)
+				errExit("malloc");
+			memset(fcurrent, 0, sizeof(DnsServer));
+			fcurrent->name = "custom";
+			fcurrent->address = arg_fallback_server;
+			printf("configuring fallback server %s\n", fcurrent->address);
+		}
+		return fcurrent;
+	}
+
 	if (fcurrent)
 		return fcurrent;
 

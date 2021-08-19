@@ -10,7 +10,7 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns\r"
+send -- "fdns --blocklist=google.com --blocklist=youtube.com --blocklist=facebook.com\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"
@@ -25,22 +25,46 @@ spawn $env(SHELL)
 send -- "firejail --dns=127.1.1.1 ping -c 3 google.com\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
+	"Name or service not known"
+}
+sleep 1
+
+send -- "firejail --dns=127.1.1.1 ping -c 3 youtube.com\r"
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"Name or service not known"
+}
+sleep 1
+
+send -- "firejail --dns=127.1.1.1 ping -c 3 facebook.com\r"
+expect {
+	timeout {puts "TESTING ERROR 3\n";exit}
+	"Name or service not known"
+}
+sleep 1
+
+send -- "firejail --dns=127.1.1.1 ping -c 3 assets.gentoo.org\r"
+expect {
+	timeout {puts "TESTING ERROR 4\n";exit}
 	"icmp_seq=1"
 }
 expect {
-	timeout {puts "TESTING ERROR 2\n";exit}
+	timeout {puts "TESTING ERROR 5\n";exit}
 	"icmp_seq=2"
 }
 expect {
-	timeout {puts "TESTING ERROR 3\n";exit}
+	timeout {puts "TESTING ERROR 6\n";exit}
 	"icmp_seq=3"
 }
 expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
+	timeout {puts "TESTING ERROR 7\n";exit}
 	"3 received"
 }
-after 100
+sleep 1
 send -- "pkill fdns\r"
+
 
 after 100
 puts "\nall done\n"
+
+

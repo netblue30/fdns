@@ -154,6 +154,9 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 			else
 				rlogprintf("Error LANrx: RR type %u rejected, %s\n", q->type, q->domain);
 			*dest = DEST_DROP; // just let him try again, no NXDOMAIN set out
+#ifdef HAVE_GCOV
+			__gcov_flush();
+#endif
 			return NULL;
 		}
 	}
@@ -289,6 +292,10 @@ void dns_keepalive(void) {
 		else
 			goto sendex;
 	}
+
+#ifdef HAVE_GCOV
+	__gcov_flush();
+#endif
 	return;
 
 sendex:

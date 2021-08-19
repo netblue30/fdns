@@ -16,8 +16,11 @@ echo "TESTING: ********************"
 echo "TESTING: dot vs h2 (test/fdns/dotvsh2.exp)"
 ./dotvsh2.exp
 
-echo "TESTING: udp transport (test/fdns/dtransport_udp.exp)"
+echo "TESTING: udp transport (test/fdns/transport_udp.exp)"
 ./transport-udp.exp
+
+echo "TESTING: keepalive and custom servers (test/fdns/keepalive.exp)"
+./keepalive.exp
 
 echo "TESTING: already running (test/fdns/already-running.exp)"
 ./already-running.exp
@@ -70,6 +73,12 @@ echo "TESTING: whitelist (test/fdns/whitelist.exp)"
 
 echo "TESTING: whitelist-file (test/fdns/whitelist-file.exp)"
 ./whitelist-file.exp
+
+echo "TESTING: blocklist (test/fdns/blocklist.exp)"
+./blocklist.exp
+
+echo "TESTING: blocklist-file (test/fdns/blocklist-file.exp)"
+./blocklist-file.exp
 
 echo "TESTING: restart worker (test/fdns/restart-worker.exp)"
 ./restart-worker.exp
