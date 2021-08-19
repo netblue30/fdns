@@ -39,6 +39,7 @@ expect {
 }
 after 100
 send -- "rm -f tmp"
+after 100
 send -- "pkill fdns\r"
 
 after 100

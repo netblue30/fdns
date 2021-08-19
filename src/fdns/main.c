@@ -106,8 +106,7 @@ static void usage(void) {
 	       "\tprinted on the screen during the testing phase.\n");
 	printf("    --disable-local-doh - blocklist DoH services for applications running on\n"
 	       "\tlocal network.\n");
-	printf("    --fallback-server=address - fallback server IP address, default 9.9.9.9\n"
-	       "\t(Quad9).\n");
+	printf("    --fallback-server=address - fallback server IP address.\n");
 	printf("    --forwarder=domain@address - conditional forwarding to a different DNS\n"
 	       "\tserver.\n");
 	printf("    --help, -?, -h - show this help screen.\n");

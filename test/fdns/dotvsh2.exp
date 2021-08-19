@@ -8,7 +8,7 @@ spawn $env(SHELL)
 match_max 100000
 
 send -- "pkill fdns\r"
-sleep 1
+sleep 2
 send -- "cp dotvsh2-config /tmp/.\r"
 after 100
 
