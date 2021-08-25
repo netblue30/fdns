@@ -526,7 +526,7 @@ end;
 name: alekberg-nl
 website: https://alekberg.net/
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 51.15.124.208:443
 host: dnsnl.alekberg.net/dns-query
 keepalive: 7
@@ -624,7 +624,7 @@ end;
 name: blahdns-sg
 website: https://blahdns.com
 zone: AsiaPacific
-tags: admin-down, Singapore, AsiaPacific, adblocker
+tags: Singapore, AsiaPacific, adblocker
 address: 192.53.175.149:443
 host: doh-sg.blahdns.com/dns-query
 sni: yes
@@ -644,7 +644,7 @@ end;
 name: brahmaworld
 website: https://dns.brahma.world/
 zone: Europe
-tags: Sweden, Europe, adblocker
+tags: admin-down, Sweden, Europe, adblocker
 address: 13.49.175.86:443
 host: dns.brahma.world/dns-query
 keepalive: 40
@@ -956,7 +956,7 @@ end;
 name: digital-society-dot2
 website: https://www.digitale-gesellschaft.ch
 zone: Europe
-tags: admin-down, Switzerland, Europe
+tags: Switzerland, Europe
 address: 185.95.218.43:853
 host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 7
@@ -1008,7 +1008,7 @@ end;
 name: dns-sb-de1
 website: https://dns.sb/doh
 zone: Europe
-tags: Germany, Europe
+tags: admin-down, Germany, Europe
 address: de-dus.doh.sb:443
 host: de-dus.doh.sb/dns-query
 sni: yes
@@ -1184,7 +1184,7 @@ end;
 name: dns-watch
 website: https://dns.watch/
 zone: Europe
-tags: admin-down, Germany, Europe
+tags: Germany, Europe
 address: 84.200.70.40:443
 host: resolver2.dns.watch/dns-query
 keepalive: 40
@@ -1221,7 +1221,7 @@ end;
 name: dnsforfamily-dot
 website: https://dnsforfamily.com
 zone: Europe
-tags: admin-down, faimly, Germany, Europe
+tags: family, Germany, Europe
 address: 95.217.213.94:853
 host: dns-dot.dnsforfamily.com/
 keepalive: 40
@@ -1450,7 +1450,7 @@ end;
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
 zone: Europe
-tags: admin-down, Luxembourg, Europe, adblocker
+tags: Luxembourg, Europe, adblocker
 address: 46.226.109.82:443
 host: dns.hostux.net/ads
 keepalive: 25
@@ -1460,7 +1460,7 @@ end;
 name: i2pd
 website: https://opennic.i2pd.xyz/
 zone: Europe
-tags: admin-down, France, Europe, OpenNIC
+tags: France, Europe, OpenNIC
 address: 151.80.222.79:443
 host: opennic.i2pd.xyz/dns-query
 keepalive: 7
@@ -1573,7 +1573,7 @@ end;
 name: meganerd
 website: https://meganerd.nl/encrypted-dns-server
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 136.244.97.114:443
 host: chewbacca.meganerd.nl/doh
 keepalive: 7
@@ -1928,7 +1928,7 @@ end;
 name: tiarap-sg-dot
 website: https://doh.tiar.app
 zone: AsiaPacific
-tags: admin-down, Singapore, AsiaPacific, adblocker
+tags: Singapore, AsiaPacific, adblocker
 address: dot.tiar.app:853
 host: dot.tiar.app/
 keepalive: 25
