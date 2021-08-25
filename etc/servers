@@ -991,6 +991,7 @@ address: 185.222.222.222:443
 host: doh.dns.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb2
@@ -1001,6 +1002,7 @@ address: 45.11.45.11:443
 host: doh.dns.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-de1
@@ -1011,6 +1013,7 @@ address: de-dus.doh.sb:443
 host: de-dus.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-de2
@@ -1021,6 +1024,7 @@ address: de-fra.doh.sb:443
 host: de-fra.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-nl1
@@ -1031,6 +1035,7 @@ address: nl-ams.doh.sb:443
 host: nl-ams.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-nl2
@@ -1041,6 +1046,7 @@ address: nl-ams2.doh.sb:443
 host: nl-ams2.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-uk
@@ -1051,6 +1057,7 @@ address: uk-lon.doh.sb:443
 host: uk-lon.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-ee
@@ -1061,6 +1068,7 @@ address: ee-tll.doh.sb:443
 host: ee-tll.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-jp1
@@ -1071,6 +1079,7 @@ address: jp-kix.doh.sb:443
 host: jp-kix.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-jp2
@@ -1081,6 +1090,7 @@ address: jp-nrt.doh.sb:443
 host: jp-nrt.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-hk
@@ -1091,6 +1101,7 @@ address: hk-hkg.doh.sb:443
 host: hk-hkg.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-au
@@ -1101,6 +1112,7 @@ address: au-syd.doh.sb:443
 host: au-syd.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-us
@@ -1111,6 +1123,7 @@ address: us-chi.doh.sb:443
 host: us-chi.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-in
@@ -1121,6 +1134,7 @@ address: in-blr.doh.sb:443
 host: in-blr.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-sg
@@ -1131,6 +1145,7 @@ address: sg-sin.doh.sb:443
 host: sg-sin.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-kr
@@ -1141,6 +1156,7 @@ address: kr-sel.doh.sb:443
 host: kr-sel.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-ru
@@ -1151,6 +1167,7 @@ address: ru-mow.doh.sb:443
 host: ru-mow.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-sb-ca
@@ -1161,6 +1178,7 @@ address: ca-yyc.doh.sb:443
 host: ca-yyc.doh.sb/dns-query
 sni: yes
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: dns-watch
