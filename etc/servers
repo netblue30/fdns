@@ -315,7 +315,7 @@ end;
 name: adhole4
 website: https://adhole.org/
 zone: Americas
-tags: admin-down, Texas,  Americas, adblocker
+tags: Texas,  Americas, adblocker
 address: 107.155.83.188:443
 host: us-central.adhole.org/dns-query
 keepalive: 40
@@ -644,7 +644,7 @@ end;
 name: brahmaworld
 website: https://dns.brahma.world/
 zone: Europe
-tags: admin-down, Sweden, Europe, adblocker
+tags: Sweden, Europe, adblocker
 address: 13.49.175.86:443
 host: dns.brahma.world/dns-query
 keepalive: 40
@@ -1612,7 +1612,7 @@ end;
 name: nixnet-lv
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas
-tags: LasVegas, Americas
+tags: admin-down, LasVegas, Americas
 address: 209.141.34.95:443
 host: uncensored.lv1.dns.nixnet.xyz/dns-query
 keepalive: 35
@@ -2003,7 +2003,7 @@ end;
 name: unfiltered-id
 website: https://www.linuxsec.org/
 zone: AsiaPacific
-tags: Indonesia, AsiaPacific
+tags: admin-down, Indonesia, AsiaPacific
 address: 116.0.2.86:443
 host: doh.this.web.id/dns-query
 keepalive: 40
