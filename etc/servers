@@ -1612,7 +1612,7 @@ end;
 name: nixnet-lv
 website: https://docs.nixnet.services/NixNet_DNS
 zone: Americas
-tags: admin-down, LasVegas, Americas
+tags: LasVegas, Americas
 address: 209.141.34.95:443
 host: uncensored.lv1.dns.nixnet.xyz/dns-query
 keepalive: 35
