@@ -315,7 +315,7 @@ end;
 name: adhole4
 website: https://adhole.org/
 zone: Americas
-tags: Texas,  Americas, adblocker
+tags: admin-down, Texas,  Americas, adblocker
 address: 107.155.83.188:443
 host: us-central.adhole.org/dns-query
 keepalive: 40
@@ -1008,7 +1008,7 @@ end;
 name: dns-sb-de1
 website: https://dns.sb/doh
 zone: Europe
-tags: admin-down, Germany, Europe
+tags: Germany, Europe
 address: de-dus.doh.sb:443
 host: de-dus.doh.sb/dns-query
 sni: yes
@@ -1184,7 +1184,7 @@ end;
 name: dns-watch
 website: https://dns.watch/
 zone: Europe
-tags: Germany, Europe
+tags: admin-down, Germany, Europe
 address: 84.200.70.40:443
 host: resolver2.dns.watch/dns-query
 keepalive: 40
@@ -1328,8 +1328,17 @@ end;
 name: faelix-uk-adblocker2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: UK, Europe, adblocker
+tags: admin-down, UK, Europe, adblocker
 address: 46.227.203.52:443
+host: pdns.faelix.net/
+keepalive: 25
+end;
+
+name: faelix-uk-adblocker3
+website: https://faelix.net/ref/dns/#privacy-dns
+zone: Europe
+tags: admin-down, UK, Europe, adblocker
+address: 46.227.207.52:443
 host: pdns.faelix.net/
 keepalive: 25
 end;
@@ -1374,17 +1383,8 @@ end;
 name: faelix-ch2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: Switzerland, Europe
+tags: admin-down, Switzerland, Europe
 address: 185.134.196.55:443
-host: rdns.faelix.net/
-keepalive: 25
-end;
-
-name: faelix-ch3
-website: https://faelix.net/ref/dns/#privacy-dns
-zone: Europe
-tags: Switzerland, Europe
-address: 185.134.197.54:443
 host: rdns.faelix.net/
 keepalive: 25
 end;
@@ -1499,6 +1499,15 @@ zone: Europe
 tags: OpenNIC, Finland, Europe
 address: 95.217.25.217:443
 host: eu1.dns.lavate.ch/dns-query
+keepalive: 40
+end;
+
+name: lavadns-de
+website: https://dns.lavate.ch
+zone: Europe
+tags: OpenNIC, Germany, Europe
+address: 130.61.185.42:443
+host: eu2.dns.lavate.ch/dns-query
 keepalive: 40
 end;
 
@@ -2003,7 +2012,7 @@ end;
 name: unfiltered-id
 website: https://www.linuxsec.org/
 zone: AsiaPacific
-tags: admin-down, Indonesia, AsiaPacific
+tags:Indonesia, AsiaPacific
 address: 116.0.2.86:443
 host: doh.this.web.id/dns-query
 keepalive: 40
