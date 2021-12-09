@@ -53,6 +53,7 @@
 ##################################################################
 
 # commercial servers or aliases for some of our servers
+block-doh: dns-doh-no-safe-search.dnsforfamily.com
 block-doh: dns.nextdns.io
 block-doh: doh.bt.com
 block-doh: dohdot.coxlab.net
@@ -346,7 +347,7 @@ website: https://ahadns.com
 zone: Europe
 tags: adblocker, Netherlands, Europe
 address: 5.2.75.75:853
-host: doh.nl.ahadns.net/
+host: dot.nl.ahadns.net/
 keepalive: 25
 transport: dot
 end;
@@ -365,7 +366,7 @@ website: https://ahadns.com
 zone: AsiaPacific
 tags: adblocker, India, AsiaPacific
 address: 45.79.120.233:853
-host: doh.in.ahadns.net/
+host: dot.in.ahadns.net/
 keepalive: 25
 transport: dot
 end;
@@ -384,7 +385,7 @@ website: https://ahadns.com
 zone: Americas
 tags: adblocker, California, Americas
 address: 45.67.219.208:853
-host: doh.la.ahadns.net/
+host: dot.la.ahadns.net/
 keepalive: 25
 transport: dot
 end;
@@ -403,7 +404,7 @@ website: https://ahadns.com
 zone: Americas
 tags: adblocker, NY, Americas
 address: 185.213.26.187:853
-host: doh.ny.ahadns.net/
+host: dot.ny.ahadns.net/
 keepalive: 25
 transport: dot
 end;
@@ -422,7 +423,7 @@ website: https://ahadns.com
 zone: Europe
 tags: adblocker, Poland, Europe
 address: 45.132.75.16:853
-host: doh.pl.ahadns.net/
+host: dot.pl.ahadns.net/
 keepalive: 25
 transport: dot
 end;
@@ -645,7 +646,7 @@ name: brahmaworld
 website: https://dns.brahma.world/
 zone: Europe
 tags: Sweden, Europe, adblocker
-address: 13.49.175.86:443
+address: 13.53.186.52:443
 host: dns.brahma.world/dns-query
 keepalive: 40
 keepalive-query: yes
@@ -846,7 +847,7 @@ end;
 name: commsone2
 website: https://www.comss.ru/page.php?id=7315
 zone: Europe
-tags: Lithuania, Europe, adblocker
+tags: admin-down, Lithuania, Europe, adblocker
 address: 93.115.24.204:443
 host: dns.comss.one/dns-query
 keepalive: 40
@@ -1208,6 +1209,26 @@ host: dns2.dnscrypt.ca:453/dns-query
 keepalive: 40
 end;
 
+name: dnscrypt-uk
+website: https://dnscrypt.uk/
+zone: Europe
+tags: UK, Europe
+address: 165.227.233.200:443
+host: doh.dnscrypt.uk/dns-query
+keepalive: 40
+keepalive-query: yes
+end;
+
+name: dnscrypt-uk2
+website: https://dnscrypt.uk/
+zone: Europe
+tags: UK, Europe
+address: 136.244.65.20:443
+host: v.dnscrypt.uk/dns-query
+keepalive: 40
+keepalive-query: yes
+end;
+
 name: dnsforfamily
 website: https://dnsforfamily.com
 zone: Europe
@@ -1278,7 +1299,7 @@ end;
 name: edgy
 website: https://edgy.network/
 zone: AsiaPacific
-tags: adblocker, OpenNIC, Indonesia, AsiaPacific
+tags: admin-down, adblocker, OpenNIC, Indonesia, AsiaPacific
 address: 27.112.79.80:443
 host: dns.edgy.network/dns-query
 keepalive: 40
@@ -1319,7 +1340,7 @@ end;
 name: faelix-uk-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: UK, Europe, adblocker
+tags: admin-down, UK, Europe, adblocker
 address: 46.227.200.52:443
 host: pdns.faelix.net/
 keepalive: 25
@@ -1383,7 +1404,7 @@ end;
 name: faelix-ch2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: admin-down, Switzerland, Europe
+tags: Switzerland, Europe
 address: 185.134.196.55:443
 host: rdns.faelix.net/
 keepalive: 25
@@ -1487,7 +1508,7 @@ end;
 name: lavadns-us
 website: https://dns.lavate.ch
 zone: Americas
-tags: OpenNIC, California, Americas
+tags: admin-down, OpenNIC, California, Americas
 address: 79.110.170.43:443
 host: us1.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1505,7 +1526,7 @@ end;
 name: lavadns-de
 website: https://dns.lavate.ch
 zone: Europe
-tags: OpenNIC, Germany, Europe
+tags: admin-down, OpenNIC, Germany, Europe
 address: 130.61.185.42:443
 host: eu2.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1514,7 +1535,7 @@ end;
 name: lelux
 website: https://lelux.fi/resolver/
 zone: Europe
-tags: Netherlands, Europe
+tags:  Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
 keepalive: 25
@@ -1562,7 +1583,7 @@ end;
 name: linuxsec
 website: https://www.linuxsec.org/
 zone: AsiaPacific
-tags: security, Indonesia, AsiaPacific
+tags: admin-down, security, Indonesia, AsiaPacific
 address: 103.85.15.60:443
 host: doh.linuxsec.org/dns-query
 keepalive: 40
@@ -1572,7 +1593,7 @@ end;
 name: linuxsec-adblocker
 website: https://www.linuxsec.org/
 zone: AsiaPacific
-tags: security, adblocker, Indonesia, AsiaPacific
+tags: admin-down, security, adblocker, Indonesia, AsiaPacific
 address: 103.85.15.60:443
 host: doh.linuxsec.org/adguard
 keepalive: 40
@@ -1617,66 +1638,6 @@ keepalive-query: yes
 keepalive: 25
 end;
 
-# http 1.1
-name: nixnet-lv
-website: https://docs.nixnet.services/NixNet_DNS
-zone: Americas
-tags: LasVegas, Americas
-address: 209.141.34.95:443
-host: uncensored.lv1.dns.nixnet.xyz/dns-query
-keepalive: 35
-end;
-
-# http 1.1
-name: nixnet-lv-adblocker
-website: https://docs.nixnet.services/NixNet_DNS
-zone: Americas
-tags: LasVegas, Americas, adblocker
-address: 209.141.34.95:443
-host: adblock.lv1.dns.nixnet.xyz/dns-query
-keepalive: 35
-end;
-
-# http 1.1
-name: nixnet-ny
-website: https://docs.nixnet.services/NixNet_DNS
-zone: Americas
-tags: NY, Americas
-address: 199.195.251.84:443
-host: uncensored.ny1.dns.nixnet.xyz/dns-query
-keepalive: 35
-end;
-
-# http 1.1
-name: nixnet-ny-adblocker
-website: https://docs.nixnet.services/NixNet_DNS
-zone: Americas
-tags: NY, Americas, adblocker
-address: 199.195.251.84:443
-host: adblock.ny1.dns.nixnet.xyz/dns-query
-keepalive: 35
-end;
-
-# http 1.1
-name: nixnet-lux
-website: https://docs.nixnet.services/NixNet_DNS
-zone: Europe
-tags: Luxemburg, Europe
-address: 104.244.78.231:443
-host: uncensored.lux1.dns.nixnet.xyz/dns-query
-keepalive: 35
-end;
-
-# http 1.1
-name: nixnet-lux-adblocker
-website: https://docs.nixnet.services/NixNet_DNS
-zone: Europe
-tags: Luxemburg, Europe, adblocker
-address: 104.244.78.231:443
-host: adblock.lux1.dns.nixnet.xyz/dns-query
-keepalive: 35
-end;
-
 name: njalla
 website: https://njal.la
 zone: Europe
@@ -1707,14 +1668,15 @@ keepalive: 25
 transport: dot
 end;
 
-name: powerdns
-website: https://powerdns.org
-zone: Europe
-tags: Netherlands, Europe
-address: 136.144.215.158:443
-host: doh.powerdns.org/dns-query
-keepalive: 25
-end;
+# Discontinued - according to the website, it will be replaced by a new service
+#name: powerdns
+#website: https://powerdns.org
+#zone: Europe
+#tags: Netherlands, Europe
+#address: 136.144.215.158:443
+#host: doh.powerdns.org/dns-query
+#keepalive: 25
+#end;
 
 name: quad9
 website: https://quad9.net
@@ -1822,7 +1784,7 @@ end;
 name: seby2-dot
 website: https://dns.seby.io
 zone: AsiaPacific
-tags: Australia, AsiaPacific, OpenNIC
+tags: admin-down, Australia, AsiaPacific, OpenNIC
 address: 139.99.222.72:853
 host: doh-2.seby.io/
 transport: dot
@@ -1949,10 +1911,21 @@ name: twnic
 website: https://101.101.101.101/index_en.html
 zone: AsiaPacific
 tags: Taiwan, AsiaPacific
-address: 210.17.9.228:443
+address: 101.101.101.101:443
 host: dns.twnic.tw/dns-query
 keepalive-query: yes
 keepalive: 40
+end;
+
+name: twnic-dot
+website: https://101.101.101.101/index_en.html
+zone: AsiaPacific
+tags: Taiwan, AsiaPacific
+address: 101.101.101.101:853
+host: dns.twnic.tw/
+keepalive-query: yes
+transport: dot
+keepalive: 25
 end;
 
 name: uncensoreddns
@@ -2012,7 +1985,7 @@ end;
 name: unfiltered-id
 website: https://www.linuxsec.org/
 zone: AsiaPacific
-tags:Indonesia, AsiaPacific
+tags: admin-down, Indonesia, AsiaPacific
 address: 116.0.2.86:443
 host: doh.this.web.id/dns-query
 keepalive: 40
@@ -2041,7 +2014,7 @@ end;
 name: wedns2
 website: https://wevpn.com/wedns
 zone: Americas, AsiaPacific, Europe
-tags: geocast, security, adblocker, Americas, AsiaPacific, Europe
+tags: admin-down, geocast, security, adblocker, Americas, AsiaPacific, Europe
 address: dns.wevpn.com:443
 host: dns-weblock.wevpn.com/dns-query
 keepalive: 40
@@ -2113,19 +2086,9 @@ end;
 name: yepdns-pl
 website: https://get.yepdns.com/
 zone: Europe
-tags: Poland, Europe, adblocker
+tags: admin-down, Poland, Europe, adblocker
 address: 185.70.196.151:443
 host: pl.yepdns.com/dns-query
-keepalive: 40
-keepalive-query: yes
-end;
-
-name: yepdns-sg
-website: https://get.yepdns.com/
-zone: AsiaPacific
-tags: Singapore, AsiaPacific, adblocker
-address: 94.237.75.42:443
-host: sg.yepdns.com/dns-query
 keepalive: 40
 keepalive-query: yes
 end;
@@ -2133,7 +2096,7 @@ end;
 name: yepdns-es
 website: https://get.yepdns.com/
 zone: Europe
-tags: Spain, Europe, adblocker
+tags: admin-down, Spain, Europe, adblocker
 address: 194.62.96.176:443
 host: es.yepdns.com/dns-query
 keepalive: 40
