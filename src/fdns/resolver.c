@@ -154,7 +154,7 @@ void resolver(void) {
 					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %.02lf %d\n",
 						   stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd,
 						   stats.ssl_pkts_timetrace / stats.ssl_pkts_cnt,
-						   dns_current_keepalive());
+						   dns_max_keepalive());
 					stats.changed = 0;
 					memset(&stats, 0, sizeof(stats));
 				}

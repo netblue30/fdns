@@ -185,6 +185,7 @@ keepalive: 40
 end;
 ############################
 
+
 name: 42l
 website: https://42l.fr
 zone: Europe
@@ -279,56 +280,6 @@ zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
-keepalive: 40
-keepalive-query: yes
-end;
-
-name: adhole
-website: https://adhole.org/
-zone: Europe
-tags: UK, Europe, adblocker
-address: 5.253.114.91:443
-host: uk.adhole.org/dns-query
-keepalive: 40
-keepalive-query: yes
-end;
-
-name: adhole2
-website: https://adhole.org/
-zone: Europe
-tags: Germany, Europe, adblocker
-address: 46.4.165.226:443
-host: de.adhole.org/dns-query
-keepalive: 40
-keepalive-query: yes
-end;
-
-name: adhole3
-website: https://adhole.org/
-zone: AsiaPacific
-tags: Singapore, AsiaPacific, adblocker
-address: 210.16.120.48:443
-host: sg.adhole.org/dns-query
-keepalive: 40
-keepalive-query: yes
-end;
-
-name: adhole4
-website: https://adhole.org/
-zone: Americas
-tags: admin-down, Texas,  Americas, adblocker
-address: 107.155.83.188:443
-host: us-central.adhole.org/dns-query
-keepalive: 40
-keepalive-query: yes
-end;
-
-name: adhole5
-website: https://adhole.org/
-zone: Americas
-tags: NY,  Americas, adblocker
-address: 194.124.76.14:443
-host: us-east.adhole.org/dns-query
 keepalive: 40
 keepalive-query: yes
 end;
@@ -551,13 +502,30 @@ host: dnses.alekberg.net/dns-query
 keepalive: 7
 end;
 
-# short keepalive
+name: alekberg-es-adblocker
+website: https://alekberg.net/
+zone: Europe
+tags: adblocker, Spain, Europe
+address: 185.253.154.66:443
+host: dnses-noads.alekberg.net/dns-query
+keepalive: 7
+end;
+
 name: alekberg-se
 website: https://alekberg.net/
 zone: Europe
 tags: Sweden, Europe
 address: 45.153.187.96:443
 host: dnsse.alekberg.net/dns-query
+keepalive: 7
+end;
+
+name: alekberg-se-adblocker
+website: https://alekberg.net/
+zone: Europe
+tags: adblocker, Sweden, Europe
+address: 45.153.187.96:443
+host: dnsse-noads.alekberg.net/dns-query
 keepalive: 7
 end;
 
@@ -574,7 +542,7 @@ end;
 name: arapurayil
 website: https://www.dns.arapurayil.com
 zone: AsiaPacific
-tags: India, AsiaPacific
+tags: admin-down, India, AsiaPacific
 address: 3.7.176.123:443
 host: dns.arapurayil.com/dns-query
 keepalive: 40
@@ -646,7 +614,7 @@ name: brahmaworld
 website: https://dns.brahma.world/
 zone: Europe
 tags: Sweden, Europe, adblocker
-address: 13.53.186.52:443
+address: 16.170.150.221:443
 host: dns.brahma.world/dns-query
 keepalive: 40
 keepalive-query: yes
@@ -847,7 +815,7 @@ end;
 name: commsone2
 website: https://www.comss.ru/page.php?id=7315
 zone: Europe
-tags: admin-down, Lithuania, Europe, adblocker
+tags: Lithuania, Europe, adblocker
 address: 93.115.24.204:443
 host: dns.comss.one/dns-query
 keepalive: 40
@@ -882,6 +850,33 @@ address: 91.230.211.67:443
 host: dns.comss.one/dns-query
 keepalive: 40
 keepalive-query: yes
+end;
+
+name: controld
+website: https://controld.com/free-dns/
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
+address: 76.76.2.11:443
+host: freedns.controld.com/p0
+keepalive: 40
+end;
+
+name: controld-security
+website: https://controld.com/free-dns/
+zone: Americas, AsiaPacific, Europe
+tags: security, adblocker, anycast, Americas, AsiaPacific, Europe
+address: 76.76.2.11:443
+host: freedns.controld.com/p2
+keepalive: 40
+end;
+
+name: controld-family
+website: https://controld.com/free-dns/
+zone: Americas, AsiaPacific, Europe
+tags: family, anycast, Americas, AsiaPacific, Europe
+address: 76.76.2.11:443
+host: freedns.controld.com/family
+keepalive: 40
 end;
 
 #self-signed cert
@@ -1279,7 +1274,7 @@ end;
 name: dnslify
 website: https://www.dnslify.com/
 zone: Americas, AsiaPacific, Europe
-tags: Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
+tags: admin-down, Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 25
@@ -1289,7 +1284,7 @@ end;
 name: dnslify2
 website: https://www.dnslify.com/
 zone: Americas, AsiaPacific, Europe
-tags: Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
+tags: admin-down, Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 25
@@ -1535,7 +1530,7 @@ end;
 name: lelux
 website: https://lelux.fi/resolver/
 zone: Europe
-tags:  Netherlands, Europe
+tags:  admin-down, Netherlands, Europe
 address: 51.158.147.50:443
 host: resolver-eu.lelux.fi/dns-query
 keepalive: 25
@@ -1603,7 +1598,7 @@ end;
 name: meganerd
 website: https://meganerd.nl/encrypted-dns-server
 zone: Europe
-tags: Netherlands, Europe
+tags: admin-down, Netherlands, Europe
 address: 136.244.97.114:443
 host: chewbacca.meganerd.nl/doh
 keepalive: 7
@@ -1992,7 +1987,7 @@ keepalive: 40
 end;
 
 name: usableprivacy
-website: https://github.com/usableprivacy/updns
+website: https://docs.usableprivacy.com/updns/
 zone: Europe
 tags: Austria, Europe, adblocker
 address: 149.154.153.153:443
