@@ -240,32 +240,39 @@ drop_nxdomain:
 	return buf;
 }
 
-static int current_keepalive = 0;
+static int max_keepalive = 0;
+int dns_max_keepalive(void) {
+	DnsServer *srv = server_get();
+	assert(srv);
+	if (srv->keepalive_max < 40)
+		return srv->keepalive_max;
+	return max_keepalive;
+}
 int dns_current_keepalive(void) {
-	if (arg_keepalive)
+	if (arg_keepalive) {
+		max_keepalive = arg_keepalive;
 		return arg_keepalive;
+	}
 
 	DnsServer *srv = server_get();
 	assert(srv);
-	if (current_keepalive == 0) {
+	if (max_keepalive == 0) {
 		if (srv->keepalive_max < 40)
-			current_keepalive = srv->keepalive_max;
+			max_keepalive = srv->keepalive_max;
 		else
-			current_keepalive = 40;
+			max_keepalive = 40;
 	}
 
-	if (srv->keepalive_max < 25)
+	if (srv->keepalive_max < 40)
 		return srv->keepalive_max;
-	else if (srv->keepalive_max >= 25 && srv->keepalive_max < 40)
- 		return rand_range(20, srv->keepalive_max);
-	else if ((rand() % 5) == 0) // one in five for keepalive of 40 and over
-	 	return rand_range(20, current_keepalive);
+	else if ((rand() % 4) == 0) // one in four for keepalive of 40 and over
+	 	return rand_range(20, max_keepalive);
 
-	return current_keepalive;
+	return max_keepalive;
 }
 
 void dns_keepalive(void) {
-	current_keepalive++;
+	max_keepalive++;
 
 	if (ssl_state == SSL_CLOSED)
 		return;
