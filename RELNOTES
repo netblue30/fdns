@@ -1,7 +1,9 @@
-fdns (0.9.67) baseline; urgency=low
-  * work in progress
+fdns (0.9.68) baseline; urgency=low
   * disable seccomp at compile time
- -- netblue30 <netblue30@yahoo.com>  Thu, 17 Jun 2021 08:00:00 -0500
+  * random keepalive
+  * server list update
+  * bugfixes
+ -- netblue30 <netblue30@yahoo.com>  Wed, 2 Mar 2022 08:00:00 -0500
 
 fdns (0.9.66) baseline; urgency=low
   * support for a servers.local file in etc directory

@@ -20,7 +20,7 @@ echo "*****************************************"
 tar -xJvf $CODE_ARCHIVE
 #mkdir -p $INSTALL_DIR
 cd $CODE_DIR
-./configure --prefix=/usr
+./configure --prefix=/usr --enable-apparmor
 make -j2
 mkdir debian
 DESTDIR=debian make install-strip
