@@ -315,7 +315,7 @@ end;
 name: ahadns-in-dot
 website: https://ahadns.com
 zone: AsiaPacific
-tags: adblocker, India, AsiaPacific
+tags: admin-down, adblocker, India, AsiaPacific
 address: 45.79.120.233:853
 host: dot.in.ahadns.net/
 keepalive: 25
@@ -2009,7 +2009,7 @@ end;
 name: wedns2
 website: https://wevpn.com/wedns
 zone: Americas, AsiaPacific, Europe
-tags: admin-down, geocast, security, adblocker, Americas, AsiaPacific, Europe
+tags: geocast, security, adblocker, Americas, AsiaPacific, Europe
 address: dns.wevpn.com:443
 host: dns-weblock.wevpn.com/dns-query
 keepalive: 40
@@ -2059,7 +2059,7 @@ end;
 name: wil.cloud
 website: https://servers.opennic.org/
 zone: Europe
-tags: admin-down, Czechia, Europe, OpenNIC
+tags: Czechia, Europe, OpenNIC
 address: 51.254.25.115:443
 host: dns-2.wil.cloud/dns-query
 sni: yes
