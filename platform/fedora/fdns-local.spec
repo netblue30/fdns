@@ -1,5 +1,5 @@
 Name:           fdns
-Version:        0.9.67
+Version:        0.9.69
 Release:        1.git%{?dist}
 Summary:        Firejail DNS-over-HTTPS Proxy Server
 

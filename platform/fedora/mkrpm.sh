@@ -67,10 +67,7 @@ select version in local git stable help; do
 		;;
 		local)
 			setup "$(dirname "$0")"/fdns-local.spec
-			cd "$(while [[ ! -d .git && $PWD != / ]]; do cd ..; done; echo "$PWD")"
-			if [[ $PWD == / ]]; then
-				exit 1
-			fi
+			cd "$(git rev-parse --show-toplevel)"
 			if [[ ! -e Makefile ]]; then
 				./configure
 			fi
