@@ -2,9 +2,9 @@
 
 <div style="height:20px;">&nbsp;</div>
 
-<a href="https://www.brighteon.com/e38d4f93-b147-4fa0-b941-cfd8f11bc628" target="_blank">
-<img src="https://photos.brighteon.com/thumbnail/0c13a550-3d6e-40ef-8497-28aff073eb94"
-alt="Firejail Encrypted DNS HowTo" border="10" /><br/>HowTo</a>
+<a href="https://odysee.com/@netblue30:9/fdns:5" target="_blank">
+<img src="https://thumbs.odycdn.com/98a3540ced54c8b7c35ed531710a3242.png"
+alt="Firejail Encrypted DNS HowTo"  width="416" height="234" border="10" /><br/>HowTo</a>
 
 <div style="height:20px;">&nbsp;</div>
 

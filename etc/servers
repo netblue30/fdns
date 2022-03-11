@@ -1494,7 +1494,7 @@ end;
 name: ibuki
 website: https://ibuki.cgnat.net/
 zone: Americas
-tags: Brazil, Americas
+tags: admin-down, Brazil, Americas
 address: 168.138.243.216:443
 host: ibuki.cgnat.net/dns-query
 keepalive: 40
@@ -1598,7 +1598,7 @@ end;
 name: meganerd
 website: https://meganerd.nl/encrypted-dns-server
 zone: Europe
-tags: admin-down, Netherlands, Europe
+tags: Netherlands, Europe
 address: 136.244.97.114:443
 host: chewbacca.meganerd.nl/doh
 keepalive: 7
