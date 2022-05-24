@@ -419,6 +419,12 @@ static int load_file(const char *fname) {
 
 	int linecnt = 0; // line counter
 	DnsServer **ptr = &slist;
+
+	// go to the end of the list
+	while (*ptr != NULL) {
+		ptr = &(*ptr)->next;
+	}
+
 	while (1) {
 		DnsServer *s = read_one_server(fp, &linecnt, fname);
 		if (!s)
