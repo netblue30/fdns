@@ -67,6 +67,9 @@ shiraneyo (https://github.com/shiraneyo)
 w3goodies (https://github.com/w3goodies)
 	- fixed dnsforfamily DoT server
 
+Zorvalt (https://github.com/Zorvalt)
+	- fix server load_file() overwriting global list
+
 Incorporating code from Firejail Security Sandbox, https://github.com/netblue30/firejail
 Copyright © 2014-2020 Firejail Authors, license GPLv2
 
