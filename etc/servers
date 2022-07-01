@@ -190,7 +190,7 @@ name: 42l
 website: https://42l.fr
 zone: Europe
 tags: France, Europe
-address: 185.216.27.142:443
+address: 45.155.171.163:443
 host: doh.42l.fr/dns-query
 keepalive-query: yes
 keepalive: 40
@@ -479,7 +479,7 @@ name: alekberg-nl
 website: https://alekberg.net/
 zone: Europe
 tags: Netherlands, Europe
-address: 51.15.124.208:443
+address: 89.38.131.38:443
 host: dnsnl.alekberg.net/dns-query
 keepalive: 7
 end;
@@ -488,7 +488,7 @@ name: alekberg-nl-adblocker
 website: https://alekberg.net/
 zone: Europe
 tags: adblocker, Netherlands, Europe
-address: 51.15.124.208:443
+address: 89.38.131.38:443
 host: dnsnl-noads.alekberg.net/dns-query
 keepalive: 7
 end;
@@ -1274,21 +1274,19 @@ end;
 name: dnslify
 website: https://www.dnslify.com/
 zone: Americas, AsiaPacific, Europe
-tags: admin-down, Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
+tags: admin-down, anycast, Americas, AsiaPacific, Europe
 address: 185.235.81.1:443
 host: doh.dnslify.com/dns-query
 keepalive: 25
-keepalive-query: yes
 end;
 
 name: dnslify2
 website: https://www.dnslify.com/
 zone: Americas, AsiaPacific, Europe
-tags: admin-down, Americas, AsiaPacific, Europe, NY, California, Singapore, Netherlands, Germany, UK
+tags: admin-down, anycast, Americas, AsiaPacific, Europe
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 25
-keepalive-query: yes
 end;
 
 name: edgy
@@ -1390,7 +1388,7 @@ end;
 name: faelix-ch
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: Switzerland, Europe
+tags: admin-down, Switzerland, Europe
 address: 185.134.196.54:443
 host: rdns.faelix.net/
 keepalive: 25
@@ -1399,7 +1397,7 @@ end;
 name: faelix-ch2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: Switzerland, Europe
+tags: admin-down, Switzerland, Europe
 address: 185.134.196.55:443
 host: rdns.faelix.net/
 keepalive: 25
@@ -1476,7 +1474,7 @@ end;
 name: i2pd
 website: https://opennic.i2pd.xyz/
 zone: Europe
-tags: France, Europe, OpenNIC
+tags: admin-down, France, Europe, OpenNIC
 address: 151.80.222.79:443
 host: opennic.i2pd.xyz/dns-query
 keepalive: 7
@@ -1494,7 +1492,7 @@ end;
 name: ibuki
 website: https://ibuki.cgnat.net/
 zone: Americas
-tags: Brazil, Americas
+tags: admin-down, Brazil, Americas
 address: 168.138.243.216:443
 host: ibuki.cgnat.net/dns-query
 keepalive: 40
@@ -1521,7 +1519,7 @@ end;
 name: lavadns-de
 website: https://dns.lavate.ch
 zone: Europe
-tags: admin-down, OpenNIC, Germany, Europe
+tags: OpenNIC, Germany, Europe
 address: 130.61.185.42:443
 host: eu2.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1779,7 +1777,7 @@ end;
 name: seby2-dot
 website: https://dns.seby.io
 zone: AsiaPacific
-tags: admin-down, Australia, AsiaPacific, OpenNIC
+tags: Australia, AsiaPacific, OpenNIC
 address: 139.99.222.72:853
 host: doh-2.seby.io/
 transport: dot
@@ -1809,7 +1807,7 @@ end;
 name: sinodun3-dot
 website: https://dnsprivacy.org
 zone: Europe
-tags: Netherlands, Europe
+tags: admin-down, Netherlands, Europe
 address: 145.100.185.17:853
 host: dnsovertls1.sinodun.com/
 keepalive: 7
@@ -1986,10 +1984,11 @@ host: doh.this.web.id/dns-query
 keepalive: 40
 end;
 
+# self signed certificate
 name: usableprivacy
 website: https://docs.usableprivacy.com/updns/
 zone: Europe
-tags: Austria, Europe, adblocker
+tags: admin-down, Austria, Europe, adblocker
 address: 149.154.153.153:443
 host: adfree.usableprivacy.net/
 sni: yes
