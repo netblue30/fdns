@@ -185,7 +185,6 @@ keepalive: 40
 end;
 ############################
 
-
 name: 42l
 website: https://42l.fr
 zone: Europe
@@ -315,7 +314,7 @@ end;
 name: ahadns-in-dot
 website: https://ahadns.com
 zone: AsiaPacific
-tags: admin-down, adblocker, India, AsiaPacific
+tags: adblocker, India, AsiaPacific
 address: 45.79.120.233:853
 host: dot.in.ahadns.net/
 keepalive: 25
@@ -873,7 +872,7 @@ end;
 name: controld-family
 website: https://controld.com/free-dns/
 zone: Americas, AsiaPacific, Europe
-tags: family, anycast, Americas, AsiaPacific, Europe
+tags: family
 address: 76.76.2.11:443
 host: freedns.controld.com/family
 keepalive: 40
@@ -1227,7 +1226,7 @@ end;
 name: dnsforfamily
 website: https://dnsforfamily.com
 zone: Europe
-tags: family, Germany, Europe
+tags: family
 address: 95.217.213.94:443
 host: dns-doh.dnsforfamily.com/dns-query
 keepalive: 25
@@ -1237,7 +1236,7 @@ end;
 name: dnsforfamily-dot
 website: https://dnsforfamily.com
 zone: Europe
-tags: family, Germany, Europe
+tags: family
 address: 95.217.213.94:853
 host: dns-dot.dnsforfamily.com/
 keepalive: 40
@@ -1287,6 +1286,33 @@ tags: admin-down, anycast, Americas, AsiaPacific, Europe
 address: 185.235.81.2:443
 host: doh.dnslify.com/dns-query
 keepalive: 25
+end;
+
+name: dnswarden
+website: https://github.com/bhanupratapys/dnswarden
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe, Germany, Singapore, Texas
+address: dns.dnswarden.com:443
+host: dns.dnswarden.com/uncensored
+keepalive: 40
+end;
+
+name: dnswarden-adblocker
+website: https://github.com/bhanupratapys/dnswarden
+zone: Americas, AsiaPacific, Europe
+tags: geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, Texas
+address: dns.dnswarden.com:443
+host: dns.dnswarden.com/adblock
+keepalive: 40
+end;
+
+name: dnswarden-family
+website: https://github.com/bhanupratapys/dnswarden
+zone: Americas, AsiaPacific, Europe
+tags: family
+address: dns.dnswarden.com:443
+host: dns.dnswarden.com/adultfilter
+keepalive: 40
 end;
 
 name: edgy
@@ -1474,7 +1500,7 @@ end;
 name: i2pd
 website: https://opennic.i2pd.xyz/
 zone: Europe
-tags: admin-down, France, Europe, OpenNIC
+tags: France, Europe, OpenNIC
 address: 151.80.222.79:443
 host: opennic.i2pd.xyz/dns-query
 keepalive: 7
@@ -1598,7 +1624,7 @@ website: https://meganerd.nl/encrypted-dns-server
 zone: Europe
 tags: Netherlands, Europe
 address: 136.244.97.114:443
-host: chewbacca.meganerd.nl/doh
+host: chewbacca.meganerd.nl/dns-query
 keepalive: 7
 end;
 
@@ -1892,7 +1918,7 @@ end;
 name: tiarap-sg-dot
 website: https://doh.tiar.app
 zone: AsiaPacific
-tags: Singapore, AsiaPacific, adblocker
+tags: admin-down, Singapore, AsiaPacific, adblocker
 address: dot.tiar.app:853
 host: dot.tiar.app/
 keepalive: 25
