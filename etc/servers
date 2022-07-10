@@ -1713,6 +1713,17 @@ keepalive-query: yes
 keepalive: 25
 end;
 
+name: nextdns-dot
+website: https://nextdns.io/
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
+address: 45.90.30.0:853
+host: trr.dns.nextdns.io/
+keepalive-query: yes
+keepalive: 25
+transport: dot
+end;
+
 name: nextdns2
 website: https://nextdns.io/
 zone: Americas, AsiaPacific, Europe
@@ -1721,6 +1732,38 @@ address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
 keepalive-query: yes
 keepalive: 25
+end;
+
+name: nextdns2-dot
+website: https://nextdns.io/
+zone: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
+address: 45.90.28.0:853
+host: trr.dns.nextdns.io/
+keepalive-query: yes
+keepalive: 25
+transport: dot
+end;
+
+name: nextdns3
+website: https://nextdns.io/
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe
+address: trr.dns.nextdns.io:443
+host: trr.dns.nextdns.io/
+keepalive-query: yes
+keepalive: 25
+end;
+
+name: nextdns3-dot
+website: https://nextdns.io/
+zone: Americas, AsiaPacific, Europe
+tags: geocast, Americas, AsiaPacific, Europe
+address: trr.dns.nextdns.io:853
+host: trr.dns.nextdns.io/
+keepalive-query: yes
+keepalive: 25
+transport: dot
 end;
 
 name: njalla
