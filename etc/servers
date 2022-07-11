@@ -523,7 +523,7 @@ end;
 name: ahadns-au
 website: https://ahadns.com
 zone: AsiaPacific
-tags: adblocker, Australia, AsiaPacific
+tags: admin-down, adblocker, Australia, AsiaPacific
 address: 103.73.64.132:443
 host: doh.au.ahadns.net/dns-query
 keepalive: 40
@@ -532,7 +532,7 @@ end;
 name: ahadns-au-dot
 website: https://ahadns.com
 zone: AsiaPacific
-tags: adblocker, Australia, AsiaPacific
+tags: admin-down, adblocker, Australia, AsiaPacific
 address: 103.73.64.132:853
 host: doh.au.ahadns.net/
 keepalive: 25
@@ -561,7 +561,7 @@ end;
 name: alekberg-es
 website: https://alekberg.net/
 zone: Europe
-tags: Spain, Europe
+tags: admin-down, Spain, Europe
 address: 185.253.154.66:443
 host: dnses.alekberg.net/dns-query
 keepalive: 7
@@ -570,7 +570,7 @@ end;
 name: alekberg-es-adblocker
 website: https://alekberg.net/
 zone: Europe
-tags: adblocker, Spain, Europe
+tags: admin-down, adblocker, Spain, Europe
 address: 185.253.154.66:443
 host: dnses-noads.alekberg.net/dns-query
 keepalive: 7
@@ -2095,7 +2095,7 @@ end;
 name: uncensoreddns5
 website: https://blog.uncensoreddns.org/
 zone: Europe
-tags: Denmark, Europe
+tags: admin-down, Denmark, Europe
 address: 130.226.161.34:443
 host: unicast.censurfridns.dk/dns-query
 keepalive: 25
@@ -2140,13 +2140,14 @@ host: dns.wevpn.com/dns-query
 keepalive: 40
 end;
 
-name: wedns2
+name: wedns-dot
 website: https://wevpn.com/wedns
 zone: Americas, AsiaPacific, Europe
-tags: admin-down, geocast, security, adblocker, Americas, AsiaPacific, Europe
-address: dns.wevpn.com:443
-host: dns-weblock.wevpn.com/dns-query
-keepalive: 40
+tags: geocast, security, adblocker, Americas, AsiaPacific, Europe
+address: dns.wevpn.com:853
+host: dns.wevpn.com/
+keepalive: 25
+transport: dot
 end;
 
 name: wedns-us1-dot
