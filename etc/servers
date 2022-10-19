@@ -880,7 +880,7 @@ end;
 name: commsone2
 website: https://www.comss.ru/page.php?id=7315
 zone: Europe
-tags: Lithuania, Europe, adblocker
+tags: admin-down, Lithuania, Europe, adblocker
 address: 93.115.24.204:443
 host: dns.comss.one/dns-query
 keepalive: 40
@@ -890,7 +890,7 @@ end;
 name: commsone3
 website: https://www.comss.ru/page.php?id=7315
 zone: Europe
-tags: Lithuania, Europe, adblocker
+tags: admin-down, Lithuania, Europe, adblocker
 address: 93.115.24.205:443
 host: dns.comss.one/dns-query
 keepalive: 40
@@ -1293,7 +1293,7 @@ name: dnsforfamily
 website: https://dnsforfamily.com
 zone: Europe
 tags: family
-address: 95.217.213.94:443
+address: 167.235.236.107:443
 host: dns-doh.dnsforfamily.com/dns-query
 keepalive: 25
 end;
@@ -1303,9 +1303,9 @@ name: dnsforfamily-dot
 website: https://dnsforfamily.com
 zone: Europe
 tags: family
-address: 95.217.213.94:853
+address: 167.235.236.107:853
 host: dns-dot.dnsforfamily.com/
-keepalive: 40
+keepalive: 25
 transport: dot
 end;
 
@@ -1360,7 +1360,8 @@ zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe, Germany, Singapore, Texas
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
-keepalive: 40
+sni: yes
+keepalive: 7
 end;
 
 name: dnswarden-adblocker
@@ -1369,7 +1370,8 @@ zone: Americas, AsiaPacific, Europe
 tags: geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, Texas
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adblock
-keepalive: 40
+sni: yes
+keepalive: 7
 end;
 
 name: dnswarden-family
@@ -1378,7 +1380,8 @@ zone: Americas, AsiaPacific, Europe
 tags: family
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adultfilter
-keepalive: 40
+sni: yes
+keepalive: 7
 end;
 
 name: edgy
@@ -1527,7 +1530,7 @@ end;
 name: flatuslifir-dot
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
 zone: Europe
-tags: Iceland, Europe
+tags: admin-down, Iceland, Europe
 address: 46.239.223.80:853
 host: dns.flatuslifir.is/
 transport: dot
@@ -1539,6 +1542,26 @@ website: https://getdnsapi.net/
 zone: Europe
 tags: Netherlands, Europe
 address: 185.49.141.37:853
+host: getdnsapi.net/
+keepalive: 40
+transport: dot
+end;
+
+name: getdnsapi2-dot
+website: https://getdnsapi.net/
+zone: Europe
+tags: Netherlands, Europe
+address: 185.49.141.37:443
+host: getdnsapi.net/
+keepalive: 40
+transport: dot
+end;
+
+name: getdnsapi3-dot
+website: https://getdnsapi.net/
+zone: Europe
+tags: Netherlands, Europe
+address: 185.49.141.38:853
 host: getdnsapi.net/
 keepalive: 40
 transport: dot
@@ -1593,7 +1616,7 @@ end;
 name: lavadns-us
 website: https://dns.lavate.ch
 zone: Americas
-tags: admin-down, OpenNIC, California, Americas
+tags: OpenNIC, California, Americas
 address: 79.110.170.43:443
 host: us1.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1611,7 +1634,7 @@ end;
 name: lavadns-de
 website: https://dns.lavate.ch
 zone: Europe
-tags: OpenNIC, Germany, Europe
+tags: admin-down, OpenNIC, Germany, Europe
 address: 130.61.185.42:443
 host: eu2.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1778,7 +1801,7 @@ end;
 name: oszx
 website: https://dns.oszx.co
 zone: Europe
-tags: UK, Europe, adblocker
+tags: admin-down, UK, Europe, adblocker
 address: 51.38.83.141:443
 host: dns.oszx.co/dns-query
 sni: yes
@@ -1788,7 +1811,7 @@ end;
 name: oszx-dot
 website: https://dns.oszx.co
 zone: Europe
-tags: UK, Europe, adblocker
+tags: admin-down, UK, Europe, adblocker
 address: 51.38.83.141:853
 host: dns.oszx.co/
 sni: yes
@@ -1919,50 +1942,10 @@ transport: dot
 keepalive: 40
 end;
 
-name: sinodun-dot
-website: https://dnsprivacy.org
-zone: Europe
-tags: Netherlands, Europe
-address: 145.100.185.15:443
-host: dnsovertls.sinodun.com/
-keepalive: 25
-transport: dot
-end;
-
-name: sinodun2-dot
-website: https://dnsprivacy.org
-zone: Europe
-tags: Netherlands, Europe
-address: 145.100.185.16:443
-host: dnsovertls1.sinodun.com/
-keepalive: 25
-transport: dot
-end;
-
-name: sinodun3-dot
-website: https://dnsprivacy.org
-zone: Europe
-tags: admin-down, Netherlands, Europe
-address: 145.100.185.17:853
-host: dnsovertls1.sinodun.com/
-keepalive: 7
-transport: dot
-end;
-
-name: sinodun4-dot
-website: https://dnsprivacy.org
-zone: Europe
-tags: Netherlands, Europe
-address: 145.100.185.18:853
-host: dnsovertls1.sinodun.com/
-keepalive: 25
-transport: dot
-end;
-
 name: snopyta
 website: https://snopyta.org
 zone: Europe
-tags: Finland, Europe
+tags: admin-down, Finland, Europe
 address: 95.216.229.153:443
 host: fi.doh.dns.snopyta.org/dns-query
 sni: yes
@@ -2095,7 +2078,7 @@ end;
 name: uncensoreddns5
 website: https://blog.uncensoreddns.org/
 zone: Europe
-tags: admin-down, Denmark, Europe
+tags: Denmark, Europe
 address: 130.226.161.34:443
 host: unicast.censurfridns.dk/dns-query
 keepalive: 25
