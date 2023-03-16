@@ -371,7 +371,7 @@ end;
 name: ahadns-in
 website: https://ahadns.com
 zone: AsiaPacific
-tags: adblocker, India, AsiaPacific
+tags: admin-down, adblocker, India, AsiaPacific
 address: 45.79.120.233:443
 host: doh.in.ahadns.net/dns-query
 keepalive: 40
@@ -380,7 +380,7 @@ end;
 name: ahadns-in-dot
 website: https://ahadns.com
 zone: AsiaPacific
-tags: adblocker, India, AsiaPacific
+tags: admin-down, adblocker, India, AsiaPacific
 address: 45.79.120.233:853
 host: dot.in.ahadns.net/
 keepalive: 25
@@ -647,7 +647,7 @@ end;
 name: blahdns-jp
 website: https://blahdns.com
 zone: AsiaPacific
-tags: Japan, AsiaPacific, adblocker
+tags: admin-down, Japan, AsiaPacific, adblocker
 address: 139.162.112.47:443
 host: doh-jp.blahdns.com/dns-query
 sni: yes
@@ -658,7 +658,7 @@ end;
 name: blahdns-sg
 website: https://blahdns.com
 zone: AsiaPacific
-tags: Singapore, AsiaPacific, adblocker
+tags: admin-down, Singapore, AsiaPacific, adblocker
 address: 192.53.175.149:443
 host: doh-sg.blahdns.com/dns-query
 sni: yes
@@ -1428,7 +1428,7 @@ end;
 name: faelix-uk-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: admin-down, UK, Europe, adblocker
+tags: UK, Europe, adblocker
 address: 46.227.200.52:443
 host: pdns.faelix.net/
 keepalive: 25
@@ -1446,17 +1446,16 @@ end;
 name: faelix-uk-adblocker3
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: admin-down, UK, Europe, adblocker
+tags: UK, Europe, adblocker
 address: 46.227.207.52:443
 host: pdns.faelix.net/
 keepalive: 25
 end;
 
-# expired cert
 name: faelix-ch-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: admin-down, Switzerland, Europe, adblocker
+tags: Switzerland, Europe, adblocker
 address: 185.134.196.52:443
 host: pdns.faelix.net/
 keepalive: 25
@@ -1474,7 +1473,7 @@ end;
 name: faelix-uk2
 website: https://faelix.net/ref/dns
 zone: Europe
-tags: UK, Europe
+tags: admin-down, UK, Europe
 address: 46.227.200.55:443
 host: rdns.faelix.net/
 keepalive: 25
@@ -1483,7 +1482,7 @@ end;
 name: faelix-ch
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: admin-down, Switzerland, Europe
+tags: Switzerland, Europe
 address: 185.134.196.54:443
 host: rdns.faelix.net/
 keepalive: 25
@@ -1492,7 +1491,7 @@ end;
 name: faelix-ch2
 website: https://faelix.net/ref/dns/#privacy-dns
 zone: Europe
-tags: admin-down, Switzerland, Europe
+tags: Switzerland, Europe
 address: 185.134.196.55:443
 host: rdns.faelix.net/
 keepalive: 25
@@ -1634,7 +1633,7 @@ end;
 name: lavadns-de
 website: https://dns.lavate.ch
 zone: Europe
-tags: admin-down, OpenNIC, Germany, Europe
+tags: OpenNIC, Germany, Europe
 address: 130.61.185.42:443
 host: eu2.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1795,23 +1794,23 @@ zone: Europe
 tags: Sweden, Europe
 address: 95.215.19.53:443
 host: dns.njal.la/dns-query
-keepalive: 40
+keepalive: 25
 end;
 
 name: oszx
 website: https://dns.oszx.co
 zone: Europe
-tags: admin-down, UK, Europe, adblocker
+tags: UK, Europe, adblocker
 address: 51.38.83.141:443
 host: dns.oszx.co/dns-query
 sni: yes
-keepalive: 40
+keepalive: 25
 end;
 
 name: oszx-dot
 website: https://dns.oszx.co
 zone: Europe
-tags: admin-down, UK, Europe, adblocker
+tags: UK, Europe, adblocker
 address: 51.38.83.141:853
 host: dns.oszx.co/
 sni: yes
