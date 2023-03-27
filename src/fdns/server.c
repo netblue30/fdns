@@ -609,7 +609,7 @@ void server_list(const char *tag) {
 		}
 
 		if (server_print_servers)
-			printf("%d servers found\n", cnt);
+			printf("%d server%s found\n", cnt, (cnt > 1)? "s": "");
 		return;
 	}
 
@@ -673,7 +673,7 @@ void server_list(const char *tag) {
 
 	if (cnt) {
 		if (server_print_servers)
-			printf("%d servers found\n", cnt);
+			printf("%d server%s found\n", cnt, (cnt > 1)? "s": "");
 	}
 	else if (second_try == 0) {
 		// try to find server outside the current zone

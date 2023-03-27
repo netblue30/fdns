@@ -63,15 +63,8 @@ Example:
 $ fdns --blocklist=fonts.googleaps.com
 
 .TP
-\fB\-\-blocklist=file=fileman
+\fB\-\-blocklist-file=filename
 Block all domains listed in the file.
-.br
-
-.br
-Example:
-.br
-$ fdns --blocklist-file=cloudflare
-
 .TP
 \fB\-\-cache-ttl=seconds
 Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 40 minutes.
