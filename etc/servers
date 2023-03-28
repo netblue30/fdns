@@ -1228,7 +1228,6 @@ host: dns-doh.dnsforfamily.com/dns-query
 keepalive: 25
 end;
 
-# short keepalive
 name: dnsforfamily-dot
 website: https://dnsforfamily.com
 zone: Europe
@@ -1239,10 +1238,11 @@ keepalive: 25
 transport: dot
 end;
 
+# short keepalive
 name: dnsforge
 website: https://dnsforge.de
 zone: Europe
-tags: Germany, Europe, adblocker
+tags: admin-down, Germany, Europe, adblocker
 address: 176.9.93.198:443
 host: dnsforge.de/dns-query
 keepalive: 7
@@ -1273,7 +1273,7 @@ tags: geocast, Americas, AsiaPacific, Europe, Germany, Singapore, Texas
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
 sni: yes
-keepalive: 7
+keepalive: 25
 end;
 
 name: dnswarden-adblocker
@@ -1283,7 +1283,7 @@ tags: geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, Tex
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adblock
 sni: yes
-keepalive: 7
+keepalive: 25
 end;
 
 name: dnswarden-family
@@ -1293,7 +1293,7 @@ tags: family
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adultfilter
 sni: yes
-keepalive: 7
+keepalive: 25
 end;
 
 # self signed certs
@@ -1497,7 +1497,6 @@ host: dns.hostux.net/ads
 keepalive: 25
 end;
 
-#short keepalive
 name: i2pd
 website: https://opennic.i2pd.xyz/
 zone: Europe
@@ -1606,7 +1605,7 @@ tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.30.0:443
 host: trr.dns.nextdns.io/
 keepalive-query: yes
-keepalive: 25
+keepalive: 40
 end;
 
 name: nextdns-dot
@@ -1616,7 +1615,7 @@ tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.30.0:853
 host: trr.dns.nextdns.io/
 keepalive-query: yes
-keepalive: 25
+keepalive: 40
 transport: dot
 end;
 
@@ -1627,7 +1626,7 @@ tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
 keepalive-query: yes
-keepalive: 25
+keepalive: 40
 end;
 
 name: nextdns2-dot
@@ -1637,7 +1636,7 @@ tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.28.0:853
 host: trr.dns.nextdns.io/
 keepalive-query: yes
-keepalive: 25
+keepalive: 40
 transport: dot
 end;
 
@@ -1669,6 +1668,82 @@ tags: Sweden, Europe
 address: 95.215.19.53:443
 host: dns.njal.la/dns-query
 keepalive: 25
+end;
+
+name: opennameserver
+website: https://opennameserver.org/
+zone: Europe
+tags: OpenNIC, Germany, Europe
+address: 217.160.70.42:443
+host: ns1.opennameserver.org/dns-query
+keepalive: 25
+end;
+
+name: opennameserver-dot
+website: https://opennameserver.org/
+zone: Europe
+tags: OpenNIC, Germany, Europe
+address: 217.160.70.42:853
+host: ns1.opennameserver.org/
+keepalive: 25
+transport: dot
+end;
+
+name: opennameserver2
+website: https://opennameserver.org/
+zone: Europe
+tags: OpenNIC, Germany, Europe
+address: 178.254.22.166:443
+host: ns2.opennameserver.org/dns-query
+keepalive: 25
+end;
+
+name: opennameserver2-dot
+website: https://opennameserver.org/
+zone: Europe
+tags: OpenNIC, Germany, Europe
+address: 178.254.22.166:853
+host: ns2.opennameserver.org/
+keepalive: 25
+transport: dot
+end;
+
+name: opennameserver3
+website: https://opennameserver.org/
+zone: Europe
+tags: admin-down, OpenNIC, Germany, Europe
+address: 81.169.136.222:443
+host: ns3.opennameserver.org/dns-query
+keepalive: 25
+end;
+
+name: opennameserver3-dot
+website: https://opennameserver.org/
+zone: Europe
+tags: admin-down, OpenNIC, Germany, Europe
+address: 81.169.136.222:853
+host: ns3.opennameserver.org/
+keepalive: 25
+transport: dot
+end;
+
+name: opennameserver4
+website: https://opennameserver.org/
+zone: Europe
+tags: OpenNIC, Norway, Europe
+address: 185.181.61.24:443
+host: ns4.opennameserver.org/dns-query
+keepalive: 25
+end;
+
+name: opennameserver4-dot
+website: https://opennameserver.org/
+zone: Europe
+tags: OpenNIC, Norway, Europe
+address: 185.181.61.24:853
+host: ns4.opennameserver.org/
+keepalive: 25
+transport: dot
 end;
 
 name: quad9
@@ -1834,7 +1909,7 @@ name: tiarap-sg
 website: https://doh.tiar.app
 zone: AsiaPacific
 tags: Singapore, AsiaPacific, adblocker
-address: doh.tiar.app:443
+address: 174.138.29.175:443
 host: doh.tiar.app/dns-query
 keepalive: 7
 end;
@@ -1843,7 +1918,7 @@ name: tiarap-sg-dot
 website: https://doh.tiar.app
 zone: AsiaPacific
 tags: Singapore, AsiaPacific, adblocker
-address: dot.tiar.app:853
+address: 174.138.29.175:853
 host: dot.tiar.app/
 keepalive: 25
 transport: dot
