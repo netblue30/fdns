@@ -576,6 +576,9 @@ static uint8_t test_server(const char *server_name)  {
 static int second_try = 0;
 // mark all the servers corresponding to the given tag (s->active)
 void server_list(const char *tag) {
+	// force reading admin-down servers
+	if (tag && strcmp(tag, "admin-down") == 0)
+		env_admin_down = 1;;
 	load_list();
 	assert(slist);
 	assert(fdns_zone);
@@ -590,11 +593,38 @@ void server_list(const char *tag) {
 	    strcmp(tag, "Americas") == 0)
 	    	fdns_zone = "any";
 
+
+
 	// process tag "all"
 	DnsServer *s = slist;
 	int cnt = 0;
-	if (strcmp(tag, "all") == 0 || strcmp(tag, "admin-down") == 0) {
+	if (strcmp(tag, "all") == 0) {
 		while (s) {
+			// match transport
+			if (arg_transport) {
+				if (strstr(s->transport, arg_transport) == NULL) {
+					s = s->next;
+					continue;
+				}
+			}
+			print_server(s);
+			s->active = 1;
+			cnt++;
+			s = s->next;
+		}
+
+		if (server_print_servers)
+			printf("%d server%s found\n", cnt, (cnt > 1)? "s": "");
+		return;
+	}
+
+	if (strcmp(tag, "admin-down") == 0) {
+		while (s) {
+			if (strstr(s->tags, "admin-down") == NULL) {
+				s = s->next;
+				continue;
+			}
+
 			// match transport
 			if (arg_transport) {
 				if (strstr(s->transport, arg_transport) == NULL) {
