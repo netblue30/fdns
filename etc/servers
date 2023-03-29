@@ -230,6 +230,7 @@ tags: adblocker, Australia, AsiaPacific
 address: 163.47.117.176:443
 host: adl.adfilter.net/dns-query
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: adfilter-perth
@@ -239,6 +240,7 @@ tags: adblocker, Australia, AsiaPacific
 address: 203.29.241.76:443
 host: per.adfilter.net/dns-query
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: adfilter-sydney
@@ -248,6 +250,7 @@ tags: adblocker, Australia, AsiaPacific
 address: 112.213.32.219:443
 host: syd.adfilter.net/dns-query
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: adguard-unfiltered
@@ -435,41 +438,43 @@ transport: dot
 end;
 
 # short keepalive
-name: alekberg-nl
-website: https://alekberg.net/
-zone: Europe
-tags: Netherlands, Europe
-address: 89.38.131.38:443
-host: dnsnl.alekberg.net/dns-query
-keepalive: 7
-end;
-
-name: alekberg-nl-adblocker
-website: https://alekberg.net/
-zone: Europe
-tags: adblocker, Netherlands, Europe
-address: 89.38.131.38:443
-host: dnsnl-noads.alekberg.net/dns-query
-keepalive: 25
-end;
-
-name: alekberg-se
-website: https://alekberg.net/
-zone: Europe
-tags: Sweden, Europe
-address: 45.153.187.96:443
-host: dnsse.alekberg.net/dns-query
-keepalive: 25
-end;
-
-name: alekberg-se-adblocker
-website: https://alekberg.net/
-zone: Europe
-tags: adblocker, Sweden, Europe
-address: 45.153.187.96:443
-host: dnsse-noads.alekberg.net/dns-query
-keepalive: 25
-end;
+#name: alekberg-nl
+#website: https://alekberg.net/
+#zone: Europe
+#tags: Netherlands, Europe
+#address: 89.38.131.38:443
+#host: dnsnl.alekberg.net/dns-query
+#keepalive: 7
+#end;
+#
+#name: alekberg-nl-adblocker
+#website: https://alekberg.net/
+#zone: Europe
+#tags: adblocker, Netherlands, Europe
+#address: 89.38.131.38:443
+#host: dnsnl-noads.alekberg.net/dns-query
+#keepalive: 25
+#end;
+#
+#name: alekberg-se
+#website: https://alekberg.net/
+#zone: Europe
+#tags: Sweden, Europe
+#address: 45.153.187.96:443
+#host: dnsse.alekberg.net/dns-query
+#keepalive: 25
+#keepalive-query: yes
+#end;
+#
+#name: alekberg-se-adblocker
+#website: https://alekberg.net/
+#zone: Europe
+#tags: adblocker, Sweden, Europe
+#address: 45.153.187.96:443
+#host: dnsse-noads.alekberg.net/dns-query
+#keepalive: 25
+#keepalive-query: yes
+#end;
 
 name: artikel10
 website: https://dns.artikel10.org
@@ -507,6 +512,7 @@ tags: adblocker, OpenNIC, Malaysia, AsiaPacific
 address: 47.254.192.66:443
 host: dns.bebasid.com/dns-query
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: bebasid-unfiltered
@@ -516,6 +522,7 @@ tags: OpenNIC, Malaysia, AsiaPacific
 address: 47.254.192.66:443
 host: unfiltered.dns.bebasid.com/dns-query
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: bebasid-malware
@@ -525,6 +532,7 @@ tags: malware, OpenNIC, Malaysia, AsiaPacific
 address: 47.254.192.66:443
 host: malware.dns.bebasid.com/dns-query
 keepalive: 40
+keepalive-query: yes
 end;
 
 name: bebasid-family
@@ -534,6 +542,7 @@ tags: family, OpenNIC, Malaysia, AsiaPacific
 address: 47.254.192.66:443
 host: family.dns.bebasid.com/dns-query
 keepalive: 40
+keepalive-query: yes
 end;
 
 # very short keepalive (about 5 seconds)
@@ -882,7 +891,7 @@ zone: Europe
 tags: Switzerland, Europe
 address: 185.95.218.42:443
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 40
+keepalive: 25
 end;
 
 name: digital-society2
@@ -891,49 +900,51 @@ zone: Europe
 tags: Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 40
-end;
-
-name: digital-society-dot
-website: https://www.digitale-gesellschaft.ch
-zone: Europe
-tags: Switzerland, Europe
-address: 185.95.218.42:853
-host: dns.digitale-gesellschaft.ch/
 keepalive: 25
-transport: dot
 end;
 
 # short keepalive
-name: digital-society-dot2
-website: https://www.digitale-gesellschaft.ch
-zone: Europe
-tags: Switzerland, Europe
-address: 185.95.218.43:853
-host: dns.digitale-gesellschaft.ch/dns-query
-keepalive: 7
-transport: dot
-end;
+#name: digital-society-dot
+#website: https://www.digitale-gesellschaft.ch
+#zone: Europe
+#tags: Switzerland, Europe
+#address: 185.95.218.42:853
+#host: dns.digitale-gesellschaft.ch/
+#keepalive: 25
+#transport: dot
+#end;
 
-name: dismail-dot
-website: https://dismail.de/info.html
-zone: Europe
-tags: adblocker, Germany, Europe
-address: 80.241.218.68:853
-host: fdns1.dismail.de/
-keepalive: 25
-transport: dot
-end;
+# short keepalive
+#name: digital-society-dot2
+#website: https://www.digitale-gesellschaft.ch
+#zone: Europe
+#tags: Switzerland, Europe
+#address: 185.95.218.43:853
+#host: dns.digitale-gesellschaft.ch/dns-query
+#keepalive: 7
+#transport: dot
+#end;
 
-name: dismail2-dot
-website: https://dismail.de/info.html
-zone: Europe
-tags: adblocker, Germany, Europe
-address: 159.69.114.157:853
-host: fdns2.dismail.de/
-keepalive: 25
-transport: dot
-end;
+# short keepalive
+#name: dismail-dot
+#website: https://dismail.de/info.html
+#zone: Europe
+#tags: adblocker, Germany, Europe
+#address: 80.241.218.68:853
+#host: fdns1.dismail.de/
+#keepalive: 25
+#transport: dot
+#end;
+#
+#name: dismail2-dot
+#website: https://dismail.de/info.html
+#zone: Europe
+#tags: adblocker, Germany, Europe
+#address: 159.69.114.157:853
+#host: fdns2.dismail.de/
+#keepalive: 25
+#transport: dot
+#end;
 
 
 name: dns0eu
@@ -1239,14 +1250,14 @@ transport: dot
 end;
 
 # short keepalive
-name: dnsforge
-website: https://dnsforge.de
-zone: Europe
-tags: admin-down, Germany, Europe, adblocker
-address: 176.9.93.198:443
-host: dnsforge.de/dns-query
-keepalive: 7
-end;
+#name: dnsforge
+#website: https://dnsforge.de
+#zone: Europe
+#tags: admin-down, Germany, Europe, adblocker
+#address: 176.9.93.198:443
+#host: dnsforge.de/dns-query
+#keepalive: 7
+#end;
 
 name: dnshome
 website: https://www.dnshome.de/doh-dot-public-resolver.php
@@ -1274,6 +1285,7 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
 sni: yes
 keepalive: 25
+keepalive-query: yes
 end;
 
 name: dnswarden-adblocker
@@ -1284,6 +1296,7 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adblock
 sni: yes
 keepalive: 25
+keepalive-query: yes
 end;
 
 name: dnswarden-family
@@ -1294,6 +1307,7 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adultfilter
 sni: yes
 keepalive: 25
+keepalive-query: yes
 end;
 
 # self signed certs
@@ -1430,24 +1444,24 @@ sni: yes
 keepalive: 40
 end;
 
-name: flatuslifir
-website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-zone: Europe
-tags: admin-down, Iceland, Europe
-address: 46.239.223.80:443
-host: dns.flatuslifir.is/dns-query
-keepalive: 40
-end;
-
-name: flatuslifir-dot
-website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-zone: Europe
-tags: admin-down, Iceland, Europe
-address: 46.239.223.80:853
-host: dns.flatuslifir.is/
-transport: dot
-keepalive: 25
-end;
+#name: flatuslifir
+#website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+#zone: Europe
+#tags: admin-down, Iceland, Europe
+#address: 46.239.223.80:443
+#host: dns.flatuslifir.is/dns-query
+#keepalive: 40
+#end;
+#
+#name: flatuslifir-dot
+#website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+#zone: Europe
+#tags: admin-down, Iceland, Europe
+#address: 46.239.223.80:853
+#host: dns.flatuslifir.is/
+#transport: dot
+#keepalive: 25
+#end;
 
 name: getdnsapi-dot
 website: https://getdnsapi.net/
@@ -1497,14 +1511,14 @@ host: dns.hostux.net/ads
 keepalive: 25
 end;
 
-name: i2pd
-website: https://opennic.i2pd.xyz/
-zone: Europe
-tags: France, Europe, OpenNIC
-address: 151.80.222.79:443
-host: opennic.i2pd.xyz/dns-query
-keepalive: 7
-end;
+#name: i2pd
+#website: https://opennic.i2pd.xyz/
+#zone: Europe
+#tags: France, Europe, OpenNIC
+#address: 151.80.222.79:443
+#host: opennic.i2pd.xyz/dns-query
+#keepalive: 7
+#end;
 
 name: ibksturm
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
@@ -1589,14 +1603,16 @@ host: doh.libredns.gr/ads
 keepalive: 40
 end;
 
-name: meganerd
-website: https://meganerd.nl/encrypted-dns-server
-zone: Europe
-tags: Netherlands, Europe
-address: 136.244.97.114:443
-host: chewbacca.meganerd.nl/dns-query
-keepalive: 7
-end;
+# short keepalive
+#name: meganerd
+#website: https://meganerd.nl/encrypted-dns-server
+#zone: Europe
+#tags: Netherlands, Europe
+#address: 136.244.97.114:443
+#host: chewbacca.meganerd.nl/dns-query
+#keepalive: 7
+#keepalive-query: yes
+#end;
 
 name: nextdns
 website: https://nextdns.io/
@@ -1840,14 +1856,15 @@ transport: dot
 keepalive: 40
 end;
 
-name: seby2
-website: https://dns.seby.io
-zone: AsiaPacific
-tags: Australia, AsiaPacific, OpenNIC
-address: 139.99.222.72:443
-host: doh-2.seby.io/dns-query
-keepalive: 25
-end;
+# short keepalive
+#name: seby2
+#website: https://dns.seby.io
+#zone: AsiaPacific
+#tags: Australia, AsiaPacific, OpenNIC
+#address: 139.99.222.72:443
+#host: doh-2.seby.io/dns-query
+#keepalive: 25
+#end;
 
 name: seby2-dot
 website: https://dns.seby.io
@@ -1896,23 +1913,23 @@ sni: yes
 keepalive: 40
 end;
 
-name: tiarap-jp
-website: https://jp.tiar.app/
-zone: AsiaPacific
-tags: Japan, AsiaPacific, adblocker
-address: jp.tiar.app:443
-host: jp.tiar.app/dns-query
-keepalive: 7
-end;
-
-name: tiarap-sg
-website: https://doh.tiar.app
-zone: AsiaPacific
-tags: Singapore, AsiaPacific, adblocker
-address: 174.138.29.175:443
-host: doh.tiar.app/dns-query
-keepalive: 7
-end;
+#name: tiarap-jp
+#website: https://jp.tiar.app/
+#zone: AsiaPacific
+#tags: Japan, AsiaPacific, adblocker
+#address: jp.tiar.app:443
+#host: jp.tiar.app/dns-query
+#keepalive: 7
+#end;
+#
+#name: tiarap-sg
+#website: https://doh.tiar.app
+#zone: AsiaPacific
+#tags: Singapore, AsiaPacific, adblocker
+#address: 174.138.29.175:443
+#host: doh.tiar.app/dns-query
+#keepalive: 7
+#end;
 
 name: tiarap-sg-dot
 website: https://doh.tiar.app
