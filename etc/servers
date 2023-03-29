@@ -28,9 +28,6 @@
 #	       If yes we add SNI when we establish the connection. Optional, default no.
 #	transport: h2, http/1.1, dot
 #	       Transport technologies supported by the server.
-#	keepalive-query: yes/no
-#	       Use a regular DNS query to keep the HTTP2 connection open instead of PING.
-#	       Optional, default no.
 #	keepalive: how often we sent a request to keep the connection going.
 #
 #	end;
@@ -191,7 +188,6 @@ zone: Europe
 tags: France, Europe
 address: 45.155.171.163:443
 host: doh.42l.fr/dns-query
-keepalive-query: yes
 keepalive: 40
 end;
 
@@ -219,7 +215,6 @@ zone: Americas
 tags: NY, Americas, adblocker
 address: 168.235.81.167:443
 host: dns-nyc.aaflalo.me/dns-query
-keepalive-query: yes
 keepalive: 40
 end;
 
@@ -230,7 +225,6 @@ tags: adblocker, Australia, AsiaPacific
 address: 163.47.117.176:443
 host: adl.adfilter.net/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: adfilter-perth
@@ -240,7 +234,6 @@ tags: adblocker, Australia, AsiaPacific
 address: 203.29.241.76:443
 host: per.adfilter.net/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: adfilter-sydney
@@ -250,7 +243,6 @@ tags: adblocker, Australia, AsiaPacific
 address: 112.213.32.219:443
 host: syd.adfilter.net/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: adguard-unfiltered
@@ -260,7 +252,6 @@ tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.136:443
 host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: adguard-unfiltered-dot
@@ -270,7 +261,6 @@ tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.136:853
 host: dns-unfiltered.adguard.com/
 keepalive: 25
-keepalive-query: yes
 transport: dot
 end;
 
@@ -281,7 +271,6 @@ tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.137:443
 host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: adguard-unfiltered2-dot
@@ -291,7 +280,6 @@ tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.137:853
 host: dns-unfiltered.adguard.com/
 keepalive: 25
-keepalive-query: yes
 transport: dot
 end;
 
@@ -302,7 +290,6 @@ tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: adguard-dot
@@ -312,7 +299,6 @@ tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.130:853
 host: dns.adguard.com/
 keepalive: 25
-keepalive-query: yes
 transport: dot
 end;
 
@@ -323,7 +309,6 @@ tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: adguard2-dot
@@ -333,7 +318,6 @@ tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.131:853
 host: dns.adguard.com/dns-query
 keepalive: 25
-keepalive-query: yes
 transport: dot
 end;
 
@@ -344,7 +328,6 @@ tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: adguard-family-dot
@@ -354,7 +337,6 @@ tags: family
 address: 176.103.130.132:853
 host: dns-family.adguard.com/
 keepalive: 25
-keepalive-query: yes
 transport: dot
 end;
 
@@ -365,7 +347,6 @@ tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: adguard-family2-dot
@@ -375,7 +356,6 @@ tags: family
 address: 176.103.130.134:853
 host: dns-family.adguard.com/
 keepalive: 25
-keepalive-query: yes
 transport: dot
 end;
 
@@ -463,7 +443,6 @@ end;
 #address: 45.153.187.96:443
 #host: dnsse.alekberg.net/dns-query
 #keepalive: 25
-#keepalive-query: yes
 #end;
 #
 #name: alekberg-se-adblocker
@@ -473,7 +452,6 @@ end;
 #address: 45.153.187.96:443
 #host: dnsse-noads.alekberg.net/dns-query
 #keepalive: 25
-#keepalive-query: yes
 #end;
 
 name: artikel10
@@ -512,7 +490,6 @@ tags: adblocker, OpenNIC, Malaysia, AsiaPacific
 address: 47.254.192.66:443
 host: dns.bebasid.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: bebasid-unfiltered
@@ -522,7 +499,6 @@ tags: OpenNIC, Malaysia, AsiaPacific
 address: 47.254.192.66:443
 host: unfiltered.dns.bebasid.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: bebasid-malware
@@ -532,7 +508,6 @@ tags: malware, OpenNIC, Malaysia, AsiaPacific
 address: 47.254.192.66:443
 host: malware.dns.bebasid.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: bebasid-family
@@ -542,7 +517,6 @@ tags: family, OpenNIC, Malaysia, AsiaPacific
 address: 47.254.192.66:443
 host: family.dns.bebasid.com/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 # very short keepalive (about 5 seconds)
@@ -633,7 +607,6 @@ tags: Sweden, Europe, adblocker
 address: 16.170.150.221:443
 host: dns.brahma.world/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: bravedns
@@ -825,7 +798,6 @@ tags: Europe, Russia, adblocker
 address: dns.comss.one:443
 host: dns.comss.one/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: comssone-east
@@ -835,7 +807,6 @@ tags: AsiaPacific, Russia, adblocker
 address: dns.east.comss.one:443
 host: dns.east.comss.one/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: controld
@@ -991,7 +962,6 @@ address: 185.222.222.222:443
 host: doh.dns.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb2
@@ -1002,7 +972,6 @@ address: 45.11.45.11:443
 host: doh.dns.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-de1
@@ -1013,7 +982,6 @@ address: de-dus.doh.sb:443
 host: de-dus.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-de2
@@ -1024,7 +992,6 @@ address: de-fra.doh.sb:443
 host: de-fra.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-nl1
@@ -1035,7 +1002,6 @@ address: nl-ams.doh.sb:443
 host: nl-ams.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-nl2
@@ -1046,7 +1012,6 @@ address: nl-ams2.doh.sb:443
 host: nl-ams2.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-uk
@@ -1057,7 +1022,6 @@ address: uk-lon.doh.sb:443
 host: uk-lon.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-ee
@@ -1068,7 +1032,6 @@ address: ee-tll.doh.sb:443
 host: ee-tll.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-jp1
@@ -1079,7 +1042,6 @@ address: jp-kix.doh.sb:443
 host: jp-kix.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-jp2
@@ -1090,7 +1052,6 @@ address: jp-nrt.doh.sb:443
 host: jp-nrt.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-hk
@@ -1101,7 +1062,6 @@ address: hk-hkg.doh.sb:443
 host: hk-hkg.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-au
@@ -1112,7 +1072,6 @@ address: au-syd.doh.sb:443
 host: au-syd.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-us
@@ -1123,7 +1082,6 @@ address: us-chi.doh.sb:443
 host: us-chi.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-in
@@ -1134,7 +1092,6 @@ address: in-blr.doh.sb:443
 host: in-blr.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-sg
@@ -1145,7 +1102,6 @@ address: sg-sin.doh.sb:443
 host: sg-sin.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-kr
@@ -1156,7 +1112,6 @@ address: kr-sel.doh.sb:443
 host: kr-sel.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-ru
@@ -1167,7 +1122,6 @@ address: ru-mow.doh.sb:443
 host: ru-mow.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-sb-ca
@@ -1178,7 +1132,6 @@ address: ca-yyc.doh.sb:443
 host: ca-yyc.doh.sb/dns-query
 sni: yes
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dns-watch
@@ -1216,7 +1169,6 @@ tags: admin-down, UK, Europe
 address: 165.227.233.200:443
 host: doh.dnscrypt.uk/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 # expired cert
@@ -1227,7 +1179,6 @@ tags: admin-down, UK, Europe
 address: 136.244.65.20:443
 host: v.dnscrypt.uk/dns-query
 keepalive: 40
-keepalive-query: yes
 end;
 
 name: dnsforfamily
@@ -1285,7 +1236,6 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
 sni: yes
 keepalive: 25
-keepalive-query: yes
 end;
 
 name: dnswarden-adblocker
@@ -1296,7 +1246,6 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adblock
 sni: yes
 keepalive: 25
-keepalive-query: yes
 end;
 
 name: dnswarden-family
@@ -1307,7 +1256,6 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adultfilter
 sni: yes
 keepalive: 25
-keepalive-query: yes
 end;
 
 # self signed certs
@@ -1591,7 +1539,7 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 116.202.176.26:443
 host: doh.libredns.gr/dns-query
-keepalive: 40
+keepalive: 25
 end;
 
 name: libredns-adblocker
@@ -1600,7 +1548,7 @@ zone: Europe
 tags: Germany, Europe, OpenNIC, adblocker
 address: 116.202.176.26:443
 host: doh.libredns.gr/ads
-keepalive: 40
+keepalive: 25
 end;
 
 # short keepalive
@@ -1611,7 +1559,6 @@ end;
 #address: 136.244.97.114:443
 #host: chewbacca.meganerd.nl/dns-query
 #keepalive: 7
-#keepalive-query: yes
 #end;
 
 name: nextdns
@@ -1620,7 +1567,6 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.30.0:443
 host: trr.dns.nextdns.io/
-keepalive-query: yes
 keepalive: 40
 end;
 
@@ -1630,7 +1576,6 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.30.0:853
 host: trr.dns.nextdns.io/
-keepalive-query: yes
 keepalive: 40
 transport: dot
 end;
@@ -1641,7 +1586,6 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
-keepalive-query: yes
 keepalive: 40
 end;
 
@@ -1651,7 +1595,6 @@ zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.28.0:853
 host: trr.dns.nextdns.io/
-keepalive-query: yes
 keepalive: 40
 transport: dot
 end;
@@ -1662,7 +1605,6 @@ zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: trr.dns.nextdns.io:443
 host: trr.dns.nextdns.io/
-keepalive-query: yes
 keepalive: 25
 end;
 
@@ -1672,7 +1614,6 @@ zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: trr.dns.nextdns.io:853
 host: trr.dns.nextdns.io/
-keepalive-query: yes
 keepalive: 25
 transport: dot
 end;
@@ -1736,7 +1677,7 @@ end;
 name: opennameserver3-dot
 website: https://opennameserver.org/
 zone: Europe
-tags: admin-down, OpenNIC, Germany, Europe
+tags: OpenNIC, Germany, Europe
 address: 81.169.136.222:853
 host: ns3.opennameserver.org/
 keepalive: 25
@@ -1865,16 +1806,16 @@ end;
 #host: doh-2.seby.io/dns-query
 #keepalive: 25
 #end;
-
-name: seby2-dot
-website: https://dns.seby.io
-zone: AsiaPacific
-tags: Australia, AsiaPacific, OpenNIC
-address: 139.99.222.72:853
-host: doh-2.seby.io/
-transport: dot
-keepalive: 40
-end;
+#
+#name: seby2-dot
+#website: https://dns.seby.io
+#zone: AsiaPacific
+#tags: Australia, AsiaPacific, OpenNIC
+#address: 139.99.222.72:853
+#host: doh-2.seby.io/
+#transport: dot
+#keepalive: 40
+#end;
 
 name: switch
 website: https://www.switch.ch/security/info/public-dns/
@@ -1913,6 +1854,7 @@ sni: yes
 keepalive: 40
 end;
 
+# small keepalive
 #name: tiarap-jp
 #website: https://jp.tiar.app/
 #zone: AsiaPacific
@@ -1930,17 +1872,17 @@ end;
 #host: doh.tiar.app/dns-query
 #keepalive: 7
 #end;
-
-name: tiarap-sg-dot
-website: https://doh.tiar.app
-zone: AsiaPacific
-tags: Singapore, AsiaPacific, adblocker
-address: 174.138.29.175:853
-host: dot.tiar.app/
-keepalive: 25
-transport: dot
-sni: yes
-end;
+#
+#name: tiarap-sg-dot
+#website: https://doh.tiar.app
+#zone: AsiaPacific
+#tags: Singapore, AsiaPacific, adblocker
+#address: 174.138.29.175:853
+#host: dot.tiar.app/
+#keepalive: 25
+#transport: dot
+#sni: yes
+#end;
 
 name: twnic
 website: https://101.101.101.101/index_en.html
@@ -1948,7 +1890,6 @@ zone: AsiaPacific
 tags: Taiwan, AsiaPacific
 address: 101.101.101.101:443
 host: dns.twnic.tw/dns-query
-keepalive-query: yes
 keepalive: 40
 end;
 
@@ -1958,7 +1899,6 @@ zone: AsiaPacific
 tags: Taiwan, AsiaPacific
 address: 101.101.101.101:853
 host: dns.twnic.tw/
-keepalive-query: yes
 transport: dot
 keepalive: 25
 end;

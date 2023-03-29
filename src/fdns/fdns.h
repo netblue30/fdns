@@ -178,8 +178,6 @@ typedef struct dnsserver_t {
 	char *transport;	// supported transport types
 	int sni;		// 1 or 0
 	int test_sni;		// not read from the config file; 1 only when the server is specified by url with --server or --test-server
-	int keepalive_query;	// 1 or 0
-//	int keepalive_min;	// deprecated
 	int keepalive_max;	// maximum vallue of keepalive in seconds
 } DnsServer;
 

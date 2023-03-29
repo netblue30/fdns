@@ -286,30 +286,14 @@ void dns_keepalive(void) {
 	int len;
 	DnsServer *srv = server_get();
 	assert(srv);
-	if (srv->keepalive_query)
-		goto sendex;
-	else {
-		// randomly send example.com (1 in 3)
-		if (rand() % 3) {
-			if (transport->send_ping() == -1) {
-				rlogprintf("Error: %s ping failed, closing SSL connection\n", dns_get_transport());
-				ssl_close();
-			}
-		}
-		else
-			goto sendex;
-	}
 
-#ifdef HAVE_GCOV
-	__gcov_flush();
-#endif
-	return;
-
-sendex:
 	len = transport->send_exampledotcom(msg);
 	// some servers return NXDOMAIN for example.com
 	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 		ssl_close();
+#ifdef HAVE_GCOV
+	__gcov_flush();
+#endif
 }
 
 // returns the length of the response,,0 if failed
