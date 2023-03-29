@@ -330,19 +330,6 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				errExit("strdup");
 			// todo: parser transport line
 		}
-		else if (strcmp(tok1, "keepalive-query") == 0) {
-			if (s->keepalive_query)
-				goto errout;
-			assert(tok2);
-			if (strcmp(tok2, "yes") == 0)
-				s->keepalive_query = 1;
-			else if (strcmp(tok2, "no") == 0)
-				s->keepalive_query = 0;
-			else {
-				fprintf(stderr, "Error: file %s, line %d, wrong keepalive-query setting\n", fname, *linecnt);
-				exit(1);
-			}
-		}
 		else if (strcmp(tok1, "keepalive") == 0) {
 			if (s->keepalive_max)
 				goto errout;
