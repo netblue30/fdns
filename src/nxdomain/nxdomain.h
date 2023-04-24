@@ -35,16 +35,9 @@
 #define PRINT_IP(A) \
 	((int) (((A) >> 24) & 0xFF)),  ((int) (((A) >> 16) & 0xFF)), ((int) (((A) >> 8) & 0xFF)), ((int) ( (A) & 0xFF))
 
-// read an IPv4 address and convert it to uint32_t
-static inline int atoip(const char *str, uint32_t *ip) {
-	unsigned a, b, c, d;
-
-	if (sscanf(str, "%u.%u.%u.%u", &a, &b, &c, &d) != 4 || a > 255 || b > 255 || c > 255 || d > 255)
-		return 1;
-
-	*ip = a * 0x1000000 + b * 0x10000 + c * 0x100 + d;
-	return 0;
-}
-
 #define FILE_CHUNK_SIZE 500
+
+// resolver.c
+int resolver(const char *domain);
+
 #endif
