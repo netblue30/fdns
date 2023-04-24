@@ -326,9 +326,8 @@ typedef enum {
 void dns_set_transport(const char *tname);
 const char *dns_get_transport(void);
 uint8_t *dns_parser(uint8_t *buf, ssize_t *len, DnsDestination *dest);
-int dns_max_keepalive(void);
-int dns_current_keepalive(void);
-void dns_keepalive(void);
+int dns_get_current_keepalive(void);
+void dns_send_keepalive(void);
 int dns_query(uint8_t *msg, int cnt);
 
 // filter.c
