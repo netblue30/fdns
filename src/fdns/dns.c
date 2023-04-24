@@ -241,14 +241,7 @@ drop_nxdomain:
 }
 
 static int max_keepalive = 0;
-int dns_max_keepalive(void) {
-	DnsServer *srv = server_get();
-	assert(srv);
-	if (srv->keepalive_max < 40)
-		return srv->keepalive_max;
-	return max_keepalive;
-}
-int dns_current_keepalive(void) {
+int dns_get_current_keepalive(void) {
 	if (arg_keepalive) {
 		max_keepalive = arg_keepalive;
 		return arg_keepalive;
@@ -271,7 +264,7 @@ int dns_current_keepalive(void) {
 	return max_keepalive;
 }
 
-void dns_keepalive(void) {
+void dns_send_keepalive(void) {
 	max_keepalive++;
 
 	if (ssl_state == SSL_CLOSED)
