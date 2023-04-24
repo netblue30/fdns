@@ -30,9 +30,9 @@
 
 static char *arg_fin = NULL;
 static char *arg_fout = NULL;
-static char *arg_server="1.1.1.1";
 
 #define MAXBUF (10 * 1024)
+#if 0
 static char outbuf[MAXBUF];
 
 static char *run_program(const char *cmd) {
@@ -50,6 +50,7 @@ static char *run_program(const char *cmd) {
 	pclose(fp);
 	return outbuf;
 }
+#endif
 
 static void test(FILE *fpin, FILE *fpout) {
 	assert(fpin);
@@ -109,22 +110,14 @@ static void test(FILE *fpin, FILE *fpout) {
 		}
 
 		// run the domain through nslookup
-		char *cmd;
-		if (asprintf(&cmd, "nslookup %s %s", start, arg_server) == -1) {
-			perror("asprintf");
-			exit(1);
-		}
-
-		char *output = run_program(cmd);
-		assert(output);
-		if (strstr(output, "NXDOMAIN") == NULL) {
+		usleep(200000);
+		if (resolver(start) == 0) {
 			j++;
 			printf("*");
 			fflush(0);
 			fprintf(fpout, "127.0.0.1 %s\n", start);
 			fflush(0);
 		}
-		free(cmd);
 	}
 	printf("*** %d removed ***", i - j);
 	fflush(0);
@@ -259,7 +252,6 @@ static void usage(void) {
 	printf("\n");
 	printf("Options:\n");
 	printf("\t--help, -?, -h - show this help screen.\n");
-	printf("\t--server=ip-address - use this DNS server, default 1.1.1.1 (Cloudflare).\n");
 	printf("\n");
 }
 
@@ -281,17 +273,6 @@ int main(int argc, char **argv) {
 		else if (strcmp(argv[i], "--version") == 0) {
 			printf("nxdomain - version %s\n", VERSION);
 			return 0;
-		}
-		else if (strncmp(argv[i], "--server=", 9) == 0) {
-			uint32_t addr;
-			if (atoip(argv[i]+9, &addr)) {
-				fprintf(stderr, "Error: invalid server IPv4 address\n");
-				usage();
-				return 1;
-			}
-			arg_server = strdup(argv[i] + 9);
-			if (!arg_server)
-				errExit("strdup");
 		}
 		else if (arg_fin == NULL) {
 			arg_fin = strdup(argv[i]);
