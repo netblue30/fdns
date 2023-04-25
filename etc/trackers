@@ -8,7 +8,6 @@
 #         https://github.com/EFForg/privacybadger/blob/master/LICENSE
 #
 127.0.0.1 data.adobedc.net
-127.0.0.1 a351fec2c318c11ea9b9b0a0ae18fb0b-1529426863.eu-central-1.elb.amazonaws.com
 127.0.0.1 ghochv3eng.trafficmanager.net
 127.0.0.1 7eer.net
 127.0.0.1 at-go.kelkoogroup.net
@@ -66,7 +65,6 @@
 127.0.0.1 metrics1.data.hicloud.com
 127.0.0.1 metrics2.data.hicloud.com
 127.0.0.1 metrics3.data.hicloud.com
-127.0.0.1 metrics4.data.hicloud.com
 127.0.0.1 metrics5.data.hicloud.com
 127.0.0.1 logservice.hicloud.com
 127.0.0.1 logservice1.hicloud.com
@@ -189,7 +187,6 @@
 127.0.0.1 demdex.net
 127.0.0.1 deployads.com
 127.0.0.1 dianomi.com
-127.0.0.1 digitru.st
 127.0.0.1 districtm.io
 127.0.0.1 domdex.com
 127.0.0.1 dotomi.com
@@ -252,7 +249,6 @@
 127.0.0.1 krxd.net
 127.0.0.1 leadboltmobile.net
 127.0.0.1 liadm.com
-127.0.0.1 ligadx.com
 127.0.0.1 lightboxcdn.com
 127.0.0.1 lijit.com
 127.0.0.1 linksynergy.com
