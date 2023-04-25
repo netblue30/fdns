@@ -32,25 +32,6 @@ static char *arg_fin = NULL;
 static char *arg_fout = NULL;
 
 #define MAXBUF (10 * 1024)
-#if 0
-static char outbuf[MAXBUF];
-
-static char *run_program(const char *cmd) {
-	assert(cmd);
-	FILE *fp = popen(cmd, "r");
-	if (!fp) {
-		perror("popen");
-		exit(1);
-	}
-
-	int len = 0;
-	while (len < MAXBUF && fgets(outbuf + len, MAXBUF - len, fp)) {
-		len += strlen(outbuf + len);
-	}
-	pclose(fp);
-	return outbuf;
-}
-#endif
 
 static void test(FILE *fpin, FILE *fpout) {
 	assert(fpin);
@@ -292,7 +273,9 @@ int main(int argc, char **argv) {
 	}
 
 	// split input file
-	char tname_in[32] = "/tmp/nxdomainXXXXXX";
+	char tname_in[128];
+	sprintf(tname_in, "/run/user/%u/nxdomainXXXXXX", getuid());
+//	char tname_in[32] = "/tmp/nxdomainXXXXXX";
 	int tname_fd = mkstemp(tname_in);
 	if (tname_fd == -1)
 		errExit("mkstemp");
@@ -304,7 +287,7 @@ int main(int argc, char **argv) {
 	int chunks = split(arg_fin, tname_in);
 	fflush(0);
 
-	// frocess file chunks
+	// process chunks
 	for (i = 0; i < chunks; i += 4) {
 		pid_t child = fork();
 		if (child == -1) {
