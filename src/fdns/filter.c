@@ -487,11 +487,15 @@ void filter_test_list(void) {
 //************************************
 // CNAME cloaking based on rx DoH packet
 //************************************
+// based on https://github.com/nextdns/cname-cloaking-blocklist/blob/master/domains
+// MIT license
 static char *fp_block[] = {
 	".eulerian",		//eulerian.net
 	".at-o", 		//at-o.net
 	".keyade.", 		//k.keyade.com
+	".madmetrics",	// k.madmetrics.com
 	".2o7.",		//2o7.net
+	".adobedc.", 	// several domains
 	".omtrdc.", 		//sc.omtrdc.net
 	".storetail.",		//storetail.io
 	".dnsdelegation.",	//dnsdelegation.io
@@ -501,11 +505,30 @@ static char *fp_block[] = {
 		//a88045584548111e997c60ac8a4ec150-1610510072.eu-central-1.elb.amazonaws.com
 	".afc4d9aa2a91d11e997c60ac8a4ec150-2082092489.",
 		//afc4d9aa2a91d11e997c60ac8a4ec150-2082092489.eu-central-1.elb.amazonaws.com
+	".a5e652663674a11e997c60ac8a4ec150-1684524385.",
+	".a351fec2c318c11ea9b9b0a0ae18fb0b-1529426863.",
 	".affex.",		//affex.org
 	".intentmedia.",	//partner.intentmedia.net
 	".webtrekk.",	//webtrekk.net
 	".wt-eu02.",		//wt-eu02.net
 	".oghub.",		//oghub.io
+
+	"tracking.bp01.net",
+	"trck.a8.net",
+	"mm.actionlink.jp",
+	"cname.ebis.ne.jp",
+	"0i0i0i0.com",
+	"actonservice.com",
+	"actonsoftware.com",
+	"thirdparty.bnc.lt",
+	"ddns.dataunlocker.com",
+	"starman.fathomdns.com",
+	"ad-cloud.jp",
+	"hs.eloqua.com",
+	"custom.plausible.io",
+	"go.pardot.com",
+	"ghochv3eng.trafficmanager.net",
+
 	NULL
 };
 

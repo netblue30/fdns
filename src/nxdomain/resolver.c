@@ -114,12 +114,14 @@ int resolver(const char *domain) {
 		}
 		if (rv == 0)	{ // timeout
 			if (retries) { // one single retry
-				fprintf(stderr, "# server not responding\n");
+				fprintf(stderr, " server not responding ");
+				fflush(0);
 				sleep(1);
 				return 1;
 			}
 			retries++;
-			fprintf(stderr, "# retrying...\n");
+			fprintf(stderr, " retrying ");
+			fflush(0);
 			t.tv_sec = 5;
 			t.tv_usec = 0;
 			continue;
@@ -134,7 +136,8 @@ int resolver(const char *domain) {
 			if (len != -1) { // todo: parse errno - EINTR
 //dbg_memory(buf, len, "rx");
 				if (memcmp(buf, &id, sizeof(uint16_t)) != 0) {
-					fprintf(stderr, "# old UDP packet\n");
+					fprintf(stderr, " old UDP packet ");
+					fflush(0);
 					continue;
 				}
 
