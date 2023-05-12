@@ -96,7 +96,7 @@ static void test(FILE *fpin, FILE *fpout) {
 			j++;
 			printf("*");
 			fflush(0);
-			fprintf(fpout, "127.0.0.1 %s\n", start);
+			fprintf(fpout, "%s\n", start);
 			fflush(0);
 		}
 	}
@@ -222,6 +222,93 @@ static void run_chunk(int chunk, int chunks, const char *tname_in, const char *t
 	free(fout);
 }
 
+typedef struct node_t {
+	struct node_t *next;
+	char *domain;
+} Node;
+
+#define MAXHASH 8192
+Node *hlist[MAXHASH] = {NULL};
+
+// djb2 hash function by Dan Bernstein
+static inline unsigned hash(const char *str, unsigned array_cnt) {
+	unsigned hash = 5381;
+	int c;
+
+	while ((c = *str++) != '\0')
+		hash = ((hash << 5) + hash) ^ c; // hash * 33 ^ c
+
+	return (hash & (array_cnt - 1));
+}
+
+// returns 1 if adding to the hash table; returns 0 if already there
+static int hlist_check(const char *domain) {
+	assert(domain);
+	unsigned h = hash(domain, MAXHASH);
+
+	// check
+	Node *ptr = hlist[h];
+	while (ptr) {
+		if (strcmp(ptr->domain, domain) == 0)
+			return 0;
+		ptr = ptr->next;
+	}
+
+	ptr = malloc(sizeof(Node));
+	if (!ptr)
+		errExit("malloc");
+	memset(ptr, 0, sizeof(Node));
+	ptr->domain = strdup(domain);
+	if (!ptr->domain)
+		errExit("strdup");
+	ptr->next = hlist[h];
+	hlist[h] = ptr;
+	return 1;
+}
+
+static void build_output(const char *tname_out, int chunk) {
+	char *tname;
+	if (asprintf(&tname, "%s-%d", tname_out, chunk) == -1)
+		errExit("asprintf");
+	FILE *fp1 = fopen(tname, "r");
+	assert(fp1);
+
+	FILE *fp2 = NULL;
+	if (arg_fout) {
+		fp2 = fopen(arg_fout, "a");
+		assert(fp2);
+	}
+
+	char buf[MAXBUF];
+	while (fgets(buf, MAXBUF, fp1)) {
+		char *ptr = strchr(buf, '\n');
+		if (ptr)
+			*ptr = '\0';
+		ptr = buf;
+		while (*ptr == ' ' || *ptr == '\t')
+			ptr++;
+
+		// comments
+		char *start = ptr;
+		if (*start == '#' || *start == '\0') { // preserve comments, blank lines
+			if (fp2)
+				fprintf(fp2, "%s\n", start);
+			printf("%s\n", start);
+		}
+		else if (hlist_check(start)) {
+			if (fp2)
+				fprintf(fp2, "127.0.0.1 %s\n", start);
+			printf("127.0.0.1 %s\n", start);
+		}
+	}
+
+	fclose(fp1);
+	unlink(tname);
+	free(tname);
+	if (fp2)
+		fclose(fp2);
+}
+
 
 static void usage(void) {
 	printf("nxdomain - version %s\n", VERSION);
@@ -275,7 +362,6 @@ int main(int argc, char **argv) {
 	// split input file
 	char tname_in[128];
 	sprintf(tname_in, "/run/user/%u/nxdomainXXXXXX", getuid());
-//	char tname_in[32] = "/tmp/nxdomainXXXXXX";
 	int tname_fd = mkstemp(tname_in);
 	if (tname_fd == -1)
 		errExit("mkstemp");
@@ -336,29 +422,8 @@ int main(int argc, char **argv) {
 	}
 	printf("\n\n\n");
 
-	for (i = 0; i < chunks; i++) {
-		if (arg_fout) {
-			char *cmd;
-			if (asprintf(&cmd, "cat %s-%d >> %s", tname_out, i, arg_fout) == -1)
-				errExit("asprintf");
-			int rv = system(cmd);
-			(void) rv;
-			free(cmd);
-		}
-
-		char *cmd;
-		if (asprintf(&cmd, "cat %s-%d", tname_out, i) == -1)
-			errExit("asprintf");
-		int rv = system(cmd);
-		(void) rv;
-		free(cmd);
-	}
-
-	char *cmd;
-	if (asprintf(&cmd, "rm %s-*", tname_out) == -1)
-		errExit("asprintf");
-	int rv = system(cmd);
-	(void) rv;
+	for (i = 0; i < chunks; i++)
+		build_output(tname_out, i);
 
 	printf("\n");
 	unlink(tname_in);
