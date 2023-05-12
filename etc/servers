@@ -61,9 +61,7 @@ block-doh: doh.opendns.com
 block-doh: dns.t53.de
 block-doh: public.dns.iij.jp
 block-doh: ordns.he.net
-block-doh: adblock.mydns.network
 block-doh: 1dot1dot1dot1.cloudflare-dns.com
-block-doh: dns.bitgeek.in
 block-doh: dns.233py.com
 block-doh: dns.233py.com.cdn.cloudflare.net
 block-doh: a.ns.dnslify.com
@@ -77,12 +75,10 @@ block-doh: dns.aaflalo.me
 block-doh: dns.alekberg.net
 block-doh: dns.cloudflare.com
 block-doh: dns.cmrg.net
-block-doh: dns.developer.li
 block-doh: dns.dns-over-https.com
 block-doh: dns.dnsoverhttps.net
 block-doh: dns.google.com
 block-doh: dns.keweon.center
-block-doh: dns.larsdebruin.net
 block-doh: dns.neutopia.org
 block-doh: dns.nixnet.xyz
 block-doh: dns.pumplex.com
@@ -90,7 +86,6 @@ block-doh: dns.rubyfish.cn
 block-doh: dns1.digitale-gesellschaft.ch
 block-doh: dns11.quad9.net
 block-doh: dns2.alekberg.net
-block-doh: dns2.developer.li
 block-doh: dns2.digitale-gesellschaft.ch
 block-doh: dnsotls.lab.nic.cl
 block-doh: dnsovertls2.sinodun.com
@@ -99,7 +94,6 @@ block-doh: doh-ch.blahdns.com
 block-doh: doh-ipv6.crypto.sx
 block-doh: doh.233py.com
 block-doh: doh.appliedprivacy.net
-block-doh: doh.armadillodns.net
 block-doh: doh.asecdns.com
 block-doh: doh.blahdns.com
 block-doh: doh.captnemo.in
@@ -107,9 +101,6 @@ block-doh: doh.centraleu.pi-dns.com
 block-doh: doh.crypto.sx
 block-doh: doh.eastus.pi-dns.com
 block-doh: doh.familyshield.opendns.com
-block-doh: doh.gslb2.xfinity.com
-block-doh: doh.libredns.org
-block-doh: doh.netweaver.uk
 block-doh: doh.northeu.pi-dns.com
 block-doh: doh.seby.io
 block-doh: doh.westeu.pi-dns.com
@@ -125,9 +116,7 @@ block-doh: family-filter-dns.cleanbrowsing.org
 block-doh: google-public-dns-a.google.com
 block-doh: google-public-dns-b.google.com
 block-doh: i.233py.com
-block-doh: i.233py.com.a.bdydns.com
 block-doh: iana.tenta.io
-block-doh: jcdns.fun
 block-doh: jp.gridns.xyz
 block-doh: jp.tiarap.org
 block-doh: kaitain.restena.lu
@@ -1288,12 +1277,13 @@ transport: dot
 keepalive: 40
 end;
 
+# expired certificate
 # ns8.he.de.dns.opennic.glue
 # http/1.1
 name: eth-services
 website: https://servers.opennic.org/
 zone: Europe
-tags: Germany, Europe, OpenNIC
+tags: admin-down, Germany, Europe, OpenNIC
 address: 94.247.43.254:853
 host: opennic1.eth-services.de:853/
 keepalive: 40
@@ -1461,10 +1451,11 @@ keepalive: 40
 transport: dot
 end;
 
+# closing connection regardless of keepalive
 name: heliumcloud
 website: https://servers.opennic.org/edit.php?srv=ns2.nj.us.dns.opennic.glue
 zone: Americas
-tags: OpenNIC, US, Americas
+tags: admin-down, OpenNIC, US, Americas
 address: 104.248.14.193:443
 host: us-ny-alula.heliumcloud.cc/dns-query
 keepalive: 25
@@ -1503,15 +1494,6 @@ zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 213.196.191.96:443
 host: ibksturm.synology.me/dns-query
-keepalive: 40
-end;
-
-name: ibuki
-website: https://ibuki.cgnat.net/
-zone: Americas
-tags: Brazil, Americas
-address: 129.159.57.203:443
-host: ibuki.cgnat.net/dns-query
 keepalive: 40
 end;
 
@@ -1568,7 +1550,7 @@ zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 116.202.176.26:443
 host: doh.libredns.gr/dns-query
-keepalive: 25
+keepalive: 40
 end;
 
 name: libredns-adblocker
@@ -1577,7 +1559,7 @@ zone: Europe
 tags: Germany, Europe, OpenNIC, adblocker
 address: 116.202.176.26:443
 host: doh.libredns.gr/ads
-keepalive: 25
+keepalive: 40
 end;
 
 # short keepalive
@@ -1644,7 +1626,7 @@ zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: trr.dns.nextdns.io:443
 host: trr.dns.nextdns.io/
-keepalive: 25
+keepalive: 40
 end;
 
 name: nextdns3-dot
@@ -1653,7 +1635,7 @@ zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: trr.dns.nextdns.io:853
 host: trr.dns.nextdns.io/
-keepalive: 25
+keepalive: 40
 transport: dot
 end;
 
@@ -1975,10 +1957,19 @@ host: ny.teradns.org/dns-query
 keepalive: 40
 end;
 
+name: teradns-au
+website: https://teradns.org/dns-over-https/
+zone: AsiaPacific
+tags: admin-down, Australia, AsiaPacific
+address: 194.29.100.68:443
+host: au.teradns.org/dns-query
+keepalive: 40
+end;
+
 name: teradns-us2
 website: https://teradns.org/dns-over-https/
 zone: Americas
-tags: US, Americas
+tags: admin-down, US, Americas
 address: 45.79.38.174:443
 host: tx.teradns.org/dns-query
 keepalive: 40
@@ -1987,7 +1978,7 @@ end;
 name: teradns-sg
 website: https://teradns.org/dns-over-https/
 zone: AsiaPacific
-tags: Singapore, AsiaPacific
+tags: admin-down, Singapore, AsiaPacific
 address: 103.167.151.201:443
 host: sg.teradns.org/dns-query
 keepalive: 40
