@@ -436,7 +436,7 @@ void frontend(void) {
 						       &s.fallback,
 						       &s.cached,
 						       &s.fwd,
-						       &s.ssl_pkts_timetrace,
+						       &s.query_time,
 						       &k);
 						srv->keepalive_max = (k > srv->keepalive_max)? k: srv->keepalive_max;
 
@@ -446,9 +446,13 @@ void frontend(void) {
 						stats.fallback += s.fallback;
 						stats.cached += s.cached;
 						stats.fwd += s.fwd;
-						if (s.ssl_pkts_timetrace) {
-							stats.ssl_pkts_timetrace += s.ssl_pkts_timetrace;
-							stats.ssl_pkts_timetrace /= 2;
+						if (s.query_time) {
+							// exponantial moving average (EMA) for a window of 10 successive queries
+							// multiplier = 2 / (window + 1) = 2 / [10 + 1] = 0,18
+							// EMA = last_query x multiplier +  (previous_EMA) x (1 - multiplier)
+							stats.query_time = (s.query_time * 0.18) + (stats.query_time * 0,82);
+//							stats.query_time += s.query_time;
+//							stats.query_time /= 2;
 						}
 
 						shmem_store_stats(proxy_addr);

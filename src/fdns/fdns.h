@@ -155,8 +155,7 @@ typedef struct stats_t {
 	unsigned fwd;
 
 	// average time
-	double ssl_pkts_timetrace;
-	unsigned ssl_pkts_cnt;
+	double query_time;
 
 	// per-resolver stats
 	int encrypted[RESOLVERS_CNT_MAX];

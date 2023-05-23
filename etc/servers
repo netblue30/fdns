@@ -1277,13 +1277,12 @@ transport: dot
 keepalive: 40
 end;
 
-# expired certificate
 # ns8.he.de.dns.opennic.glue
 # http/1.1
 name: eth-services
 website: https://servers.opennic.org/
 zone: Europe
-tags: admin-down, Germany, Europe, OpenNIC
+tags: Germany, Europe, OpenNIC
 address: 94.247.43.254:853
 host: opennic1.eth-services.de:853/
 keepalive: 40
@@ -1500,7 +1499,7 @@ end;
 name: lavadns-us
 website: https://dns.lavate.ch
 zone: Americas
-tags: OpenNIC, US, Americas
+tags: admin-down, OpenNIC, US, Americas
 address: 79.110.170.43:443
 host: us1.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1518,7 +1517,7 @@ end;
 name: lavadns-de
 website: https://dns.lavate.ch
 zone: Europe
-tags: OpenNIC, Germany, Europe
+tags: admin-down, OpenNIC, Germany, Europe
 address: 130.61.185.42:443
 host: eu2.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1537,7 +1536,7 @@ end;
 name: li-dot
 website: https://doh.li/
 zone: Europe
-tags: UK, Europe
+tags: admin-down, UK, Europe
 address: 46.101.66.244:853
 host: doh.li/dns-query
 keepalive: 40
@@ -1576,7 +1575,7 @@ end;
 name: mydns-network
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
 zone: Americas, AsiaPacific, Europe
-tags: geocast, Americas, AsiaPacific, Europe
+tags: admin-down, geocast, Americas, AsiaPacific, Europe
 address: freedom.mydns.network:443
 host: freedom.mydns.network/dns-query
 keepalive: 25
@@ -1951,7 +1950,7 @@ end;
 name: teradns-us1
 website: https://teradns.org/dns-over-https/
 zone: Americas
-tags: admin-down, US, Americas
+tags: US, Americas
 address: 45.61.162.132:443
 host: ny.teradns.org/dns-query
 keepalive: 40
@@ -1978,7 +1977,7 @@ end;
 name: teradns-sg
 website: https://teradns.org/dns-over-https/
 zone: AsiaPacific
-tags: admin-down, Singapore, AsiaPacific
+tags: Singapore, AsiaPacific
 address: 103.167.151.201:443
 host: sg.teradns.org/dns-query
 keepalive: 40
@@ -2113,71 +2112,6 @@ tags: US, Americas
 address: 167.99.150.134:443
 host: dns.vinnyp.xyz/dns-query
 keepalive: 40
-end;
-
-# expired certificate
-name: wedns
-website: https://wevpn.com/wedns
-zone: Americas, AsiaPacific, Europe
-tags: admin-down, geocast, security, adblocker, Americas, AsiaPacific, Europe
-address: dns.wevpn.com:443
-host: dns.wevpn.com/dns-query
-keepalive: 40
-end;
-
-# expired certificate
-name: wedns-dot
-website: https://wevpn.com/wedns
-zone: Americas, AsiaPacific, Europe
-tags: admin-down, geocast, security, adblocker, Americas, AsiaPacific, Europe
-address: dns.wevpn.com:853
-host: dns.wevpn.com/
-keepalive: 25
-transport: dot
-end;
-
-# expired certificate
-name: wedns-us1-dot
-website: https://wevpn.com/wedns
-zone: Americas
-tags: admin-down, adblocker, security, US, Americas
-address: 72.11.134.91:853
-host: dns.wevpn.com/
-keepalive: 40
-transport: dot
-end;
-
-# expired certificate
-name: wedns-us2-dot
-website: https://wevpn.com/wedns
-zone: Americas
-tags: admin-down, adblocker, security, US, Americas
-address: 23.226.134.243:853
-host: dns.wevpn.com/
-keepalive: 40
-transport: dot
-end;
-
-# expired certificate
-name: wedns-uk-dot
-website: https://wevpn.com/wedns
-zone: Europe
-tags: admin-down, adblocker, security, UK, Europe
-address: 216.119.155.49:853
-host: dns.wevpn.com/
-keepalive: 40
-transport: dot
-end;
-
-# expired certificate
-name: wedns-sg-dot
-website: https://wevpn.com/wedns
-zone: AsiaPacific
-tags: admin-down, adblocker, security, Singapore, AsiaPacific
-address: 143.244.33.90:853
-host: dns.wevpn.com/
-keepalive: 40
-transport: dot
 end;
 
 name: yarp

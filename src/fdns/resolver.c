@@ -149,11 +149,9 @@ void resolver(void) {
 			// processing stats
 			if (--console_printout_cnt <= 0) {
 				if (stats.changed) {
-					if (stats.ssl_pkts_cnt == 0)
-						stats.ssl_pkts_cnt = 1;
 					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %.02lf %d\n",
 						   stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd,
-						   stats.ssl_pkts_timetrace / stats.ssl_pkts_cnt,
+						   stats.query_time,
 						   dns_get_current_keepalive());
 					stats.changed = 0;
 					memset(&stats, 0, sizeof(stats));
@@ -335,8 +333,7 @@ void resolver(void) {
 			}
 			// good packet from SSL
 			else if (ssl_state == SSL_OPEN && ssl_len > 0) {
-				stats.ssl_pkts_timetrace += timetrace_end();
-				stats.ssl_pkts_cnt++;
+				stats.query_time = timetrace_end();
 				dns_over_udp = 0;
 
 				// we got a response, send the data back to the client
