@@ -16,130 +16,134 @@ ExecStart=/usr/bin/fdns
 # For more options like --allow-all-queries see man 1 fdns.
 Restart=on-failure
 
+[Install]
+WantedBy=multi-user.target
+
 # Log all queries to /tmp/fdns-log.txt.
 #  [NOTE] /tmp is often a tmpfs, you need to change this path if you want persistent logs.
 #StandardOutput=append:/tmp/fdns-log.txt
 
-##############################################################
-# HARDENING NOTES:
-#  - depending on your systemd version not all options are supported -
-#    unsupported options are ignored and can be checked via `systemctl status fdns.service`;
-#  - lines commented with `#*` are required by systemd;
-#  - see man 5 systemd.exec for details on the options;
-#  - firejail equivalents are commented with `# FJ`;
-##############################################################
-
-AmbientCapabilities=
-LockPersonality=true
-MountFlags=private
-ProtectClock=true
-ProtectControlGroups=true
-ProtectHostname=true
-ProtectKernelLogs=true
-ProtectKernelModules=true
-ProtectKernelTunables=true
-RestrictNamespaces=ipc mnt pid uts
-RestrictRealtime=true
-RestrictSUIDSGID=true
-SecureBits=noroot-locked
-
-# FJ: --caps.keep=kill,net-bind,setgid,setuid,sys-admin,sys-chroot
-CapabilityBoundingSet=CAP_KILL CAP_NET_BIND_SERVICE CAP_SETGID CAP_SETUID CAP_SYS_ADMIN CAP_SYS_CHROOT
-
-# FJ: disable-mnt
-InaccessiblePaths=-/media
-InaccessiblePaths=-/mnt
-InaccessiblePaths=-/run/media
-#*InaccessiblePaths=-/run/mount
-
-# firejail's hardcoded blacklist
-InaccessiblePaths=-/boot
-InaccessiblePaths=-/dev/kmsg
-InaccessiblePaths=-/dev/port
-InaccessiblePaths=-/lib/modules
-InaccessiblePaths=-/proc/bus
-InaccessiblePaths=-/proc/config.gz
-InaccessiblePaths=-/proc/irq
-InaccessiblePaths=-/proc/kallsyms
-InaccessiblePaths=-/proc/kcore
-InaccessiblePaths=-/proc/kmem
-#*InaccessiblePaths=-/proc/kmsg
-InaccessiblePaths=-/proc/mem
-InaccessiblePaths=-/proc/sched_debug
-InaccessiblePaths=-/proc/sys/efi/vars
-InaccessiblePaths=-/proc/sys/fs/binfmt_misc
-#*InaccessiblePaths=-/proc/sys/kernel/core_pattern
-InaccessiblePaths=-/proc/sys/kernel/hotplug
-#*InaccessiblePaths=-/proc/sys/kernel/modprobe
-InaccessiblePaths=-/proc/sys/security
-#*InaccessiblePaths=-/proc/sys/vm/panic_on_oom
-InaccessiblePaths=-/proc/sysrq-trigger
-InaccessiblePaths=-/proc/timer_list
-InaccessiblePaths=-/proc/timer_stats
-InaccessiblePaths=-/selinux
-InaccessiblePaths=-/sys/firmware
-InaccessiblePaths=-/sys/fs
-InaccessiblePaths=-/sys/hypervisor
-InaccessiblePaths=-/sys/kernel/debug
-InaccessiblePaths=-/sys/kernel/uevent_helper
-InaccessiblePaths=-/sys/kernel/vmcoreinfo
-InaccessiblePaths=-/sys/module
-InaccessiblePaths=-/sys/power
-#*InaccessiblePaths=-/usr/lib/debug
-InaccessiblePaths=-/usr/src/linux
-
-# FJ: --memory-deny-write-execute
-MemoryDenyWriteExecute=true
-
-# FJ: --nonewprivs
-NoNewPrivileges=true
-
-# FJ: --blacklist=/home --blacklist=/root --blacklist=/run/user
-ProtectHome=true
-
-# FJ: --private-dev --no…
-PrivateDevices=true
-
-# FJ: --private-etc=ca-certificates,crypto-policies,fdns,ld.so.cache,ld.so.preload,localtime,nsswitch.conf,passwd,pki,ssl
-BindReadOnlyPaths=-/etc/ca-certificates
-BindReadOnlyPaths=-/etc/crypto-policies
-BindReadOnlyPaths=-/etc/fdns
-BindReadOnlyPaths=-/etc/ld.so.cache
-BindReadOnlyPaths=-/etc/ld.so.preload
-BindReadOnlyPaths=-/etc/localtime
-BindReadOnlyPaths=-/etc/nsswitch.conf
-BindReadOnlyPaths=-/etc/passwd
-BindReadOnlyPaths=-/etc/pki
-BindReadOnlyPaths=-/etc/ssl
-TemporaryFileSystem=/etc
-
-# FJ: --private-tmp
-PrivateTmp=true
-
-# FJ: --protocol=unix,inet,inet6 (Breaks --proxy-addr, see #15)
-RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
-
-# FJ: --read-only=/ (except: /dev, /proc, /sys)
-ProtectSystem=strict
-
-# FJ: mkdir + --read-write=/run/fdns
-RuntimeDirectory=fdns
-ReadWritePaths=/run/fdns
-
-# FJ: --seccomp.keep=@system-service,seccomp
-SystemCallFilter=@system-service seccomp
-# FJ: --seccomp.drop=@aio,@chown,@ipc,@keyring,@memlock,@privileged,@resources,@sync,@timer
-SystemCallFilter=~@aio @chown @ipc @keyring @memlock @privileged @resources @sync @timer
-# FJ: --seccomp.keep=@mount,@setuid
-SystemCallFilter=@mount @setuid
-# FJ: --seccomp.block-secondary
-SystemCallArchitectures=native
-
-# If you use a static server (--server=name|url), you can enable ip address whitelisting
-# by adding the IP of your DoH-Server below and uncomment the next lines.
-#IPAddressDeny=any
-#IPAddressAllow=localhost
-#IPAddressAllow=<IP-ADDR1> <IP-ADDR2> ...
-
-[Install]
-WantedBy=multi-user.target
+###############################################################
+## HARDENING NOTES:
+##  - depending on your systemd version not all options are supported -
+##    unsupported options are ignored and can be checked via `systemctl status fdns.service`;
+##  - lines commented with `#*` are required by systemd;
+##  - see man 5 systemd.exec for details on the options;
+##  - firejail equivalents are commented with `# FJ`;
+###############################################################
+#
+#AmbientCapabilities=
+#LockPersonality=true
+#MountFlags=private
+#ProtectClock=true
+#ProtectControlGroups=true
+#ProtectHostname=true
+#ProtectKernelLogs=true
+#ProtectKernelModules=true
+#ProtectKernelTunables=true
+#RestrictNamespaces=ipc mnt pid uts
+#RestrictRealtime=true
+#RestrictSUIDSGID=true
+#SecureBits=noroot-locked
+#
+## FJ: --caps.keep=kill,net-bind,setgid,setuid,sys-admin,sys-chroot
+#CapabilityBoundingSet=CAP_KILL CAP_NET_BIND_SERVICE CAP_SETGID CAP_SETUID CAP_SYS_ADMIN CAP_SYS_CHROOT
+#
+## FJ: disable-mnt
+#InaccessiblePaths=-/media
+#InaccessiblePaths=-/mnt
+#InaccessiblePaths=-/run/media
+##*InaccessiblePaths=-/run/mount
+#
+## firejail's hardcoded blacklist
+#InaccessiblePaths=-/boot
+#InaccessiblePaths=-/dev/kmsg
+#InaccessiblePaths=-/dev/port
+#InaccessiblePaths=-/lib/modules
+#InaccessiblePaths=-/proc/bus
+#InaccessiblePaths=-/proc/config.gz
+#InaccessiblePaths=-/proc/irq
+#InaccessiblePaths=-/proc/kallsyms
+#InaccessiblePaths=-/proc/kcore
+#InaccessiblePaths=-/proc/kmem
+##*InaccessiblePaths=-/proc/kmsg
+#InaccessiblePaths=-/proc/mem
+#InaccessiblePaths=-/proc/sched_debug
+#InaccessiblePaths=-/proc/sys/efi/vars
+#InaccessiblePaths=-/proc/sys/fs/binfmt_misc
+##*InaccessiblePaths=-/proc/sys/kernel/core_pattern
+#InaccessiblePaths=-/proc/sys/kernel/hotplug
+##*InaccessiblePaths=-/proc/sys/kernel/modprobe
+#InaccessiblePaths=-/proc/sys/security
+##*InaccessiblePaths=-/proc/sys/vm/panic_on_oom
+#InaccessiblePaths=-/proc/sysrq-trigger
+#InaccessiblePaths=-/proc/timer_list
+#InaccessiblePaths=-/proc/timer_stats
+#InaccessiblePaths=-/selinux
+#InaccessiblePaths=-/sys/firmware
+#InaccessiblePaths=-/sys/fs
+#InaccessiblePaths=-/sys/hypervisor
+#InaccessiblePaths=-/sys/kernel/debug
+#InaccessiblePaths=-/sys/kernel/uevent_helper
+#InaccessiblePaths=-/sys/kernel/vmcoreinfo
+#InaccessiblePaths=-/sys/module
+#InaccessiblePaths=-/sys/power
+##*InaccessiblePaths=-/usr/lib/debug
+#InaccessiblePaths=-/usr/src/linux
+#
+## FJ: --memory-deny-write-execute
+#MemoryDenyWriteExecute=true
+#
+## FJ: --nonewprivs
+#NoNewPrivileges=true
+#
+## FJ: --blacklist=/home --blacklist=/root --blacklist=/run/user
+#ProtectHome=true
+#
+## FJ: --private-dev --no…
+#PrivateDevices=true
+#
+## FJ: --private-etc=ca-certificates,crypto-policies,fdns,ld.so.cache,ld.so.preload,localtime,nsswitch.conf,passwd,pki,ssl
+#BindReadOnlyPaths=-/etc/ca-certificates
+#BindReadOnlyPaths=-/etc/crypto-policies
+#BindReadOnlyPaths=-/etc/fdns
+#BindReadOnlyPaths=-/etc/ld.so.cache
+#BindReadOnlyPaths=-/etc/ld.so.preload
+#BindReadOnlyPaths=-/etc/localtime
+#BindReadOnlyPaths=-/etc/nsswitch.conf
+#BindReadOnlyPaths=-/etc/passwd
+#BindReadOnlyPaths=-/etc/pki
+#BindReadOnlyPaths=-/etc/ssl
+#TemporaryFileSystem=/etc
+#
+## FJ: --private-tmp
+#PrivateTmp=true
+#
+## FJ: --protocol=unix,inet,inet6 (Breaks --proxy-addr, see #15)
+#RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+#
+## FJ: --read-only=/ (except: /dev, /proc, /sys)
+#ProtectSystem=strict
+#
+## FJ: mkdir + --read-write=/run/fdns
+#RuntimeDirectory=fdns
+#ReadWritePaths=/run/fdns
+#
+## FJ: --seccomp.keep=@system-service,seccomp
+#SystemCallFilter=@system-service seccomp
+## FJ: --seccomp.drop=@aio,@chown,@ipc,@keyring,@memlock,@privileged,@resources,@sync,@timer
+#SystemCallFilter=~@aio @chown @ipc @keyring @memlock @privileged @resources @sync @timer
+## FJ: --seccomp.keep=@mount,@setuid
+#SystemCallFilter=@mount @setuid
+## FJ: --seccomp.block-secondary
+#SystemCallArchitectures=native
+#
+## If you use a static server (--server=name|url), you can enable ip address whitelisting
+## by adding the IP of your DoH-Server below and uncomment the next lines.
+##IPAddressDeny=any
+##IPAddressAllow=localhost
+##IPAddressAllow=<IP-ADDR1> <IP-ADDR2> ...
+#
+#[Install]
+#WantedBy=multi-user.target
+###############################################################
