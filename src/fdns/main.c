@@ -20,6 +20,7 @@
 #include "timetrace.h"
 #include <time.h>
 #include <signal.h>
+#include <openssl/opensslv.h>
 
 int arg_argc = 0;
 int arg_debug = 0;
@@ -175,7 +176,7 @@ int main(int argc, char **argv) {
 				return 0;
 			}
 			else if (strcmp(argv[i], "--version") == 0) {
-				printf("fdns version %s\n", VERSION);
+				printf("FDNS version %s, %s\n", VERSION, OPENSSL_VERSION_TEXT);
 				return 0;
 			}
 			else if (strcmp(argv[i], "--clean-filters") == 0) { // undocumented; for development only!
