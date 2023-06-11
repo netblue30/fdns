@@ -54,7 +54,9 @@ int arg_log_timeout = 0;
 char *arg_fallback_server = NULL;
 char *arg_unlist = NULL;
 int arg_clean_filters = 0;
+int arg_disable_syslog = 0;
 int env_admin_down = 0;
+
 
 Stats stats;
 
@@ -107,6 +109,7 @@ static void usage(void) {
 	       "\tprinted on the screen during the testing phase.\n");
 	printf("    --disable-local-doh - blocklist DoH services for applications running on\n"
 	       "\tlocal network.\n");
+	printf("    --disable-syslog - disable system logging\n");
 	printf("    --fallback-server=address - fallback server IP address.\n");
 	printf("    --forwarder=domain@address - conditional forwarding to a different DNS\n"
 	       "\tserver.\n");
@@ -199,6 +202,8 @@ int main(int argc, char **argv) {
 				arg_debug_transport = 1;
 			else if (strcmp(argv[i], "--debug-ssl") == 0)
 				arg_debug_ssl = 1;
+			else if (strcmp(argv[i], "--disable-syslog") == 0)
+				arg_disable_syslog = 1;
 			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
 				arg_keepalive = atoi(argv[i] + 12);
 				if (arg_keepalive < CONFIG_KEEPALIVE_MIN || arg_keepalive > CONFIG_KEEPALIVE_MAX) {

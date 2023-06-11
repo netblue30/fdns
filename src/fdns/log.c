@@ -62,9 +62,11 @@ void logprintf(const char *format, ...) {
 	va_start(valist, format);
 
 	if (arg_daemonize) {
-		openlog("fdns", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
-		vsyslog(LOG_INFO, format, valist);
-		closelog();
+		if (!arg_disable_syslog) {
+			openlog("fdns", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+			vsyslog(LOG_INFO, format, valist);
+			closelog();
+		}
 	}
 	else {
 		// print on stdout

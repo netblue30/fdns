@@ -114,6 +114,9 @@ Disable DoH services for applications running on the local network.
 NOTE: Applications can still use an external DoH server if they have a hardcoded IP-Address.
 If you realy want to block other DoH connection you must use your firewall.
 .TP
+\fB\-\-disable-syslog
+Disable system logging.
+.TP
 \fB\-\-forwarder=domain@address
 Conditional domain forwarding to a different DNS server.
 .br
