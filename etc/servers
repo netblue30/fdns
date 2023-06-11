@@ -368,15 +368,6 @@ keepalive: 40
 sni: yes
 end;
 
-name: ahadns-nl
-website: https://ahadns.com
-zone: Europe
-tags: adblocker, Netherlands, Europe
-address: 5.2.75.75:443
-host: doh.nl.ahadns.net/dns-query
-keepalive: 40
-end;
-
 name: ahadns-nl-dot
 website: https://ahadns.com
 zone: Europe
@@ -385,15 +376,6 @@ address: 5.2.75.75:853
 host: dot.nl.ahadns.net/
 keepalive: 25
 transport: dot
-end;
-
-name: ahadns-westus
-website: https://ahadns.com
-zone: Americas
-tags: adblocker, US, Americas
-address: 45.67.219.208:443
-host: doh.la.ahadns.net/dns-query
-keepalive: 40
 end;
 
 name: ahadns-westus-dot
@@ -1862,15 +1844,17 @@ host: ns1.ryan-palmer.com/dns-query
 keepalive: 25
 end;
 
+# expired cert
 name: seby
 website: https://dns.seby.io
 zone: AsiaPacific
-tags: Australia, AsiaPacific, OpenNIC
+tags: admin-down, Australia, AsiaPacific, OpenNIC
 address: 45.76.113.31:443
 host: dns.seby.io/dns-query
 keepalive: 25
 end;
 
+# expired cert
 name: seby-dot
 website: https://dns.seby.io
 zone: AsiaPacific
