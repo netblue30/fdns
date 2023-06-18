@@ -1,7 +1,7 @@
 # vim:syntax=apparmor
 #include <tunables/global>
 
-/usr/bin/fdns {
+/usr/bin/fdns (attach_disconnected) {
   #include <abstractions/base>
   #include <abstractions/nameservice>
   #include <abstractions/openssl>
