@@ -141,23 +141,3 @@ int net_remote_dns_socket(struct sockaddr_in *addr, const char *ipstr) {
 
 	return sremote;
 }
-
-#if 0
-void net_local_unix_socket(void) {
-	// open a UNIX socket in order to alow only a  single fnds instance to run
-	int sock = socket(AF_UNIX, SOCK_DGRAM, 0);
-	if (sock == -1)
-		errExit("socket");
-
-	struct sockaddr_un addr;
-	memset(&addr, 0, sizeof(addr));
-	addr.sun_family = AF_UNIX;
-	strncpy(addr.sun_path + 1, UNIX_ADDRESS, strlen(UNIX_ADDRESS) + 1);
-
-	int rv = bind(sock, (struct sockaddr *) &addr, sizeof(sa_family_t) + strlen(UNIX_ADDRESS) + 1); //sizeof(addr));
-	if (rv == -1) {
-		fprintf(stderr, "Error: only one fdns instance is allowed, shutting down...\n");
-		exit(1);
-	}
-}
-#endif

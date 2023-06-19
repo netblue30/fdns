@@ -99,6 +99,8 @@ void shmem_open(int create, const char *proxy_addr) {
 
 static int proxy_config = 0;
 void shmem_store_stats(const char *proxy_addr) {
+	if (!report)	// when running in containers, shm is disabled
+		return;
 	assert(report);
 	assert(proxy_addr);
 
@@ -171,6 +173,8 @@ static char lastentry[MAX_ENTRY_LEN] = {'\0'};
 static int lastentry_cnt = 1;
 static int lastentry_index = 0;
 void shmem_store_log(const char *str) {
+	if (!report)	// when running in containers, shm is disabled
+		return;
 	assert(str);
 
 	if (strcmp(lastentry, str) == 0) {
@@ -192,6 +196,8 @@ void shmem_store_log(const char *str) {
 }
 
 void shmem_keepalive(void) {
+	if (!report)	// when running in containers, shm is disabled
+		return;
 	report->seq++;
 }
 
@@ -246,6 +252,11 @@ static void wins_resize_sighandler (int dont_care_sig) {
 
 // handling "fdns --monitor"
 void shmem_monitor_stats(const char *proxy_addr) {
+	if (!report)	{ // when running in containers, shm is disabled
+		fprintf(stderr, "No statistics collected for this instance of fdns.\n");
+		return;
+	}
+
 	signal(SIGCONT,  wins_resize_sighandler);
 	signal(SIGWINCH, wins_resize_sighandler);
 
@@ -349,7 +360,7 @@ void shmem_monitor_stats(const char *proxy_addr) {
 
 void shm_timeout(void) {
 	static int cnt = 0;
-	if (!report)
+	if (!report)	// when running in containers, shm is disabled
 		return;
 	if (++cnt < 10) // run the cleanup every 10 seconds
 		return;

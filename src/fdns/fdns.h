@@ -398,7 +398,6 @@ void resolver(void);
 void net_check_proxy_addr(const char *str);
 int net_local_dns_socket(int reuse);
 int net_remote_dns_socket(struct sockaddr_in *addr, const char *ipstr);
-void net_local_unix_socket(void);
 
 // forward.c
 typedef struct forward_zone_t {
