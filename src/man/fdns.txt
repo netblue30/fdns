@@ -24,7 +24,7 @@ use only services from non-logging providers. We prefer servers run out-of-pocke
 students, engineers, open-source enthusiasts, privacy-oriented non-profit organizations, etc.
 Currently there are more than 100 such servers on our list.
 
-We also track a corporate category with four providers: Adguard, CleanBrowsing, Cloudflare,
+We also track a corporate category with several providers: Adguard, CleanBrowsing, Cloudflare,
 and Quad9. All have a non-logging privacy policy that will work in most parts of the world.
 
 The servers are organized using a simple geographically-aware tagging system. This allows the
@@ -107,7 +107,65 @@ Example:
 .br
 $ fdns --test-server=cloudflare --details
 .br
-$ sudo fdns --server=cloudflare --details
+Testing server cloudflare
+.br
+   Tags: anycast, Americas, AsiaPacific, Europe
+.br
+   URL: https://cloudflare-dns.com/dns-query
+.br
+   Bootstrap IP address: 1.1.1.1
+.br
+   Port: 443
+.br
+   TLSv1.3, ALPN h2, SNI no
+.br
+
+.br
+   HTTP Header:
+.br
+-----------------------------
+.br
+|  (HPACK dynamic table size: 4096)
+.br
+|  :status:  200
+.br
+|  server:   cloudflare
+.br
+|  date:   Mon, 19 Jun 2023 11:20:53 GMT
+.br
+|  content-type:   application/dns-message
+.br
+|  access-control-allow-origin:   *
+.br
+|  content-length:   77
+.br
+|  cf-ray:  7d9b62a62ff3ff84-BOS
+.br
+-----------------------------
+.br
+   SSL/TLS connection: 519.42 ms
+.br
+
+.br
+   Network Trace:
+.br
+-----> rx 60 bytes: IP + TCP + TLS + H2-WINDOW-UPDATE
+.br
+-----> rx 187 bytes: IP + TCP + TLS + H2-HEADERS + H2-DATA  (end stream)
+.br
+
+.br
+   DoH query average: 64.38 ms
+.br
+   Header uncompressed | compressed | ratio:  185 | 28 | 6.61:1
+.br
+   DoH/Do53 bandwidth ratio: 2.50
+.br
+   Keepalive: 40 seconds
+.br
+
+.br
+Testing completed
 .TP
 \fB\-\-disable-local-doh
 Disable DoH services for applications running on the local network.
@@ -140,9 +198,9 @@ Allow AAAA requests. Use this option if you have Internet IPv6 connectivity. By 
 
 .TP
 \fB\-\-keepalive=value
-Use this session keepalive value instead of the one in the server file. A HTTP2 PING exchange is initiated if there is
-no DNS query activity in order to keep the HTTP 2 connection option. For most servers we are using a random value between 60 and 90 seconds.
-In many cases you can bump it above 120 seconds.
+Use this session keepalive value instead of the one in the server file. A query for example.com domain is initiated if there is
+no DNS query activity in order to keep the HTTP 2 connection open. For most servers we are using values between 25 and 40 seconds.
+In many cases you can bump the keepalive above 120 seconds.
 .br
 
 .br
@@ -161,7 +219,7 @@ $ fdns --list
 .br
 Current zone: Europe
 .br
-42l - non-profit, France, Europe
+42l - France, Europe
 .br
 	https://42l.fr
 .br
@@ -169,7 +227,7 @@ aaflalo - Netherlands, Europe, adblocker
 .br
 	https://www.aaflalo.me
 .br
-appliedprivacy - non-profit, Austria, Europe
+appliedprivacy - Austria, Europe
 .br
 	https://appliedprivacy.net
 .br
@@ -187,7 +245,8 @@ cznic - Czechia, Europe
 List the available DoH service providers based on a tag, server name, or all.
 .TP
 \fB\-\-log-timeout=minutes
-Amount of time queries are kept for monitoring, default 10 minutes, maximum 1140 (one day).
+Amount of time queries are kept in the log for monitoring purposes, default 10 minutes, maximum 1140 (one day).
+After the timeout expires, the queries are removed from the log.
 .br
 
 .br
@@ -215,7 +274,7 @@ Example:
 $ fdns --monitor=127.2.2.2
 .TP
 \fB\-\-nofilter
-No DNS request filtering. This disables the adblocker, the tracker filter, the coinblocker filter,
+No DNS request filtering. This disables all domain filters (adblocker, trackersetc.)
 and the user hosts file installed in /etc/fdns directory.
 
 .TP
@@ -265,7 +324,7 @@ Examples:
 .br
 $ sudo fdns --server=cloudflare
 .br
-$ sudo fdns --server=non-profit
+$ sudo fdns --server=security
 .br
 $ sudo fdns --server=family
 .br
@@ -537,21 +596,16 @@ In about 30 seconds all processes associated with this specific proxy will exit.
 
 .TP
 \fBHow do I start FDNS when I power-on the computer?
-One solution that will work on any Linux computer is to start it from /etc/rc.local.
+The command you need to run at  startup is
 .br
 
 .br
-$ cat /etc/rc.local
-.br
-#!/bin/sh -e
-.br
-/usr/bin/fdns --daemonize
-.br
-exit 0
+# /usr/bin/fdns --daemonize
 .br
 
 .br
-Systemd users, can alternative enable the fdns.service unit.
+Include this command in your system startup scripts. If your system uses Systemd (Debian/.Ubuntu/Arch/RedHat etc.),
+enable the fdns.service unit provided in /etc/fdns/fdns.service.
 .br
 
 .br
@@ -618,15 +672,19 @@ $ sudo pkill fdns
 .br
 /etc/fdns/coinblocker - cryptomining filter distributed with FDNS
 .br
+/etc/fdns/fdns.service - systemd service file
+.br
 /etc/fdns/fp-trackers - first-party tracker filter
 .br
 /etc/fdns/hosts - user hosts file
 .br
+/etc/fdns/phishing - phishing filter
+.br
+/etc/fdns/resolver.seccomp - seccomp filter applied to resolver processes
+.br
 /etc/fdns/servers - DoH/DoT servers FDNS knows about
 .br
 /etc/fdns/trackers - tracker filter distributed with FDNS
-.br
-/etc/fdns/worker.seccomp - seccomp filter applied to resolver processes
 
 .SH LICENSE
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
