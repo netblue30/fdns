@@ -278,7 +278,6 @@ extern char *arg_fallback_server;
 extern char *arg_unlist;
 extern int arg_clean_filters;
 extern int arg_disable_syslog;
-extern int env_admin_down;
 extern Stats stats;
 
 // dnsdb.c

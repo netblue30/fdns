@@ -15,8 +15,8 @@
 #	website: service website
 #	tags: filtering tags
 #	       You can further filter the servers based on the following tags: Americas,
-#	       AsiaPacific, Europe, anycast, adblocker, family, OpenNIC etc. Wherever
-#	       possible country-based tags such as Germany, France, UK have been added
+#	       AsiaPacific, Europe, anycast, adblocker, family, security etc. Wherever
+#	       possible we also added country-based tags (Germany, Denmark etc.)
 #	address: IP address and port in IP:PORT or DOMAIN:PORT format
 #	host: URL
 #	sni: yes/no
@@ -26,9 +26,6 @@
 #	keepalive: how often we sent a request to keep the connection going.
 #	end;
 #	       Marks the end of the server description
-#
-# Servers tagged admin-down are included for testing only. fdns will not attempt
-# to connect to these servers.
 #
 # Other commands:
 #	unlist: - remove a server from the list. The command should precede the server definition.
@@ -1004,7 +1001,7 @@ end;
 
 name: dnscrypt-ca
 website: https://dnscrypt.ca/
-tags: Quebec, Americas
+tags: Canada, Americas
 address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
 keepalive: 40
@@ -1012,7 +1009,7 @@ end;
 
 name: dnscrypt-ca2
 website: https://dnscrypt.ca/
-tags: Quebec, Americas
+tags: Canada, Americas
 address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
 keepalive: 40
@@ -1673,7 +1670,7 @@ end;
 
 name: sev.monster
 website: https://sev.monster/
-tags: OpenNIC, Americas
+tags: OpenNIC, US, Americas
 address: 168.235.111.72:443
 host: dns.sev.monster/dns-query
 keepalive: 40
@@ -1832,7 +1829,7 @@ end;
 
 name: uncensoreddns3
 website: https://blog.uncensoreddns.org/
-tags: Virginia, Americas
+tags: US, Americas
 address: 198.180.150.12:443
 host: unicast.censurfridns.dk/dns-query
 keepalive: 25
