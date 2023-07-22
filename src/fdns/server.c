@@ -22,7 +22,6 @@
 #include <time.h>
 #include <errno.h>
 
-int server_print_zone = 0;
 int server_print_servers = 0;
 int server_print_unlist = 1;
 
@@ -93,22 +92,7 @@ static inline void print_server(DnsServer *s) {
 }
 
 static void set_zone(void) {
-	if (arg_zone) {
-		// check valid zone
-		if (strcmp(arg_zone, "Europe") != 0 &&
-		    strcmp(arg_zone, "AsiaPacific") != 0 &&
-		    strcmp(arg_zone, "Americas") != 0) {
-		    	fprintf(stderr, "Error: invalid zone\n");
-		    	exit(1);
-		}
-
-		fdns_zone = arg_zone;
-		if (server_print_zone)
-			printf("Current zone: %s\n", fdns_zone);
-		return;
-	}
-
-	// get timezone
+	// get local timezone
 	tzset();
 	int tz = -(timezone / 60) / 60;
 	fdns_zone = "unknown";
@@ -120,8 +104,7 @@ static void set_zone(void) {
 	else if (tz <= -3 && tz >= -11)
 		fdns_zone = "Americas";
 
-	if (server_print_zone)
-		printf("Current zone: %s\n", fdns_zone);
+	printf("Current zone: %s\n", fdns_zone);
 }
 
 // split lines formated as tok2: tok2
@@ -246,15 +229,6 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				errExit("strdup");
 			host = 1;
 		}
-		else if (strcmp(tok1, "zone") == 0) {
-			if (s->zone)
-				goto errout;
-			assert(tok2);
-			s->zone = strdup(tok2);
-			if (!s->zone)
-				errExit("strdup");
-			host = 1;
-		}
 		else if (strcmp(tok1, "tags") == 0) {
 			if (s->tags)
 				goto errout;
@@ -346,7 +320,8 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		else if (strcmp(tok1, "end") == 0) {
 			assert(tok2 == NULL);
 			// check server data
-			if (!s->name || !s->website || !s->zone || !s->tags || !s->address || !s->host) {
+
+			if (!s->name || !s->website || !s->tags || !s->address || !s->host) {
 				fprintf(stderr, "Error: file %s, line %d, one of the server fields is missing\n", fname, *linecnt);
 				exit(1);
 			}
@@ -560,7 +535,7 @@ static uint8_t test_server(const char *server_name)  {
 //**************************************************************************
 // public interface
 //**************************************************************************
-static int second_try = 0;
+//static int second_try = 0;
 // mark all the servers corresponding to the given tag (s->active)
 void server_list(const char *tag) {
 	// force reading admin-down servers
@@ -574,13 +549,13 @@ void server_list(const char *tag) {
 	if (!tag)
 		tag = fdns_zone;
 
-	// if the tag is the name of a zone use zone "any"
-	if (strcmp(tag, "Europe") == 0 ||
-	    strcmp(tag, "AsiaPacific") == 0 ||
-	    strcmp(tag, "Americas") == 0)
-	    	fdns_zone = "any";
-
-
+	// if the tag is the name of a zone, use it as our zone
+	if (strcmp(tag, "Europe") == 0)
+		fdns_zone = "Europe";
+	else if (strcmp(tag, "AsiaPacific") == 0)
+		fdns_zone = "AsiaPacific";
+	else if (strcmp(tag, "Americas") == 0)
+		fdns_zone = "Americas";
 
 	// process tag "all"
 	DnsServer *s = slist;
@@ -650,13 +625,8 @@ void server_list(const char *tag) {
 		// match tag
 		char *ptr = strstr(s->tags, tag);
 		if (ptr == NULL) {
-			// try to match Americas
-			if (strcmp(tag, "Americas") == 0 && strstr(s->tags, "America"))
-				;
-			else {
-				s = s->next;
-				continue;
-			}
+			s = s->next;
+			continue;
 		}
 
 		// match end of tag
@@ -666,12 +636,6 @@ void server_list(const char *tag) {
 				s = s->next;
 				continue;
 			}
-		}
-
-		// match the zone if the zone is not "any"
-		if (strcmp(fdns_zone, "any") && strstr(s->zone, fdns_zone) == NULL) {
-			s = s->next;
-			continue;
 		}
 
 		// match transport
@@ -692,13 +656,12 @@ void server_list(const char *tag) {
 		if (server_print_servers)
 			printf("%d server%s found\n", cnt, (cnt > 1)? "s": "");
 	}
-	else if (second_try == 0) {
-		// try to find server outside the current zone
-		second_try = 1;
-		fdns_zone = "any";
-		server_list(tag);
-		return;
-	}
+//	else if (second_try == 0) {
+//		// try to find server outside the current zone
+//		second_try = 1;
+//		server_list(tag);
+//		return;
+//	}
 	else
 		printf("Error: no such server available.\n");
 }
@@ -753,7 +716,7 @@ DnsServer *server_get(void) {
 		exit(1);
 	}
 
-	// update arg_server
+	// use the zone if no --server on the command line
 	if (arg_server == NULL) {
 		assert(fdns_zone);
 		arg_server = strdup(fdns_zone);
@@ -793,7 +756,7 @@ DnsServer *server_get(void) {
 				s = first;
 				if (first_average > SERVER_RESPONSE_LIMIT || s->keepalive_max < SERVER_KEEPALIVE_LIMIT) {
 					// try another server if the first one responds in more than 100 ms
-					// or if it has a keepalive under 110 seconds
+					// or if it has a keepalive under 25 seconds
 					s = random_server();
 					if (s == first) // try again
 						s = random_server();
@@ -897,7 +860,6 @@ void server_set_custom(const char *url) {
 	if (!s->name)
 		errExit("strdup");
 	s->website = "unknown";
-	s->zone = "unknown";
 	s->test_sni = 1;
 	if (arg_keepalive)
 		s->keepalive_max = arg_keepalive;

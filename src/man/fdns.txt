@@ -478,10 +478,6 @@ wiki.gentoo.org
 
 .br
 $ sudo fdns --whitelist-file=/etc/fdns/whitelist-gentoo
-.TP
-\fB\-\-zone=zone-name
-Set a different geographical zone.
-The zones defined so far are Americas, AsiaPacific and Europe.
 
 .SH Setup FDNS on a workstation
 You would need to set FDNS as your DNS server in /etc/resolv.conf:

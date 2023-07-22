@@ -96,8 +96,8 @@ static inline int rand_range(int min, int max) {
 #define DEFAULT_KEEPALIVE_VALUE 60	// seconds
 
 // when choosing servers...
-#define SERVER_RESPONSE_LIMIT 100 // milliseconds - try another server if the first one responds above this limit
-#define SERVER_KEEPALIVE_LIMIT 40 // seconds
+#define SERVER_RESPONSE_LIMIT 80 // milliseconds - try another server if the first one responds above this limit
+#define SERVER_KEEPALIVE_LIMIT 25 // seconds
 
 #define FALLBACK_TIMEOUT 10 // wait time for DNS responses from the server in fallback
 	// for NAT traversal, this value should be smaller than 30 seconds - the default is in /proc/sys/net/netfilter/nf_conntrack_udp_timeout
@@ -170,7 +170,8 @@ typedef struct dnsserver_t {
 	char *name;	// name
 	char *address;	// IP address
 	char *website;	// website
-	char *zone;		// geographical zone
+// testing?
+//	char *zone;		// geographical zone
 	char *tags;		// description
 	char *host;		// authority in http2
 	char *path;
@@ -261,7 +262,6 @@ extern char *arg_proxy_addr;
 extern int arg_proxy_addr_any;
 extern char *arg_certfile;
 extern char *arg_forwarder;
-extern char *arg_zone;
 extern int arg_cache_ttl;
 extern int arg_disable_local_doh;
 extern char *arg_whitelist_file;
@@ -370,7 +370,6 @@ void shmem_keepalive(void);
 void shm_timeout(void);
 
 // server.c
-extern int server_print_zone;
 extern int server_print_servers;
 extern int server_print_unlist;
 void server_load(void);

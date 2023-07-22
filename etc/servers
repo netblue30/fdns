@@ -13,15 +13,10 @@
 #
 #	name: the name of the server
 #	website: service website
-#	zone: geographical zone where the server is located
-#	       Your fdns proxy is located in a very specific geographical zone, such as
-#	       Europe, AsiaPacific, Americas (... so far, more to be added).
-#	       The fdns zone is detected based on the timezone setting of the computer running fdns.
-#	       We match fdns zone with the server zone, this way we can restrict a specific service
-#	       to a specific geographical area. Servers tagged as anycast are available in all zones.
 #	tags: filtering tags
-#	       In a specific zone, we can further filter the servers based on a tag such as anycast,
-#	       family, OpenNIC, etc.
+#	       You can further filter the servers based on the following tags: Americas,
+#	       AsiaPacific, Europe, anycast, adblocker, family, OpenNIC etc. Wherever
+#	       possible country-based tags such as Germany, France, UK have been added
 #	address: IP address and port in IP:PORT or DOMAIN:PORT format
 #	host: URL
 #	sni: yes/no
@@ -29,7 +24,6 @@
 #	transport: h2, http/1.1, dot
 #	       Transport technologies supported by the server.
 #	keepalive: how often we sent a request to keep the connection going.
-#
 #	end;
 #	       Marks the end of the server description
 #
@@ -154,7 +148,6 @@ unlist: testserver2
 
 name: testserver1
 website: https://testserver.123
-zone: Europe
 tags: France, Europe
 address: 0.0.0.0:443
 host: testserver.123/dns-query
@@ -163,7 +156,6 @@ end;
 
 name: testserver2
 website: https://testserver.123
-zone: Europe
 tags: France, Europe
 address: 0.0.0.0:443
 host: testserver.123/dns-query
@@ -173,7 +165,6 @@ end;
 
 name: 42l
 website: https://42l.fr
-zone: Europe
 tags: France, Europe
 address: 45.155.171.163:443
 host: doh.42l.fr/dns-query
@@ -183,7 +174,6 @@ end;
 
 name: a-and-a
 website: https://www.aa.net.uk/legal/dohdot-disclaimer/
-zone: Europe
 tags: UK, Europe
 address: 217.169.20.23:443
 host: dns.aa.net.uk/dns-query
@@ -192,7 +182,6 @@ end;
 
 name: a-and-a2
 website: https://www.aa.net.uk/legal/dohdot-disclaimer/
-zone: Europe
 tags: UK, Europe
 address: 217.169.20.22:443
 host: dns.aa.net.uk/dns-query
@@ -202,7 +191,6 @@ end;
 # discontinued?
 #name: aaflalo
 #website: https://www.aaflalo.me
-#zone: Americas
 #tags: admin-down, US, Americas, adblocker
 #address: 168.235.81.167:443
 #host: dns-nyc.aaflalo.me/dns-query
@@ -211,7 +199,6 @@ end;
 
 name: adfilter-adelaide
 website: https://adfilter.net
-zone: AsiaPacific
 tags: adblocker, Australia, AsiaPacific
 address: 163.47.117.176:443
 host: adl.adfilter.net/dns-query
@@ -220,7 +207,6 @@ end;
 
 name: adfilter-perth
 website: https://adfilter.net
-zone: AsiaPacific
 tags: adblocker, Australia, AsiaPacific
 address: 203.29.241.76:443
 host: per.adfilter.net/dns-query
@@ -229,7 +215,6 @@ end;
 
 name: adfilter-sydney
 website: https://adfilter.net
-zone: AsiaPacific
 tags: adblocker, Australia, AsiaPacific
 address: 112.213.32.219:443
 host: syd.adfilter.net/dns-query
@@ -238,7 +223,6 @@ end;
 
 name: adguard-unfiltered
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.136:443
 host: dns-unfiltered.adguard.com/dns-query
@@ -247,7 +231,6 @@ end;
 
 name: adguard-unfiltered-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.136:853
 host: dns-unfiltered.adguard.com/
@@ -257,7 +240,6 @@ end;
 
 name: adguard-unfiltered2
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.137:443
 host: dns-unfiltered.adguard.com/dns-query
@@ -266,7 +248,6 @@ end;
 
 name: adguard-unfiltered2-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 176.103.130.137:853
 host: dns-unfiltered.adguard.com/
@@ -276,7 +257,6 @@ end;
 
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.130:443
 host: dns.adguard.com/dns-query
@@ -285,7 +265,6 @@ end;
 
 name: adguard-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.130:853
 host: dns.adguard.com/
@@ -295,7 +274,6 @@ end;
 
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.131:443
 host: dns.adguard.com/dns-query
@@ -304,7 +282,6 @@ end;
 
 name: adguard2-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
 address: 176.103.130.131:853
 host: dns.adguard.com/dns-query
@@ -314,7 +291,6 @@ end;
 
 name: adguard-family
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.132:443
 host: dns-family.adguard.com/dns-query
@@ -323,7 +299,6 @@ end;
 
 name: adguard-family-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.132:853
 host: dns-family.adguard.com/
@@ -333,7 +308,6 @@ end;
 
 name: adguard-family2
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.134:443
 host: dns-family.adguard.com/dns-query
@@ -342,7 +316,6 @@ end;
 
 name: adguard-family2-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: 176.103.130.134:853
 host: dns-family.adguard.com/
@@ -352,7 +325,6 @@ end;
 
 name: ahadns
 website: https://ahadns.com
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: blitz.ahadns.com:443
 host: blitz.ahadns.com/
@@ -362,7 +334,6 @@ end;
 
 name: ahadns-adblocker
 website: https://ahadns.com
-zone: Americas, AsiaPacific, Europe
 tags: geocast, adblocker Americas, AsiaPacific, Europe
 address: blitz.ahadns.com:443
 host: blitz.ahadns.com/1:1
@@ -372,7 +343,6 @@ end;
 
 name: ahadns-nl-dot
 website: https://ahadns.com
-zone: Europe
 tags: adblocker, Netherlands, Europe
 address: 5.2.75.75:853
 host: dot.nl.ahadns.net/
@@ -382,7 +352,6 @@ end;
 
 name: ahadns-westus-dot
 website: https://ahadns.com
-zone: Americas
 tags: adblocker, US, Americas
 address: 45.67.219.208:853
 host: dot.la.ahadns.net/
@@ -393,7 +362,6 @@ end;
 # short keepalive
 #name: alekberg-nl
 #website: https://alekberg.net/
-#zone: Europe
 #tags: Netherlands, Europe
 #address: 89.38.131.38:443
 #host: dnsnl.alekberg.net/dns-query
@@ -402,7 +370,6 @@ end;
 #
 #name: alekberg-nl-adblocker
 #website: https://alekberg.net/
-#zone: Europe
 #tags: adblocker, Netherlands, Europe
 #address: 89.38.131.38:443
 #host: dnsnl-noads.alekberg.net/dns-query
@@ -411,7 +378,6 @@ end;
 #
 #name: alekberg-se
 #website: https://alekberg.net/
-#zone: Europe
 #tags: Sweden, Europe
 #address: 45.153.187.96:443
 #host: dnsse.alekberg.net/dns-query
@@ -420,7 +386,6 @@ end;
 #
 #name: alekberg-se-adblocker
 #website: https://alekberg.net/
-#zone: Europe
 #tags: adblocker, Sweden, Europe
 #address: 45.153.187.96:443
 #host: dnsse-noads.alekberg.net/dns-query
@@ -429,7 +394,6 @@ end;
 
 name: artikel10
 website: https://dns.artikel10.org
-zone: Europe
 tags: Netherlands, Europe
 address: 45.151.167.2:443
 host: dns.artikel10.org/dns-query
@@ -438,7 +402,6 @@ end;
 
 name: appliedprivacy
 website: https://appliedprivacy.net
-zone: Europe
 tags: Austria, Europe
 address: 146.255.56.98:443
 host: doh.applied-privacy.net/query
@@ -448,7 +411,6 @@ end;
 
 name: avast
 website: https://www.avast.com/dns
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: secure.avastdns.com:443
 host: secure.avastdns.com/dns-query
@@ -458,7 +420,6 @@ end;
 
 name: bebasid
 website: https://github.com/bebasid/bebasdns
-zone: AsiaPacific
 tags: adblocker, OpenNIC, Malaysia, AsiaPacific
 address: 103.87.68.24:443
 host: dns.bebasid.com/dns-query
@@ -467,7 +428,6 @@ end;
 
 name: bebasid-unfiltered
 website: https://github.com/bebasid/bebasdns
-zone: AsiaPacific
 tags: OpenNIC, Malaysia, AsiaPacific
 address: 103.87.68.23:443
 host: unfiltered.dns.bebasid.com/dns-query
@@ -477,7 +437,6 @@ end;
 # very short keepalive (about 5 seconds)
 #name: blahdns-ch
 #website: https://blahdns.com
-#zone: Europe
 #tags: Switzerland, Europe, adblocker
 #address: 45.91.92.121:443
 #host: doh-ch.blahdns.com/dns-query
@@ -487,7 +446,6 @@ end;
 #
 #name: blahdns-fi
 #website: https://blahdns.com
-#zone: Europe
 #tags: Finland, Europe, adblocker
 #address: 95.216.212.177:443
 #host: doh-fi.blahdns.com/dns-query
@@ -497,7 +455,6 @@ end;
 #
 #name: blahdns-de
 #website: https://blahdns.com
-#zone: Europe
 #tags: Germany, Europe, adblocker
 #address: 78.46.244.143:443
 #host: doh-de.blahdns.com/dns-query
@@ -508,7 +465,6 @@ end;
 ## short keepalive
 #name: blahdns-jp
 #website: https://blahdns.com
-#zone: AsiaPacific
 #tags: admin-down, Japan, AsiaPacific, adblocker
 #address: 139.162.112.47:443
 #host: doh-jp.blahdns.com/dns-query
@@ -519,7 +475,6 @@ end;
 ##short keepalive, expired certificate
 #name: blahdns-sg
 #website: https://blahdns.com
-#zone: AsiaPacific
 #tags: admin-down, Singapore, AsiaPacific, adblocker
 #address: 192.53.175.149:443
 #host: doh-sg.blahdns.com/dns-query
@@ -529,7 +484,6 @@ end;
 
 name: blokada-dns
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
-zone: Europe
 tags: Sweden, Europe
 address: 193.180.80.1:443
 host: dns.blokada.org/dns-query
@@ -538,7 +492,6 @@ end;
 
 name: blokada-dns2
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
-zone: Europe
 tags: Sweden, Europe
 address: 193.180.80.2:443
 host: dns.blokada.org/dns-query
@@ -547,7 +500,6 @@ end;
 
 name: bortzmeyer
 website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
-zone: Europe
 tags: France, Europe
 address: 193.70.85.11:443
 host: doh.bortzmeyer.fr/
@@ -557,7 +509,6 @@ end;
 # blocking subnets of known datacenters using https://github.com/brahma-dev/ufw-bots
 name: brahmaworld
 website: https://dns.brahma.world/
-zone: Europe
 tags: Sweden, Europe, adblocker
 address: 16.170.150.221:443
 host: dns.brahma.world/dns-query
@@ -566,7 +517,6 @@ end;
 
 name: bravedns
 website: https://bravedns.com
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: free.bravedns.com:443
 host: free.bravedns.com/dns-query
@@ -576,7 +526,6 @@ end;
 
 name: bravedns2
 website: https://bravedns.com
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: basic.bravedns.com:443
 host: basic.bravedns.com/
@@ -586,7 +535,6 @@ end;
 
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas
 tags: Canada, Americas
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
@@ -595,7 +543,6 @@ end;
 
 name: cira2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas
 tags: Canada, Americas
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
@@ -604,7 +551,6 @@ end;
 
 name: cira-security
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas
 tags: security, Canada, Americas
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
@@ -613,7 +559,6 @@ end;
 
 name: cira-security2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas
 tags: security, Canada, Americas
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
@@ -622,7 +567,6 @@ end;
 
 name: cira-family
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas
 tags: family
 address: 149.112.121.30:443
 host: family.canadianshield.cira.ca/dns-query
@@ -631,7 +575,6 @@ end;
 
 name: cira-family2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-zone: Americas
 tags: family
 address: 149.112.122.30:443
 host: family.canadianshield.cira.ca/dns-query
@@ -640,7 +583,6 @@ end;
 
 name: cleanbrowsing
 website: https://cleanbrowsing.org
-zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
@@ -649,7 +591,6 @@ end;
 
 name: cleanbrowsing2
 website: https://cleanbrowsing.org
-zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 185.228.168.10:443
 host: doh.cleanbrowsing.org/doh/security-filter
@@ -658,7 +599,6 @@ end;
 
 name: cleanbrowsing-family
 website: https://cleanbrowsing.org
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
@@ -667,7 +607,6 @@ end;
 
 name: cleanbrowsing-family2
 website: https://cleanbrowsing.org
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: 185.228.168.10:443
 host: doh.cleanbrowsing.org/doh/family-filter
@@ -676,7 +615,6 @@ end;
 
 name: cleanbrowsing-adult
 website: https://cleanbrowsing.org
-zone: Americas, AsiaPacific, Europe
 tags: safe-for-work
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/adult-filter
@@ -685,7 +623,6 @@ end;
 
 name: cleanbrowsing-adult2
 website: https://cleanbrowsing.org
-zone: Americas, AsiaPacific, Europe
 tags: safe-for-work
 address: 185.228.168.10:443
 host: doh.cleanbrowsing.org/doh/adult-filter
@@ -694,7 +631,6 @@ end;
 
 name: cloudflare
 website: https://www.cloudflare.com
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
@@ -703,7 +639,6 @@ end;
 
 name: cloudflare2
 website: https://www.cloudflare.com
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
@@ -712,7 +647,6 @@ end;
 
 name: cloudflare-security
 website: https://www.cloudflare.com
-zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
@@ -721,7 +655,6 @@ end;
 
 name: cloudflare-security2
 website: https://www.cloudflare.com
-zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
@@ -730,7 +663,6 @@ end;
 
 name: cloudflare-family
 website: https://www.cloudflare.com
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
@@ -739,7 +671,6 @@ end;
 
 name: cloudflare-family2
 website: https://www.cloudflare.com
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
@@ -748,7 +679,6 @@ end;
 
 name: comssone-west
 website: https://www.comss.ru/page.php?id=7315
-zone: Europe
 tags: Europe, Russia, adblocker
 address: dns.comss.one:443
 host: dns.comss.one/dns-query
@@ -757,7 +687,6 @@ end;
 
 name: comssone-east
 website: https://www.comss.ru/page.php?id=7315
-zone: AsiaPacific
 tags: AsiaPacific, Russia, adblocker
 address: dns.east.comss.one:443
 host: dns.east.comss.one/dns-query
@@ -766,7 +695,6 @@ end;
 
 name: controld
 website: https://controld.com/free-dns/
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/p0
@@ -775,7 +703,6 @@ end;
 
 name: controld-security
 website: https://controld.com/free-dns/
-zone: Americas, AsiaPacific, Europe
 tags: security, adblocker, anycast, Americas, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/p2
@@ -784,7 +711,6 @@ end;
 
 name: controld-family
 website: https://controld.com/free-dns/
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: 76.76.2.11:443
 host: freedns.controld.com/family
@@ -793,7 +719,6 @@ end;
 
 name: digitalcourage-dot
 website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
-zone: Europe
 tags: Germany, Europe
 address: 46.182.19.48:853
 host: dns2.digitalcourage.de/
@@ -803,7 +728,6 @@ end;
 
 name: digitalcourage2-dot
 website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
-zone: Europe
 tags: Germany, Europe
 address: 5.9.164.112:853
 host: dns3.digitalcourage.de/
@@ -813,7 +737,6 @@ end;
 
 name: digital-society
 website: https://www.digitale-gesellschaft.ch
-zone: Europe
 tags: Switzerland, Europe
 address: 185.95.218.42:443
 host: dns.digitale-gesellschaft.ch/dns-query
@@ -822,7 +745,6 @@ end;
 
 name: digital-society2
 website: https://www.digitale-gesellschaft.ch
-zone: Europe
 tags: Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
@@ -832,7 +754,6 @@ end;
 # short keepalive
 #name: digital-society-dot
 #website: https://www.digitale-gesellschaft.ch
-#zone: Europe
 #tags: Switzerland, Europe
 #address: 185.95.218.42:853
 #host: dns.digitale-gesellschaft.ch/
@@ -843,7 +764,6 @@ end;
 # short keepalive
 #name: digital-society-dot2
 #website: https://www.digitale-gesellschaft.ch
-#zone: Europe
 #tags: Switzerland, Europe
 #address: 185.95.218.43:853
 #host: dns.digitale-gesellschaft.ch/dns-query
@@ -854,7 +774,6 @@ end;
 # short keepalive
 #name: digitalsize
 #website: https://dns.digitalsize.net
-#zone: Europe
 #tags: Germany, Europe
 #address: 94.130.135.203:443
 #host: dns.digitalsize.net/dns-query
@@ -864,7 +783,6 @@ end;
 # short keepalive
 #name: dismail-dot
 #website: https://dismail.de/info.html
-#zone: Europe
 #tags: adblocker, Germany, Europe
 #address: 80.241.218.68:853
 #host: fdns1.dismail.de/
@@ -874,7 +792,6 @@ end;
 #
 #name: dismail2-dot
 #website: https://dismail.de/info.html
-#zone: Europe
 #tags: adblocker, Germany, Europe
 #address: 159.69.114.157:853
 #host: fdns2.dismail.de/
@@ -885,7 +802,6 @@ end;
 
 name: dns0eu
 website: https://dns0.eu
-zone: Europe,
 tags: security, anycast, Europe
 address: 193.110.81.9:443
 host: zero.dns0.eu/
@@ -894,7 +810,6 @@ end;
 
 name: dns0eu-2
 website: https://dns0.eu
-zone: Europe,
 tags: security, anycast, Europe
 address: 185.253.5.9:443
 host: zero.dns0.eu/
@@ -903,7 +818,6 @@ end;
 
 name: dns0eu-family
 website: https://dns0.eu
-zone: Europe,
 tags: family
 address: 193.110.81.1:443
 host: kids.dns0.eu/
@@ -912,7 +826,6 @@ end;
 
 name: dns0eu-family-2
 website: https://dns0.eu
-zone: Europe,
 tags: family
 address: 185.253.5.1:443
 host: kids.dns0.eu/
@@ -921,7 +834,6 @@ end;
 
 name: dns-sb1
 website: https://dns.sb/doh
-zone: Europe, AsiaPacific, Americas
 tags: anycast, Americas, AsiaPacific, Europe
 address: 185.222.222.222:443
 host: doh.dns.sb/dns-query
@@ -931,7 +843,6 @@ end;
 
 name: dns-sb2
 website: https://dns.sb/doh
-zone: Europe, AsiaPacific, Americas
 tags: anycast, Americas, AsiaPacific, Europe
 address: 45.11.45.11:443
 host: doh.dns.sb/dns-query
@@ -941,7 +852,6 @@ end;
 
 name: dns-sb-de1
 website: https://dns.sb/doh
-zone: Europe
 tags: Germany, Europe
 address: de-dus.doh.sb:443
 host: de-dus.doh.sb/dns-query
@@ -951,7 +861,6 @@ end;
 
 name: dns-sb-de2
 website: https://dns.sb/doh
-zone: Europe
 tags: Germany, Europe
 address: de-fra.doh.sb:443
 host: de-fra.doh.sb/dns-query
@@ -961,7 +870,6 @@ end;
 
 name: dns-sb-nl1
 website: https://dns.sb/doh
-zone: Europe
 tags: Netherlands, Europe
 address: nl-ams.doh.sb:443
 host: nl-ams.doh.sb/dns-query
@@ -971,7 +879,6 @@ end;
 
 name: dns-sb-nl2
 website: https://dns.sb/doh
-zone: Europe
 tags: Netherlands, Europe
 address: nl-ams2.doh.sb:443
 host: nl-ams2.doh.sb/dns-query
@@ -981,7 +888,6 @@ end;
 
 name: dns-sb-uk
 website: https://dns.sb/doh
-zone: Europe
 tags: UK, Europe
 address: uk-lon.doh.sb:443
 host: uk-lon.doh.sb/dns-query
@@ -991,7 +897,6 @@ end;
 
 name: dns-sb-ee
 website: https://dns.sb/doh
-zone: Europe
 tags: Estonia, Europe
 address: ee-tll.doh.sb:443
 host: ee-tll.doh.sb/dns-query
@@ -1001,7 +906,6 @@ end;
 
 name: dns-sb-jp1
 website: https://dns.sb/doh
-zone: AsiaPacific
 tags: Japan, AsiaPacific
 address: jp-kix.doh.sb:443
 host: jp-kix.doh.sb/dns-query
@@ -1011,7 +915,6 @@ end;
 
 name: dns-sb-jp2
 website: https://dns.sb/doh
-zone: AsiaPacific
 tags: Japan, AsiaPacific
 address: jp-nrt.doh.sb:443
 host: jp-nrt.doh.sb/dns-query
@@ -1021,7 +924,6 @@ end;
 
 name: dns-sb-hk
 website: https://dns.sb/doh
-zone: AsiaPacific
 tags: HongKong, AsiaPacific
 address: hk-hkg.doh.sb:443
 host: hk-hkg.doh.sb/dns-query
@@ -1031,7 +933,6 @@ end;
 
 name: dns-sb-au
 website: https://dns.sb/doh
-zone: AsiaPacific
 tags: Australia, AsiaPacific
 address: au-syd.doh.sb:443
 host: au-syd.doh.sb/dns-query
@@ -1041,7 +942,6 @@ end;
 
 name: dns-sb-us
 website: https://dns.sb/doh
-zone: Americas
 tags: US, Americas
 address: us-chi.doh.sb:443
 host: us-chi.doh.sb/dns-query
@@ -1051,7 +951,6 @@ end;
 
 name: dns-sb-in
 website: https://dns.sb/doh
-zone: AsiaPacific
 tags: India, AsiaPacific
 address: in-blr.doh.sb:443
 host: in-blr.doh.sb/dns-query
@@ -1061,7 +960,6 @@ end;
 
 name: dns-sb-sg
 website: https://dns.sb/doh
-zone: AsiaPacific
 tags: Singapore, AsiaPacific
 address: sg-sin.doh.sb:443
 host: sg-sin.doh.sb/dns-query
@@ -1071,7 +969,6 @@ end;
 
 name: dns-sb-kr
 website: https://dns.sb/doh
-zone: AsiaPacific
 tags: Korea, AsiaPacific
 address: kr-sel.doh.sb:443
 host: kr-sel.doh.sb/dns-query
@@ -1081,7 +978,6 @@ end;
 
 name: dns-sb-ru
 website: https://dns.sb/doh
-zone: Europe
 tags: Rusia, Europe
 address: ru-mow.doh.sb:443
 host: ru-mow.doh.sb/dns-query
@@ -1091,7 +987,6 @@ end;
 
 name: dns-sb-ca
 website: https://dns.sb/doh
-zone: Americas
 tags: Canada, Americas
 address: ca-yyc.doh.sb:443
 host: ca-yyc.doh.sb/dns-query
@@ -1101,7 +996,6 @@ end;
 
 #name: dns-watch
 #website: https://dns.watch/
-#zone: Europe
 #tags: admin-down, Germany, Europe
 #address: 84.200.70.40:443
 #host: resolver2.dns.watch/dns-query
@@ -1110,7 +1004,6 @@ end;
 
 name: dnscrypt-ca
 website: https://dnscrypt.ca/
-zone: Americas
 tags: Quebec, Americas
 address: 167.114.220.125:453
 host: dns1.dnscrypt.ca:453/dns-query
@@ -1119,7 +1012,6 @@ end;
 
 name: dnscrypt-ca2
 website: https://dnscrypt.ca/
-zone: Americas
 tags: Quebec, Americas
 address: 149.56.228.45:453
 host: dns2.dnscrypt.ca:453/dns-query
@@ -1129,7 +1021,6 @@ end;
 # expired cert
 #name: dnscrypt-uk
 #website: https://dnscrypt.uk/
-#zone: Europe
 #tags: admin-down, UK, Europe
 #address: 165.227.233.200:443
 #host: doh.dnscrypt.uk/dns-query
@@ -1139,7 +1030,6 @@ end;
 # expired cert
 #name: dnscrypt-uk2
 #website: https://dnscrypt.uk/
-#zone: Europe
 #tags: admin-down, UK, Europe
 #address: 136.244.65.20:443
 #host: v.dnscrypt.uk/dns-query
@@ -1148,7 +1038,6 @@ end;
 
 name: dnsforfamily
 website: https://dnsforfamily.com
-zone: Europe
 tags: family
 address: 167.235.236.107:443
 host: dns-doh.dnsforfamily.com/dns-query
@@ -1157,7 +1046,6 @@ end;
 
 name: dnsforfamily-dot
 website: https://dnsforfamily.com
-zone: Europe
 tags: family
 address: 167.235.236.107:853
 host: dns-dot.dnsforfamily.com/
@@ -1168,7 +1056,6 @@ end;
 # short keepalive
 #name: dnsforge
 #website: https://dnsforge.de
-#zone: Europe
 #tags: admin-down, Germany, Europe, adblocker
 #address: 176.9.93.198:443
 #host: dnsforge.de/dns-query
@@ -1177,7 +1064,6 @@ end;
 
 name: dnshome
 website: https://www.dnshome.de/doh-dot-public-resolver.php
-zone: Europe
 tags: Germany, Europe
 address: 45.86.125.58:443
 host: dns.dnshome.de/dns-query
@@ -1186,7 +1072,6 @@ end;
 
 name: dnshome2
 website: https://www.dnshome.de/doh-dot-public-resolver.php
-zone: Europe
 tags: Germany, Europe
 address: 45.86.125.59:443
 host: dns.dnshome.de/dns-query
@@ -1195,7 +1080,6 @@ end;
 
 name: dnswarden
 website: https://github.com/bhanupratapys/dnswarden
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe, Germany, Singapore, US
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
@@ -1205,7 +1089,6 @@ end;
 
 name: dnswarden-adblocker
 website: https://github.com/bhanupratapys/dnswarden
-zone: Americas, AsiaPacific, Europe
 tags: geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adblock
@@ -1215,7 +1098,6 @@ end;
 
 name: dnswarden-family
 website: https://github.com/bhanupratapys/dnswarden
-zone: Americas, AsiaPacific, Europe
 tags: family
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adultfilter
@@ -1226,7 +1108,6 @@ end;
 # self signed certs
 #name: edgy
 #website: https://edgy.network/
-#zone: AsiaPacific
 #tags: admin-down, adblocker, OpenNIC, Indonesia, AsiaPacific
 #address: 27.112.79.80:443
 #host: dns.edgy.network/dns-query
@@ -1235,7 +1116,6 @@ end;
 
 #name: edgy-dot
 #website: https://edgy.network/
-#zone: AsiaPacific
 #tags: admin-down, adblocker, OpenNIC, Indonesia, AsiaPacific
 #address: 27.112.79.80:853
 #host: dns.edgy.network/
@@ -1247,7 +1127,6 @@ end;
 # http/1.1
 name: eth-services
 website: https://servers.opennic.org/
-zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 94.247.43.254:853
 host: opennic1.eth-services.de:853/
@@ -1258,7 +1137,6 @@ end;
 # http/1.1
 name: eth-services2
 website: https://servers.opennic.org/
-zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 195.10.195.195:853
 host: opennic2.eth-services.de:853/
@@ -1267,7 +1145,6 @@ end;
 
 name: faelix-uk-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
-zone: Europe
 tags: UK, Europe, adblocker
 address: 46.227.200.52:443
 host: pdns.faelix.net/
@@ -1276,7 +1153,6 @@ end;
 
 #name: faelix-uk-adblocker2
 #website: https://faelix.net/ref/dns/#privacy-dns
-#zone: Europe
 #tags: admin-down, UK, Europe, adblocker
 #address: 46.227.203.52:443
 #host: pdns.faelix.net/
@@ -1285,7 +1161,6 @@ end;
 
 name: faelix-uk-adblocker3
 website: https://faelix.net/ref/dns/#privacy-dns
-zone: Europe
 tags: UK, Europe, adblocker
 address: 46.227.207.52:443
 host: pdns.faelix.net/
@@ -1294,7 +1169,6 @@ end;
 
 name: faelix-ch-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
-zone: Europe
 tags: Switzerland, Europe, adblocker
 address: 185.134.196.52:443
 host: pdns.faelix.net/
@@ -1303,7 +1177,6 @@ end;
 
 name: faelix-uk
 website: https://faelix.net/ref/dns
-zone: Europe
 tags: UK, Europe
 address: 46.227.200.54:443
 host: rdns.faelix.net/
@@ -1312,7 +1185,6 @@ end;
 
 #name: faelix-uk2
 #website: https://faelix.net/ref/dns
-#zone: Europe
 #tags: admin-down, UK, Europe
 #address: 46.227.200.55:443
 #host: rdns.faelix.net/
@@ -1321,7 +1193,6 @@ end;
 
 name: faelix-ch
 website: https://faelix.net/ref/dns/#privacy-dns
-zone: Europe
 tags: Switzerland, Europe
 address: 185.134.196.54:443
 host: rdns.faelix.net/
@@ -1330,7 +1201,6 @@ end;
 
 name: faelix-ch2
 website: https://faelix.net/ref/dns/#privacy-dns
-zone: Europe
 tags: Switzerland, Europe
 address: 185.134.196.55:443
 host: rdns.faelix.net/
@@ -1339,7 +1209,6 @@ end;
 
 name: ffmuc
 website: https://ffmuc.net/
-zone: Europe
 tags: Germany, Europe
 address: oh.ffmuc.net:443
 host: doh.ffmuc.net/dns-query
@@ -1349,7 +1218,6 @@ end;
 
 #name: flatuslifir
 #website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-#zone: Europe
 #tags: admin-down, Iceland, Europe
 #address: 46.239.223.80:443
 #host: dns.flatuslifir.is/dns-query
@@ -1358,7 +1226,6 @@ end;
 #
 #name: flatuslifir-dot
 #website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-#zone: Europe
 #tags: admin-down, Iceland, Europe
 #address: 46.239.223.80:853
 #host: dns.flatuslifir.is/
@@ -1368,7 +1235,6 @@ end;
 
 name: flutadns
 website: https://site.futa.gg/
-zone: AsiaPacific
 tags: adblocker, Taiwan, AsiaPacific
 address: 104.16.0.132:443
 host: doh.futa.gg/dns-query
@@ -1378,7 +1244,6 @@ end;
 
 name: getdnsapi-dot
 website: https://getdnsapi.net/
-zone: Europe
 tags: Netherlands, Europe
 address: 185.49.141.37:853
 host: getdnsapi.net/
@@ -1388,7 +1253,6 @@ end;
 
 name: getdnsapi2-dot
 website: https://getdnsapi.net/
-zone: Europe
 tags: Netherlands, Europe
 address: 185.49.141.37:443
 host: getdnsapi.net/
@@ -1398,7 +1262,6 @@ end;
 
 name: getdnsapi3-dot
 website: https://getdnsapi.net/
-zone: Europe
 tags: Netherlands, Europe
 address: 185.49.141.38:853
 host: getdnsapi.net/
@@ -1408,7 +1271,6 @@ end;
 
 name: heliumcloud
 website: https://servers.opennic.org/edit.php?srv=ns2.nj.us.dns.opennic.glue
-zone: Americas
 tags: OpenNIC, US, Americas
 address: 104.248.14.193:443
 host: us-ny-alula.heliumcloud.cc/dns-query
@@ -1417,7 +1279,6 @@ end;
 
 name: hostux
 website: https://hostux.network/en/index.html
-zone: Europe
 tags: Luxembourg, Europe
 address: 46.226.108.173:443
 host: dns.hostux.net/dns-query
@@ -1426,7 +1287,6 @@ end;
 
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
-zone: Europe
 tags: Luxembourg, Europe, adblocker
 address: 46.226.109.82:443
 host: dns.hostux.net/ads
@@ -1435,7 +1295,6 @@ end;
 
 #name: i2pd
 #website: https://opennic.i2pd.xyz/
-#zone: Europe
 #tags: France, Europe, OpenNIC
 #address: 151.80.222.79:443
 #host: opennic.i2pd.xyz/dns-query
@@ -1444,7 +1303,6 @@ end;
 
 name: ibksturm
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-zone: Europe
 tags: Switzerland, Europe, OpenNIC
 address: 213.196.191.96:443
 host: ibksturm.synology.me/dns-query
@@ -1453,7 +1311,6 @@ end;
 
 #name: lavadns-us
 #website: https://dns.lavate.ch
-#zone: Americas
 #tags: admin-down, OpenNIC, US, Americas
 #address: 79.110.170.43:443
 #host: us1.dns.lavate.ch/dns-query
@@ -1462,7 +1319,6 @@ end;
 
 name: lavadns-fi
 website: https://dns.lavate.ch
-zone: Europe
 tags: OpenNIC, Finland, Europe
 address: 95.217.25.217:443
 host: eu1.dns.lavate.ch/dns-query
@@ -1471,7 +1327,6 @@ end;
 
 #name: lavadns-de
 #website: https://dns.lavate.ch
-#zone: Europe
 #tags: admin-down, OpenNIC, Germany, Europe
 #address: 130.61.185.42:443
 #host: eu2.dns.lavate.ch/dns-query
@@ -1481,7 +1336,6 @@ end;
 # using HTTP 1.1
 name: li
 website: https://doh.li/
-zone: Europe
 tags: UK, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
@@ -1490,7 +1344,6 @@ end;
 
 #name: li-dot
 #website: https://doh.li/
-#zone: Europe
 #tags: admin-down, UK, Europe
 #address: 46.101.66.244:853
 #host: doh.li/dns-query
@@ -1500,7 +1353,6 @@ end;
 
 name: libredns
 website: https://libredns.gr/
-zone: Europe
 tags: Germany, Europe, OpenNIC
 address: 116.202.176.26:443
 host: doh.libredns.gr/dns-query
@@ -1509,7 +1361,6 @@ end;
 
 name: libredns-adblocker
 website: https://libredns.gr/
-zone: Europe
 tags: Germany, Europe, OpenNIC, adblocker
 address: 116.202.176.26:443
 host: doh.libredns.gr/ads
@@ -1519,7 +1370,6 @@ end;
 # short keepalive
 #name: meganerd
 #website: https://meganerd.nl/encrypted-dns-server
-#zone: Europe
 #tags: Netherlands, Europe
 #address: 136.244.97.114:443
 #host: chewbacca.meganerd.nl/dns-query
@@ -1529,7 +1379,6 @@ end;
 # running in cloudflare cloud
 name: mydns-network
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: freedom.mydns.network:443
 host: freedom.mydns.network/dns-query
@@ -1538,7 +1387,6 @@ end;
 
 name: nextdns
 website: https://nextdns.io/
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.30.0:443
 host: trr.dns.nextdns.io/
@@ -1547,7 +1395,6 @@ end;
 
 name: nextdns-dot
 website: https://nextdns.io/
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.30.0:853
 host: trr.dns.nextdns.io/
@@ -1557,7 +1404,6 @@ end;
 
 name: nextdns2
 website: https://nextdns.io/
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
@@ -1566,7 +1412,6 @@ end;
 
 name: nextdns2-dot
 website: https://nextdns.io/
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 45.90.28.0:853
 host: trr.dns.nextdns.io/
@@ -1576,7 +1421,6 @@ end;
 
 name: nextdns3
 website: https://nextdns.io/
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: trr.dns.nextdns.io:443
 host: trr.dns.nextdns.io/
@@ -1585,7 +1429,6 @@ end;
 
 name: nextdns3-dot
 website: https://nextdns.io/
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: trr.dns.nextdns.io:853
 host: trr.dns.nextdns.io/
@@ -1595,7 +1438,6 @@ end;
 
 name: njalla
 website: https://njal.la
-zone: Europe
 tags: Sweden, Europe
 address: 95.215.19.53:443
 host: dns.njal.la/dns-query
@@ -1604,7 +1446,6 @@ end;
 
 #name: opennameserver
 #website: https://opennameserver.org/
-#zone: Europe
 #tags: admin-down, OpenNIC, Germany, Europe
 #address: 217.160.70.42:443
 #host: ns1.opennameserver.org/dns-query
@@ -1613,7 +1454,6 @@ end;
 
 name: opennameserver-dot
 website: https://opennameserver.org/
-zone: Europe
 tags: OpenNIC, Germany, Europe
 address: 217.160.70.42:853
 host: ns1.opennameserver.org/
@@ -1623,7 +1463,6 @@ end;
 
 #name: opennameserver2
 #website: https://opennameserver.org/
-#zone: Europe
 #tags: admin-down, OpenNIC, Germany, Europe
 #address: 178.254.22.166:443
 #host: ns2.opennameserver.org/dns-query
@@ -1632,7 +1471,6 @@ end;
 
 name: opennameserver2-dot
 website: https://opennameserver.org/
-zone: Europe
 tags: OpenNIC, Germany, Europe
 address: 178.254.22.166:853
 host: ns2.opennameserver.org/
@@ -1642,7 +1480,6 @@ end;
 
 #name: opennameserver3
 #website: https://opennameserver.org/
-#zone: Europe
 #tags: admin-down, OpenNIC, Germany, Europe
 #address: 81.169.136.222:443
 #host: ns3.opennameserver.org/dns-query
@@ -1651,7 +1488,6 @@ end;
 
 name: opennameserver3-dot
 website: https://opennameserver.org/
-zone: Europe
 tags: OpenNIC, Germany, Europe
 address: 81.169.136.222:853
 host: ns3.opennameserver.org/
@@ -1661,7 +1497,6 @@ end;
 
 name: opennameserver4
 website: https://opennameserver.org/
-zone: Europe
 tags: OpenNIC, Norway, Europe
 address: 185.181.61.24:443
 host: ns4.opennameserver.org/dns-query
@@ -1670,7 +1505,6 @@ end;
 
 name: opennameserver4-dot
 website: https://opennameserver.org/
-zone: Europe
 tags: OpenNIC, Norway, Europe
 address: 185.181.61.24:853
 host: ns4.opennameserver.org/
@@ -1681,7 +1515,6 @@ end;
 # running in cloudflare cloud
 name: paesadns
 website: https://milgradesec.github.io/paesadns/
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: dns.paesa.es:443
 host: dns.paesa.es/dns-query
@@ -1692,7 +1525,6 @@ end;
 # short keepalive
 #name: puredns
 #website: https://puredns.org/
-#zone: AsiaPacific
 #tags: Singapore, AsiaPacific
 #address: puredns.org:443
 #host: puredns.org/dns-query
@@ -1703,7 +1535,6 @@ end;
 # short keepalive
 #name: qquackdns
 #website: https://qquack.org/nameserver/
-#zone: AsiaPacific
 #tags: Korea, AsiaPacific
 #address: ns1.qquack.org:443
 #host: ns1.qquack.org/dns-query
@@ -1712,7 +1543,6 @@ end;
 
 name: quad9
 website: https://quad9.net
-zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 9.9.9.9:443
 host: dns.quad9.net/dns-query
@@ -1721,7 +1551,6 @@ end;
 
 name: quad9-2
 website: https://quad9.net
-zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 149.112.112.112:443
 host: dns.quad9.net/dns-query
@@ -1730,7 +1559,6 @@ end;
 
 name: quad9-3
 website: https://quad9.net
-zone: Americas, AsiaPacific, Europe
 tags: anycast, security, Americas, AsiaPacific, Europe
 address: 149.112.112.9:443
 host: dns9.quad9.net/dns-query
@@ -1739,7 +1567,6 @@ end;
 
 name: quad9-unsecured
 website: https://quad9.net
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 9.9.9.10:443
 host: dns10.quad9.net/dns-query
@@ -1748,7 +1575,6 @@ end;
 
 name: quad9-unsecured-2
 website: https://quad9.net
-zone: Americas, AsiaPacific, Europe
 tags: anycast, Americas, AsiaPacific, Europe
 address: 149.112.112.10:443
 host: dns10.quad9.net/dns-query
@@ -1757,7 +1583,6 @@ end;
 
 name: radeksprta-dot
 website: https://dns.radeksprta.eu/
-zone: Europe
 tags: OpenNIC, Czechia, Europe
 address: 80.211.208.74:853
 host: dns.radeksprta.eu/
@@ -1768,7 +1593,6 @@ end;
 # running in cloudflare cloud
 name: rethink
 website: https://www.rethinkdns.com
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: basic.rethinkdns.com:443
 host: basic.rethinkdns.com/dns-query
@@ -1779,7 +1603,6 @@ end;
 # running in cloudflare cloud
 name: rethink-adblocker
 website: https://www.rethinkdns.com
-zone: Americas, AsiaPacific, Europe
 tags: adblocker, geocast, Americas, AsiaPacific, Europe
 address: sky.rethinkdns.com:443
 host: sky.rethinkdns.com/1:IAAgAA==
@@ -1789,7 +1612,6 @@ end;
 
 name: rezjahul
 website: https://doh.rezhajul.io/
-zone: AsiaPacific
 tags: adblocker, Singapore, AsiaPacific
 address: doh.rezhajul.io:443
 host: doh.rezhajul.io/dns-query
@@ -1800,7 +1622,6 @@ end;
 # self-signed cert
 #name: rumpelsepp
 #website: https://rumpelsepp.org/2020/03/10/announcing-dns-query.html
-#zone: Europe
 #tags: admin-down, Germany, Europe
 #address: 116.203.179.248:443
 #sni: yes
@@ -1810,7 +1631,6 @@ end;
 
 name: ryan-palmer
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-zone: Europe
 tags: UK, Europe
 address: 68.183.253.200:443
 host: ns1.ryan-palmer.com/dns-query
@@ -1819,7 +1639,6 @@ end;
 
 name: seby
 website: https://dns.seby.io
-zone: AsiaPacific
 tags: Australia, AsiaPacific, OpenNIC
 address: 45.76.113.31:443
 host: dns.seby.io/dns-query
@@ -1828,7 +1647,6 @@ end;
 
 name: seby-dot
 website: https://dns.seby.io
-zone: AsiaPacific
 tags: Australia, AsiaPacific, OpenNIC
 address: 45.76.113.31:853
 host: dns.seby.io/
@@ -1838,7 +1656,6 @@ end;
 
 name: seby2
 website: https://dns.seby.io
-zone: AsiaPacific
 tags: Australia, AsiaPacific, OpenNIC
 address: 139.99.222.72:443
 host: doh-2.seby.io/dns-query
@@ -1847,7 +1664,6 @@ end;
 
 name: seby2-dot
 website: https://dns.seby.io
-zone: AsiaPacific
 tags: Australia, AsiaPacific, OpenNIC
 address: 139.99.222.72:853
 host: doh-2.seby.io/
@@ -1857,7 +1673,6 @@ end;
 
 name: sev.monster
 website: https://sev.monster/
-zone: Americas
 tags: OpenNIC, Americas
 address: 168.235.111.72:443
 host: dns.sev.monster/dns-query
@@ -1866,7 +1681,6 @@ end;
 
 name: sellan
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-zone: Europe
 tags: France, Europe
 address: 78.194.186.17:443
 host: dns.sellan.fr/dns-query
@@ -1875,7 +1689,6 @@ end;
 
 #name: sellan-dot
 #website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-#zone: Europe
 #tags: admin-down, France, Europe
 #address: 78.194.186.17:853
 #host: dns.sellan.fr/
@@ -1885,7 +1698,6 @@ end;
 
 name: switch
 website: https://www.switch.ch/security/info/public-dns/
-zone: Europe
 tags: Switzerland, Europe
 address: 130.59.31.248:443
 host: dns.switch.ch/dns-query
@@ -1894,7 +1706,6 @@ end;
 
 name: switch2
 website: https://www.switch.ch/security/info/public-dns/
-zone: Europe
 tags: Switzerland, Europe
 address: 130.59.31.251:443
 host: dns.switch.ch/dns-query
@@ -1903,7 +1714,6 @@ end;
 
 name: teradns-de
 website: https://teradns.org/dns-over-https/
-zone: Europe
 tags: Germany, Europe
 address: 188.68.45.12:443
 host: de.teradns.org/dns-query
@@ -1913,7 +1723,6 @@ end;
 # expired certificate
 name: teradns-us1
 website: https://teradns.org/dns-over-https/
-zone: admin-down, Americas
 tags: US, Americas
 address: 45.61.162.132:443
 host: ny.teradns.org/dns-query
@@ -1922,7 +1731,6 @@ end;
 
 name: teradns-au
 website: https://teradns.org/dns-over-https/
-zone: AsiaPacific
 tags: Australia, AsiaPacific
 address: 194.29.100.68:443
 host: au.teradns.org/dns-query
@@ -1931,7 +1739,6 @@ end;
 
 name: teradns-us2
 website: https://teradns.org/dns-over-https/
-zone: Americas
 tags: US, Americas
 address: 45.79.38.174:443
 host: tx.teradns.org/dns-query
@@ -1940,7 +1747,6 @@ end;
 
 name: teradns-sg
 website: https://teradns.org/dns-over-https/
-zone: AsiaPacific
 tags: Singapore, AsiaPacific
 address: 103.167.151.201:443
 host: sg.teradns.org/dns-query
@@ -1949,7 +1755,6 @@ end;
 
 name: therifleman
 website: https://therifleman.name/
-zone: AsiaPacific
 tags: India, AsiaPacific
 address: 172.104.206.174:443
 host: dns.therifleman.name/dns-query
@@ -1958,7 +1763,6 @@ end;
 
 name: tiarap
 website: https://doh.tiarap.org
-zone: Americas, AsiaPacific, Europe
 tags: geocast, Americas, AsiaPacific, Europe
 address: doh.tiarap.org:443
 host: doh.tiarap.org/dns-query
@@ -1969,7 +1773,6 @@ end;
 # small keepalive
 #name: tiarap-jp
 #website: https://jp.tiar.app/
-#zone: AsiaPacific
 #tags: Japan, AsiaPacific, adblocker
 #address: jp.tiar.app:443
 #host: jp.tiar.app/dns-query
@@ -1978,7 +1781,6 @@ end;
 #
 #name: tiarap-sg
 #website: https://doh.tiar.app
-#zone: AsiaPacific
 #tags: Singapore, AsiaPacific, adblocker
 #address: 174.138.29.175:443
 #host: doh.tiar.app/dns-query
@@ -1987,7 +1789,6 @@ end;
 #
 #name: tiarap-sg-dot
 #website: https://doh.tiar.app
-#zone: AsiaPacific
 #tags: Singapore, AsiaPacific, adblocker
 #address: 174.138.29.175:853
 #host: dot.tiar.app/
@@ -1998,7 +1799,6 @@ end;
 
 name: twnic
 website: https://101.101.101.101/index_en.html
-zone: AsiaPacific
 tags: Taiwan, AsiaPacific
 address: 101.101.101.101:443
 host: dns.twnic.tw/dns-query
@@ -2007,7 +1807,6 @@ end;
 
 name: twnic-dot
 website: https://101.101.101.101/index_en.html
-zone: AsiaPacific
 tags: Taiwan, AsiaPacific
 address: 101.101.101.101:853
 host: dns.twnic.tw/
@@ -2017,7 +1816,6 @@ end;
 
 name: uncensoreddns
 website: https://blog.uncensoreddns.org/
-zone: Americas, Europe
 tags: Denmark, Europe, Americas
 address: 91.239.100.100:443
 host: anycast.censurfridns.dk/dns-query
@@ -2026,7 +1824,6 @@ end;
 
 name: uncensoreddns2
 website: https://blog.uncensoreddns.org/
-zone: Europe
 tags: Denmark, Europe
 address: 89.233.43.71:443
 host: unicast.censurfridns.dk/dns-query
@@ -2035,7 +1832,6 @@ end;
 
 name: uncensoreddns3
 website: https://blog.uncensoreddns.org/
-zone: Americas
 tags: Virginia, Americas
 address: 198.180.150.12:443
 host: unicast.censurfridns.dk/dns-query
@@ -2044,7 +1840,6 @@ end;
 
 name: uncensoreddns4
 website: https://blog.uncensoreddns.org/
-zone: Europe
 tags: Denmark, Europe
 address: 130.225.244.166:443
 host: unicast.censurfridns.dk/dns-query
@@ -2053,7 +1848,6 @@ end;
 
 name: uncensoreddns5
 website: https://blog.uncensoreddns.org/
-zone: Europe
 tags: Denmark, Europe
 address: 130.226.161.34:443
 host: unicast.censurfridns.dk/dns-query
@@ -2062,7 +1856,6 @@ end;
 
 name: uncensoreddns6
 website: https://blog.uncensoreddns.org/
-zone: Europe
 tags: Denmark, Europe
 address: 185.38.27.139:443
 host: unicast.censurfridns.dk/dns-query
@@ -2071,7 +1864,6 @@ end;
 
 name: vinnyp
 website: https://dns.vinnyp.xyz/privacy
-zone: Americas
 tags: US, Americas
 address: 167.99.150.134:443
 host: dns.vinnyp.xyz/dns-query
@@ -2080,7 +1872,6 @@ end;
 
 name: yarp
 website: https://yarp.lefolgoc.net
-zone: Europe
 tags: France, Europe
 address: 5.39.88.20:443
 host: yarp.lefolgoc.net/dns-query

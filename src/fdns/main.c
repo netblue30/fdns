@@ -38,7 +38,6 @@ char *arg_test_server = NULL;
 char *arg_proxy_addr = NULL;
 int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
-char *arg_zone = NULL;
 int arg_cache_ttl = CACHE_TTL_DEFAULT;
 int arg_disable_local_doh = 0;
 char *arg_whitelist_file = NULL;
@@ -143,7 +142,6 @@ static void usage(void) {
 	printf("    --version - print program version and exit.\n");
 	printf("    --whitelist=domain - whitelist domain.\n");
 	printf("    --whitelist-file=filename - whitelist the domains in the file.\n");
-	printf("    --zone=zone-name - set a different geographical zone.\n");
 	printf("\n");
 }
 
@@ -190,11 +188,6 @@ int main(int argc, char **argv) {
 			else if (strcmp(argv[i], "--daemonize") == 0) {
 				daemonize();
 				arg_daemonize = 1;
-			}
-			else if (strncmp(argv[i], "--zone=", 7) == 0) {
-				arg_zone = strdup(alias(argv[i] + 7));
-				if (!arg_zone)
-					errExit("strdup");
 			}
 			else if (strcmp(argv[i], "--debug") == 0)
 				arg_debug = 1;
@@ -353,13 +346,11 @@ int main(int argc, char **argv) {
 		int i;
 		for (i = 1; i < argc; i++) {
 			if (strcmp(argv[i], "--list") == 0) {
-				server_print_zone = 1;
 				server_print_servers = 1;
 				server_list(NULL);
 				return 0;
 			}
 			else if (strncmp(argv[i], "--list=", 7) == 0) {
-				server_print_zone = 1;
 				server_print_servers = 1;
 				server_list(alias(argv[i] + 7));
 				return 0;
