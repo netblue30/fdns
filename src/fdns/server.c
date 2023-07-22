@@ -337,13 +337,6 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			if (arg_disable_local_doh)
 				filter_serach_add('D', s->host);
 
-			// servers tagged as admin-down are not taken into calculation
-			if (!env_admin_down && strstr(s->tags, "admin-down")) {
-				free(s);
-				// go to next server in the list
-				return read_one_server(fp, linecnt, fname);
-			}
-
 			return s;
 		}
 		else {
@@ -535,12 +528,9 @@ static uint8_t test_server(const char *server_name)  {
 //**************************************************************************
 // public interface
 //**************************************************************************
-//static int second_try = 0;
+static int second_try = 0;
 // mark all the servers corresponding to the given tag (s->active)
 void server_list(const char *tag) {
-	// force reading admin-down servers
-	if (tag && strcmp(tag, "admin-down") == 0)
-		env_admin_down = 1;;
 	load_list();
 	assert(slist);
 	assert(fdns_zone);
@@ -562,31 +552,6 @@ void server_list(const char *tag) {
 	int cnt = 0;
 	if (strcmp(tag, "all") == 0) {
 		while (s) {
-			// match transport
-			if (arg_transport) {
-				if (strstr(s->transport, arg_transport) == NULL) {
-					s = s->next;
-					continue;
-				}
-			}
-			print_server(s);
-			s->active = 1;
-			cnt++;
-			s = s->next;
-		}
-
-		if (server_print_servers)
-			printf("%d server%s found\n", cnt, (cnt > 1)? "s": "");
-		return;
-	}
-
-	if (strcmp(tag, "admin-down") == 0) {
-		while (s) {
-			if (strstr(s->tags, "admin-down") == NULL) {
-				s = s->next;
-				continue;
-			}
-
 			// match transport
 			if (arg_transport) {
 				if (strstr(s->transport, arg_transport) == NULL) {
@@ -656,12 +621,13 @@ void server_list(const char *tag) {
 		if (server_print_servers)
 			printf("%d server%s found\n", cnt, (cnt > 1)? "s": "");
 	}
-//	else if (second_try == 0) {
-//		// try to find server outside the current zone
-//		second_try = 1;
-//		server_list(tag);
-//		return;
-//	}
+	else if (second_try == 0) {
+		// try to find server outside the current zone
+		second_try = 1;
+		fdns_zone = "any";
+		server_list(tag);
+		return;
+	}
 	else
 		printf("Error: no such server available.\n");
 }
@@ -716,7 +682,7 @@ DnsServer *server_get(void) {
 		exit(1);
 	}
 
-	// use the zone if no --server on the command line
+	// update arg_server
 	if (arg_server == NULL) {
 		assert(fdns_zone);
 		arg_server = strdup(fdns_zone);

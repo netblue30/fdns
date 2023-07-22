@@ -54,8 +54,6 @@ char *arg_fallback_server = NULL;
 char *arg_unlist = NULL;
 int arg_clean_filters = 0;
 int arg_disable_syslog = 0;
-int env_admin_down = 0;
-
 
 Stats stats;
 
@@ -161,10 +159,6 @@ int main(int argc, char **argv) {
 	filter_init();
 	cache_init();
 	srand(time(NULL) + getpid());
-
-	char *env = getenv("ADMIN_DOWN");
-	if (env)
-		env_admin_down = 1;
 
 	// first pass: extracting data
 	if (argc != 1) {
