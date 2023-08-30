@@ -143,7 +143,7 @@ int resolver(const char *domain) {
 
 				// check for NXDOMAIN
 				if ((buf[3] & 0x3) == 0x3) {
-					fprintf(stderr, " NXDOMAIN ");
+					fprintf(stderr, " N ");
 					fflush(0);
 					retval = 1;
 				}

@@ -739,6 +739,7 @@ DnsServer *server_get(void) {
 		}
 		// else - no testing in the resolver processes
 
+		assert(arg_server);
 		free(arg_server);
 		arg_server = strdup(s->name);
 		if (!arg_server)
