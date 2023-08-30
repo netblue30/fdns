@@ -18,6 +18,7 @@
 */
 #include "fdns.h"
 #include "timetrace.h"
+ #include <ctype.h>
 
 // debug statistics
 //#define DEBUG_STATS
@@ -351,6 +352,22 @@ void clear_domains(void) {
 		domains[i] = NULL;
 }
 
+
+// check for ibm silerpor trackers
+// examples; mkt9611.com, mkt9612.com, mkt9613.com
+// return 1 if a silverpop domain
+static inline int silverpop(const char *str) {
+	if (strncmp(str, "mkt", 3))
+		return 0;
+	const char *ptr = str + 3;
+	while (isdigit(*ptr))
+		ptr++;
+	if(strcmp(ptr, ".com") == 0)
+		return 1;
+	return 0;
+}
+
+
 // return NULL if the site is not blocked
 const char *filter_blocked(const char *str, int verbose) {
 #ifdef DEBUG_STATS
@@ -362,6 +379,16 @@ const char *filter_blocked(const char *str, int verbose) {
 	// remove "www."
 	if (strncmp(str, "www.", 4) == 0)
 		str += 4;
+
+	// check ibm silverpop - about 10000 domains
+	if (*str == 'm') {
+		if (silverpop(str)) {
+			if (verbose)
+				printf("URL %s dropped by silverpop rule\n", str);
+			return "T";
+		}
+	}
+
 
 	// check the default list
 	while (default_filter[i].name != NULL) {

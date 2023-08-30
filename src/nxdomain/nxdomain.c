@@ -188,7 +188,7 @@ static int split(const char *fname_in, const char *fname_out) {
 }
 
 static void run_chunk(int chunk, int chunks, const char *tname_in, const char *tname_out) {
-	printf("*** chunk %d/%d ***", chunk + 1, chunks);
+	fprintf(stderr, "\n*** chunk %d/%d ***\n", chunk + 1, chunks);
 	fflush(0);
 
 	char *fin;
