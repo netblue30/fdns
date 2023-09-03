@@ -40,6 +40,7 @@ static void test(FILE *fpin, FILE *fpout) {
 	char buf[MAXBUF];
 	int i = 0;
 	int j = 0;
+	char *start = "not runing";
 	while (fgets(buf, MAXBUF, fpin)) {
 		i++;
 		char *ptr = strchr(buf, '\n');
@@ -50,7 +51,7 @@ static void test(FILE *fpin, FILE *fpout) {
 			ptr++;
 
 		// comments
-		char *start = ptr;
+		start = ptr;
 		if (*start == '#' || *start == '\0') { // preserve comments, blank lines
 			fprintf(fpout, "%s\n", start);
 			continue;
@@ -100,7 +101,7 @@ static void test(FILE *fpin, FILE *fpout) {
 			fflush(0);
 		}
 	}
-	printf("*** %d removed ***", i - j);
+	printf("### %d removed, last request %s ###", i - j, start);
 	fflush(0);
 }
 
@@ -188,7 +189,7 @@ static int split(const char *fname_in, const char *fname_out) {
 }
 
 static void run_chunk(int chunk, int chunks, const char *tname_in, const char *tname_out) {
-	fprintf(stderr, "\n*** chunk %d/%d ***\n", chunk + 1, chunks);
+	fprintf(stderr, "\n### chunk %d/%d ###\n", chunk + 1, chunks);
 	fflush(0);
 
 	char *fin;
