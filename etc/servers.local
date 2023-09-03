@@ -9,7 +9,7 @@
 #	tags: non-profit, France, Europe
 #	address: 185.216.27.142:443
 #	host: doh.42l.fr/dns-query
-#	keepalive: 140,170
+#	keepalive: 40
 #	end;
 #
 # unlist servers from default server list in /etc/fdns/servers

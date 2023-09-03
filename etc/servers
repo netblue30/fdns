@@ -23,7 +23,8 @@
 #	       If yes we add SNI when we establish the connection. Optional, default no.
 #	transport: h2, http/1.1, dot
 #	       Transport technologies supported by the server.
-#	keepalive: how often we sent a request to keep the connection going.
+#	keepalive: seconds, how often we sent a request to keep the connection going.
+#	       Most of the time we use values of 7, 25, and 40.
 #	end;
 #	       Marks the end of the server description
 #

@@ -89,9 +89,8 @@ int resolver(const char *domain) {
 	// send query
 	sendto(sock, dnsmsg, len, 0, (struct sockaddr *) &addr, addr_len);
 
-	struct timeval t = { 5, 0};	// one second timeout
+	struct timeval t = { 20, 0};	// one second timeout
 	int retval = 0;
-	int retries = 0;
 	while (1) {
 		fd_set fds;
 		FD_ZERO(&fds);
@@ -106,25 +105,17 @@ int resolver(const char *domain) {
 				// select() man page reads:
 				// "... the sets and  timeout become undefined, so
 				// do not rely on their contents after an error. "
-				t.tv_sec = 5;
+				t.tv_sec = 20;
 				t.tv_usec = 0;
 				continue;
 			}
 			errExit("select");
 		}
 		if (rv == 0)	{ // timeout
-			if (retries) { // one single retry
-				fprintf(stderr, " server not responding ");
-				fflush(0);
-				sleep(1);
-				return 1;
-			}
-			retries++;
-			fprintf(stderr, " retrying ");
+			fprintf(stderr, " server not responding for %s ", domain);
 			fflush(0);
-			t.tv_sec = 5;
-			t.tv_usec = 0;
-			continue;
+			sleep(1);
+			return 1;
 		}
 
 		if (FD_ISSET(sock, &fds)) {
@@ -143,7 +134,7 @@ int resolver(const char *domain) {
 
 				// check for NXDOMAIN
 				if ((buf[3] & 0x3) == 0x3) {
-					fprintf(stderr, " N ");
+					fprintf(stderr, "N");
 					fflush(0);
 					retval = 1;
 				}

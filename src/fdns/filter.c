@@ -129,6 +129,17 @@ static DFilter default_filter[] = {
 	{'F', "^sstats.", NULL, 0}, // 339
 	{'F', "^sw88.", NULL, 0}, // 63
 	{'F', "^tk.airfrance.", NULL, 0}, // 98
+	
+	// phishing
+	{'P', "^paypal.com.", NULL, 0},
+	{'P', "^paypal.co.uk.", NULL, 0},
+	{'P', "^paypal.co.de.", NULL, 0},
+	{'P', "^amazon.com.", NULL, 0},
+	{'P', "^amazon.de.", NULL, 0},
+	{'P', "^appleid.apple.com.", NULL, 0},
+	{'P', "^https.secure.", NULL, 0},
+	{'P', "^online.paypal.com.", NULL, 0},
+
 	{0, NULL, NULL, 0}	// last entry
 };
 
@@ -353,18 +364,42 @@ void clear_domains(void) {
 }
 
 
-// check for ibm silerpor trackers
+// ibm silerpor trackers
 // examples; mkt9611.com, mkt9612.com, mkt9613.com
 // return 1 if a silverpop domain
-static inline int silverpop(const char *str) {
+static inline char *silverpop(const char *str) {
+	char *rv = "T";
 	if (strncmp(str, "mkt", 3))
-		return 0;
+		return NULL;
 	const char *ptr = str + 3;
 	while (isdigit(*ptr))
 		ptr++;
 	if(strcmp(ptr, ".com") == 0)
-		return 1;
-	return 0;
+		return rv;
+	return NULL;
+}
+
+
+static char *custom_checks(const char *str) {
+	char *rv = silverpop(str);
+	if (rv)
+		return rv;
+	
+	rv = "P"; // phishing
+	if (strncmp(str, "paypal-", 7) == 0)
+		return rv;
+	if (strncmp(str, "amazon-", 7) == 0)
+		return rv;
+	if (strncmp(str, "appleid-", 8) == 0)
+		return rv;
+	if (strncmp(str, "icloud-", 7) == 0)
+		return rv;
+	if (strncmp(str, "iphone-", 7) == 0)
+		return rv;
+	if (strncmp(str, "itunes-", 7) == 0)
+		return rv;
+
+	return NULL;
 }
 
 
@@ -380,16 +415,14 @@ const char *filter_blocked(const char *str, int verbose) {
 	if (strncmp(str, "www.", 4) == 0)
 		str += 4;
 
-	// check ibm silverpop - about 10000 domains
-	if (*str == 'm') {
-		if (silverpop(str)) {
-			if (verbose)
-				printf("URL %s dropped by silverpop rule\n", str);
-			return "T";
-		}
+	// custom checks
+	char *rv = custom_checks(str);
+	if (rv) {
+		if (verbose)
+			printf("URL %s dropped by a custom rule\n", str);
+		return rv;
 	}
-
-
+	
 	// check the default list
 	while (default_filter[i].name != NULL) {
 		if (*default_filter[i].name == '^') {
