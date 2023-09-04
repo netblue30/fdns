@@ -9,6 +9,9 @@
 #                    https://zerodot1.gitlab.io/CoinBlockerListsWeb/index.html
 # License AGPLv3,
 #
+# Incorporating crypto lists from The Block List Project, author blocklistproject
+# Download: https://github.com/blocklistproject/Lists/blob/master/crypto.txt
+# Unlicense license
 
 127.0.0.1 0-100.burst-team.us
 127.0.0.1 0-100.burst.wickedmine.com
