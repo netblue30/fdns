@@ -117,7 +117,7 @@ static void test(FILE *fpin, FILE *fpout) {
 			}
 			ptr++;
 		}
-		if (*ptr != '\0') {
+		if (*ptr != '\0' || sub_cnt == 0) {
 			fprintf(stderr, "E");
 			fflush(0);
 			continue;
