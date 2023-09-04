@@ -103,6 +103,13 @@ Incorporatong malware and trackers lists  author QuidsUp
 https://gitlab.com/quidsup/notrack-blocklists
 License GPLv3
 
+Incorporating  phising list from Phishing.Database, autohor mitchellkrogza
+from https://github.com/mitchellkrogza/Phishing.Database/blob/master/phishing-domains-ACTIVE.txt
+MIT License
+
+Incorporating phisihng list from The Block List Project, author blocklistproject 
+https://github.com/blocklistproject/Lists/blob/master/phishing.txt
+Unlicense license 
 
 
 Licensing and Copyright

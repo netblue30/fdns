@@ -30,6 +30,7 @@
 
 static char *arg_fin = NULL;
 static char *arg_fout = NULL;
+char *arg_server = "1.1.1.1";
 
 #define MAXBUF (10 * 1024)
 
@@ -40,7 +41,7 @@ static void test(FILE *fpin, FILE *fpout) {
 	char buf[MAXBUF];
 	int i = 0;
 	int j = 0;
-	char *start = "not runing";
+	char *start = "not running";
 	while (fgets(buf, MAXBUF, fpin)) {
 		i++;
 		char *ptr = strchr(buf, '\n');
@@ -87,12 +88,44 @@ static void test(FILE *fpin, FILE *fpout) {
 
 
 		if (strcspn(start, "\\&!?\"'<>%^(){}[];,|") != strlen(start)) {
-			fprintf(stderr, "\nError: invalid domain %s, skipping...\n", start);
+			fprintf(stderr, "E");
+			fflush(0);
 			continue;
 		}
 
-		// run the domain through nslookup
-		usleep(200000);
+		// domains no longer 80 chars
+		if (strlen(start) > 80) {
+			fprintf(stderr, "L");
+			fflush(0);
+			continue;
+		}
+
+		// check subdomains
+		ptr = start;
+		int sub_cnt = 0;
+		int sub_size = 0;
+		while (*ptr) {
+			if (*ptr == '.') {
+				if (++sub_cnt > 65)
+					break;
+				sub_size = 0;
+			}
+			else {
+				sub_size++;
+				if (sub_size > 63)
+					break;
+			}
+			ptr++;
+		}
+		if (*ptr != '\0') {
+			fprintf(stderr, "E");
+			fflush(0);
+			continue;
+		}
+
+
+		// send DNS request
+		usleep(100000);	// maximum 10x4 requests per second
 		if (resolver(start) == 0) {
 			j++;
 			printf("*");
@@ -321,6 +354,7 @@ static void usage(void) {
 	printf("\n");
 	printf("Options:\n");
 	printf("\t--help, -?, -h - show this help screen.\n");
+	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare 1.1.1.1\n");
 	printf("\n");
 }
 
@@ -343,6 +377,8 @@ int main(int argc, char **argv) {
 			printf("nxdomain - version %s\n", VERSION);
 			return 0;
 		}
+		else if (strncmp(argv[i], "--server=", 9) == 0)
+			arg_server = argv[i] + 9;
 		else if (arg_fin == NULL) {
 			arg_fin = strdup(argv[i]);
 			if (!arg_fin)
