@@ -16,6 +16,19 @@ The default upstream resolver is Cloudflare 1.1.1.1.
 \fB\-\-help, \-?, \-h
 Print command-line options and exit.
 
+.TP
+\fB\-\-server=IP_ADDRESS
+Use this IP address for your server, default Cloudflare 1.1.1.1.
+.br
+
+.br
+Other unfiltered servers:
+.br
+Quad9 - 9.9.9.10
+.br
+AdGuard - 94.140.14.140
+.br
+
 .SH EXAMPLE
 $ nxdomain adblocker.hostsfile adblocker.new
 

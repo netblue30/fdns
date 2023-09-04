@@ -37,7 +37,7 @@ int resolver(const char *domain) {
 	memset(&addr, 0, sizeof(struct sockaddr_in));
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(53);
-	addr.sin_addr.s_addr = inet_addr("1.1.1.1");
+	addr.sin_addr.s_addr = inet_addr(arg_server);
 	socklen_t addr_len = sizeof(addr);
 
 	// manufacture a dns query
@@ -89,7 +89,7 @@ int resolver(const char *domain) {
 	// send query
 	sendto(sock, dnsmsg, len, 0, (struct sockaddr *) &addr, addr_len);
 
-	struct timeval t = { 20, 0};	// one second timeout
+	struct timeval t = { 10, 0};	// 10 seconds timeout
 	int retval = 0;
 	while (1) {
 		fd_set fds;
@@ -105,14 +105,14 @@ int resolver(const char *domain) {
 				// select() man page reads:
 				// "... the sets and  timeout become undefined, so
 				// do not rely on their contents after an error. "
-				t.tv_sec = 20;
+				t.tv_sec = 10;
 				t.tv_usec = 0;
 				continue;
 			}
 			errExit("select");
 		}
 		if (rv == 0)	{ // timeout
-			fprintf(stderr, " server not responding for %s ", domain);
+			fprintf(stderr, "\nserver not responding for %s\n", domain);
 			fflush(0);
 			sleep(1);
 			return 1;

@@ -37,6 +37,9 @@
 
 #define FILE_CHUNK_SIZE 500
 
+// main.c
+extern char *arg_server;
+
 // resolver.c
 int resolver(const char *domain);
 
