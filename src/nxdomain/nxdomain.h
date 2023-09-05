@@ -39,6 +39,7 @@
 
 // main.c
 extern char *arg_server;
+extern int arg_timeout;
 
 // resolver.c
 int resolver(const char *domain);

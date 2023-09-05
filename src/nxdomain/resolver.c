@@ -27,7 +27,9 @@
 
 static uint16_t id = 0;
 
-// return 1 if NXDOMAIN or server down
+// return 1 if domain OK
+// return 1 if NXDOMAIN
+// return 2 if timeout
 int resolver(const char *domain) {
 	// init socket
 	int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -89,7 +91,7 @@ int resolver(const char *domain) {
 	// send query
 	sendto(sock, dnsmsg, len, 0, (struct sockaddr *) &addr, addr_len);
 
-	struct timeval t = { 10, 0};	// 10 seconds timeout
+	struct timeval t = { arg_timeout, 0};	// 10 seconds timeout
 	int retval = 0;
 	while (1) {
 		fd_set fds;
@@ -112,10 +114,10 @@ int resolver(const char *domain) {
 			errExit("select");
 		}
 		if (rv == 0)	{ // timeout
-			fprintf(stderr, "\nserver not responding for %s\n", domain);
+			fprintf(stderr, "\ntimeout %s\n", domain);
 			fflush(0);
-			sleep(1);
-			return 1;
+			close(sock);
+			return 2;
 		}
 
 		if (FD_ISSET(sock, &fds)) {
