@@ -27,10 +27,14 @@
 
 #include "nxdomain.h"
 #include <sys/wait.h>
+#include <time.h>
 
 static char *arg_fin = NULL;
 static char *arg_fout = NULL;
-char *arg_server = "1.1.1.1";
+#define SERVER_DEFAULT "1.1.1.1"
+char *arg_server = SERVER_DEFAULT;
+#define TIMEOUT_DEFAULT 5
+int arg_timeout = TIMEOUT_DEFAULT;
 
 #define MAXBUF (10 * 1024)
 
@@ -126,11 +130,16 @@ static void test(FILE *fpin, FILE *fpout) {
 
 		// send DNS request
 		usleep(100000);	// maximum 10x4 requests per second
-		if (resolver(start) == 0) {
+		int rv = resolver(start);
+		if (rv == 0) {
 			j++;
 			printf("*");
 			fflush(0);
 			fprintf(fpout, "%s\n", start);
+			fflush(0);
+		}
+		else if (rv == 2) {
+			fprintf(fpout, "#timeout 127.0.0.1 %s\n", start);
 			fflush(0);
 		}
 	}
@@ -354,7 +363,8 @@ static void usage(void) {
 	printf("\n");
 	printf("Options:\n");
 	printf("\t--help, -?, -h - show this help screen.\n");
-	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare 1.1.1.1\n");
+	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare %s\n", SERVER_DEFAULT);
+	printf("\t--timeout=seconds - number of seconds to wait for a response form the server, default %d\n", TIMEOUT_DEFAULT);
 	printf("\n");
 }
 
@@ -379,6 +389,8 @@ int main(int argc, char **argv) {
 		}
 		else if (strncmp(argv[i], "--server=", 9) == 0)
 			arg_server = argv[i] + 9;
+		else if (strncmp(argv[i], "--timeout=", 10) == 0)
+			arg_timeout = atoi(argv[i] + 10);
 		else if (arg_fin == NULL) {
 			arg_fin = strdup(argv[i]);
 			if (!arg_fin)
@@ -395,6 +407,11 @@ int main(int argc, char **argv) {
 			return 1;
 		}
 	}
+
+
+	time_t start = time(NULL);
+	printf("%s", ctime(&start));
+	printf("server %s, timeout %d, max 40 queries per second\n", arg_server, arg_timeout);
 
 	// split input file
 	char tname_in[128];
@@ -465,6 +482,9 @@ int main(int argc, char **argv) {
 	printf("\n");
 	unlink(tname_in);
 	free(tname_out);
+	time_t end = time(NULL);
+	unsigned delta = end - start;
+	printf("\nrun time %u minutes\n", delta / 60);
 
 	return 0;
 }
