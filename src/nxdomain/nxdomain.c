@@ -33,7 +33,7 @@ static char *arg_fin = NULL;
 static char *arg_fout = NULL;
 #define SERVER_DEFAULT "1.1.1.1"
 char *arg_server = SERVER_DEFAULT;
-#define TIMEOUT_DEFAULT 5
+#define TIMEOUT_DEFAULT 5	// resolv.com, dig, and nslookup are using a default timeout of 5
 int arg_timeout = TIMEOUT_DEFAULT;
 
 #define MAXBUF (10 * 1024)
@@ -139,7 +139,7 @@ static void test(FILE *fpin, FILE *fpout) {
 			fflush(0);
 		}
 		else if (rv == 2) {
-			fprintf(fpout, "#timeout 127.0.0.1 %s\n", start);
+			fprintf(fpout, "#@timeout 127.0.0.1 %s\n", start);
 			fflush(0);
 		}
 	}
