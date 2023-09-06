@@ -139,11 +139,12 @@ static void test(FILE *fpin, FILE *fpout) {
 			fflush(0);
 		}
 		else if (rv == 2) {
+			fprintf(stderr, "T");
 			fprintf(fpout, "#@timeout 127.0.0.1 %s\n", start);
 			fflush(0);
 		}
 	}
-	printf("### %d removed, last request %s ###", i - j, start);
+	printf("# %d removed, last request %s #", i - j, start);
 	fflush(0);
 }
 
@@ -231,7 +232,7 @@ static int split(const char *fname_in, const char *fname_out) {
 }
 
 static void run_chunk(int chunk, int chunks, const char *tname_in, const char *tname_out) {
-	fprintf(stderr, "\n### chunk %d/%d ###\n", chunk + 1, chunks);
+	fprintf(stderr, "# chunk %d/%d #\n", chunk + 1, chunks);
 	fflush(0);
 
 	char *fin;

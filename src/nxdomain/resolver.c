@@ -114,8 +114,6 @@ int resolver(const char *domain) {
 			errExit("select");
 		}
 		if (rv == 0)	{ // timeout
-			fprintf(stderr, "\ntimeout %s\n", domain);
-			fflush(0);
 			close(sock);
 			return 2;
 		}
