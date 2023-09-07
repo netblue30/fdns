@@ -13,6 +13,7 @@
 # notrack-blocklists, license GPLv3
 # https://gitlab.com/quidsup/notrack-blocklists
 # Download: https://gitlab.com/quidsup/notrack-blocklists/-/blob/master/malware.hosts?ref_type=heads
+# Download: https://gitlab.com/quidsup/notrack-blocklists/-/blob/master/trackers.hosts?ref_type=heads
 #
 # Incorporating several lists from The Block List Project, author blocklistproject
 # https://github.com/blocklistproject/Lists/blob/master/ads.txt
@@ -73929,3 +73930,60 @@
 127.0.0.1 hippoobox.com
 127.0.0.1 minigame.vip
 127.0.0.1 mini6g.com
+127.0.0.1 5ovrmmmoubi71efvatfd.com
+127.0.0.1 6ujk8x9soxhm.com
+127.0.0.1 ad-dev.globalnoticias.pt
+127.0.0.1 albeitinflame.com
+127.0.0.1 api.mediation.amberweather.com
+127.0.0.1 api.us-east-1.aiv-delivery.net
+127.0.0.1 appdump.nie.easebar.com
+127.0.0.1 asia-analyzer-appstore.vivoglobal.com
+127.0.0.1 asia-comonrt-stsdk.vivoglobal.com
+127.0.0.1 asia-ex-adlog.vivoglobal.com
+127.0.0.1 banquetunarmedgrater.com
+127.0.0.1 bdcore-apr-lb.bda.ndmdhs.com
+127.0.0.1 carnivorouseditsemester.com
+127.0.0.1 clouderrorreporting.googleapis.com
+127.0.0.1 commandersact.com
+127.0.0.1 condolencespicturesquetracks.com
+127.0.0.1 consequencesgiddyditch.com
+127.0.0.1 cpmprofitablecontent.com
+127.0.0.1 cpmrevenuenetwork.com
+127.0.0.1 crashlyticsreports-pa.googleapis.com
+127.0.0.1 devicelog.samsungcloudsolution.net
+127.0.0.1 displaycontentnetwork.com
+127.0.0.1 displaycontentprofit.com
+127.0.0.1 eloqua-trackings.unity3d.com
+127.0.0.1 followmalnutritionjeanne.com
+127.0.0.1 getlocalmeasure.com
+127.0.0.1 hstats.hepsiburada.com
+127.0.0.1 iot-logser.realme.com
+127.0.0.1 locallogic.co
+127.0.0.1 localytics.com
+127.0.0.1 netperform-is.vodafone.com.tr
+127.0.0.1 newdisplayformats.com
+127.0.0.1 onclickperformance.com
+127.0.0.1 pennilesscomingall.com
+127.0.0.1 picanalysis.vivo.com.cn
+127.0.0.1 plantswindscreen.com
+127.0.0.1 postalfranticallyfriendship.com
+127.0.0.1 profitabledisplaycontent.com
+127.0.0.1 pushy.ai
+127.0.0.1 shovedrailwaynurse.com
+127.0.0.1 sigma-statistics-push.proxima.nie.easebar.com
+127.0.0.1 simpleanalyticscdn.com
+127.0.0.1 surelyconvinced.com
+127.0.0.1 target.bankofamerica.com
+127.0.0.1 telemetry-cii.api.playstation.com
+127.0.0.1 twistneedylever.com
+127.0.0.1 uimetadata.samsungiotcloud.com
+127.0.0.1 unwillingsnick.com
+127.0.0.1 warilyaggregation.com
+127.0.0.1 weather-analytics-events.apple.com
+127.0.0.1 yieldlove-ad-serving.net
+127.0.0.1 api.essentialchannel.com
+127.0.0.1 api.interfacehelper.com
+127.0.0.1 lifeimpressions.net
+127.0.0.1 morningstarlincoln.co.uk
+127.0.0.1 netflixpartyplus.com
+127.0.0.1 supportdelivery3414-ups.com

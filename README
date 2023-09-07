@@ -108,10 +108,7 @@ from https://github.com/mitchellkrogza/Phishing.Database/blob/master/phishing-do
 MIT License
 
 Incorporating several lists from The Block List Project, author blocklistproject
-https://github.com/blocklistproject/Lists/blob/master/phishing.txt
-https://github.com/blocklistproject/Lists/blob/master/crypto.txt
-https://github.com/blocklistproject/Lists/blob/master/tracking.txt
-https://github.com/blocklistproject/Lists/blob/master/ads.txt
+from https://github.com/blocklistproject/Lists
 Unlicense license
 
 

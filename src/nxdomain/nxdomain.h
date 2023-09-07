@@ -28,6 +28,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <stdint.h>
+#include <limits.h>
 
 #define errExit(msg)    do { char msgout[500]; snprintf(msgout, 500, "Error %s: %s:%d %s", msg, __FILE__, __LINE__, __FUNCTION__); perror(msgout); exit(1);} while (0)
 
@@ -35,7 +36,8 @@
 #define PRINT_IP(A) \
 	((int) (((A) >> 24) & 0xFF)),  ((int) (((A) >> 16) & 0xFF)), ((int) (((A) >> 8) & 0xFF)), ((int) ( (A) & 0xFF))
 
-#define FILE_CHUNK_SIZE 500
+#define FILE_CHUNK_SIZE 100
+//#define FILE_CHUNK_SIZE 500
 
 // main.c
 extern char *arg_server;
