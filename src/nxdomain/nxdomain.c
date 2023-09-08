@@ -35,7 +35,7 @@ static char *arg_fout = NULL;
 char *arg_server = SERVER_DEFAULT;
 #define TIMEOUT_DEFAULT 5	// resolv.com, dig, and nslookup are using a default timeout of 5
 int arg_timeout = TIMEOUT_DEFAULT;
-
+int arg_chunk_size = FILE_CHUNK_SIZE;
 char current_chunk[FILE_CHUNK_SIZE][LINE_MAX];
 
 
@@ -93,7 +93,7 @@ static void test(FILE *fpout, int chunk_no) {
 	int i = 0;
 	int j = 0;
 	char *start = "not running";
-	for (i = 0; i < FILE_CHUNK_SIZE && *current_chunk[i] != '\0'; i++) {
+	for (i = 0; i < arg_chunk_size && *current_chunk[i] != '\0'; i++) {
 		char*buf = current_chunk[i];
 		char *ptr = strchr(buf, '\n');
 		if (ptr)
@@ -176,12 +176,12 @@ static void test(FILE *fpout, int chunk_no) {
 
 
 		// send DNS request
-		usleep(100000);	// maximum 10x4 requests per second
+		usleep(100000);	// maximum 10xMAX_CHUNKS requests per second
 		int rv = resolver(start);
 //printf("%s\n", start);
 		if (rv == 0) {
 			j++;
-			printf("*");
+			fprintf(stderr, "*");
 			fflush(0);
 			fprintf(fpout, "%s\n", start);
 			fflush(0);
@@ -221,13 +221,13 @@ static void run_chunk(int chunk_no, const char *tname_out) {
 
 static int load_chunk(FILE *fp, int chunk_no) {
 	assert(fp);
-	
+
 	int i;
 	for (i = 0; i < FILE_CHUNK_SIZE; i++)
 		*current_chunk[i] = '\0';
 
 	i = 0;
-	while (i < FILE_CHUNK_SIZE) {
+	while (i < arg_chunk_size) {
 		if (fgets(current_chunk[i], LINE_MAX, fp) == NULL)
 			return 1;
 		char *ptr = strchr(current_chunk[i], '\n');
@@ -250,6 +250,7 @@ static void usage(void) {
 	printf("If no file-out is specified, the results are printed on stdout.\n");
 	printf("\n");
 	printf("Options:\n");
+	printf("\t--chunk-size=number - number of domains in a chunk of input data, default %d\n", FILE_CHUNK_SIZE);
 	printf("\t--help, -?, -h - show this help screen.\n");
 	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare %s\n", SERVER_DEFAULT);
 	printf("\t--timeout=seconds - number of seconds to wait for a response form the server, default %d\n", TIMEOUT_DEFAULT);
@@ -277,8 +278,20 @@ int main(int argc, char **argv) {
 		}
 		else if (strncmp(argv[i], "--server=", 9) == 0)
 			arg_server = argv[i] + 9;
-		else if (strncmp(argv[i], "--timeout=", 10) == 0)
+		else if (strncmp(argv[i], "--timeout=", 10) == 0) {
 			arg_timeout = atoi(argv[i] + 10);
+			if (arg_timeout < 1) {
+				fprintf(stderr, "Error: use a positive number\n");
+				exit(1);
+			}
+		}
+		else if (strncmp(argv[i], "--chunk-size=", 13) == 0) {
+			arg_chunk_size = atoi(argv[i] + 13);
+			if (arg_chunk_size < 1 || arg_chunk_size > 500) {
+				fprintf(stderr, "Error: use a number between 1 and 500\n");
+				exit(1);
+			}
+		}
 		else if (arg_fin == NULL) {
 			arg_fin = strdup(argv[i]);
 			if (!arg_fin)
@@ -299,7 +312,8 @@ int main(int argc, char **argv) {
 
 	time_t start = time(NULL);
 	printf("%s", ctime(&start));
-	printf("server %s, timeout %d, max 40 queries per second\n", arg_server, arg_timeout);
+	printf("server %s, timeout %d, max %d queries per second, domains in a chunk of data %d\n",
+		arg_server, arg_timeout, 10 * MAX_CHUNKS, arg_chunk_size);
 
 	// split input file
 	char tname_in[128];
@@ -338,19 +352,19 @@ int main(int argc, char **argv) {
 			break;
 		i++;
 		active_chunks++;
-		if (active_chunks >= 4) {
+		if (active_chunks >= MAX_CHUNKS ) {
 			int status;
 			wait(&status);
 			active_chunks--;
 		}
 	}
 	fclose(fp);
-	
+
 	pid_t wpid;
 	int status;
 	while ((wpid = wait(&status)) > 0)
-		printf("waiting\n");
-	
+		printf("#waiting#\n");
+
 	// print result
 	if (arg_fout) {
 		int rv = unlink(arg_fout);

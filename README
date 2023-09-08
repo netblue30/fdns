@@ -111,6 +111,11 @@ Incorporating several lists from The Block List Project, author blocklistproject
 from https://github.com/blocklistproject/Lists
 Unlicense license
 
+Incorporating Peter Lowe adserver list
+from https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblockplus&showintro=0&mimetype=plaintext
+McRae General Public License (version 4.r53) - https://pgl.yoyo.org/license/
+
+
 
 Licensing and Copyright
 -----------------------
