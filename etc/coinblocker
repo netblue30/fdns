@@ -25,6 +25,15 @@
 # Unlicense license
 #
 
+################################
+# Top level domains handled probably from OpenNic
+127.0.0.1 bazar
+127.0.0.1 coin
+# Regular top level domains overrun by coiners
+127.0.0.1 buzz
+################################
+
+# The list starts here
 127.0.0.1 kl.com.ua
 127.0.0.1 zzz.com.ua
 127.0.0.1 duckdns.org

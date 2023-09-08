@@ -78,13 +78,18 @@ static DFilter default_filter[] = {
 
 	{'A', "^ad.", NULL, 0},
 	{'A', "^ads.", NULL, 0},
+	{'A', "^ads-", NULL, 0},
 	{'A', "^adservice.", NULL, 0},
 	{'A', "^affiliate.", NULL, 0},
 	{'A', "^affiliates.", NULL, 0},
-	{'A', "^banner.", NULL, 0},
-	{'A', "^banners.", NULL, 0},
+	{'A', "^banner", NULL, 0},
+	{'A', "banner.", NULL, 0},
+	{'A', "^banners", NULL, 0},
+	{'A', "banners.", NULL, 0},
 	{'A', "click.", NULL, 0},
+	{'A', "^click-", NULL, 0},
 	{'A', "clicks.", NULL, 0},
+	{'A', "^clicks-", NULL, 0},
 	{'A', "collector.", NULL, 0},
 	{'A', "^creatives.", NULL, 0},
 	{'A', "id.google.", NULL, 0},
@@ -139,7 +144,15 @@ static DFilter default_filter[] = {
 	{'P', "^appleid.apple.com.", NULL, 0},
 	{'P', "^https.secure.", NULL, 0},
 	{'P', "^online.paypal.com.", NULL, 0},
+	{'P', "^paypal-", NULL, 0},
+	{'P', "^amazon", NULL, 0},
+	{'P', "^google-", NULL, 0},
+	{'P', "^appleid-", NULL, 0},
+	{'P', "^icloud-", NULL, 0},
+	{'P', "^iphone-", NULL, 0},
+	{'P', "^itunes-", NULL, 0},
 
+	{'M', "^xinchao", NULL, 0}, // about 2800 miners here!
 	{0, NULL, NULL, 0}	// last entry
 };
 
@@ -379,25 +392,33 @@ static inline char *silverpop(const char *str) {
 	return NULL;
 }
 
+// 025gmail.com
+// 000006138.com
+static inline char *numbersdot(const char *str) {
+	if (!isdigit(*str))
+		return NULL;
+	const char *ptr = str;
+	while (isdigit(*ptr) || *ptr == '-')
+		ptr++;
+	if (strcmp(ptr, "gmail.com") == 0)
+		return "A";
+	else if (*ptr == '.') {
+		ptr++;
+		if (strchr(ptr, '.'))
+			return NULL;
+		return "A";
+	}
+	return NULL;
+}
 
 static char *custom_checks(const char *str) {
 	char *rv = silverpop(str);
 	if (rv)
 		return rv;
+	rv = numbersdot(str);
+	if (rv)
+		return rv;
 	
-	rv = "P"; // phishing
-	if (strncmp(str, "paypal-", 7) == 0)
-		return rv;
-	if (strncmp(str, "amazon-", 7) == 0)
-		return rv;
-	if (strncmp(str, "appleid-", 8) == 0)
-		return rv;
-	if (strncmp(str, "icloud-", 7) == 0)
-		return rv;
-	if (strncmp(str, "iphone-", 7) == 0)
-		return rv;
-	if (strncmp(str, "itunes-", 7) == 0)
-		return rv;
 
 	return NULL;
 }
