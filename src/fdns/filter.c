@@ -134,7 +134,7 @@ static DFilter default_filter[] = {
 	{'F', "^sstats.", NULL, 0}, // 339
 	{'F', "^sw88.", NULL, 0}, // 63
 	{'F', "^tk.airfrance.", NULL, 0}, // 98
-	
+
 	// phishing
 	{'P', "^paypal.com.", NULL, 0},
 	{'P', "^paypal.co.uk.", NULL, 0},
@@ -151,6 +151,7 @@ static DFilter default_filter[] = {
 	{'P', "^icloud-", NULL, 0},
 	{'P', "^iphone-", NULL, 0},
 	{'P', "^itunes-", NULL, 0},
+	{'P', "-telegram.com", NULL, 0},
 
 	{'M', "^xinchao", NULL, 0}, // about 2800 miners here!
 	{0, NULL, NULL, 0}	// last entry
@@ -418,7 +419,7 @@ static char *custom_checks(const char *str) {
 	rv = numbersdot(str);
 	if (rv)
 		return rv;
-	
+
 
 	return NULL;
 }
@@ -443,7 +444,7 @@ const char *filter_blocked(const char *str, int verbose) {
 			printf("URL %s dropped by a custom rule\n", str);
 		return rv;
 	}
-	
+
 	// check the default list
 	while (default_filter[i].name != NULL) {
 		if (*default_filter[i].name == '^') {
