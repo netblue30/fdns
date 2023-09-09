@@ -1,3 +1,4 @@
+simpledomain.org
 127.0.0.1 gentoo.org
 0.0.0.0 debian.org
 127.0.0.1 asdfjklajkasdkjksldkfjlkjsdfkjslkdfjlkjklksldfklklkasdjfkjskldfklkkasldkfjskdfjkjkksdfjkaskldklfjsajdfkj.gentoo.org
@@ -6,5 +7,9 @@
 127.0.0.1 jov340222.me
 127.0.0.1 wwwht22.me
 127.0.0.1 aloginubslqadui5bd.rockwww.aloginubsnzjpqnuownmwww.aloginubsqc7oeyto9de6l.frooglia.ca
+
+# comment
 127.0.0.1 fr
 0.0.0.0 mu
+127.0.0.1 archlinux.org
+

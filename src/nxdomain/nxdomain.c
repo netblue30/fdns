@@ -102,6 +102,12 @@ static void test(FILE *fpout, int chunk_no) {
 		while (*ptr == ' ' || *ptr == '\t')
 			ptr++;
 
+		// empty lines
+		if (*ptr == '\0') {
+			fprintf(fpout, "\n");
+			continue;
+		}
+
 		// comments
 		start = ptr;
 		if (*start == '#' || *start == '\0') { // preserve comments, blank lines
@@ -230,10 +236,6 @@ static int load_chunk(FILE *fp, int chunk_no) {
 	while (i < arg_chunk_size) {
 		if (fgets(current_chunk[i], LINE_MAX, fp) == NULL)
 			return 1;
-		char *ptr = strchr(current_chunk[i], '\n');
-		if (ptr)
-			*ptr = '\0';
-		ptr = current_chunk[i];
 		i++;
 	}
 
@@ -311,8 +313,10 @@ int main(int argc, char **argv) {
 
 
 	time_t start = time(NULL);
-	printf("%s", ctime(&start));
-	printf("server %s, timeout %d, max %d queries per second, domains in a chunk of data %d\n",
+	fprintf(stderr, "%s", ctime(&start));
+	fprintf(stderr, "Input file %s\n", arg_fin);
+	fprintf(stderr, "Output file %s\n", (arg_fout)? arg_fout: "stdout");
+	fprintf(stderr, "Server %s, timeout %d, max %d queries per second, %d domains in a chunk of data\n",
 		arg_server, arg_timeout, 10 * MAX_CHUNKS, arg_chunk_size);
 
 	// split input file
