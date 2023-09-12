@@ -35,7 +35,7 @@ static char *arg_fout = NULL;
 char *arg_server = SERVER_DEFAULT;
 #define TIMEOUT_DEFAULT 5	// resolv.com, dig, and nslookup are using a default timeout of 5
 int arg_timeout = TIMEOUT_DEFAULT;
-int arg_chunk_size = FILE_CHUNK_SIZE;
+int arg_chunk = FILE_CHUNK_SIZE;
 char current_chunk[FILE_CHUNK_SIZE][LINE_MAX];
 
 
@@ -93,7 +93,7 @@ static void test(FILE *fpout, int chunk_no) {
 	int i = 0;
 	int j = 0;
 	char *start = "not running";
-	for (i = 0; i < arg_chunk_size && *current_chunk[i] != '\0'; i++) {
+	for (i = 0; i < arg_chunk && *current_chunk[i] != '\0'; i++) {
 		char*buf = current_chunk[i];
 		char *ptr = strchr(buf, '\n');
 		if (ptr)
@@ -107,13 +107,17 @@ static void test(FILE *fpout, int chunk_no) {
 			fprintf(fpout, "\n");
 			continue;
 		}
-
-		// comments
 		start = ptr;
-		if (*start == '#' || *start == '\0') { // preserve comments, blank lines
+
+		// ltimeout lines from previoud runs
+		if (strncmp(start, "#@timeout ", 10) == 0)
+			start += 10;
+		// comments
+		else if (*start == '#' || *start == '\0') { // preserve comments, blank lines
 			fprintf(fpout, "%s\n", start);
 			continue;
 		}
+		// end of line comments
 		ptr = strchr(start, '#');
 		if (ptr)
 			*ptr = '\0';
@@ -233,7 +237,7 @@ static int load_chunk(FILE *fp, int chunk_no) {
 		*current_chunk[i] = '\0';
 
 	i = 0;
-	while (i < arg_chunk_size) {
+	while (i < arg_chunk) {
 		if (fgets(current_chunk[i], LINE_MAX, fp) == NULL)
 			return 1;
 		i++;
@@ -252,7 +256,7 @@ static void usage(void) {
 	printf("If no file-out is specified, the results are printed on stdout.\n");
 	printf("\n");
 	printf("Options:\n");
-	printf("\t--chunk-size=number - number of domains in a chunk of input data, default %d\n", FILE_CHUNK_SIZE);
+	printf("\t--chunk=number - number of domains in a chunk of input data, default %d\n", FILE_CHUNK_SIZE);
 	printf("\t--help, -?, -h - show this help screen.\n");
 	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare %s\n", SERVER_DEFAULT);
 	printf("\t--timeout=seconds - number of seconds to wait for a response form the server, default %d\n", TIMEOUT_DEFAULT);
@@ -287,9 +291,9 @@ int main(int argc, char **argv) {
 				exit(1);
 			}
 		}
-		else if (strncmp(argv[i], "--chunk-size=", 13) == 0) {
-			arg_chunk_size = atoi(argv[i] + 13);
-			if (arg_chunk_size < 1 || arg_chunk_size > 500) {
+		else if (strncmp(argv[i], "--chunk=", 8) == 0) {
+			arg_chunk = atoi(argv[i] + 8);
+			if (arg_chunk < 1 || arg_chunk > 500) {
 				fprintf(stderr, "Error: use a number between 1 and 500\n");
 				exit(1);
 			}
@@ -317,7 +321,7 @@ int main(int argc, char **argv) {
 	fprintf(stderr, "Input file %s\n", arg_fin);
 	fprintf(stderr, "Output file %s\n", (arg_fout)? arg_fout: "stdout");
 	fprintf(stderr, "Server %s, timeout %d, max %d queries per second, %d domains in a chunk of data\n",
-		arg_server, arg_timeout, 10 * MAX_CHUNKS, arg_chunk_size);
+		arg_server, arg_timeout, 10 * MAX_CHUNKS, arg_chunk);
 
 	// split input file
 	char tname_in[128];
