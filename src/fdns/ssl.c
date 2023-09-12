@@ -22,6 +22,9 @@
 #include <openssl/bio.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
+#if OPENSSL_VERSION_NUMBER >= 0x30000000L
+#	include <openssl/bioerr.h>
+#endif
 #include <netdb.h>
 #include <sys/wait.h>
 #include <sys/socket.h>
@@ -139,7 +142,15 @@ int ssl_status_check(void) {
 void ssl_init(void) {
 	SSL_load_error_strings();
 	SSL_library_init();
-	ERR_load_BIO_strings();
+	#if OPENSSL_VERSION_NUMBER >= 0x30000000L
+		/*
+		* ERR_load_*(), ERR_func_error_string(), ERR_get_error_line(), ERR_get_error_line_data(), ERR_get_state()
+		* OpenSSL now loads error strings automatically so these functions are not needed.
+		* SEE: https://www.openssl.org/docs/manmaster/man7/migration_guide.html
+		*/
+	#else
+		ERR_load_BIO_strings();
+	#endif
 	OpenSSL_add_all_algorithms();
 }
 
