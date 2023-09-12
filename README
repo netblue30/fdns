@@ -70,6 +70,9 @@ w3goodies (https://github.com/w3goodies)
 Zorvalt (https://github.com/Zorvalt)
 	- fix server load_file() overwriting global list
 
+Jorge (https://github.com/jorgectf)
+	- Add CodeQL workflow
+
 Incorporating code from Firejail Security Sandbox, https://github.com/netblue30/firejail
 Copyright © 2014-2020 Firejail Authors, license GPLv2
 
