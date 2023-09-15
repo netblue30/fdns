@@ -163,7 +163,7 @@ typedef struct hash_entry_t {
 	char *name;
 } HashEntry;
 
-#define MAX_HASH_ARRAY 32768
+#define MAX_HASH_ARRAY 65536
 static HashEntry *blist[MAX_HASH_ARRAY];
 
 void filter_init(void) {
@@ -343,7 +343,7 @@ void filter_load_all_lists(void) {
 			max_cnt = cnt;
 	}
 
-	printf("*** %u filter entries, total memory %u\n", stats_entries, stats_mem);
+	printf("*** %u filter entries, total memory %lu\n", stats_entries, stats_mem + sizeof(blist));
 	printf("*** longest filter htable line %d ***\n", max_cnt);
 #endif
 }
