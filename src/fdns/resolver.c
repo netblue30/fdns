@@ -318,7 +318,7 @@ void resolver(void) {
 
 			// attempt to send the data over SSL; the request is not stored in the database
 			assert(dest == DEST_SSL);
-			int ssl_len;
+			int ssl_len = 0;
 			timetrace_start();
 			if (ssl_state == SSL_OPEN)
 				ssl_len = dns_query(buf, len);
