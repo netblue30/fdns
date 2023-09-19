@@ -126,6 +126,10 @@ Incorporating Global Advert Servers Blocklist - Personal Edition
 from http://hostsfile.mine.nu
 autohor Andy Short, license LGPL.
 
+Incorporating malware domains from URLhouse
+https://urlhaus.abuse.ch/api
+license CC0 (https://creativecommons.org/share-your-work/public-domain/cc0)
+
 Licensing and Copyright
 -----------------------
 This project is published under GPLv3 license. Please see COPYING file

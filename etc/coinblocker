@@ -25,15 +25,6 @@
 # Unlicense license
 #
 
-################################
-# Top level domains handled probably from OpenNic
-127.0.0.1 bazar
-127.0.0.1 coin
-# Regular top level domains overrun by coiners
-127.0.0.1 buzz
-################################
-
-# The list starts here
 127.0.0.1 000webhostapp.com
 127.0.0.1 01crypto.net
 127.0.0.1 0629.123unlock.nl
@@ -62,7 +53,6 @@
 127.0.0.1 10x-bitcoin.wix.com
 127.0.0.1 10xbtc.net
 127.0.0.1 114so.cn
-127.0.0.1 115776615-88449203www.1680go.com
 127.0.0.1 1209k.com
 127.0.0.1 120bitcoins.com
 127.0.0.1 120bit.com
@@ -173,7 +163,6 @@
 127.0.0.1 58coin.com
 127.0.0.1 5b6b7b.ru
 127.0.0.1 5miner.com
-127.0.0.1 5refexcep.cwww.51lp.cwww.51link.com
 127.0.0.1 5smining.com
 127.0.0.1 64.mymyxmra.ru
 127.0.0.1 65today.com
@@ -212,7 +201,6 @@
 127.0.0.1 a46.bulehero.in
 127.0.0.1 a751.oadz.com
 127.0.0.1 a88.bulehero.in
-127.0.0.1 a-ad.adwo.com
 127.0.0.1 a.adk2x.com
 127.0.0.1 a-ads.com
 127.0.0.1 a.alimama.cn
@@ -273,7 +261,6 @@
 127.0.0.1 ad4.udn.com
 127.0.0.1 ad.adhouyi.cn
 127.0.0.1 adadvisor.net
-127.0.0.1 ad.adwo.com
 127.0.0.1 adalso.com
 127.0.0.1 adamantbank.com
 127.0.0.1 adaminers.com
@@ -286,7 +273,6 @@
 127.0.0.1 adash.m.taobao.com
 127.0.0.1 adashxgc.ut.taobao.com
 127.0.0.1 adashx.m.taobao.com
-127.0.0.1 ad-bg.adwo.com
 127.0.0.1 adbma.adk2.co
 127.0.0.1 adbrook.com
 127.0.0.1 adbtc.top
@@ -296,7 +282,6 @@
 127.0.0.1 adcn.node.coin-miners.iadder.lima-city.de
 127.0.0.1 adconity.com
 127.0.0.1 adcore.lenovomm.com
-127.0.0.1 ad-count.adwo.com
 127.0.0.1 ad-delivery.net
 127.0.0.1 adder.lima-city.de
 127.0.0.1 ad.dev.360.cn
@@ -320,7 +305,6 @@
 127.0.0.1 admaster.com.cn
 127.0.0.1 admd.yam.com
 127.0.0.1 admeld.adnxs.com
-127.0.0.1 admin.cooguo.com
 127.0.0.1 ad-miner.com
 127.0.0.1 adminer.com
 127.0.0.1 admission.fri3nds.in
@@ -375,7 +359,6 @@
 127.0.0.1 ads.yam.com
 127.0.0.1 ads.yimg.com
 127.0.0.1 adsyndication.msn.com
-127.0.0.1 adtest.adwo.com
 127.0.0.1 ad.toutiao.com
 127.0.0.1 adtrack.ucweb.com
 127.0.0.1 ad.turn.com
@@ -447,7 +430,6 @@
 127.0.0.1 ajcryptominer.com
 127.0.0.1 ajplugins.com
 127.0.0.1 ak47.ca
-127.0.0.1 ak47.cooguo.com
 127.0.0.1 aka-cdn.adtechus.com
 127.0.0.1 aka-cdn-ns.adtechus.com
 127.0.0.1 akroma.eu
@@ -514,7 +496,6 @@
 127.0.0.1 alwayshashing.com
 127.0.0.1 always.vip
 127.0.0.1 aly001.hopto.org
-127.0.0.1 ama.adwo.com
 127.0.0.1 amadeus.ujak.cz
 127.0.0.1 amazing5.net
 127.0.0.1 amazingbitcoin.org
@@ -569,7 +550,6 @@
 127.0.0.1 aoipool.net
 127.0.0.1 aommsolutions.com
 127.0.0.1 a-o.ninja
-127.0.0.1 apdrive.win
 127.0.0.1 ape.capital
 127.0.0.1 apex-crypto.com
 127.0.0.1 apextop.cc
@@ -582,8 +562,6 @@
 127.0.0.1 api.appsflyer.com
 127.0.0.1 api.apps.sina.cn
 127.0.0.1 api.bailingjiankang.com
-127.0.0.1 apiconfig.adwo.com
-127.0.0.1 api.doumob.com
 127.0.0.1 api.eostribe.io
 127.0.0.1 api.eosuk.io
 127.0.0.1 api.eosvenezuela.io
@@ -613,7 +591,6 @@
 127.0.0.1 api.uniplayad.com
 127.0.0.1 api.viglink.com
 127.0.0.1 api.waptest.taobao.com
-127.0.0.1 api.w.inmobi.com
 127.0.0.1 api.youxiaoad.com
 127.0.0.1 apns.ios.ijinshan.com
 127.0.0.1 apoll.m.taobao.com
@@ -678,7 +655,6 @@
 127.0.0.1 asia-funding.com
 127.0.0.1 asia-pool.com
 127.0.0.1 asiapool.io
-127.0.0.1 asiapool.trade
 127.0.0.1 asiaprofit.biz
 127.0.0.1 asicminer.co
 127.0.0.1 asicminermarket.com
@@ -691,7 +667,6 @@
 127.0.0.1 asicpools.com
 127.0.0.1 as.mgtv.com
 127.0.0.1 asonno.com
-127.0.0.1 asp.adsame.com
 127.0.0.1 asset-finance.com
 127.0.0.1 asset-inv.com
 127.0.0.1 assetorder.com
@@ -715,10 +690,8 @@
 127.0.0.1 atm2you.com
 127.0.0.1 atmbtc.biz
 127.0.0.1 atm-holding.com
-127.0.0.1 atm.yoyi.com.cn
 127.0.0.1 atomicbitcoin.com
 127.0.0.1 atomminer.com
-127.0.0.1 atpool.party
 127.0.0.1 a.tribalfusion.com
 127.0.0.1 audioknigi.club
 127.0.0.1 a.union.mi.com
@@ -738,7 +711,6 @@
 127.0.0.1 authedmine.com
 127.0.0.1 authedmine.eu
 127.0.0.1 authedwebmine.cz
-127.0.0.1 autobild.adsame.com
 127.0.0.1 autobitcoinbuilder.com
 127.0.0.1 autobtcbuilder.com
 127.0.0.1 autobtcminer.com
@@ -774,7 +746,6 @@
 127.0.0.1 a.youdao.com
 127.0.0.1 azabu-u.ac.jp
 127.0.0.1 azpool.org
-127.0.0.1 azpool.win
 127.0.0.1 azrelix.com
 127.0.0.1 azvjudwr.info
 127.0.0.1 b1sync.zemanta.com
@@ -795,7 +766,6 @@
 127.0.0.1 bandexcoin.com
 127.0.0.1 bannedbook.org
 127.0.0.1 banner.alimama.com
-127.0.0.1 banner.cooguo.com
 127.0.0.1 baofeng.net
 127.0.0.1 b.appjiagu.com
 127.0.0.1 barrelcrudecoin.com
@@ -810,6 +780,7 @@
 127.0.0.1 baypirateproxy.pw
 127.0.0.1 baypool.org
 127.0.0.1 bayunblocked.eu
+127.0.0.1 bazar
 127.0.0.1 bazinga.mse.sogou.com
 127.0.0.1 bbcpool.io
 127.0.0.1 b.bdstatic.com
@@ -854,7 +825,6 @@
 127.0.0.1 bestpool.me
 127.0.0.1 bestsrv.de
 127.0.0.1 bestxmrpool.com
-127.0.0.1 beta.vpon.com
 127.0.0.1 betweenblocks.org
 127.0.0.1 bewaslac.com
 127.0.0.1 beyondcompare.cc
@@ -866,6 +836,7 @@
 127.0.0.1 bibipool.com
 127.0.0.1 biblepay.org
 127.0.0.1 bibop.net
+127.0.0.1 bid
 127.0.0.1 bidenpool.com
 127.0.0.1 bigdata.adups.com
 127.0.0.1 bigdata.advmob.cn
@@ -898,10 +869,8 @@
 127.0.0.1 bingads.microsoft.com
 127.0.0.1 bingdianhuanyuan.cn
 127.0.0.1 binm.cf
-127.0.0.1 binm.gq
 127.0.0.1 binm.tk
 127.0.0.1 biopool.green
-127.0.0.1 biserver2.serverpower.net
 127.0.0.1 bit2021.com
 127.0.0.1 bitaccess.co
 127.0.0.1 bitalo.com
@@ -933,7 +902,6 @@
 127.0.0.1 bitcoin.dashjr.org
 127.0.0.1 bitcoin.de
 127.0.0.1 bitcoindeluxe.org
-127.0.0.1 bitcoiner.win
 127.0.0.1 bitcoinethereum.eu
 127.0.0.1 bitcoinflex.org
 127.0.0.1 bitcoin-game.de
@@ -979,7 +947,6 @@
 127.0.0.1 bitember.com
 127.0.0.1 bitetimes.fishing
 127.0.0.1 bitexplorer.io
-127.0.0.1 bitfex.trade
 127.0.0.1 bitfinex.com
 127.0.0.1 bitfishcoin.org
 127.0.0.1 bitfury.com
@@ -989,7 +956,6 @@
 127.0.0.1 bitit.io
 127.0.0.1 bitkitten.xyz
 127.0.0.1 bitminer.io
-127.0.0.1 bitmining.zone
 127.0.0.1 bitminter.com
 127.0.0.1 bitnet-io.org
 127.0.0.1 bitnex.io
@@ -1013,7 +979,6 @@
 127.0.0.1 bixin.com
 127.0.0.1 biz.live.xunlei.com
 127.0.0.1 bizoninvest.com
-127.0.0.1 biz.vpon.com
 127.0.0.1 bj.bcebos.com
 127.0.0.1 blackarrowsoftware.com
 127.0.0.1 black-js.github.io
@@ -1061,7 +1026,6 @@
 127.0.0.1 boostbox.com.br
 127.0.0.1 boot.eostitan.com
 127.0.0.1 bot.tips
-127.0.0.1 botuu.adsame.com
 127.0.0.1 bp.blockchainlab.me
 127.0.0.1 bp.eosmedi.com
 127.0.0.1 bp.libertyblock.io
@@ -1128,6 +1092,7 @@
 127.0.0.1 burst-team.us
 127.0.0.1 butterflylabs.com
 127.0.0.1 buyimg.bianxianmao.com
+127.0.0.1 buzz
 127.0.0.1 buzzboy.triplemining.cobw.com
 127.0.0.1 bvezznurwekr.com
 127.0.0.1 bw.com
@@ -1153,13 +1118,10 @@
 127.0.0.1 cache.soloth.com
 127.0.0.1 c-adash.m.taobao.com
 127.0.0.1 c.admob.com
-127.0.0.1 caing.adsame.com
-127.0.0.1 caixin.adsame.com
 127.0.0.1 c.alimama.com
 127.0.0.1 callistopool.org
 127.0.0.1 cal.meizu.com
 127.0.0.1 camillesanz.com
-127.0.0.1 candid.zone
 127.0.0.1 canoepool.com
 127.0.0.1 capodannoinversilia.com
 127.0.0.1 c.appjiagu.com
@@ -1169,7 +1131,6 @@
 127.0.0.1 cardgenix.com
 127.0.0.1 carry.myeffect.net
 127.0.0.1 cartompool.com
-127.0.0.1 cas.criteo.com
 127.0.0.1 cash2.de
 127.0.0.1 cash2pool.us
 127.0.0.1 cashbeet.com
@@ -1196,7 +1157,6 @@
 127.0.0.1 cdn.adstract.com
 127.0.0.1 cdn.akubebas.com
 127.0.0.1 cdnas.hyperpromote.com
-127.0.0.1 cdn.cooguo.com
 127.0.0.1 cdn.districtm.io
 127.0.0.1 cdn.dragonstatic.com
 127.0.0.1 cdn.fastclick.net
@@ -1224,7 +1184,6 @@
 127.0.0.1 cesspoolz.site
 127.0.0.1 cex.io
 127.0.0.1 cfcdist.gdn
-127.0.0.1 cf.cdn.inmobi.com
 127.0.0.1 cfpool.eu
 127.0.0.1 chain-pool.com
 127.0.0.1 chainradar.com
@@ -1258,7 +1217,6 @@
 127.0.0.1 chickenpool.com
 127.0.0.1 chinaenter.cn
 127.0.0.1 chivespool.com
-127.0.0.1 chmproxy.bid
 127.0.0.1 chncoin.no-ip.biz
 127.0.0.1 choice.microsoft.com
 127.0.0.1 chunguscoin.net
@@ -1278,7 +1236,6 @@
 127.0.0.1 clevery.xyz
 127.0.0.1 clgserv.pro
 127.0.0.1 cl.he9630.com
-127.0.0.1 clickandbuy.win
 127.0.0.1 clickfight.net
 127.0.0.1 clickgem.com
 127.0.0.1 click.mz.simba.taobaclick.qianqian.com
@@ -1342,20 +1299,18 @@
 127.0.0.1 cnnic.net.cn
 127.0.0.1 cnode.id
 127.0.0.1 cnpool.cc
-127.0.0.1 cn.pub.vpon.com
 127.0.0.1 cnt.st
 127.0.0.1 cnzz.com
 127.0.0.1 cnzz.mmstat.com
 127.0.0.1 coandroid.ru
-127.0.0.1 code11.onetad.com
-127.0.0.1 code12.onetad.com
+127.0.0.1 co.cc
 127.0.0.1 code.fastclick.net
 127.0.0.1 codesoftchina.com
 127.0.0.1 code.ws
 127.0.0.1 codpool.com
 127.0.0.1 co.dtech.baofeng.com
-127.0.0.1 coed-d.openx.net
 127.0.0.1 coffeandcigarets.asyx.ru
+127.0.0.1 coin
 127.0.0.1 coinad.com
 127.0.0.1 coinbase.com
 127.0.0.1 coin-base.info
@@ -1406,7 +1361,6 @@
 127.0.0.1 coin-mine.com
 127.0.0.1 coinmine.pl
 127.0.0.1 coinmine.pw
-127.0.0.1 coinminer.co.cc
 127.0.0.1 coinminer.net
 127.0.0.1 coin-miners.info
 127.0.0.1 coinminers.net
@@ -1463,9 +1417,6 @@
 127.0.0.1 cominers.org
 127.0.0.1 comining.io
 127.0.0.1 communitypool.org
-127.0.0.1 conde.adsame.com
-127.0.0.1 config.inmobi.com
-127.0.0.1 conf.xiniuz.com
 127.0.0.1 conhive.com
 127.0.0.1 connectbtc.com
 127.0.0.1 connecticoin.com
@@ -1487,7 +1438,6 @@
 127.0.0.1 copay.io
 127.0.0.1 copool.co
 127.0.0.1 copool.com
-127.0.0.1 corebug.adsame.com
 127.0.0.1 coreldrawchina.com
 127.0.0.1 core-pool.com
 127.0.0.1 coro.benbaisteel.com
@@ -1741,7 +1691,6 @@
 127.0.0.1 curvehashcoin.com
 127.0.0.1 customspeed.nl
 127.0.0.1 cw38192.tmweb.ru
-127.0.0.1 c.w.inmobi.com
 127.0.0.1 cyberyen.org
 127.0.0.1 cybtc.info
 127.0.0.1 cyg2016.xyz
@@ -1805,10 +1754,9 @@
 127.0.0.1 dashminer.com
 127.0.0.1 dashninja.pl
 127.0.0.1 das.thecryptochat.nedasan.deutschland-zahlung.eu
-127.0.0.1 databank.yoyi.com.cn
 127.0.0.1 data.mistat.xiaomi.com
-127.0.0.1 datasecu.download
 127.0.0.1 data.supportithelp.com
+127.0.0.1 date
 127.0.0.1 dat.gtags.net
 127.0.0.1 daxuxaboqy.7ci.ru
 127.0.0.1 db1.fuz.cc
@@ -1816,7 +1764,6 @@
 127.0.0.1 dbixmine.pro
 127.0.0.1 dc.ads.linkedin.com
 127.0.0.1 dcads.sina.com.cn
-127.0.0.1 dcci.adsame.com
 127.0.0.1 dc.meitustat.com
 127.0.0.1 dd.iask.cn
 127.0.0.1 dd.iaskgo.com
@@ -1836,7 +1783,6 @@
 127.0.0.1 deltacoincore.com
 127.0.0.1 deltapool.net
 127.0.0.1 de-mi-nis-ner.info
-127.0.0.1 demo.adsame.com
 127.0.0.1 democats.org
 127.0.0.1 de-ner-mi-nis4.info
 127.0.0.1 de-nis-ner-mi-5.info
@@ -1870,12 +1816,10 @@
 127.0.0.1 dinastycoin.com
 127.0.0.1 dip.szhyzkj.com
 127.0.0.1 directprimal.com
-127.0.0.1 dis.criteo.com
 127.0.0.1 display.ad.daum.net
 127.0.0.1 display.adhudong.com
 127.0.0.1 disqusads.com
 127.0.0.1 distf.stat.kankan.com
-127.0.0.1 dis.us.criteo.com
 127.0.0.1 ditcoin.io
 127.0.0.1 dixminingpool.cdiaopicl.cdiaopic.14bobo.com
 127.0.0.1 dkc.services
@@ -1947,6 +1891,7 @@
 127.0.0.1 down.360safe.com
 127.0.0.1 down.dashendown.com
 127.0.0.1 down.down0116.info
+127.0.0.1 download
 127.0.0.1 download.2345.com
 127.0.0.1 download.350.com
 127.0.0.1 download.adsage.com
@@ -1999,14 +1944,12 @@
 127.0.0.1 eaaqsama.com
 127.0.0.1 e.admin60.com
 127.0.0.1 e.ad.xiaomi.com
-127.0.0.1 eagleasp.adsame.com
 127.0.0.1 earning-surf.com
 127.0.0.1 easy2mine.com
 127.0.0.1 easyhash.de
 127.0.0.1 easyhash.io
 127.0.0.1 easyhash.pro
 127.0.0.1 easymining.eu
-127.0.0.1 easynews.adsame.com
 127.0.0.1 easypc.io
 127.0.0.1 easypool.xyz
 127.0.0.1 easyrecoverychina.com
@@ -2161,7 +2104,6 @@
 127.0.0.1 etl.xlmc.sec.miui.com
 127.0.0.1 etoro.com
 127.0.0.1 et.tanx.com
-127.0.0.1 et.w.inmobi.com
 127.0.0.1 eu1.btc.stratum.sigmapool.coeu1.eosdac.io
 127.0.0.1 eu1.eosdac.io
 127.0.0.1 eucsoft.com
@@ -2247,9 +2189,7 @@
 127.0.0.1 ferritecoin.org
 127.0.0.1 ffmpool.com
 127.0.0.1 ffwap.com
-127.0.0.1 fgdfg5e5sd.ydns.eufgeydns.eufge9vbrzwt.bid
 127.0.0.1 fgmtv.org
-127.0.0.1 file.ipinyou.com.cn
 127.0.0.1 files2.sogou.com
 127.0.0.1 files.adform.net
 127.0.0.1 fili.cc
@@ -2275,9 +2215,6 @@
 127.0.0.1 flashx.co
 127.0.0.1 flashx.pw
 127.0.0.1 flexpool.io
-127.0.0.1 flightsy.win
-127.0.0.1 flighty.win
-127.0.0.1 flightzy.date
 127.0.0.1 flockpool.com
 127.0.0.1 flooder.org
 127.0.0.1 florincoin.info
@@ -2317,13 +2254,10 @@
 127.0.0.1 freakhouse.us
 127.0.0.1 fredcoinpool.com
 127.0.0.1 free404go.cf
-127.0.0.1 free404go.gq
 127.0.0.1 free-bcash.com
 127.0.0.1 freebitco.in
 127.0.0.1 freecontent.com
-127.0.0.1 freecontent.date
 127.0.0.1 freecontent.net
-127.0.0.1 freecontent.stream
 127.0.0.1 freepl.tk
 127.0.0.1 freepool.online
 127.0.0.1 freeproxy.ro
@@ -2354,9 +2288,8 @@
 127.0.0.1 futeboltv.com
 127.0.0.1 futurecoins.club
 127.0.0.1 fw.adsafeprotected.com
-127.0.0.1 fwenfotroadh.bid
-127.0.0.1 fw.vpon.com
 127.0.0.1 fych.uranus.sogou.com
+127.0.0.1 fyi
 127.0.0.1 fz.letv.com
 127.0.0.1 g1.tagtic.cn
 127.0.0.1 g1thub.com
@@ -2371,7 +2304,6 @@
 127.0.0.1 galleoncoin.miningpoolhubgam.adnxs.com
 127.0.0.1 gam.adnxs.com
 127.0.0.1 gamead.swjoy.com
-127.0.0.1 game.adwo.com
 127.0.0.1 gameofbitcoins.com
 127.0.0.1 gamepass.network
 127.0.0.1 gamersnest.org
@@ -2393,7 +2325,6 @@
 127.0.0.1 gemini.express
 127.0.0.1 gemini.plus
 127.0.0.1 gemini.yahoo.com
-127.0.0.1 gemini.zone
 127.0.0.1 gemioni.com
 127.0.0.1 gemius.pl
 127.0.0.1 genesis-mining.com
@@ -2426,7 +2357,6 @@
 127.0.0.1 global.msads.net
 127.0.0.1 globalpool.org
 127.0.0.1 globalsocialpost.com
-127.0.0.1 globalthlinkalgounsi.win
 127.0.0.1 gltminer.com
 127.0.0.1 gma.alicdn.com
 127.0.0.1 gntl.co.uk
@@ -2458,6 +2388,7 @@
 127.0.0.1 gpumine.org
 127.0.0.1 gpuminers.hu
 127.0.0.1 gpumining.cc
+127.0.0.1 gq
 127.0.0.1 graft.network
 127.0.0.1 gramombird.com
 127.0.0.1 gravitycoin.io
@@ -2489,7 +2420,6 @@
 127.0.0.1 guest-stat.com
 127.0.0.1 guitarpro.cc
 127.0.0.1 gulfcoastmining.com
-127.0.0.1 gum.criteo.com
 127.0.0.1 gus.host
 127.0.0.1 guugll.eu
 127.0.0.1 gw5.push.mcp.weibo.cn
@@ -2552,7 +2482,6 @@
 127.0.0.1 hashing.com
 127.0.0.1 hashingcrypto.net
 127.0.0.1 hashingmasters.com
-127.0.0.1 hashing.win
 127.0.0.1 hashinvest.net
 127.0.0.1 hashinvest.ws
 127.0.0.1 hashitmining.com
@@ -2585,16 +2514,13 @@
 127.0.0.1 hellburn.ru
 127.0.0.1 hellominer.com
 127.0.0.1 helpico.tech
-127.0.0.1 hemnes.win
 127.0.0.1 herbsfaucet.com
 127.0.0.1 herbsters.com
 127.0.0.1 herominers.com
 127.0.0.1 hexpool.xyz
 127.0.0.1 hhb123.tk
-127.0.0.1 hidden-master.linezing.com
 127.0.0.1 hiddenville.com
 127.0.0.1 hitbtc.com
-127.0.0.1 hitbtc.zone
 127.0.0.1 hivecoinpool.com
 127.0.0.1 hive.com
 127.0.0.1 hivedata.cc
@@ -2609,7 +2535,6 @@
 127.0.0.1 hl4eok5kj2bwr34x.onion.link
 127.0.0.1 hlrcv.stage.adobe.com
 127.0.0.1 h.msn.com
-127.0.0.1 hnb2c.adsame.com
 127.0.0.1 hnspool.com
 127.0.0.1 hodl.blockquarry.com
 127.0.0.1 hodlpool.com
@@ -2617,8 +2542,6 @@
 127.0.0.1 hospitalcoin.net
 127.0.0.1 host1743588.hostland.pro
 127.0.0.1 hostcontent.live
-127.0.0.1 hostingcloud.party
-127.0.0.1 hostingcloud.racing
 127.0.0.1 hotpool.co
 127.0.0.1 hotpool.com
 127.0.0.1 houtai.2345.com
@@ -2627,7 +2550,6 @@
 127.0.0.1 hpool.com
 127.0.0.1 hpool.in
 127.0.0.1 hq.appsflyer.com
-127.0.0.1 h.sora.yoyi.com.cn
 127.0.0.1 hs.qhupdate.com
 127.0.0.1 hthcoin.world
 127.0.0.1 html.atm.youku.com
@@ -2652,7 +2574,6 @@
 127.0.0.1 ia.51.la
 127.0.0.1 iadctest.qwapi.com
 127.0.0.1 iad.g.163.com
-127.0.0.1 i.adsame.com
 127.0.0.1 ib.adnxs.com
 127.0.0.1 ibn.adnxs.com
 127.0.0.1 icanmining.ru
@@ -2666,7 +2587,6 @@
 127.0.0.1 ieonline.microsoft.com
 127.0.0.1 ifblock.io
 127.0.0.1 ifengad.3g.ifeng.com
-127.0.0.1 ifeng.adsame.com
 127.0.0.1 iflow.uczzd.cn
 127.0.0.1 iflow.uczzd.com
 127.0.0.1 iflow.uczzd.com.cn
@@ -2690,7 +2610,6 @@
 127.0.0.1 images.fastclick.net
 127.0.0.1 images.sohu.com
 127.0.0.1 images.taboola.com
-127.0.0.1 image.yiqifa.com
 127.0.0.1 image.zzd.sm.cn
 127.0.0.1 imagzine.oppomobile.com
 127.0.0.1 img01.taotaosou.cn
@@ -2717,7 +2636,6 @@
 127.0.0.1 img.toppr.com.cn
 127.0.0.1 img.twcczhu.com
 127.0.0.1 img-x.jd.com
-127.0.0.1 imhard4.men
 127.0.0.1 imindmap.cc
 127.0.0.1 i.mmcdn.cn
 127.0.0.1 imperiumminer.com
@@ -2792,7 +2710,6 @@
 127.0.0.1 itk.cn
 127.0.0.1 iuymaolvzery.com
 127.0.0.1 i.w55c.net
-127.0.0.1 i.w.inmobi.com
 127.0.0.1 iyes.youku.com
 127.0.0.1 j.12365chia.com
 127.0.0.1 jadecoin.net
@@ -2805,14 +2722,12 @@
 127.0.0.1 jericoin.com
 127.0.0.1 jesuspool.com
 127.0.0.1 j.fd7c.com
-127.0.0.1 jfdaily.adsame.com
 127.0.0.1 j.hongyangpai.com
 127.0.0.1 jiandanpool.com
 127.0.0.1 jifen.2345.com
 127.0.0.1 jifendownload.2345.cn
 127.0.0.1 jihehuaban.com.cn
 127.0.0.1 jingniupool.com
-127.0.0.1 jira.vpon.com
 127.0.0.1 jisucn.com
 127.0.0.1 jitbit.de
 127.0.0.1 jiubuhua.com
@@ -2822,23 +2737,18 @@
 127.0.0.1 jjpnveujkk.com
 127.0.0.1 jjpool.eu
 127.0.0.1 jjpool.fr
-127.0.0.1 jmpmzryzprp.bid
 127.0.0.1 jmqapf3nflatei35.onion.link
 127.0.0.1 jniupool.com
 127.0.0.1 jonasschnelli.ch
 127.0.0.1 jouleco.in
 127.0.0.1 joyreactor.cc
 127.0.0.1 joys.digital
-127.0.0.1 jpg.cooguo.com
 127.0.0.1 jpg.inte.sogoucdn.com
 127.0.0.1 jp.lapool.me
 127.0.0.1 jqcdn01.herokuapp.com
 127.0.0.1 jqcdn03.herokuapp.com
 127.0.0.1 jqcdn2.herokuapp.com
-127.0.0.1 jquery-cdn.download
 127.0.0.1 jquery-js.com
-127.0.0.1 jqwww.download
-127.0.0.1 jrj.adsame.com
 127.0.0.1 js1151.yongkang6.com
 127.0.0.1 js1157.yongkang6.com
 127.0.0.1 js.1688988.com
@@ -2859,7 +2769,6 @@
 127.0.0.1 jsecoin.com
 127.0.0.1 js.ftp0118.info
 127.0.0.1 js.hs-analytics.net
-127.0.0.1 jsmedia.adsame.com
 127.0.0.1 jsnp.golden1.sogou.com
 127.0.0.1 jsrecute-apjsr-prod-cosr-prod-common-1-mjssdk.beetv.net
 127.0.0.1 jsr-prod-common-1-mjssdk.beetv.net
@@ -2872,7 +2781,6 @@
 127.0.0.1 just4miners.com
 127.0.0.1 justintvizletir.tv
 127.0.0.1 justmine.today
-127.0.0.1 juxiao.adsmogo.net
 127.0.0.1 jwallet.network
 127.0.0.1 j.wan.liebao.cn
 127.0.0.1 jxlog.istreamsche.com
@@ -2957,7 +2865,6 @@
 127.0.0.1 ktivn.uranus.sogou.com
 127.0.0.1 kucoin.com
 127.0.0.1 kuguopush.com
-127.0.0.1 kuzai.cooguo.com
 127.0.0.1 kv.stat.nearme.com.cn
 127.0.0.1 kwcdn.000dn.com
 127.0.0.1 kwcscdn.000dn.com
@@ -3015,7 +2922,6 @@
 127.0.0.1 lincoin.com
 127.0.0.1 lincoin.io
 127.0.0.1 lincoinpool.com
-127.0.0.1 lindon-pool.win
 127.0.0.1 linezing.com
 127.0.0.1 linkpage.cn
 127.0.0.1 list.idc3389.top
@@ -3052,7 +2958,6 @@
 127.0.0.1 log.vcgame.cn
 127.0.0.1 log.voicecloud.cn
 127.0.0.1 log.web.kugou.com
-127.0.0.1 lokalfed.gq
 127.0.0.1 lokalfed.tk
 127.0.0.1 loki.network
 127.0.0.1 lokipool.cloud
@@ -3069,7 +2974,6 @@
 127.0.0.1 lp.abbny.com
 127.0.0.1 lp.beahh.com
 127.0.0.1 lp.haqo.net
-127.0.0.1 l.qq.com
 127.0.0.1 ltc.kattare.com
 127.0.0.1 ltcmaster.xyz
 127.0.0.1 ltcminer.com
@@ -3117,7 +3021,6 @@
 127.0.0.1 magical.coffee
 127.0.0.1 magicpool.co
 127.0.0.1 magnificentpool.com
-127.0.0.1 mail.adsame.com
 127.0.0.1 mail.bitcoinaffiliatenetwork.com
 127.0.0.1 mail.bitstar-platform.online
 127.0.0.1 mail.ghmproperties.com
@@ -3145,17 +3048,14 @@
 127.0.0.1 mangocoin.online
 127.0.0.1 mao2.com
 127.0.0.1 map.media6degrees.com
-127.0.0.1 mapping.yoyi.com.cn
 127.0.0.1 marapool.com
 127.0.0.1 marathondh.com
 127.0.0.1 mariadeabreu.cf
-127.0.0.1 mariadeabreu.gq
 127.0.0.1 marketwizards.io
 127.0.0.1 mars.fnp2p.eosbixin.com
 127.0.0.1 martkistexplorer.com
 127.0.0.1 masaricoin.com
 127.0.0.1 masari.net
-127.0.0.1 masolo.win
 127.0.0.1 mastermine.eu
 127.0.0.1 mastermining.net
 127.0.0.1 masternodes.lu
@@ -3168,21 +3068,18 @@
 127.0.0.1 mathtype.cn
 127.0.0.1 m.atm.youku.com
 127.0.0.1 matrix-pool.info
-127.0.0.1 max.adsame.com
 127.0.0.1 maxbtc.com
 127.0.0.1 max.csrss.website
 127.0.0.1 maxhash.org
 127.0.0.1 maxiopool.io
 127.0.0.1 maxipool.net
 127.0.0.1 maxminers.net
-127.0.0.1 maxsys.adsame.com
 127.0.0.1 maxwebsearch.com
 127.0.0.1 may-js.github.io
 127.0.0.1 m.bailingjiankang.com
 127.0.0.1 mbs.hao.360.cn
 127.0.0.1 m.bss.pandora.xiaomi.com
 127.0.0.1 mb.yidianzixun.com
-127.0.0.1 mbyponflbv.bid
 127.0.0.1 mc1.xyz
 127.0.0.1 mclick.simba.taobao.com
 127.0.0.1 m.clubske.com
@@ -3212,6 +3109,7 @@
 127.0.0.1 mellowads.com
 127.0.0.1 memescan.io
 127.0.0.1 mempool.com
+127.0.0.1 men
 127.0.0.1 meowcoin.lol
 127.0.0.1 meowmining.lol
 127.0.0.1 mepirtedic.com
@@ -3267,8 +3165,6 @@
 127.0.0.1 mineiota.com
 127.0.0.1 mineit.io
 127.0.0.1 minelearnto.cf
-127.0.0.1 minelearnto.gq
-127.0.0.1 minemonero.gq
 127.0.0.1 minemonero.pro
 127.0.0.1 minemytraffic.com
 127.0.0.1 mineo.ir
@@ -3277,7 +3173,6 @@
 127.0.0.1 minepool.online
 127.0.0.1 mine.pool-x.eu
 127.0.0.1 mineqrl.net
-127.0.0.1 miner123.win
 127.0.0.1 minerad.com
 127.0.0.1 mineradnow.space
 127.0.0.1 minerall.io
@@ -3327,7 +3222,6 @@
 127.0.0.1 miners.pro
 127.0.0.1 minersrepublic.com
 127.0.0.1 miners.rocks
-127.0.0.1 miners.science
 127.0.0.1 minerstation.com
 127.0.0.1 miner.tokyo
 127.0.0.1 minertopia.org
@@ -3348,7 +3242,6 @@
 127.0.0.1 mineyguys.com
 127.0.0.1 minezone.io
 127.0.0.1 minez.ro
-127.0.0.1 minez.zone
 127.0.0.1 minfo.wps.cn
 127.0.0.1 minghui.com
 127.0.0.1 minghui.org
@@ -3432,7 +3325,6 @@
 127.0.0.1 mi-pool.ru
 127.0.0.1 mis.g.mi.com
 127.0.0.1 mivideo.g.mi.com
-127.0.0.1 mix.adsame.com
 127.0.0.1 mixpools.org
 127.0.0.1 mkt-coin.com
 127.0.0.1 m.kuwoyy.com
@@ -3477,7 +3369,6 @@
 127.0.0.1 monero-miner.net
 127.0.0.1 monerominer.rocks
 127.0.0.1 monerominers.net
-127.0.0.1 moneroocean.stream
 127.0.0.1 monero.org
 127.0.0.1 monerop.com
 127.0.0.1 moneropool.com
@@ -3557,13 +3448,9 @@
 127.0.0.1 mvads.kugou.com
 127.0.0.1 mvcpool.com
 127.0.0.1 mvcscan.com
-127.0.0.1 m.vpon.com
-127.0.0.1 mw.adwo.com
 127.0.0.1 mwgrinpool.com
 127.0.0.1 m.wikigifth.com
 127.0.0.1 m.wnxcg.com
-127.0.0.1 m.wooboo.com.cn
-127.0.0.1 mwor.gq
 127.0.0.1 mws.adsage.com
 127.0.0.1 mxcdn1.now.sh
 127.0.0.1 mxcdn2.now.sh
@@ -3597,7 +3484,6 @@
 127.0.0.1 mymonero.com
 127.0.0.1 mynetwork.webhop.mmynebhop.mmynewmining.com
 127.0.0.1 mynewmining.com
-127.0.0.1 myoffers.bid
 127.0.0.1 myo-xmr.com
 127.0.0.1 mypool.club
 127.0.0.1 mypool.name
@@ -3659,7 +3545,6 @@
 127.0.0.1 next.exchange
 127.0.0.1 nftx.pw
 127.0.0.1 nfwebminer.com
-127.0.0.1 nhz.adwo.com
 127.0.0.1 nibirupool.com
 127.0.0.1 nicehash.com
 127.0.0.1 nicelabel.cc
@@ -3696,7 +3581,6 @@
 127.0.0.1 node.aroxaro.de
 127.0.0.1 node.eosflare.io
 127.0.0.1 node.eosweb.net
-127.0.0.1 node.swap.fyi
 127.0.0.1 noirofficial.org
 127.0.0.1 nonce-pool.com
 127.0.0.1 noncepool.com
@@ -3743,7 +3627,6 @@
 127.0.0.1 ocprotocol.com
 127.0.0.1 oddpools.org
 127.0.0.1 odpool.com
-127.0.0.1 oeeee.adsame.com
 127.0.0.1 offerreality.com
 127.0.0.1 ogrid.org
 127.0.0.1 ohac.github.io
@@ -3770,7 +3653,6 @@
 127.0.0.1 onetag-sys.com
 127.0.0.1 onfirepool.hopto.org
 127.0.0.1 onion.top
-127.0.0.1 online.bid
 127.0.0.1 ontopool.com
 127.0.0.1 onyx.run
 127.0.0.1 oo000oo.me
@@ -3856,7 +3738,6 @@
 127.0.0.1 p.alimama.com
 127.0.0.1 palmnews.sina.cn
 127.0.0.1 pampopholf.com
-127.0.0.1 panda.adsame.com
 127.0.0.1 pandaminer.co
 127.0.0.1 pandaminer.com
 127.0.0.1 pandapool.io
@@ -3873,6 +3754,7 @@
 127.0.0.1 parsicoin.net
 127.0.0.1 parspool.net
 127.0.0.1 partnerads.ysm.yahoo.com
+127.0.0.1 party
 127.0.0.1 partyexplorer.co
 127.0.0.1 party-nngvitbizn.now.sh
 127.0.0.1 passportinfo.info
@@ -3888,7 +3770,6 @@
 127.0.0.1 pc.da.mgtv.com
 127.0.0.1 pcfg.wps.cn
 127.0.0.1 pcmining.xyz
-127.0.0.1 pcoin.coin-minerswww.pdfexpert.cc
 127.0.0.1 pcookie.tanx.com
 127.0.0.1 pc.quansj.cn
 127.0.0.1 pcvideoyd.titan.mgtv.com
@@ -3948,12 +3829,8 @@
 127.0.0.1 phpnode.ttcorp.net
 127.0.0.1 phs.tanx.com
 127.0.0.1 pic.14bobo.com
-127.0.0.1 pic1.onetad.com
-127.0.0.1 pic2.onetad.com
-127.0.0.1 pic3.onetad.com
 127.0.0.1 pic.517m.cn
 127.0.0.1 pic.51yes.com
-127.0.0.1 pic8.onetad.com
 127.0.0.1 pickaxe.online
 127.0.0.1 pickaxe.pro
 127.0.0.1 picopool.org
@@ -4008,7 +3885,6 @@
 127.0.0.1 plowtown.com
 127.0.0.1 plpool.org
 127.0.0.1 plurapool.com
-127.0.0.1 pmc-d.openx.net
 127.0.0.1 pmpmining.com
 127.0.0.1 png.lu.sogoucdn.com
 127.0.0.1 polcoin.pl
@@ -4085,7 +3961,6 @@
 127.0.0.1 pool.space
 127.0.0.1 pool.stalwartbucks.com
 127.0.0.1 pool.support
-127.0.0.1 pools.win
 127.0.0.1 poolswitch.pw
 127.0.0.1 pool.taobot.org
 127.0.0.1 pool.testserverino.de
@@ -4124,7 +3999,6 @@
 127.0.0.1 prbitcoin.com
 127.0.0.1 pr.da.netease.com
 127.0.0.1 premiumstats.xyz
-127.0.0.1 preview.adsame.com
 127.0.0.1 p.rfihub.com
 127.0.0.1 primary.coinhuntr.com
 127.0.0.1 primexbt.com
@@ -4192,13 +4066,11 @@
 127.0.0.1 px.owneriq.net
 127.0.0.1 py2.qlogo.cn
 127.0.0.1 py.da.mgtv.com
-127.0.0.1 p.yiqifa.com
 127.0.0.1 py.qlogo.cn
 127.0.0.1 pyrk.org
 127.0.0.1 pzoifaum.info
 127.0.0.1 qgevavwyafjf.com
 127.0.0.1 qhl.bealge.sogou.com
-127.0.0.1 qianlong.adsame.com
 127.0.0.1 qiemining.site
 127.0.0.1 qiepool.xyz
 127.0.0.1 qp.be
@@ -4217,11 +4089,10 @@
 127.0.0.1 qxm.pluto.sogou.com
 127.0.0.1 qyvpgddwqynp.com
 127.0.0.1 r.254a.com
-127.0.0.1 r2.adwo.com
-127.0.0.1 r3.adwo.com
 127.0.0.1 raasu.org
 127.0.0.1 rabbit.meitustat.com
 127.0.0.1 rabbit.tg.meitu.com
+127.0.0.1 racing
 127.0.0.1 radioactive.es
 127.0.0.1 radiotaku.net
 127.0.0.1 rad.live.com
@@ -4230,14 +4101,12 @@
 127.0.0.1 ra.gtimg.com
 127.0.0.1 rand-142-docsgh-ci-app-preferences-jenkinsrand.com.ru
 127.0.0.1 rand.com.ru
-127.0.0.1 randomsatoshi.win
 127.0.0.1 rank.hit.china.com
 127.0.0.1 rapidhash.net
 127.0.0.1 rapidpools.com
 127.0.0.1 rapidvideo.com
 127.0.0.1 raptoreum.com
 127.0.0.1 raptoreumemporium.com
-127.0.0.1 raptoreum.zone
 127.0.0.1 raptorhash.com
 127.0.0.1 raptorpool.org
 127.0.0.1 raskul.com
@@ -4252,7 +4121,6 @@
 127.0.0.1 ravenxpool.com
 127.0.0.1 ravepool.com
 127.0.0.1 rawpool.com
-127.0.0.1 rayli.adsame.com
 127.0.0.1 rbminer.net
 127.0.0.1 rbp.mxptint.net
 127.0.0.1 r.browser.miui.com
@@ -4290,7 +4158,6 @@
 127.0.0.1 reklama.webchain.networkrelay.100chickens.me
 127.0.0.1 relay.100chickens.me
 127.0.0.1 relay.agrolifecoin.org
-127.0.0.1 reliablesurfingext.bwww.remote88.com
 127.0.0.1 remote88.com
 127.0.0.1 remotehash.com
 127.0.0.1 re.m.taobao.com
@@ -4304,7 +4171,6 @@
 127.0.0.1 res.mmstat.com
 127.0.0.1 res.qhupdate.com
 127.0.0.1 re.taobao.com
-127.0.0.1 return.adsame.com
 127.0.0.1 reversedbitcoin.org
 127.0.0.1 revolutionchain.it
 127.0.0.1 rh.code.jjyx.com
@@ -4339,7 +4205,6 @@
 127.0.0.1 rrr.youle55.com
 127.0.0.1 rs.sinajs.cn
 127.0.0.1 rtas.videocc.net
-127.0.0.1 rtax.criteo.com
 127.0.0.1 rt.gsspat.jp
 127.0.0.1 rtm.rocks
 127.0.0.1 rtm.thirdpowerlife.com
@@ -4386,10 +4251,6 @@
 127.0.0.1 sakthikaa.com
 127.0.0.1 saltpool.net
 127.0.0.1 s.amazon-adsystem.com
-127.0.0.1 sambaclk.adsame.com
-127.0.0.1 sambasys.adsame.com
-127.0.0.1 sammix.adsame.com
-127.0.0.1 samrt.adsame.com
 127.0.0.1 sandpool.org
 127.0.0.1 s.appjiagu.com
 127.0.0.1 sargatxet.cloud
@@ -4419,6 +4280,7 @@
 127.0.0.1 scholarshipcoin.org
 127.0.0.1 schoollt.cn
 127.0.0.1 sc.iasds01.com
+127.0.0.1 science
 127.0.0.1 sc.jxhcyc.com
 127.0.0.1 scpool.xyz
 127.0.0.1 script-bd.baixing.net
@@ -4441,14 +4303,12 @@
 127.0.0.1 sdk.look.360.cn
 127.0.0.1 sdk.mobad.ijinshan.com
 127.0.0.1 sdkm.w.inmobi.cn
-127.0.0.1 sdkm.w.inmobi.com
 127.0.0.1 sdk.open.amp.igexin.com
 127.0.0.1 sdk.open.lbs.igexin.com
 127.0.0.1 sdk.open.phone.igexin.com
 127.0.0.1 sdk.open.talk.gepush.com
 127.0.0.1 sdk.open.talk.igexin.com
 127.0.0.1 sdn.kugou.com
-127.0.0.1 sdu.adwo.com
 127.0.0.1 sea.napi.ucweb.com
 127.0.0.1 searchswapper.com
 127.0.0.1 seasonaloffers.club
@@ -4688,10 +4548,8 @@
 127.0.0.1 stat.adbana.com
 127.0.0.1 stat.browser.nearme.com.cn
 127.0.0.1 statdynamic.com
-127.0.0.1 stati.bid
 127.0.0.1 static-02.flu.cc
 127.0.0.1 static.adsafeprotected.com
-127.0.0.1 static.adwo.com
 127.0.0.1 static.adxadserv.com
 127.0.0.1 static.alimama.com
 127.0.0.1 static.criteo.net
@@ -4700,12 +4558,10 @@
 127.0.0.1 static-net.nut.cc
 127.0.0.1 staticsfs.host
 127.0.0.1 static.tzyiyuantuan.com
-127.0.0.1 static.wooboo.com.cn
 127.0.0.1 static.youmi.net
 127.0.0.1 stati.in
 127.0.0.1 statis.mobile.youku.com
 127.0.0.1 statis.push.netease.com
-127.0.0.1 statistic.date
 127.0.0.1 stat.m.360.cn
 127.0.0.1 stat.maalaimalar.com
 127.0.0.1 stat.m.jd.com
@@ -4719,7 +4575,6 @@
 127.0.0.1 stats.ethc.io
 127.0.0.1 statsfe1.ws.microsoft.com
 127.0.0.1 statsfe2.ws.microsoft.com
-127.0.0.1 stats.feitianma.com
 127.0.0.1 stat.simba.taobao.com
 127.0.0.1 stats.infogenservice.com
 127.0.0.1 stats.mokeedev.com
@@ -4736,7 +4591,6 @@
 127.0.0.1 st.holaworld.cn
 127.0.0.1 stipendium.co
 127.0.0.1 stjzh.gdtarget.com
-127.0.0.1 stnn.adsame.com
 127.0.0.1 stohncoin.org
 127.0.0.1 stohnexplorer.com
 127.0.0.1 stohnpool.com
@@ -4756,6 +4610,7 @@
 127.0.0.1 stratum.wemineftc.com
 127.0.0.1 stratum-wysepool.giize.com
 127.0.0.1 strayapool.com
+127.0.0.1 stream
 127.0.0.1 streamcaycash.ddns.nesh.ddns.nestreamdream.ws
 127.0.0.1 streamdream.ws
 127.0.0.1 streamplay.me
@@ -4765,7 +4620,6 @@
 127.0.0.1 stringengines.com
 127.0.0.1 strip.alicdn.com
 127.0.0.1 strip.taobaocdn.com
-127.0.0.1 stuff.202m.com
 127.0.0.1 st.yandexadexchange.net
 127.0.0.1 st.zzhyyj.com
 127.0.0.1 suanlishe.com
@@ -4812,7 +4666,6 @@
 127.0.0.1 sweetbook.net
 127.0.0.1 sweetchia.com
 127.0.0.1 swepool.org
-127.0.0.1 swiftmining.win
 127.0.0.1 swift-pools.com
 127.0.0.1 swinemine.com
 127.0.0.1 switchercoin.com
@@ -4886,7 +4739,6 @@
 127.0.0.1 theappguruz.com
 127.0.0.1 thebeepool.com
 127.0.0.1 thebestplaza.com
-127.0.0.1 thebetteroptions.win
 127.0.0.1 theblocksfactory.com
 127.0.0.1 thecoin.pw
 127.0.0.1 thecollectivepool.com
@@ -4908,7 +4760,6 @@
 127.0.0.1 thepiratebay.wtf
 127.0.0.1 thepool.life
 127.0.0.1 theskynet.xyz
-127.0.0.1 theslots.gq
 127.0.0.1 thetapool.com
 127.0.0.1 theta.sogoucdn.com
 127.0.0.1 thevideo.ch
@@ -4932,7 +4783,6 @@
 127.0.0.1 tjs.sjs.sinajs.cn
 127.0.0.1 tk.optaim.com
 127.0.0.1 tmfkuesmlpto.com
-127.0.0.1 tmn-d.openx.net
 127.0.0.1 tncexvzu.com
 127.0.0.1 tns.simba.taobao.com
 127.0.0.1 toastpool.com
@@ -4942,7 +4792,6 @@
 127.0.0.1 tomopool.com
 127.0.0.1 tomostake.com
 127.0.0.1 tomucksigul.triplemitonic.dnsd.info
-127.0.0.1 tongji.linezing.com
 127.0.0.1 tongji.meizu.com
 127.0.0.1 tongji-res1.meizu.com
 127.0.0.1 tongji.tom.com
@@ -4957,18 +4806,16 @@
 127.0.0.1 tpbproxyone.org
 127.0.0.1 tpool.yiluzhuanqian.com
 127.0.0.1 traaittplatform.com
-127.0.0.1 track.adwo.com
 127.0.0.1 track.appsflyer.com
 127.0.0.1 track.china.com
 127.0.0.1 track.dragonparking.com
 127.0.0.1 track-east.mobileadtrading.com
 127.0.0.1 trackersimulator.org
 127.0.0.1 track.eyeviewads.com
-127.0.0.1 tracking.ad-survey.com
 127.0.0.1 tracking.m6r.eu
 127.0.0.1 tracking.miui.com
-127.0.0.1 tracking-server-prod-1.zenmxapps.cotracking.ad-survey.com
 127.0.0.1 track.uc.cn
+127.0.0.1 trade
 127.0.0.1 trade.eightcap.com
 127.0.0.1 trademybit.com
 127.0.0.1 tradeogre.com
@@ -5022,13 +4869,10 @@
 127.0.0.1 tutikutyu.hu
 127.0.0.1 tv.code.jjyx.com
 127.0.0.1 tvupgrade.yunos.com
-127.0.0.1 tw.adon.vpon.com
 127.0.0.1 tw.alimama.cn
-127.0.0.1 tw.api.vpon.com
 127.0.0.1 tweth.tw
 127.0.0.1 two-jj.github.io
 127.0.0.1 tw-pool.com
-127.0.0.1 tw.pub.vpon.com
 127.0.0.1 twzminingpool.com
 127.0.0.1 txtad.jijiplayer.com
 127.0.0.1 txt.go.sohu.com
@@ -5101,7 +4945,6 @@
 127.0.0.1 upool.in
 127.0.0.1 upool.ir
 127.0.0.1 ups.ksmobile.net
-127.0.0.1 uptomical.win
 127.0.0.1 upxpool.com
 127.0.0.1 uralscoin.info
 127.0.0.1 urbanproxy.eu
@@ -5118,7 +4961,6 @@
 127.0.0.1 us.ozco.in
 127.0.0.1 us.stantpus.stratum.ltstratum.ltc.nushor.net
 127.0.0.1 us.stratum.ltc.nushor.net
-127.0.0.1 us-u.openx.net
 127.0.0.1 uswest.mkhosting.org
 127.0.0.1 usxmrpool.com
 127.0.0.1 ut.gtags.net
@@ -5131,7 +4973,6 @@
 127.0.0.1 uunigate.com
 127.0.0.1 uupool.cn
 127.0.0.1 uupool.com
-127.0.0.1 uusee.adsame.com
 127.0.0.1 uxip.meizu.com
 127.0.0.1 u-x.jd.com
 127.0.0.1 uyunad.com
@@ -5186,7 +5027,6 @@
 127.0.0.1 viabtc.net
 127.0.0.1 viaxmr.com
 127.0.0.1 victorium.org
-127.0.0.1 video.cooguo.com
 127.0.0.1 videojj.com
 127.0.0.1 videoplayer2.xyz
 127.0.0.1 videos.vidto.me
@@ -5208,7 +5048,6 @@
 127.0.0.1 voiceads.cn
 127.0.0.1 voidr.net
 127.0.0.1 voiplanparty.com
-127.0.0.1 voksuksb.bid
 127.0.0.1 volkshash.org
 127.0.0.1 volt-mine.com
 127.0.0.1 voltpot.org
@@ -5235,9 +5074,7 @@
 127.0.0.1 wanproxy.127.net
 127.0.0.1 wan.sogou.com
 127.0.0.1 wap.tanwan.com
-127.0.0.1 wap.wooboo.com.cn
 127.0.0.1 warphash.com
-127.0.0.1 wasm.stream
 127.0.0.1 waterhole.io
 127.0.0.1 waterparkmining.com
 127.0.0.1 watson.microsoft.com
@@ -5256,7 +5093,6 @@
 127.0.0.1 web.51.la
 127.0.0.1 webapi.salamantex.com
 127.0.0.1 webapi.staging.salamantex.com
-127.0.0.1 webassembly.stream
 127.0.0.1 webchain.live
 127.0.0.1 webchain.network
 127.0.0.1 webcoin.us
@@ -5292,11 +5128,11 @@
 127.0.0.1 whysoserius.club
 127.0.0.1 wickedmine.com
 127.0.0.1 widecoin.org
-127.0.0.1 widget.criteo.com
 127.0.0.1 widget.weibo.com
 127.0.0.1 wienchain.com
 127.0.0.1 wifijia.net
 127.0.0.1 wilf.cn
+127.0.0.1 win
 127.0.0.1 wip3.adobe.com
 127.0.0.1 witpool.net
 127.0.0.1 wmedia.adk2x.com
@@ -5338,25 +5174,9 @@
 127.0.0.1 wujieliulan.com
 127.0.0.1 wuliao.epro.sogou.com
 127.0.0.1 wuster.bitfex.tww.pr0gx.tww.pr0gramm.com
-127.0.0.1 ww101.onetad.com
-127.0.0.1 ww10.onetad.com
-127.0.0.1 ww11.onetad.com
-127.0.0.1 ww12.onetad.com
-127.0.0.1 ww13.onetad.com
-127.0.0.1 ww202.onetad.com
 127.0.0.1 ww251.smartadserver.com
-127.0.0.1 ww2.spain.leetpools.netww202.onetad.com
-127.0.0.1 ww346.onetad.com
-127.0.0.1 ww34.onetad.com
-127.0.0.1 ww360.onetad.com
-127.0.0.1 ww363.onetad.com
-127.0.0.1 ww366.onetad.com
-127.0.0.1 ww78.onetad.com
-127.0.0.1 ww8.onetad.com
-127.0.0.1 ww9.onetad.com
 127.0.0.1 wwlm.net
 127.0.0.1 ww.pr0gramm.com
-127.0.0.1 wwv.onetad.com
 127.0.0.1 www193.wixdns.net
 127.0.0.1 www5.jkjjkj.top
 127.0.0.1 www6.smartadserver.com
@@ -5389,12 +5209,7 @@
 127.0.0.1 xd.code.tanwanyx.com
 127.0.0.1 xeminer.net
 127.0.0.1 xhash.net
-127.0.0.1 xiazai.overturechinaxiazai.pdfexpert.cc
-127.0.0.1 xiazai.pdfexpert.cc
-127.0.0.1 xiazai.photozoomchina.com
-127.0.0.1 xinchao13.gq
 127.0.0.1 xingyun.io
-127.0.0.1 xinhuanet.adsame.com
 127.0.0.1 xiniuz.com
 127.0.0.1 xinsheng.net
 127.0.0.1 x.jd.com
@@ -5460,9 +5275,7 @@
 127.0.0.1 yads.c.yimg.jp
 127.0.0.1 yads.yahoo.co.jp
 127.0.0.1 yam.adsbro.com
-127.0.0.1 yaolan.adsame.com
 127.0.0.1 ybcoin.com
-127.0.0.1 ycfprujylukkx.bid
 127.0.0.1 y.da.hunantv.com
 127.0.0.1 y.da.mgtv.com
 127.0.0.1 yee.js.cn
@@ -5552,18 +5365,15 @@
 127.0.0.1 znode1.mine.nu
 127.0.0.1 zona.pl
 127.0.0.1 zona.plus
+127.0.0.1 zone
 127.0.0.1 zpool.ca
 127.0.0.1 z-pool.com
-127.0.0.1 zsolo.bid
-127.0.0.1 z.sora.yoyi.com.cn
 127.0.0.1 ztyj0000.com
 127.0.0.1 zulupool.com
 127.0.0.1 zvttlvbclihk.com
 127.0.0.1 zwembad.zapto.org
-127.0.0.1 zymerget.win
 127.0.0.1 zyrkminer.com
 127.0.0.1 zz.bdstatic.com
 127.0.0.1 zzimg.51.la
 127.0.0.1 zzy1.quyaoya.com
 127.0.0.1 zzz.com.ua
-#@timeout 127.0.0.1 wasm24.ru

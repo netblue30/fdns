@@ -17,6 +17,12 @@
 # https://github.com/blocklistproject/Lists/blob/master/tracking.txt
 # Unlicense license
 
+127.0.0.1 zone
+127.0.0.1 hair
+127.0.0.1 market
+127.0.0.1 bid
+127.0.0.1 download
+127.0.0.1 trade
 127.0.0.1 00px.net
 127.0.0.1 028708717f.com
 127.0.0.1 03f128fb44.com
@@ -3538,7 +3544,6 @@
 127.0.0.1 neondollars.com
 127.0.0.1 neptuno.redglobal.net
 127.0.0.1 nessainy.net
-127.0.0.1 net.ar
 127.0.0.1 netline.com
 127.0.0.1 netlog.ru
 127.0.0.1 netstad.com
