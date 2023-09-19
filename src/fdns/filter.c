@@ -193,7 +193,7 @@ static inline int hash(const char *str, unsigned short *hash2) {
 
 void filter_add(char label, const char *domain) {
 	assert(domain);
-	if (arg_id == 0 && strlen(domain) < 4)
+	if (arg_id == 0 && strchr(domain, '.') == NULL)
 		fprintf(stderr, "Disabled %s TLD as %s filter\n", domain, label2str(label));
 
 	HashEntry *h = malloc(sizeof(HashEntry));
