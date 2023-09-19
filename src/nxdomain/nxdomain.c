@@ -372,6 +372,7 @@ int main(int argc, char **argv) {
 	int status;
 	while ((wpid = wait(&status)) > 0)
 		printf("#waiting#\n");
+	(void) wpid;
 
 	// print result
 	if (arg_fout) {
