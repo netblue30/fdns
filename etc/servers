@@ -1354,13 +1354,14 @@ end;
 #keepalive: 7
 #end;
 
-name: ibksturm
-website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-tags: Switzerland, Europe, OpenNIC
-address: 213.196.191.96:443
-host: ibksturm.synology.me/dns-query
-keepalive: 40
-end;
+# bad connection/keepalive???
+#name: ibksturm
+#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
+#tags: Switzerland, Europe, OpenNIC
+#address: 213.196.191.96:443
+#host: ibksturm.synology.me/dns-query
+#keepalive: 40
+#end;
 
 #name: lavadns-us
 #website: https://dns.lavate.ch
@@ -1416,7 +1417,7 @@ name: libredns-adblocker
 website: https://libredns.gr/
 tags: Germany, Europe, OpenNIC, adblocker
 address: 116.202.176.26:443
-host: doh.libredns.gr/ads
+host: doh.libredns.gr/noads
 keepalive: 25
 end;
 
@@ -1430,13 +1431,13 @@ end;
 #end;
 
 # running in cloudflare cloud
-name: mydns-network
-website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-tags: geocast, Americas, AsiaPacific, Europe
-address: freedom.mydns.network:443
-host: freedom.mydns.network/dns-query
-keepalive: 25
-end;
+#name: mydns-network
+#website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+#tags: geocast, Americas, AsiaPacific, Europe
+#address: freedom.mydns.network:443
+#host: freedom.mydns.network/dns-query
+#keepalive: 25
+#end;
 
 name: nextdns
 website: https://nextdns.io/
@@ -1514,13 +1515,13 @@ keepalive: 25
 transport: dot
 end;
 
-name: opennameserver2
-website: https://opennameserver.org/
-tags: OpenNIC, Germany, Europe
-address: 178.254.22.166:443
-host: ns2.opennameserver.org/dns-query
-keepalive: 25
-end;
+#name: opennameserver2
+#website: https://opennameserver.org/
+#tags: OpenNIC, Germany, Europe
+#address: 178.254.22.166:443
+#host: ns2.opennameserver.org/dns-query
+#keepalive: 25
+#end;
 
 name: opennameserver2-dot
 website: https://opennameserver.org/
@@ -1531,13 +1532,13 @@ keepalive: 25
 transport: dot
 end;
 
-name: opennameserver3
-website: https://opennameserver.org/
-tags: OpenNIC, Germany, Europe
-address: 81.169.136.222:443
-host: ns3.opennameserver.org/dns-query
-keepalive: 25
-end;
+#name: opennameserver3
+#website: https://opennameserver.org/
+#tags: OpenNIC, Germany, Europe
+#address: 81.169.136.222:443
+#host: ns3.opennameserver.org/dns-query
+#keepalive: 25
+#end;
 
 name: opennameserver3-dot
 website: https://opennameserver.org/
@@ -1791,21 +1792,23 @@ end;
 # keepalive: 40
 # end;
 
-name: teradns-us2
-website: https://teradns.org/dns-over-https/
-tags: US, Americas
-address: 45.79.38.174:443
-host: tx.teradns.org/dns-query
-keepalive: 40
-end;
+# expired certificate
+#name: teradns-us2
+#website: https://teradns.org/dns-over-https/
+#tags: US, Americas
+#address: 45.79.38.174:443
+#host: tx.teradns.org/dns-query
+#keepalive: 40
+#end;
 
-name: teradns-au
-website: https://teradns.org/dns-over-https/
-tags: Australia, AsiaPacific
-address: 194.29.100.68:443
-host: au.teradns.org/dns-query
-keepalive: 40
-end;
+# expired certificate
+#name: teradns-au
+#website: https://teradns.org/dns-over-https/
+#tags: Australia, AsiaPacific
+#address: 194.29.100.68:443
+#host: au.teradns.org/dns-query
+#keepalive: 40
+#end;
 
 # name: teradns-sg
 # website: https://teradns.org/dns-over-https/
