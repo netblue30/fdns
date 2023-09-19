@@ -10,11 +10,23 @@ nxdomain is a program that removes dead domains from a host list.
 The program accepts regular hosts files with IP addresses of 127.0.0.1 or 0.0.0.0,
 or lists of domain names without IP address, one domain per line.
 The default upstream resolver is Cloudflare 1.1.1.1.
+.br
+
+.br
+By default, the program is using 5 resolver threads, each thread running at 10 queries per second,
+for a grand total of 50 queries per second. If you take into account the time necessary to the upstream
+DNS server to respond, the number is much lower. I am getting about 30 queries per second on Cloudflare,
+on a regular home Internet connection.
 
 .SH OPTIONS
 .TP
 \fB\-\-help, \-?, \-h
 Print command-line options and exit.
+
+.TP
+\fB\-\-chunk=number
+Number of domains in a chunk of input data, default 200.
+
 
 .TP
 \fB\-\-server=IP_ADDRESS
@@ -29,8 +41,12 @@ Quad9 - 9.9.9.10
 AdGuard - 94.140.14.140
 .br
 
+.TP
+\fB\-\-timeout=seconds
+Number of seconds to wait for a response form the server, default 5 seconds.
+
 .SH EXAMPLE
-$ nxdomain adblocker.hostsfile adblocker.new
+$ nxdomain adblocker.hostsfile adblocker.hostfile.new
 
 .SH LICENSE
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
