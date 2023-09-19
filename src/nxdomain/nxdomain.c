@@ -93,6 +93,7 @@ static void test(FILE *fpout, int chunk_no) {
 	int i = 0;
 	int j = 0;
 	char *start = "not running";
+	int empty = 0;
 	for (i = 0; i < arg_chunk && *current_chunk[i] != '\0'; i++) {
 		char*buf = current_chunk[i];
 		char *ptr = strchr(buf, '\n');
@@ -105,6 +106,7 @@ static void test(FILE *fpout, int chunk_no) {
 		// empty lines
 		if (*ptr == '\0') {
 			fprintf(fpout, "\n");
+			empty++;
 			continue;
 		}
 		start = ptr;
@@ -115,6 +117,7 @@ static void test(FILE *fpout, int chunk_no) {
 		// comments
 		else if (*start == '#' || *start == '\0') { // preserve comments, blank lines
 			fprintf(fpout, "%s\n", start);
+			empty++;
 			continue;
 		}
 		// end of line comments
@@ -147,7 +150,6 @@ static void test(FILE *fpout, int chunk_no) {
 		if (strstr(start, "::")) // IPv6 addresses!
 			continue;
 
-
 		if (strcspn(start, "\\&!?\"'<>%^(){}[];,|") != strlen(start)) {
 			fprintf(stderr, "E");
 			fflush(0);
@@ -178,12 +180,6 @@ static void test(FILE *fpout, int chunk_no) {
 			}
 			ptr++;
 		}
-		if (*ptr != '\0' || sub_cnt == 0) {
-			fprintf(stderr, "E");
-			fflush(0);
-			continue;
-		}
-
 
 		// send DNS request
 		usleep(100000);	// maximum 10xMAX_CHUNKS requests per second
@@ -202,7 +198,7 @@ static void test(FILE *fpout, int chunk_no) {
 			fflush(0);
 		}
 	}
-	printf("# chunk %d: %d removed #", chunk_no, i - j);
+	printf("# chunk %d: %d removed #", chunk_no, i - j - empty);
 	fflush(0);
 }
 

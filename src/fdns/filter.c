@@ -46,6 +46,8 @@ static inline const char *label2str(char label) {
 		return "doh";
 	else if (label == 'P')
 		return "phishing";
+	else if (label == 'L')
+		return "tld";
 
 	return "?";
 }
@@ -321,6 +323,7 @@ static void filter_load_list(char label, const char *fname, int store) {
 }
 
 void filter_load_all_lists(void) {
+	filter_load_list('L', PATH_ETC_TLD_LIST, arg_clean_filters);
 	filter_load_list('P', PATH_ETC_PHISHING_LIST, arg_clean_filters);
 	filter_load_list('T', PATH_ETC_TRACKERS_LIST, arg_clean_filters);
 	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST, arg_clean_filters);
