@@ -252,11 +252,6 @@ static void wins_resize_sighandler (int dont_care_sig) {
 
 // handling "fdns --monitor"
 void shmem_monitor_stats(const char *proxy_addr) {
-	if (!report)	{ // when running in containers, shm is disabled
-		fprintf(stderr, "No statistics collected for this instance of fdns.\n");
-		return;
-	}
-
 	signal(SIGCONT,  wins_resize_sighandler);
 	signal(SIGWINCH, wins_resize_sighandler);
 
