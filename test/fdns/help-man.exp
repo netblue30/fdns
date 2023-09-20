@@ -24,7 +24,7 @@ after 100
 send -- "fdns --version\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"fdns version"
+	"FDNS version"
 }
 after 100
 

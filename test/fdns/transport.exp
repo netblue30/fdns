@@ -23,22 +23,22 @@ after 100
 send -- "fdns --list=all --transport=dot\r"
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
-	"digital-society-dot"
+	"nextdns-dot"
 }
 
-send -- "fdns --list --transport=dot --zone=Europe\r"
+send -- "fdns --list=Europe --transport=dot\r"
 expect {
 	timeout {puts "TESTING ERROR 5\n";exit}
-	"containerpi-dot" {puts "TESTING ERROR 6\n";exit}
-	"digital-society-dot"
+	"ahadns-westus-dot" {puts "TESTING ERROR 6\n";exit}
+	"opennameserver-dot"
 }
 after 100
 
-send -- "fdns --list --transport=dot --zone=AsiaPacific\r"
+send -- "fdns --list=AsiaPacific --transport=dot\r"
 expect {
 	timeout {puts "TESTING ERROR 8\n";exit}
-	"digital-society-dot" {puts "TESTING ERROR 9\n";exit}
-	"ahadns-au-do"
+	"ahadns-westus-dot" {puts "TESTING ERROR 9\n";exit}
+	"twnic-dot"
 }
 
 after 100
