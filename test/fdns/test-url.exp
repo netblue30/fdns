@@ -17,7 +17,7 @@ after 100
 send -- "fdns --test-url=amazon-adsystem.com\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"URL amazon-adsystem.com dropped by \"amazon-adsystem.com\" rule"
+	"URL amazon-adsystem.com dropped by default rule"
 }
 after 100
 

@@ -1,17 +1,15 @@
-name: sinodun4-dot
-website: https://dnsprivacy.org
-zone: Americas, AsiaPacific, Europe
-tags: Americas, AsiaPacific, Europe
-address: 145.100.185.18:853
-host: dnsovertls1.sinodun.com/
-keepalive: 25
+name: nextdns-dot
+website: https://nextdns.io/
+tags: anycast, Americas, AsiaPacific, Europe
+address: 45.90.30.0:853
+host: trr.dns.nextdns.io/
+keepalive: 40
 transport: dot
 end;
 
 name: cloudflare
 website: https://www.cloudflare.com
-zone: Americas, AsiaPacific, Europe
-tags: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
 keepalive: 350,390
@@ -19,8 +17,7 @@ end;
 
 name: quad9
 website: https://quad9.net
-zone: Americas, AsiaPacific, Europe
-tags: Americas, AsiaPacific, Europe
+tags: anycast, Americas, AsiaPacific, Europe
 address: 9.9.9.9:5053
 host: dns.quad9.net/dns-query
 keepalive: 550,590

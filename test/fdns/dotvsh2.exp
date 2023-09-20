@@ -15,59 +15,59 @@ after 100
 send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
-	"Error" {puts "TESTING ERROR 0.1\n";exit}
+	"Error" {puts "TESTING ERROR 1\n";exit}
 	"3 servers found"
 }
 sleep 1
 
 send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list --transport=dot\r"
 expect {
-	timeout {puts "TESTING ERROR 1\n";exit}
-	"Error" {puts "TESTING ERROR 1.1\n";exit}
-	"1 servers found"
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"Error" {puts "TESTING ERROR 3\n";exit}
+	"1 server found"
 }
 sleep 1
 
 send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list --transport=h2\r"
 expect {
-	timeout {puts "TESTING ERROR 1a\n";exit}
-	"Error" {puts "TESTING ERROR 1a.1\n";exit}
-	"1 servers found"
+	timeout {puts "TESTING ERROR 4\n";exit}
+	"Error" {puts "TESTING ERROR 5\n";exit}
+	"1 server found"
 }
 sleep 1
 
 send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list --transport=http/1.1\r"
 expect {
-	timeout {puts "TESTING ERROR 1b\n";exit}
-	"Error" {puts "TESTING ERROR 1b.1\n";exit}
+	timeout {puts "TESTING ERROR 6b\n";exit}
+	"Error" {puts "TESTING ERROR 7\n";exit}
 	"2 servers found"
 }
 sleep 1
 
 send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --transport=dot --details\r"
 expect {
-	timeout {puts "TESTING ERROR 2\n";exit}
-	"Error" {puts "TESTING ERROR 2.1\n";exit}
+	timeout {puts "TESTING ERROR 8\n";exit}
+	"Error" {puts "TESTING ERROR 9\n";exit}
 	"Testing server"
 }
 expect {
-	timeout {puts "TESTING ERROR 3\n";exit}
-	"Error" {puts "TESTING ERROR 3.1\n";exit}
+	timeout {puts "TESTING ERROR 10\n";exit}
+	"Error" {puts "TESTING ERROR 11n";exit}
 	"URL: dot://"
 }
 expect {
-	timeout {puts "TESTING ERROR 4\n";exit}
-	"Error" {puts "TESTING ERROR 4.1\n";exit}
+	timeout {puts "TESTING ERROR 12\n";exit}
+	"Error" {puts "TESTING ERROR 13\n";exit}
 	"DoT/Do53 bandwidth ratio"
 }
 expect {
-	timeout {puts "TESTING ERROR 5\n";exit}
-	"Error" {puts "TESTING ERROR 5.1\n";exit}
+	timeout {puts "TESTING ERROR 14\n";exit}
+	"Error" {puts "TESTING ERROR 15\n";exit}
 	"fdns starting"
 }
 expect {
-	timeout {puts "TESTING ERROR 6\n";exit}
-	"Error" {puts "TESTING ERROR 6.1\n";exit}
+	timeout {puts "TESTING ERROR 16\n";exit}
+	"Error" {puts "TESTING ERROR 17\n";exit}
 	"SSL connection opened"
 }
 sleep 1

@@ -33,10 +33,6 @@ expect {
 	"quad9"
 }
 expect {
-	timeout {puts "TESTING ERROR 5\n";exit}
-	"snopyta"
-}
-expect {
 	timeout {puts "TESTING ERROR 6\n";exit}
 	"twnic"
 }

@@ -10,32 +10,15 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --server=anycast\r"
+send -- "fdns --server=anycast --transport=dot\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"connecting to adguard-unfiltered server"  {puts "1"}
-	"connecting to adguard-unfiltered2 server"  {puts "1"}
-	"connecting to adguard server"  {puts "1"}
-	"connecting to adguard2 server"  {puts "1"}
-	"connecting to cleanbrowsing server"  {puts "2"}
-	"connecting to cleanbrowsing2 server"  {puts "2"}
-	"connecting to cloudflare server" {puts "3"}
-	"connecting to cloudflare2 server" {puts "3"}
-	"connecting to cloudflare-security server" {puts "3"}
-	"connecting to cloudflare-security2 server" {puts "3"}
-	"connecting to cloudflare-dot server" {puts "3"}
-	"connecting to cloudflare2-dot server" {puts "3"}
-	"connecting to cloudflare-security-dot server" {puts "3"}
-	"connecting to cloudflare-security2-dot server" {puts "3"}
-	"connecting to dns-sb1 server" {puts "5"}
-	"connecting to dns-sb1 server" {puts "5"}
-	"connecting to nextdns server" {puts "4"}
-	"connecting to nextdns2 server" {puts "4"}
-	"connecting to quad9 server" {puts "5"}
-	"connecting to quad9-2 server" {puts "5"}
-	"connecting to quad9-3 server" {puts "5"}
-	"connecting to quad9-unsecured server" {puts "5"}
-	"connecting to quad9-unsecured-2 server" {puts "5"}
+	"connecting to adguard-unfiltered-dot server"  {puts "1"}
+	"connecting to adguard-unfiltered2-dot server"  {puts "1"}
+	"connecting to adguard-dot server"  {puts "1"}
+	"connecting to adguard2-dot server"  {puts "1"}
+	"connecting to nextdns-dot server" {puts "4"}
+	"connecting to nextdns2-dot server" {puts "4"}
 }
 
 after 100
