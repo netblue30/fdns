@@ -1,3 +1,19 @@
+fdns (0.9.78) baseline; urgency=low
+  * more nxdomain development
+  * removed --zone option
+  * removed admin-down flag from servers file
+  * removed h2 ping keepalive
+  * added --disable-syslog command line option
+  * fixed fdns.service file
+  * speed up filter search
+  * added a phishing filter file
+  * added a TLD blacklist filter file
+  * filter files rebuild
+  * server list update
+  * added a github codeql workflow
+  * bugfixes
+ -- netblue30 <netblue30@yahoo.com>  Wed, 20 Sep 2023 08:00:00 -0500
+
 fdns (0.9.68) baseline; urgency=low
   * disable seccomp at compile time
   * random keepalive
