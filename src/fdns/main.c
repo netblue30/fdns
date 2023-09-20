@@ -174,11 +174,20 @@ int main(int argc, char **argv) {
 				printf("FDNS version %s, %s\n", VERSION, OPENSSL_VERSION_TEXT);
 				return 0;
 			}
-			else if (strcmp(argv[i], "--clean-filters") == 0) { // undocumented; for development only!
+
+			// undocumented; for development only!
+			// cd etc
+			// mkdir tmp
+			// cd tmp
+			// ../../src/fdns/fdns --clean-filters
+			// rm hosts
+			// ls    -> these are the new filters
+			else if (strcmp(argv[i], "--clean-filters") == 0) {
 				arg_clean_filters = 1;
 				filter_load_all_lists();
 				return 0;
 			}
+
 			else if (strcmp(argv[i], "--daemonize") == 0) {
 				daemonize();
 				arg_daemonize = 1;

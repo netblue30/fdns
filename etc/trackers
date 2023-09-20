@@ -17,12 +17,6 @@
 # https://github.com/blocklistproject/Lists/blob/master/tracking.txt
 # Unlicense license
 
-127.0.0.1 zone
-127.0.0.1 hair
-127.0.0.1 market
-127.0.0.1 bid
-127.0.0.1 download
-127.0.0.1 trade
 127.0.0.1 00px.net
 127.0.0.1 028708717f.com
 127.0.0.1 03f128fb44.com
@@ -40,7 +34,6 @@
 127.0.0.1 2022welcome.com
 127.0.0.1 21sme.com
 127.0.0.1 22find.com
-127.0.0.1 247.ai
 127.0.0.1 247-inc.net
 127.0.0.1 247inc.net
 127.0.0.1 247realmedia.org
@@ -64,12 +57,10 @@
 127.0.0.1 3c22db1a50.com
 127.0.0.1 3gl.net
 127.0.0.1 3lift.com
-127.0.0.1 45.gs
 127.0.0.1 4armn.com
 127.0.0.1 4nabs.com
 127.0.0.1 4u.pl
 127.0.0.1 4wmarketplace.com
-127.0.0.1 5293.com
 127.0.0.1 52zfu.com
 127.0.0.1 53b270bc32.com
 127.0.0.1 58dac16e7b2c86c19cfe48914a6e8fcdac9ae06fe5cf53369beaa45b.com
@@ -77,13 +68,6 @@
 127.0.0.1 5f154926ee0c17ce06289b7825d08fb877f8ebe8d635b65622ce8a2f.com
 127.0.0.1 5min.com
 127.0.0.1 5umpz4evlgkm.com
-127.0.0.1 6001888.com
-127.0.0.1 6002888.com
-127.0.0.1 6003388.com
-127.0.0.1 6004888.com
-127.0.0.1 6005888.com
-127.0.0.1 6007888.com
-127.0.0.1 6009888.com
 127.0.0.1 63squares.com
 127.0.0.1 65twenty.com
 127.0.0.1 6sc.co
@@ -92,16 +76,8 @@
 127.0.0.1 7a75ebcbd7.com
 127.0.0.1 7eer.net
 127.0.0.1 800omnture.com
-127.0.0.1 8022888.com
-127.0.0.1 8082888.com
-127.0.0.1 8083888.com
-127.0.0.1 8087888.com
-127.0.0.1 8099888.com
 127.0.0.1 8392c6e79df6ad8a3ab1fa972ec327855198c2d4cdf46aacc93d0c76.com
-127.0.0.1 8866786.com
 127.0.0.1 8jay04c4q7te.com
-127.0.0.1 950958.com
-127.0.0.1 95095.com
 127.0.0.1 9c9media.ca
 127.0.0.1 9mediaonline.com
 127.0.0.1 9nl.com
@@ -195,7 +171,6 @@
 127.0.0.1 adinfuse.com
 127.0.0.1 adio.co
 127.0.0.1 adixo.com
-127.0.0.1 adjoe.zone
 127.0.0.1 adjust.com
 127.0.0.1 adk2x.com
 127.0.0.1 adkernel.com
@@ -260,13 +235,10 @@
 127.0.0.1 ads2.jenite.bg
 127.0.0.1 ads4apps.net
 127.0.0.1 adsafeprotected.com
-127.0.0.1 ads-ai.com
 127.0.0.1 adsclean.com
 127.0.0.1 adsegments.imgs.sapo.pt
 127.0.0.1 adserv.com
-127.0.0.1 adserve.zone
 127.0.0.1 adsessionserv.com
-127.0.0.1 ads-for-apps.com
 127.0.0.1 adsgaga.com
 127.0.0.1 adsgainer.com
 127.0.0.1 adshole.click
@@ -366,7 +338,6 @@
 127.0.0.1 aj2113.online
 127.0.0.1 aj2204.online
 127.0.0.1 aj2295.online
-127.0.0.1 aj2550.bid
 127.0.0.1 ak-is2.net
 127.0.0.1 akisinn.info
 127.0.0.1 akisinn.site
@@ -409,7 +380,6 @@
 127.0.0.1 altmetric.com
 127.0.0.1 alxbgo.com
 127.0.0.1 amazingcounters.com
-127.0.0.1 amazon-adsystem.com
 127.0.0.1 amazonpay.com
 127.0.0.1 amenityleisurelydays.com
 127.0.0.1 amessagewithabottle.com
@@ -710,7 +680,6 @@
 127.0.0.1 bande2az.com
 127.0.0.1 bandsaislevow.com
 127.0.0.1 bankerconcludeshare.com
-127.0.0.1 bannermeter.com
 127.0.0.1 barakus.tiscali.com
 127.0.0.1 barra.iol.pt
 127.0.0.1 barranew.iol.pt
@@ -973,7 +942,6 @@
 127.0.0.1 campaignmonitor.com
 127.0.0.1 canddi.business
 127.0.0.1 canddi.deals
-127.0.0.1 canddi.download
 127.0.0.1 canddi.email
 127.0.0.1 canddi.guru
 127.0.0.1 canddi.io
@@ -1110,7 +1078,6 @@
 127.0.0.1 clicktracks.org
 127.0.0.1 clicktracks.us
 127.0.0.1 clicktripz.com
-127.0.0.1 click-trk.com
 127.0.0.1 clickwindow.com
 127.0.0.1 clickwindow.net
 127.0.0.1 clickz.gettraffic.com
@@ -1415,7 +1382,6 @@
 127.0.0.1 curulate.com
 127.0.0.1 cusperbid.com
 127.0.0.1 custobar.com
-127.0.0.1 custom.bnc.lt
 127.0.0.1 custom-emailing.com
 127.0.0.1 customerevents.dradis.netflix.com
 127.0.0.1 customerjourney.com
@@ -2219,7 +2185,6 @@
 127.0.0.1 everesttech.net
 127.0.0.1 e-volution.ai
 127.0.0.1 evzhzppj5kel.com
-127.0.0.1 ewoverth.buzz
 127.0.0.1 examinationevolutionmingle.com
 127.0.0.1 excfgfile-vivofs-asia.vivo.com.cn
 127.0.0.1 exclamationresound.com
@@ -2589,7 +2554,6 @@
 127.0.0.1 hammockpublisherillumination.com
 127.0.0.1 hamsterginger.com
 127.0.0.1 hanapinmarketing.com
-127.0.0.1 hand.bid
 127.0.0.1 handbid.com
 127.0.0.1 handymansurrender.com
 127.0.0.1 hannahdrovebible.com
@@ -2610,7 +2574,6 @@
 127.0.0.1 helloworldmail.com
 127.0.0.1 helloworldptqa.com
 127.0.0.1 helpscout.net
-127.0.0.1 hematery.buzz
 127.0.0.1 hermichermicfurnished.com
 127.0.0.1 heronpartners.com.au
 127.0.0.1 highconvertingformats.com
@@ -2810,7 +2773,6 @@
 127.0.0.1 info.kugou.com
 127.0.0.1 infonline.de
 127.0.0.1 infostars.ru
-127.0.0.1 ingest.sentry.io
 127.0.0.1 inhabitsensationdeadline.com
 127.0.0.1 initiallycompetitionunderwear.com
 127.0.0.1 injusticeamend.com
@@ -2981,7 +2943,6 @@
 127.0.0.1 korrelate.com
 127.0.0.1 krxd.net
 127.0.0.1 ksdns.seed.net.tw
-127.0.0.1 ksehinkitw.hair
 127.0.0.1 ksmobile.com
 127.0.0.1 ku2d3a7pa8mdi.com
 127.0.0.1 kz-onrt-stsdk.vivoglobal.com
@@ -5120,7 +5081,6 @@
 127.0.0.1 popxperts.com
 127.0.0.1 pornarea51.com
 127.0.0.1 porovname.cz
-127.0.0.1 portbay.trade
 127.0.0.1 poshhateful.com
 127.0.0.1 possessedcrackinghart.com
 127.0.0.1 possessionaddictedflight.com
@@ -5363,7 +5323,6 @@
 127.0.0.1 relateddigital.com
 127.0.0.1 relationsquiver.com
 127.0.0.1 relay1.medtronic.com
-127.0.0.1 relay.bid
 127.0.0.1 relay.mod.uk
 127.0.0.1 relentlo.com
 127.0.0.1 relevancegraph.mobi
@@ -5526,7 +5485,6 @@
 127.0.0.1 rvty.net
 127.0.0.1 rwadx.com
 127.0.0.1 rxpsaofevrikmi.com
-127.0.0.1 s01.riotpixels.net
 127.0.0.1 s1.ns.slt.lk
 127.0.0.1 s2.ns.slt.lk
 127.0.0.1 s3xified.com
@@ -5935,7 +5893,6 @@
 127.0.0.1 spoteffects.com
 127.0.0.1 spoteffects.net
 127.0.0.1 spot.im
-127.0.0.1 spotim.market
 127.0.0.1 spotunworthycoercive.com
 127.0.0.1 spotxchange.com
 127.0.0.1 spotx.tv
@@ -6165,7 +6122,6 @@
 127.0.0.1 theta.uoks.uj.edu.pl
 127.0.0.1 thing1.infolink.com
 127.0.0.1 thing2.infolink.com
-127.0.0.1 thirdparty.bnc.lt
 127.0.0.1 thirdwatch.ai
 127.0.0.1 thisisarray.com
 127.0.0.1 thispick.com
@@ -6328,7 +6284,6 @@
 127.0.0.1 tronc.com
 127.0.0.1 trotteur.globetrotter.qc.ca
 127.0.0.1 troy.ndak.net
-127.0.0.1 truffle.bid
 127.0.0.1 truste.com
 127.0.0.1 trustedcpmrevenue.com
 127.0.0.1 trustedgatetocontent.com
@@ -6649,7 +6604,6 @@
 127.0.0.1 win.hallym.ac.kr
 127.0.0.1 winner.hallym.ac.kr
 127.0.0.1 wishesantennarightfully.com
-127.0.0.1 wisokykulas.bid
 127.0.0.1 wistia.net
 127.0.0.1 wkqcnkstso.com
 127.0.0.1 wmgroup.us
