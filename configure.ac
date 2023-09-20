@@ -19,8 +19,8 @@
 # files are stored on your system.
 
 
-AC_PREREQ([2.68])
-AC_INIT(fdns, 0.9.69, netblue30@protonmail.com, , https://firejaildns.wordpress.com)
+AC_PREREQ([2.71])
+AC_INIT([fdns],[0.9.72],[netblue30@protonmail.com],[],[https://firejaildns.wordpress.com])
 AC_CONFIG_SRCDIR([src/fdns/main.c])
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -110,12 +110,12 @@ fi
 # set systemd unit file
 SYSTEMD_DIR="$sysconfdir/fdns"
 AC_ARG_WITH([systemd],
-        AC_HELP_STRING([--with-systemd=DIR],
-	[Pathname to systemd unit directory. Without this option, a copy of the unit file is installed in ${sysconfdir}/fdns directory]),
+        AS_HELP_STRING([--with-systemd=DIR],[Pathname to systemd unit directory. Without this option, a copy of the unit file is installed in ${sysconfdir}/fdns directory]),
 	[SYSTEMD_DIR="$withval"])
 AC_SUBST(SYSTEMD_DIR)
 
-AC_OUTPUT(Makefile src/common.mk src/fdns/Makefile src/nxdomain/Makefile)
+AC_CONFIG_FILES([Makefile src/common.mk src/fdns/Makefile src/nxdomain/Makefile])
+AC_OUTPUT
 
 echo
 echo "Configuration options:"
