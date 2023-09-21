@@ -40,7 +40,6 @@ distclean: clean
 		$(MAKE) -C $$dir distclean; \
 	done
 	rm -fr Makefile autom4te.cache config.log config.status config.h src/common.mk
-	rm -fr src/cashpack-0.3
 
 realinstall:
 	# fdns executable
@@ -102,7 +101,7 @@ uninstall:
 	done
 	rm -f $(DESTDIR)/$(datarootdir)/bash-completion/completions/fdns
 
-DISTFILES = "src etc platform test configure configure.ac Makefile.in install.sh mkman.sh mkdeb.sh COPYING README RELNOTES"
+DISTFILES = "src etc platform test configure configure.ac Makefile.in install.sh mkasc.sh mkman.sh mkdeb.sh COPYING README RELNOTES"
 
 dist:
 	mv config.status config.status.old
