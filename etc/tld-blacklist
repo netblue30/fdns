@@ -42,3 +42,8 @@
 127.0.0.1 bazar
 127.0.0.1 coin
 127.0.0.1 buzz
+
+// .top domains are often used for malware and phishing, and the TLD is included in the list of those banned
+// for some antimalware vendors such as Malwarebytes .top is blocked by default by Snort rules.
+// https://en.wikipedia.org/wiki/.top
+127.0.0.1 top
