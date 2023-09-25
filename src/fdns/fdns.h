@@ -130,12 +130,12 @@ static inline int rand_range(int min, int max) {
 // filesystem paths
 #define PATH_FDNS (PREFIX "/bin/fdns")
 #define PATH_RUN_FDNS "/run/fdns"
-#define PATH_ETC_TRACKERS_LIST (SYSCONFDIR "/trackers")
-#define PATH_ETC_FP_TRACKERS_LIST (SYSCONFDIR "/fp-trackers")
-#define PATH_ETC_ADBLOCKER_LIST (SYSCONFDIR "/adblocker")
-#define PATH_ETC_COINBLOCKER_LIST (SYSCONFDIR "/coinblocker")
-#define PATH_ETC_PHISHING_LIST (SYSCONFDIR "/phishing")
-#define PATH_ETC_TLD_LIST (SYSCONFDIR "/tld-blacklist")
+#define PATH_ETC_TRACKERS_LIST (SYSCONFDIR "/list.trackers")
+#define PATH_ETC_FP_TRACKERS_LIST (SYSCONFDIR "/list.fp-trackers")
+#define PATH_ETC_ADBLOCKER_LIST (SYSCONFDIR "/list.adblocker")
+#define PATH_ETC_COINBLOCKER_LIST (SYSCONFDIR "/list.coinblocker")
+#define PATH_ETC_PHISHING_LIST (SYSCONFDIR "/list.phishing")
+#define PATH_ETC_TLD_LIST (SYSCONFDIR "/list.tld-blacklist")
 #define PATH_ETC_HOSTS_LIST (SYSCONFDIR "/hosts")
 #define PATH_ETC_SERVER_LIST (SYSCONFDIR "/servers")
 #define PATH_ETC_SERVER_LOCAL_LIST (SYSCONFDIR "/servers.local")
