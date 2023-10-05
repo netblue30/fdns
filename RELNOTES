@@ -1,4 +1,4 @@
-fdns (0.9.78) baseline; urgency=low
+fdns (0.9.72) baseline; urgency=low
   * more nxdomain development
   * removed --zone option
   * removed admin-down flag from servers file
