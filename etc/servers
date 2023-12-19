@@ -161,6 +161,14 @@ keepalive: 40
 end;
 ############################
 
+name: 0ms
+website: https://0ms.dev/
+tags: adblocker, Singapore, AsiaPacific
+address: 91.199.87.89:443
+host: cdn.0ms.dev/dns-query
+keepalive: 40
+end;
+
 name: 42l
 website: https://42l.fr
 tags: France, Europe
@@ -390,11 +398,28 @@ end;
 #keepalive: 25
 #end;
 
+name: andrew
+website: https://blog.cybershell.xyz/page/services-6367519a3e34207f1d323d5a
+tags: safe-for-work
+address: 135.181.83.162:443
+host: dns.andrewnw.xyz/dns-query
+keepalive: 40
+end;
+
 name: artikel10
 website: https://dns.artikel10.org
 tags: Netherlands, Europe
-address: 45.151.167.2:443
+address: 217.197.91.153:443
 host: dns.artikel10.org/dns-query
+keepalive: 40
+end;
+
+name: artikel10-dot
+website: https://dns.artikel10.org
+tags: Netherlands, Europe
+address: 217.197.91.153:853
+host: dns.artikel10.org/
+transport: dot
 keepalive: 40
 end;
 
@@ -405,6 +430,14 @@ address: 146.255.56.98:443
 host: doh.applied-privacy.net/query
 sni: yes
 keepalive: 25
+end;
+
+name: aquilenet
+website: https://www.aquilenet.fr/
+tags: France, Europe
+address: 45.67.81.23:443
+host: dns.aquilenet.fr/dns-query
+keepalive: 40
 end;
 
 name: avast
@@ -418,15 +451,24 @@ end;
 
 name: bebasid
 website: https://github.com/bebasid/bebasdns
-tags: adblocker, OpenNIC, Malaysia, AsiaPacific
+tags: adblocker, OpenNIC, Malaysia, Indonesia, AsiaPacific
 address: 103.87.68.194:443
 host: dns.bebasid.com/dns-query
 keepalive: 25
 end;
 
+name: bebasid-dot
+website: https://github.com/bebasid/bebasdns
+tags: adblocker, OpenNIC, Malaysia, Indonesia, AsiaPacific
+address: 103.87.68.194:853
+host: dns.bebasid.com/
+transport: dot
+keepalive: 25
+end;
+
 name: bebasid-unfiltered
 website: https://github.com/bebasid/bebasdns
-tags: OpenNIC, Malaysia, AsiaPacific
+tags: OpenNIC, Malaysia, Indonesia, AsiaPacific
 address: 103.87.68.194:443
 host: unfiltered.dns.bebasid.com/dns-query
 keepalive: 25
@@ -504,13 +546,13 @@ host: dns.blokada.org/dns-query
 keepalive: 40
 end;
 
-name: bortzmeyer
-website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
-tags: France, Europe
-address: 193.70.85.11:443
-host: doh.bortzmeyer.fr/
-keepalive: 25
-end;
+#name: bortzmeyer
+#website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
+#tags: France, Europe
+#address: 193.70.85.11:443
+#host: doh.bortzmeyer.fr/
+#keepalive: 25
+#end;
 
 # blocking subnets of known datacenters using https://github.com/brahma-dev/ufw-bots
 name: brahmaworld
@@ -707,6 +749,15 @@ host: freedns.controld.com/p0
 keepalive: 40
 end;
 
+name: controld-dot
+website: https://controld.com/free-dns/
+tags: anycast, Americas, AsiaPacific, Europe
+address: 76.76.2.11:853
+host: freedns.controld.com/
+transport: dot
+keepalive: 25
+end;
+
 name: controld-security
 website: https://controld.com/free-dns/
 tags: security, adblocker, anycast, Americas, AsiaPacific, Europe
@@ -720,6 +771,17 @@ website: https://controld.com/free-dns/
 tags: family
 address: 76.76.2.11:443
 host: freedns.controld.com/family
+keepalive: 40
+end;
+
+
+# cloudflare redirect
+name: cynthialabs
+website: https://cynthialabs.net/
+tags: geolocation, Americas, AsiaPacific, Europe, adblocker
+address: dns.cynthialabs.net:443
+host: dns.cynthialabs.net/dns-query
+sni: yes
 keepalive: 40
 end;
 
@@ -757,25 +819,6 @@ host: dns.digitale-gesellschaft.ch/dns-query
 keepalive: 25
 end;
 
-# short keepalive
-#name: digital-society-dot
-#website: https://www.digitale-gesellschaft.ch
-#tags: Switzerland, Europe
-#address: 185.95.218.42:853
-#host: dns.digitale-gesellschaft.ch/
-#keepalive: 25
-#transport: dot
-#end;
-
-# short keepalive
-#name: digital-society-dot2
-#website: https://www.digitale-gesellschaft.ch
-#tags: Switzerland, Europe
-#address: 185.95.218.43:853
-#host: dns.digitale-gesellschaft.ch/dns-query
-#keepalive: 7
-#transport: dot
-#end;
 
 # short keepalive
 #name: digitalsize
@@ -790,7 +833,7 @@ end;
 #name: dismail-dot
 #website: https://dismail.de/info.html
 #tags: adblocker, Germany, Europe
-#address: 80.241.218.68:853
+#address: 116.203.32.217:853
 #host: fdns1.dismail.de/
 #keepalive: 25
 #transport: dot
@@ -814,12 +857,30 @@ host: zero.dns0.eu/
 keepalive: 40
 end;
 
+name: dns0eu-dot
+website: https://dns0.eu
+tags: security, anycast, Europe
+address: 193.110.81.9:853
+host: zero.dns0.eu/
+keepalive: 40
+transport: dot
+end;
+
 name: dns0eu-2
 website: https://dns0.eu
 tags: security, anycast, Europe
 address: 185.253.5.9:443
 host: zero.dns0.eu/
 keepalive: 40
+end;
+
+name: dns0eu-dot2
+website: https://dns0.eu
+tags: security, anycast, Europe
+address: 185.253.5.9:853
+host: zero.dns0.eu/
+keepalive: 40
+transport: dot
 end;
 
 name: dns0eu-family
@@ -830,12 +891,30 @@ host: kids.dns0.eu/
 keepalive: 40
 end;
 
+name: dns0eu-family-dot
+website: https://dns0.eu
+tags: family
+address: 193.110.81.1:853
+host: kids.dns0.eu/
+keepalive: 40
+transport: dot
+end;
+
 name: dns0eu-family-2
 website: https://dns0.eu
 tags: family
 address: 185.253.5.1:443
 host: kids.dns0.eu/
 keepalive: 40
+end;
+
+name: dns0eu-family-dot2
+website: https://dns0.eu
+tags: family
+address: 185.253.5.1:853
+host: kids.dns0.eu/
+keepalive: 40
+transport: dot
 end;
 
 name: dns-sb1
@@ -955,6 +1034,24 @@ sni: yes
 keepalive: 40
 end;
 
+name: dns-sb-us2
+website: https://dns.sb/doh
+tags: US, Americas
+address: us-nyc.doh.sb:443
+host: us-nyc.doh.sb/dns-query
+sni: yes
+keepalive: 40
+end;
+
+name: dns-sb-us3
+website: https://dns.sb/doh
+tags: US, Americas
+address: us-sjc.doh.sb:443
+host: us-sjc.doh.sb/dns-query
+sni: yes
+keepalive: 40
+end;
+
 name: dns-sb-in
 website: https://dns.sb/doh
 tags: India, AsiaPacific
@@ -1000,6 +1097,15 @@ sni: yes
 keepalive: 40
 end;
 
+name: dns-sb-de3
+website: https://dns.sb/doh
+tags: Canada, Americas
+address: de-ber.doh.sb:443
+host: de-ber.doh.sb/dns-query
+sni: yes
+keepalive: 40
+end;
+
 #name: dns-watch
 #website: https://dns.watch/
 #tags: admin-down, Germany, Europe
@@ -1024,24 +1130,6 @@ host: dns2.dnscrypt.ca:453/dns-query
 keepalive: 40
 end;
 
-# expired cert
-#name: dnscrypt-uk
-#website: https://dnscrypt.uk/
-#tags: admin-down, UK, Europe
-#address: 165.227.233.200:443
-#host: doh.dnscrypt.uk/dns-query
-#keepalive: 40
-#end;
-
-# expired cert
-#name: dnscrypt-uk2
-#website: https://dnscrypt.uk/
-#tags: admin-down, UK, Europe
-#address: 136.244.65.20:443
-#host: v.dnscrypt.uk/dns-query
-#keepalive: 40
-#end;
-
 name: dnsforfamily
 website: https://dnsforfamily.com
 tags: family
@@ -1062,11 +1150,27 @@ end;
 # short keepalive
 #name: dnsforge
 #website: https://dnsforge.de
-#tags: admin-down, Germany, Europe, adblocker
+#tags: Germany, Europe, adblocker
 #address: 176.9.93.198:443
 #host: dnsforge.de/dns-query
 #keepalive: 7
 #end;
+
+name: dnsforge-family1
+website: https://dnsforge.de
+tags: family
+address: 49.12.223.2:443
+host: clean.dnsforge.de/dns-query
+keepalive: 40
+end;
+
+name: dnsforge-family2
+website: https://dnsforge.de
+tags: family
+address: 49.12.43.208:443
+host: clean.dnsforge.de/dns-query
+keepalive: 40
+end;
 
 name: dnshome
 website: https://www.dnshome.de/doh-dot-public-resolver.php
@@ -1084,6 +1188,14 @@ host: dns.dnshome.de/dns-query
 keepalive: 25
 end;
 
+name: dnslow
+website: https://dnslow.me/
+tags: adblocker, Japan, AsiaPacific
+address: 52.246.182.50:443
+host: dnslow.me/dns-query
+keepalive: 40
+end;
+
 name: dnswarden
 website: https://github.com/bhanupratapys/dnswarden
 tags: geocast, Americas, AsiaPacific, Europe, Germany, Singapore, US
@@ -1091,6 +1203,16 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
 sni: yes
 keepalive: 25
+end;
+
+name: dnswarden-dot
+website: https://github.com/bhanupratapys/dnswarden
+tags: geocast, Americas, AsiaPacific, Europe, Germany, Singapore, US
+address: uncensored.dns.dnswarden.com:853
+host: uncensored.dns.dnswarden.com/
+sni: yes
+keepalive: 25
+transport: dot
 end;
 
 name: dnswarden-adblocker
@@ -1102,6 +1224,16 @@ sni: yes
 keepalive: 25
 end;
 
+name: dnswarden-adblocker-dot
+website: https://github.com/bhanupratapys/dnswarden
+tags: geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
+address: adblock.dns.dnswarden.com:853
+host: adblock.dns.dnswarden.com/
+sni: yes
+keepalive: 25
+transport: dot
+end;
+
 name: dnswarden-family
 website: https://github.com/bhanupratapys/dnswarden
 tags: family
@@ -1111,23 +1243,15 @@ sni: yes
 keepalive: 25
 end;
 
-# self signed certs
-#name: edgy
-#website: https://edgy.network/
-#tags: admin-down, adblocker, OpenNIC, Indonesia, AsiaPacific
-#address: 27.112.79.80:443
-#host: dns.edgy.network/dns-query
-#keepalive: 40
-#end;
-
-#name: edgy-dot
-#website: https://edgy.network/
-#tags: admin-down, adblocker, OpenNIC, Indonesia, AsiaPacific
-#address: 27.112.79.80:853
-#host: dns.edgy.network/
-#transport: dot
-#keepalive: 40
-#end;
+name: dnswarden-family-dot
+website: https://github.com/bhanupratapys/dnswarden
+tags: family
+address: adultfilter.dns.dnswarden.com:853
+host: adultfilter.dns.dnswarden.com/
+sni: yes
+keepalive: 25
+transport: dot
+end;
 
 # ns8.he.de.dns.opennic.glue
 # http/1.1
@@ -1213,6 +1337,22 @@ host: rdns.faelix.net/
 keepalive: 25
 end;
 
+name: fdn
+website: https://www.fdn.fr/
+tags: French, Europe
+address: 80.67.169.12:443
+host: ns0.fdn.fr/dns-query
+keepalive: 25
+end;
+
+name: fdn2
+website: https://www.fdn.fr/
+tags: French, Europe
+address: 80.67.169.40:443
+host: ns1.fdn.fr/dns-query
+keepalive: 25
+end;
+
 name: ffmuc
 website: https://ffmuc.net/
 tags: Germany, Europe
@@ -1222,38 +1362,29 @@ sni: yes
 keepalive: 40
 end;
 
-#name: flokinet-nl
-#website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-#tags: Netherlands, Europe
-#address: 185.246.188.51:443
-#host: nl.resolv.flokinet.net/dns-query
-#keepalive: 25
-#end;
-#
-#name: flokinet-ro
-#website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-#tags: Romania, Europe
-#address: 185.246.188.51:443
-#host: ro.resolv.flokinet.net/dns-query
-#keepalive: 25
-#end;
+name: flokinet
+website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
+tags: anycast, Europe
+address: 37.156.68.20:443
+host: nl.resolv.flokinet.net/dns-query
+keepalive: 25
+end;
 
 name: flokinet-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Europe
+tags: anycast, Europe
 address: 37.156.68.20:853
 host: nl.resolv.flokinet.net/
 keepalive: 25
 transport: dot
 end;
 
-name: flokinet-nl-dot
+name: flokinet-ro
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Netherlands, Europe
-address: 185.246.188.51:853
-host: nl.resolv.flokinet.net/
+tags: Romania, Europe
+address: 185.246.188.51:443
+host: ro.resolv.flokinet.net/dns-query
 keepalive: 25
-transport: dot
 end;
 
 name: flokinet-ro-dot
@@ -1265,26 +1396,22 @@ keepalive: 25
 transport: dot
 end;
 
+name: flokinet-nl
+website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
+tags: Netherlands, Europe
+address: 185.246.188.51:443
+host: nl.resolv.flokinet.net/dns-query
+keepalive: 25
+end;
 
-
-
-
-#name: flatuslifir
-#website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-#tags: admin-down, Iceland, Europe
-#address: 46.239.223.80:443
-#host: dns.flatuslifir.is/dns-query
-#keepalive: 40
-#end;
-#
-#name: flatuslifir-dot
-#website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-#tags: admin-down, Iceland, Europe
-#address: 46.239.223.80:853
-#host: dns.flatuslifir.is/
-#transport: dot
-#keepalive: 25
-#end;
+name: flokinet-nl-dot
+website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
+tags: Netherlands, Europe
+address: 185.246.188.51:853
+host: nl.resolv.flokinet.net/
+keepalive: 25
+transport: dot
+end;
 
 name: flutadns
 website: https://site.futa.gg/
@@ -1322,28 +1449,21 @@ keepalive: 40
 transport: dot
 end;
 
-name: heliumcloud
-website: https://servers.opennic.org/edit.php?srv=ns2.nj.us.dns.opennic.glue
-tags: OpenNIC, US, Americas
-address: 104.248.14.193:443
-host: us-ny-alula.heliumcloud.cc/dns-query
-keepalive: 25
-end;
-
-name: hostux
-website: https://hostux.network/en/index.html
-tags: Luxembourg, Europe
-address: 46.226.108.173:443
-host: dns.hostux.net/dns-query
-keepalive: 25
-end;
+# connected fine, cannot resolve domains
+#name: hostux
+#website: https://hostux.network/en/index.html
+#tags: Luxembourg, Europe
+#address: 46.226.108.173:443
+#host: dns.hostux.net/dns-query
+#keepalive: 40
+#end;
 
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
 tags: Luxembourg, Europe, adblocker
 address: 46.226.109.82:443
 host: dns.hostux.net/ads
-keepalive: 25
+keepalive: 40
 end;
 
 #name: i2pd
@@ -1363,14 +1483,25 @@ end;
 #keepalive: 40
 #end;
 
-#name: lavadns-us
-#website: https://dns.lavate.ch
-#tags: admin-down, OpenNIC, US, Americas
-#address: 79.110.170.43:443
-#host: us1.dns.lavate.ch/dns-query
-#keepalive: 40
-#end;
+name: lacontrevoie
+website: https://hostux.network/en/index.html
+tags: France, Europe
+address: 45.155.171.163:443
+host: doh.lacontrevoie.fr/dns-query
+keepalive: 40
+sni: yes
+end;
 
+# using HTTP 1.1
+name: lavadns-us
+website: https://dns.lavate.ch
+tags: OpenNIC, US, Americas
+address: 79.110.170.43:443
+host: us1.dns.lavate.ch/dns-query
+keepalive: 40
+end;
+
+# using HTTP 1.1
 name: lavadns-fi
 website: https://dns.lavate.ch
 tags: OpenNIC, Finland, Europe
@@ -1379,13 +1510,22 @@ host: eu1.dns.lavate.ch/dns-query
 keepalive: 40
 end;
 
+# using HTTP 1.1
 #name: lavadns-de
 #website: https://dns.lavate.ch
-#tags: admin-down, OpenNIC, Germany, Europe
+#tags: OpenNIC, Germany, Europe
 #address: 130.61.185.42:443
 #host: eu2.dns.lavate.ch/dns-query
 #keepalive: 40
 #end;
+
+name: lefolgoc
+website: https://yarp.lefolgoc.net/
+tags: France, Europe
+address: 5.39.88.20:443
+host: yarp.lefolgoc.net/dns-query
+keepalive: 40
+end;
 
 # using HTTP 1.1
 name: li
@@ -1421,14 +1561,95 @@ host: doh.libredns.gr/noads
 keepalive: 25
 end;
 
-# short keepalive
-#name: meganerd
-#website: https://meganerd.nl/encrypted-dns-server
-#tags: Netherlands, Europe
-#address: 136.244.97.114:443
-#host: chewbacca.meganerd.nl/dns-query
-#keepalive: 7
-#end;
+name: lonet
+website: https://lonet.org/service/dns
+tags: Germany, Europe, adblocker
+address: 185.183.156.85:443
+host: doh.phdns1.lonet.org/dns-query
+keepalive: 25
+sni: yes
+end;
+
+name: lonet-dot
+website: https://lonet.org/service/dns
+tags: Germany, Europe, adblocker
+address: 185.183.156.85:853
+host: doh.phdns1.lonet.org/
+keepalive: 25
+transport: dot
+end;
+
+name: lonet2
+website: https://lonet.org/service/dns
+tags: Germany, Europe, adblocker
+address: 217.160.191.192:443
+host: doh.phdns2.lonet.org/dns-query
+keepalive: 25
+sni: yes
+end;
+
+name: lonet2-dot
+website: https://lonet.org/service/dns
+tags: Germany, Europe, adblocker
+address: 217.160.191.192:853
+host: doh.phdns2.lonet.org/
+keepalive: 25
+transport: dot
+end;
+
+name: lonet3
+website: https://lonet.org/service/dns
+tags: US, Americas, adblocker
+address: 74.208.85.60:443
+host: doh.phdns3.lonet.org/dns-query
+keepalive: 25
+sni: yes
+end;
+
+name: lonet3-dot
+website: https://lonet.org/service/dns
+tags: US, Americas, adblocker
+address: 74.208.85.60:853
+host: doh.phdns3.lonet.org/
+keepalive: 25
+transport: dot
+end;
+
+name: lonet4
+website: https://lonet.org/service/dns
+tags: Spain, Europe, adblocker
+address: 82.223.114.172:443
+host: doh.phdns4.lonet.org/dns-query
+keepalive: 25
+sni: yes
+end;
+
+name: lonet4-dot
+website: https://lonet.org/service/dns
+tags: Spain, Europe, adblocker
+address: 82.223.114.172:853
+host: doh.phdns4.lonet.org/
+keepalive: 25
+transport: dot
+end;
+
+name: lonet5
+website: https://lonet.org/service/dns
+tags: UK, Europe, adblocker
+address: 77.68.116.22:443
+host: doh.phdns5.lonet.org/dns-query
+keepalive: 25
+sni: yes
+end;
+
+name: lonet5-dot
+website: https://lonet.org/service/dns
+tags: UK, Europe, adblocker
+address: 77.68.116.22:853
+host: doh.phdns5.lonet.org/
+keepalive: 25
+transport: dot
+end;
 
 # running in cloudflare cloud
 #name: mydns-network
@@ -1436,8 +1657,16 @@ end;
 #tags: geocast, Americas, AsiaPacific, Europe
 #address: freedom.mydns.network:443
 #host: freedom.mydns.network/dns-query
-#keepalive: 25
+#keepalive: 40
 #end;
+
+name: ndodev
+website: https://ndo.dev/posts/doh
+tags: Germany, Europe, adblocker
+address: 185.121.71.99:443
+host: dns.ndo.dev/dns-query
+keepalive: 40
+end;
 
 name: nextdns
 website: https://nextdns.io/
@@ -1515,13 +1744,13 @@ keepalive: 25
 transport: dot
 end;
 
-#name: opennameserver2
-#website: https://opennameserver.org/
-#tags: OpenNIC, Germany, Europe
-#address: 178.254.22.166:443
-#host: ns2.opennameserver.org/dns-query
-#keepalive: 25
-#end;
+name: opennameserver2
+website: https://opennameserver.org/
+tags: OpenNIC, Germany, Europe
+address: 178.254.22.166:443
+host: ns2.opennameserver.org/dns-query
+keepalive: 25
+end;
 
 name: opennameserver2-dot
 website: https://opennameserver.org/
@@ -1532,13 +1761,13 @@ keepalive: 25
 transport: dot
 end;
 
-#name: opennameserver3
-#website: https://opennameserver.org/
-#tags: OpenNIC, Germany, Europe
-#address: 81.169.136.222:443
-#host: ns3.opennameserver.org/dns-query
-#keepalive: 25
-#end;
+name: opennameserver3
+website: https://opennameserver.org/
+tags: OpenNIC, Germany, Europe
+address: 81.169.136.222:443
+host: ns3.opennameserver.org/dns-query
+keepalive: 25
+end;
 
 name: opennameserver3-dot
 website: https://opennameserver.org/
@@ -1549,13 +1778,13 @@ keepalive: 25
 transport: dot
 end;
 
-# name: opennameserver4
-# website: https://opennameserver.org/
-# tags: OpenNIC, Norway, Europe
-# address: 185.181.61.24:443
-# host: ns4.opennameserver.org/dns-query
-# keepalive: 25
-# end;
+name: opennameserver4
+website: https://opennameserver.org/
+tags: OpenNIC, Norway, Europe
+address: 185.181.61.24:443
+host: ns4.opennameserver.org/dns-query
+keepalive: 25
+end;
 
 name: opennameserver4-dot
 website: https://opennameserver.org/
@@ -1586,14 +1815,13 @@ end;
 #keepalive: 40
 #end;
 
-# short keepalive
-#name: qquackdns
-#website: https://qquack.org/nameserver/
-#tags: Korea, AsiaPacific
-#address: ns1.qquack.org:443
-#host: ns1.qquack.org/dns-query
-#keepalive: 40
-#end;
+name: qquackdns
+website: https://qquack.org/nameserver/
+tags: Korea, AsiaPacific
+address: ns1.qquack.org:443
+host: ns1.qquack.org/dns-query
+keepalive: 40
+end;
 
 name: quad9
 website: https://quad9.net
@@ -1635,6 +1863,41 @@ host: dns10.quad9.net/dns-query
 keepalive: 25
 end;
 
+name: quadrantsec
+website: https://quadrantsec.com/blog/quadrants-public-dns-resolver-tls-https-support
+tags: US, Americas
+address: 12.159.2.159:443
+host: doh.qis.io/dns-query
+keepalive: 40
+end;
+
+name: quadrantsec-dot
+website: https://quadrantsec.com/blog/quadrants-public-dns-resolver-tls-https-support
+tags: US, Americas
+address: 12.159.2.159:853
+host: doh.qis.io/dns-query
+keepalive: 25
+transport: dot
+end;
+
+name: r0cket
+website: https://dns.radeksprta.eu/
+tags: Sweden, Europe
+address: 185.243.23.151:443
+host: resolver.r0cket.net/dns-query
+keepalive: 40
+end;
+
+# 10 sec keepalive
+#name: r0cket-dot
+#website: https://dns.radeksprta.eu/
+#tags: Sweden, Europe
+#address: 185.243.23.151:853
+#host: resolver.r0cket.net/
+#keepalive: 40
+#transport: dot
+#end;
+
 name: radeksprta-dot
 website: https://dns.radeksprta.eu/
 tags: OpenNIC, Czechia, Europe
@@ -1673,15 +1936,15 @@ sni: yes
 keepalive: 40
 end;
 
-# self-signed cert
-#name: rumpelsepp
-#website: https://rumpelsepp.org/2020/03/10/announcing-dns-query.html
-#tags: admin-down, Germany, Europe
-#address: 116.203.179.248:443
-#sni: yes
-#host: rumpelsepp.org/dns-query
-#keepalive: 40
-#end;
+# redirected to cloudflare
+name: rotunneling
+website: https://www.rotunneling.net/rotunneling-doh-free/
+tags: adblocker, Romania, Europe
+address: dns.rotunneling.net:443
+host: dns.rotunneling.net/dns-query/public
+sni: yes
+keepalive: 40
+end;
 
 name: ryan-palmer
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
@@ -1691,13 +1954,13 @@ host: ns1.ryan-palmer.com/dns-query
 keepalive: 25
 end;
 
-name: seby
-website: https://dns.seby.io
-tags: Australia, AsiaPacific, OpenNIC
-address: 45.76.113.31:443
-host: dns.seby.io/dns-query
-keepalive: 7
-end;
+#name: seby
+#website: https://dns.seby.io
+#tags: Australia, AsiaPacific, OpenNIC
+#address: 45.76.113.31:443
+#host: dns.seby.io/dns-query
+#keepalive: 7
+#end;
 
 # name: seby-dot
 # website: https://dns.seby.io
@@ -1708,22 +1971,22 @@ end;
 # keepalive: 7
 # end;
 
-name: seby2
-website: https://dns.seby.io
-tags: Australia, AsiaPacific, OpenNIC
-address: 139.99.222.72:443
-host: doh-2.seby.io/dns-query
-keepalive: 7
-end;
+#name: seby2
+#website: https://dns.seby.io
+#tags: Australia, AsiaPacific, OpenNIC
+#address: 139.99.222.72:443
+#host: doh-2.seby.io/dns-query
+#keepalive: 7
+#end;
 
-name: seby2-dot
-website: https://dns.seby.io
-tags: Australia, AsiaPacific, OpenNIC
-address: 139.99.222.72:853
-host: doh-2.seby.io/
-transport: dot
-keepalive: 40
-end;
+#name: seby2-dot
+#website: https://dns.seby.io
+#tags: Australia, AsiaPacific, OpenNIC
+#address: 139.99.222.72:853
+#host: doh-2.seby.io/
+#transport: dot
+#keepalive: 40
+#end;
 
 name: sev.monster
 website: https://sev.monster/
@@ -1741,14 +2004,14 @@ host: dns.sellan.fr/dns-query
 keepalive: 40
 end;
 
-#name: sellan-dot
-#website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-#tags: admin-down, France, Europe
-#address: 78.194.186.17:853
-#host: dns.sellan.fr/
-#transport: dot
-#keepalive: 25
-#end;
+name: sellan-dot
+website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+tags: admin-down, France, Europe
+address: 78.194.186.17:853
+host: dns.sellan.fr/
+transport: dot
+keepalive: 25
+end;
 
 name: switch
 website: https://www.switch.ch/security/info/public-dns/
@@ -1933,6 +2196,23 @@ tags: US, Americas
 address: 167.99.150.134:443
 host: dns.vinnyp.xyz/dns-query
 keepalive: 40
+end;
+
+name: vinnyp-dot
+website: https://dns.vinnyp.xyz/privacy
+tags: US, Americas
+address: 167.99.150.134:853
+host: dns.vinnyp.xyz/dns-query
+keepalive: 40
+transport: dot
+end;
+
+name: wikimedia
+website: https://meta.wikimedia.org/wiki/Wikimedia_DNS
+tags: anycast, Americas, AsiaPacific, Europe
+address: 185.71.138.138:443
+host: wikimedia-dns.org/dns-query
+keepalive: 25
 end;
 
 name: yarp
