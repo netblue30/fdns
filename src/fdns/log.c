@@ -18,19 +18,12 @@
 */
 #include "fdns.h"
 #include "timetrace.h"
-#include <syslog.h>
 
 static LogMsg msg;
-static int disabled = 0;
-
-void log_disable(void) {
-	disabled = 1;
-}
-
 
 // remote logging (resolver processes to frontend process)
 void rlogprintf(const char *format, ...) {
-	if (disabled)
+	if (arg_id == -1)
 		return;
 
 	// initialize packet
@@ -55,25 +48,11 @@ void rlogprintf(const char *format, ...) {
 
 // local logging (monitor process)
 void logprintf(const char *format, ...) {
-	if (disabled)
-		return;
-
 	va_list valist;
 	va_start(valist, format);
 
-	if (arg_daemonize) {
-		if (!arg_disable_syslog) {
-			openlog("fdns", LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
-			vsyslog(LOG_INFO, format, valist);
-			closelog();
-		}
-	}
-	else {
-		// print on stdout
-		if (arg_id != -1)
-			print_time();
-		vprintf(format, valist);
-	}
+	print_time();
+	vprintf(format, valist);
 
 	va_end(valist);
 	fflush(0);

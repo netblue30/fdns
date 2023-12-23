@@ -278,7 +278,6 @@ extern int arg_log_timeout;
 extern char *arg_fallback_server;
 extern char *arg_unlist;
 extern int arg_clean_filters;
-extern int arg_disable_syslog;
 extern Stats stats;
 
 // dnsdb.c
@@ -350,7 +349,6 @@ typedef struct logmsg_t {
 	char buf[MAXMSG]; // text content ending in \0
 } LogMsg;
 
-void log_disable(void);
 // remote logging (resolver processes)
 void rlogprintf(const char *format, ...);
 // local logging (monitor process)
