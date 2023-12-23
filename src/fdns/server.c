@@ -199,11 +199,6 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				unlisted_add(tok2);
 				continue;
 			}
-			else if (strcmp(tok1, "block-doh") == 0) {
-				if (arg_disable_local_doh)
-					filter_serach_add('D', tok2);
-				continue;
-			}
 		}
 
 		if (strcmp(tok1, "end") != 0 && tok2 == NULL) {
@@ -332,10 +327,6 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 
 			if (!s->transport)
 				s->transport = "h2, http/1.1";
-
-			// add host to filter
-			if (arg_disable_local_doh)
-				filter_serach_add('D', s->host);
 
 			return s;
 		}

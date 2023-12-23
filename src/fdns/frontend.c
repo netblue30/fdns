@@ -144,8 +144,6 @@ static int sandbox(void *sandbox_arg) {
 
 	if (arg_allow_all_queries)
 		a[last++] = "--allow-all-queries";
-	if (arg_disable_local_doh)
-		a[last++] = "--disable-local-doh";
 
 	if (arg_cache_ttl != CACHE_TTL_DEFAULT) {
 		char *cmd;
@@ -267,7 +265,7 @@ static void install_signal_handler(void) {
 }
 
 static int is_container(void) {
-	// look at pid 2, this should be kthreadd if there is a Linux kernel running 
+	// look at pid 2, this should be kthreadd if there is a Linux kernel running
 	FILE *fp = fopen("/proc/2/comm", "r");
 	if (!fp)
 		return 1;
@@ -287,7 +285,7 @@ static int is_container(void) {
 	int rv = 1;
 	if (strcmp(buf, "kthreadd") == 0)
 		rv = 0;
-	
+
 	fclose(fp);
 	return rv;
 }
@@ -320,7 +318,7 @@ void frontend(void) {
 		// we are probably  running in a container,
 		// do not advertise fdns in /run/fdns,
 		// and do not log stats in /dev/shm
-		
+
 		// TODO: add support for these cases!
 	}
 	else {

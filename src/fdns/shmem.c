@@ -155,7 +155,6 @@ void shmem_store_stats(const char *proxy_addr) {
 	if (!proxy_config) {
 		report->pid = (unsigned) getpid();
 		report->log_timeout =(arg_log_timeout)? arg_log_timeout: LOG_TIMEOUT_DEFAULT;
-		report->disable_local_doh = arg_disable_local_doh;
 		report->nofilter = arg_nofilter;
 		DnsServer *srv = server_fallback_get();
 		assert(srv);

@@ -39,7 +39,6 @@ char *arg_proxy_addr = NULL;
 int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
 int arg_cache_ttl = CACHE_TTL_DEFAULT;
-int arg_disable_local_doh = 0;
 char *arg_whitelist_file = NULL;
 char *arg_blocklist_file = NULL;
 int arg_fallback_only = 0;
@@ -103,8 +102,6 @@ static void usage(void) {
 	printf("    --debug-ssl  - print SSL/TLS debug messages.\n");
 	printf("    --details - SSL connection information, HTTP headers and network traces are\n"
 	       "\tprinted on the screen during the testing phase.\n");
-	printf("    --disable-local-doh - blocklist DoH services for applications running on\n"
-	       "\tlocal network.\n");
 	printf("    --fallback-server=address - fallback server IP address.\n");
 	printf("    --forwarder=domain@address - conditional forwarding to a different DNS\n"
 	       "\tserver.\n");
@@ -227,8 +224,6 @@ int main(int argc, char **argv) {
 				arg_certfile = argv[i] + 11;
 			else if (strcmp(argv[i], "--allow-all-queries") == 0)
 				arg_allow_all_queries = 1;
-			else if (strcmp(argv[i], "--disable-local-doh") == 0)
-				arg_disable_local_doh = 1;
 			else if (strcmp(argv[i], "--nofilter") == 0)
 				arg_nofilter = 1;
 			else if (strcmp(argv[i], "--ipv6") == 0)

@@ -264,7 +264,6 @@ extern int arg_proxy_addr_any;
 extern char *arg_certfile;
 extern char *arg_forwarder;
 extern int arg_cache_ttl;
-extern int arg_disable_local_doh;
 extern char *arg_whitelist_file;
 extern char *arg_blocklist_file;
 extern int arg_fallback_only;

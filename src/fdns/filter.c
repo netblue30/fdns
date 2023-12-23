@@ -334,7 +334,7 @@ void filter_load_all_lists(void) {
 	filter_load_list('P', PATH_ETC_PHISHING_LIST, arg_clean_filters);
 	filter_load_list('H', PATH_ETC_HOSTS_LIST, arg_clean_filters);
 	if (arg_id == 0)
-		printf("The following TLDs have been disabled: %s\n", tlds);
+		printf("\nThe following TLDs have been disabled: %s\n\n", tlds);
 #ifdef DEBUG_STATS
 	int max_cnt = 0;
 	int i;
