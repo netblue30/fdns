@@ -193,10 +193,17 @@ static inline int hash(const char *str, unsigned short *hash2) {
 	return (int) (hash & (MAX_HASH_ARRAY - 1));
 }
 
+#define MAX_TLD_STR 2048
+static char tlds[MAX_TLD_STR] = {'\0'};
+
 void filter_add(char label, const char *domain) {
 	assert(domain);
-	if (arg_id == 0 && strchr(domain, '.') == NULL)
-		fprintf(stderr, "Disabled %s TLD as %s filter\n", domain, label2str(label));
+	if (arg_id == 0 && strchr(domain, '.') == NULL) {
+		if (strlen(domain) < 10 && strlen(tlds) < (MAX_TLD_STR - 15)) {
+			strcat(tlds, domain);
+			strcat(tlds, ", ");
+		}
+	}
 
 	HashEntry *h = malloc(sizeof(HashEntry));
 	if (!h)
@@ -326,7 +333,8 @@ void filter_load_all_lists(void) {
 	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
 	filter_load_list('P', PATH_ETC_PHISHING_LIST, arg_clean_filters);
 	filter_load_list('H', PATH_ETC_HOSTS_LIST, arg_clean_filters);
-
+	if (arg_id == 0)
+		printf("The following TLDs have been disabled: %s\n", tlds);
 #ifdef DEBUG_STATS
 	int max_cnt = 0;
 	int i;
