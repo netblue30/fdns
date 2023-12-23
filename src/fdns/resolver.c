@@ -135,7 +135,7 @@ void resolver(void) {
 			if (ts - timestamp > OUT_OF_SLEEP) {
 				// send a keepalive to frontend in order not to get killed
 				rlogprintf("resolver keepalive\n");
-				resolver_keepalive_cnt = RESOLVER_KEEPALIVE_TIMER;
+				resolver_keepalive_cnt = (RESOLVER_KEEPALIVE_TIMER * arg_id) / arg_resolvers;
 				// assume the frontend is still alive
 				frontend_keepalive_cnt = 0;
 				// clear DNS cache

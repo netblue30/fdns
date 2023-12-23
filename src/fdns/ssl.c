@@ -65,12 +65,12 @@ int ssl_test_open(void)  {
 		sleep(1);
 		i++;
 	}
-	while (i < 5); // 5 seconds test
+	while (i < 2); // 2 seconds test
 
 	kill(child, SIGKILL);
 	usleep(10000);
 
-	if (i >= 5)
+	if (i >= 2)
 		return 0;
 	return 1;
 }

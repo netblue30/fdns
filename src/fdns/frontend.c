@@ -264,32 +264,6 @@ static void install_signal_handler(void) {
 	sigaction(SIGHUP, &sga, NULL);
 }
 
-static int is_container(void) {
-	// look at pid 2, this should be kthreadd if there is a Linux kernel running
-	FILE *fp = fopen("/proc/2/comm", "r");
-	if (!fp)
-		return 1;
-
-	// read file
-	char buf[15];
-	if (fgets(buf, 15, fp) == NULL) {
-		fclose(fp);
-		return 1;
-	}
-
-	// clean /n
-	char *ptr;
-	if ((ptr = strchr(buf, '\n')) != NULL)
-		*ptr = '\0';
-
-	int rv = 1;
-	if (strcmp(buf, "kthreadd") == 0)
-		rv = 0;
-
-	fclose(fp);
-	return rv;
-}
-
 void frontend(void) {
 	assert(arg_id == -1);
 	assert(arg_resolvers <= RESOLVERS_CNT_MAX && arg_resolvers >= RESOLVERS_CNT_MIN);
@@ -314,20 +288,12 @@ void frontend(void) {
 	// init resolver structures
 	memset(w, 0, sizeof(w));
 
-	if (is_container()) {
-		// we are probably  running in a container,
-		// do not advertise fdns in /run/fdns,
-		// and do not log stats in /dev/shm
+	// create the process file in /run/fdns directory
+	procs_add();
 
-		// TODO: add support for these cases!
-	}
-	else {
-		// create the process file in /run/fdns directory
-		procs_add();
+	// enable /dev/shm/fdns-stats - create the file if it doesn't exist
+	shmem_open(1, proxy_addr);
 
-		// enable /dev/shm/fdns-stats - create the file if it doesn't exist
-		shmem_open(1, proxy_addr);
-	}
 	int shm_keepalive_cnt = 0;
 
 	// start resolvers
