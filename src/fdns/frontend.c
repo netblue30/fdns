@@ -154,13 +154,6 @@ static int sandbox(void *sandbox_arg) {
 
 	{
 		char *cmd;
-		if (asprintf(&cmd, "--qps=%d", arg_qps) == -1)
-			errExit("asprintf");
-		a[last++] = cmd;
-	}
-
-	{
-		char *cmd;
 		if (asprintf(&cmd, "--fallback-server=%s", arg_fallback_server) == -1)
 			errExit("asprintf");
 		a[last++] = cmd;

@@ -85,7 +85,6 @@ void resolver(void) {
 	struct timeval t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
 	int frontend_keepalive_cnt = 0;
-	int query_second = 0;
 	while (1) {
 #ifdef HAVE_GCOV
 		__gcov_flush();
@@ -144,8 +143,6 @@ void resolver(void) {
 				dns_send_keepalive();
 			}
 			timestamp = ts;
-			query_second = 0;
-
 			// processing stats
 			if (--console_printout_cnt <= 0) {
 				if (stats.changed) {
@@ -261,9 +258,6 @@ void resolver(void) {
 			ssize_t len = recvfrom(slocal, buf, MAXBUF, 0, (struct sockaddr *) &addr_client, &addr_client_len);
 			if (len == -1) // todo: parse errno - EAGAIN
 				errExit("recvfrom");
-			if (++query_second > arg_qps)
-				continue;
-
 			if(arg_debug) {
 				print_time();
 				printf("(%d) rx local packet len %d\n", arg_id, (int) len);

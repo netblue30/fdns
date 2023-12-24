@@ -43,7 +43,6 @@ char *arg_whitelist_file = NULL;
 char *arg_blocklist_file = NULL;
 int arg_fallback_only = 0;
 int arg_keepalive = 0;
-int arg_qps = QPS_DEFAULT;
 int arg_details = 0;
 char *arg_transport = NULL;
 int arg_allow_self_signed_certs = 0;
@@ -271,14 +270,6 @@ int main(int argc, char **argv) {
 				blocklist_add(argv[i] + 12);
 			else if (strncmp(argv[i], "--blocklist-file=", 17) == 0)
 				blocklist_load_file(argv[i] + 17);
-			else if (strncmp(argv[i], "--qps=", 6) == 0) {
-				arg_qps = atoi(argv[i] + 6);
-				if (arg_qps < QPS_MIN || arg_qps > QPS_MAX) {
-					fprintf(stderr, "Error: invalid --qps value; valid range %d to %d queries per second\n",
-						QPS_MIN, QPS_MAX);
-					exit(1);
-				}
-			}
 			else if (strcmp(argv[i], "--details") == 0)
 				arg_details = 1;
 

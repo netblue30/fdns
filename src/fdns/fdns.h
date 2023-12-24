@@ -113,11 +113,6 @@ static inline int rand_range(int min, int max) {
 #define CACHE_TTL_ERROR 120	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
 #define CACHE_PRINT_TIMEOUT	60	// list the domain in the cache
 
-// rate limitation
-#define QPS_DEFAULT 10	// default queries per second limit for each resolver
-#define QPS_MAX 20		// max --qps value
-#define QPS_MIN 3		// min --qps value
-
 // number of resolver processes
 #define RESOLVERS_CNT_MIN 1	// number of resolver processes
 #define RESOLVERS_CNT_MAX 10
@@ -268,7 +263,6 @@ extern char *arg_whitelist_file;
 extern char *arg_blocklist_file;
 extern int arg_fallback_only;
 extern int arg_keepalive;
-extern int arg_qps;
 extern int arg_details;
 extern char *arg_transport;
 extern int arg_allow_self_signed_certs;
