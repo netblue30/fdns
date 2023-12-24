@@ -419,19 +419,6 @@ Example:
 $ cat biglist.txt | fdns --test-url-list
 .br
 .TP
-\fB\-\-unlist=server
-Remove the server from the list for this FDNS instance.
-.br
-
-.br
-Example:
-.br
-$ fdns --unlist=quad9 --unlist=quad9-2
-.br
-
-.br
-FDNS will not attempt to connect to quad9 and quad9-2 in the example above.
-.TP
 \fB\-\-version
 Print program version and exit.
 .TP

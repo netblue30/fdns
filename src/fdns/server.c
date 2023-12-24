@@ -391,19 +391,6 @@ static void load_list(void) {
 	if (fdns_zone == NULL)
 		set_zone();
 
-	// process unlisted servers
-	if (arg_unlist) {
-		char *tmp = strdup(arg_unlist);
-		if (!tmp)
-			errExit("strdup");
-		char *token = strtok(tmp, ",");
-		while (token) {
-			unlisted_add(token);
-			token = strtok(NULL, ",");
-		}
-		free(tmp);
-	}
-
 	load_file(PATH_ETC_SERVER_LOCAL_LIST);
 	if (load_file(PATH_ETC_SERVER_LIST)) {
 		fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
@@ -710,7 +697,7 @@ DnsServer *server_get(void) {
 				scurrent = first;
 				s = first;
 				if (first_average > SERVER_RESPONSE_LIMIT || s->keepalive_max < SERVER_KEEPALIVE_LIMIT) {
-					// try another server if the first one responds in more than 100 ms
+					// try another server if the first one responds in more than 80 ms
 					// or if it has a keepalive under 25 seconds
 					s = random_server();
 					if (s == first) // try again

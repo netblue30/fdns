@@ -1,23 +1,18 @@
 #
 # Local Firejail DoH server list. This file is not overwriten at software install.
 #
-# Use this file to add new servers:
+# Use this file to add new servers
 #
 #	name: 42l
 #	website: https://42l.fr
-#	zone: Europe
 #	tags: non-profit, France, Europe
 #	address: 185.216.27.142:443
 #	host: doh.42l.fr/dns-query
 #	keepalive: 40
 #	end;
 #
-# unlist servers from default server list in /etc/fdns/servers
+# or to unlist servers from default server list in /etc/fdns/servers
 #
 #	unlist: quad9
-#
-# or to block new DoH servers for --disable-local-doh command line option:
-#
-#	block-doh: dns.google.com
 #
 

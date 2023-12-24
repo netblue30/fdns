@@ -275,7 +275,6 @@ extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
 extern int arg_log_timeout;
 extern char *arg_fallback_server;
-extern char *arg_unlist;
 extern int arg_clean_filters;
 extern Stats stats;
 

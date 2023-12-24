@@ -50,7 +50,6 @@ int arg_allow_self_signed_certs = 0;
 int arg_allow_expired_certs = 0;
 int arg_log_timeout = 0;
 char *arg_fallback_server = NULL;
-char *arg_unlist = NULL;
 int arg_clean_filters = 0;
 
 Stats stats;
@@ -131,7 +130,6 @@ static void usage(void) {
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --test-url-list - check all URLs form stdin.\n");
 	printf("    --transport - DNS protocol transport: h2, http/1.1, dot.\n");
-	printf("    --unlist=serverlist - remove servers from the list\n");
 	printf("    --version - print program version and exit.\n");
 	printf("    --whitelist=domain - whitelist domain.\n");
 	printf("    --whitelist-file=filename - whitelist the domains in the file.\n");
@@ -296,21 +294,6 @@ int main(int argc, char **argv) {
 				else {
 					fprintf(stderr, "Error: invalid DNS transport %s\n", arg_transport);
 					exit(1);
-				}
-			}
-
-			else if (strncmp(argv[i], "--unlist=", 9) == 0) {
-				if (arg_unlist == NULL) {
-					arg_unlist = strdup(argv[i] + 9);
-					if (!arg_unlist)
-						errExit("strdup");
-				}
-				else {
-					char *tmp;
-					if (asprintf(&tmp, "%s,%s", arg_unlist, argv[i] + 9) == -1)
-						errExit("asprintf");
-					free(arg_unlist);
-					arg_unlist = tmp;
 				}
 			}
 
