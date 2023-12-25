@@ -31,7 +31,6 @@ static double stats_time = 0;		// accumulated search access time
 
 // default filter
 typedef struct dfilter_t {
-	char label;
 	// Match based on the first letter:
 	//      ^ - start of domain name
 	//      $ - end of domain name
@@ -46,98 +45,97 @@ static DFilter default_filter[] = {
 	// reserved domain names (RFC 2606, RFC 6761, RFC 6762)
 	// - currently we are returning 127.0.0.1 regardless what RFC says
 	// - RFC 6762: send .local to link-local multicast address 224.0.0.251 (todo)
-	{'R', "$.local", NULL, 0},
-	{'R', "$.localhost", NULL, 0},
-	{'R', "$.test", NULL, 0},
-	{'R', "$.invalid", NULL, 0},
-	{'R', "$.example", NULL, 0},
-	{'R', "$example.com", NULL, 0},
-	{'R', "$example.net", NULL, 0},
-	{'R', "$example.org", NULL, 0},
+	{"$.local", NULL, 0},
+	{"$.localhost", NULL, 0},
+	{"$.test", NULL, 0},
+	{"$.invalid", NULL, 0},
+	{"$.example", NULL, 0},
+	{"$example.com", NULL, 0},
+	{"$example.net", NULL, 0},
+	{"$example.org", NULL, 0},
 
-	{'A', "^ad.", NULL, 0},
-	{'A', "^ads.", NULL, 0},
-	{'A', "^ads-", NULL, 0},
-	{'A', "^adservice.", NULL, 0},
-	{'A', "^affiliate.", NULL, 0},
-	{'A', "^affiliates.", NULL, 0},
-	{'A', "^banner", NULL, 0},
-	{'A', "banner.", NULL, 0},
-	{'A', "^banners", NULL, 0},
-	{'A', "banners.", NULL, 0},
-	{'A', "click.", NULL, 0},
-	{'A', "^click-", NULL, 0},
-	{'A', "clicks.", NULL, 0},
-	{'A', "^clicks-", NULL, 0},
-	{'A', "collector.", NULL, 0},
-	{'A', "^creatives.", NULL, 0},
-	{'A', "id.google.", NULL, 0},
-	{'A', "^oas.", NULL, 0},
-	{'A', "^oascentral.", NULL, 0},
-	{'T', "^stats.", NULL, 0},
-	{'T', "^tag.", NULL, 0},
-	{'M', "^hostmaster.hostmaster", NULL, 0},
+	{"^ad.", NULL, 0},
+	{"^ads.", NULL, 0},
+	{"^ads-", NULL, 0},
+	{"^adservice.", NULL, 0},
+	{"^affiliate.", NULL, 0},
+	{"^affiliates.", NULL, 0},
+	{"^banner", NULL, 0},
+	{"banner.", NULL, 0},
+	{"^banners", NULL, 0},
+	{"banners.", NULL, 0},
+	{"click.", NULL, 0},
+	{"^click-", NULL, 0},
+	{"clicks.", NULL, 0},
+	{"^clicks-", NULL, 0},
+	{"collector.", NULL, 0},
+	{"^creatives.", NULL, 0},
+	{"id.google.", NULL, 0},
+	{"^oas.", NULL, 0},
+	{"^oascentral.", NULL, 0},
+	{"^stats.", NULL, 0},
+	{"^tag.", NULL, 0},
+	{"^hostmaster.hostmaster", NULL, 0},
 
-	{'A', ".ad.", ".ad.jp", 0},	// .ad.jp is popular Japanese domain
-	{'A', ".ads.", NULL, 0},
-	{'A', "admob.", NULL, 0},
-	{'A', "adserver", NULL, 0},
-	{'A', "advertising", NULL, 0},
-	{'T', "analytic.", NULL, 0},
-	{'T', "analytics.", NULL, 0},
-	{'T', "click.", NULL, 0},
-	{'T', "clickstatsview.", NULL, 0},
-	{'T', "counter.", NULL, 0},
-	{'T', "tags.", NULL, 0},
-	{'T', "tracking.", NULL, 0},
+	{".ad.", ".ad.jp", 0},	// .ad.jp is popular Japanese domain
+	{".ads.", NULL, 0},
+	{"admob.", NULL, 0},
+	{"adserver", NULL, 0},
+	{"advertising", NULL, 0},
+	{"analytic.", NULL, 0},
+	{"analytics.", NULL, 0},
+	{"click.", NULL, 0},
+	{"clickstatsview.", NULL, 0},
+	{"counter.", NULL, 0},
+	{"tags.", NULL, 0},
+	{"tracking.", NULL, 0},
 //	"tracker.",	used by bittorrent trackers
-	{'T', "telemetry.", NULL, 0},
-	{'T', "pixel.", NULL, 0},
+	{"telemetry.", NULL, 0},
+	{"pixel.", NULL, 0},
 
 	// minimize first-party trackers list
-	{'F', "$metric.gstatic.com", NULL, 0}, // Google first-party tracker
-	{'F', "^somniture.", NULL, 0}, // 30
-	{'F', "^aa-metrics.", NULL, 0}, // 20
-	{'F', "^smetric.", NULL, 0}, //  2711
-	{'F', "^smetrics.", NULL, 0}, //  2642
-	{'F', "^tr.", NULL, 0}, // 1756
-	{'F', "^metric.", NULL, 0}, // 950
-	{'F', "^metrics.", NULL, 0}, // 644
-	{'F', "^mdws.", NULL, 0}, // 193
-	{'F', "^srepdata.", NULL, 0}, // 200
-	{'F', "^marketing.net.",NULL,  0}, // 66
-	{'F', ".ati-host.net.", NULL, 0},  // 91
-	{'F', "^sadbmetrics.", NULL, 0}, // 67
-	{'F', "^somni.", NULL, 0}, // 198
-	{'F', "^srepdata,", NULL, 0}, //198
-	{'F', "^sstats.", NULL, 0}, // 339
-	{'F', "^sw88.", NULL, 0}, // 63
-	{'F', "^tk.airfrance.", NULL, 0}, // 98
+	{"$metric.gstatic.com", NULL, 0}, // Google first-party tracker
+	{"^somniture.", NULL, 0}, // 30
+	{"^aa-metrics.", NULL, 0}, // 20
+	{"^smetric.", NULL, 0}, //  2711
+	{"^smetrics.", NULL, 0}, //  2642
+	{"^tr.", NULL, 0}, // 1756
+	{"^metric.", NULL, 0}, // 950
+	{"^metrics.", NULL, 0}, // 644
+	{"^mdws.", NULL, 0}, // 193
+	{"^srepdata.", NULL, 0}, // 200
+	{"^marketing.net.",NULL,  0}, // 66
+	{".ati-host.net.", NULL, 0},  // 91
+	{"^sadbmetrics.", NULL, 0}, // 67
+	{"^somni.", NULL, 0}, // 198
+	{"^srepdata,", NULL, 0}, //198
+	{"^sstats.", NULL, 0}, // 339
+	{"^sw88.", NULL, 0}, // 63
+	{"^tk.airfrance.", NULL, 0}, // 98
 
 	// phishing
-	{'P', "^paypal.com.", NULL, 0},
-	{'P', "^paypal.co.uk.", NULL, 0},
-	{'P', "^paypal.co.de.", NULL, 0},
-	{'P', "^amazon.de.", NULL, 0},
-	{'P', "^appleid.apple.com.", NULL, 0},
-	{'P', "^https.secure.", NULL, 0},
-	{'P', "^online.paypal.com.", NULL, 0},
-	{'P', "^paypal-", NULL, 0},
-	{'P', "^amazon-", NULL, 0},
-	{'P', "^google-", NULL, 0},
-	{'P', "^appleid-", NULL, 0},
-	{'P', "^icloud-", NULL, 0},
-	{'P', "^iphone-", NULL, 0},
-	{'P', "^itunes-", NULL, 0},
-	{'P', "-telegram.com", NULL, 0},
+	{"^paypal.com.", NULL, 0},
+	{"^paypal.co.uk.", NULL, 0},
+	{"^paypal.co.de.", NULL, 0},
+	{"^amazon.de.", NULL, 0},
+	{"^appleid.apple.com.", NULL, 0},
+	{"^https.secure.", NULL, 0},
+	{"^online.paypal.com.", NULL, 0},
+	{"^paypal-", NULL, 0},
+	{"^amazon-", NULL, 0},
+	{"^google-", NULL, 0},
+	{"^appleid-", NULL, 0},
+	{"^icloud-", NULL, 0},
+	{"^iphone-", NULL, 0},
+	{"^itunes-", NULL, 0},
+	{"-telegram.com", NULL, 0},
 
-	{'M', "^xinchao", NULL, 0}, // about 2800 miners here!
-	{0, NULL, NULL, 0}	// last entry
+	{"^xinchao", NULL, 0}, // about 2800 miners here!
+	{NULL, NULL, 0}	// last entry
 };
 
 typedef struct hash_entry_t {
 	struct hash_entry_t *next;
-	char label;
 	unsigned short hash2;
 	char *name;
 } HashEntry;
@@ -173,7 +171,7 @@ static inline int hash(const char *str, unsigned short *hash2) {
 #define MAX_TLD_STR 2048
 static char tlds[MAX_TLD_STR] = {'\0'};
 
-void filter_add(char label, const char *domain) {
+void filter_add(const char *domain) {
 	assert(domain);
 	if (arg_id == 0 && strchr(domain, '.') == NULL) {
 		if (strlen(domain) < 10 && strlen(tlds) < (MAX_TLD_STR - 15)) {
@@ -185,7 +183,6 @@ void filter_add(char label, const char *domain) {
 	HashEntry *h = malloc(sizeof(HashEntry));
 	if (!h)
 		errExit("malloc");
-	h->label = label;
 	h->name = strdup(domain);
 	if (!h->name)
 		errExit("strdup");
@@ -219,12 +216,12 @@ static HashEntry *filter_search(const char *domain) {
 	return NULL; // not found
 }
 
-void filter_serach_add(char label, const char *domain) {
+void filter_serach_add(const char *domain) {
 	if (!filter_search(domain))
-		filter_add(label, domain);
+		filter_add(domain);
 }
 
-static void filter_load_list(char label, const char *fname, int store) {
+static void filter_load_list(const char *fname, int store) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
 	if (!fp)
@@ -289,7 +286,7 @@ static void filter_load_list(char label, const char *fname, int store) {
 		if (!filter_blocked(ptr, 0)) {
 			if (store)
 				fprintf(fpout, "127.0.0.1 %s\n", ptr);
-			filter_add(label, ptr);
+			filter_add(ptr);
 			cnt++;
 		}
 	}
@@ -303,13 +300,13 @@ static void filter_load_list(char label, const char *fname, int store) {
 }
 
 void filter_load_all_lists(void) {
-	filter_load_list('L', PATH_ETC_TLD_LIST, arg_clean_filters);
-	filter_load_list('F', PATH_ETC_FP_TRACKERS_LIST, arg_clean_filters);
-	filter_load_list('T', PATH_ETC_TRACKERS_LIST, arg_clean_filters);
-	filter_load_list('A', PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
-	filter_load_list('M', PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
-	filter_load_list('P', PATH_ETC_PHISHING_LIST, arg_clean_filters);
-	filter_load_list('H', PATH_ETC_HOSTS_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_TLD_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_FP_TRACKERS_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_TRACKERS_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_PHISHING_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_HOSTS_LIST, arg_clean_filters);
 	if (arg_id == 0)
 		printf("\nThe following TLDs have been disabled: %s\n\n", tlds);
 #ifdef DEBUG_STATS
