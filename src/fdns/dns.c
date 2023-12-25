@@ -181,9 +181,8 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	// trackers/adblock filtering
 	//*****************************
 	if (!arg_nofilter) {
-		const char *label = filter_blocked(q->domain, 0);
-		if (label) {
-			rlogprintf("Request: %s  %s%s, dropped\n", label, q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
+		if (filter_blocked(q->domain, 0)) {
+			rlogprintf("Request: %s%s, dropped\n", q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
 			goto drop_nxdomain;
 		}
 	}

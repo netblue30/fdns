@@ -29,29 +29,6 @@ static unsigned stats_cnt = 0;	// print counter
 static double stats_time = 0;		// accumulated search access time
 #endif
 
-static inline const char *label2str(char label) {
-	if (label == 'A')
-		return "ad";
-	else if (label == 'T')
-		return "tracker";
-	else if (label == 'F')
-		return "fp-tracker"; // first-party tracker
-	else if (label == 'M')
-		return "miner";
-	else if (label == 'H')
-		return "hosts";
-	else if (label == 'R')
-		return "reserved";
-	else if (label == 'D')
-		return "doh";
-	else if (label == 'P')
-		return "phishing";
-	else if (label == 'L')
-		return "tld";
-
-	return "?";
-}
-
 // default filter
 typedef struct dfilter_t {
 	char label;
@@ -385,39 +362,38 @@ void clear_domains(void) {
 // ibm silerpor trackers
 // examples; mkt9611.com, mkt9612.com, mkt9613.com
 // return 1 if a silverpop domain
-static inline char *silverpop(const char *str) {
-	char *rv = "T";
+static inline int silverpop(const char *str) {
 	if (strncmp(str, "mkt", 3))
-		return NULL;
+		return 0;
 	const char *ptr = str + 3;
 	while (isdigit(*ptr))
 		ptr++;
 	if(strcmp(ptr, ".com") == 0)
-		return rv;
-	return NULL;
+		return 1;
+	return 0;
 }
 
 // 025gmail.com
 // 000006138.com
-static inline char *numbersdot(const char *str) {
+static inline int numbersdot(const char *str) {
 	if (!isdigit(*str))
-		return NULL;
+		return 0;
 	const char *ptr = str;
 	while (isdigit(*ptr) || *ptr == '-')
 		ptr++;
 	if (strcmp(ptr, "gmail.com") == 0)
-		return "A";
+		return 1;
 	else if (*ptr == '.') {
 		ptr++;
 		if (strchr(ptr, '.'))
-			return NULL;
-		return "A";
+			return 0;
+		return 1;
 	}
-	return NULL;
+	return 0;
 }
 
-static char *custom_checks(const char *str) {
-	char *rv = silverpop(str);
+static int custom_checks(const char *str) {
+	int rv = silverpop(str);
 	if (rv)
 		return rv;
 	rv = numbersdot(str);
@@ -425,12 +401,12 @@ static char *custom_checks(const char *str) {
 		return rv;
 
 
-	return NULL;
+	return 0;
 }
 
 
-// return NULL if the site is not blocked
-const char *filter_blocked(const char *str, int verbose) {
+// return 1 if the site is blocked, 0 if the site is not blocked
+int filter_blocked(const char *str, int verbose) {
 #ifdef DEBUG_STATS
 	timetrace_start();
 #endif
@@ -442,7 +418,7 @@ const char *filter_blocked(const char *str, int verbose) {
 		str += 4;
 
 	// custom checks
-	char *rv = custom_checks(str);
+	int rv = custom_checks(str);
 	if (rv) {
 		if (verbose)
 			printf("URL %s dropped by a custom rule\n", str);
@@ -459,7 +435,7 @@ const char *filter_blocked(const char *str, int verbose) {
 					break;
 				if (verbose)
 					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
-				return label2str(default_filter[i].label);
+				return 1;
 			}
 		}
 		else if (*default_filter[i].name == '$') {
@@ -469,7 +445,7 @@ const char *filter_blocked(const char *str, int verbose) {
 					break;
 				if (verbose)
 					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
-				return label2str(default_filter[i].label);
+				return 1;
 			}
 		}
 		else  if (strstr(str, default_filter[i].name)) {
@@ -477,7 +453,7 @@ const char *filter_blocked(const char *str, int verbose) {
 				break;
 			if (verbose)
 				printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
-			return label2str(default_filter[i].label);
+			return 1;
 		}
 		i++;
 	}
@@ -489,8 +465,8 @@ const char *filter_blocked(const char *str, int verbose) {
 		if (ptr) {
 			clear_domains(); // remove scan-build warnings
 			if (verbose)
-				printf("URL %s dropped by \"%s\" rule as a %s\n", str, ptr->name, label2str(ptr->label));
-			return label2str(ptr->label);
+				printf("URL %s dropped by \"%s\" rule\n", str, ptr->name);
+			return 1;
 		}
 	}
 	clear_domains(); // remove scan-build warnings
@@ -509,7 +485,7 @@ const char *filter_blocked(const char *str, int verbose) {
 	}
 #endif
 
-	return NULL;
+	return 0;
 }
 
 void filter_test(char *url) {
@@ -563,8 +539,7 @@ void filter_test_list(void) {
 			continue;
 		if (strstr(start, "::")) // IPv6 addresses!
 			continue;
-		const char *str = filter_blocked(start, 0);
-		if (!str)
+		if (!filter_blocked(start, 0))
 			printf("127.0.0.1 %s\n", start);
 
 #ifdef HAVE_GCOV

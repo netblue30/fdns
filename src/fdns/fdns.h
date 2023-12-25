@@ -326,7 +326,7 @@ void filter_init(void);
 void filter_load_all_lists(void);
 void filter_add(char label, const char *domain);
 void filter_serach_add(char label, const char *domain);
-const char *filter_blocked(const char *str, int verbose);
+int filter_blocked(const char *str, int verbose);
 void filter_test(char *url);
 void filter_test_list(void);
 
