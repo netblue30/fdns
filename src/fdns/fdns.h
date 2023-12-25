@@ -368,6 +368,8 @@ DnsServer *server_get(void);
 // return 0 if ok, 1 if failed
 void server_test_tag(const char *tag);
 void server_set_custom(const char *url);
+
+// fallback.c
 DnsServer *server_fallback_get(void);
 
 // cache.c
