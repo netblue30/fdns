@@ -35,6 +35,8 @@ static void procs_dir_cleanup(void) {
 	while ((entry = readdir(dir))) {
 		if (*entry->d_name == '.')
 			continue;
+		if (strcmp(entry->d_name, "empty") == 0)
+			continue;
 
 		char *fname;
 		if (asprintf(&fname, "/proc/%s", entry->d_name) == -1)
@@ -73,6 +75,12 @@ void procs_add(void) {
 	struct stat s;
 	if (stat(PATH_RUN_FDNS, &s) ) {
 		if (mkdir(PATH_RUN_FDNS, 0755) == -1) {
+			fprintf(stderr, "Error: cannot create %s directory\n", PATH_RUN_FDNS);
+			exit(1);
+		}
+	}
+	if (stat(PATH_RUN_FDNS "/empty", &s) ) {
+		if (mkdir(PATH_RUN_FDNS "/empty", 0755) == -1) {
 			fprintf(stderr, "Error: cannot create %s directory\n", PATH_RUN_FDNS);
 			exit(1);
 		}

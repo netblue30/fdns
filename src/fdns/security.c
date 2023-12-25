@@ -47,13 +47,13 @@ void chroot_drop_privs(const char *username) {
 	}
 
 	// check /run/fdns directory
-	if (stat(PATH_RUN_FDNS, &s)) {
+	if (stat(PATH_RUN_FDNS "/empty", &s)) {
 		fprintf(stderr, "Error: cannot find %s directory\n", PATH_RUN_FDNS);
 		exit(1);
 	}
 
 	// chroot
-	rv = chroot(PATH_RUN_FDNS);
+	rv = chroot(PATH_RUN_FDNS "/empty");
 	if (rv == -1)
 		errExit("chroot");
 	rv = chdir("/");
