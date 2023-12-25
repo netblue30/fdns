@@ -345,7 +345,7 @@ errout:
 static int load_file(const char *fname) {
 	assert(fname);
 
-	// load all server entries from /etc/fdns/servers in list
+	// load all server entries from fname in list
 	FILE *fp = fopen(fname, "r");
 	if (!fp)
 		return 1;
