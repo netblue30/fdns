@@ -32,7 +32,7 @@ user to request specialized services such as adblocking, security, family filter
 
 Once started, FDNS chooses a server at random, as close geographically as possible.
 We derive the computer location from the timezone setting. There are no IP packets sent
-out to geolocation services. Three geographical zones are defined so far: Americas,
+out to geolocation services. Three geographical zones are defined so far: (the two) Americas,
 AsiaPacific and Europe. Use --list=all option to print all the servers and the corresponding tags.
 
 .SH OPTIONS
@@ -63,7 +63,7 @@ FDNS as network proxy is
 .br
 
 .br
-$ sudo fdns --proxy-addr-any --daemonize
+$ sudo fdns --daemonize
 .br
 .TP
 \fB\-\-debug
@@ -71,9 +71,6 @@ Print debug messages.
 .TP
 \fB\-\-debug-transport
 Print HTTP2 debug messages.
-.TP
-\fB\-\-debug-ssl
-Print SSL/TLS debug messages.
 .TP
 \fB\-\-details
 SSL connection information, HTTP headers and network traces are printed on the screen during the testing
@@ -234,7 +231,7 @@ Example:
 $ fdns --monitor=127.2.2.2
 .TP
 \fB\-\-nofilter
-No DNS request filtering. This disables all domain filters (adblocker, trackersetc.)
+No DNS request filtering. This disables all domain filters (adblocker, trackers, etc.)
 and the user hosts file installed in /etc/fdns directory.
 
 .TP
@@ -262,9 +259,6 @@ DNS queries coming from the local clients. The default is 127.1.1.1.
 Example:
 .br
 $ sudo fdns --proxy-addr=127.0.0.1
-.TP
-\fB\-\-proxy-addr-any
-Listen on all available system interfaces and 127.0.0.1 for loopback interface.
 .TP
 \fB\-\-resolvers=number
 The number of resolver processes, between 1 and 10, default 3.

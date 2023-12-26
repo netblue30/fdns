@@ -96,8 +96,6 @@ static int sandbox(void *sandbox_arg) {
 		a[last++] = "--debug";
 	if (arg_debug_transport)
 		a[last++] = "--debug-transport";
-	if (arg_debug_ssl)
-		a[last++] = "--debug-ssl";
 	if (arg_nofilter)
 		a[last++] = "--nofilter";
 	if (arg_ipv6)
@@ -126,8 +124,6 @@ static int sandbox(void *sandbox_arg) {
 			errExit("asprintf");
 		a[last++] = cmd;
 	}
-	if (arg_proxy_addr_any)
-		a[last++] = "--proxy-addr-any";
 	if (arg_server) {
 		char *cmd;
 		if (asprintf(&cmd, "--server=%s", arg_server) == -1)
@@ -240,18 +236,13 @@ void frontend(void) {
 
 	// check for different DNS servers running on this address:port
 	char *proxy_addr = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
-	if (arg_proxy_addr_any)
-		proxy_addr = "0.0.0.0";
 	int slocal = net_local_dns_socket(0);
 	if (slocal == -1) {
 		fprintf(stderr, "Error: a different DNS server is already running on %s:53\n", proxy_addr);
 		exit(1);
 	}
 	close(slocal); // close the socket
-	if (arg_proxy_addr_any)
-		logprintf("listening on all available interfaces\n");
-	else
-		logprintf("listening on %s\n", proxy_addr);
+	logprintf("listening on %s\n", proxy_addr);
 
 	// init resolver structures
 	memset(w, 0, sizeof(w));

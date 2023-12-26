@@ -99,8 +99,6 @@ void procs_add(void) {
 	}
 
 	char *tmp = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
-	if (arg_proxy_addr_any)
-		tmp = "0.0.0.0";
 	fprintf(fp, "%s\n", tmp);
 	fclose(fp);
 	free(fname);

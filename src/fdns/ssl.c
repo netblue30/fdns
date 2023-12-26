@@ -426,7 +426,7 @@ int ssl_tx(uint8_t *buf, int len) {
 	assert(ctx);
 	assert(ssl);
 
-	if (arg_debug_ssl || arg_debug) {
+	if (arg_debug) {
 		print_time();
 		printf("(%d) ssl tx len %u\n", arg_id, len);
 	}
@@ -466,7 +466,7 @@ int ssl_rx(uint8_t *buf, int size) {
 			goto errout;
 		}
 	}
-	if (arg_debug_ssl || arg_debug) {
+	if (arg_debug) {
 		print_time();
 		printf("(%d) ssl rx len %u\n", arg_id, len);
 	}

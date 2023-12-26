@@ -116,8 +116,6 @@ int net_local_dns_socket(int reuse) {
 	addr_local.sin_family = AF_INET;
 	char *tmp = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
 	addr_local.sin_addr.s_addr = inet_addr(tmp); //INADDR_LOOPBACK, INADDR_ANY
-	if (arg_proxy_addr_any)
-		addr_local.sin_addr.s_addr = INADDR_ANY;
 	addr_local.sin_port = htons(53);
 
 	int rv = bind(slocal, (struct sockaddr *) &addr_local, sizeof(addr_local));

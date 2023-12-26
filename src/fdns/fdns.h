@@ -243,7 +243,6 @@ static inline void print_mem(void *m, int len) {
 extern int arg_argc;
 extern int arg_debug;
 extern int arg_debug_transport;
-extern int arg_debug_ssl;
 extern int arg_resolvers;
 extern int arg_id;
 extern int arg_fd;
@@ -254,7 +253,6 @@ extern int arg_allow_all_queries;
 extern char *arg_server;
 extern char *arg_test_server;
 extern char *arg_proxy_addr;
-extern int arg_proxy_addr_any;
 extern char *arg_certfile;
 extern char *arg_forwarder;
 extern char *arg_whitelist_file;

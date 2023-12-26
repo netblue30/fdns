@@ -25,7 +25,6 @@
 int arg_argc = 0;
 int arg_debug = 0;
 int arg_debug_transport = 0;
-int arg_debug_ssl = 0;
 int arg_resolvers = RESOLVERS_CNT_DEFAULT;
 int arg_id = -1;
 int arg_fd = -1;
@@ -36,7 +35,6 @@ int arg_allow_all_queries = 0;
 char *arg_server = NULL;
 char *arg_test_server = NULL;
 char *arg_proxy_addr = NULL;
-int arg_proxy_addr_any = 0;
 char *arg_certfile = NULL;
 char *arg_whitelist_file = NULL;
 char *arg_blocklist_file = NULL;
@@ -92,7 +90,6 @@ static void usage(void) {
 	       "\tdaemon.\n");
 	printf("    --debug - print all debug messages.\n");
 	printf("    --debug-transport - print transport protocol debug messages.\n");
-	printf("    --debug-ssl  - print SSL/TLS debug messages.\n");
 	printf("    --details - SSL connection information, HTTP headers and network traces are\n"
 	       "\tprinted on the screen during the testing phase.\n");
 	printf("    --fallback-server=address - fallback server IP address.\n");
@@ -111,8 +108,6 @@ static void usage(void) {
 	printf("    --proxies - list all running instances of FDNS\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
-	printf("    --proxy-addr-any - listen on all available network interfaces.\n");
-	printf("    --qps=number - queries per second limit for each resolver process.\n");
 	printf("    --resolvers=number - the number of resolver processes, between %d and %d,\n"
 	       "\tdefault %d.\n",
 	       RESOLVERS_CNT_MIN, RESOLVERS_CNT_MAX, RESOLVERS_CNT_DEFAULT);
@@ -181,8 +176,6 @@ int main(int argc, char **argv) {
 				arg_debug = 1;
 			else if (strcmp(argv[i], "--debug-transport") == 0)
 				arg_debug_transport = 1;
-			else if (strcmp(argv[i], "--debug-ssl") == 0)
-				arg_debug_ssl = 1;
 			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
 				arg_keepalive = atoi(argv[i] + 12);
 				if (arg_keepalive < CONFIG_KEEPALIVE_MIN || arg_keepalive > CONFIG_KEEPALIVE_MAX) {
@@ -235,11 +228,8 @@ int main(int argc, char **argv) {
 				net_check_proxy_addr(argv[i] + 13); // will exit if error
 				arg_proxy_addr = argv[i] + 13;
 			}
-			else if (strcmp(argv[i], "--proxy-addr-any") == 0)
-				arg_proxy_addr_any = 1;
-			else if (strncmp(argv[i], "--forwarder=", 12) == 0) {
+			else if (strncmp(argv[i], "--forwarder=", 12) == 0)
 				forwarder_set(argv[i] + 12);
-			}
 			else if (strncmp(argv[i], "--whitelist=", 12) == 0)
 				whitelist_add(argv[i] + 12);
 			else if (strncmp(argv[i], "--whitelist-file=", 17) == 0)
@@ -349,12 +339,6 @@ int main(int argc, char **argv) {
 
 	if (getuid() != 0) {
 		fprintf(stderr, "Error: you need to be root to run this program\n");
-		exit(1);
-	}
-
-	// check command line arguments
-	if (arg_proxy_addr && arg_proxy_addr_any) {
-		fprintf(stderr, "Error: --proxy-addr and --proxy-addr-any are mutually exclusive\n");
 		exit(1);
 	}
 
