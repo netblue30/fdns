@@ -165,7 +165,7 @@ void cache_timeout(void) {
 #ifdef DEBUG_STATS
 	scnt++;
 	if (scnt >= 60) {
-		printf("*** (%d) cache entries %u, mem %lu, cache ttl %d\n", arg_id, sentries, (unsigned) sentries * sizeof(CacheEntry) + (unsigned) sizeof(clist), arg_cache_ttl);
+		printf("*** (%d) cache entries %u, mem %lu, cache ttl %d\n", arg_id, sentries, (unsigned) sentries * sizeof(CacheEntry) + (unsigned) sizeof(clist), CACHE_TTL_DEFAULT);
 		fflush(0);
 		scnt = 0;
 	}

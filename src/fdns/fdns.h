@@ -104,7 +104,6 @@ static inline int rand_range(int min, int max) {
 
 // logging
 #define LOG_TIMEOUT_DEFAULT 10		// amount of time to keep the log entries in shared memory in minutes
-#define LOG_TIMEOUT_MAX 1140		// 1 day maximum
 
 // cache
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
@@ -258,7 +257,6 @@ extern char *arg_proxy_addr;
 extern int arg_proxy_addr_any;
 extern char *arg_certfile;
 extern char *arg_forwarder;
-extern int arg_cache_ttl;
 extern char *arg_whitelist_file;
 extern char *arg_blocklist_file;
 extern int arg_fallback_only;
@@ -267,7 +265,6 @@ extern int arg_details;
 extern char *arg_transport;
 extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
-extern int arg_log_timeout;
 extern char *arg_fallback_server;
 extern int arg_clean_filters;
 extern Stats stats;

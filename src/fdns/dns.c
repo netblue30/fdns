@@ -319,7 +319,7 @@ int dns_query(uint8_t *msg, int cnt) {
 	}
 
 	// cache the response and exit
-	cache_set_reply(msg, datalen, arg_cache_ttl);
+	cache_set_reply(msg, datalen, CACHE_TTL_DEFAULT);
 	return datalen;
 
 errout:

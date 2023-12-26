@@ -47,9 +47,6 @@ Allow expired SSL certificates during SSL connection.
 \fB\-\-allow-self-signed-certs
 Allow self-signed SSL certificates during SSL connection. Use this option for bringing up new servers.
 .TP
-\fB\-\-cache-ttl=seconds
-Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 40 minutes.
-.TP
 \fB\-\-certfile=filename
 Use an SSL certificate file in PEM format. By default we use the certificates installed
 by OpenSSL.
@@ -216,16 +213,6 @@ cznic - Czechia, Europe
 .TP
 \fB\-\-list=server-name|tag|all
 List the available DoH service providers based on a tag, server name, or all.
-.TP
-\fB\-\-log-timeout=minutes
-Amount of time queries are kept in the log for monitoring purposes, default 10 minutes, maximum 1140 (one day).
-After the timeout expires, the queries are removed from the log.
-.br
-
-.br
-Example:
-.br
-$ sudo fdns --log-timeout=60
 .TP
 \fB\-\-monitor
 Start the stats monitor. Without specifying an IP address (see below), the monitor is looking for a proxy at 127.1.1.1. If it fails,
