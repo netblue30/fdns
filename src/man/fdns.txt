@@ -58,8 +58,7 @@ Example:
 $ sudo fdns --certfile=/etc/ssl/certs/ca-certificates.crt
 .TP
 \fB\-\-daemonize
-Detach from the controlling terminal and run as a Unix daemon. The typical way to start
-FDNS as network proxy is
+Detach from the controlling terminal and run as a Unix daemon. Example:
 .br
 
 .br
@@ -70,11 +69,11 @@ $ sudo fdns --daemonize
 Print debug messages.
 .TP
 \fB\-\-debug-transport
-Print HTTP2 debug messages.
+Print transport layer debug messages.
 .TP
 \fB\-\-details
 SSL connection information, HTTP headers and network traces are printed on the screen during the testing
-phase of the connection.
+phase of the connection establishment.
 .br
 
 .br
@@ -166,7 +165,7 @@ Allow AAAA requests. Use this option if you have Internet IPv6 connectivity. By 
 .TP
 \fB\-\-keepalive=value
 Use this session keepalive value instead of the one in the server file. A query for example.com domain is initiated if there is
-no DNS query activity in order to keep the HTTP 2 connection open. For most servers we are using values between 25 and 40 seconds.
+no DNS query activity in order to keep the HTTP2 connection open. For most servers we are using values between 25 and 40 seconds.
 In many cases you can bump the keepalive above 120 seconds.
 .br
 
@@ -175,8 +174,8 @@ Example:
 .br
 $ sudo fdns --keepalive=120 --server=coudflare
 .TP
-\fB\-\-list
-List the DoH service providers available in your current zone.
+\fB\-\-list[=server-name|tag|all]
+List the DoH service providers available in your current zone, or specific servers based on names or tags.
 .br
 
 .br
@@ -208,25 +207,14 @@ cznic - Czechia, Europe
 .br
 [...]
 .TP
-\fB\-\-list=server-name|tag|all
-List the available DoH service providers based on a tag, server name, or all.
-.TP
-\fB\-\-monitor
-Start the stats monitor. Without specifying an IP address (see below), the monitor is looking for a proxy at 127.1.1.1. If it fails,
-it looks for a proxy on the regular loopback address 127.0.0.1. If it fails again, it will display a proxy found on any other addresses.
+\fB\-\-monitor[=proxy-address]
+Start the stats monitor in a regular terminal. Without specifying an IP address, the monitor is looking for a proxy at 127.1.1.1.
 .br
 
 .br
 Example:
 .br
 $ fdns --monitor
-.TP
-\fB\-\-monitor=proxy-address
-Start the stats monitor for a specific FDNS instance. Run this command as a regular user in a terminal.
-.br
-
-.br
-Example:
 .br
 $ fdns --monitor=127.2.2.2
 .TP
@@ -261,7 +249,7 @@ Example:
 $ sudo fdns --proxy-addr=127.0.0.1
 .TP
 \fB\-\-resolvers=number
-The number of resolver processes, between 1 and 10, default 3.
+The number of resolver processes, between 1 and 10, default 2.
 .TP
 \fB\-\-server=server-name|tag|all|url
 Connect to a specific server, or to a random one based on the tag and your geographical location.
@@ -283,20 +271,14 @@ $ sudo fdns --server=https://dns.google/dns-query
 $ sudo fdns --server=dot://dot1.applied-privacy.net
 .br
 .TP
-\fB\-\-test-server
-Test all the servers from your geographical zone.
+\fB\-\-test-server[=server-name|tag|all]
+Test all the servers from your geographical zone. You can also request a specific server or tag.
 .br
 
 .br
 Example:
 .br
 $ fdns --test-server
-.br
-Testing server aaflalo-adblocker
-.br
-	SSL connection opened in 309.55 ms
-.br
-	DoH response average 64.92 ms
 .br
 Testing server adguard
 .br
@@ -322,16 +304,9 @@ Testing server dnscrypt-ca
 .br
 	DoH response average 83.51 ms
 .br
-
-
-.TP
-\fB\-\-test-server=server-name|tag|all
-Test the servers based on a tag, server name, or all. Specifying a URL allows you to test servers
-not yet supported by FDNS.
+[...]
 .br
 
-.br
-Example:
 .br
 $ fdns --test-server=digital-society
 .br
@@ -339,22 +314,6 @@ $ fdns --test-server=digital-society
 .br
    DoH response average 155.22 ms
 .br
-
-.br
-$ fdns --test-server=https://dns.google/dns-query
-.br
-   SSL connection opened in 405.68 ms
-.br
-   DoH response average 78.86 ms
-.br
-
-.br
-$ fdns --test-server=dot://dot1.applied-privacy.net
-.br
-   SSL/TLS connection: 770.46 ms
-.br
-   DoT query average: 137.26 ms
-
 .TP
 \fB\-\-test-url=URL
 Check if URL is dropped by the adblock/tracker filters.
@@ -452,15 +411,7 @@ $ fdns --monitor
 .br
 .br
 .SH Setup FDNS as a network server
-Install FDNS and set "nameserver 127.0.0.1" in /etc/resolv.conf. Start FDNS using --proxy-addr-any. The proxy will listen on all system interfaces, and 127.0.0.1 for loopback interface. The default 127.1.1.1 is not used in this case.
-.PP
-.RS
-$ sudo fdns --proxy-addr-any --daemonize
-.br
-
-.br
-.RE
-Or you can run it only on a specific interface. Example assuming 192.168.1.44 is the IP address of eth0:
+Example assuming 192.168.1.44 is the IP address of your network interface:
 .PP
 .RS
 $ sudo fdns --proxy-addr=192.168.1.44 --daemonize
@@ -468,63 +419,7 @@ $ sudo fdns --proxy-addr=192.168.1.44 --daemonize
 
 .br
 .RE
-When using --daemonize, errors and warnings are posted to syslog.
-
-.SH Running multiple FDNS proxies on the same computer
-On your computer, start a proxy for the all the kids on your network, and make the proxy available
-on interface eth0 on your computer at address 192.168.1.44:
-.PP
-.RS
-$ sudo fdns --proxy-addr=192.168.1.44 --server=family --daemonize
-.br
-
-.br
-.RE
-Start a regular proxy for yourself:
-.PP
-.RS
-$ sudo fdns --server=security --daemonize
-.br
-
-.br
-.RE
-Check the proxies status:
-.PP
-.RS
-$ fdns --proxies
-.br
-pid 11890, address 192.168.1.44
-.br
-pid 12062, address 127.1.1.1 (default)
-.br
-
-.br
-.RE
-Monitor kids proxy:
-.PP
-.RS
-$ fdns --monitor=192.168.1.44
-.br
-
-.br
-.RE
-Monitor your proxy:
-.PP
-.RS
-$ fdns --monitor
-.br
-
-.br
-.RE
-Use the PID number from "fdns --proxies" to shutdown one proxy or another:
-.PP
-.RS
-$ sudo kill -9 11890
-.br
-
-.br
-.RE
-In about 30 seconds all processes associated with this specific proxy will exit.
+You can also add a specific tag as --server=security or --server=family.
 .SH FAQ
 
 .TP
@@ -601,23 +496,15 @@ $ sudo pkill fdns
 .br
 
 .SH FILES
-/etc/fdns/adblocker - adblocker filter distributed with FDNS
-.br
-/etc/fdns/coinblocker - cryptomining filter distributed with FDNS
+/etc/fdns/list.* - domain filters distributed with FDNS
 .br
 /etc/fdns/fdns.service - systemd service file
 .br
-/etc/fdns/fp-trackers - first-party tracker filter
-.br
 /etc/fdns/hosts - user hosts file
-.br
-/etc/fdns/phishing - phishing filter
 .br
 /etc/fdns/resolver.seccomp - seccomp filter applied to resolver processes
 .br
 /etc/fdns/servers - DoH/DoT servers FDNS knows about
-.br
-/etc/fdns/trackers - tracker filter distributed with FDNS
 
 .SH LICENSE
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
