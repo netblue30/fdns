@@ -369,6 +369,10 @@ DnsServer *server_get(void);
 void server_test_tag(const char *tag);
 void server_set_custom(const char *url);
 
+// unlisted.c
+void *unlisted_find(const char *name);
+void unlisted_add(const char *name);
+
 // fallback.c
 DnsServer *server_fallback_get(void);
 

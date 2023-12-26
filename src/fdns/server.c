@@ -29,46 +29,6 @@ static char *fdns_zone = NULL;
 static DnsServer *slist = NULL;
 static DnsServer *scurrent = NULL;	// curernt DoH/DoT server
 
-typedef struct unlisted_t {
-	struct unlisted_t *next;
-	char *name;
-} UnlistedElem;
-
-UnlistedElem *unlisted = NULL;
-
-static UnlistedElem *unlisted_find(const char *name) {
-	assert(name);
-	UnlistedElem *ptr = unlisted;
-
-	while (ptr) {
-		if (strcmp(name, ptr->name) == 0)
-			return ptr;
-		ptr = ptr->next;
-	}
-
-	return NULL;
-}
-
-static void unlisted_add(const char *name) {
-	assert(name);
-	if (server_print_unlist && arg_id == -1 && arg_debug)
-		printf("Unlisting %s\n", name);
-
-	UnlistedElem *ptr = malloc(sizeof(UnlistedElem));
-	if (!ptr)
-		errExit("malloc");
-	memset(ptr, 0, sizeof(UnlistedElem));
-	ptr->name = strdup(name);
-	if (!ptr->name)
-		errExit("strdup");
-
-	if (unlisted == NULL)
-		unlisted = ptr;
-	else {
-		ptr->next = unlisted;
-		unlisted = ptr;
-	}
-}
 
 static inline void print_server(DnsServer *s) {
 	assert(s);
