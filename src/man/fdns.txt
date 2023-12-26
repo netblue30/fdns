@@ -47,25 +47,6 @@ Allow expired SSL certificates during SSL connection.
 \fB\-\-allow-self-signed-certs
 Allow self-signed SSL certificates during SSL connection. Use this option for bringing up new servers.
 .TP
-\fB\-\-blocklist=domain
-Block domain and return NXDOMAIN.
-.br
-
-.br
-Note: Blocking domains can also be requested in /etc/fdns/hosts file. This setting is global, and it will block the domains in
-all fdns instances running on your computer. Use --blocklist when you have multiple fdns proxies running,
-each instance with a different blocklist.
-.br
-
-.br
-Example:
-.br
-$ fdns --blocklist=fonts.googleaps.com
-
-.TP
-\fB\-\-blocklist-file=filename
-Block all domains listed in the file.
-.TP
 \fB\-\-cache-ttl=seconds
 Change DNS cache TTL, in seconds. By default we use a fixed cache TTL of 40 minutes.
 .TP

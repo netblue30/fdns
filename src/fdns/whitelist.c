@@ -34,13 +34,10 @@ int whitelist_active(void) {
 	return (wlist)? 1: 0;
 }
 
-int blocklist_active(void) {
-	return (blist)? 1: 0;
-}
-
 
 // count entries
-static int list_cnt(DEntry *dlist) {
+int whitelist_cnt(void) {
+	DEntry *dlist = wlist;
 	int cnt = 0;
 	while (dlist) {
 		cnt++;
@@ -50,19 +47,10 @@ static int list_cnt(DEntry *dlist) {
 	return cnt;
 }
 
-int whitelist_cnt(void) {
-	return list_cnt(wlist);
-}
-
-int blocklist_cnt(void) {
-	return list_cnt(blist);
-}
-
-
-// return 1 if the domain was added to the list
-int list_add(DEntry **dlist, const char *domain) {
-	assert(dlist);
+void whitelist_add(const char *domain) {
 	assert(domain);
+	DEntry **dlist = &wlist;
+	assert(dlist);
 
 	// skip www.
 	const char *dm = domain;
@@ -73,7 +61,7 @@ int list_add(DEntry **dlist, const char *domain) {
 	DEntry *d = *dlist;
 	while (d != NULL) {
 		if (strcmp(dm, d->domain) == 0)
-			return 0;
+			return;
 		d = d->next;
 	}
 
@@ -86,34 +74,18 @@ int list_add(DEntry **dlist, const char *domain) {
 	dnew->len = strlen(dnew->domain);
 	dnew->next = *dlist;
 	*dlist = dnew;
-	return 1;
-}
-
-
-void whitelist_add(const char *domain) {
-	assert(domain);
-	int rv = list_add(&wlist, domain);
-
-	if (rv && arg_id == 0) {
+	
+	if (arg_id == 0) {
 		printf("whitelist %s\n", domain);
 		fflush(0);
 	}
 }
 
-void blocklist_add(const char *domain) {
-	assert(domain);
-	int rv = list_add(&blist, domain);
-
-	if (rv && arg_id == 0) {
-		printf("blocklist %s\n", domain);
-		fflush(0);
-	}
-}
-
 // load file
-void list_load_file(DEntry **dlist, const char *fname) {
-	assert(dlist);
+void whitelist_load_file(const char *fname) {
 	assert(fname);
+	DEntry **dlist = &wlist;
+	
 	FILE *fp = fopen(fname, "r");
 	if (!fp) {
 		fprintf(stderr, "Error: cannot open %s\n", fname);
@@ -139,20 +111,10 @@ void list_load_file(DEntry **dlist, const char *fname) {
 			ptr--;
 		}
 
-		list_add(dlist, start);
+		whitelist_add(start);
 	}
 
 	fclose(fp);
-}
-
-void whitelist_load_file(const char *fname) {
-	assert(fname);
-	list_load_file(&wlist, fname);
-}
-
-void blocklist_load_file(const char *fname) {
-	assert(fname);
-	list_load_file(&blist, fname);
 }
 
 // re-generate the command line
@@ -163,19 +125,6 @@ void whitelist_command(char **argv) {
 	DEntry *d = wlist;
 	while (d) {
 		if (asprintf(&argv[i], "--whitelist=%s", d->domain) == -1)
-			errExit("asprintf");
-		d = d->next;
-		i++;
-	}
-}
-
-void blocklist_command(char **argv) {
-	assert(argv);
-
-	int i = 0;
-	DEntry *d = blist;
-	while (d) {
-		if (asprintf(&argv[i], "--blocklist=%s", d->domain) == -1)
 			errExit("asprintf");
 		d = d->next;
 		i++;
@@ -201,29 +150,4 @@ int whitelist_blocked(const char *domain) {
 	}
 
 	return 1;
-}
-
-// 0 not found, 1 found
-// partial domain name matching
-// Example: fdns --bloclist=gentoo.org
-//     will block *.gentoo.org
-int blocklist_blocked(const char *domain) {
-	assert(domain);
-
-	// skip www.
-	const char *dm = domain;
-	if (strncmp(domain, "www.", 4) == 0)
-		dm = domain + 4;
-
-	DEntry *d = blist;
-	while (d) {
-		char *ptr = strstr(dm, d->domain);
-		if (ptr) {
-			if (strlen(ptr) == d->len)
-				return 1;
-		}
-		d = d->next;
-	}
-
-	return 0;
 }

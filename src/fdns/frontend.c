@@ -87,8 +87,7 @@ static int sandbox(void *sandbox_arg) {
 
 	// start an fdns resolver process
 	int wcnt = whitelist_cnt();
-	int bcnt = blocklist_cnt();
-	char *a[arg_argc + wcnt + bcnt + 20];
+	char *a[arg_argc + wcnt + 20];
 	a[0] = PATH_FDNS;
 	a[1] = idstr;
 	a[2] = fdstr;
@@ -174,24 +173,14 @@ static int sandbox(void *sandbox_arg) {
 			errExit("asprintf");
 		a[last++] = cmd;
 	}
-	if (arg_blocklist_file) {
-		char *cmd;
-		if (asprintf(&cmd, "--blocklist-file=%s", arg_blocklist_file) == -1)
-			errExit("asprintf");
-		a[last++] = cmd;
-	}
 
 	if (wcnt) {
 		whitelist_command(a + last);
 		last += wcnt;
 	}
-	if (bcnt) {
-		blocklist_command(a + last);
-		last += bcnt;
-	}
 
 	a[last] = NULL;
-	assert(last < (arg_argc + wcnt + bcnt + 20));
+	assert(last < (arg_argc + wcnt + 20));
 
 	// add a small 2 seconds sleep before restarting, just in case we are looping
 	fflush(0);

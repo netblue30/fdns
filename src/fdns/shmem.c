@@ -178,7 +178,7 @@ void shmem_store_log(const char *str) {
 
 	if (strcmp(lastentry, str) == 0) {
 		lastentry_cnt++;
-		snprintf(report->logentry[lastentry_index], MAX_ENTRY_LEN, "%dx,  %s", lastentry_cnt, str);
+		snprintf(report->logentry[lastentry_index], MAX_ENTRY_LEN, "%dx  %s", lastentry_cnt, str);
 		report->tstamp[lastentry_index] = time(NULL);
 	}
 	else {

@@ -89,8 +89,6 @@ static void usage(void) {
 	       "\tA queries are allowed.\n");
 	printf("    --allow-expired-certs - allow expired SSL certificates.\n");
 	printf("    --allow-self-signed-certs - allow self-signed SSL certificates.\n");
-	printf("    --blocklist=domain - block the domain and return NXDOMAIN.\n");
-	printf("    --blocklist-file=filename - block the domains in the file.\n");
 	printf("    --cache-ttl=seconds - change DNS cache TTL (default %ds).\n", CACHE_TTL_DEFAULT);
 	printf("    --certfile=filename - SSL certificate file in PEM format.\n");
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
@@ -266,10 +264,6 @@ int main(int argc, char **argv) {
 				whitelist_add(argv[i] + 12);
 			else if (strncmp(argv[i], "--whitelist-file=", 17) == 0)
 				whitelist_load_file(argv[i] + 17);
-			else if (strncmp(argv[i], "--blocklist=", 12) == 0)
-				blocklist_add(argv[i] + 12);
-			else if (strncmp(argv[i], "--blocklist-file=", 17) == 0)
-				blocklist_load_file(argv[i] + 17);
 			else if (strcmp(argv[i], "--details") == 0)
 				arg_details = 1;
 

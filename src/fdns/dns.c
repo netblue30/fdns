@@ -170,12 +170,6 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 			goto drop_nxdomain;
 		}
 	}
-	if (blocklist_active()) {
-		if (blocklist_blocked(q->domain)) {
-			rlogprintf("Request: blocklist  %s%s, dropped\n", q->domain, (q->type == 0x1c) ? " (ipv6)" : "");
-			goto drop_nxdomain;
-		}
-	}
 
 	//*****************************
 	// trackers/adblock filtering
