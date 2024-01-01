@@ -299,13 +299,17 @@ static void filter_load_list(const char *fname, int store) {
 		printf("%d filter entries added from %s\n", cnt, fname);
 }
 
+#include <sys/types.h>
+#include <dirent.h>
 void filter_load_all_lists(void) {
+	// apparmor will fail glob() or opendir() on /etc/fdns directory
+	// we need to hardcode the filter files
 	filter_load_list(PATH_ETC_TLD_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_PHISHING_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_FP_TRACKERS_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_TRACKERS_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
-	filter_load_list(PATH_ETC_PHISHING_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_HOSTS_LIST, arg_clean_filters);
 	if (arg_id == 0)
 		printf("\nThe following TLDs have been disabled: %s\n\n", tlds);
