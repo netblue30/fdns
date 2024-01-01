@@ -336,6 +336,8 @@ typedef struct logmsg_t {
 	char buf[MAXMSG]; // text content ending in \0
 } LogMsg;
 
+// disable logging for testing purposes
+void log_disable();
 // remote logging (resolver processes)
 void rlogprintf(const char *format, ...);
 // local logging (monitor process)

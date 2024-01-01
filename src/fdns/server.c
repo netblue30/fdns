@@ -363,6 +363,8 @@ static uint8_t test_server(const char *server_name)  {
 // exit 1 - 255 - average query in ms
 		assert(scurrent);
 
+		// disable logging
+		log_disable();
 		ssl_init();
 		printf("\nTesting server %s\n", arg_server);
 		DnsServer *s = server_get();

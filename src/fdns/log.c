@@ -20,10 +20,16 @@
 #include "timetrace.h"
 
 static LogMsg msg;
+static int disabled = 0;
+
+void log_disable(void) {
+	disabled = 1;
+}
 
 // remote logging (resolver processes to frontend process)
 void rlogprintf(const char *format, ...) {
-	if (arg_id == -1)
+	if (disabled)
+//	if (arg_id == -1)
 		return;
 
 	// initialize packet
@@ -48,6 +54,9 @@ void rlogprintf(const char *format, ...) {
 
 // local logging (monitor process)
 void logprintf(const char *format, ...) {
+	if (disabled)
+		return;
+
 	va_list valist;
 	va_start(valist, format);
 

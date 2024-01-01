@@ -34,6 +34,8 @@ static BIO *bio = NULL;
 static SSL_CTX *ctx = NULL;
 static SSL *ssl = NULL;
 
+// test SSL connection in a different process, in order to start directly
+// in the fallback server if necessary; logging is disabled in this case
 // return 1 if ok, 0 if error
 int ssl_test_open(void)  {
 	if (arg_fallback_only)
@@ -41,6 +43,8 @@ int ssl_test_open(void)  {
 
 	pid_t child = fork();
 	if (child == 0) { // child
+		int h = open("/dev/null", O_WRONLY);
+		log_disable();
 		ssl_open();
 		if (ssl_state == SSL_CLOSED)
 			exit(1);
@@ -65,12 +69,12 @@ int ssl_test_open(void)  {
 		sleep(1);
 		i++;
 	}
-	while (i < 2); // 2 seconds test
+	while (i < 5); // 5 seconds test
 
 	kill(child, SIGKILL);
 	usleep(10000);
 
-	if (i >= 2)
+	if (i >= 5)
 		return 0;
 	return 1;
 }
@@ -81,10 +85,7 @@ static void ssl_alert_callback(const SSL *s, int where, int ret) {
 
 	if (w & SSL_ST_CONNECT)
 		return;
-
-	/*	if (w & SSL_ST_CONNECT)
-			str = "SSL_connect";
-		else */if (w & SSL_ST_ACCEPT)
+	else if (w & SSL_ST_ACCEPT)
 		str = "SSL_accept";
 	else
 		str = "undefined";
