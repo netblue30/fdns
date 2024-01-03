@@ -12,7 +12,7 @@ FDNS is written in C and licensed under GPLv3. We use only DoH and DoT services 
 
 <h2>Features</h2>
 <ul>
-<li>Metwork of 200+ non-logging/non-censoring service providers spread across the globe. Access to specialized services such as family filtering, adblocking, security, OpenNIC.</li>
+<li>Network of 200+ non-logging/non-censoring service providers spread across the globe. Access to specialized services such as family filtering, adblocking, security, OpenNIC.</li>
 <li>Blocking ads, trackers, coinminers, phishing.</li>
 <li>DNS resolver cache and DNS firewall targeting various DNS attack techniques.</li>
 <li>Highly scalable multi-process design and built-in support for various security technologies such as seccomp, Linux namespaces, and AppArmor.</li>
@@ -42,6 +42,6 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 In order to keep the size of git repository in check,
 the blocklist filters files were split into a git submodule at https://github.com/netblue30/fdns-blocklists in order to keeep
 
-When you clone the project please run **git clone --recursive ssh://git@github.com/netblue30/fdns**
+When you clone the project please run `````git clone --recursive ssh://git@github.com/netblue30/fdns`````
 
 <div style="height:20px;">&nbsp;</div>
