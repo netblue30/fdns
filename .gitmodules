@@ -1,0 +1,3 @@
+[submodule "etc/blocklists"]
+	path = etc/blocklists
+	url = https://github.com/netblue30/fdns-blocklists
