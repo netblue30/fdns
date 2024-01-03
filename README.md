@@ -6,6 +6,8 @@ FDNS is an encrypted DNS proxy designed for small networks and Linux desktops. L
 
 FDNS is written in C and licensed under GPLv3. We use only DoH and DoT services from non-logging and non-censoring providers, while preferring small operators such as open-source enthusiasts and privacy-oriented non-profit organizations.
 
+<div style="height:20px;">&nbsp;</div>
+
 ![FDNS monitor](monitor1.png)
 
 <div style="height:20px;">&nbsp;</div>
