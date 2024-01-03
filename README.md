@@ -2,17 +2,9 @@
 
 <div style="height:20px;">&nbsp;</div>
 
-<a href="https://odysee.com/@netblue30:9/fdns:5" target="_blank">
-<img src="https://thumbs.odycdn.com/98a3540ced54c8b7c35ed531710a3242.png"
-alt="Firejail Encrypted DNS HowTo"  width="416" height="234" border="10" /><br/>HowTo</a>
+FDNS is an encrypted DNS proxy designed for small networks and Linux desktops. Lean and mean, it protects your computer from some of the most common cyber threats, while also improving privacy and the system performance.
 
-<div style="height:20px;">&nbsp;</div>
-
-DNS over HTTPS (DoH) is a next-generation communication protocol on track on becoming a major Internet standard (<a href="https://datatracker.ietf.org/doc/rfc8484/">RFC 8484</a>). By adding strong encryption and authentication to the good old DNS protocol, DoH tries to eliminate some of the biggest problems DNS had from the beginning: censorship, surveillance, and man-in-the-middle attacks.
-
-FDNS was designed to run as a local DoH proxy on a Linux desktop, or as a server for a small network. Lean and mean, it protects the computers against some of the most common cyber threats, all while improving the privacy and the system performance.
-
-FDNS is written in C and licensed under GPLv3. The number one job is privacy. We use <b>only</b> DoH services from non-logging providers, while preferring small operators such as open-source enthusiasts and privacy-oriented non-profit organizations.
+FDNS is written in C and licensed under GPLv3. We use only DoH and DoT services from non-logging and non-censoring providers, while preferring small operators such as open-source enthusiasts and privacy-oriented non-profit organizations.
 
 ![FDNS monitor](monitor1.png)
 
@@ -20,16 +12,11 @@ FDNS is written in C and licensed under GPLv3. The number one job is privacy. We
 
 <h2>Features</h2>
 <ul>
-<li>Works out of the box with little or no configuration changes.</li>
-<li>Network of 100+ non-logging DoH service providers spread across the globe. Access to specialized services such as family filtering, adblocking, security, OpenNIC.</li>
-<li><a href="https://en.wikipedia.org/wiki/DNS_over_TLS">DNS over TLS</a> support.</li>
-<li>Blocking ads, first and third-party trackers, coinminers, etc. The filters are configurable, the user can add his own hosts filter.</li>
-<li>DNS resolver cache and firewall: by default only A and AAAA queries are forwarded.</li>
-<li>Conditional DNS forwarding support and whitelisting mode.</li>
-<li>Regular DNS over UDP fallback in case the DoH service becomes unavailable.</li>
-<li>Live DNS request monitoring and statistics.</li>
-<li>Highly scalable multi-process design and built-in support for various security technologies: chroot, seccomp, Linux namespaces, and AppArmor.</li>
-<li>Seamless integration with <a href="https://firejail.wordpress.com">Firejail Security Sandbox</a>.</li>
+<li>Metwork of 200+ non-logging/non-censoring service providers spread across the globe. Access to specialized services such as family filtering, adblocking, security, OpenNIC.</li>
+<li>Blocking ads, trackers, coinminers, phishing.</li>
+<li>DNS resolver cache and DNS firewall targeting various DNS attack techniques.</li>
+<li>Highly scalable multi-process design and built-in support for various security technologies such as seccomp, Linux namespaces, and AppArmor.</li>
+<li>Seamless integration with Firejail Security Sandbox.</li>
 </ul>
 <div style="height:20px;">&nbsp;</div>
 
@@ -50,4 +37,11 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 </ul>
 <div style="height:20px;">&nbsp;</div>
 
+<h2>Development release 0.9.73:</h2>
 
+In order to keep the size of git repository in check,
+the blocklist filters files were split into a git submodule at https://github.com/netblue30/fdns-blocklists in order to keeep
+
+When you clone the project please run **git clone --recursive ssh://git@github.com/netblue30/fdns**
+
+<div style="height:20px;">&nbsp;</div>
