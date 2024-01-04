@@ -4223,7 +4223,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makefile src/common.mk src/fdns/Makefile src/nxdomain/Makefile"
+ac_config_files="$ac_config_files Makefile src/common.mk"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -4929,8 +4929,6 @@ do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/common.mk") CONFIG_FILES="$CONFIG_FILES src/common.mk" ;;
-    "src/fdns/Makefile") CONFIG_FILES="$CONFIG_FILES src/fdns/Makefile" ;;
-    "src/nxdomain/Makefile") CONFIG_FILES="$CONFIG_FILES src/nxdomain/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

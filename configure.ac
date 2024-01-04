@@ -133,7 +133,7 @@ AC_ARG_WITH([systemd],
 	[SYSTEMD_DIR="$withval"])
 AC_SUBST(SYSTEMD_DIR)
 
-AC_CONFIG_FILES([Makefile src/common.mk src/fdns/Makefile src/nxdomain/Makefile])
+AC_CONFIG_FILES([Makefile src/common.mk])
 AC_OUTPUT
 
 echo

@@ -11,4 +11,3 @@ fdns: $(OBJS)
 clean:; rm -f *.o fdns *.gcov *.gcda *.gcno
 
 distclean: clean
-	rm -fr Makefile

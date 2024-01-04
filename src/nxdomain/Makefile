@@ -11,4 +11,3 @@ nxdomain: $(OBJS)
 clean:; rm -f *.o nxdoamain *.gcov *.gcda *.gcno
 
 distclean: clean
-	rm -fr Makefile
