@@ -145,3 +145,19 @@ test-compile: dist
 
 gcov:
 	su -c ./gcov.sh
+
+.PHONY: codespell
+codespell:
+	@printf 'Running %s...\n' $@
+	@codespell --ignore-regex 'UE|als|chage|creat|doas|ether|isplay|readby|[Ss]hotcut' \
+	  -S *.gz,*.o,*.so \
+	  -S COPYING,m4 \
+	  -S ./contrib/syscalls.sh \
+	  -S ./etc \
+	  -S ./.git \
+	  -S ./test \
+	  .
+
+.PHONY: print-env
+print-env:
+	./ci/printenv.sh

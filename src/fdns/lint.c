@@ -270,7 +270,7 @@ DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last) {
 	*pkt += 2;
 
 	question.len = size + 4;
-	question.dlen = question.len - 6; // we are assuming a domain name without crossreferences
+	question.dlen = question.len - 6; // we are assuming a domain name without cross-references
 	return &question;
 }
 

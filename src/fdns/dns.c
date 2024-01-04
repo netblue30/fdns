@@ -100,7 +100,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	// check packet lentght
 //printf("domain #%s#, pkg %p, last %p\n", q->domain, pkt, last); fflush(0);
 	if (pkt != last + 1) {
-		rlogprintf("Error LANrx: invalid packet lenght, dropped\n");
+		rlogprintf("Error LANrx: invalid packet length, dropped\n");
 		*dest = DEST_DROP;
 		return NULL;
 	}
@@ -304,7 +304,7 @@ int dns_query(uint8_t *msg, int cnt) {
 			return datalen;
 		}
 
-		// serveral adblocker/family services return addresses of 0.0.0.0 or 127.0.0.1 for blocked domains
+		// several adblocker/family services return addresses of 0.0.0.0 or 127.0.0.1 for blocked domains
 		const char *str = lint_err2str();
 		if (strstr(str, "0.0.0.0") || strstr(str, "127.0.0.1")) {
 			// set NXDOMAIN bytes in the packet

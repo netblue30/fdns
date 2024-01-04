@@ -317,7 +317,7 @@ void resolver(void) {
 			if (ssl_state == SSL_OPEN)
 				ssl_len = dns_query(buf, len);
 
-			// a HTTP error from SSL, with no DNS data comming back
+			// a HTTP error from SSL, with no DNS data coming back
 			if (ssl_state == SSL_OPEN && ssl_len == 0) {
 				if (arg_debug) {
 					print_time();

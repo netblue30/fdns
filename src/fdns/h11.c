@@ -231,7 +231,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 	// look for the end of http header
 	ptr = strstr(buf, "\r\n\r\n");
 	if (!ptr) {
-		rlogprintf("Warning: cannot parse HTTP/1.1 response, didn't recieve a full http header\n");
+		rlogprintf("Warning: cannot parse HTTP/1.1 response, didn't receive a full http header\n");
 		goto errout;
 	}
 	ptr += 4; // length of "\r\n\r\n"

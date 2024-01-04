@@ -27,7 +27,7 @@ int server_print_unlist = 1;
 
 static char *fdns_zone = NULL;
 static DnsServer *slist = NULL;
-static DnsServer *scurrent = NULL;	// curernt DoH/DoT server
+static DnsServer *scurrent = NULL;	// current DoH/DoT server
 
 
 static inline void print_server(DnsServer *s) {
@@ -54,7 +54,7 @@ static void set_zone(void) {
 	printf("Current zone: %s\n", fdns_zone);
 }
 
-// split lines formated as tok2: tok2
+// split lines formatted as tok2: tok2
 static char *tok1;
 static char *tok2;
 int split1(char *buf) {
@@ -385,7 +385,7 @@ static uint8_t test_server(const char *server_name)  {
 		printf("   SSL/TLS connection: %.02f ms\n", ms);
 		fflush(0);
 
-		// is not necessary to check the return data for example.com; this is already done durring SSL connect
+		// is not necessary to check the return data for example.com; this is already done during SSL connect
 		timetrace_start();
 		uint8_t buf[MAXBUF];
 		transport->send_exampledotcom(buf);

@@ -201,7 +201,6 @@ static uint32_t h2_encode_header(uint8_t *frame, int len) {
 	ptr += sz;
 
 //disabled	HEADER("pragma", "no-cache");
-//disabled	HEADER("te", "trailers");
 	ptrdiff_t length = ptr - (frame + sizeof(H2Frame));
 
 	// add the frame header
@@ -290,11 +289,9 @@ static void h2_decode_header(uint8_t *frame) {
 
 	size_t len = h2frame_extract_length(&frm);
 	uint8_t *ptr = frame + sizeof(H2Frame);
-//print_mem(ptr, len);
 	unsigned cnt = 0;
 	while (cnt < len) {
 		printh("|");
-//printf("procesing 0x%02x ", *ptr);
 		if (*ptr & 0x80) { // indexed header field
 			unsigned index;
 			int rv = extract_number(ptr, 0x7f, &index);

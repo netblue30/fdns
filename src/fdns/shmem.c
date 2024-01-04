@@ -303,7 +303,7 @@ void shmem_monitor_stats(const char *proxy_addr) {
 				}
 			}
 
-			// make a copy of the data in order to minimize the posibility of data changes durring printing
+			// make a copy of the data in order to minimize the possibility of data changes during printing
 			DnsReport d;
 			memcpy(&d, report, sizeof(DnsReport));
 			seq = report->seq;

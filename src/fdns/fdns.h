@@ -109,7 +109,7 @@ static inline int rand_range(int min, int max) {
 #define CACHE_TTL_DEFAULT (40 * 60)	// default DNS cache ttl in seconds
 #define CACHE_TTL_MIN (1 * 60)
 #define CACHE_TTL_MAX (60 * 60)
-#define CACHE_TTL_ERROR 120	// cache ttl for errror mesage (such as NXDOMAIN) returned by the server
+#define CACHE_TTL_ERROR 120	// cache ttl for error message (such as NXDOMAIN) returned by the server
 #define CACHE_PRINT_TIMEOUT	60	// list the domain in the cache
 
 // number of resolver processes
@@ -173,7 +173,7 @@ typedef struct dnsserver_t {
 	char *transport;	// supported transport types
 	int sni;		// 1 or 0
 	int test_sni;		// not read from the config file; 1 only when the server is specified by url with --server or --test-server
-	int keepalive_max;	// maximum vallue of keepalive in seconds
+	int keepalive_max;	// maximum value of keepalive in seconds
 } DnsServer;
 
 typedef struct dnstransport_t {
