@@ -53,8 +53,13 @@ realinstall:
 	install -c -m 0644 RELNOTES $(DESTDIR)/$(DOCDIR)/.
 	# etc files
 	install -m 0755 -d $(DESTDIR)$(sysconfdir)/fdns
-	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/list.adblocker etc/list.coinblocker etc/list.fp-trackers  etc/list.phishing etc/list.tld-blacklist etc/resolver.seccomp
-	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/servers etc/list.trackers
+	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/resolver.seccomp
+	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/servers
+	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.adblocker
+	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.trackers
+	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.coinblocker
+	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.phishing
+	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.tld-blacklist
 	# install server cusomization file
 	sh -c "if [ ! -f $(DESTDIR)/$(sysconfdir)/fdns/servers.local ]; then install -c -m 0644 etc/servers.local $(DESTDIR)/$(sysconfdir)/fdns/servers.local; fi;"
 
