@@ -1,0 +1,15 @@
+#
+# User blocklist file loaded by default by fdns at startup.
+# This file is not overwritten at install time.
+#
+# Example:
+#	127.0.0.1 domain-name.com
+#
+# These are wildcard domains, like *.domain-name.com in the example above.
+# Any site under domain-name.com will be dropped.
+#
+# Note:
+#    glibc library installed on Linux does not support wildcard domains.
+#    Copying /etc/hosts in /etc/fdns/hosts will work, but not the other
+#    way around.
+#

@@ -60,8 +60,10 @@ realinstall:
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.coinblocker
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.phishing
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.tld-blacklist
-	# install server cusomization file
+	# install server customization file
 	sh -c "if [ ! -f $(DESTDIR)/$(sysconfdir)/fdns/servers.local ]; then install -c -m 0644 etc/servers.local $(DESTDIR)/$(sysconfdir)/fdns/servers.local; fi;"
+	# install user hosts customization file
+	sh -c "if [ ! -f $(DESTDIR)/$(sysconfdir)/fdns/hosts ]; then install -c -m 0644 etc/hosts $(DESTDIR)/$(sysconfdir)/fdns/hosts; fi;"
 
 	# systemd service unit
 	install -Dm0644 etc/fdns.service $(DESTDIR)$(SYSTEMD_DIR)/fdns.service
