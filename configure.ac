@@ -47,6 +47,25 @@ AX_CHECK_COMPILE_FLAG(
     [EXTRA_CFLAGS+=" -fstack-protector-strong"]
 )
 
+AC_ARG_ENABLE([analyzer],
+    [AS_HELP_STRING([--enable-analyzer], [enable GCC static analyzer])])
+AS_IF([test "x$enable_analyzer" = "xyes"], [
+	EXTRA_CFLAGS="$EXTRA_CFLAGS -fanalyzer -Wno-analyzer-malloc-leak"
+])
+
+AC_ARG_ENABLE([sanitizer],
+    [AS_HELP_STRING([--enable-sanitizer=@<:@address | memory | undefined@:>@],
+        [enable a compiler-based sanitizer (debug)])],
+    [],
+    [enable_sanitizer=no])
+
+AS_IF([test "x$enable_sanitizer" != "xno" ], [
+	AX_CHECK_COMPILE_FLAG([-fsanitize=$enable_sanitizer], [
+		EXTRA_CFLAGS="$EXTRA_CFLAGS -fsanitize=$enable_sanitizer -fno-omit-frame-pointer"
+		EXTRA_LDFLAGS="$EXTRA_LDFLAGS -fsanitize=$enable_sanitizer"
+	], [AC_MSG_ERROR([sanitizer not supported: $enable_sanitizer])])
+])
+
 AC_SUBST([EXTRA_CFLAGS])
 AC_SUBST([EXTRA_LDFLAGS])
 
@@ -128,5 +147,6 @@ echo "   seccomp: $HAVE_SECCOMP"
 echo "   EXTRA_LDFLAGS: $EXTRA_LDFLAGS"
 echo "   EXTRA_CFLAGS: $EXTRA_CFLAGS"
 echo "   fatal warnings: $HAVE_FATAL_WARNINGS"
+echo "   gcc analyzer: $enable_analyzer"
 echo "   Gcov instrumentation: $HAVE_GCOV"
 echo

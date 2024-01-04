@@ -89,7 +89,6 @@ static void build_output(const char *tname_out, int chunk) {
 static void test(FILE *fpout, int chunk_no) {
 	assert(fpout);
 
-	char buf[LINE_MAX];
 	int i = 0;
 	int j = 0;
 	char *start = "not running";
@@ -225,7 +224,7 @@ static void run_chunk(int chunk_no, const char *tname_out) {
 }
 
 
-static int load_chunk(FILE *fp, int chunk_no) {
+static int load_chunk(FILE *fp) {
 	assert(fp);
 
 	int i;
@@ -339,7 +338,7 @@ int main(int argc, char **argv) {
 	int active_chunks = 0;
 	i = 0;
 	while (1) {
-		int last_chunk = load_chunk(fp, i);
+		int last_chunk = load_chunk(fp);
 
 		pid_t child = fork();
 		if (child == -1) {

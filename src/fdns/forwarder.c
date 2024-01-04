@@ -38,7 +38,7 @@ void forwarder_set(const char *str) {
 
 	// extract name
 	f->name = strdup(str);
-	if (!str)
+	if (!f->name)
 		errExit("strdup");
 	char *ptr = strchr(f->name, '@');
 	if (!ptr || ptr == f->name) {

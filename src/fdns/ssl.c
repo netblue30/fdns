@@ -43,7 +43,6 @@ int ssl_test_open(void)  {
 
 	pid_t child = fork();
 	if (child == 0) { // child
-		int h = open("/dev/null", O_WRONLY);
 		log_disable();
 		ssl_open();
 		if (ssl_state == SSL_CLOSED)

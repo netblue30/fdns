@@ -714,6 +714,8 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+enable_analyzer
+enable_sanitizer
 enable_apparmor
 enable_fatal_warnings
 enable_gcov
@@ -1347,6 +1349,9 @@ Optional Features:
   --disable-option-checking  ignore unrecognized --enable/--with options
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --enable-analyzer       enable GCC static analyzer
+  --enable-sanitizer=[address | memory | undefined]
+                          enable a compiler-based sanitizer (debug)
   --enable-apparmor       enable apparmor
   --enable-fatal-warnings -W -Wall -Werror
   --enable-gcov           Gcov instrumentation
@@ -3709,6 +3714,77 @@ else $as_nop
 fi
 
 
+# Check whether --enable-analyzer was given.
+if test ${enable_analyzer+y}
+then :
+  enableval=$enable_analyzer;
+fi
+
+if test "x$enable_analyzer" = "xyes"
+then :
+
+	EXTRA_CFLAGS="$EXTRA_CFLAGS -fanalyzer -Wno-analyzer-malloc-leak"
+
+fi
+
+# Check whether --enable-sanitizer was given.
+if test ${enable_sanitizer+y}
+then :
+  enableval=$enable_sanitizer;
+else $as_nop
+  enable_sanitizer=no
+fi
+
+
+if test "x$enable_sanitizer" != "xno"
+then :
+
+	as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__-fsanitize=$enable_sanitizer" | $as_tr_sh`
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether C compiler accepts -fsanitize=$enable_sanitizer" >&5
+printf %s "checking whether C compiler accepts -fsanitize=$enable_sanitizer... " >&6; }
+if eval test \${$as_CACHEVAR+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+
+  ax_check_save_flags=$CFLAGS
+  CFLAGS="$CFLAGS  -fsanitize=$enable_sanitizer"
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main (void)
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+  eval "$as_CACHEVAR=yes"
+else $as_nop
+  eval "$as_CACHEVAR=no"
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+  CFLAGS=$ax_check_save_flags
+fi
+eval ac_res=\$$as_CACHEVAR
+	       { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+printf "%s\n" "$ac_res" >&6; }
+if eval test \"x\$"$as_CACHEVAR"\" = x"yes"
+then :
+
+		EXTRA_CFLAGS="$EXTRA_CFLAGS -fsanitize=$enable_sanitizer -fno-omit-frame-pointer"
+		EXTRA_LDFLAGS="$EXTRA_LDFLAGS -fsanitize=$enable_sanitizer"
+
+else $as_nop
+  as_fn_error $? "sanitizer not supported: $enable_sanitizer" "$LINENO" 5
+fi
+
+
+fi
+
 
 
 
@@ -5321,6 +5397,7 @@ echo "   seccomp: $HAVE_SECCOMP"
 echo "   EXTRA_LDFLAGS: $EXTRA_LDFLAGS"
 echo "   EXTRA_CFLAGS: $EXTRA_CFLAGS"
 echo "   fatal warnings: $HAVE_FATAL_WARNINGS"
+echo "   gcc analyzer: $enable_analyzer"
 echo "   Gcov instrumentation: $HAVE_GCOV"
 echo
 

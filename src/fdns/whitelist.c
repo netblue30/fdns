@@ -26,8 +26,6 @@ typedef struct dentry_t {
 } DEntry;
 
 static DEntry *wlist = NULL; // whitelist
-static DEntry *blist = NULL; // blocklist
-
 
 // is active?
 int whitelist_active(void) {
@@ -74,7 +72,7 @@ void whitelist_add(const char *domain) {
 	dnew->len = strlen(dnew->domain);
 	dnew->next = *dlist;
 	*dlist = dnew;
-	
+
 	if (arg_id == 0) {
 		printf("whitelist %s\n", domain);
 		fflush(0);
@@ -84,8 +82,7 @@ void whitelist_add(const char *domain) {
 // load file
 void whitelist_load_file(const char *fname) {
 	assert(fname);
-	DEntry **dlist = &wlist;
-	
+
 	FILE *fp = fopen(fname, "r");
 	if (!fp) {
 		fprintf(stderr, "Error: cannot open %s\n", fname);
