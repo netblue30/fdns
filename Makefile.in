@@ -1,5 +1,5 @@
 all: apps man
-APPS = src/fdns src/nxdomain
+APPS = src/fdns src/nxdomain src/dnsc
 MANPAGES = fdns.1 nxdomain.1
 
 prefix=@prefix@
@@ -46,11 +46,13 @@ realinstall:
 	install -m 0755 -d $(DESTDIR)/$(bindir)
 	install -c -m 0755 src/fdns/fdns $(DESTDIR)/$(bindir)/.
 	install -c -m 0755 src/nxdomain/nxdomain $(DESTDIR)/$(bindir)/.
+	install -c -m 0755 src/dnsc/dnsc $(DESTDIR)/$(bindir)/.
 	# documents
 	install -m 0755 -d $(DESTDIR)/$(DOCDIR)
 	install -c -m 0644 COPYING $(DESTDIR)/$(DOCDIR)/.
 	install -c -m 0644 README $(DESTDIR)/$(DOCDIR)/.
 	install -c -m 0644 RELNOTES $(DESTDIR)/$(DOCDIR)/.
+	install -c -m 0644 etc/blocklists/README.md $(DESTDIR)/$(DOCDIR)/README-blocklists
 	# etc files
 	install -m 0755 -d $(DESTDIR)$(sysconfdir)/fdns
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/resolver.seccomp
@@ -60,6 +62,7 @@ realinstall:
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.coinblocker
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.phishing
 	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/list.tld-blacklist
+	install -m 0644 -t $(DESTDIR)$(sysconfdir)/fdns etc/blocklists/whitelist
 	# install server customization file
 	sh -c "if [ ! -f $(DESTDIR)/$(sysconfdir)/fdns/servers.local ]; then install -c -m 0644 etc/servers.local $(DESTDIR)/$(sysconfdir)/fdns/servers.local; fi;"
 	# install user hosts customization file

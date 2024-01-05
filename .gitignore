@@ -6,13 +6,14 @@
 *.rpm
 *.gcda
 *.gcno
-Makefile
+./Makefile
 autom4te.cache/
 config.log
 config.status
 fdns-*.tar.xz
 fdns.1
 src/fdns/fdns
+src/dnsc/dnsc
 src/common.mk
 src/nxdomain/nxdomain
 test/src/fdnstress/fdnstress
