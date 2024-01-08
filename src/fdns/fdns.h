@@ -319,8 +319,6 @@ int dns_query(uint8_t *msg, int cnt);
 // filter.c
 void filter_init(void);
 void filter_load_all_lists(void);
-void filter_add(const char *domain);
-void filter_serach_add(const char *domain);
 int filter_blocked(const char *str, int verbose);
 void filter_test(char *url);
 void filter_test_list(void);

@@ -18,7 +18,7 @@
 */
 #include "fdns.h"
 #include "timetrace.h"
- #include <ctype.h>
+#include <ctype.h>
 
 // debug statistics
 //#define DEBUG_STATS
@@ -36,7 +36,7 @@ typedef struct dfilter_t {
 	//      $ - end of domain name
 	//      regular letter: anywhere in the domain name
 	char *name;
-	char *exception;	// false match if exception inside name (strstr)
+	char *exception;	// false match if exception string inside name (strstr)
 	int len;	// name string length
 } DFilter;
 
@@ -137,11 +137,19 @@ static DFilter default_filter[] = {
 typedef struct hash_entry_t {
 	struct hash_entry_t *next;
 	unsigned short hash2;
+	unsigned short file_id;
+	unsigned line_no;
 	char *name;
-} HashEntry;
+} HashEntry; //6258134
 
 #define MAX_HASH_ARRAY 65536
-static HashEntry *blist[MAX_HASH_ARRAY];
+static HashEntry *blist[MAX_HASH_ARRAY] = {NULL};
+#define MAX_TLD_STR 2048
+static char tlds[MAX_TLD_STR] = {'\0'};
+#define MAX_FILE_ID 128
+#define FILE_ID_INVALID 0xffff
+static char *file_id_arr[MAX_FILE_ID] = {NULL};
+static int file_id_cnt = 0;
 
 void filter_init(void) {
 	int i = 0;
@@ -168,10 +176,8 @@ static inline int hash(const char *str, unsigned short *hash2) {
 	return (int) (hash & (MAX_HASH_ARRAY - 1));
 }
 
-#define MAX_TLD_STR 2048
-static char tlds[MAX_TLD_STR] = {'\0'};
 
-void filter_add(const char *domain) {
+static void filter_add(const char *domain, unsigned short file_id, unsigned line_no) {
 	assert(domain);
 	if (arg_id == 0 && strchr(domain, '.') == NULL) {
 		if (strlen(domain) < 10 && strlen(tlds) < (MAX_TLD_STR - 15)) {
@@ -186,6 +192,8 @@ void filter_add(const char *domain) {
 	h->name = strdup(domain);
 	if (!h->name)
 		errExit("strdup");
+	h->file_id = file_id;
+	h->line_no = line_no;
 
 	int hval = hash(domain, &h->hash2);
 	assert(hval < MAX_HASH_ARRAY);
@@ -216,17 +224,23 @@ static HashEntry *filter_search(const char *domain) {
 	return NULL; // not found
 }
 
-void filter_serach_add(const char *domain) {
-	if (!filter_search(domain))
-		filter_add(domain);
-}
-
 static void filter_load_list(const char *fname, int store) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
 	if (!fp)
 		return;  // nothing to do
 
+	unsigned short file_id = file_id_cnt;
+	if (file_id < MAX_FILE_ID) {
+		file_id_arr[file_id] = strdup(fname);
+		if (!fname)
+			errExit("strdup");
+		file_id_cnt++;
+		
+	}
+	else
+		file_id = FILE_ID_INVALID;
+	
 	FILE *fpout = NULL;
 	if (store) {
 		char *f = strrchr(fname, '/');
@@ -242,7 +256,9 @@ static void filter_load_list(const char *fname, int store) {
 
 	char buf[MAXBUF];
 	int cnt = 0;
+	int line_no = 0;
 	while (fgets(buf, MAXBUF, fp)) {
+		line_no++;
 		// remove \n
 		char *ptr = strstr(buf, "\n");
 		if (ptr)
@@ -286,7 +302,7 @@ static void filter_load_list(const char *fname, int store) {
 		if (!filter_blocked(ptr, 0)) {
 			if (store)
 				fprintf(fpout, "127.0.0.1 %s\n", ptr);
-			filter_add(ptr);
+			filter_add(ptr, file_id, line_no);
 			cnt++;
 		}
 	}
@@ -315,21 +331,34 @@ void filter_load_all_lists(void) {
 		printf("\nThe following TLDs have been disabled: %s\n\n", tlds);
 #ifdef DEBUG_STATS
 	int max_cnt = 0;
+	HashEntry *max_line = NULL;
+	int zero_cnt = 0;
 	int i;
 	for (i = 0; i < MAX_HASH_ARRAY; i++) {
 		int cnt = 0;
 		HashEntry *ptr = blist[i];
+		if (!ptr)
+			zero_cnt++;
 		while (ptr) {
 			cnt++;
 			ptr = ptr->next;
 		}
 
-		if (cnt > max_cnt)
+		if (cnt > max_cnt) {
 			max_cnt = cnt;
+			max_line = blist[i];
+		}
 	}
 
 	printf("*** %u filter entries, total memory %lu\n", stats_entries, stats_mem + sizeof(blist));
-	printf("*** longest filter htable line %d ***\n", max_cnt);
+	printf("*** htable empty lines %d\n", zero_cnt);
+	printf("*** max htable line %d\n", max_cnt);
+	printf("*** max line hash2 values: ");
+	while (max_line) {
+		printf("%u, ", max_line->hash2);
+		max_line = max_line->next;
+	}
+	printf("\n");
 #endif
 }
 
@@ -411,7 +440,7 @@ int filter_blocked(const char *str, int verbose) {
 #ifdef DEBUG_STATS
 	timetrace_start();
 #endif
-	int dlen = strlen(str); // todo: pass the length as function param
+	int dlen = strlen(str);
 	int i = 0;
 
 	// remove "www."
@@ -465,8 +494,15 @@ int filter_blocked(const char *str, int verbose) {
 		HashEntry *ptr = filter_search(domains[i]);
 		if (ptr) {
 			clear_domains(); // remove scan-build warnings
-			if (verbose)
-				printf("URL %s dropped by \"%s\" rule\n", str, ptr->name);
+			if (verbose) {
+				if (ptr->file_id == FILE_ID_INVALID)
+					printf("URL %s dropped by \"%s\" rule\n",
+						str, ptr->name);
+				else
+					printf("URL %s dropped by \"%s\" rule (%s:%u)\n",
+						str, ptr->name,
+						file_id_arr[ptr->file_id], ptr->line_no);
+			}
 			return 1;
 		}
 	}
@@ -491,7 +527,17 @@ int filter_blocked(const char *str, int verbose) {
 
 void filter_test(char *url) {
 	assert(url);
-	filter_blocked(url, 1);
+	// skip http/https
+	char *start = url;
+	if (strncmp(start, "https://", 8) == 0)
+		start += 8;
+	else if (strncmp(start, "http://", 7) == 0)
+		start += 7;
+	
+	char *ptr = strchr(start, '/');
+	if (ptr)
+		*ptr = 0;
+	filter_blocked(start, 1);
 }
 
 
