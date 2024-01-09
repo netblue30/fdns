@@ -130,6 +130,7 @@ static inline int rand_range(int min, int max) {
 #define PATH_ETC_COINBLOCKER_LIST (SYSCONFDIR "/list.coinblocker")
 #define PATH_ETC_PHISHING_LIST (SYSCONFDIR "/list.phishing")
 #define PATH_ETC_TLD_LIST (SYSCONFDIR "/list.tld-blacklist")
+#define PATH_ETC_DYNDNS_LIST (SYSCONFDIR "/list.dyndns")
 #define PATH_ETC_HOSTS_LIST (SYSCONFDIR "/hosts")
 #define PATH_ETC_SERVER_LIST (SYSCONFDIR "/servers")
 #define PATH_ETC_SERVER_LOCAL_LIST (SYSCONFDIR "/servers.local")

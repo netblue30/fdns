@@ -326,6 +326,7 @@ void filter_load_all_lists(void) {
 	filter_load_list(PATH_ETC_TRACKERS_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_DYNDNS_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_HOSTS_LIST, arg_clean_filters);
 	if (arg_id == 0)
 		printf("\nThe following TLDs have been disabled: %s\n\n", tlds);
