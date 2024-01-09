@@ -138,14 +138,14 @@ host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
 end;
 
-name: adguard-unfiltered-dot
-website: https://adguard.com/en/adguard-dns/overview.html
-tags: anycast, Americas, AsiaPacific, Europe
-address: 176.103.130.136:853
-host: dns-unfiltered.adguard.com/
-keepalive: 25
-transport: dot
-end;
+#name: adguard-unfiltered-dot
+#website: https://adguard.com/en/adguard-dns/overview.html
+#tags: anycast, Americas, AsiaPacific, Europe
+#address: 176.103.130.136:853
+#host: dns-unfiltered.adguard.com/
+#keepalive: 25
+#transport: dot
+#end;
 
 name: adguard-unfiltered2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -155,14 +155,14 @@ host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
 end;
 
-name: adguard-unfiltered2-dot
-website: https://adguard.com/en/adguard-dns/overview.html
-tags: anycast, Americas, AsiaPacific, Europe
-address: 176.103.130.137:853
-host: dns-unfiltered.adguard.com/
-keepalive: 25
-transport: dot
-end;
+#name: adguard-unfiltered2-dot
+#website: https://adguard.com/en/adguard-dns/overview.html
+#tags: anycast, Americas, AsiaPacific, Europe
+#address: 176.103.130.137:853
+#host: dns-unfiltered.adguard.com/
+#keepalive: 25
+#transport: dot
+#end;
 
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -172,14 +172,14 @@ host: dns.adguard.com/dns-query
 keepalive: 40
 end;
 
-name: adguard-dot
-website: https://adguard.com/en/adguard-dns/overview.html
-tags: anycast, adblocker, Americas, AsiaPacific, Europe
-address: 176.103.130.130:853
-host: dns.adguard.com/
-keepalive: 25
-transport: dot
-end;
+#name: adguard-dot
+#website: https://adguard.com/en/adguard-dns/overview.html
+#tags: anycast, adblocker, Americas, AsiaPacific, Europe
+#address: 176.103.130.130:853
+#host: dns.adguard.com/
+#keepalive: 25
+#transport: dot
+#end;
 
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -189,14 +189,14 @@ host: dns.adguard.com/dns-query
 keepalive: 40
 end;
 
-name: adguard2-dot
-website: https://adguard.com/en/adguard-dns/overview.html
-tags: anycast, adblocker, Americas, AsiaPacific, Europe
-address: 176.103.130.131:853
-host: dns.adguard.com/dns-query
-keepalive: 25
-transport: dot
-end;
+#name: adguard2-dot
+#website: https://adguard.com/en/adguard-dns/overview.html
+#tags: anycast, adblocker, Americas, AsiaPacific, Europe
+#address: 176.103.130.131:853
+#host: dns.adguard.com/dns-query
+#keepalive: 25
+#transport: dot
+#end;
 
 name: adguard-family
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -206,14 +206,14 @@ host: dns-family.adguard.com/dns-query
 keepalive: 40
 end;
 
-name: adguard-family-dot
-website: https://adguard.com/en/adguard-dns/overview.html
-tags: family
-address: 176.103.130.132:853
-host: dns-family.adguard.com/
-keepalive: 25
-transport: dot
-end;
+#name: adguard-family-dot
+#website: https://adguard.com/en/adguard-dns/overview.html
+#tags: family
+#address: 176.103.130.132:853
+#host: dns-family.adguard.com/
+#keepalive: 25
+#transport: dot
+#end;
 
 name: adguard-family2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -223,14 +223,14 @@ host: dns-family.adguard.com/dns-query
 keepalive: 40
 end;
 
-name: adguard-family2-dot
-website: https://adguard.com/en/adguard-dns/overview.html
-tags: family
-address: 176.103.130.134:853
-host: dns-family.adguard.com/
-keepalive: 25
-transport: dot
-end;
+#name: adguard-family2-dot
+#website: https://adguard.com/en/adguard-dns/overview.html
+#tags: family
+#address: 176.103.130.134:853
+#host: dns-family.adguard.com/
+#keepalive: 25
+#transport: dot
+#end;
 
 name: ahadns
 website: https://ahadns.com
