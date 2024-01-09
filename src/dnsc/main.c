@@ -211,11 +211,12 @@ int get_limit(void) {
 }
 
 static void usage(void) {
-	printf("dnsc - utility program for cleaning and compressing wildcard DNS hosts lists\n");
+	printf("dnsc - utility program for cleaning and compressing wildcard domain lists\n");
 	printf("\n");
 	printf("Usage: dnsc [options] hosts-file [hosts-file]\n");
 	printf("where:\n");
-	printf("   hosts-file - DNS blocklist file in hosts format\n");
+	printf("   hosts-file - DNS blocklist file in hosts format. All domains are considered\n");
+	printf("                wildcard domains\n");
 	printf("\n");
 	printf("Options:\n");
 	printf("   --cnt=number - above this number, the domain is reported in the short list;\n");
@@ -224,12 +225,8 @@ static void usage(void) {
 	printf("   -?, -h, --help - this help screen\n");
 	printf("   --short - print the short list\n");
 	printf("\n");
-	printf("Note 1: All host entries are considered wildcard domains. Wildcards are domain\n");
-	printf("names with the leftmost label being a single asterisk *, meaning all hosts in\n");
-	printf("the domain following the astrisk.\n");
-	printf("\n");
-	printf("Note 2: Domains in /etc/hosts files on Linux computers are NOT wildcards.\n");
-	printf("A wildcard list installed in /etc/hosts will not work!\n");
+	printf("Note: Domains in /etc/hosts files on regular Linux computers ARE NOT WILDCARDS!\n");
+	printf("A wildcard list installed in /etc/hosts will not work.\n");
 	printf("\n");
 }
 

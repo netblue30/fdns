@@ -162,16 +162,20 @@ void resolver(void) {
 				transport->exchange(buf, 0);
 
 			if (--dns_keepalive_cnt <= 0)  {
-				dns_send_keepalive();
-				dns_keepalive_cnt = dns_get_current_keepalive();
-				print_time();
-				printf("(%d) keepalive %d\n", arg_id, dns_keepalive_cnt);
-				stats.changed = 1;
+				if (arg_fallback_only)
+					dns_keepalive_cnt = 30;
+				else {
+					dns_send_keepalive();
+					dns_keepalive_cnt = dns_get_current_keepalive();
+					print_time();
+					printf("(%d) keepalive %d\n", arg_id, dns_keepalive_cnt);
+					stats.changed = 1;
+				}
 			}
 
 			// send resolver keepalive
 			if (--resolver_keepalive_cnt <= 0)  {
-				if (ssl_state == SSL_OPEN)
+				if (arg_fallback_only || ssl_state == SSL_OPEN) // sending resolver keepalive
 					rlogprintf("resolver keepalive\n");
 				resolver_keepalive_cnt = RESOLVER_KEEPALIVE_TIMER;
 			}

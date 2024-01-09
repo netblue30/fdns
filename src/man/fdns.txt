@@ -141,6 +141,18 @@ Testing server cloudflare
 .br
 Testing completed
 .TP
+\fB\-\-fallback-server=address
+In case the main DoH/DoT server is down, use this regular DNS/UDP server for fallback.
+By default we test and chose the fastes server from the following list:
+Adguard, CleanBrowsing, Cloudflare, NextDNS, and Quad9.
+.br
+
+.br
+Example:
+.br
+$ sudo fdns --fallback-server=66.70.228.164
+.br
+.TP
 \fB\-\-forwarder=domain@address
 Conditional domain forwarding to a different DNS server.
 .br
