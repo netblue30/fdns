@@ -15,25 +15,12 @@ fdns --monitor
 .RE
 
 .SH DESCRIPTION
-FDNS is an encrypted DNS proxy server for small networks and Linux desktops.
-To speed up the name resolution FDNS caches the responses, and uses a configurable
-adblocker and privacy filter to cut down the unnecessary traffic.
+FDNS is a lightweight encrypted DNS proxy designed for small networks and Linux desktops.
+The proxy implements caching, a DNS firewall, and uses configurable adblocker and privacy filters.
 
-We preconfigure FDNS with a large list of DoH/DoT service providers. For privacy reasons we
-use only services from non-logging providers. We prefer servers run out-of-pocket by
-students, engineers, open-source enthusiasts, privacy-oriented non-profit organizations, etc.
-Currently there are more than 100 such servers on our list.
-
-We also track a corporate category with several providers: Adguard, CleanBrowsing, Cloudflare,
-and Quad9. All have a non-logging privacy policy that will work in most parts of the world.
-
-The servers are organized using a simple geographically-aware tagging system. This allows the
-user to request specialized services such as adblocking, security, family filters, etc.
-
-Once started, FDNS chooses a server at random, as close geographically as possible.
-We derive the computer location from the timezone setting. There are no IP packets sent
-out to geolocation services. Three geographical zones are defined so far: (the two) Americas,
-AsiaPacific and Europe. Use --list=all option to print all the servers and the corresponding tags.
+Out of the box, the proxy comes with a large number of non-logging and non-censoring DoH/DoT service providers.
+At startup, it chooses a server at random, as close geographically as possible.
+The computer's location is determined by the time zone setting.
 
 .SH OPTIONS
 .TP
@@ -46,6 +33,19 @@ Allow expired SSL certificates during SSL connection.
 .TP
 \fB\-\-allow-self-signed-certs
 Allow self-signed SSL certificates during SSL connection. Use this option for bringing up new servers.
+.TP
+\fB\-\-blocklist-file=filename
+Load an additional blocklist file at startup. Up to 8 such files can be loaded.
+The blocklists are regular 127.0.0.1 or 0.0.0.0 host files. All domains in the file
+are considered wildcard domains. Example:
+.br
+
+.br
+$ sudo fdns --blocklist=/usr/fdns/newblocklist
+.br
+
+.br
+Note: If AppArmor is enabled, please place your files additional files in /etc/fdns directory.
 .TP
 \fB\-\-certfile=filename
 Use an SSL certificate file in PEM format. By default we use the certificates installed

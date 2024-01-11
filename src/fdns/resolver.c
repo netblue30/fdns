@@ -162,7 +162,7 @@ void resolver(void) {
 				transport->exchange(buf, 0);
 
 			if (--dns_keepalive_cnt <= 0)  {
-				if (arg_fallback_only)
+				if (fallback_only)
 					dns_keepalive_cnt = 30;
 				else {
 					dns_send_keepalive();
@@ -175,7 +175,7 @@ void resolver(void) {
 
 			// send resolver keepalive
 			if (--resolver_keepalive_cnt <= 0)  {
-				if (arg_fallback_only || ssl_state == SSL_OPEN) // sending resolver keepalive
+				if (fallback_only || ssl_state == SSL_OPEN) // sending resolver keepalive
 					rlogprintf("resolver keepalive\n");
 				resolver_keepalive_cnt = RESOLVER_KEEPALIVE_TIMER;
 			}

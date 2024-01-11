@@ -121,7 +121,7 @@ void shmem_store_stats(const char *proxy_addr) {
 		report->peer_ip[i] = stats.peer_ip[i];
 	}
 
-	if (arg_fallback_only)
+	if (fallback_only)
 		snprintf(report->header1, MAX_ENTRY_LEN,
 			 "%s %s %s",
 			 proxy_addr,

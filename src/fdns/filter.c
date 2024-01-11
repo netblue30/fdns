@@ -224,11 +224,16 @@ static HashEntry *filter_search(const char *domain) {
 	return NULL; // not found
 }
 
-static void filter_load_list(const char *fname, int store) {
+void filter_load_list(const char *fname, int store) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
-	if (!fp)
-		return;  // nothing to do
+	if (!fp) {
+		if (arg_id == 0) {
+			fprintf(stderr, "Error: cannot open %s\n", fname);
+			fprintf(stderr, "If AppArmor is enabled, please place the file in %s directory\n", SYSCONFDIR);
+		}
+		return;
+	}
 
 	unsigned short file_id = file_id_cnt;
 	if (file_id < MAX_FILE_ID) {
@@ -236,11 +241,11 @@ static void filter_load_list(const char *fname, int store) {
 		if (!fname)
 			errExit("strdup");
 		file_id_cnt++;
-		
+
 	}
 	else
 		file_id = FILE_ID_INVALID;
-	
+
 	FILE *fpout = NULL;
 	if (store) {
 		char *f = strrchr(fname, '/');
@@ -315,19 +320,23 @@ static void filter_load_list(const char *fname, int store) {
 		printf("%d filter entries added from %s\n", cnt, fname);
 }
 
-#include <sys/types.h>
-#include <dirent.h>
 void filter_load_all_lists(void) {
 	// apparmor will fail glob() or opendir() on /etc/fdns directory
 	// we need to hardcode the filter files
 	filter_load_list(PATH_ETC_TLD_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_PHISHING_LIST, arg_clean_filters);
-	filter_load_list(PATH_ETC_FP_TRACKERS_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_TRACKERS_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_DYNDNS_LIST, arg_clean_filters);
 	filter_load_list(PATH_ETC_HOSTS_LIST, arg_clean_filters);
+
+	int i;
+	for (i = 0; i < MAX_BLOCKLIST_FILE; i++) {
+		if (arg_blocklist_file[i])
+			filter_load_list(arg_blocklist_file[i], arg_clean_filters);
+	}
+
 	if (arg_id == 0)
 		printf("\nThe following TLDs have been disabled: %s\n\n", tlds);
 #ifdef DEBUG_STATS
@@ -534,7 +543,7 @@ void filter_test(char *url) {
 		start += 8;
 	else if (strncmp(start, "http://", 7) == 0)
 		start += 7;
-	
+
 	char *ptr = strchr(start, '/');
 	if (ptr)
 		*ptr = 0;

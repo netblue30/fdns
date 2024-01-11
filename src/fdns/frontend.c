@@ -84,7 +84,6 @@ static int sandbox(void *sandbox_arg) {
 	if (asprintf(&fdstr, "--fd=%d", w[id].fd[1]) == -1)
 		errExit("asprintf");
 
-
 	// start an fdns resolver process
 	int wcnt = whitelist_cnt();
 	char *a[arg_argc + wcnt + 20];
@@ -110,8 +109,6 @@ static int sandbox(void *sandbox_arg) {
 		a[last++] = "--allow-self-signed-certs";
 	if (arg_allow_expired_certs)
 		a[last++] = "--allow-expired-certs";
-//	if (arg_fallback_only)
-//		a[last++] = "--fallback-only";
 	if (arg_keepalive) {
 		char *cmd;
 		if (asprintf(&cmd, "--keepalive=%d", arg_keepalive) == -1)
@@ -156,13 +153,16 @@ static int sandbox(void *sandbox_arg) {
 		f = f->next;
 	}
 
-	if (arg_whitelist_file) {
-		char *cmd;
-		if (asprintf(&cmd, "--whitelist-file=%s", arg_whitelist_file) == -1)
-			errExit("asprintf");
-		a[last++] = cmd;
+	int i;
+	for (i = 0; i < MAX_BLOCKLIST_FILE; i++) {
+		if (arg_blocklist_file[i]) {
+			char *cmd;
+			if (asprintf(&cmd, "--blocklist-file=%s", arg_blocklist_file[i]) == -1)
+				errExit("asprintf");
+			a[last++] = cmd;
+		}
 	}
-
+	
 	if (wcnt) {
 		whitelist_command(a + last);
 		last += wcnt;

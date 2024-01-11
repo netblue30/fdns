@@ -36,9 +36,7 @@ char *arg_server = NULL;
 char *arg_test_server = NULL;
 char *arg_proxy_addr = NULL;
 char *arg_certfile = NULL;
-char *arg_whitelist_file = NULL;
-char *arg_blocklist_file = NULL;
-int arg_fallback_only = 0;
+char *arg_blocklist_file[MAX_BLOCKLIST_FILE] = {NULL};
 int arg_keepalive = 0;
 int arg_details = 0;
 char *arg_transport = NULL;
@@ -47,6 +45,7 @@ int arg_allow_expired_certs = 0;
 char *arg_fallback_server = NULL;
 int arg_clean_filters = 0;
 
+int fallback_only = 0;
 Stats stats;
 
 // clear /run/fdns/#pid# file
@@ -85,6 +84,7 @@ static void usage(void) {
 	       "\tA queries are allowed.\n");
 	printf("    --allow-expired-certs - allow expired SSL certificates.\n");
 	printf("    --allow-self-signed-certs - allow self-signed SSL certificates.\n");
+	printf("    --blocklist-file=filename - block the domains in the file\n");
 	printf("    --certfile=filename - SSL certificate file in PEM format.\n");
 	printf("    --daemonize - detach from the controlling terminal and run as a Unix\n"
 	       "\tdaemon.\n");
@@ -226,6 +226,20 @@ int main(int argc, char **argv) {
 				whitelist_add(argv[i] + 12);
 			else if (strncmp(argv[i], "--whitelist-file=", 17) == 0)
 				whitelist_load_file(argv[i] + 17);
+			else if (strncmp(argv[i], "--blocklist-file=", 17) == 0) {
+				int j = 0;
+				for (j = 0; j < MAX_BLOCKLIST_FILE; j++)
+					if (arg_blocklist_file[j] == NULL)
+						break;
+				if (j == MAX_BLOCKLIST_FILE) {
+					fprintf(stderr, "Error: number of --blocklist-file commands exceeded\n");
+					exit(1);
+				}
+
+				arg_blocklist_file[j] = strdup(argv[i] + 17);
+				if (!arg_blocklist_file[j])
+					errExit("strdup");
+			}
 			else if (strcmp(argv[i], "--details") == 0)
 				arg_details = 1;
 
@@ -237,7 +251,7 @@ int main(int argc, char **argv) {
 				else if (strcmp(arg_transport, "dot") == 0);
 				else if (strcmp(arg_transport, "http/1.1") == 0);
 				else if (strcmp(arg_transport, "udp") == 0)
-					arg_fallback_only = 1;
+					fallback_only = 1;
 				else {
 					fprintf(stderr, "Error: invalid DNS transport %s\n", arg_transport);
 					exit(1);
@@ -362,7 +376,7 @@ int main(int argc, char **argv) {
 		}
 		logprintf("fdns starting\n");
 
-		if (!arg_fallback_only) {
+		if (!fallback_only) {
 			logprintf("connecting to %s server\n", s->name);
 		}
 		install_handler();

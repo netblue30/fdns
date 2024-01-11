@@ -38,7 +38,7 @@ static SSL *ssl = NULL;
 // in the fallback server if necessary; logging is disabled in this case
 // return 1 if ok, 0 if error
 int ssl_test_open(void)  {
-	if (arg_fallback_only)
+	if (fallback_only)
 		return 1;
 
 	pid_t child = fork();
@@ -179,7 +179,7 @@ void ssl_open(void) {
 	DnsServer *srv = server_get();
 	assert(srv);
 
-	if (arg_fallback_only)
+	if (fallback_only)
 		return;
 
 	if (arg_debug)

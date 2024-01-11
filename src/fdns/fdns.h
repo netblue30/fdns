@@ -125,7 +125,6 @@ static inline int rand_range(int min, int max) {
 #define PATH_FDNS (PREFIX "/bin/fdns")
 #define PATH_RUN_FDNS "/run/fdns"
 #define PATH_ETC_TRACKERS_LIST (SYSCONFDIR "/list.trackers")
-#define PATH_ETC_FP_TRACKERS_LIST (SYSCONFDIR "/list.fp-trackers")
 #define PATH_ETC_ADBLOCKER_LIST (SYSCONFDIR "/list.adblocker")
 #define PATH_ETC_COINBLOCKER_LIST (SYSCONFDIR "/list.coinblocker")
 #define PATH_ETC_PHISHING_LIST (SYSCONFDIR "/list.phishing")
@@ -257,8 +256,8 @@ extern char *arg_proxy_addr;
 extern char *arg_certfile;
 extern char *arg_forwarder;
 extern char *arg_whitelist_file;
-extern char *arg_blocklist_file;
-extern int arg_fallback_only;
+#define MAX_BLOCKLIST_FILE 8
+extern char *arg_blocklist_file[MAX_BLOCKLIST_FILE];
 extern int arg_keepalive;
 extern int arg_details;
 extern char *arg_transport;
@@ -266,6 +265,8 @@ extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
 extern char *arg_fallback_server;
 extern int arg_clean_filters;
+
+extern int fallback_only;
 extern Stats stats;
 
 // dnsdb.c
@@ -320,6 +321,7 @@ int dns_query(uint8_t *msg, int cnt);
 // filter.c
 void filter_init(void);
 void filter_load_all_lists(void);
+void filter_load_list(const char *fname, int store);
 int filter_blocked(const char *str, int verbose);
 void filter_test(char *url);
 void filter_test_list(void);
