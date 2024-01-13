@@ -60,6 +60,14 @@ const char *lint_err2str(void) {
 }
 
 //***********************************************
+// cname reporting
+//***********************************************
+static uint8_t cname[256 + 1];
+// get last cname
+const char *lint_get_cname(void) {
+	return (const char *) cname;
+}
+//***********************************************
 // lint
 //***********************************************
 static DnsHeader hdr;
@@ -379,7 +387,7 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 				return -1;
 			}
 
-			uint8_t cname[256 + 1];
+//			uint8_t cname[256 + 1];
 			memcpy(cname, pkt, rr.rlen);
 			cname[rr.rlen] = '\0';
 
@@ -392,6 +400,7 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 
 			// CNAME Cloaking Blocklist
 			if (filter_cname((char *) cname)) {
+				assert(arg_nofilter == 0);
 				dnserror = DNSERR_CNAME_CLOAKING;
 				return -1;
 			}

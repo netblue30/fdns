@@ -303,7 +303,11 @@ int dns_query(uint8_t *msg, int cnt) {
 			cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
 			return datalen;
 		}
-
+		else if (lint_error() == DNSERR_CNAME_CLOAKING) {
+			rlogprintf("Error: %s %s\n", lint_err2str(), cache_get_name());
+			rlogprintf("Error: ... redirected to %s\n", lint_get_cname());
+			return 0;
+		}
 		// several adblocker/family services return addresses of 0.0.0.0 or 127.0.0.1 for blocked domains
 		const char *str = lint_err2str();
 		if (strstr(str, "0.0.0.0") || strstr(str, "127.0.0.1")) {
