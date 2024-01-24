@@ -64,13 +64,13 @@ keepalive: 40
 end;
 ############################
 
-name: 0ms
-website: https://0ms.dev/
-tags: adblocker, OpenNIC, Singapore, AsiaPacific
-address: 91.199.87.89:443
-host: cdn.0ms.dev/dns-query
-keepalive: 40
-end;
+#name: 0ms
+#website: https://0ms.dev/
+#tags: adblocker, OpenNIC, Singapore, AsiaPacific
+#address: 91.199.87.89:443
+#host: cdn.0ms.dev/dns-query
+#keepalive: 40
+#end;
 
 name: 42l
 website: https://42l.fr
@@ -352,30 +352,33 @@ keepalive: 40
 sni: yes
 end;
 
-name: bebasid
-website: https://github.com/bebasid/bebasdns
-tags: adblocker, OpenNIC, Malaysia, Indonesia, AsiaPacific
-address: 103.87.68.194:443
-host: dns.bebasid.com/dns-query
-keepalive: 25
-end;
+# self-signed certificate
+#name: bebasid
+#website: https://github.com/bebasid/bebasdns
+#tags: adblocker, OpenNIC, Malaysia, Indonesia, AsiaPacific
+#address: 103.87.68.194:443
+#host: dns.bebasid.com/dns-query
+#keepalive: 25
+#end;
 
-name: bebasid-dot
-website: https://github.com/bebasid/bebasdns
-tags: adblocker, OpenNIC, Malaysia, Indonesia, AsiaPacific
-address: 103.87.68.194:853
-host: dns.bebasid.com/
-transport: dot
-keepalive: 25
-end;
+# self-signed certificate
+#name: bebasid-dot
+#website: https://github.com/bebasid/bebasdns
+#tags: adblocker, OpenNIC, Malaysia, Indonesia, AsiaPacific
+#address: 103.87.68.194:853
+#host: dns.bebasid.com/
+#transport: dot
+#keepalive: 25
+#end;
 
-name: bebasid-unfiltered
-website: https://github.com/bebasid/bebasdns
-tags: OpenNIC, Malaysia, Indonesia, AsiaPacific
-address: 103.87.68.194:443
-host: unfiltered.dns.bebasid.com/dns-query
-keepalive: 25
-end;
+# self-signed certificate
+#name: bebasid-unfiltered
+#website: https://github.com/bebasid/bebasdns
+#tags: OpenNIC, Malaysia, Indonesia, AsiaPacific
+#address: 103.87.68.194:443
+#host: unfiltered.dns.bebasid.com/dns-query
+#keepalive: 25
+#end;
 
 name: bebasid-family
 website: https://github.com/bebasid/bebasdns
@@ -1232,13 +1235,14 @@ host: rdns.faelix.net/
 keepalive: 25
 end;
 
-name: faelix-ch2
-website: https://faelix.net/ref/dns/#privacy-dns
-tags: Switzerland, Europe
-address: 185.134.196.55:443
-host: rdns.faelix.net/
-keepalive: 25
-end;
+#certificate has expired
+#name: faelix-ch2
+#website: https://faelix.net/ref/dns/#privacy-dns
+#tags: Switzerland, Europe
+#address: 185.134.196.55:443
+#host: rdns.faelix.net/
+#keepalive: 25
+#end;
 
 name: fdn
 website: https://www.fdn.fr/
@@ -1396,13 +1400,13 @@ sni: yes
 end;
 
 # using HTTP 1.1
-name: lavadns-us
-website: https://dns.lavate.ch
-tags: OpenNIC, US, Americas
-address: 79.110.170.43:443
-host: us1.dns.lavate.ch/dns-query
-keepalive: 40
-end;
+#name: lavadns-us
+#website: https://dns.lavate.ch
+#tags: OpenNIC, US, Americas
+#address: 79.110.170.43:443
+#host: us1.dns.lavate.ch/dns-query
+#keepalive: 40
+#end;
 
 # using HTTP 1.1
 name: lavadns-fi
