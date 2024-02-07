@@ -1903,13 +1903,13 @@ host: dns.sev.monster/dns-query
 keepalive: 40
 end;
 
-name: sellan
-website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-tags: France, Europe
-address: 78.194.186.17:443
-host: dns.sellan.fr/dns-query
-keepalive: 40
-end;
+#name: sellan
+#website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+#tags: France, Europe
+#address: 78.194.186.17:443
+#host: dns.sellan.fr/dns-query
+#keepalive: 40
+#end;
 
 name: sellan-dot
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
@@ -1988,13 +1988,13 @@ end;
 # keepalive: 40
 # end;
 
-name: therifleman
-website: https://therifleman.name/
-tags: India, AsiaPacific
-address: 172.104.206.174:443
-host: dns.therifleman.name/dns-query
-keepalive: 40
-end;
+#name: therifleman
+#website: https://therifleman.name/
+#tags: India, AsiaPacific
+#address: 172.104.206.174:443
+#host: dns.therifleman.name/dns-query
+#keepalive: 40
+#end;
 
 name: tiarap
 website: https://doh.tiarap.org
@@ -2099,7 +2099,7 @@ end;
 
 name: vinnyp
 website: https://dns.vinnyp.xyz/privacy
-tags: US, Americas
+tags: family, US, Americas
 address: 167.99.150.134:443
 host: dns.vinnyp.xyz/dns-query
 keepalive: 40
@@ -2107,7 +2107,7 @@ end;
 
 name: vinnyp-dot
 website: https://dns.vinnyp.xyz/privacy
-tags: US, Americas
+tags: family, US, Americas
 address: 167.99.150.134:853
 host: dns.vinnyp.xyz/dns-query
 keepalive: 40
