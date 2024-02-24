@@ -216,7 +216,7 @@ static void usage(void) {
 	printf("Usage: dnsc [options] hosts-file [hosts-file]\n");
 	printf("where:\n");
 	printf("   hosts-file - DNS blocklist file in hosts format. All domains are considered\n");
-	printf("                wildcard domains\n");
+	printf("                wildcard domains.\n");
 	printf("\n");
 	printf("Options:\n");
 	printf("   --cnt=number - above this number, the domain is reported in the short list;\n");

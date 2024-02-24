@@ -526,7 +526,7 @@ Homepage: https://firejaildns.wordpress.com
 Development: https://github.com/netblue30/fdns
 
 .SH SEE ALSO
-\&\flfirejail\fR\|(1),
-\&\flnxdomain\fR\|(1)
+.BR dnsc (1),
+.BR nxdomain (1)
 
 

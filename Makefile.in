@@ -1,6 +1,6 @@
 all: apps man
 APPS = src/fdns src/nxdomain src/dnsc
-MANPAGES = fdns.1 nxdomain.1
+MANPAGES = fdns.1 nxdomain.1 dnsc.1
 
 prefix=@prefix@
 exec_prefix=@exec_prefix@
