@@ -2131,4 +2131,675 @@ host: yarp.lefolgoc.net/dns-query
 keepalive: 40
 end;
 
+##################################################
+# dnscry.pt section
+# - extracted from https://dnscry.pt lists
+##################################################
+name: dnscry-tampa
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 165.140.117.248:853
+host: tpa01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-amsterdam
+tags: Netherlands, Europe
+website: https://www.dnscry.pt
+address: 198.140.141.46:853
+host: ams01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-sofia
+tags: Bulgaria, Europe
+website: https://www.dnscry.pt
+address: 79.124.77.3:853
+host: sof01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-fremont
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 23.134.88.71:853
+host: fet01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-riga
+tags: Latvia, Europe
+website: https://www.dnscry.pt
+address: 195.123.212.200:853
+host: rix01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-coventry
+tags: UK, Europe
+website: https://www.dnscry.pt
+address: 104.128.190.108:853
+host: cvt01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-jakarta
+tags: Indonesia, AsiaPacific
+website: https://www.dnscry.pt
+address: 103.76.129.94:853
+host: jkt01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-taos
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 63.133.223.138:853
+host: tsm01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-nuremberg
+tags: Germany, Europe
+website: https://www.dnscry.pt
+address: 202.61.236.67:853
+host: nue01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-durham
+tags: UK, Europe
+website: https://www.dnscry.pt
+address: 38.45.64.117:853
+host: rdu01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-atlanta
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 170.249.237.154:853
+host: atl01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-chisinau
+tags: Moldova, Europe
+website: https://www.dnscry.pt
+address: 176.123.10.105:853
+host: kiv01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-sydney
+tags: Australia, AsiaPacific
+website: https://www.dnscry.pt
+address: 84.33.15.100:853
+host: syd01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-montreal
+tags: Canada, Americas
+website: https://www.dnscry.pt
+address: 147.189.136.183:853
+host: ymq01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-flint
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 147.189.140.136:853
+host: fnt01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-ottoville
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 23.26.138.19:853
+host: ott01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-istanbul
+tags: Turkey, Europe
+website: https://www.dnscry.pt
+address: 193.228.1.130:853
+host: ist01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-hongkong
+tags: HongKong, AsiaPacific
+website: https://www.dnscry.pt
+address: 89.213.0.26:853
+host: hkg01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-fujairah
+tags: UnitedArabEmirates, MiddleEast, Europe
+website: https://www.dnscry.pt
+address: 89.36.162.187:853
+host: fjr01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-lima
+tags: Peru, SouthAmerica, Americas
+website: https://www.dnscry.pt
+address: 161.132.47.185:853
+host: lim01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-geneva
+tags: Switzerland, Europe
+website: https://www.dnscry.pt
+address: 45.90.59.193:853
+host: gva01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-helsinki
+tags: Finland, Europe
+website: https://www.dnscry.pt
+address: 185.253.111.6:853
+host: hel01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-paris
+tags: France, Europe
+website: https://www.dnscry.pt
+address: 89.117.2.17:853
+host: par01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-tokyo
+tags: Japan, AsiaPacific
+website: https://www.dnscry.pt
+address: 84.33.12.158:853
+host: tyo01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-losangeles
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 84.33.244.100:853
+host: lax01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-adelaide
+tags: Australia, AsiaPacific
+website: https://www.dnscry.pt
+address: 23.140.248.100:853
+host: adl01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-toronto
+tags: Canada, Americas
+website: https://www.dnscry.pt
+address: 23.134.89.23:853
+host: yyz01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-eygelshoven
+tags: Netherlands, Europe
+website: https://www.dnscry.pt
+address: 93.95.115.21:853
+host: eyg01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-chicago
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 45.41.204.204:853
+host: ord01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-ebene
+tags: Mauritius, Africa, Europe
+website: https://www.dnscry.pt
+address: 102.222.106.165:853
+host: mru01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-dallas
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 202.5.26.130:853
+host: dfw01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-santaclara
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 176.111.223.167:853
+host: sjc01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-mumbai
+tags: India, AsiaPacific
+website: https://www.dnscry.pt
+address: 103.111.114.25:853
+host: bom01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-valdivia
+tags: Chile, SouthAmerica, Americas
+website: https://www.dnscry.pt
+address: 216.73.159.26:853
+host: zal01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-naaldwijk
+tags: Netherlands, Europe
+website: https://www.dnscry.pt
+address: 23.137.249.26:853
+host: naw01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-stockholm
+tags: Sweden, Europe
+website: https://www.dnscry.pt
+address: 95.143.196.190:853
+host: sto01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-taipeh
+tags: Taiwan, AsiaPacific
+website: https://www.dnscry.pt
+address: 103.131.189.11:853
+host: tpe01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-kyiv
+tags: Ukraine, Europe
+website: https://www.dnscry.pt
+address: 217.12.221.61:853
+host: iev01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-madrid
+tags: Spain, Europe
+website: https://www.dnscry.pt
+address: 5.134.118.198:853
+host: mad01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-auckland
+tags: NewZeeland, AsiaPacific
+website: https://www.dnscry.pt
+address: 185.99.133.112:853
+host: akl01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-kharkiv
+tags: Ukraine, Europe
+website: https://www.dnscry.pt
+address: 193.238.153.17:853
+host: hrk01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-sandefjord
+tags: Norway, Europe
+website: https://www.dnscry.pt
+address: 194.32.107.48:853
+host: trf01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-libertylake
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 23.184.48.19:853
+host: llk01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-singapore02
+tags: Singapore, AsiaPacific
+website: https://www.dnscry.pt
+address: 103.179.44.73:853
+host: sin02.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-frankfurt
+tags: Germany, Europe
+website: https://www.dnscry.pt
+address: 194.50.19.150:853
+host: fra01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-losangeles
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 104.200.67.194:853
+host: lax02.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-lagos
+tags: Nigeria, Africa, Europe
+website: https://www.dnscry.pt
+address: 176.97.192.12:853
+host: los01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-spokane
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 104.36.86.181:853
+host: geg01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-portland
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 103.124.106.233:853
+host: pdx01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-tallinn
+tags: Estonia, Europe
+website: https://www.dnscry.pt
+address: 185.194.53.22:853
+host: tll01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-singapore
+tags: Singapore, AsiaPacific
+website: https://www.dnscry.pt
+address: 84.33.16.124:853
+host: sin01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-phoenix
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 173.249.203.52:853
+host: phx01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-coeurdalene
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 104.192.102.132:853
+host: coe01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-kansascity
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 23.150.40.121:853
+host: mci01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-allentown
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 23.137.253.24:853
+host: abe01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-portedwards
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 176.111.219.126:853
+host: ped01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-saltlakecity
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 103.114.162.65:853
+host: slc01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-philadelphia
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 154.16.159.22:853
+host: phl01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-munich
+tags: Germany, Europe
+website: https://www.dnscry.pt
+address: 194.39.205.10:853
+host: muc01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-denver
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 193.8.172.248:853
+host: den01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-warsaw02
+tags: Poland, Europe
+website: https://www.dnscry.pt
+address: 88.218.206.137:853
+host: waw02.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-johannesburg
+tags: SouthAfrica, Africa, Europe
+website: https://www.dnscry.pt
+address: 169.239.128.124:853
+host: jnb01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-seattle
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 45.14.115.125:853
+host: sea01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-tokyo02
+tags: Japan, AsiaPacific
+website: https://www.dnscry.pt
+address: 103.179.45.6:853
+host: tyo02.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-dusseldorf
+tags: Germany, Europe
+website: https://www.dnscry.pt
+address: 185.244.27.136:853
+host: dus01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-oradea
+tags: Romania, Europe
+website: https://www.dnscry.pt
+address: 193.32.87.127:853
+host: omr01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-lasvegas
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 209.141.45.27:853
+host: las01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-london
+tags: UK, Europe
+website: https://www.dnscry.pt
+address: 178.239.174.244:853
+host: lon01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-miami
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 84.33.14.10:853
+host: mia01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-vienna
+tags: Austria, Europe
+website: https://www.dnscry.pt
+address: 83.138.55.186:853
+host: vie01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-hongkong
+tags: HongKong, AsiaPacific
+website: https://www.dnscry.pt
+address: 45.123.188.129:853
+host: hkg02.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-amsterdam
+tags: Netherlands, Europe
+website: https://www.dnscry.pt
+address: 45.86.162.110:853
+host: ams02.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-newyork
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 84.33.245.10:853
+host: nyc01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+name: dnscry-detroit
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 66.187.7.140:853
+host: dtw01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
+
+
 
