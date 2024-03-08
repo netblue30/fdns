@@ -1020,29 +1020,30 @@ end;
 #keepalive: 40
 #end;
 
-name: dnscrypt-ca
-website: https://dnscrypt.ca/
-tags: Canada, Americas
-address: 167.114.220.125:453
-host: dns1.dnscrypt.ca:453/dns-query
-keepalive: 40
-end;
+# temporarily discontinued, moving to new VPS providers
+#name: dnscrypt-ca
+#website: https://dnscrypt.ca/
+#tags: Canada, Americas
+#address: 167.114.220.125:453
+#host: dns1.dnscrypt.ca:453/dns-query
+#keepalive: 40
+#end;
+#
+#name: dnscrypt-ca2
+#website: https://dnscrypt.ca/
+#tags: Canada, Americas
+#address: 149.56.228.45:453
+#host: dns2.dnscrypt.ca:453/dns-query
+#keepalive: 40
+#end;
 
-name: dnscrypt-ca2
-website: https://dnscrypt.ca/
-tags: Canada, Americas
-address: 149.56.228.45:453
-host: dns2.dnscrypt.ca:453/dns-query
-keepalive: 40
-end;
-
-name: dnsforfamily
-website: https://dnsforfamily.com
-tags: family
-address: 167.235.236.107:443
-host: dns-doh.dnsforfamily.com/dns-query
-keepalive: 25
-end;
+#name: dnsforfamily
+#website: https://dnsforfamily.com
+#tags: family
+#address: 167.235.236.107:443
+#host: dns-doh.dnsforfamily.com/dns-query
+#keepalive: 25
+#end;
 
 name: dnsforfamily-dot
 website: https://dnsforfamily.com
@@ -1078,21 +1079,21 @@ host: clean.dnsforge.de/dns-query
 keepalive: 40
 end;
 
-name: dnshome
-website: https://www.dnshome.de/doh-dot-public-resolver.php
-tags: Germany, Europe
-address: 45.86.125.58:443
-host: dns.dnshome.de/dns-query
-keepalive: 25
-end;
+#name: dnshome
+#website: https://www.dnshome.de/doh-dot-public-resolver.php
+#tags: Germany, Europe
+#address: 45.86.125.58:443
+#host: dns.dnshome.de/dns-query
+#keepalive: 25
+#end;
 
-name: dnshome2
-website: https://www.dnshome.de/doh-dot-public-resolver.php
-tags: Germany, Europe
-address: 45.86.125.59:443
-host: dns.dnshome.de/dns-query
-keepalive: 25
-end;
+#name: dnshome2
+#website: https://www.dnshome.de/doh-dot-public-resolver.php
+#tags: Germany, Europe
+#address: 45.86.125.59:443
+#host: dns.dnshome.de/dns-query
+#keepalive: 25
+#end;
 
 name: dnslow
 website: https://dnslow.me/
@@ -1452,21 +1453,21 @@ end;
 #transport: dot
 #end;
 
-name: libredns
-website: https://libredns.gr/
-tags: Germany, Europe, OpenNIC
-address: 116.202.176.26:443
-host: doh.libredns.gr/dns-query
-keepalive: 25
-end;
+#name: libredns
+#website: https://libredns.gr/
+#tags: Germany, Europe, OpenNIC
+#address: 116.202.176.26:443
+#host: doh.libredns.gr/dns-query
+#keepalive: 25
+#end;
 
-name: libredns-adblocker
-website: https://libredns.gr/
-tags: Germany, Europe, OpenNIC, adblocker
-address: 116.202.176.26:443
-host: doh.libredns.gr/noads
-keepalive: 25
-end;
+#name: libredns-adblocker
+#website: https://libredns.gr/
+#tags: Germany, Europe, OpenNIC, adblocker
+#address: 116.202.176.26:443
+#host: doh.libredns.gr/noads
+#keepalive: 25
+#end;
 
 name: lonet
 website: https://lonet.org/service/dns
@@ -1805,14 +1806,14 @@ end;
 #transport: dot
 #end;
 
-name: radeksprta-dot
-website: https://dns.radeksprta.eu/
-tags: OpenNIC, Czechia, Europe
-address: 80.211.208.74:853
-host: dns.radeksprta.eu/
-keepalive: 25
-transport: dot
-end;
+#name: radeksprta-dot
+#website: https://dns.radeksprta.eu/
+#tags: OpenNIC, Czechia, Europe
+#address: 80.211.208.74:853
+#host: dns.radeksprta.eu/
+#keepalive: 25
+#transport: dot
+#end;
 
 # running in cloudflare cloud
 name: rethink
