@@ -34,6 +34,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <time.h>
+#include <ctype.h>
 
 #define errExit(msg)    do { char msgout[500]; snprintf(msgout, 500, "Error %s: %s:%d %s", msg, __FILE__, __LINE__, __FUNCTION__); perror(msgout); exit(1);} while (0)
 
@@ -211,32 +212,48 @@ static inline void ansi_clrscr(void) {
 	fflush(0);
 }
 
-static inline void print_mem(void *m, int len) {
-	int i;
-	unsigned char *msg = (unsigned char *) m;
 
-	char buf[16 + 1];
-	char *ptr = buf;
-	*ptr = '\0';
 
-	for (i = 0; i < len; i++, msg++) {
-		printf("%02x ", *msg);
-
-		if (*msg >= 0x20 && *msg <= 0x7f)
-			*ptr = *msg;
-		else
-			*ptr = '.';
-		ptr++;
-
-		if (i % 16 == 15) {
-			*ptr = '\0';
-			printf("\t%s\n", buf);
-			memset(buf, 0, sizeof(buf));
-			ptr = buf;
+// memory printout
+static inline void mem_ascii(const unsigned char *ptr, ssize_t sz) {
+	printf("   ");
+	int j;
+	unsigned char *ptr2 = (unsigned char *) ptr - sz + 1;
+	for (j = 0; j < sz; j++, ptr2++) {
+		if (isalnum(*ptr2) || ispunct(*ptr2)) {
+			char str[2];
+			str[0] = *ptr2;
+			str[1] = '\0';
+			printf("%s", str);
 		}
+		else
+			printf(".");
 	}
-	printf("\t%s\n", buf);
+	printf("\n");
 }
+
+
+static inline void print_mem(void *ptr, ssize_t len) {
+	const uint8_t *ptr2 = (uint8_t *) ptr;
+	ssize_t i;
+	for ( i = 0; i < len; i++) {
+		if (i % 16 == 0)
+			printf("%04lx: ", i);
+		if ((i + 8) % 16 == 0)
+			printf("- ");
+		printf("%02x ", ptr2[i]);
+		if (i % 16 == 15)
+			mem_ascii(ptr2 + i, 16);
+	}
+
+	ssize_t rm = 16 - (i % 16);
+	ssize_t j;
+	for (j = 0; j < rm; j++)
+		printf("   ");
+	mem_ascii(ptr2 + i - 1, (i % 16));
+	printf("\n");
+}
+
 
 
 // main.c
