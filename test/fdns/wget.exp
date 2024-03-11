@@ -18,7 +18,7 @@ puts "TESTING: $argv"
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --server=$argv\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --server=$argv\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"

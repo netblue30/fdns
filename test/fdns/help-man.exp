@@ -7,21 +7,21 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "fdns --help\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --help\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns - DNS over HTTPS proxy server"
 }
 after 100
 
-send -- "fdns -?\r"
+send -- "fdns --server-list=$env(SERVER_LIST) -?\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
 	"fdns - DNS over HTTPS proxy server"
 }
 after 100
 
-send -- "fdns --version\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --version\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
 	"FDNS version"
