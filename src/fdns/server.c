@@ -339,7 +339,10 @@ static void load_list(void) {
 		set_zone();
 
 	load_file(PATH_ETC_SERVER_LOCAL_LIST);
-	if (load_file(PATH_ETC_SERVER_LIST)) {
+	if (arg_server_list) {
+		load_file(arg_server_list);
+	}
+	else if (load_file(PATH_ETC_SERVER_LIST)) {
 		fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
 		exit(1);
 	}

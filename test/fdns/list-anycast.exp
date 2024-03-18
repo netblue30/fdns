@@ -7,7 +7,7 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "fdns --list=anycast\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --list=anycast\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"Current zone:"

@@ -10,7 +10,7 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --server=https://dns.google/dns-query --fallback-server=8.8.8.8 --proxy-addr=127.8.8.8 --keepalive=7\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --server=https://dns.google/dns-query --fallback-server=8.8.8.8 --proxy-addr=127.8.8.8 --keepalive=7\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"
@@ -42,7 +42,7 @@ expect {
 sleep 1
 
 spawn $env(SHELL)
-send -- "fdns --test-server=dot://8.8.8.8 --details\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --test-server=dot://8.8.8.8 --details\r"
 expect {
 	timeout {puts "TESTING ERROR 10\n";exit}
 	"URL: dot://8.8.8.8"

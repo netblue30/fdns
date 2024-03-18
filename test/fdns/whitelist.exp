@@ -10,7 +10,7 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --whitelist=gentoo.org --whitelist=assets.gentoo.org --whitelist=security.gentoo.orgfdns\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --whitelist=gentoo.org --whitelist=assets.gentoo.org --whitelist=security.gentoo.orgfdns\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"

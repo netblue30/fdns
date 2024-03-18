@@ -12,7 +12,7 @@ sleep 2
 send -- "cp dotvsh2-config /tmp/.\r"
 after 100
 
-send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list\r"
+send -- "firejail --bind=/tmp/dotvsh2-config,$env(SERVER_LIST) --noprofile fdns --list\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"Error" {puts "TESTING ERROR 1\n";exit}
@@ -20,7 +20,7 @@ expect {
 }
 sleep 1
 
-send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list --transport=dot\r"
+send -- "firejail --bind=/tmp/dotvsh2-config,$env(SERVER_LIST) --noprofile fdns --list --transport=dot\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
 	"Error" {puts "TESTING ERROR 3\n";exit}
@@ -28,7 +28,7 @@ expect {
 }
 sleep 1
 
-send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list --transport=h2\r"
+send -- "firejail --bind=/tmp/dotvsh2-config,$env(SERVER_LIST) --noprofile fdns --list --transport=h2\r"
 expect {
 	timeout {puts "TESTING ERROR 4\n";exit}
 	"Error" {puts "TESTING ERROR 5\n";exit}
@@ -36,7 +36,7 @@ expect {
 }
 sleep 1
 
-send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --list --transport=http/1.1\r"
+send -- "firejail --bind=/tmp/dotvsh2-config,$env(SERVER_LIST) --noprofile fdns --list --transport=http/1.1\r"
 expect {
 	timeout {puts "TESTING ERROR 6b\n";exit}
 	"Error" {puts "TESTING ERROR 7\n";exit}
@@ -44,7 +44,7 @@ expect {
 }
 sleep 1
 
-send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --transport=dot --details\r"
+send -- "firejail --bind=/tmp/dotvsh2-config,$env(SERVER_LIST) --noprofile fdns --transport=dot --details\r"
 expect {
 	timeout {puts "TESTING ERROR 8\n";exit}
 	"Error" {puts "TESTING ERROR 9\n";exit}
@@ -76,7 +76,7 @@ send -- "pkill fdns\r"
 sleep 1
 
 
-send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --transport=h2 --details\r"
+send -- "firejail --bind=/tmp/dotvsh2-config,$env(SERVER_LIST) --noprofile fdns --transport=h2 --details\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
 	"Error" {puts "TESTING ERROR 2.1\n";exit}
@@ -107,7 +107,7 @@ spawn $env(SHELL)
 send -- "pkill fdns\r"
 sleep 1
 
-send -- "firejail --bind=/tmp/dotvsh2-config,/etc/fdns/servers --noprofile fdns --transport=http/1.1 --details\r"
+send -- "firejail --bind=/tmp/dotvsh2-config,$env(SERVER_LIST) --noprofile fdns --transport=http/1.1 --details\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
 	"Error" {puts "TESTING ERROR 2.1\n";exit}

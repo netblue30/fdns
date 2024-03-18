@@ -37,6 +37,7 @@ char *arg_test_server = NULL;
 char *arg_proxy_addr = NULL;
 char *arg_certfile = NULL;
 char *arg_blocklist_file[MAX_BLOCKLIST_FILE] = {NULL};
+char *arg_server_list = NULL;
 int arg_keepalive = 0;
 int arg_details = 0;
 char *arg_transport = NULL;
@@ -105,6 +106,8 @@ static void usage(void) {
 	printf("    --monitor=proxy-address - monitor statistics for a specific instance\n"
 	       "\tof FDNS.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
+	printf("    --server-list=filename - file with the list of servers. \n"
+	       "\tThe default is %s.\n", PATH_ETC_SERVER_LIST);
 	printf("    --proxies - list all running instances of FDNS\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
@@ -215,6 +218,17 @@ int main(int argc, char **argv) {
 					exit(1);
 				}
 				arg_fallback_server = argv[i] + 18;
+			}
+			else if (strncmp(argv[i], "--server-list=", 14) == 0) {
+				arg_server_list = argv[i] + 14;
+				if (access(arg_server_list, F_OK) != 0) {
+					fprintf(stderr, "Error: %s does not exist \n", arg_server_list);
+					exit(1);
+				};
+				if (access(arg_server_list, R_OK) != 0) {
+					fprintf(stderr, "Error: unable to access %s \n", arg_server_list);
+					exit(1);
+				};
 			}
 			else if (strncmp(argv[i], "--proxy-addr=", 13) == 0) {
 				net_check_proxy_addr(argv[i] + 13); // will exit if error
