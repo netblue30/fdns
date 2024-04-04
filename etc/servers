@@ -14,9 +14,10 @@
 #	name: the name of the server
 #	website: service website
 #	tags: filtering tags
-#	       You can further filter the servers based on the following tags: Americas,
-#	       AsiaPacific, Europe, anycast, adblocker, family, security etc. Wherever
-#	       possible we also added country-based tags (Germany, Denmark etc.)
+#	       You can further filter the servers based on the following tags:
+#               (the two) Americas, SouthAmerica, AsiaPacific, Europe, Africa, MiddleEast,
+#               anycast, adblocker, family, security, enterprise etc. Wherever possible
+#               we also added country-based tags (Germany, Denmark, Australia etc.)
 #	address: IP address and port in IP:PORT or DOMAIN:PORT format
 #	host: URL
 #	sni: yes/no
@@ -303,7 +304,7 @@ end;
 
 name: andrew
 website: https://blog.cybershell.xyz/page/services-6367519a3e34207f1d323d5a
-tags: safe-for-work
+tags: enterprise
 address: 135.181.83.162:443
 host: dns.andrewnw.xyz/dns-query
 keepalive: 40
@@ -569,7 +570,7 @@ end;
 
 name: cleanbrowsing-adult
 website: https://cleanbrowsing.org
-tags: safe-for-work
+tags: enterprise
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/adult-filter
 keepalive: 40
@@ -577,7 +578,7 @@ end;
 
 name: cleanbrowsing-adult2
 website: https://cleanbrowsing.org
-tags: safe-for-work
+tags: enterprise
 address: 185.228.168.10:443
 host: doh.cleanbrowsing.org/doh/adult-filter
 keepalive: 40
