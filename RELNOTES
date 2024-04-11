@@ -1,3 +1,25 @@
+fdns (0.9.73) baseline; urgency=low
+  * remove --debug-ssl command
+  * remove --proxy-addr-any command
+  * remove --cache-ttl command
+  * remove --log-timeout command
+  * remove --blacklist command
+  * remove --qps command
+  * remove --unlist command
+  * remove --disable-local-doh feature
+  * remove --unlist command
+  * remove --disable-syslog feature
+  * --blocklist-file and --whitelist-file commands rework
+  * running resolver processes in an empty chroot
+  * print disabled TLDs at startup
+  * added dnsc utility program
+  * added a default hosts file in /etc/fdns/hosts
+  * split blocklists in a different git submodule
+  * server list update - 250 servers currently
+  * DSN blocklist filters rebuild
+  * bugfixes
+ -- netblue30 <netblue30@yahoo.com>  Thu, 11 Apr 2024 08:00:00 -0500
+
 fdns (0.9.72) baseline; urgency=low
   * more nxdomain development
   * removed --zone option
