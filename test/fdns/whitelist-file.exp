@@ -15,7 +15,7 @@ after 100
 send -- "cp whitelist-fdns-test /etc/fdns/.\r"
 after 100
 
-send -- "fdns --whitelist-file=/etc/fdns/whitelist-fdns-test\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --whitelist-file=/etc/fdns/whitelist-fdns-test\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"

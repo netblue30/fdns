@@ -5,6 +5,7 @@
 
 # we are coming into this file as root user; by the end we will switch back to the regular $USER
 
+export SERVER_LIST=${SERVER_LIST:-/etc/fdns/servers}
 export MALLOC_CHECK_=3
 export MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
 

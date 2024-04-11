@@ -269,6 +269,7 @@ extern int arg_daemonize;
 extern int arg_allow_all_queries;
 extern char *arg_server;
 extern char *arg_test_server;
+extern char *arg_server_list;
 extern char *arg_proxy_addr;
 extern char *arg_certfile;
 extern char *arg_forwarder;

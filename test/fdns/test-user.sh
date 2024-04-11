@@ -3,6 +3,7 @@
 # Copyright (C) 2019-2021 FDNS Authors
 # License GPL v2
 
+export SERVER_LIST=${SERVER_LIST:-/etc/fdns/servers}
 export MALLOC_CHECK_=3
 export MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
 

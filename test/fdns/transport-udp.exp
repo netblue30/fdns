@@ -10,7 +10,7 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --transport=udp\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --transport=udp\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"
@@ -89,7 +89,7 @@ expect {
 sleep 1
 
 spawn $env(SHELL)
-send -- "fdns --monitor\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --monitor\r"
 expect {
 	timeout {puts "TESTING ERROR 20\n";exit}
 	"NOT ENCRYPTED"
