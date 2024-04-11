@@ -156,6 +156,7 @@ void ssl_init(void) {
 static char *certlist[] = {
 	"/etc/ssl/certs/ca-certificates.crt", // Debian/Ubuntu
 	"/etc/ssl/certs/ca-bundle.crt", // Fedora/CentOS
+	"/usr/share/ca-certificates/ca-bundle.crt", // ALT
 	NULL
 };
 
