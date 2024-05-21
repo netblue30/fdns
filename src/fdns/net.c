@@ -72,8 +72,15 @@ void net_check_proxy_addr(const char *str) {
 				printf("%d: Checking interface %s, %d.%d.%d.%d/%u\n",
 				       arg_id, ifa->ifa_name, PRINT_IP(ifip), mask2bits(ifmask));
 
-			// is the address in the network range?
-			if ((ip & ifmask) == (ifip & ifmask)) {
+			// is the address in the loopback network range?
+			if (strcmp(ifa->ifa_name, "lo") == 0 && (ip & ifmask) == (ifip & ifmask)) {
+				found = 1;
+				if (!status)
+					logprintf("Warning: interface %s is down\n", ifa->ifa_name);
+				break;
+			}
+			// is the address an ethernet address?
+			else if (ip == ifip) {
 				found = 1;
 				if (!status)
 					logprintf("Warning: interface %s is down\n", ifa->ifa_name);
@@ -86,7 +93,7 @@ void net_check_proxy_addr(const char *str) {
 	if (found)
 		return;
 
-	// exit with error using the code below
+	// exit with error
 errout:
 	fprintf(stderr, "Error: invalid proxy address\n");
 	exit(1);

@@ -51,7 +51,8 @@ static void set_zone(void) {
 	else if (tz <= -3 && tz >= -11)
 		fdns_zone = "Americas";
 
-	printf("Current zone: %s\n", fdns_zone);
+	if (arg_id <= 0)
+		printf("Current zone: %s\n", fdns_zone);
 }
 
 // split lines formatted as tok2: tok2

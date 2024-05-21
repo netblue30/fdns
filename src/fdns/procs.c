@@ -79,8 +79,8 @@ void procs_add(void) {
 			exit(1);
 		}
 	}
-	if (stat(PATH_RUN_FDNS "/empty", &s) ) {
-		if (mkdir(PATH_RUN_FDNS "/empty", 0755) == -1) {
+	if (stat(PATH_CHROOT, &s) ) {
+		if (mkdir(PATH_CHROOT, 0755) == -1) {
 			fprintf(stderr, "Error: cannot create %s directory\n", PATH_RUN_FDNS);
 			exit(1);
 		}

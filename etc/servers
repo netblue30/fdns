@@ -134,7 +134,7 @@ end;
 name: adguard-unfiltered
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, Americas, AsiaPacific, Europe
-address: 176.103.130.136:443
+address: 94.140.14.140:443
 host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
 end;
@@ -142,7 +142,7 @@ end;
 #name: adguard-unfiltered-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
 #tags: anycast, Americas, AsiaPacific, Europe
-#address: 176.103.130.136:853
+#address: 94.140.14.140:853
 #host: dns-unfiltered.adguard.com/
 #keepalive: 25
 #transport: dot
@@ -151,7 +151,7 @@ end;
 name: adguard-unfiltered2
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, Americas, AsiaPacific, Europe
-address: 176.103.130.137:443
+address: 94.140.14.141:443
 host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
 end;
@@ -159,7 +159,7 @@ end;
 #name: adguard-unfiltered2-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
 #tags: anycast, Americas, AsiaPacific, Europe
-#address: 176.103.130.137:853
+#address: 94.140.14.141:853
 #host: dns-unfiltered.adguard.com/
 #keepalive: 25
 #transport: dot
@@ -168,7 +168,7 @@ end;
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
-address: 176.103.130.130:443
+address: 94.140.15.15:443
 host: dns.adguard.com/dns-query
 keepalive: 40
 end;
@@ -176,7 +176,7 @@ end;
 #name: adguard-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
 #tags: anycast, adblocker, Americas, AsiaPacific, Europe
-#address: 176.103.130.130:853
+#address: 94.140.15.15:853
 #host: dns.adguard.com/
 #keepalive: 25
 #transport: dot
@@ -185,7 +185,7 @@ end;
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, adblocker, Americas, AsiaPacific, Europe
-address: 176.103.130.131:443
+address: 94.140.14.14:443
 host: dns.adguard.com/dns-query
 keepalive: 40
 end;
@@ -193,7 +193,7 @@ end;
 #name: adguard2-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
 #tags: anycast, adblocker, Americas, AsiaPacific, Europe
-#address: 176.103.130.131:853
+#address: 94.140.14.14:853
 #host: dns.adguard.com/dns-query
 #keepalive: 25
 #transport: dot
@@ -202,7 +202,7 @@ end;
 name: adguard-family
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: family
-address: 176.103.130.132:443
+address: 94.140.15.16:443
 host: dns-family.adguard.com/dns-query
 keepalive: 40
 end;
@@ -210,7 +210,7 @@ end;
 #name: adguard-family-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
 #tags: family
-#address: 176.103.130.132:853
+#address: 94.140.15.16:853
 #host: dns-family.adguard.com/
 #keepalive: 25
 #transport: dot
@@ -219,7 +219,7 @@ end;
 name: adguard-family2
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: family
-address: 176.103.130.134:443
+address: 94.140.14.15:443
 host: dns-family.adguard.com/dns-query
 keepalive: 40
 end;
@@ -227,7 +227,7 @@ end;
 #name: adguard-family2-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
 #tags: family
-#address: 176.103.130.134:853
+#address: 94.140.14.15:853
 #host: dns-family.adguard.com/
 #keepalive: 25
 #transport: dot
@@ -1162,7 +1162,6 @@ transport: dot
 end;
 
 # ns8.he.de.dns.opennic.glue
-# http/1.1
 name: eth-services
 website: https://servers.opennic.org/
 tags: Germany, Europe, OpenNIC
@@ -1172,14 +1171,13 @@ keepalive: 40
 end;
 
 # ns31.de.dns.opennic.glue
-# http/1.1
-name: eth-services2
-website: https://servers.opennic.org/
-tags: Germany, Europe, OpenNIC
-address: 195.10.195.195:853
-host: opennic2.eth-services.de:853/
-keepalive: 40
-end;
+#name: eth-services2
+#website: https://servers.opennic.org/
+#tags: Germany, Europe, OpenNIC
+#address: 195.10.195.195:853
+#host: opennic2.eth-services.de:853/
+#keepalive: 40
+#end;
 
 name: faelix-uk-adblocker
 website: https://faelix.net/ref/dns/#privacy-dns
@@ -1246,21 +1244,21 @@ end;
 #keepalive: 25
 #end;
 
-name: fdn
-website: https://www.fdn.fr/
-tags: French, Europe
-address: 80.67.169.12:443
-host: ns0.fdn.fr/dns-query
-keepalive: 25
-end;
-
-name: fdn2
-website: https://www.fdn.fr/
-tags: French, Europe
-address: 80.67.169.40:443
-host: ns1.fdn.fr/dns-query
-keepalive: 25
-end;
+#name: fdn
+#website: https://www.fdn.fr/
+#tags: French, Europe
+#address: 80.67.169.12:443
+#host: ns0.fdn.fr/dns-query
+#keepalive: 25
+#end;
+#
+#name: fdn2
+#website: https://www.fdn.fr/
+#tags: French, Europe
+#address: 80.67.169.40:443
+#host: ns1.fdn.fr/dns-query
+#keepalive: 25
+#end;
 
 name: ffmuc
 website: https://ffmuc.net/
@@ -1486,6 +1484,7 @@ address: 185.183.156.85:853
 host: doh.phdns1.lonet.org/
 keepalive: 25
 transport: dot
+sni: yes
 end;
 
 name: lonet2
@@ -1504,6 +1503,7 @@ address: 217.160.191.192:853
 host: doh.phdns2.lonet.org/
 keepalive: 25
 transport: dot
+sni: yes
 end;
 
 name: lonet3
@@ -1522,6 +1522,7 @@ address: 74.208.85.60:853
 host: doh.phdns3.lonet.org/
 keepalive: 25
 transport: dot
+sni: yes
 end;
 
 name: lonet4
@@ -1540,6 +1541,7 @@ address: 82.223.114.172:853
 host: doh.phdns4.lonet.org/
 keepalive: 25
 transport: dot
+sni: yes
 end;
 
 name: lonet5
@@ -1558,6 +1560,7 @@ address: 77.68.116.22:853
 host: doh.phdns5.lonet.org/
 keepalive: 25
 transport: dot
+sni: yes
 end;
 
 # running in cloudflare cloud
@@ -1569,13 +1572,13 @@ end;
 #keepalive: 40
 #end;
 
-name: ndodev
-website: https://ndo.dev/posts/doh
-tags: Germany, Europe, adblocker
-address: 185.121.71.99:443
-host: dns.ndo.dev/dns-query
-keepalive: 40
-end;
+#name: ndodev
+#website: https://ndo.dev/posts/doh
+#tags: Germany, Europe, adblocker
+#address: 185.121.71.99:443
+#host: dns.ndo.dev/dns-query
+#keepalive: 40
+#end;
 
 name: nextdns
 website: https://nextdns.io/
@@ -1772,36 +1775,36 @@ host: dns10.quad9.net/dns-query
 keepalive: 25
 end;
 
-name: quadrantsec
-website: https://quadrantsec.com/blog/quadrants-public-dns-resolver-tls-https-support
-tags: US, Americas
-address: 12.159.2.159:443
-host: doh.qis.io/dns-query
-keepalive: 40
-end;
+#name: quadrantsec
+#website: https://quadrantsec.com/blog/quadrants-public-dns-resolver-tls-https-support
+#tags: US, Americas
+#address: 12.159.2.159:443
+#host: doh.qis.io/dns-query
+#keepalive: 40
+#end;
+#
+#name: quadrantsec-dot
+#website: https://quadrantsec.com/blog/quadrants-public-dns-resolver-tls-https-support
+#tags: US, Americas
+#address: 12.159.2.159:853
+#host: doh.qis.io/dns-query
+#keepalive: 25
+#transport: dot
+#end;
 
-name: quadrantsec-dot
-website: https://quadrantsec.com/blog/quadrants-public-dns-resolver-tls-https-support
-tags: US, Americas
-address: 12.159.2.159:853
-host: doh.qis.io/dns-query
-keepalive: 25
-transport: dot
-end;
-
-name: r0cket
-website: https://dns.radeksprta.eu/
-tags: Sweden, Europe
-address: 185.243.23.151:443
-host: resolver.r0cket.net/dns-query
-keepalive: 40
-end;
-
+#name: r0cket
+#website: https://dns.radeksprta.eu/
+#tags: Sweden, Europe
+#address: 80.211.208.74:443
+#host: resolver.r0cket.net/dns-query
+#keepalive: 40
+#end;
+#
 # 10 sec keepalive
 #name: r0cket-dot
 #website: https://dns.radeksprta.eu/
 #tags: Sweden, Europe
-#address: 185.243.23.151:853
+#address: 80.211.208.74:853
 #host: resolver.r0cket.net/
 #keepalive: 40
 #transport: dot
@@ -2051,57 +2054,57 @@ transport: dot
 keepalive: 25
 end;
 
-name: uncensoreddns
-website: https://blog.uncensoreddns.org/
-tags: Denmark, Europe, Americas
-address: 91.239.100.100:443
-host: anycast.censurfridns.dk/dns-query
-keepalive: 25
-end;
-
-name: uncensoreddns2
-website: https://blog.uncensoreddns.org/
-tags: Denmark, Europe
-address: 89.233.43.71:443
-host: unicast.censurfridns.dk/dns-query
-keepalive: 25
-end;
-
-name: uncensoreddns3
-website: https://blog.uncensoreddns.org/
-tags: US, Americas
-address: 198.180.150.12:443
-host: unicast.censurfridns.dk/dns-query
-keepalive: 25
-end;
-
-name: uncensoreddns4
-website: https://blog.uncensoreddns.org/
-tags: Denmark, Europe
-address: 130.225.244.166:443
-host: unicast.censurfridns.dk/dns-query
-keepalive: 25
-end;
-
-name: uncensoreddns5
-website: https://blog.uncensoreddns.org/
-tags: Denmark, Europe
-address: 130.226.161.34:443
-host: unicast.censurfridns.dk/dns-query
-keepalive: 25
-end;
-
-name: uncensoreddns6
-website: https://blog.uncensoreddns.org/
-tags: Denmark, Europe
-address: 185.38.27.139:443
-host: unicast.censurfridns.dk/dns-query
-keepalive: 25
-end;
+#name: uncensoreddns
+#website: https://blog.uncensoreddns.org/
+#tags: Denmark, Europe, Americas
+#address: 91.239.100.100:443
+#host: anycast.censurfridns.dk/dns-query
+#keepalive: 25
+#end;
+#
+#name: uncensoreddns2
+#website: https://blog.uncensoreddns.org/
+#tags: Denmark, Europe
+#address: 89.233.43.71:443
+#host: unicast.censurfridns.dk/dns-query
+#keepalive: 25
+#end;
+#
+#name: uncensoreddns3
+#website: https://blog.uncensoreddns.org/
+#tags: US, Americas
+#address: 198.180.150.12:443
+#host: unicast.censurfridns.dk/dns-query
+#keepalive: 25
+#end;
+#
+#name: uncensoreddns4
+#website: https://blog.uncensoreddns.org/
+#tags: Denmark, Europe
+#address: 130.225.244.166:443
+#host: unicast.censurfridns.dk/dns-query
+#keepalive: 25
+#end;
+#
+#name: uncensoreddns5
+#website: https://blog.uncensoreddns.org/
+#tags: Denmark, Europe
+#address: 130.226.161.34:443
+#host: unicast.censurfridns.dk/dns-query
+#keepalive: 25
+#end;
+#
+#name: uncensoreddns6
+#website: https://blog.uncensoreddns.org/
+#tags: Denmark, Europe
+#address: 185.38.27.139:443
+#host: unicast.censurfridns.dk/dns-query
+#keepalive: 25
+#end;
 
 name: vinnyp
 website: https://dns.vinnyp.xyz/privacy
-tags: family, US, Americas
+tags: family
 address: 167.99.150.134:443
 host: dns.vinnyp.xyz/dns-query
 keepalive: 40
@@ -2109,7 +2112,7 @@ end;
 
 name: vinnyp-dot
 website: https://dns.vinnyp.xyz/privacy
-tags: family, US, Americas
+tags: family
 address: 167.99.150.134:853
 host: dns.vinnyp.xyz/dns-query
 keepalive: 40

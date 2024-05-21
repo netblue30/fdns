@@ -55,7 +55,7 @@ void resolver(void) {
 	__gcov_flush();
 #else
 	int rv = seccomp_load_filter_list();
-	chroot_drop_privs("nobody");
+		chroot_drop_privs("nobody", PATH_CHROOT);
 	if (rv)
 		seccomp_resolver();
 #endif

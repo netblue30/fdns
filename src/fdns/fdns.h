@@ -137,7 +137,7 @@ static inline int rand_range(int min, int max) {
 #define PATH_ETC_RESOLVER_SECCOMP (SYSCONFDIR "/resolver.seccomp")
 #define PATH_LOG_FILE "/var/log/fdns.log"
 #define PATH_STATS_FILE "/fdns-stats"	// the actual path is /dev/shm/fdns-stats
-
+#define PATH_CHROOT PATH_RUN_FDNS "/empty"	// chroot directory for resolver procs
 
 #define MAXBUF 2048
 typedef struct stats_t {
@@ -315,7 +315,7 @@ void frontend(void);
 
 // security.c
 void daemonize(void);
-void chroot_drop_privs(const char *username);
+void chroot_drop_privs(const char *username, const char *dir);
 int seccomp_load_filter_list(void);
 void seccomp_resolver(void);
 

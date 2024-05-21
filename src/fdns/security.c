@@ -34,7 +34,8 @@ void daemonize(void) {
 		errExit("daemon");
 }
 
-void chroot_drop_privs(const char *username) {
+// chroot into PATH_RUN_FDNS "/empty" and switch user to nobody
+void chroot_drop_privs(const char *username, const char *dir) {
 	struct stat s;
 	int rv;
 	assert(username);
@@ -42,18 +43,18 @@ void chroot_drop_privs(const char *username) {
 	// find user/group id
 	struct passwd *pw;
 	if ((pw = getpwnam(username)) == 0) {
-		fprintf(stderr, "Error: can't find user nobody\n");
+		fprintf(stderr, "Error: can't find user %s\n", username);
 		exit(1);
 	}
 
 	// check /run/fdns directory
-	if (stat(PATH_RUN_FDNS "/empty", &s)) {
-		fprintf(stderr, "Error: cannot find %s directory\n", PATH_RUN_FDNS);
+	if (stat(dir, &s)) {
+		fprintf(stderr, "Error: cannot find %s directory\n", dir);
 		exit(1);
 	}
 
 	// chroot
-	rv = chroot(PATH_RUN_FDNS "/empty");
+	rv = chroot(dir);
 	if (rv == -1)
 		errExit("chroot");
 	rv = chdir("/");
