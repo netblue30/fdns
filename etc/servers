@@ -327,14 +327,14 @@ transport: dot
 keepalive: 40
 end;
 
-name: appliedprivacy
-website: https://appliedprivacy.net
-tags: Austria, Europe
-address: 146.255.56.98:443
-host: doh.applied-privacy.net/query
-sni: yes
-keepalive: 25
-end;
+#name: appliedprivacy
+#website: https://appliedprivacy.net
+#tags: Austria, Europe
+#address: 146.255.56.98:443
+#host: doh.applied-privacy.net/query
+#sni: yes
+#keepalive: 25
+#end;
 
 name: aquilenet
 website: https://www.aquilenet.fr/
@@ -640,13 +640,13 @@ host: dns.comss.one/dns-query
 keepalive: 40
 end;
 
-name: comssone-east
-website: https://www.comss.ru/page.php?id=7315
-tags: AsiaPacific, Russia, adblocker
-address: dns.east.comss.one:443
-host: dns.east.comss.one/dns-query
-keepalive: 40
-end;
+#name: comssone-east
+#website: https://www.comss.ru/page.php?id=7315
+#tags: AsiaPacific, Russia, adblocker
+#address: dns.east.comss.one:443
+#host: dns.east.comss.one/dns-query
+#keepalive: 40
+#end;
 
 name: controld
 website: https://controld.com/free-dns/
@@ -1477,15 +1477,15 @@ keepalive: 25
 sni: yes
 end;
 
-name: lonet-dot
-website: https://lonet.org/service/dns
-tags: Germany, Europe, adblocker
-address: 185.183.156.85:853
-host: doh.phdns1.lonet.org/
-keepalive: 25
-transport: dot
-sni: yes
-end;
+#name: lonet-dot
+#website: https://lonet.org/service/dns
+#tags: Germany, Europe, adblocker
+#address: 185.183.156.85:853
+#host: doh.phdns1.lonet.org/
+#keepalive: 25
+#transport: dot
+#sni: yes
+#end;
 
 name: lonet2
 website: https://lonet.org/service/dns
@@ -1496,15 +1496,15 @@ keepalive: 25
 sni: yes
 end;
 
-name: lonet2-dot
-website: https://lonet.org/service/dns
-tags: Germany, Europe, adblocker
-address: 217.160.191.192:853
-host: doh.phdns2.lonet.org/
-keepalive: 25
-transport: dot
-sni: yes
-end;
+#name: lonet2-dot
+#website: https://lonet.org/service/dns
+#tags: Germany, Europe, adblocker
+#address: 217.160.191.192:853
+#host: doh.phdns2.lonet.org/
+#keepalive: 25
+#transport: dot
+#sni: yes
+#end;
 
 name: lonet3
 website: https://lonet.org/service/dns
@@ -1515,53 +1515,53 @@ keepalive: 25
 sni: yes
 end;
 
-name: lonet3-dot
-website: https://lonet.org/service/dns
-tags: US, Americas, adblocker
-address: 74.208.85.60:853
-host: doh.phdns3.lonet.org/
-keepalive: 25
-transport: dot
-sni: yes
-end;
+#name: lonet3-dot
+#website: https://lonet.org/service/dns
+#tags: US, Americas, adblocker
+#address: 74.208.85.60:853
+#host: doh.phdns3.lonet.org/
+#keepalive: 25
+#transport: dot
+#sni: yes
+#end;
 
 name: lonet4
 website: https://lonet.org/service/dns
 tags: Spain, Europe, adblocker
-address: 82.223.114.172:443
+address: 194.164.170.183:443
 host: doh.phdns4.lonet.org/dns-query
 keepalive: 25
 sni: yes
 end;
 
-name: lonet4-dot
-website: https://lonet.org/service/dns
-tags: Spain, Europe, adblocker
-address: 82.223.114.172:853
-host: doh.phdns4.lonet.org/
-keepalive: 25
-transport: dot
-sni: yes
-end;
+#name: lonet4-dot
+#website: https://lonet.org/service/dns
+#tags: Spain, Europe, adblocker
+#address: 194.164.170.183:853
+#host: doh.phdns4.lonet.org/
+#keepalive: 25
+#transport: dot
+#sni: yes
+#end;
 
 name: lonet5
 website: https://lonet.org/service/dns
 tags: UK, Europe, adblocker
-address: 77.68.116.22:443
+address: 194.164.121.97:443
 host: doh.phdns5.lonet.org/dns-query
 keepalive: 25
 sni: yes
 end;
 
-name: lonet5-dot
-website: https://lonet.org/service/dns
-tags: UK, Europe, adblocker
-address: 77.68.116.22:853
-host: doh.phdns5.lonet.org/
-keepalive: 25
-transport: dot
-sni: yes
-end;
+#name: lonet5-dot
+#website: https://lonet.org/service/dns
+#tags: UK, Europe, adblocker
+#address: 194.164.121.97:853
+#host: doh.phdns5.lonet.org/
+#keepalive: 25
+#transport: dot
+#sni: yes
+#end;
 
 # running in cloudflare cloud
 #name: mydns-network

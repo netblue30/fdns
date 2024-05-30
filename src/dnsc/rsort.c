@@ -90,14 +90,17 @@ static char *line_filter(char *buf) {
 
 //printf("%d: start %s\n", __LINE__, start);
 	if (strncmp(start, "127.0.0.1", 9) == 0 || strncmp(start, "0.0.0.0", 7) == 0) {
+		char *oldstart = start;
 		while (*start != ' ' && *start != '\t' && *start != '\0')
 			start++;
-		if (*start == '\0')
-			goto errout;
-		while ((*start == ' ' || *start == '\t') && *start != '\0')
-			start++;
-		if (*start == '\0')
-			goto errout;
+		if (*start != '\0') {
+			while ((*start == ' ' || *start == '\t') && *start != '\0')
+				start++;
+			if (*start == '\0')
+				goto errout;
+		}
+		else
+			start = oldstart;
 	}
 	if (*start == '\0')
 		return NULL;
