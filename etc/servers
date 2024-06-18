@@ -1179,13 +1179,13 @@ end;
 #keepalive: 40
 #end;
 
-name: faelix-uk-adblocker
-website: https://faelix.net/ref/dns/#privacy-dns
-tags: UK, Europe, adblocker
-address: 46.227.200.52:443
-host: pdns.faelix.net/
-keepalive: 25
-end;
+#name: faelix-uk-adblocker
+#website: https://faelix.net/ref/dns/#privacy-dns
+#tags: UK, Europe, adblocker
+#address: 46.227.200.52:443
+#host: pdns.faelix.net/
+#keepalive: 25
+#end;
 
 #name: faelix-uk-adblocker2
 #website: https://faelix.net/ref/dns/#privacy-dns
@@ -1195,29 +1195,29 @@ end;
 #keepalive: 25
 #end;
 
-name: faelix-uk-adblocker3
-website: https://faelix.net/ref/dns/#privacy-dns
-tags: UK, Europe, adblocker
-address: 46.227.207.52:443
-host: pdns.faelix.net/
-keepalive: 25
-end;
+#name: faelix-uk-adblocker3
+#website: https://faelix.net/ref/dns/#privacy-dns
+#tags: UK, Europe, adblocker
+#address: 46.227.207.52:443
+#host: pdns.faelix.net/
+#keepalive: 25
+#end;
 
-name: faelix-ch-adblocker
-website: https://faelix.net/ref/dns/#privacy-dns
-tags: Switzerland, Europe, adblocker
-address: 185.134.196.52:443
-host: pdns.faelix.net/
-keepalive: 25
-end;
+#name: faelix-ch-adblocker
+#website: https://faelix.net/ref/dns/#privacy-dns
+#tags: Switzerland, Europe, adblocker
+#address: 185.134.196.52:443
+#host: pdns.faelix.net/
+#keepalive: 25
+#end;
 
-name: faelix-uk
-website: https://faelix.net/ref/dns
-tags: UK, Europe
-address: 46.227.200.54:443
-host: rdns.faelix.net/
-keepalive: 25
-end;
+#name: faelix-uk
+#website: https://faelix.net/ref/dns
+#tags: UK, Europe
+#address: 46.227.200.54:443
+#host: rdns.faelix.net/
+#keepalive: 25
+#end;
 
 #name: faelix-uk2
 #website: https://faelix.net/ref/dns
@@ -1227,13 +1227,13 @@ end;
 #keepalive: 25
 #end;
 
-name: faelix-ch
-website: https://faelix.net/ref/dns/#privacy-dns
-tags: Switzerland, Europe
-address: 185.134.196.54:443
-host: rdns.faelix.net/
-keepalive: 25
-end;
+#name: faelix-ch
+#website: https://faelix.net/ref/dns/#privacy-dns
+#tags: Switzerland, Europe
+#address: 185.134.196.54:443
+#host: rdns.faelix.net/
+#keepalive: 25
+#end;
 
 #certificate has expired
 #name: faelix-ch2
@@ -2409,14 +2409,14 @@ transport: dot
 keepalive: 25
 end;
 
-name: dnscry-dallas
-tags: US, Americas
-website: https://www.dnscry.pt
-address: 202.5.26.130:853
-host: dfw01.dnscry.pt/
-transport: dot
-keepalive: 25
-end;
+#name: dnscry-dallas
+#tags: US, Americas
+#website: https://www.dnscry.pt
+#address: 202.5.26.130:853
+#host: dfw01.dnscry.pt/
+#transport: dot
+#keepalive: 25
+#end;
 
 name: dnscry-santaclara
 tags: US, Americas
