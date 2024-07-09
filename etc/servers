@@ -2274,14 +2274,14 @@ transport: dot
 keepalive: 25
 end;
 
-name: dnscry-ottoville
-tags: US, Americas
-website: https://www.dnscry.pt
-address: 23.26.138.19:853
-host: ott01.dnscry.pt/
-transport: dot
-keepalive: 25
-end;
+#name: dnscry-ottoville
+#tags: US, Americas
+#website: https://www.dnscry.pt
+#address: 104.234.231.23:853
+#host: ott01.dnscry.pt/
+#transport: dot
+#keepalive: 25
+#end;
 
 name: dnscry-istanbul
 tags: Turkey, Europe
@@ -2346,14 +2346,14 @@ transport: dot
 keepalive: 25
 end;
 
-name: dnscry-tokyo
-tags: Japan, AsiaPacific
-website: https://www.dnscry.pt
-address: 84.33.12.158:853
-host: tyo01.dnscry.pt/
-transport: dot
-keepalive: 25
-end;
+#name: dnscry-tokyo
+#tags: Japan, AsiaPacific
+#website: https://www.dnscry.pt
+#address: 84.33.12.158:853
+#host: tyo01.dnscry.pt/
+#transport: dot
+#keepalive: 25
+#end;
 
 name: dnscry-losangeles
 tags: US, Americas
@@ -2589,14 +2589,14 @@ transport: dot
 keepalive: 25
 end;
 
-name: dnscry-singapore
-tags: Singapore, AsiaPacific
-website: https://www.dnscry.pt
-address: 84.33.16.124:853
-host: sin01.dnscry.pt/
-transport: dot
-keepalive: 25
-end;
+#name: dnscry-singapore
+#tags: Singapore, AsiaPacific
+#website: https://www.dnscry.pt
+#address: 84.33.16.124:853
+#host: sin01.dnscry.pt/
+#transport: dot
+#keepalive: 25
+#end;
 
 name: dnscry-phoenix
 tags: US, Americas
