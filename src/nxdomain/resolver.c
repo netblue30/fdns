@@ -27,7 +27,7 @@
 
 static uint16_t id = 0;
 
-// return 1 if domain OK
+// return 0 if domain OK
 // return 1 if NXDOMAIN
 // return 2 if timeout
 int resolver(const char *domain) {

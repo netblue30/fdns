@@ -31,13 +31,14 @@
 
 static char *arg_fin = NULL;
 static char *arg_fout = NULL;
+static int arg_timeout_only = 0;
 #define SERVER_DEFAULT "1.1.1.1"
 char *arg_server = SERVER_DEFAULT;
 #define TIMEOUT_DEFAULT 5	// resolv.com, dig, and nslookup are using a default timeout of 5
 int arg_timeout = TIMEOUT_DEFAULT;
 int arg_chunk = FILE_CHUNK_SIZE;
 char current_chunk[FILE_CHUNK_SIZE][LINE_MAX];
-
+int chunks_in_input = 0;
 
 
 static void build_output(const char *tname_out, int chunk) {
@@ -204,7 +205,7 @@ static void test(FILE *fpout, int chunk_no) {
 
 
 static void run_chunk(int chunk_no, const char *tname_out) {
-	fprintf(stderr, "\n# chunk %d #\n", chunk_no);
+	fprintf(stderr, "\n# chunk %d (%.2f%%)\n", chunk_no, ((double) chunk_no / (double) chunks_in_input) * 100);
 	fflush(0);
 
 	char *fout;
@@ -241,6 +242,65 @@ static int load_chunk(FILE *fp) {
 	return 0;
 }
 
+static void timeout_only(const char *fin, const char *fout) {
+	assert(fin);
+	assert(fout);
+
+	FILE *fpin = fopen(fin, "r");
+	if (!fpin) {
+		fprintf(stderr, "Error: cannot open input file\n");
+		exit(1);
+	}
+
+	FILE *fpout = fopen(fout, "w");
+	if (!fpout) {
+		fprintf(stderr, "Error: cannot open output file\n");
+		exit(1);
+	}
+
+	char buf[LINE_MAX];
+	while (fgets(buf, LINE_MAX, fpin)) {
+		char *ptr = strchr(buf, '\n');
+		if (ptr)
+			*ptr = '\0';
+
+		if (strncmp(buf, "#@timeout", 9) == 0) {
+			ptr = buf + 9;
+			while (*ptr == ' ' || *ptr == '\t')
+				ptr++;
+
+			// send DNS request
+			usleep(100000);	// maximum 10 requests per second
+			int rv = resolver(ptr);
+			if (rv == 0) {
+				fprintf(stderr, "*");
+				fflush(0);
+				fprintf(fpout, "%s\n", ptr);
+				fflush(0);
+			}
+			else if (rv == 1) {
+				fprintf(stderr, "N");
+				fflush(0);
+			}
+			else if (rv == 2) {
+				fprintf(stderr, "T");
+				fflush(0);
+			}
+
+		}
+		else
+			fprintf(fpout, "%s\n", buf);
+
+	}
+	fclose(fpin);
+	fclose(fpout);
+
+
+
+
+}
+
+
 
 static void usage(void) {
 	printf("nxdomain - version %s\n", VERSION);
@@ -255,6 +315,7 @@ static void usage(void) {
 	printf("\t--help, -?, -h - show this help screen.\n");
 	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare %s\n", SERVER_DEFAULT);
 	printf("\t--timeout=seconds - number of seconds to wait for a response form the server, default %d\n", TIMEOUT_DEFAULT);
+	printf("\t--timeout-only - check only the domains that timed out in a previous run\n");
 	printf("\n");
 }
 
@@ -286,6 +347,8 @@ int main(int argc, char **argv) {
 				exit(1);
 			}
 		}
+		else if (strcmp(argv[i], "--timeout-only") == 0)
+			arg_timeout_only = 1;
 		else if (strncmp(argv[i], "--chunk=", 8) == 0) {
 			arg_chunk = atoi(argv[i] + 8);
 			if (arg_chunk < 1 || arg_chunk > 500) {
@@ -315,74 +378,94 @@ int main(int argc, char **argv) {
 	fprintf(stderr, "%s", ctime(&start));
 	fprintf(stderr, "Input file %s\n", arg_fin);
 	fprintf(stderr, "Output file %s\n", (arg_fout)? arg_fout: "stdout");
-	fprintf(stderr, "Server %s, timeout %d, max %d queries per second, %d domains in a chunk of data\n",
-		arg_server, arg_timeout, 10 * MAX_CHUNKS, arg_chunk);
+	if (arg_timeout_only)
+		fprintf(stderr, "Server %s, timeout-only %d seconds\n", arg_server, arg_timeout);
+	else
+		fprintf(stderr, "Server %s, timeout %d seconds, max %d queries per second, %d domains in a chunk of data\n",
+			arg_server, arg_timeout, 10 * MAX_CHUNKS, arg_chunk);
 
-	// split input file
-	char tname_in[128];
-	sprintf(tname_in, "/run/user/%u/nxdomainXXXXXX", getuid());
-	int tname_fd = mkstemp(tname_in);
-	if (tname_fd == -1)
-		errExit("mkstemp");
-	close(tname_fd);
-	char *tname_out;
-	if (asprintf(&tname_out, "%sout", tname_in) == -1)
-		errExit("asprintf");
 
-	FILE *fp = fopen(arg_fin, "r");
-	if (!fp) {
-		fprintf(stderr, "Error: cannot open %s\n", arg_fin);
-		exit(1);
-	}
+	if (arg_timeout_only)
+		timeout_only(arg_fin, arg_fout);
+	else {
+		// split input file
+		char tname_in[128];
+		sprintf(tname_in, "/run/user/%u/nxdomainXXXXXX", getuid());
+		int tname_fd = mkstemp(tname_in);
+		if (tname_fd == -1)
+			errExit("mkstemp");
+		close(tname_fd);
+		char *tname_out;
+		if (asprintf(&tname_out, "%sout", tname_in) == -1)
+			errExit("asprintf");
 
-	int active_chunks = 0;
-	i = 0;
-	while (1) {
-		int last_chunk = load_chunk(fp);
-
-		pid_t child = fork();
-		if (child == -1) {
-			perror("fork");
+		FILE *fp = fopen(arg_fin, "r");
+		if (!fp) {
+			fprintf(stderr, "Error: cannot open %s\n", arg_fin);
 			exit(1);
 		}
-		if (child == 0) {
-			fclose(fp);
-			run_chunk(i, tname_out);
-			exit(0);
+
+		// count the number of chunks
+		int buflen = 1000 + 1;
+		int rd;
+		while ((rd = fgetc(fp)) != EOF) {
+			if (rd == '\n')
+				chunks_in_input++;
 		}
+		chunks_in_input /= FILE_CHUNK_SIZE;
+		rewind(fp);
+		printf("# processing %d chunks\n", chunks_in_input);
 
-		if (last_chunk)
-			break;
-		i++;
-		active_chunks++;
-		if (active_chunks >= MAX_CHUNKS ) {
-			int status;
-			wait(&status);
-			active_chunks--;
+
+		int active_chunks = 0;
+		i = 0;
+		while (1) {
+			int last_chunk = load_chunk(fp);
+
+			pid_t child = fork();
+			if (child == -1) {
+				perror("fork");
+				exit(1);
+			}
+			if (child == 0) {
+				fclose(fp);
+				run_chunk(i, tname_out);
+				exit(0);
+			}
+
+			if (last_chunk)
+				break;
+			i++;
+			active_chunks++;
+			if (active_chunks >= MAX_CHUNKS ) {
+				int status;
+				wait(&status);
+				active_chunks--;
+			}
 		}
+		fclose(fp);
+
+		pid_t wpid;
+		int status;
+		while ((wpid = wait(&status)) > 0)
+			printf("#waiting#\n");
+		(void) wpid;
+
+		// print result
+		if (arg_fout) {
+			int rv = unlink(arg_fout);
+			(void) rv;
+		}
+		printf("\n\n\n");
+
+		int chunks = i + 1;
+		for (i = 0; i < chunks; i++)
+			build_output(tname_out, i);
+
+		printf("\n");
+		unlink(tname_in);
+		free(tname_out);
 	}
-	fclose(fp);
-
-	pid_t wpid;
-	int status;
-	while ((wpid = wait(&status)) > 0)
-		printf("#waiting#\n");
-	(void) wpid;
-
-	// print result
-	if (arg_fout) {
-		int rv = unlink(arg_fout);
-		(void) rv;
-	}
-	printf("\n\n\n");
-
-	int chunks = i + 1;
-	for (i = 0; i < chunks; i++)
-		build_output(tname_out, i);
-
-	printf("\n");
-	unlink(tname_in);
-	free(tname_out);
 	time_t end = time(NULL);
 	unsigned delta = end - start;
 	printf("\nrun time %u minutes\n", delta / 60);

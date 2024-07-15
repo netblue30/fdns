@@ -45,6 +45,10 @@ AdGuard - 94.140.14.140
 \fB\-\-timeout=seconds
 Number of seconds to wait for a response form the server, default 5 seconds.
 
+.TP
+\fB\-\-timeout-only
+Check only the domains that timed out in a previous run.
+
 .SH EXAMPLE
 $ nxdomain adblocker.hostsfile adblocker.hostfile.new
 
