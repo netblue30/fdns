@@ -224,7 +224,7 @@ static HashEntry *filter_search(const char *domain) {
 	return NULL; // not found
 }
 
-void filter_load_list(const char *fname, int store) {
+void filter_load_list(const char *fname) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
 	if (!fp) {
@@ -246,19 +246,6 @@ void filter_load_list(const char *fname, int store) {
 	else
 		file_id = FILE_ID_INVALID;
 
-	FILE *fpout = NULL;
-	if (store) {
-		char *f = strrchr(fname, '/');
-		if (!f) {
-			fprintf(stderr, "Error: invalid file name %s\n", fname);
-			exit(1);
-		}
-		f++;
-		fpout = fopen(f, "w");
-		if (!fpout)
-			errExit("fopen");
-	}
-
 	char buf[MAXBUF];
 	int cnt = 0;
 	int line_no = 0;
@@ -270,11 +257,8 @@ void filter_load_list(const char *fname, int store) {
 			*ptr = '\0';
 
 		// comments, empty lines
-		if (*buf == '#' || *buf == '\0' || strspn(buf, " \t") == strlen(buf)) {
-			if (store)
-				fprintf(fpout, "%s\n", buf);
+		if (*buf == '#' || *buf == '\0' || strspn(buf, " \t") == strlen(buf))
 			continue;
-		}
 
 		ptr = strchr(buf, '#');
 		if (ptr)
@@ -305,15 +289,11 @@ void filter_load_list(const char *fname, int store) {
 
 		// add it to the hash table
 		if (!filter_blocked(ptr, 0)) {
-			if (store)
-				fprintf(fpout, "127.0.0.1 %s\n", ptr);
 			filter_add(ptr, file_id, line_no);
 			cnt++;
 		}
 	}
 	fclose(fp);
-	if (store)
-		fclose(fpout);
 
 	fflush(0);
 	if (arg_id == 0)
@@ -323,18 +303,19 @@ void filter_load_list(const char *fname, int store) {
 void filter_load_all_lists(void) {
 	// apparmor will fail glob() or opendir() on /etc/fdns directory
 	// we need to hardcode the filter files
-	filter_load_list(PATH_ETC_TLD_LIST, arg_clean_filters);
-	filter_load_list(PATH_ETC_PHISHING_LIST, arg_clean_filters);
-	filter_load_list(PATH_ETC_TRACKERS_LIST, arg_clean_filters);
-	filter_load_list(PATH_ETC_ADBLOCKER_LIST, arg_clean_filters);
-	filter_load_list(PATH_ETC_COINBLOCKER_LIST, arg_clean_filters);
-	filter_load_list(PATH_ETC_DYNDNS_LIST, arg_clean_filters);
-	filter_load_list(PATH_ETC_HOSTS_LIST, arg_clean_filters);
+	filter_load_list(PATH_ETC_TLD_LIST);
+	filter_load_list(PATH_ETC_PHISHING_LIST);
+	filter_load_list(PATH_ETC_TRACKERS_LIST);
+	filter_load_list(PATH_ETC_ADBLOCKER_LIST);
+	filter_load_list(PATH_ETC_COINBLOCKER_LIST);
+	filter_load_list(PATH_ETC_DYNDNS_LIST);
+	filter_load_list(PATH_ETC_MALWARE_LIST);
+	filter_load_list(PATH_ETC_HOSTS_LIST);
 
 	int i;
 	for (i = 0; i < MAX_BLOCKLIST_FILE; i++) {
 		if (arg_blocklist_file[i])
-			filter_load_list(arg_blocklist_file[i], arg_clean_filters);
+			filter_load_list(arg_blocklist_file[i]);
 	}
 
 	if (arg_id == 0)

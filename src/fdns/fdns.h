@@ -131,6 +131,7 @@ static inline int rand_range(int min, int max) {
 #define PATH_ETC_PHISHING_LIST (SYSCONFDIR "/list.phishing")
 #define PATH_ETC_TLD_LIST (SYSCONFDIR "/list.tld-blacklist")
 #define PATH_ETC_DYNDNS_LIST (SYSCONFDIR "/list.dyndns")
+#define PATH_ETC_MALWARE_LIST (SYSCONFDIR "/list.malware")
 #define PATH_ETC_HOSTS_LIST (SYSCONFDIR "/hosts")
 #define PATH_ETC_SERVER_LIST (SYSCONFDIR "/servers")
 #define PATH_ETC_SERVER_LOCAL_LIST (SYSCONFDIR "/servers.local")
@@ -282,7 +283,6 @@ extern char *arg_transport;
 extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
 extern char *arg_fallback_server;
-extern int arg_clean_filters;
 
 extern int fallback_only;
 extern Stats stats;
@@ -339,7 +339,7 @@ int dns_query(uint8_t *msg, int cnt);
 // filter.c
 void filter_init(void);
 void filter_load_all_lists(void);
-void filter_load_list(const char *fname, int store);
+void filter_load_list(const char *fname);
 int filter_blocked(const char *str, int verbose);
 void filter_test(char *url);
 void filter_test_list(void);

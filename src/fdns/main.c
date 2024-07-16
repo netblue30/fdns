@@ -44,7 +44,6 @@ char *arg_transport = NULL;
 int arg_allow_self_signed_certs = 0;
 int arg_allow_expired_certs = 0;
 char *arg_fallback_server = NULL;
-int arg_clean_filters = 0;
 
 int fallback_only = 0;
 Stats stats;
@@ -147,19 +146,6 @@ int main(int argc, char **argv) {
 			}
 			else if (strcmp(argv[i], "--version") == 0) {
 				printf("FDNS version %s, %s\n", VERSION, OPENSSL_VERSION_TEXT);
-				return 0;
-			}
-
-			// undocumented; for development only!
-			// cd etc
-			// mkdir tmp
-			// cd tmp
-			// ../../src/fdns/fdns --clean-filters
-			// rm hosts
-			// ls    -> these are the new filters
-			else if (strcmp(argv[i], "--clean-filters") == 0) {
-				arg_clean_filters = 1;
-				filter_load_all_lists();
 				return 0;
 			}
 
