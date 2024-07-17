@@ -389,40 +389,11 @@ host: internetsehat.bebasid.com/dns-query
 keepalive: 25
 end;
 
-# very short keepalive (about 5 seconds)
-#name: blahdns-ch
-#website: https://blahdns.com
-#tags: Switzerland, Europe, adblocker
-#address: 45.91.92.121:443
-#host: doh-ch.blahdns.com/dns-query
-#sni: yes
-#keepalive: 7
-#end;
-#
-#name: blahdns-fi
-#website: https://blahdns.com
-#tags: Finland, Europe, adblocker
-#address: 95.216.212.177:443
-#host: doh-fi.blahdns.com/dns-query
-#sni: yes
-#keepalive: 7
-#end;
-#
 #name: blahdns-de
 #website: https://blahdns.com
 #tags: Germany, Europe, adblocker
 #address: 78.46.244.143:443
 #host: doh-de.blahdns.com/dns-query
-#sni: yes
-#keepalive: 7
-#end;
-#
-## short keepalive
-#name: blahdns-jp
-#website: https://blahdns.com
-#tags: admin-down, Japan, AsiaPacific, adblocker
-#address: 139.162.112.47:443
-#host: doh-jp.blahdns.com/dns-query
 #sni: yes
 #keepalive: 7
 #end;
@@ -2445,14 +2416,14 @@ transport: dot
 keepalive: 25
 end;
 
-#name: dnscry-naaldwijk
-#tags: Netherlands, Europe
-#website: https://www.dnscry.pt
-#address: 23.137.249.26:853
-#host: naw01.dnscry.pt/
-#transport: dot
-#keepalive: 25
-#end;
+name: dnscry-naaldwijk
+tags: Netherlands, Europe
+website: https://www.dnscry.pt
+address: 23.137.249.26:853
+host: naw01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
 
 name: dnscry-stockholm
 tags: Sweden, Europe
@@ -2571,14 +2542,14 @@ transport: dot
 keepalive: 25
 end;
 
-#name: dnscry-portland
-#tags: US, Americas
-#website: https://www.dnscry.pt
-#address: 103.124.106.233:853
-#host: pdx01.dnscry.pt/
-#transport: dot
-#keepalive: 25
-#end;
+name: dnscry-portland
+tags: US, Americas
+website: https://www.dnscry.pt
+address: 103.124.106.233:853
+host: pdx01.dnscry.pt/
+transport: dot
+keepalive: 25
+end;
 
 name: dnscry-tallinn
 tags: Estonia, Europe
