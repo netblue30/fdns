@@ -18,6 +18,7 @@
 */
 
 #include "dnsc.h"
+#include <ctype.h>
 
 static int callback(const void *p1, const void *p2) {
 	char *str1 =  *((char **) p1);
@@ -176,6 +177,20 @@ void rsort_load(const char *fname) {
 		exit(1);
 	}
 
+	int len = strlen(storage);
+	if (len == 0) {
+		printf(" (0)\n");
+		return;
+	}
+
+	// if the file doesn't end in '\n', add a '\n' at the end
+	if (*(storage + len - 1) != '\n') {
+		char *newstorage = malloc(len + 2);
+		sprintf(newstorage, "%s\n", storage);
+		free(storage);
+		storage = newstorage;
+	}
+
 	// check dnstwist.it
 	int dnstwist_it = 0;
 	if (strncmp(storage, "fuzzer,domain,dns_a,", 20) == 0)
@@ -217,6 +232,16 @@ errout:
 }
 
 char **rsort(void) {
+	// convert to lower-case
+	int i;
+	for (i = 0; i < line_in_cnt; i++) {
+		char *ptr = line_in[i];
+		while (*ptr) {
+			*ptr = tolower(*ptr);
+			ptr++;
+		}
+	}
+
 	// sorting
 	qsort(&line_in[0], line_in_cnt, sizeof(char *), callback);
 	return line_in;
