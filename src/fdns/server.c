@@ -180,6 +180,9 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			if (!s->tags)
 				errExit("strdup");
 			host = 1;
+			
+			if (strstr(s->tags, "dot,"))
+				s->transport = "dot";
 		}
 		else if (strcmp(tok1, "address") == 0) {
 			if (s->address)
@@ -231,18 +234,6 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				s->sni = 0;
 			else {
 				fprintf(stderr, "Error: file %s, line %d, wrong SNI setting\n", fname, *linecnt);
-				exit(1);
-			}
-		}
-		else if (strcmp(tok1, "transport") == 0) {
-			if (s->transport)
-				goto errout;
-			assert(tok2);
-			s->transport = strdup(buf + 11);
-			if (!s->transport)
-				errExit("strdup");
-			if (strcmp(s->transport, "dot")) {
-				fprintf(stderr, "Error: file %s, line %d, wrong transport setting\n", fname, *linecnt);
 				exit(1);
 			}
 		}

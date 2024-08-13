@@ -117,7 +117,6 @@ static void usage(void) {
 	printf("    --test-server=server-name|tag|all - test DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
 	printf("    --test-url-list - check all URLs form stdin.\n");
-	printf("    --transport - DNS protocol transport: h2, http/1.1, dot.\n");
 	printf("    --version - print program version and exit.\n");
 	printf("    --whitelist=domain - whitelist domain.\n");
 	printf("    --whitelist-file=filename - whitelist the domains in the file.\n");

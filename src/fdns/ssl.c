@@ -343,8 +343,6 @@ void ssl_open(void) {
 
 	ssl_state = SSL_OPEN;
 
-
-
 	int fd = SSL_get_fd(ssl);
 	struct sockaddr_in remote;
 	memset(&remote, 0, sizeof(remote));

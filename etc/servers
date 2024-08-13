@@ -18,12 +18,12 @@
 #               (the two) Americas, SouthAmerica, AsiaPacific, Europe, Africa, MiddleEast,
 #               anycast, adblocker, family, security, enterprise etc. Wherever possible
 #               we also added country-based tags (Germany, Denmark, Australia etc.)
+#               DNS over TLS (DoT) servers are labeled as "dot" - by default the software
+#               assumes HTTPS (ver 1.1 or 2).
 #	address: IP address and port in IP:PORT or DOMAIN:PORT format
 #	host: URL
 #	sni: yes/no
 #	       If yes we add SNI when we establish the connection. Optional, default no.
-#	transport: h2, http/1.1, dot
-#	       Transport technologies supported by the server.
 #	keepalive: seconds, how often we sent a request to keep the connection going.
 #	       Most of the time we use values of 7, 25, and 40.
 #	end;
@@ -141,11 +141,10 @@ end;
 
 #name: adguard-unfiltered-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
-#tags: anycast, Americas, AsiaPacific, Europe
+#tags: dot, anycast, Americas, AsiaPacific, Europe
 #address: 94.140.14.140:853
 #host: dns-unfiltered.adguard.com/
 #keepalive: 25
-#transport: dot
 #end;
 
 name: adguard-unfiltered2
@@ -158,11 +157,10 @@ end;
 
 #name: adguard-unfiltered2-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
-#tags: anycast, Americas, AsiaPacific, Europe
+#tags: dot, anycast, Americas, AsiaPacific, Europe
 #address: 94.140.14.141:853
 #host: dns-unfiltered.adguard.com/
 #keepalive: 25
-#transport: dot
 #end;
 
 name: adguard
@@ -175,11 +173,10 @@ end;
 
 #name: adguard-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
-#tags: anycast, adblocker, Americas, AsiaPacific, Europe
+#tags: dot, anycast, adblocker, Americas, AsiaPacific, Europe
 #address: 94.140.15.15:853
 #host: dns.adguard.com/
 #keepalive: 25
-#transport: dot
 #end;
 
 name: adguard2
@@ -192,11 +189,10 @@ end;
 
 #name: adguard2-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
-#tags: anycast, adblocker, Americas, AsiaPacific, Europe
+#tags: dot, anycast, adblocker, Americas, AsiaPacific, Europe
 #address: 94.140.14.14:853
 #host: dns.adguard.com/dns-query
 #keepalive: 25
-#transport: dot
 #end;
 
 name: adguard-family
@@ -209,11 +205,10 @@ end;
 
 #name: adguard-family-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
-#tags: family
+#tags: dot, family
 #address: 94.140.15.16:853
 #host: dns-family.adguard.com/
 #keepalive: 25
-#transport: dot
 #end;
 
 name: adguard-family2
@@ -226,11 +221,10 @@ end;
 
 #name: adguard-family2-dot
 #website: https://adguard.com/en/adguard-dns/overview.html
-#tags: family
+#tags: dot, family
 #address: 94.140.14.15:853
 #host: dns-family.adguard.com/
 #keepalive: 25
-#transport: dot
 #end;
 
 name: ahadns
@@ -253,20 +247,18 @@ end;
 
 name: ahadns-nl-dot
 website: https://ahadns.com
-tags: adblocker, Netherlands, Europe
+tags: dot, adblocker, Netherlands, Europe
 address: 5.2.75.75:853
 host: dot.nl.ahadns.net/
 keepalive: 25
-transport: dot
 end;
 
 name: ahadns-westus-dot
 website: https://ahadns.com
-tags: adblocker, US, Americas
+tags: dot, adblocker, US, Americas
 address: 45.67.219.208:853
 host: dot.la.ahadns.net/
 keepalive: 25
-transport: dot
 end;
 
 # short keepalive
@@ -320,10 +312,9 @@ end;
 
 name: artikel10-dot
 website: https://dns.artikel10.org
-tags: Netherlands, Europe
+tags: dot, Netherlands, Europe
 address: 217.197.91.153:853
 host: dns.artikel10.org/
-transport: dot
 keepalive: 40
 end;
 
@@ -365,10 +356,9 @@ end;
 # self-signed certificate
 #name: bebasid-dot
 #website: https://github.com/bebasid/bebasdns
-#tags: adblocker, OpenNIC, Malaysia, Indonesia, AsiaPacific
+#tags: dot, adblocker, OpenNIC, Malaysia, Indonesia, AsiaPacific
 #address: 103.87.68.194:853
 #host: dns.bebasid.com/
-#transport: dot
 #keepalive: 25
 #end;
 
@@ -629,10 +619,9 @@ end;
 
 name: controld-dot
 website: https://controld.com/free-dns/
-tags: anycast, Americas, AsiaPacific, Europe
+tags: dot, anycast, Americas, AsiaPacific, Europe
 address: 76.76.2.11:853
 host: freedns.controld.com/
-transport: dot
 keepalive: 25
 end;
 
@@ -665,20 +654,18 @@ end;
 
 name: digitalcourage-dot
 website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
-tags: Germany, Europe
+tags: dot, Germany, Europe
 address: 46.182.19.48:853
 host: dns2.digitalcourage.de/
 keepalive: 25
-transport: dot
 end;
 
 name: digitalcourage2-dot
 website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
-tags: Germany, Europe
+tags: dot, Germany, Europe
 address: 5.9.164.112:853
 host: dns3.digitalcourage.de/
 keepalive: 25
-transport: dot
 end;
 
 name: digital-society
@@ -710,20 +697,18 @@ end;
 # short keepalive
 #name: dismail-dot
 #website: https://dismail.de/info.html
-#tags: adblocker, Germany, Europe
+#tags: dot, adblocker, Germany, Europe
 #address: 116.203.32.217:853
 #host: fdns1.dismail.de/
 #keepalive: 25
-#transport: dot
 #end;
 #
 #name: dismail2-dot
 #website: https://dismail.de/info.html
-#tags: adblocker, Germany, Europe
+#tags: dot, adblocker, Germany, Europe
 #address: 159.69.114.157:853
 #host: fdns2.dismail.de/
 #keepalive: 25
-#transport: dot
 #end;
 
 
@@ -737,11 +722,10 @@ end;
 
 name: dns0eu-dot
 website: https://dns0.eu
-tags: security, anycast, Europe
+tags: dot, security, anycast, Europe
 address: 193.110.81.9:853
 host: zero.dns0.eu/
 keepalive: 40
-transport: dot
 end;
 
 name: dns0eu-2
@@ -754,11 +738,10 @@ end;
 
 name: dns0eu-dot2
 website: https://dns0.eu
-tags: security, anycast, Europe
+tags: dot, security, anycast, Europe
 address: 185.253.5.9:853
 host: zero.dns0.eu/
 keepalive: 40
-transport: dot
 end;
 
 name: dns0eu-family
@@ -771,11 +754,10 @@ end;
 
 name: dns0eu-family-dot
 website: https://dns0.eu
-tags: family
+tags: dot, family
 address: 193.110.81.1:853
 host: kids.dns0.eu/
 keepalive: 40
-transport: dot
 end;
 
 name: dns0eu-family-2
@@ -788,11 +770,10 @@ end;
 
 name: dns0eu-family-dot2
 website: https://dns0.eu
-tags: family
+tags: dot, family
 address: 185.253.5.1:853
 host: kids.dns0.eu/
 keepalive: 40
-transport: dot
 end;
 
 name: dns-sb1
@@ -1019,11 +1000,10 @@ end;
 
 name: dnsforfamily-dot
 website: https://dnsforfamily.com
-tags: family
+tags: dot, family
 address: 167.235.236.107:853
 host: dns-dot.dnsforfamily.com/
 keepalive: 25
-transport: dot
 end;
 
 # short keepalive
@@ -1086,12 +1066,11 @@ end;
 
 name: dnswarden-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: geocast, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: dot, geocast, Americas, AsiaPacific, Europe, Germany, Singapore, US
 address: uncensored.dns.dnswarden.com:853
 host: uncensored.dns.dnswarden.com/
 sni: yes
 keepalive: 25
-transport: dot
 end;
 
 name: dnswarden-adblocker
@@ -1105,12 +1084,11 @@ end;
 
 name: dnswarden-adblocker-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: dot, geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
 address: adblock.dns.dnswarden.com:853
 host: adblock.dns.dnswarden.com/
 sni: yes
 keepalive: 25
-transport: dot
 end;
 
 name: dnswarden-family
@@ -1124,12 +1102,11 @@ end;
 
 name: dnswarden-family-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: family
+tags: dot, family
 address: adultfilter.dns.dnswarden.com:853
 host: adultfilter.dns.dnswarden.com/
 sni: yes
 keepalive: 25
-transport: dot
 end;
 
 # ns8.he.de.dns.opennic.glue
@@ -1250,11 +1227,10 @@ end;
 
 name: flokinet-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: anycast, Europe
+tags: dot, anycast, Europe
 address: 37.156.68.20:853
 host: nl.resolv.flokinet.net/
 keepalive: 25
-transport: dot
 end;
 
 name: flokinet-ro
@@ -1267,11 +1243,10 @@ end;
 
 name: flokinet-ro-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Romania, Europe
+tags: dot, Romania, Europe
 address: 185.246.188.51:853
 host: ro.resolv.flokinet.net/
 keepalive: 25
-transport: dot
 end;
 
 name: flokinet-nl
@@ -1284,11 +1259,10 @@ end;
 
 name: flokinet-nl-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Netherlands, Europe
+tags: dot, Netherlands, Europe
 address: 185.246.188.51:853
 host: nl.resolv.flokinet.net/
 keepalive: 25
-transport: dot
 end;
 
 name: flutadns
@@ -1302,29 +1276,26 @@ end;
 
 name: getdnsapi-dot
 website: https://getdnsapi.net/
-tags: Netherlands, Europe
+tags: dot, Netherlands, Europe
 address: 185.49.141.37:853
 host: getdnsapi.net/
 keepalive: 40
-transport: dot
 end;
 
 name: getdnsapi2-dot
 website: https://getdnsapi.net/
-tags: Netherlands, Europe
+tags: dot, Netherlands, Europe
 address: 185.49.141.37:443
 host: getdnsapi.net/
 keepalive: 40
-transport: dot
 end;
 
 name: getdnsapi3-dot
 website: https://getdnsapi.net/
-tags: Netherlands, Europe
+tags: dot, Netherlands, Europe
 address: 185.49.141.38:853
 host: getdnsapi.net/
 keepalive: 40
-transport: dot
 end;
 
 # connected fine, cannot resolve domains
@@ -1416,11 +1387,10 @@ end;
 
 #name: li-dot
 #website: https://doh.li/
-#tags: admin-down, UK, Europe
+#tags: dot, admin-down, UK, Europe
 #address: 46.101.66.244:853
 #host: doh.li/dns-query
 #keepalive: 40
-#transport: dot
 #end;
 
 #name: libredns
@@ -1450,11 +1420,10 @@ end;
 
 #name: lonet-dot
 #website: https://lonet.org/service/dns
-#tags: Germany, Europe, adblocker
+#tags: dot, Germany, Europe, adblocker
 #address: 185.183.156.85:853
 #host: doh.phdns1.lonet.org/
 #keepalive: 25
-#transport: dot
 #sni: yes
 #end;
 
@@ -1469,11 +1438,10 @@ end;
 
 #name: lonet2-dot
 #website: https://lonet.org/service/dns
-#tags: Germany, Europe, adblocker
+#tags: dot, Germany, Europe, adblocker
 #address: 217.160.191.192:853
 #host: doh.phdns2.lonet.org/
 #keepalive: 25
-#transport: dot
 #sni: yes
 #end;
 
@@ -1488,11 +1456,10 @@ end;
 
 #name: lonet3-dot
 #website: https://lonet.org/service/dns
-#tags: US, Americas, adblocker
+#tags: dot, US, Americas, adblocker
 #address: 74.208.85.60:853
 #host: doh.phdns3.lonet.org/
 #keepalive: 25
-#transport: dot
 #sni: yes
 #end;
 
@@ -1507,11 +1474,10 @@ end;
 
 #name: lonet4-dot
 #website: https://lonet.org/service/dns
-#tags: Spain, Europe, adblocker
+#tags: dot, Spain, Europe, adblocker
 #address: 194.164.170.183:853
 #host: doh.phdns4.lonet.org/
 #keepalive: 25
-#transport: dot
 #sni: yes
 #end;
 
@@ -1526,11 +1492,10 @@ end;
 
 #name: lonet5-dot
 #website: https://lonet.org/service/dns
-#tags: UK, Europe, adblocker
+#tags: dot, UK, Europe, adblocker
 #address: 194.164.121.97:853
 #host: doh.phdns5.lonet.org/
 #keepalive: 25
-#transport: dot
 #sni: yes
 #end;
 
@@ -1561,11 +1526,10 @@ end;
 
 name: nextdns-dot
 website: https://nextdns.io/
-tags: anycast, Americas, AsiaPacific, Europe
+tags: dot, anycast, Americas, AsiaPacific, Europe
 address: 45.90.30.0:853
 host: trr.dns.nextdns.io/
 keepalive: 40
-transport: dot
 end;
 
 name: nextdns2
@@ -1578,11 +1542,10 @@ end;
 
 name: nextdns2-dot
 website: https://nextdns.io/
-tags: anycast, Americas, AsiaPacific, Europe
+tags: dot, anycast, Americas, AsiaPacific, Europe
 address: 45.90.28.0:853
 host: trr.dns.nextdns.io/
 keepalive: 40
-transport: dot
 end;
 
 name: nextdns3
@@ -1595,11 +1558,10 @@ end;
 
 name: nextdns3-dot
 website: https://nextdns.io/
-tags: geocast, Americas, AsiaPacific, Europe
+tags: dot, geocast, Americas, AsiaPacific, Europe
 address: trr.dns.nextdns.io:853
 host: trr.dns.nextdns.io/
 keepalive: 40
-transport: dot
 end;
 
 name: njalla
@@ -1620,11 +1582,10 @@ end;
 
 name: opennameserver-dot
 website: https://opennameserver.org/
-tags: OpenNIC, Germany, Europe
+tags: dot, OpenNIC, Germany, Europe
 address: 217.160.70.42:853
 host: ns1.opennameserver.org/
 keepalive: 25
-transport: dot
 end;
 
 name: opennameserver2
@@ -1637,11 +1598,10 @@ end;
 
 name: opennameserver2-dot
 website: https://opennameserver.org/
-tags: OpenNIC, Germany, Europe
+tags: dot, OpenNIC, Germany, Europe
 address: 178.254.22.166:853
 host: ns2.opennameserver.org/
 keepalive: 25
-transport: dot
 end;
 
 name: opennameserver3
@@ -1654,11 +1614,10 @@ end;
 
 name: opennameserver3-dot
 website: https://opennameserver.org/
-tags: OpenNIC, Germany, Europe
+tags: dot, OpenNIC, Germany, Europe
 address: 81.169.136.222:853
 host: ns3.opennameserver.org/
 keepalive: 25
-transport: dot
 end;
 
 name: opennameserver4
@@ -1671,11 +1630,10 @@ end;
 
 name: opennameserver4-dot
 website: https://opennameserver.org/
-tags: OpenNIC, Norway, Europe
+tags: dot, OpenNIC, Norway, Europe
 address: 185.181.61.24:853
 host: ns4.opennameserver.org/
 keepalive: 25
-transport: dot
 end;
 
 # running in cloudflare cloud
@@ -1756,11 +1714,10 @@ end;
 #
 #name: quadrantsec-dot
 #website: https://quadrantsec.com/blog/quadrants-public-dns-resolver-tls-https-support
-#tags: US, Americas
+#tags: dot, US, Americas
 #address: 12.159.2.159:853
 #host: doh.qis.io/dns-query
 #keepalive: 25
-#transport: dot
 #end;
 
 #name: r0cket
@@ -1774,20 +1731,18 @@ end;
 # 10 sec keepalive
 #name: r0cket-dot
 #website: https://dns.radeksprta.eu/
-#tags: Sweden, Europe
+#tags: dot, Sweden, Europe
 #address: 80.211.208.74:853
 #host: resolver.r0cket.net/
 #keepalive: 40
-#transport: dot
 #end;
 
 #name: radeksprta-dot
 #website: https://dns.radeksprta.eu/
-#tags: OpenNIC, Czechia, Europe
+#tags: dot, OpenNIC, Czechia, Europe
 #address: 80.211.208.74:853
 #host: dns.radeksprta.eu/
 #keepalive: 25
-#transport: dot
 #end;
 
 # running in cloudflare cloud
@@ -1847,10 +1802,9 @@ end;
 
 # name: seby-dot
 # website: https://dns.seby.io
-# tags: Australia, AsiaPacific, OpenNIC
+# tags: dot, Australia, AsiaPacific, OpenNIC
 # address: 45.76.113.31:853
 # host: dns.seby.io/
-# transport: dot
 # keepalive: 7
 # end;
 
@@ -1864,10 +1818,9 @@ end;
 
 #name: seby2-dot
 #website: https://dns.seby.io
-#tags: Australia, AsiaPacific, OpenNIC
+#tags: dot, Australia, AsiaPacific, OpenNIC
 #address: 139.99.222.72:853
 #host: doh-2.seby.io/
-#transport: dot
 #keepalive: 40
 #end;
 
@@ -1889,10 +1842,9 @@ end;
 
 name: sellan-dot
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-tags: admin-down, France, Europe
+tags: dot, admin-down, France, Europe
 address: 78.194.186.17:853
 host: dns.sellan.fr/
-transport: dot
 keepalive: 25
 end;
 
@@ -2000,11 +1952,10 @@ end;
 #
 #name: tiarap-sg-dot
 #website: https://doh.tiar.app
-#tags: Singapore, AsiaPacific, adblocker
+#tags: dot, Singapore, AsiaPacific, adblocker
 #address: 174.138.29.175:853
 #host: dot.tiar.app/
 #keepalive: 25
-#transport: dot
 #sni: yes
 #end;
 
@@ -2018,10 +1969,9 @@ end;
 
 name: twnic-dot
 website: https://101.101.101.101/index_en.html
-tags: Taiwan, AsiaPacific
+tags: dot, Taiwan, AsiaPacific
 address: 101.101.101.101:853
 host: dns.twnic.tw/
-transport: dot
 keepalive: 25
 end;
 
@@ -2083,11 +2033,10 @@ end;
 
 name: vinnyp-dot
 website: https://dns.vinnyp.xyz/privacy
-tags: family
+tags: dot, family
 address: 167.99.150.134:853
 host: dns.vinnyp.xyz/dns-query
 keepalive: 40
-transport: dot
 end;
 
 name: wikimedia
@@ -2111,668 +2060,593 @@ end;
 # - extracted from https://dnscry.pt lists
 ##################################################
 name: dnscry-tampa
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 165.140.117.248:853
 host: tpa01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-amsterdam
-tags: Netherlands, Europe
+tags: dot, Netherlands, Europe
 website: https://www.dnscry.pt
 address: 198.140.141.46:853
 host: ams01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-sofia
-tags: Bulgaria, Europe
+tags: dot, Bulgaria, Europe
 website: https://www.dnscry.pt
 address: 79.124.77.3:853
 host: sof01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-fremont
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 23.134.88.71:853
 host: fet01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-riga
-tags: Latvia, Europe
+tags: dot, Latvia, Europe
 website: https://www.dnscry.pt
 address: 195.123.212.200:853
 host: rix01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-coventry
-tags: UK, Europe
+tags: dot, UK, Europe
 website: https://www.dnscry.pt
 address: 104.128.190.108:853
 host: cvt01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-jakarta
-tags: Indonesia, AsiaPacific
+tags: dot, Indonesia, AsiaPacific
 website: https://www.dnscry.pt
 address: 103.76.129.94:853
 host: jkt01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-taos
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 63.133.223.138:853
 host: tsm01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-nuremberg
-tags: Germany, Europe
+tags: dot, Germany, Europe
 website: https://www.dnscry.pt
 address: 202.61.236.67:853
 host: nue01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-durham
-tags: UK, Europe
+tags: dot, UK, Europe
 website: https://www.dnscry.pt
 address: 38.45.64.117:853
 host: rdu01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-atlanta
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 170.249.237.154:853
 host: atl01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-chisinau
-tags: Moldova, Europe
+tags: dot, Moldova, Europe
 website: https://www.dnscry.pt
 address: 176.123.10.105:853
 host: kiv01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-sydney
-tags: Australia, AsiaPacific
+tags: dot, Australia, AsiaPacific
 website: https://www.dnscry.pt
 address: 84.33.15.100:853
 host: syd01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-montreal
-tags: Canada, Americas
+tags: dot, Canada, Americas
 website: https://www.dnscry.pt
 address: 147.189.136.183:853
 host: ymq01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-flint
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 147.189.140.136:853
 host: fnt01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 #name: dnscry-ottoville
-#tags: US, Americas
+#tags: dot, US, Americas
 #website: https://www.dnscry.pt
 #address: 104.234.231.23:853
 #host: ott01.dnscry.pt/
-#transport: dot
 #keepalive: 25
 #end;
 
 name: dnscry-istanbul
-tags: Turkey, Europe
+tags: dot, Turkey, Europe
 website: https://www.dnscry.pt
 address: 193.228.1.130:853
 host: ist01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-hongkong
-tags: HongKong, AsiaPacific
+tags: dot, HongKong, AsiaPacific
 website: https://www.dnscry.pt
 address: 89.213.0.26:853
 host: hkg01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-fujairah
-tags: UnitedArabEmirates, MiddleEast, Europe
+tags: dot, UnitedArabEmirates, MiddleEast, Europe
 website: https://www.dnscry.pt
 address: 89.36.162.187:853
 host: fjr01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-lima
-tags: Peru, SouthAmerica, Americas
+tags: dot, Peru, SouthAmerica, Americas
 website: https://www.dnscry.pt
 address: 161.132.47.185:853
 host: lim01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-geneva
-tags: Switzerland, Europe
+tags: dot, Switzerland, Europe
 website: https://www.dnscry.pt
 address: 45.90.59.193:853
 host: gva01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-helsinki
-tags: Finland, Europe
+tags: dot, Finland, Europe
 website: https://www.dnscry.pt
 address: 185.253.111.6:853
 host: hel01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-paris
-tags: France, Europe
+tags: dot, France, Europe
 website: https://www.dnscry.pt
 address: 89.117.2.17:853
 host: par01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 #name: dnscry-tokyo
-#tags: Japan, AsiaPacific
+#tags: dot, Japan, AsiaPacific
 #website: https://www.dnscry.pt
 #address: 84.33.12.158:853
 #host: tyo01.dnscry.pt/
-#transport: dot
 #keepalive: 25
 #end;
 
 name: dnscry-losangeles
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 84.33.244.100:853
 host: lax01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-adelaide
-tags: Australia, AsiaPacific
+tags: dot, Australia, AsiaPacific
 website: https://www.dnscry.pt
 address: 23.140.248.100:853
 host: adl01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-toronto
-tags: Canada, Americas
+tags: dot, Canada, Americas
 website: https://www.dnscry.pt
 address: 23.134.89.23:853
 host: yyz01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-eygelshoven
-tags: Netherlands, Europe
+tags: dot, Netherlands, Europe
 website: https://www.dnscry.pt
 address: 93.95.115.21:853
 host: eyg01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-chicago
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 45.41.204.204:853
 host: ord01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-ebene
-tags: Mauritius, Africa, Europe
+tags: dot, Mauritius, Africa, Europe
 website: https://www.dnscry.pt
 address: 102.222.106.165:853
 host: mru01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 #name: dnscry-dallas
-#tags: US, Americas
+#tags: dot, US, Americas
 #website: https://www.dnscry.pt
 #address: 202.5.26.130:853
 #host: dfw01.dnscry.pt/
-#transport: dot
 #keepalive: 25
 #end;
 
 name: dnscry-santaclara
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 176.111.223.167:853
 host: sjc01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-mumbai
-tags: India, AsiaPacific
+tags: dot, India, AsiaPacific
 website: https://www.dnscry.pt
 address: 103.111.114.25:853
 host: bom01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-valdivia
-tags: Chile, SouthAmerica, Americas
+tags: dot, Chile, SouthAmerica, Americas
 website: https://www.dnscry.pt
 address: 216.73.159.26:853
 host: zal01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-naaldwijk
-tags: Netherlands, Europe
+tags: dot, Netherlands, Europe
 website: https://www.dnscry.pt
 address: 23.137.249.26:853
 host: naw01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-stockholm
-tags: Sweden, Europe
+tags: dot, Sweden, Europe
 website: https://www.dnscry.pt
 address: 95.143.196.190:853
 host: sto01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-taipeh
-tags: Taiwan, AsiaPacific
+tags: dot, Taiwan, AsiaPacific
 website: https://www.dnscry.pt
 address: 103.131.189.11:853
 host: tpe01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-kyiv
-tags: Ukraine, Europe
+tags: dot, Ukraine, Europe
 website: https://www.dnscry.pt
 address: 217.12.221.61:853
 host: iev01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-madrid
-tags: Spain, Europe
+tags: dot, Spain, Europe
 website: https://www.dnscry.pt
 address: 5.134.118.198:853
 host: mad01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-auckland
-tags: NewZeeland, AsiaPacific
+tags: dot, NewZeeland, AsiaPacific
 website: https://www.dnscry.pt
 address: 185.99.133.112:853
 host: akl01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-kharkiv
-tags: Ukraine, Europe
+tags: dot, Ukraine, Europe
 website: https://www.dnscry.pt
 address: 193.238.153.17:853
 host: hrk01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-sandefjord
-tags: Norway, Europe
+tags: dot, Norway, Europe
 website: https://www.dnscry.pt
 address: 194.32.107.48:853
 host: trf01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-libertylake
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 23.184.48.19:853
 host: llk01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-singapore02
-tags: Singapore, AsiaPacific
+tags: dot, Singapore, AsiaPacific
 website: https://www.dnscry.pt
 address: 103.179.44.73:853
 host: sin02.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-frankfurt
-tags: Germany, Europe
+tags: dot, Germany, Europe
 website: https://www.dnscry.pt
 address: 194.50.19.150:853
 host: fra01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 #name: dnscry-losangeles02
-#tags: US, Americas
+#tags: dot, US, Americas
 #website: https://www.dnscry.pt
 #address: 104.200.67.194:853
 #host: lax02.dnscry.pt/
-#transport: dot
 #keepalive: 25
 #end;
 
 name: dnscry-lagos
-tags: Nigeria, Africa, Europe
+tags: dot, Nigeria, Africa, Europe
 website: https://www.dnscry.pt
 address: 176.97.192.12:853
 host: los01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-spokane
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 104.36.86.181:853
 host: geg01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-portland
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 103.124.106.233:853
 host: pdx01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-tallinn
-tags: Estonia, Europe
+tags: dot, Estonia, Europe
 website: https://www.dnscry.pt
 address: 185.194.53.22:853
 host: tll01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 #name: dnscry-singapore
-#tags: Singapore, AsiaPacific
+#tags: dot, Singapore, AsiaPacific
 #website: https://www.dnscry.pt
 #address: 84.33.16.124:853
 #host: sin01.dnscry.pt/
-#transport: dot
 #keepalive: 25
 #end;
 
 name: dnscry-phoenix
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 173.249.203.52:853
 host: phx01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-coeurdalene
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 104.192.102.132:853
 host: coe01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-kansascity
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 23.150.40.121:853
 host: mci01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-allentown
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 23.137.253.24:853
 host: abe01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-portedwards
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 176.111.219.126:853
 host: ped01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-saltlakecity
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 103.114.162.65:853
 host: slc01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-philadelphia
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 154.16.159.22:853
 host: phl01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-munich
-tags: Germany, Europe
+tags: dot, Germany, Europe
 website: https://www.dnscry.pt
 address: 194.39.205.10:853
 host: muc01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-denver
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 193.8.172.248:853
 host: den01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-warsaw02
-tags: Poland, Europe
+tags: dot, Poland, Europe
 website: https://www.dnscry.pt
 address: 88.218.206.137:853
 host: waw02.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-johannesburg
-tags: SouthAfrica, Africa, Europe
+tags: dot, SouthAfrica, Africa, Europe
 website: https://www.dnscry.pt
 address: 169.239.128.124:853
 host: jnb01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-seattle
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 45.14.115.125:853
 host: sea01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-tokyo02
-tags: Japan, AsiaPacific
+tags: dot, Japan, AsiaPacific
 website: https://www.dnscry.pt
 address: 103.179.45.6:853
 host: tyo02.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-dusseldorf
-tags: Germany, Europe
+tags: dot, Germany, Europe
 website: https://www.dnscry.pt
 address: 185.244.27.136:853
 host: dus01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-oradea
-tags: Romania, Europe
+tags: dot, Romania, Europe
 website: https://www.dnscry.pt
 address: 193.32.87.127:853
 host: omr01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-lasvegas
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 209.141.45.27:853
 host: las01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-london
-tags: UK, Europe
+tags: dot, UK, Europe
 website: https://www.dnscry.pt
 address: 178.239.174.244:853
 host: lon01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-miami
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 84.33.14.10:853
 host: mia01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-vienna
-tags: Austria, Europe
+tags: dot, Austria, Europe
 website: https://www.dnscry.pt
 address: 83.138.55.186:853
 host: vie01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-hongkong02
-tags: HongKong, AsiaPacific
+tags: dot, HongKong, AsiaPacific
 website: https://www.dnscry.pt
 address: 45.123.188.129:853
 host: hkg02.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-amsterdam02
-tags: Netherlands, Europe
+tags: dot, Netherlands, Europe
 website: https://www.dnscry.pt
 address: 45.86.162.110:853
 host: ams02.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-newyork
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 84.33.245.10:853
 host: nyc01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
 
 name: dnscry-detroit
-tags: US, Americas
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 66.187.7.140:853
 host: dtw01.dnscry.pt/
-transport: dot
 keepalive: 25
 end;
-# dnscry.pt: 74 servers
