@@ -278,8 +278,6 @@ extern int arg_details;
 extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
 extern char *arg_fallback_server;
-
-extern int fallback_only;
 extern Stats stats;
 
 // dnsdb.c

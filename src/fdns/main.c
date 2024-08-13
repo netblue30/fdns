@@ -44,7 +44,6 @@ int arg_allow_self_signed_certs = 0;
 int arg_allow_expired_certs = 0;
 char *arg_fallback_server = NULL;
 
-int fallback_only = 0;
 Stats stats;
 
 // clear /run/fdns/#pid# file
@@ -358,10 +357,8 @@ int main(int argc, char **argv) {
 			printf("\n");
 		}
 		logprintf("fdns starting\n");
+		logprintf("connecting to %s server\n", s->name);
 
-		if (!fallback_only) {
-			logprintf("connecting to %s server\n", s->name);
-		}
 		install_handler();
 		frontend();
 	}

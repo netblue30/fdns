@@ -121,26 +121,18 @@ void shmem_store_stats(const char *proxy_addr) {
 		report->peer_ip[i] = stats.peer_ip[i];
 	}
 
-	if (fallback_only)
-		snprintf(report->header1, MAX_ENTRY_LEN,
-			 "%s %s %s",
-			 proxy_addr,
-			 arg_fallback_server,
-			 encstatus);
+	char *transport = "DoH";
+	if (srv->transport && strstr(srv->transport, "dot"))
+		transport = "DoT";
+	snprintf(report->header1, MAX_ENTRY_LEN,
+		 "%s %s %s (%s %.02lf ms, %d s)",
+		 proxy_addr,
+		 srv->name,
+		 encstatus,
+		 transport,
+		 stats.query_time,
+		 srv->keepalive_max);
 
-	else {
-		char *transport = "DoH";
-		if (srv->transport && strstr(srv->transport, "dot"))
-			transport = "DoT";
-		snprintf(report->header1, MAX_ENTRY_LEN,
-			 "%s %s %s (%s %.02lf ms, %d s)",
-			 proxy_addr,
-			 srv->name,
-			 encstatus,
-			 transport,
-			 stats.query_time,
-			 srv->keepalive_max);
-	}
 	snprintf(report->header2, MAX_ENTRY_LEN,
 		 "requests %u, drop %u, cache %u, fwd %u, fallback %u",
 		 stats.rx,

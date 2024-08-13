@@ -331,9 +331,6 @@ static void load_list(void) {
 
 // return the average query time in ms, or 0 if failed
 static uint8_t test_server(const char *server_name)  {
-	if (fallback_only)
-		return 0;
-
 	// initialize server structure
 	arg_server = strdup(server_name);
 	if (!arg_server)
@@ -580,11 +577,6 @@ DnsServer *server_get(void) {
 		if (!arg_server)
 			errExit("strdup");
 	} // arg_server is in mallocated memory
-
-	if (fallback_only) {
-		scurrent = slist;
-		return scurrent;
-	}
 
 	// initialize s->active
 	server_list(arg_server);
