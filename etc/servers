@@ -18,12 +18,13 @@
 #               (the two) Americas, SouthAmerica, AsiaPacific, Europe, Africa, MiddleEast,
 #               anycast, adblocker, family, security, enterprise etc. Wherever possible
 #               we also added country-based tags (Germany, Denmark, Australia etc.)
-#               DNS over TLS (DoT) servers are labeled as "dot" - by default the software
-#               assumes HTTPS (ver 1.1 or 2).
+#               Some transport-specific tags can be included:
+#                  - DNS over TLS (DoT) servers are labeled as "dot". By default the software
+#                    assumes HTTPS (ver 1.1 or 2).
+#                  - Servers requiering Server Name Indication (SNI) are labeled as "sni". By
+#                    default SNI element is not included in TLS connect packages.
 #	address: IP address and port in IP:PORT or DOMAIN:PORT format
 #	host: URL
-#	sni: yes/no
-#	       If yes we add SNI when we establish the connection. Optional, default no.
 #	keepalive: seconds, how often we sent a request to keep the connection going.
 #	       Most of the time we use values of 7, 25, and 40.
 #	end;
@@ -75,11 +76,10 @@ end;
 
 name: 42l
 website: https://42l.fr
-tags: France, Europe
+tags: sni, France, Europe
 address: 45.155.171.163:443
 host: doh.42l.fr/dns-query
 keepalive: 40
-sni: yes
 end;
 
 name: a-and-a
@@ -229,20 +229,18 @@ end;
 
 name: ahadns
 website: https://ahadns.com
-tags: geocast, Americas, AsiaPacific, Europe
+tags: sni, geocast, Americas, AsiaPacific, Europe
 address: blitz.ahadns.com:443
 host: blitz.ahadns.com/
 keepalive: 40
-sni: yes
 end;
 
 name: ahadns-adblocker
 website: https://ahadns.com
-tags: geocast, adblocker Americas, AsiaPacific, Europe
+tags: sni, geocast, adblocker Americas, AsiaPacific, Europe
 address: blitz.ahadns.com:443
 host: blitz.ahadns.com/1:1
 keepalive: 40
-sni: yes
 end;
 
 name: ahadns-nl-dot
@@ -320,10 +318,9 @@ end;
 
 #name: appliedprivacy
 #website: https://appliedprivacy.net
-#tags: Austria, Europe
+#tags: sni, Austria, Europe
 #address: 146.255.56.98:443
 #host: doh.applied-privacy.net/query
-#sni: yes
 #keepalive: 25
 #end;
 
@@ -337,11 +334,10 @@ end;
 
 name: avast
 website: https://www.avast.com/dns
-tags: geocast, Americas, AsiaPacific, Europe
+tags: sni, geocast, Americas, AsiaPacific, Europe
 address: secure.avastdns.com:443
 host: secure.avastdns.com/dns-query
 keepalive: 40
-sni: yes
 end;
 
 # self-signed certificate
@@ -381,20 +377,18 @@ end;
 
 #name: blahdns-de
 #website: https://blahdns.com
-#tags: Germany, Europe, adblocker
+#tags: sni, Germany, Europe, adblocker
 #address: 78.46.244.143:443
 #host: doh-de.blahdns.com/dns-query
-#sni: yes
 #keepalive: 7
 #end;
 #
 ##short keepalive, expired certificate
 #name: blahdns-sg
 #website: https://blahdns.com
-#tags: admin-down, Singapore, AsiaPacific, adblocker
+#tags: sni, admin-down, Singapore, AsiaPacific, adblocker
 #address: 192.53.175.149:443
 #host: doh-sg.blahdns.com/dns-query
-#sni: yes
 #keepalive: 7
 #end;
 
@@ -433,20 +427,18 @@ end;
 
 name: bravedns
 website: https://bravedns.com
-tags: geocast, Americas, AsiaPacific, Europe
+tags: sni, geocast, Americas, AsiaPacific, Europe
 address: free.bravedns.com:443
 host: free.bravedns.com/dns-query
 keepalive: 40
-sni: yes
 end;
 
 name: bravedns2
 website: https://bravedns.com
-tags: geocast, Americas, AsiaPacific, Europe
+tags: sni, geocast, Americas, AsiaPacific, Europe
 address: basic.bravedns.com:443
 host: basic.bravedns.com/
 keepalive: 40
-sni: yes
 end;
 
 name: cira
@@ -645,10 +637,9 @@ end;
 # cloudflare redirect
 name: cynthialabs
 website: https://cynthialabs.net/
-tags: geolocation, Americas, AsiaPacific, Europe, adblocker
+tags: sni, geolocation, Americas, AsiaPacific, Europe, adblocker
 address: dns.cynthialabs.net:443
 host: dns.cynthialabs.net/dns-query
-sni: yes
 keepalive: 40
 end;
 
@@ -778,190 +769,169 @@ end;
 
 name: dns-sb1
 website: https://dns.sb/doh
-tags: anycast, Americas, AsiaPacific, Europe
+tags: sni, anycast, Americas, AsiaPacific, Europe
 address: 185.222.222.222:443
 host: doh.dns.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb2
 website: https://dns.sb/doh
-tags: anycast, Americas, AsiaPacific, Europe
+tags: sni, anycast, Americas, AsiaPacific, Europe
 address: 45.11.45.11:443
 host: doh.dns.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-de1
 website: https://dns.sb/doh
-tags: Germany, Europe
+tags: sni, 1Germany, Europe
 address: de-dus.doh.sb:443
 host: de-dus.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-de2
 website: https://dns.sb/doh
-tags: Germany, Europe
+tags: sni, Germany, Europe
 address: de-fra.doh.sb:443
 host: de-fra.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-nl1
 website: https://dns.sb/doh
-tags: Netherlands, Europe
+tags: sni, Netherlands, Europe
 address: nl-ams.doh.sb:443
 host: nl-ams.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-nl2
 website: https://dns.sb/doh
-tags: Netherlands, Europe
+tags: sni, Netherlands, Europe
 address: nl-ams2.doh.sb:443
 host: nl-ams2.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-uk
 website: https://dns.sb/doh
-tags: UK, Europe
+tags: sni, UK, Europe
 address: uk-lon.doh.sb:443
 host: uk-lon.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-ee
 website: https://dns.sb/doh
-tags: Estonia, Europe
+tags: sni, Estonia, Europe
 address: ee-tll.doh.sb:443
 host: ee-tll.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-jp1
 website: https://dns.sb/doh
-tags: Japan, AsiaPacific
+tags: sni, Japan, AsiaPacific
 address: jp-kix.doh.sb:443
 host: jp-kix.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-jp2
 website: https://dns.sb/doh
-tags: Japan, AsiaPacific
+tags: sni, Japan, AsiaPacific
 address: jp-nrt.doh.sb:443
 host: jp-nrt.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-hk
 website: https://dns.sb/doh
-tags: HongKong, AsiaPacific
+tags: sni, HongKong, AsiaPacific
 address: hk-hkg.doh.sb:443
 host: hk-hkg.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-au
 website: https://dns.sb/doh
-tags: Australia, AsiaPacific
+tags: sni, Australia, AsiaPacific
 address: au-syd.doh.sb:443
 host: au-syd.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-us
 website: https://dns.sb/doh
-tags: US, Americas
+tags: sni, US, Americas
 address: us-chi.doh.sb:443
 host: us-chi.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-us2
 website: https://dns.sb/doh
-tags: US, Americas
+tags: sni, US, Americas
 address: us-nyc.doh.sb:443
 host: us-nyc.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-us3
 website: https://dns.sb/doh
-tags: US, Americas
+tags: sni, US, Americas
 address: us-sjc.doh.sb:443
 host: us-sjc.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-in
 website: https://dns.sb/doh
-tags: India, AsiaPacific
+tags: sni, India, AsiaPacific
 address: in-blr.doh.sb:443
 host: in-blr.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-sg
 website: https://dns.sb/doh
-tags: Singapore, AsiaPacific
+tags: sni, Singapore, AsiaPacific
 address: sg-sin.doh.sb:443
 host: sg-sin.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-kr
 website: https://dns.sb/doh
-tags: Korea, AsiaPacific
+tags: sni, Korea, AsiaPacific
 address: kr-sel.doh.sb:443
 host: kr-sel.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-ru
 website: https://dns.sb/doh
-tags: Rusia, Europe
+tags: sni, Rusia, Europe
 address: ru-mow.doh.sb:443
 host: ru-mow.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-ca
 website: https://dns.sb/doh
-tags: Canada, Americas
+tags: sni, Canada, Americas
 address: ca-yyc.doh.sb:443
 host: ca-yyc.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
 name: dns-sb-de3
 website: https://dns.sb/doh
-tags: Canada, Americas
+tags: sni, Canada, Americas
 address: de-ber.doh.sb:443
 host: de-ber.doh.sb/dns-query
-sni: yes
 keepalive: 40
 end;
 
@@ -1057,55 +1027,49 @@ end;
 
 name: dnswarden
 website: https://github.com/bhanupratapys/dnswarden
-tags: geocast, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, geocast, Americas, AsiaPacific, Europe, Germany, Singapore, US
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
-sni: yes
 keepalive: 25
 end;
 
 name: dnswarden-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: dot, geocast, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, dot, geocast, Americas, AsiaPacific, Europe, Germany, Singapore, US
 address: uncensored.dns.dnswarden.com:853
 host: uncensored.dns.dnswarden.com/
-sni: yes
 keepalive: 25
 end;
 
 name: dnswarden-adblocker
 website: https://github.com/bhanupratapys/dnswarden
-tags: geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adblock
-sni: yes
 keepalive: 25
 end;
 
 name: dnswarden-adblocker-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: dot, geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, dot, geocast, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
 address: adblock.dns.dnswarden.com:853
 host: adblock.dns.dnswarden.com/
-sni: yes
 keepalive: 25
 end;
 
 name: dnswarden-family
 website: https://github.com/bhanupratapys/dnswarden
-tags: family
+tags: sni, family
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adultfilter
-sni: yes
 keepalive: 25
 end;
 
 name: dnswarden-family-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: dot, family
+tags: sni, dot, family
 address: adultfilter.dns.dnswarden.com:853
 host: adultfilter.dns.dnswarden.com/
-sni: yes
 keepalive: 25
 end;
 
@@ -1210,10 +1174,9 @@ end;
 
 name: ffmuc
 website: https://ffmuc.net/
-tags: Germany, Europe
+tags: sni, Germany, Europe
 address: oh.ffmuc.net:443
 host: doh.ffmuc.net/dns-query
-sni: yes
 keepalive: 40
 end;
 
@@ -1267,11 +1230,10 @@ end;
 
 name: flutadns
 website: https://site.futa.gg/
-tags: adblocker, Taiwan, AsiaPacific
+tags: sni, adblocker, Taiwan, AsiaPacific
 address: 104.16.0.132:443
 host: doh.futa.gg/dns-query
 keepalive: 40
-sni: yes
 end;
 
 name: getdnsapi-dot
@@ -1334,11 +1296,10 @@ end;
 
 name: lacontrevoie
 website: https://hostux.network/en/index.html
-tags: France, Europe
+tags: sni, France, Europe
 address: 45.155.171.163:443
 host: doh.lacontrevoie.fr/dns-query
 keepalive: 40
-sni: yes
 end;
 
 # using HTTP 1.1
@@ -1411,92 +1372,82 @@ end;
 
 name: lonet
 website: https://lonet.org/service/dns
-tags: Germany, Europe, adblocker
+tags: sni, Germany, Europe, adblocker
 address: 185.183.156.85:443
 host: doh.phdns1.lonet.org/dns-query
 keepalive: 25
-sni: yes
 end;
 
 #name: lonet-dot
 #website: https://lonet.org/service/dns
-#tags: dot, Germany, Europe, adblocker
+#tags: sni, dot, Germany, Europe, adblocker
 #address: 185.183.156.85:853
 #host: doh.phdns1.lonet.org/
 #keepalive: 25
-#sni: yes
 #end;
 
 name: lonet2
 website: https://lonet.org/service/dns
-tags: Germany, Europe, adblocker
+tags: sni, Germany, Europe, adblocker
 address: 217.160.191.192:443
 host: doh.phdns2.lonet.org/dns-query
 keepalive: 25
-sni: yes
 end;
 
 #name: lonet2-dot
 #website: https://lonet.org/service/dns
-#tags: dot, Germany, Europe, adblocker
+#tags: sni, dot, Germany, Europe, adblocker
 #address: 217.160.191.192:853
 #host: doh.phdns2.lonet.org/
 #keepalive: 25
-#sni: yes
 #end;
 
 name: lonet3
 website: https://lonet.org/service/dns
-tags: US, Americas, adblocker
+tags: sni, US, Americas, adblocker
 address: 74.208.85.60:443
 host: doh.phdns3.lonet.org/dns-query
 keepalive: 25
-sni: yes
 end;
 
 #name: lonet3-dot
 #website: https://lonet.org/service/dns
-#tags: dot, US, Americas, adblocker
+#tags: sni, dot, US, Americas, adblocker
 #address: 74.208.85.60:853
 #host: doh.phdns3.lonet.org/
 #keepalive: 25
-#sni: yes
 #end;
 
 name: lonet4
 website: https://lonet.org/service/dns
-tags: Spain, Europe, adblocker
+tags: sni, Spain, Europe, adblocker
 address: 194.164.170.183:443
 host: doh.phdns4.lonet.org/dns-query
 keepalive: 25
-sni: yes
 end;
 
 #name: lonet4-dot
 #website: https://lonet.org/service/dns
-#tags: dot, Spain, Europe, adblocker
+#tags: sni, dot, Spain, Europe, adblocker
 #address: 194.164.170.183:853
 #host: doh.phdns4.lonet.org/
 #keepalive: 25
-#sni: yes
 #end;
 
 name: lonet5
 website: https://lonet.org/service/dns
-tags: UK, Europe, adblocker
+tags: sni, UK, Europe, adblocker
 address: 194.164.121.97:443
 host: doh.phdns5.lonet.org/dns-query
 keepalive: 25
-sni: yes
 end;
 
 #name: lonet5-dot
 #website: https://lonet.org/service/dns
-#tags: dot, UK, Europe, adblocker
+#tags: sni, dot, UK, Europe, adblocker
 #address: 194.164.121.97:853
 #host: doh.phdns5.lonet.org/
 #keepalive: 25
-#sni: yes
 #end;
 
 # running in cloudflare cloud
@@ -1639,20 +1590,18 @@ end;
 # running in cloudflare cloud
 name: paesadns
 website: https://milgradesec.github.io/paesadns/
-tags: geocast, Americas, AsiaPacific, Europe
+tags: sni, geocast, Americas, AsiaPacific, Europe
 address: dns.paesa.es:443
 host: dns.paesa.es/dns-query
-sni: yes
 keepalive: 40
 end;
 
 # short keepalive
 #name: puredns
 #website: https://puredns.org/
-#tags: Singapore, AsiaPacific
+#tags: sni, Singapore, AsiaPacific
 #address: puredns.org:443
 #host: puredns.org/dns-query
-#sni: yes
 #keepalive: 40
 #end;
 
@@ -1748,39 +1697,35 @@ end;
 # running in cloudflare cloud
 name: rethink
 website: https://www.rethinkdns.com
-tags: geocast, Americas, AsiaPacific, Europe
+tags: sni, geocast, Americas, AsiaPacific, Europe
 address: basic.rethinkdns.com:443
 host: basic.rethinkdns.com/dns-query
-sni: yes
 keepalive: 40
 end;
 
 # running in cloudflare cloud
 name: rethink-adblocker
 website: https://www.rethinkdns.com
-tags: adblocker, geocast, Americas, AsiaPacific, Europe
+tags: sni, adblocker, geocast, Americas, AsiaPacific, Europe
 address: sky.rethinkdns.com:443
 host: sky.rethinkdns.com/1:IAAgAA==
-sni: yes
 keepalive: 40
 end;
 
 name: rezjahul
 website: https://doh.rezhajul.io/
-tags: adblocker, Singapore, AsiaPacific
+tags: sni, adblocker, Singapore, AsiaPacific
 address: doh.rezhajul.io:443
 host: doh.rezhajul.io/dns-query
-sni: yes
 keepalive: 40
 end;
 
 # redirected to cloudflare
 name: rotunneling
 website: https://www.rotunneling.net/rotunneling-doh-free/
-tags: adblocker, Romania, Europe
+tags: sni, adblocker, Romania, Europe
 address: dns.rotunneling.net:443
 host: dns.rotunneling.net/dns-query/public
-sni: yes
 keepalive: 40
 end;
 
@@ -1926,10 +1871,9 @@ end;
 
 name: tiarap
 website: https://doh.tiarap.org
-tags: geocast, Americas, AsiaPacific, Europe
+tags: sni, geocast, Americas, AsiaPacific, Europe
 address: doh.tiarap.org:443
 host: doh.tiarap.org/dns-query
-sni: yes
 keepalive: 40
 end;
 
@@ -1952,11 +1896,10 @@ end;
 #
 #name: tiarap-sg-dot
 #website: https://doh.tiar.app
-#tags: dot, Singapore, AsiaPacific, adblocker
+#tags: sni, dot, Singapore, AsiaPacific, adblocker
 #address: 174.138.29.175:853
 #host: dot.tiar.app/
 #keepalive: 25
-#sni: yes
 #end;
 
 name: twnic
