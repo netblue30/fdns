@@ -275,7 +275,6 @@ extern char *arg_whitelist_file;
 extern char *arg_blocklist_file[MAX_BLOCKLIST_FILE];
 extern int arg_keepalive;
 extern int arg_details;
-extern char *arg_transport;
 extern int arg_allow_self_signed_certs;
 extern int arg_allow_expired_certs;
 extern char *arg_fallback_server;

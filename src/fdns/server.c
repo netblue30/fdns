@@ -197,10 +197,6 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			if (!s->address)
 				errExit("malloc");
 			strcpy(s->address, tok2);
-			if (arg_transport && strcmp(arg_transport, "dot") == 0) {
-				ptr =strstr(s->address, ":");
-				sprintf(ptr, "%s", ":853");
-			}
 			host = 1;
 		}
 		else if (strcmp(tok1, "host") == 0) {
@@ -245,7 +241,10 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			s->transport = strdup(buf + 11);
 			if (!s->transport)
 				errExit("strdup");
-			// todo: parser transport line
+			if (strcmp(s->transport, "dot")) {
+				fprintf(stderr, "Error: file %s, line %d, wrong transport setting\n", fname, *linecnt);
+				exit(1);
+			}
 		}
 		else if (strcmp(tok1, "keepalive") == 0) {
 			if (s->keepalive_max)
@@ -481,13 +480,6 @@ void server_list(const char *tag) {
 	int cnt = 0;
 	if (strcmp(tag, "all") == 0) {
 		while (s) {
-			// match transport
-			if (arg_transport) {
-				if (strstr(s->transport, arg_transport) == NULL) {
-					s = s->next;
-					continue;
-				}
-			}
 			print_server(s);
 			s->active = 1;
 			cnt++;
@@ -505,8 +497,6 @@ void server_list(const char *tag) {
 		if (strcmp(tag, s->name) == 0) {
 			s->active = 1;
 			print_server(s);
-			if (!arg_transport && s->transport && strstr(s->transport, "dot"))
-				arg_transport = "dot";
 			return;
 		}
 		s = s->next;
@@ -527,14 +517,6 @@ void server_list(const char *tag) {
 		if (ptr) {
 			ptr += strlen(tag);
 			if (*ptr != '\0' && *ptr != ',') { // we are somewhere in the middle of a tag
-				s = s->next;
-				continue;
-			}
-		}
-
-		// match transport
-		if (arg_transport) {
-			if (strstr(s->transport, arg_transport) == NULL) {
 				s = s->next;
 				continue;
 			}
@@ -689,13 +671,6 @@ void server_test_tag(const char *tag)  {
 	while (s) {
 		if (s->active) {
 			scurrent = s;
-			if (!s->transport) {
-				if (s->transport)
-					arg_transport = s->transport;
-				else
-					arg_transport = NULL;
-			}
-
 			test_server(s->name);
 			usleep(500000);
 		}
@@ -706,6 +681,8 @@ void server_test_tag(const char *tag)  {
 }
 
 void server_set_custom(const char *url) {
+//cleanup redo
+#if 0
 	set_zone();
 	slist = malloc(sizeof(DnsServer));
 	if (!slist)
@@ -763,5 +740,6 @@ void server_set_custom(const char *url) {
 
 	s->transport = arg_transport;
 	scurrent = s;
+#endif
 }
 

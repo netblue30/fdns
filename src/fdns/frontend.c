@@ -127,12 +127,6 @@ static int sandbox(void *sandbox_arg) {
 			errExit("asprintf");
 		a[last++] = cmd;
 	}
-	if (arg_transport) {
-		char *cmd;
-		if (asprintf(&cmd, "--transport=%s", arg_transport) == -1)
-			errExit("asprintf");
-		a[last++] = cmd;
-	}
 
 	if (arg_allow_all_queries)
 		a[last++] = "--allow-all-queries";
