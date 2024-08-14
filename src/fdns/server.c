@@ -33,7 +33,7 @@ static DnsServer *scurrent = NULL;	// current DoH/DoT server
 static inline void print_server(DnsServer *s) {
 	assert(s);
 	if (server_print_servers) {
-		printf("%s - %s (keepalive %d)\n", s->name, s->tags, s->keepalive_max);
+		printf("%s - %s (keepalive %d)\n", s->name, s->tags, s->keepalive);
 		printf("\t%s\n", s->website);
 	}
 }
@@ -227,17 +227,17 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			*str++ = '\0';
 		}
 		else if (strcmp(tok1, "keepalive") == 0) {
-			if (s->keepalive_max)
+			if (s->keepalive)
 				goto errout;
 			assert(tok2);
 
-			if (sscanf(tok2, "%d", &s->keepalive_max) != 1 || s->keepalive_max <= 0) {
+			if (sscanf(tok2, "%d", &s->keepalive) != 1 || s->keepalive <= 0) {
 				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
 				exit(1);
 			}
 
 			if (arg_keepalive)
-				s->keepalive_max = arg_keepalive;
+				s->keepalive = arg_keepalive;
 		}
 		else if (strcmp(tok1, "end") == 0) {
 			assert(tok2 == NULL);
@@ -390,7 +390,7 @@ static uint8_t test_server(const char *server_name)  {
 			transport->header_stats();
 		printf("   %s/Do53 bandwidth ratio: %0.02f\n", transport->dns_type, transport->bandwidth());
 		if (s->tags) // servers set from command line don't have a tag, and the keepalive is supposed to be 60
-			printf("   Keepalive: %d seconds\n", s->keepalive_max);
+			printf("   Keepalive: %d seconds\n", s->keepalive);
 
 		fflush(0);
 		uint8_t qaverage = (average > 255)? 255: average;
@@ -653,8 +653,6 @@ void server_test_tag(const char *tag)  {
 }
 
 void server_set_custom(const char *url) {
-//cleanup redo
-#if 0
 	set_zone();
 	slist = malloc(sizeof(DnsServer));
 	if (!slist)
@@ -662,12 +660,16 @@ void server_set_custom(const char *url) {
 	memset(slist, 0, sizeof(DnsServer));
 
 	DnsServer *s = slist;
-	if (strncmp(url, "https://", 8) == 0)
+	int dot_transport = 0;
+	if (strncmp(url, "https://", 8) == 0) {
 		s->host = strdup(url + 8); // skip https://
+		s->transport = "h2, http/1.1";
+	}
 	else if (strncmp(url, "dot://", 6)  == 0) {
 		s->host = strdup(url + 6); // skip dot://
-		if (arg_transport == NULL)
-			arg_transport = "dot";
+		s->tags = "dot";
+		s->transport = "dot";
+		dot_transport = 1;
 	}
 	else
 		assert(0);
@@ -684,8 +686,9 @@ void server_set_custom(const char *url) {
 			errExit("strdup");
 		*str++ = '\0';
 	}
+
 	if (strchr(s->host, ':') == NULL) {
-		if (arg_transport && strcmp(arg_transport, "dot") == 0) {
+		if (dot_transport) {
 			if (asprintf(&s->address, "%s:853", s->host) == -1)
 				errExit("asprintf");
 		}
@@ -706,12 +709,10 @@ void server_set_custom(const char *url) {
 	s->website = "unknown";
 	s->test_sni = 1;
 	if (arg_keepalive)
-		s->keepalive_max = arg_keepalive;
+		s->keepalive = arg_keepalive;
 	else
-		s->keepalive_max = DEFAULT_KEEPALIVE_VALUE;
+		s->keepalive = DEFAULT_KEEPALIVE_VALUE;
 
-	s->transport = arg_transport;
 	scurrent = s;
-#endif
 }
 

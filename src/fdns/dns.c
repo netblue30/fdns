@@ -233,33 +233,7 @@ drop_nxdomain:
 	return buf;
 }
 
-static int max_keepalive = 0;
-int dns_get_current_keepalive(void) {
-	if (arg_keepalive) {
-		max_keepalive = arg_keepalive;
-		return arg_keepalive;
-	}
-
-	DnsServer *srv = server_get();
-	assert(srv);
-	if (max_keepalive == 0) {
-		if (srv->keepalive_max < 40)
-			max_keepalive = srv->keepalive_max;
-		else
-			max_keepalive = 40;
-	}
-
-	if (srv->keepalive_max < 40)
-		return srv->keepalive_max;
-	else if ((rand() % 4) == 0) // one in four for keepalive of 40 and over
-	 	return rand_range(20, max_keepalive);
-
-	return max_keepalive;
-}
-
 void dns_send_keepalive(void) {
-	max_keepalive++;
-
 	if (ssl_state == SSL_CLOSED)
 		return;
 
@@ -272,6 +246,8 @@ void dns_send_keepalive(void) {
 	int len;
 	DnsServer *srv = server_get();
 	assert(srv);
+	if (srv->keepalive > 30)
+		srv->keepalive++;
 
 	len = transport->send_exampledotcom(msg);
 	// some servers return NXDOMAIN for example.com

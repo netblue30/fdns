@@ -335,7 +335,7 @@ int main(int argc, char **argv) {
 	assert(s);
 	assert(arg_server);
 	if (arg_keepalive)
-		s->keepalive_max = arg_keepalive;
+		s->keepalive = arg_keepalive;
 
 	// start the frontend or the resolver
 	if (arg_id != -1) {
@@ -357,7 +357,7 @@ int main(int argc, char **argv) {
 			printf("\n");
 		}
 		logprintf("fdns starting\n");
-		logprintf("connecting to %s server\n", s->name);
+		logprintf("connecting to %s\n", s->name);
 
 		install_handler();
 		frontend();

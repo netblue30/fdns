@@ -163,15 +163,13 @@ typedef struct dnsserver_t {
 	char *name;	// name
 	char *address;	// IP address
 	char *website;	// website
-// testing?
-//	char *zone;		// geographical zone
 	char *tags;		// description
 	char *host;		// authority in http2
 	char *path;
 	char *transport;	// supported transport types
 	int sni;		// 1 or 0
 	int test_sni;		// not read from the config file; 1 only when the server is specified by url with --server or --test-server
-	int keepalive_max;	// maximum value of keepalive in seconds
+	int keepalive;	// keepalive in seconds
 } DnsServer;
 
 typedef struct dnstransport_t {

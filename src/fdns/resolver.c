@@ -76,7 +76,7 @@ void resolver(void) {
 	int resolver_keepalive_cnt = (RESOLVER_KEEPALIVE_TIMER * arg_id) / arg_resolvers;
 	DnsServer *srv = server_get();
 	assert(srv);
-	int dns_keepalive_cnt = dns_get_current_keepalive();
+	int dns_keepalive_cnt = srv->keepalive;
 	int console_printout_cnt = CONSOLE_PRINTOUT_TIMER;
 
 	console_printout_cnt = (CONSOLE_PRINTOUT_TIMER * arg_id) / arg_resolvers;
@@ -149,7 +149,7 @@ void resolver(void) {
 					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %.02lf %d\n",
 						   stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd,
 						   stats.query_time,
-						   dns_get_current_keepalive());
+						   srv->keepalive);
 					stats.changed = 0;
 					memset(&stats, 0, sizeof(stats));
 				}
@@ -163,7 +163,7 @@ void resolver(void) {
 
 			if (--dns_keepalive_cnt <= 0)  {
 				dns_send_keepalive();
-				dns_keepalive_cnt = dns_get_current_keepalive();
+				dns_keepalive_cnt = srv->keepalive;
 				print_time();
 				printf("(%d) keepalive %d\n", arg_id, dns_keepalive_cnt);
 				stats.changed = 1;
@@ -341,7 +341,7 @@ void resolver(void) {
 				if (len == -1) // todo: parse errno - EAGAIN
 					errExit("sendto");
 				else
-					dns_keepalive_cnt = dns_get_current_keepalive();
+					dns_keepalive_cnt = srv->keepalive;
 			}
 			// send the data to the remote fallback server; store the request in the database
 			else {

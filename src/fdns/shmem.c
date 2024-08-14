@@ -131,7 +131,7 @@ void shmem_store_stats(const char *proxy_addr) {
 		 encstatus,
 		 transport,
 		 stats.query_time,
-		 srv->keepalive_max);
+		 srv->keepalive);
 
 	snprintf(report->header2, MAX_ENTRY_LEN,
 		 "requests %u, drop %u, cache %u, fwd %u, fallback %u",

@@ -87,11 +87,13 @@ static void ssl_alert_callback(const SSL *s, int where, int ret) {
 		str = "undefined";
 
 	if (where & SSL_CB_LOOP) {
+		print_time();
 		printf("(%d) Alert: %s:%s\n", arg_id, str, SSL_state_string_long(s));
 		fflush(0);
 	}
 	else if (where & SSL_CB_ALERT) {
 		str = (where & SSL_CB_READ) ? "read" : "write";
+		print_time();
 		printf("(%d) Alert: SSL3 alert %s:%s:%s\n", arg_id, str,
 			   SSL_alert_type_string_long(ret),
 			   SSL_alert_desc_string_long(ret));
@@ -99,11 +101,13 @@ static void ssl_alert_callback(const SSL *s, int where, int ret) {
 	}
 	else if (where & SSL_CB_EXIT) {
 		if (ret == 0) {
+			print_time();
 			printf("(%d) Alert: %s:failed in %s\n",
 				   arg_id, str, SSL_state_string_long(s));
 			fflush(0);
 		}
 		else if (ret < 0) {
+			print_time();
 			printf("(%d) Alert: %s:error in %s\n",
 				   arg_id, str, SSL_state_string_long(s));
 			fflush(0);
@@ -128,7 +132,9 @@ int ssl_status_check(void) {
 		return 0;
 
 	if (FD_ISSET(fd, &readfds)) {
-		printf("incoming data\n");
+		print_time();
+		printf("(%d) incoming data\n", arg_id);
+		fflush(0);
 		return 1;
 	}
 
@@ -198,8 +204,11 @@ void ssl_open(void) {
 		}
 	}
 
+	assert(srv->transport);
+	assert(srv->host);
+	assert(srv->address);
 	if (arg_debug)
-		printf("%d transport: srv->transport %s\n", arg_id, srv->transport);
+		printf("%d: transport %s, host %s, address %s\n", arg_id, srv->transport, srv->host, srv->address);
 
 	int dot = 0;
 
@@ -345,7 +354,7 @@ void ssl_open(void) {
 		rlogprintf("SSL connection opened\n");
 	else {
 		uint32_t ip = ntohl(remote.sin_addr.s_addr);
-		rlogprintf("SSL connection opened to %d.%d.%d.%d\n", PRINT_IP(ip));
+		rlogprintf("SSL connection opened to %d.%d.%d.%d (%s)\n", PRINT_IP(ip), srv->name);
 	}
 
 	// transport connect

@@ -389,7 +389,7 @@ void frontend(void) {
 						       &s.fwd,
 						       &s.query_time,
 						       &k);
-						srv->keepalive_max = (k > srv->keepalive_max)? k: srv->keepalive_max;
+						srv->keepalive = (k > srv->keepalive)? k: srv->keepalive;
 
 						// calculate global stats
 						stats.rx += s.rx;
