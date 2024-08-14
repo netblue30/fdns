@@ -439,23 +439,37 @@ void server_list(const char *tag) {
 	load_list();
 	assert(slist);
 	assert(fdns_zone);
-
-	// if no tag provided use the current zone name
-	if (!tag)
+	if (tag == NULL)
 		tag = fdns_zone;
 
-	// if the tag is the name of a zone, use it as our zone
-	if (strcmp(tag, "Europe") == 0)
-		fdns_zone = "Europe";
-	else if (strcmp(tag, "AsiaPacific") == 0)
-		fdns_zone = "AsiaPacific";
-	else if (strcmp(tag, "Americas") == 0)
-		fdns_zone = "Americas";
+//printf("### %s ### %s ###\n", tag, fdns_zone);
 
-	// process tag "all"
+	// if the tag is the name of a zone, use it as our zone
+	if (strcmp(tag, "Europe") == 0) {
+		fdns_zone = "Europe";
+		tag = NULL;
+	}
+	else if (strcmp(tag, "AsiaPacific") == 0) {
+		fdns_zone = "AsiaPacific";
+		tag = NULL;
+	}
+	else if (strcmp(tag, "Americas") == 0) {
+		fdns_zone = "Americas";
+		tag = NULL;
+	}
+
+	// extract family tag
+	int family = 0;
+	if (tag && strcmp(tag, "family") == 0) {
+		family = 1;
+		tag = NULL;
+	}
+
+//printf("here %d: %s # %s # %d\n", __LINE__, tag, fdns_zone, family);fflush(0);
+	// process tag "all" - allow all zones and allow family tag
 	DnsServer *s = slist;
 	int cnt = 0;
-	if (strcmp(tag, "all") == 0) {
+	if (tag && strcmp(tag, "all") == 0) {
 		while (s) {
 			print_server(s);
 			s->active = 1;
@@ -468,10 +482,12 @@ void server_list(const char *tag) {
 		return;
 	}
 
-	// try to match a server name
+
+	// try to match a server name - allow family tag, allow any zone
 	s = slist;
+	cnt = 0;
 	while (s) {
-		if (strcmp(tag, s->name) == 0) {
+		if (tag && strcmp(tag, s->name) == 0) {
 			s->active = 1;
 			print_server(s);
 			return;
@@ -479,21 +495,30 @@ void server_list(const char *tag) {
 		s = s->next;
 	}
 
-	// match tags/zones
+	// match tags: look for zone, family, and tag
 	s = slist;
 	cnt = 0;
 	while (s) {
-		// match tag
-		char *ptr = strstr(s->tags, tag);
-		if (ptr == NULL) {
+		// match family
+//printf("********\n********%s # %s\n", s->name, s->tags);
+		if (family && strstr(s->tags, "family") == NULL) {
+			s = s->next;
+			continue;
+		}
+		if (!family && strstr(s->tags, "family") != NULL) {
 			s = s->next;
 			continue;
 		}
 
-		// match end of tag
-		if (ptr) {
-			ptr += strlen(tag);
-			if (*ptr != '\0' && *ptr != ',') { // we are somewhere in the middle of a tag
+		// match zone if zone other than any
+		if (strcmp(fdns_zone, "any") != 0 && strstr(s->tags, fdns_zone) == NULL) {
+			s = s->next;
+			continue;
+		}
+
+		// match tag
+		if (tag) {
+			if (strstr(s->tags, tag) == NULL) {
 				s = s->next;
 				continue;
 			}
@@ -504,6 +529,7 @@ void server_list(const char *tag) {
 		cnt++;
 		s = s->next;
 	}
+
 
 	if (cnt) {
 		if (server_print_servers)
