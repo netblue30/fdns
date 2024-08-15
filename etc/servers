@@ -21,7 +21,7 @@
 #               Some transport-specific tags can be included:
 #                  - DNS over TLS (DoT) servers are labeled as "dot". By default the software
 #                    assumes HTTPS (ver 1.1 or 2).
-#                  - Servers requiering Server Name Indication (SNI) are labeled as "sni". By
+#                  - If Server Name Indication (SNI) the server is labeled as "sni". By
 #                    default SNI element is not included in TLS connect packages.
 #	address: IP address and port in IP:PORT or DOMAIN:PORT format
 #	host: URL
@@ -98,15 +98,6 @@ host: dns.aa.net.uk/dns-query
 keepalive: 25
 end;
 
-# discontinued?
-#name: aaflalo
-#website: https://www.aaflalo.me
-#tags: US, Americas, adblocker
-#address: 168.235.81.167:443
-#host: dns-nyc.aaflalo.me/dns-query
-#keepalive: 40
-#end;
-
 name: adfilter-adelaide
 website: https://adfilter.net
 tags: adblocker, Australia, AsiaPacific
@@ -139,13 +130,13 @@ host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
 end;
 
-#name: adguard-unfiltered-dot
-#website: https://adguard.com/en/adguard-dns/overview.html
-#tags: dot, Americas, AsiaPacific, Europe
-#address: 94.140.14.140:853
-#host: dns-unfiltered.adguard.com/
-#keepalive: 25
-#end;
+name: adguard-unfiltered-dot
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: dot, Americas, AsiaPacific, Europe
+address: 94.140.14.140:853
+host: dns-unfiltered.adguard.com/
+keepalive: 25
+end;
 
 name: adguard-unfiltered2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -155,13 +146,13 @@ host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
 end;
 
-#name: adguard-unfiltered2-dot
-#website: https://adguard.com/en/adguard-dns/overview.html
-#tags: dot, Americas, AsiaPacific, Europe
-#address: 94.140.14.141:853
-#host: dns-unfiltered.adguard.com/
-#keepalive: 25
-#end;
+name: adguard-unfiltered2-dot
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: dot, Americas, AsiaPacific, Europe
+address: 94.140.14.141:853
+host: dns-unfiltered.adguard.com/
+keepalive: 25
+end;
 
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -171,13 +162,13 @@ host: dns.adguard.com/dns-query
 keepalive: 40
 end;
 
-#name: adguard-dot
-#website: https://adguard.com/en/adguard-dns/overview.html
-#tags: dot, adblocker, Americas, AsiaPacific, Europe
-#address: 94.140.15.15:853
-#host: dns.adguard.com/
-#keepalive: 25
-#end;
+name: adguard-dot
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: dot, adblocker, Americas, AsiaPacific, Europe
+address: 94.140.15.15:853
+host: dns.adguard.com/
+keepalive: 25
+end;
 
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -187,13 +178,13 @@ host: dns.adguard.com/dns-query
 keepalive: 40
 end;
 
-#name: adguard2-dot
-#website: https://adguard.com/en/adguard-dns/overview.html
-#tags: dot, adblocker, Americas, AsiaPacific, Europe
-#address: 94.140.14.14:853
-#host: dns.adguard.com/dns-query
-#keepalive: 25
-#end;
+name: adguard2-dot
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: dot, adblocker, Americas, AsiaPacific, Europe
+address: 94.140.14.14:853
+host: dns.adguard.com/dns-query
+keepalive: 25
+end;
 
 name: adguard-family
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -203,13 +194,13 @@ host: dns-family.adguard.com/dns-query
 keepalive: 40
 end;
 
-#name: adguard-family-dot
-#website: https://adguard.com/en/adguard-dns/overview.html
-#tags: dot, family, Americas, AsiaPacific, Europe
-#address: 94.140.15.16:853
-#host: dns-family.adguard.com/
-#keepalive: 25
-#end;
+name: adguard-family-dot
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: dot, family, Americas, AsiaPacific, Europe
+address: 94.140.15.16:853
+host: dns-family.adguard.com/
+keepalive: 25
+end;
 
 name: adguard-family2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -219,13 +210,13 @@ host: dns-family.adguard.com/dns-query
 keepalive: 40
 end;
 
-#name: adguard-family2-dot
-#website: https://adguard.com/en/adguard-dns/overview.html
-#tags: dot, family, Americas, AsiaPacific, Europe
-#address: 94.140.14.15:853
-#host: dns-family.adguard.com/
-#keepalive: 25
-#end;
+name: adguard-family2-dot
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: dot, family, Americas, AsiaPacific, Europe
+address: 94.140.14.15:853
+host: dns-family.adguard.com/
+keepalive: 25
+end;
 
 name: ahadns
 website: https://ahadns.com
@@ -258,47 +249,6 @@ address: 45.67.219.208:853
 host: dot.la.ahadns.net/
 keepalive: 25
 end;
-
-# short keepalive
-#name: alekberg-nl
-#website: https://alekberg.net/
-#tags: Netherlands, Europe
-#address: 89.38.131.38:443
-#host: dnsnl.alekberg.net/dns-query
-#keepalive: 7
-#end;
-#
-#name: alekberg-nl-adblocker
-#website: https://alekberg.net/
-#tags: adblocker, Netherlands, Europe
-#address: 89.38.131.38:443
-#host: dnsnl-noads.alekberg.net/dns-query
-#keepalive: 25
-#end;
-#
-#name: alekberg-se
-#website: https://alekberg.net/
-#tags: Sweden, Europe
-#address: 45.153.187.96:443
-#host: dnsse.alekberg.net/dns-query
-#keepalive: 25
-#end;
-#
-#name: alekberg-se-adblocker
-#website: https://alekberg.net/
-#tags: adblocker, Sweden, Europe
-#address: 45.153.187.96:443
-#host: dnsse-noads.alekberg.net/dns-query
-#keepalive: 25
-#end;
-
-#name: andrew
-#website: https://blog.cybershell.xyz/page/services-6367519a3e34207f1d323d5a
-#tags: enterprise, Finland, Europe
-#address: 135.181.83.162:443
-#host: dns.andrewnw.xyz/dns-query
-#keepalive: 40
-#end;
 
 name: artikel10
 website: https://dns.artikel10.org
@@ -393,7 +343,7 @@ end;
 
 name: blokada-dns
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
-tags: Sweden, Europe
+tags: Sweden, Europe, NorthEurope
 address: 193.180.80.1:443
 host: dns.blokada.org/dns-query
 keepalive: 40
@@ -401,7 +351,7 @@ end;
 
 name: blokada-dns2
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
-tags: Sweden, Europe
+tags: Sweden, Europe, NorthEurope
 address: 193.180.80.2:443
 host: dns.blokada.org/dns-query
 keepalive: 40
@@ -418,7 +368,7 @@ end;
 # blocking subnets of known datacenters using https://github.com/brahma-dev/ufw-bots
 name: brahmaworld
 website: https://dns.brahma.world/
-tags: Sweden, Europe, adblocker
+tags: Sweden, Europe, adblocker, NorthEurope
 address: 157.90.124.62:443
 host: dns.brahma.world/dns-query
 keepalive: 40
@@ -586,7 +536,7 @@ end;
 
 name: comssone-west
 website: https://www.comss.ru/page.php?id=7315
-tags: Europe, Russia, adblocker
+tags: Europe, Russia, adblocker, EastEurope
 address: dns.comss.one:443
 host: dns.comss.one/dns-query
 keepalive: 40
@@ -594,7 +544,7 @@ end;
 
 #name: comssone-east
 #website: https://www.comss.ru/page.php?id=7315
-#tags: AsiaPacific, Russia, adblocker
+#tags: AsiaPacific, Russia, adblocker, EastEurope
 #address: dns.east.comss.one:443
 #host: dns.east.comss.one/dns-query
 #keepalive: 40
@@ -608,12 +558,44 @@ host: freedns.controld.com/p0
 keepalive: 40
 end;
 
+name: controld2
+website: https://controld.com/free-dns/
+tags: Americas, AsiaPacific, Europe
+address: 76.76.10.11:443
+host: freedns.controld.com/p0
+keepalive: 40
+end;
+
 name: controld-dot
 website: https://controld.com/free-dns/
 tags: dot, Americas, AsiaPacific, Europe
 address: 76.76.2.11:853
 host: freedns.controld.com/
 keepalive: 25
+end;
+
+name: controld2-dot
+website: https://controld.com/free-dns/
+tags: dot, Americas, AsiaPacific, Europe
+address: 76.76.10.11:853
+host: freedns.controld.com/
+keepalive: 25
+end;
+
+name: controld-adblocker
+website: https://controld.com/free-dns/
+tags: adblocker, Americas, AsiaPacific, Europe
+address: 76.76.2.44:443
+host: freedns.controld.com/adguard
+keepalive: 40
+end;
+
+name: controld2-adblocker
+website: https://controld.com/free-dns/
+tags: adblocker, Americas, AsiaPacific, Europe
+address: 76.76.10.44:443
+host: freedns.controld.com/adguard
+keepalive: 40
 end;
 
 name: controld-security
@@ -624,10 +606,26 @@ host: freedns.controld.com/p2
 keepalive: 40
 end;
 
+name: controld2-security
+website: https://controld.com/free-dns/
+tags: security, adblocker, Americas, AsiaPacific, Europe
+address: 76.76.10.11:443
+host: freedns.controld.com/p2
+keepalive: 40
+end;
+
 name: controld-family
 website: https://controld.com/free-dns/
 tags: family, Americas, AsiaPacific, Europe
 address: 76.76.2.11:443
+host: freedns.controld.com/family
+keepalive: 40
+end;
+
+name: controld2-family
+website: https://controld.com/free-dns/
+tags: family, Americas, AsiaPacific, Europe
+address: 76.76.10.11:443
 host: freedns.controld.com/family
 keepalive: 40
 end;
@@ -784,7 +782,7 @@ end;
 
 name: dns-sb-de1
 website: https://dns.sb/doh
-tags: sni, 1Germany, Europe
+tags: sni, Germany, Europe
 address: de-dus.doh.sb:443
 host: de-dus.doh.sb/dns-query
 keepalive: 40
@@ -824,7 +822,7 @@ end;
 
 name: dns-sb-ee
 website: https://dns.sb/doh
-tags: sni, Estonia, Europe
+tags: sni, Estonia, Europe, EastEurope
 address: ee-tll.doh.sb:443
 host: ee-tll.doh.sb/dns-query
 keepalive: 40
@@ -912,7 +910,7 @@ end;
 
 name: dns-sb-ru
 website: https://dns.sb/doh
-tags: sni, Rusia, Europe
+tags: sni, Russia, Europe, EastEurope
 address: ru-mow.doh.sb:443
 host: ru-mow.doh.sb/dns-query
 keepalive: 40
@@ -1026,7 +1024,7 @@ end;
 
 name: dnswarden
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, Americas, AsiaPacific, Europe
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
 keepalive: 25
@@ -1034,7 +1032,7 @@ end;
 
 name: dnswarden-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, dot, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, dot, Americas, AsiaPacific, Europe
 address: uncensored.dns.dnswarden.com:853
 host: uncensored.dns.dnswarden.com/
 keepalive: 25
@@ -1042,7 +1040,7 @@ end;
 
 name: dnswarden-adblocker
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, adblocker, Americas, AsiaPacific, Europe
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adblock
 keepalive: 25
@@ -1050,7 +1048,7 @@ end;
 
 name: dnswarden-adblocker-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, dot, adblocker, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, dot, adblocker, Americas, AsiaPacific, Europe
 address: adblock.dns.dnswarden.com:853
 host: adblock.dns.dnswarden.com/
 keepalive: 25
@@ -1058,7 +1056,7 @@ end;
 
 name: dnswarden-family
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, family, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, family, Americas, AsiaPacific, Europe
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adultfilter
 keepalive: 25
@@ -1066,7 +1064,7 @@ end;
 
 name: dnswarden-family-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, dot, family, Americas, AsiaPacific, Europe, Germany, Singapore, US
+tags: sni, dot, family, Americas, AsiaPacific, Europe
 address: adultfilter.dns.dnswarden.com:853
 host: adultfilter.dns.dnswarden.com/
 keepalive: 25
@@ -1181,7 +1179,7 @@ end;
 
 name: flokinet
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Europe
+tags: Iceland, Europe, NorthEurope
 address: 37.156.68.20:443
 host: nl.resolv.flokinet.net/dns-query
 keepalive: 25
@@ -1189,7 +1187,7 @@ end;
 
 name: flokinet-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: dot, Europe
+tags: dot, Europe, NorthEurope, Icelan
 address: 37.156.68.20:853
 host: nl.resolv.flokinet.net/
 keepalive: 25
@@ -1197,7 +1195,7 @@ end;
 
 name: flokinet-ro
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Romania, Europe
+tags: Romania, Europe, EastEurope
 address: 185.246.188.51:443
 host: ro.resolv.flokinet.net/dns-query
 keepalive: 25
@@ -1205,7 +1203,7 @@ end;
 
 name: flokinet-ro-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: dot, Romania, Europe
+tags: dot, Romania, Europe, EastEurope
 address: 185.246.188.51:853
 host: ro.resolv.flokinet.net/
 keepalive: 25
@@ -1313,7 +1311,7 @@ end;
 # using HTTP 1.1
 name: lavadns-fi
 website: https://dns.lavate.ch
-tags: Finland, Europe
+tags: Finland, Europe, NorthEurope
 address: 95.217.25.217:443
 host: eu1.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1353,21 +1351,21 @@ end;
 #keepalive: 40
 #end;
 
-#name: libredns
-#website: https://libredns.gr/
-#tags: Germany, Europe
-#address: 116.202.176.26:443
-#host: doh.libredns.gr/dns-query
-#keepalive: 25
-#end;
+name: libredns
+website: https://libredns.gr/
+tags: Germany, Europe
+address: 116.202.176.26:443
+host: doh.libredns.gr/dns-query
+keepalive: 25
+end;
 
-#name: libredns-adblocker
-#website: https://libredns.gr/
-#tags: Germany, Europe, adblocker
-#address: 116.202.176.26:443
-#host: doh.libredns.gr/noads
-#keepalive: 25
-#end;
+name: libredns-adblocker
+website: https://libredns.gr/
+tags: Germany, Europe, adblocker
+address: 116.202.176.26:443
+host: doh.libredns.gr/noads
+keepalive: 25
+end;
 
 name: lonet
 website: https://lonet.org/service/dns
@@ -1540,7 +1538,7 @@ end;
 
 name: njalla
 website: https://njal.la
-tags: Sweden, Europe
+tags: Sweden, Europe, NorthEurope
 address: 95.215.19.53:443
 host: dns.njal.la/dns-query
 keepalive: 25
@@ -1596,7 +1594,7 @@ end;
 
 name: opennameserver4
 website: https://opennameserver.org/
-tags: Norway, Europe
+tags: Norway, Europe, NorthEurope
 address: 185.181.61.24:443
 host: ns4.opennameserver.org/dns-query
 keepalive: 25
@@ -1604,7 +1602,7 @@ end;
 
 name: opennameserver4-dot
 website: https://opennameserver.org/
-tags: dot, Norway, Europe
+tags: dot, Norway, Europe, NorthEurope
 address: 185.181.61.24:853
 host: ns4.opennameserver.org/
 keepalive: 25
@@ -1694,7 +1692,7 @@ end;
 
 #name: r0cket
 #website: https://dns.radeksprta.eu/
-#tags: Sweden, Europe
+#tags: Sweden, Europe, NorthEurope
 #address: 80.211.208.74:443
 #host: resolver.r0cket.net/dns-query
 #keepalive: 40
@@ -1703,7 +1701,7 @@ end;
 # 10 sec keepalive
 #name: r0cket-dot
 #website: https://dns.radeksprta.eu/
-#tags: dot, Sweden, Europe
+#tags: dot, Sweden, Europe, NorthEurope
 #address: 80.211.208.74:853
 #host: resolver.r0cket.net/
 #keepalive: 40
@@ -1711,7 +1709,7 @@ end;
 
 #name: radeksprta-dot
 #website: https://dns.radeksprta.eu/
-#tags: dot, Czechia, Europe
+#tags: dot, Czechia, Europe, EastEurope
 #address: 80.211.208.74:853
 #host: dns.radeksprta.eu/
 #keepalive: 25
@@ -1746,7 +1744,7 @@ end;
 # redirected to cloudflare
 name: rotunneling
 website: https://www.rotunneling.net/rotunneling-doh-free/
-tags: sni, adblocker, Romania, Europe
+tags: sni, adblocker, Romania, Europe, EastEurope
 address: dns.rotunneling.net:443
 host: dns.rotunneling.net/dns-query/public
 keepalive: 40
@@ -1943,7 +1941,7 @@ end;
 
 #name: uncensoreddns
 #website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe, Americas
+#tags: Europe, Americas
 #address: 91.239.100.100:443
 #host: anycast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -1951,7 +1949,7 @@ end;
 #
 #name: uncensoreddns2
 #website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe
+#tags: Denmark, Europe, NorthEurope
 #address: 89.233.43.71:443
 #host: unicast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -1967,7 +1965,7 @@ end;
 #
 #name: uncensoreddns4
 #website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe
+#tags: Denmark, Europe, NorthEurope
 #address: 130.225.244.166:443
 #host: unicast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -1975,7 +1973,7 @@ end;
 #
 #name: uncensoreddns5
 #website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe
+#tags: Denmark, Europe, NorthEurope
 #address: 130.226.161.34:443
 #host: unicast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -1983,7 +1981,7 @@ end;
 #
 #name: uncensoreddns6
 #website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe
+#tags: Denmark, Europe, NorthEurope
 #address: 185.38.27.139:443
 #host: unicast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -2042,7 +2040,7 @@ keepalive: 25
 end;
 
 name: dnscry-sofia
-tags: dot, Bulgaria, Europe
+tags: dot, Bulgaria, Europe, EastEurope
 website: https://www.dnscry.pt
 address: 79.124.77.3:853
 host: sof01.dnscry.pt/
@@ -2058,7 +2056,7 @@ keepalive: 25
 end;
 
 name: dnscry-riga
-tags: dot, Latvia, Europe
+tags: dot, Latvia, Europe, EastEurope
 website: https://www.dnscry.pt
 address: 195.123.212.200:853
 host: rix01.dnscry.pt/
@@ -2114,7 +2112,7 @@ keepalive: 25
 end;
 
 name: dnscry-chisinau
-tags: dot, Moldova, Europe
+tags: dot, Moldova, Europe, EastEurope
 website: https://www.dnscry.pt
 address: 176.123.10.105:853
 host: kiv01.dnscry.pt/
@@ -2154,7 +2152,7 @@ end;
 #end;
 
 name: dnscry-istanbul
-tags: dot, Turkey, Europe
+tags: dot, Turkey, Europe, MiddleEast
 website: https://www.dnscry.pt
 address: 193.228.1.130:853
 host: ist01.dnscry.pt/
@@ -2194,7 +2192,7 @@ keepalive: 25
 end;
 
 name: dnscry-helsinki
-tags: dot, Finland, Europe
+tags: dot, Finland, Europe, NorthEurope
 website: https://www.dnscry.pt
 address: 185.253.111.6:853
 host: hel01.dnscry.pt/
@@ -2306,7 +2304,7 @@ keepalive: 25
 end;
 
 name: dnscry-stockholm
-tags: dot, Sweden, Europe
+tags: dot, Sweden, Europe, NorthEurope
 website: https://www.dnscry.pt
 address: 95.143.196.190:853
 host: sto01.dnscry.pt/
@@ -2322,7 +2320,7 @@ keepalive: 25
 end;
 
 name: dnscry-kyiv
-tags: dot, Ukraine, Europe
+tags: dot, Ukraine, Europe, EastEurope
 website: https://www.dnscry.pt
 address: 217.12.221.61:853
 host: iev01.dnscry.pt/
@@ -2346,7 +2344,7 @@ keepalive: 25
 end;
 
 name: dnscry-kharkiv
-tags: dot, Ukraine, Europe
+tags: dot, Ukraine, Europe, EastEurope
 website: https://www.dnscry.pt
 address: 193.238.153.17:853
 host: hrk01.dnscry.pt/
@@ -2354,7 +2352,7 @@ keepalive: 25
 end;
 
 name: dnscry-sandefjord
-tags: dot, Norway, Europe
+tags: dot, Norway, Europe, NorthEurope
 website: https://www.dnscry.pt
 address: 194.32.107.48:853
 host: trf01.dnscry.pt/
@@ -2418,7 +2416,7 @@ keepalive: 25
 end;
 
 name: dnscry-tallinn
-tags: dot, Estonia, Europe
+tags: dot, Estonia, Europe, EastEurope
 website: https://www.dnscry.pt
 address: 185.194.53.22:853
 host: tll01.dnscry.pt/
@@ -2506,7 +2504,7 @@ keepalive: 25
 end;
 
 name: dnscry-warsaw02
-tags: dot, Poland, Europe
+tags: dot, Poland, Europe, EastEurope
 website: https://www.dnscry.pt
 address: 88.218.206.137:853
 host: waw02.dnscry.pt/
@@ -2546,7 +2544,7 @@ keepalive: 25
 end;
 
 name: dnscry-oradea
-tags: dot, Romania, Europe
+tags: dot, Romania, Europe, EastEurope
 website: https://www.dnscry.pt
 address: 193.32.87.127:853
 host: omr01.dnscry.pt/
