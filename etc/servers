@@ -1,32 +1,39 @@
 #
 # Firejail DoH server list
+#
 # The list was compiled from various Internet sources, notably:
 #	- https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
 #	- https://github.com/curl/curl/wiki/DNS-over-HTTPS#publicly-available-servers
+#	- https://dnscry.pt
 #
 # This file is updated every time you install a new version of fdns. Use /etc/fdns/servers.local
 # for persistent configuration. servers.local is processed before this file.
 #
-# We are using only DoH services from zero-logging providers, based on the
+# We are using only DoH services from non-logging providers, based on the
 # privacy policy posted on the provider's website. The format for each server
 # entry is as follows:
 #
 #	name: the name of the server
+#
 #	website: service website
+#
 #	tags: filtering tags
-#	       You can further filter the servers based on the following tags:
-#               (the two) Americas, SouthAmerica, AsiaPacific, Europe, Africa, MiddleEast,
-#               adblocker, family, security, etc. Wherever possible we also added
-#               country-based tags (Germany, Denmark, Australia etc.)
+#	       You can filter the servers based on the following tags: (the two) Americas,
+#               SouthAmerica, AsiaPacific, Europe, Africa, MiddleEast, adblocker, family, security, etc.
+#               Wherever possible we also added country-based tags (Germany, Denmark, Australia etc.)
 #               Some transport-specific tags can be included:
 #                  - DNS over TLS (DoT) servers are labeled as "dot". By default the software
 #                    assumes HTTPS (ver 1.1 or 2).
 #                  - If Server Name Indication (SNI) the server is labeled as "sni". By
 #                    default SNI element is not included in TLS connect packages.
+#
 #	address: IP address and port in IP:PORT or DOMAIN:PORT format
+#
 #	host: URL
-#	keepalive: seconds, how often we sent a request to keep the connection going.
+#
+#	keepalive: seconds, how often we send a DNS request to keep the connection going.
 #	       Most of the time we use values of 7, 25, and 40.
+#
 #	end;
 #	       Marks the end of the server description
 #
@@ -35,11 +42,6 @@
 #	       Unlist commands are usually added in /etc/fdns/servers.local
 #	       Example:
 #	              unlist: quad9
-#
-#	block-doh: - list of DoH servers for --disable-local-doh.
-#	       We also use the servers extracted from host: entry in the server descriptions.
-#	       Example:
-#                	              block-doh: dns.google.com
 #
 ##################################################################
 
@@ -343,7 +345,7 @@ end;
 
 name: blokada-dns
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
-tags: Sweden, Europe, NorthEurope
+tags: Sweden, Europe
 address: 193.180.80.1:443
 host: dns.blokada.org/dns-query
 keepalive: 40
@@ -351,7 +353,7 @@ end;
 
 name: blokada-dns2
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
-tags: Sweden, Europe, NorthEurope
+tags: Sweden, Europe
 address: 193.180.80.2:443
 host: dns.blokada.org/dns-query
 keepalive: 40
@@ -368,7 +370,7 @@ end;
 # blocking subnets of known datacenters using https://github.com/brahma-dev/ufw-bots
 name: brahmaworld
 website: https://dns.brahma.world/
-tags: Sweden, Europe, adblocker, NorthEurope
+tags: Sweden, Europe, adblocker
 address: 157.90.124.62:443
 host: dns.brahma.world/dns-query
 keepalive: 40
@@ -536,7 +538,7 @@ end;
 
 name: comssone-west
 website: https://www.comss.ru/page.php?id=7315
-tags: Europe, Russia, adblocker, EastEurope
+tags: Europe, Russia, adblocker
 address: dns.comss.one:443
 host: dns.comss.one/dns-query
 keepalive: 40
@@ -544,7 +546,7 @@ end;
 
 #name: comssone-east
 #website: https://www.comss.ru/page.php?id=7315
-#tags: AsiaPacific, Russia, adblocker, EastEurope
+#tags: AsiaPacific, Russia, adblocker
 #address: dns.east.comss.one:443
 #host: dns.east.comss.one/dns-query
 #keepalive: 40
@@ -822,7 +824,7 @@ end;
 
 name: dns-sb-ee
 website: https://dns.sb/doh
-tags: sni, Estonia, Europe, EastEurope
+tags: sni, Estonia, Europe
 address: ee-tll.doh.sb:443
 host: ee-tll.doh.sb/dns-query
 keepalive: 40
@@ -910,7 +912,7 @@ end;
 
 name: dns-sb-ru
 website: https://dns.sb/doh
-tags: sni, Russia, Europe, EastEurope
+tags: sni, Russia, Europe
 address: ru-mow.doh.sb:443
 host: ru-mow.doh.sb/dns-query
 keepalive: 40
@@ -1070,14 +1072,14 @@ host: adultfilter.dns.dnswarden.com/
 keepalive: 25
 end;
 
-# ns8.he.de.dns.opennic.glue
-name: eth-services
-website: https://servers.opennic.org/
-tags: Germany, Europe
-address: 94.247.43.254:853
-host: opennic1.eth-services.de:853/
-keepalive: 40
-end;
+# expired cert
+#name: eth-services
+#website: https://servers.opennic.org/
+#tags: Germany, Europe
+#address: 94.247.43.254:853
+#host: opennic1.eth-services.de:853/
+#keepalive: 40
+#end;
 
 # ns31.de.dns.opennic.glue
 #name: eth-services2
@@ -1155,7 +1157,7 @@ end;
 
 #name: fdn
 #website: https://www.fdn.fr/
-#tags: French, Europe
+#tags: Frence, Europe
 #address: 80.67.169.12:443
 #host: ns0.fdn.fr/dns-query
 #keepalive: 25
@@ -1163,7 +1165,7 @@ end;
 #
 #name: fdn2
 #website: https://www.fdn.fr/
-#tags: French, Europe
+#tags: Frence, Europe
 #address: 80.67.169.40:443
 #host: ns1.fdn.fr/dns-query
 #keepalive: 25
@@ -1179,7 +1181,7 @@ end;
 
 name: flokinet
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Iceland, Europe, NorthEurope
+tags: Iceland, Europe
 address: 37.156.68.20:443
 host: nl.resolv.flokinet.net/dns-query
 keepalive: 25
@@ -1187,7 +1189,7 @@ end;
 
 name: flokinet-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: dot, Europe, NorthEurope, Icelan
+tags: dot, Europe, Iceland
 address: 37.156.68.20:853
 host: nl.resolv.flokinet.net/
 keepalive: 25
@@ -1195,7 +1197,7 @@ end;
 
 name: flokinet-ro
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Romania, Europe, EastEurope
+tags: Romania, Europe
 address: 185.246.188.51:443
 host: ro.resolv.flokinet.net/dns-query
 keepalive: 25
@@ -1203,7 +1205,7 @@ end;
 
 name: flokinet-ro-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: dot, Romania, Europe, EastEurope
+tags: dot, Romania, Europe
 address: 185.246.188.51:853
 host: ro.resolv.flokinet.net/
 keepalive: 25
@@ -1311,7 +1313,7 @@ end;
 # using HTTP 1.1
 name: lavadns-fi
 website: https://dns.lavate.ch
-tags: Finland, Europe, NorthEurope
+tags: Finland, Europe
 address: 95.217.25.217:443
 host: eu1.dns.lavate.ch/dns-query
 keepalive: 40
@@ -1538,7 +1540,7 @@ end;
 
 name: njalla
 website: https://njal.la
-tags: Sweden, Europe, NorthEurope
+tags: Sweden, Europe
 address: 95.215.19.53:443
 host: dns.njal.la/dns-query
 keepalive: 25
@@ -1594,7 +1596,7 @@ end;
 
 name: opennameserver4
 website: https://opennameserver.org/
-tags: Norway, Europe, NorthEurope
+tags: Norway, Europe
 address: 185.181.61.24:443
 host: ns4.opennameserver.org/dns-query
 keepalive: 25
@@ -1602,7 +1604,7 @@ end;
 
 name: opennameserver4-dot
 website: https://opennameserver.org/
-tags: dot, Norway, Europe, NorthEurope
+tags: dot, Norway, Europe
 address: 185.181.61.24:853
 host: ns4.opennameserver.org/
 keepalive: 25
@@ -1701,7 +1703,7 @@ end;
 # 10 sec keepalive
 #name: r0cket-dot
 #website: https://dns.radeksprta.eu/
-#tags: dot, Sweden, Europe, NorthEurope
+#tags: dot, Sweden, Europe
 #address: 80.211.208.74:853
 #host: resolver.r0cket.net/
 #keepalive: 40
@@ -1709,7 +1711,7 @@ end;
 
 #name: radeksprta-dot
 #website: https://dns.radeksprta.eu/
-#tags: dot, Czechia, Europe, EastEurope
+#tags: dot, Czechia, Europe
 #address: 80.211.208.74:853
 #host: dns.radeksprta.eu/
 #keepalive: 25
@@ -1744,7 +1746,7 @@ end;
 # redirected to cloudflare
 name: rotunneling
 website: https://www.rotunneling.net/rotunneling-doh-free/
-tags: sni, adblocker, Romania, Europe, EastEurope
+tags: sni, adblocker, Romania, Europe
 address: dns.rotunneling.net:443
 host: dns.rotunneling.net/dns-query/public
 keepalive: 40
@@ -1949,7 +1951,7 @@ end;
 #
 #name: uncensoreddns2
 #website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe, NorthEurope
+#tags: Denmark, Europe
 #address: 89.233.43.71:443
 #host: unicast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -1965,7 +1967,7 @@ end;
 #
 #name: uncensoreddns4
 #website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe, NorthEurope
+#tags: Denmark, Europe
 #address: 130.225.244.166:443
 #host: unicast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -1973,7 +1975,7 @@ end;
 #
 #name: uncensoreddns5
 #website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe, NorthEurope
+#tags: Denmark, Europe
 #address: 130.226.161.34:443
 #host: unicast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -1981,7 +1983,7 @@ end;
 #
 #name: uncensoreddns6
 #website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe, NorthEurope
+#tags: Denmark, Europe
 #address: 185.38.27.139:443
 #host: unicast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -2040,7 +2042,7 @@ keepalive: 25
 end;
 
 name: dnscry-sofia
-tags: dot, Bulgaria, Europe, EastEurope
+tags: dot, Bulgaria, Europe
 website: https://www.dnscry.pt
 address: 79.124.77.3:853
 host: sof01.dnscry.pt/
@@ -2056,7 +2058,7 @@ keepalive: 25
 end;
 
 name: dnscry-riga
-tags: dot, Latvia, Europe, EastEurope
+tags: dot, Latvia, Europe
 website: https://www.dnscry.pt
 address: 195.123.212.200:853
 host: rix01.dnscry.pt/
@@ -2112,7 +2114,7 @@ keepalive: 25
 end;
 
 name: dnscry-chisinau
-tags: dot, Moldova, Europe, EastEurope
+tags: dot, Moldova, Europe
 website: https://www.dnscry.pt
 address: 176.123.10.105:853
 host: kiv01.dnscry.pt/
@@ -2192,7 +2194,7 @@ keepalive: 25
 end;
 
 name: dnscry-helsinki
-tags: dot, Finland, Europe, NorthEurope
+tags: dot, Finland, Europe
 website: https://www.dnscry.pt
 address: 185.253.111.6:853
 host: hel01.dnscry.pt/
@@ -2304,7 +2306,7 @@ keepalive: 25
 end;
 
 name: dnscry-stockholm
-tags: dot, Sweden, Europe, NorthEurope
+tags: dot, Sweden, Europe
 website: https://www.dnscry.pt
 address: 95.143.196.190:853
 host: sto01.dnscry.pt/
@@ -2320,7 +2322,7 @@ keepalive: 25
 end;
 
 name: dnscry-kyiv
-tags: dot, Ukraine, Europe, EastEurope
+tags: dot, Ukraine, Europe
 website: https://www.dnscry.pt
 address: 217.12.221.61:853
 host: iev01.dnscry.pt/
@@ -2344,7 +2346,7 @@ keepalive: 25
 end;
 
 name: dnscry-kharkiv
-tags: dot, Ukraine, Europe, EastEurope
+tags: dot, Ukraine, Europe
 website: https://www.dnscry.pt
 address: 193.238.153.17:853
 host: hrk01.dnscry.pt/
@@ -2352,7 +2354,7 @@ keepalive: 25
 end;
 
 name: dnscry-sandefjord
-tags: dot, Norway, Europe, NorthEurope
+tags: dot, Norway, Europe
 website: https://www.dnscry.pt
 address: 194.32.107.48:853
 host: trf01.dnscry.pt/
@@ -2416,7 +2418,7 @@ keepalive: 25
 end;
 
 name: dnscry-tallinn
-tags: dot, Estonia, Europe, EastEurope
+tags: dot, Estonia, Europe
 website: https://www.dnscry.pt
 address: 185.194.53.22:853
 host: tll01.dnscry.pt/
@@ -2504,7 +2506,7 @@ keepalive: 25
 end;
 
 name: dnscry-warsaw02
-tags: dot, Poland, Europe, EastEurope
+tags: dot, Poland, Europe
 website: https://www.dnscry.pt
 address: 88.218.206.137:853
 host: waw02.dnscry.pt/
@@ -2544,7 +2546,7 @@ keepalive: 25
 end;
 
 name: dnscry-oradea
-tags: dot, Romania, Europe, EastEurope
+tags: dot, Romania, Europe
 website: https://www.dnscry.pt
 address: 193.32.87.127:853
 host: omr01.dnscry.pt/
