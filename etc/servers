@@ -21,11 +21,11 @@
 #	       You can filter the servers based on the following tags: (the two) Americas,
 #               SouthAmerica, AsiaPacific, Europe, Africa, MiddleEast, adblocker, family, security, etc.
 #               Wherever possible we also added country-based tags (Germany, Denmark, Australia etc.)
-#               Some transport-specific tags can be included:
+#               Some transport-specific tags are also included:
 #                  - DNS over TLS (DoT) servers are labeled as "dot". By default the software
 #                    assumes HTTPS (ver 1.1 or 2).
-#                  - If Server Name Indication (SNI) the server is labeled as "sni". By
-#                    default SNI element is not included in TLS connect packages.
+#                  - If Server Name Indication (SNI) is required, the server is labeled as "sni".
+#                    By default SNI element is not included in TLS connect packages.
 #
 #	address: IP address and port in IP:PORT or DOMAIN:PORT format
 #
@@ -236,22 +236,6 @@ host: blitz.ahadns.com/1:1
 keepalive: 40
 end;
 
-name: ahadns-nl-dot
-website: https://ahadns.com
-tags: dot, adblocker, Netherlands, Europe
-address: 5.2.75.75:853
-host: dot.nl.ahadns.net/
-keepalive: 25
-end;
-
-name: ahadns-westus-dot
-website: https://ahadns.com
-tags: dot, adblocker, US, Americas
-address: 45.67.219.208:853
-host: dot.la.ahadns.net/
-keepalive: 25
-end;
-
 name: artikel10
 website: https://dns.artikel10.org
 tags: Netherlands, Europe
@@ -358,14 +342,6 @@ address: 193.180.80.2:443
 host: dns.blokada.org/dns-query
 keepalive: 40
 end;
-
-#name: bortzmeyer
-#website: https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
-#tags: France, Europe
-#address: 193.70.85.11:443
-#host: doh.bortzmeyer.fr/
-#keepalive: 25
-#end;
 
 # blocking subnets of known datacenters using https://github.com/brahma-dev/ufw-bots
 name: brahmaworld
@@ -634,13 +610,13 @@ end;
 
 
 # cloudflare redirect
-name: cynthialabs
-website: https://cynthialabs.net/
-tags: sni, Americas, AsiaPacific, Europe, adblocker
-address: dns.cynthialabs.net:443
-host: dns.cynthialabs.net/dns-query
-keepalive: 40
-end;
+#name: cynthialabs
+#website: https://cynthialabs.net/
+#tags: sni, Americas, AsiaPacific, Europe, adblocker
+#address: dns.cynthialabs.net:443
+#host: dns.cynthialabs.net/dns-query
+#keepalive: 40
+#end;
 
 name: digitalcourage-dot
 website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
@@ -766,6 +742,7 @@ host: kids.dns0.eu/
 keepalive: 40
 end;
 
+# global dns-sb cdn
 name: dns-sb1
 website: https://dns.sb/doh
 tags: sni, Americas, AsiaPacific, Europe
@@ -774,6 +751,7 @@ host: doh.dns.sb/dns-query
 keepalive: 40
 end;
 
+# global dns-sb cdn
 name: dns-sb2
 website: https://dns.sb/doh
 tags: sni, Americas, AsiaPacific, Europe
@@ -1449,30 +1427,30 @@ end;
 #keepalive: 25
 #end;
 
-# running in cloudflare cloud
-name: mydns.network
-website: https://mydns.network
-tags: sni, Americas, AsiaPacific, Europe
-address: freedom.mydns.network:443
-host: freedom.mydns.network/dns-query
-keepalive: 40
-end;
-
-name: mydns.network2
-website: https://mydns.network
-tags: sni, Americas, AsiaPacific, Europe
-address: paranoia.mydns.network:443
-host: paranoia.mydns.network/dns-query
-keepalive: 40
-end;
-
-name: mydns.network.adblock
-website: https://mydns.network
-tags: sni, adblocker, Americas, AsiaPacific, Europe
-address: adblock.mydns.network:443
-host: adblock.mydns.network/dns-query
-keepalive: 40
-end;
+# redirected to cloudflare
+#name: mydns.network
+#website: https://mydns.network
+#tags: sni, Americas, AsiaPacific, Europe
+#address: freedom.mydns.network:443
+#host: freedom.mydns.network/dns-query
+#keepalive: 40
+#end;
+#
+#name: mydns.network2
+#website: https://mydns.network
+#tags: sni, Americas, AsiaPacific, Europe
+#address: paranoia.mydns.network:443
+#host: paranoia.mydns.network/dns-query
+#keepalive: 40
+#end;
+#
+#name: mydns.network.adblock
+#website: https://mydns.network
+#tags: sni, adblocker, Americas, AsiaPacific, Europe
+#address: adblock.mydns.network:443
+#host: adblock.mydns.network/dns-query
+#keepalive: 40
+#end;
 
 name: mydns.network.family
 website: https://mydns.network
@@ -1744,13 +1722,13 @@ keepalive: 40
 end;
 
 # redirected to cloudflare
-name: rotunneling
-website: https://www.rotunneling.net/rotunneling-doh-free/
-tags: sni, adblocker, Romania, Europe
-address: dns.rotunneling.net:443
-host: dns.rotunneling.net/dns-query/public
-keepalive: 40
-end;
+#name: rotunneling
+#website: https://www.rotunneling.net/rotunneling-doh-free/
+#tags: sni, adblocker, Romania, Europe
+#address: dns.rotunneling.net:443
+#host: dns.rotunneling.net/dns-query/public
+#keepalive: 40
+#end;
 
 name: ryan-palmer
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
@@ -1892,37 +1870,13 @@ end;
 #keepalive: 40
 #end;
 
-name: tiarap
-website: https://doh.tiarap.org
-tags: sni, Americas, AsiaPacific, Europe
-address: doh.tiarap.org:443
-host: doh.tiarap.org/dns-query
-keepalive: 40
-end;
-
-# small keepalive
-#name: tiarap-jp
-#website: https://jp.tiar.app/
-#tags: Japan, AsiaPacific, adblocker
-#address: jp.tiar.app:443
-#host: jp.tiar.app/dns-query
-#keepalive: 7
-#end;
-#
-#name: tiarap-sg
-#website: https://doh.tiar.app
-#tags: Singapore, AsiaPacific, adblocker
-#address: 174.138.29.175:443
-#host: doh.tiar.app/dns-query
-#keepalive: 7
-#end;
-#
-#name: tiarap-sg-dot
-#website: https://doh.tiar.app
-#tags: sni, dot, Singapore, AsiaPacific, adblocker
-#address: 174.138.29.175:853
-#host: dot.tiar.app/
-#keepalive: 25
+# cloudflare redirect
+#name: tiarap
+#website: https://doh.tiarap.org
+#tags: sni, Americas, AsiaPacific, Europe
+#address: doh.tiarap.org:443
+#host: doh.tiarap.org/dns-query
+#keepalive: 40
 #end;
 
 name: twnic
@@ -2098,7 +2052,7 @@ keepalive: 25
 end;
 
 name: dnscry-durham
-tags: dot, UK, Europe
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 38.45.64.117:853
 host: rdu01.dnscry.pt/
@@ -2616,3 +2570,44 @@ address: 66.187.7.140:853
 host: dtw01.dnscry.pt/
 keepalive: 25
 end;
+
+name: dnscry-bratislava
+tags: dot, Slovakia, Europe
+website: https://www.dnscry.pt
+address: 95.131.202.105:853
+host: bts01.dnscry.pt/
+keepalive: 25
+end;
+
+name: dnscry-saopaulo
+tags: dot, Brazil, SouthAmerica, Americas
+website: https://www.dnscry.pt
+address: 108.181.69.153:853
+host: gru01.dnscry.pt/
+keepalive: 25
+end;
+
+name: dnscry-vancouver
+tags: dot, Canada, Americas
+website: https://www.dnscry.pt
+address: 104.36.148.46:853
+host: yvr01.dnscry.pt/
+keepalive: 25
+end;
+
+name: dnscry-hanoi
+tags: dot, Vietnam, AsiaPacific
+website: https://www.dnscry.pt
+address: 103.199.16.93:853
+host: han01.dnscry.pt/
+keepalive: 25
+end;
+
+name: dnscry-hochiminh
+tags: dot, Vietnam, AsiaPacific
+website: https://www.dnscry.pt
+address: 157.20.83.135:853
+host: sgn01.dnscry.pt/
+keepalive: 25
+end;
+
