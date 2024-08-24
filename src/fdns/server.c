@@ -49,7 +49,7 @@ static void set_zone(void) {
 	else if (tz <= 3 && tz >= -1)
 		fdns_zone = "Europe";
 	else if (tz <= -3 && tz >= -11)
-		fdns_zone = "Americas";
+		fdns_zone = "America";
 
 	if (arg_id <= 0)
 		printf("Current zone: %s\n", fdns_zone);
@@ -330,18 +330,21 @@ static void load_list(void) {
 
 
 // return the average query time in ms, or 0 if failed
-static uint8_t test_server(const char *server_name)  {
+static float test_server(const char *server_name)  {
 	// initialize server structure
 	arg_server = strdup(server_name);
 	if (!arg_server)
 		errExit("strdup");
 	assert(scurrent);
 
+	int pipefd[2];
+	if (pipe(pipefd) == -1)
+		errExit("pipe");
+
 	pid_t child = fork();
 	if (child == 0) { // child
-// exit 0 - error
-// exit 1 - 255 - average query in ms
 		assert(scurrent);
+		close(pipefd[0]);
 
 		// disable logging
 		log_disable();
@@ -382,9 +385,14 @@ static uint8_t test_server(const char *server_name)  {
 		if (ssl_state == SSL_CLOSED) {
 			fprintf(stderr, "   Error: SSL connection closed\n");
 			fflush(0);
-			exit(0);
+			exit(1);
 		}
 		float average = (ms + ms2) / 6;
+		int rv = write(pipefd[1], &average, sizeof(average));
+		if (rv != sizeof(average)) {
+			fflush(0);
+			exit(1);
+		}
 		printf("   %s query average: %.02f ms\n", transport->dns_type, average);
 		if (arg_details)
 			transport->header_stats();
@@ -393,29 +401,41 @@ static uint8_t test_server(const char *server_name)  {
 			printf("   Keepalive: %d seconds\n", s->keepalive);
 
 		fflush(0);
-		uint8_t qaverage = (average > 255)? 255: average;
-		if (qaverage == 0)
-			qaverage = 1;
-		exit(qaverage);
+		exit(0);
 	}
+	close(pipefd[1]);
 
 	// wait for the child to finish
 	int i = 0;
-	uint8_t qaverage = 0; // query average time in ms
+	float qaverage = 0; // query average time in ms
 	do {
+		fd_set readfds;
+		FD_ZERO(&readfds);
+		FD_SET(pipefd[0], &readfds);
+		struct timeval t = {1, 0};
+		int rv = select(pipefd[0] + 1, &readfds, NULL, NULL, &t);
+		if (rv == -1)
+			return 0;
+		if (FD_ISSET(pipefd[0], &readfds)) {
+			rv = read(pipefd[0], &qaverage, sizeof(qaverage));
+//printf("****** %f *****\n", qaverage);
+			if (rv != sizeof(qaverage))
+				return 0;
+			break;
+		}
+
+
 		int status = 0;
-		int rv = waitpid(child, &status, WNOHANG);
+		rv = waitpid(child, &status, WNOHANG);
 		if (rv  == child) {
-			qaverage = WEXITSTATUS(status);
 			// check child status
-			if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+			if (WIFEXITED(status) && WEXITSTATUS(status) == 1) {
 				printf("   Error: server %s failed\n", arg_server);
 				fflush(0);
 				return 0;
 			}
 			break;
 		}
-		sleep(1);
 		i++;
 	}
 	while (i < 20); // 20 second wait
@@ -441,7 +461,6 @@ void server_list(const char *tag) {
 	assert(fdns_zone);
 	if (tag == NULL)
 		tag = fdns_zone;
-
 //printf("### %s ### %s ###\n", tag, fdns_zone);
 
 	// if the tag is the name of a zone, use it as our zone
@@ -453,8 +472,8 @@ void server_list(const char *tag) {
 		fdns_zone = "AsiaPacific";
 		tag = NULL;
 	}
-	else if (strcmp(tag, "Americas") == 0) {
-		fdns_zone = "Americas";
+	else if (strcmp(tag, "America") == 0) {
+		fdns_zone = "America";
 		tag = NULL;
 	}
 
@@ -548,6 +567,7 @@ void server_list(const char *tag) {
 
 
 static int count_active_servers(void) {
+	static int printed = 0;
 	int cnt = 0;
 	assert(slist);
 	DnsServer *s = slist;
@@ -557,6 +577,9 @@ static int count_active_servers(void) {
 		s = s->next;
 	}
 
+	if (arg_id < 0 && !printed)
+		printf("%d server%s found\n", cnt, (cnt > 1)? "s": "");
+	printed = 1;
 	return cnt;
 }
 
@@ -617,7 +640,7 @@ DnsServer *server_get(void) {
 	while (s) {
 		scurrent = s;
 		if (arg_id == -1) { // testing only in frontend process
-			uint8_t qaverage = test_server(s->name);
+			float qaverage = test_server(s->name);
 			if (qaverage == 0) {
 				s->active = 0;
 				s = random_server();
@@ -626,7 +649,7 @@ DnsServer *server_get(void) {
 			else if (cnt > 1) {
 				// try another server
 				DnsServer *first = s;
-				uint8_t first_average = qaverage;
+				float first_average = qaverage;
 				scurrent = first;
 				s = first;
 
@@ -666,16 +689,27 @@ void server_test_tag(const char *tag)  {
 
 	// walk the list
 	DnsServer *s = slist;
+	float qaverage = 0;
+	int cnt = 0;
 	while (s) {
 		if (s->active) {
 			scurrent = s;
-			test_server(s->name);
+			float rv = test_server(s->name);
+			if (rv != 0) {
+				qaverage += rv;
+				cnt++;
+			}
 			usleep(500000);
 		}
 		s = s->next;
 	}
 
-	printf("\nTesting completed\n");
+	printf("\n");
+	if (cnt == 0)
+		printf("No active servers found\n");
+	else
+		printf("%d server%s active, average query time %.02f ms\n", cnt, (cnt > 1)? "s": "", qaverage / cnt);
+	printf("Testing completed\n");
 }
 
 void server_set_custom(const char *url) {

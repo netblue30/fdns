@@ -18,8 +18,8 @@
 #	website: service website
 #
 #	tags: filtering tags
-#	       You can filter the servers based on the following tags: (the two) Americas,
-#               SouthAmerica, AsiaPacific, Europe, Africa, MiddleEast, adblocker, family, security, etc.
+#	       You can filter the servers based on the following tags: America (North and South),
+#               AsiaPacific, Europe, Africa, MiddleEast, FarEast, adblocker, family, security, etc.
 #               Wherever possible we also added country-based tags (Germany, Denmark, Australia etc.)
 #               Some transport-specific tags are also included:
 #                  - DNS over TLS (DoT) servers are labeled as "dot". By default the software
@@ -70,7 +70,7 @@ end;
 
 #name: 0ms
 #website: https://0ms.dev/
-#tags: adblocker, Singapore, AsiaPacific
+#tags: adblocker, Singapore, AsiaPacific, FarEast
 #address: 91.199.87.89:443
 #host: cdn.0ms.dev/dns-query
 #keepalive: 40
@@ -126,7 +126,7 @@ end;
 
 name: adguard-unfiltered
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 94.140.14.140:443
 host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
@@ -134,7 +134,7 @@ end;
 
 name: adguard-unfiltered-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: dot, Americas, AsiaPacific, Europe
+tags: anycast, dot, America, AsiaPacific, Europe
 address: 94.140.14.140:853
 host: dns-unfiltered.adguard.com/
 keepalive: 25
@@ -142,7 +142,7 @@ end;
 
 name: adguard-unfiltered2
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 94.140.14.141:443
 host: dns-unfiltered.adguard.com/dns-query
 keepalive: 40
@@ -150,7 +150,7 @@ end;
 
 name: adguard-unfiltered2-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: dot, Americas, AsiaPacific, Europe
+tags: anycast, dot, America, AsiaPacific, Europe
 address: 94.140.14.141:853
 host: dns-unfiltered.adguard.com/
 keepalive: 25
@@ -158,7 +158,7 @@ end;
 
 name: adguard
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: adblocker, Americas, AsiaPacific, Europe
+tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 94.140.15.15:443
 host: dns.adguard.com/dns-query
 keepalive: 40
@@ -166,7 +166,7 @@ end;
 
 name: adguard-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: dot, adblocker, Americas, AsiaPacific, Europe
+tags: anycast, dot, adblocker, America, AsiaPacific, Europe
 address: 94.140.15.15:853
 host: dns.adguard.com/
 keepalive: 25
@@ -174,7 +174,7 @@ end;
 
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: adblocker, Americas, AsiaPacific, Europe
+tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 94.140.14.14:443
 host: dns.adguard.com/dns-query
 keepalive: 40
@@ -182,7 +182,7 @@ end;
 
 name: adguard2-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: dot, adblocker, Americas, AsiaPacific, Europe
+tags: anycast, dot, adblocker, America, AsiaPacific, Europe
 address: 94.140.14.14:853
 host: dns.adguard.com/dns-query
 keepalive: 25
@@ -190,7 +190,7 @@ end;
 
 name: adguard-family
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: family, Americas, AsiaPacific, Europe
+tags: family, America, AsiaPacific, Europe
 address: 94.140.15.16:443
 host: dns-family.adguard.com/dns-query
 keepalive: 40
@@ -198,7 +198,7 @@ end;
 
 name: adguard-family-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: dot, family, Americas, AsiaPacific, Europe
+tags: dot, family, America, AsiaPacific, Europe
 address: 94.140.15.16:853
 host: dns-family.adguard.com/
 keepalive: 25
@@ -206,7 +206,7 @@ end;
 
 name: adguard-family2
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: family, Americas, AsiaPacific, Europe
+tags: family, America, AsiaPacific, Europe
 address: 94.140.14.15:443
 host: dns-family.adguard.com/dns-query
 keepalive: 40
@@ -214,7 +214,7 @@ end;
 
 name: adguard-family2-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: dot, family, Americas, AsiaPacific, Europe
+tags: anycast, dot, family, America, AsiaPacific, Europe
 address: 94.140.14.15:853
 host: dns-family.adguard.com/
 keepalive: 25
@@ -222,7 +222,7 @@ end;
 
 name: ahadns
 website: https://ahadns.com
-tags: sni, Americas, AsiaPacific, Europe
+tags: sni, America, AsiaPacific, Europe
 address: blitz.ahadns.com:443
 host: blitz.ahadns.com/
 keepalive: 40
@@ -230,7 +230,7 @@ end;
 
 name: ahadns-adblocker
 website: https://ahadns.com
-tags: sni, adblocker Americas, AsiaPacific, Europe
+tags: sni, adblocker America, AsiaPacific, Europe
 address: blitz.ahadns.com:443
 host: blitz.ahadns.com/1:1
 keepalive: 40
@@ -270,7 +270,7 @@ end;
 
 name: avast
 website: https://www.avast.com/dns
-tags: sni, Americas, AsiaPacific, Europe
+tags: anycast, sni, America, AsiaPacific, Europe
 address: secure.avastdns.com:443
 host: secure.avastdns.com/dns-query
 keepalive: 40
@@ -279,7 +279,7 @@ end;
 # self-signed certificate
 #name: bebasid
 #website: https://github.com/bebasid/bebasdns
-#tags: adblocker, Malaysia, Indonesia, AsiaPacific
+#tags: adblocker, Malaysia, Indonesia, AsiaPacific, FarEast
 #address: 103.87.68.194:443
 #host: dns.bebasid.com/dns-query
 #keepalive: 25
@@ -287,7 +287,7 @@ end;
 
 name: bebasid-dot
 website: https://github.com/bebasid/bebasdns
-tags: dot, adblocker, Malaysia, Indonesia, AsiaPacific
+tags: dot, adblocker, Malaysia, Indonesia, AsiaPacific, FarEast
 address: 103.87.68.194:853
 host: dns.bebasid.com/
 keepalive: 25
@@ -296,7 +296,7 @@ end;
 # self-signed certificate
 #name: bebasid-unfiltered
 #website: https://github.com/bebasid/bebasdns
-#tags: Malaysia, Indonesia, AsiaPacific
+#tags: Malaysia, Indonesia, AsiaPacific, FarEast
 #address: 103.87.68.194:443
 #host: unfiltered.dns.bebasid.com/dns-query
 #keepalive: 25
@@ -304,7 +304,7 @@ end;
 
 name: bebasid-family
 website: https://github.com/bebasid/bebasdns
-tags: family, Malaysia, AsiaPacific
+tags: family, Malaysia, Indonesia, AsiaPacific, FarEast
 address: 103.87.68.196:443
 host: internetsehat.bebasid.com/dns-query
 keepalive: 25
@@ -321,7 +321,7 @@ end;
 ##short keepalive, expired certificate
 #name: blahdns-sg
 #website: https://blahdns.com
-#tags: sni, admin-down, Singapore, AsiaPacific, adblocker
+#tags: sni, admin-down, Singapore, AsiaPacific, adblocker, FarEast
 #address: 192.53.175.149:443
 #host: doh-sg.blahdns.com/dns-query
 #keepalive: 7
@@ -352,9 +352,10 @@ host: dns.brahma.world/dns-query
 keepalive: 40
 end;
 
+# redirected (probably) to cloudflare
 name: bravedns
 website: https://bravedns.com
-tags: sni, Americas, AsiaPacific, Europe
+tags: sni, America, AsiaPacific, Europe
 address: free.bravedns.com:443
 host: free.bravedns.com/dns-query
 keepalive: 40
@@ -362,7 +363,7 @@ end;
 
 name: bravedns2
 website: https://bravedns.com
-tags: sni, Americas, AsiaPacific, Europe
+tags: sni, America, AsiaPacific, Europe
 address: basic.bravedns.com:443
 host: basic.bravedns.com/
 keepalive: 40
@@ -370,7 +371,7 @@ end;
 
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: Canada, Americas
+tags: Canada, America
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -378,7 +379,7 @@ end;
 
 name: cira2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: Canada, Americas
+tags: Canada, America
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -386,7 +387,7 @@ end;
 
 name: cira-security
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: security, Canada, Americas
+tags: security, Canada, America
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -394,7 +395,7 @@ end;
 
 name: cira-security2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: security, Canada, Americas
+tags: security, Canada, America
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -402,7 +403,7 @@ end;
 
 name: cira-family
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: family, Americas
+tags: family, America
 address: 149.112.121.30:443
 host: family.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -410,7 +411,7 @@ end;
 
 name: cira-family2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: family, Americas
+tags: family, America
 address: 149.112.122.30:443
 host: family.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -418,7 +419,7 @@ end;
 
 name: cleanbrowsing
 website: https://cleanbrowsing.org
-tags: security, Americas, AsiaPacific, Europe
+tags: anycast, security, America, AsiaPacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
 keepalive: 40
@@ -426,7 +427,7 @@ end;
 
 name: cleanbrowsing2
 website: https://cleanbrowsing.org
-tags: security, Americas, AsiaPacific, Europe
+tags: anycast, security, America, AsiaPacific, Europe
 address: 185.228.168.10:443
 host: doh.cleanbrowsing.org/doh/security-filter
 keepalive: 40
@@ -434,7 +435,7 @@ end;
 
 name: cleanbrowsing-family
 website: https://cleanbrowsing.org
-tags: family, Americas, AsiaPacific, Europe
+tags: family, America, AsiaPacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
 keepalive: 40
@@ -442,7 +443,7 @@ end;
 
 name: cleanbrowsing-family2
 website: https://cleanbrowsing.org
-tags: family, Americas, AsiaPacific, Europe
+tags: family, America, AsiaPacific, Europe
 address: 185.228.168.10:443
 host: doh.cleanbrowsing.org/doh/family-filter
 keepalive: 40
@@ -450,7 +451,7 @@ end;
 
 #name: cleanbrowsing-adult
 #website: https://cleanbrowsing.org
-#tags: enterprise, Americas, AsiaPacific, Europe
+#tags: enterprise, America, AsiaPacific, Europe
 #address: 185.228.168.168:443
 #host: doh.cleanbrowsing.org/doh/adult-filter
 #keepalive: 40
@@ -458,7 +459,7 @@ end;
 
 #name: cleanbrowsing-adult2
 #website: https://cleanbrowsing.org
-#tags: enterprise, Americas, AsiaPacific, Europe
+#tags: enterprise, America, AsiaPacific, Europe
 #address: 185.228.168.10:443
 #host: doh.cleanbrowsing.org/doh/adult-filter
 #keepalive: 40
@@ -466,7 +467,7 @@ end;
 
 name: cloudflare
 website: https://www.cloudflare.com
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
 keepalive: 40
@@ -474,7 +475,7 @@ end;
 
 name: cloudflare2
 website: https://www.cloudflare.com
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
 keepalive: 40
@@ -482,7 +483,7 @@ end;
 
 name: cloudflare-security
 website: https://www.cloudflare.com
-tags: security, Americas, AsiaPacific, Europe
+tags: anycast, security, America, AsiaPacific, Europe
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
 keepalive: 40
@@ -490,7 +491,7 @@ end;
 
 name: cloudflare-security2
 website: https://www.cloudflare.com
-tags: security, Americas, AsiaPacific, Europe
+tags: anycast, security, America, AsiaPacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
 keepalive: 40
@@ -498,7 +499,7 @@ end;
 
 name: cloudflare-family
 website: https://www.cloudflare.com
-tags: family, Americas, AsiaPacific, Europe
+tags: family, America, AsiaPacific, Europe
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
 keepalive: 40
@@ -506,13 +507,13 @@ end;
 
 name: cloudflare-family2
 website: https://www.cloudflare.com
-tags: family, Americas, AsiaPacific, Europe
+tags: family, America, AsiaPacific, Europe
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
 keepalive: 40
 end;
 
-name: comssone-west
+name: comssone
 website: https://www.comss.ru/page.php?id=7315
 tags: Europe, Russia, adblocker
 address: dns.comss.one:443
@@ -520,17 +521,9 @@ host: dns.comss.one/dns-query
 keepalive: 40
 end;
 
-#name: comssone-east
-#website: https://www.comss.ru/page.php?id=7315
-#tags: AsiaPacific, Russia, adblocker
-#address: dns.east.comss.one:443
-#host: dns.east.comss.one/dns-query
-#keepalive: 40
-#end;
-
 name: controld
 website: https://controld.com/free-dns/
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/p0
 keepalive: 40
@@ -538,7 +531,7 @@ end;
 
 name: controld2
 website: https://controld.com/free-dns/
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/p0
 keepalive: 40
@@ -546,7 +539,7 @@ end;
 
 name: controld-dot
 website: https://controld.com/free-dns/
-tags: dot, Americas, AsiaPacific, Europe
+tags: anycast, dot, America, AsiaPacific, Europe
 address: 76.76.2.11:853
 host: freedns.controld.com/
 keepalive: 25
@@ -554,7 +547,7 @@ end;
 
 name: controld2-dot
 website: https://controld.com/free-dns/
-tags: dot, Americas, AsiaPacific, Europe
+tags: anycast, dot, America, AsiaPacific, Europe
 address: 76.76.10.11:853
 host: freedns.controld.com/
 keepalive: 25
@@ -562,7 +555,7 @@ end;
 
 name: controld-adblocker
 website: https://controld.com/free-dns/
-tags: adblocker, Americas, AsiaPacific, Europe
+tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.2.44:443
 host: freedns.controld.com/adguard
 keepalive: 40
@@ -570,7 +563,7 @@ end;
 
 name: controld2-adblocker
 website: https://controld.com/free-dns/
-tags: adblocker, Americas, AsiaPacific, Europe
+tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.44:443
 host: freedns.controld.com/adguard
 keepalive: 40
@@ -578,7 +571,7 @@ end;
 
 name: controld-security
 website: https://controld.com/free-dns/
-tags: security, adblocker, Americas, AsiaPacific, Europe
+tags: anycast, security, adblocker, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/p2
 keepalive: 40
@@ -586,7 +579,7 @@ end;
 
 name: controld2-security
 website: https://controld.com/free-dns/
-tags: security, adblocker, Americas, AsiaPacific, Europe
+tags: anycast, security, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/p2
 keepalive: 40
@@ -594,7 +587,7 @@ end;
 
 name: controld-family
 website: https://controld.com/free-dns/
-tags: family, Americas, AsiaPacific, Europe
+tags: family, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/family
 keepalive: 40
@@ -602,7 +595,7 @@ end;
 
 name: controld2-family
 website: https://controld.com/free-dns/
-tags: family, Americas, AsiaPacific, Europe
+tags: family, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/family
 keepalive: 40
@@ -610,13 +603,13 @@ end;
 
 
 # cloudflare redirect
-#name: cynthialabs
-#website: https://cynthialabs.net/
-#tags: sni, Americas, AsiaPacific, Europe, adblocker
-#address: dns.cynthialabs.net:443
-#host: dns.cynthialabs.net/dns-query
-#keepalive: 40
-#end;
+name: cynthialabs
+website: https://cynthialabs.net/
+tags: sni, America, AsiaPacific, Europe, adblocker
+address: dns.cynthialabs.net:443
+host: dns.cynthialabs.net/dns-query
+keepalive: 40
+end;
 
 name: digitalcourage-dot
 website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
@@ -659,24 +652,6 @@ end;
 #host: dns.digitalsize.net/dns-query
 #keepalive: 40
 #end;
-
-# short keepalive
-#name: dismail-dot
-#website: https://dismail.de/info.html
-#tags: dot, adblocker, Germany, Europe
-#address: 116.203.32.217:853
-#host: fdns1.dismail.de/
-#keepalive: 25
-#end;
-#
-#name: dismail2-dot
-#website: https://dismail.de/info.html
-#tags: dot, adblocker, Germany, Europe
-#address: 159.69.114.157:853
-#host: fdns2.dismail.de/
-#keepalive: 25
-#end;
-
 
 name: dns0eu
 website: https://dns0.eu
@@ -745,7 +720,7 @@ end;
 # global dns-sb cdn
 name: dns-sb1
 website: https://dns.sb/doh
-tags: sni, Americas, AsiaPacific, Europe
+tags: sni, Belgium, Europe
 address: 185.222.222.222:443
 host: doh.dns.sb/dns-query
 keepalive: 40
@@ -754,7 +729,7 @@ end;
 # global dns-sb cdn
 name: dns-sb2
 website: https://dns.sb/doh
-tags: sni, Americas, AsiaPacific, Europe
+tags: sni, Belgium, Europe
 address: 45.11.45.11:443
 host: doh.dns.sb/dns-query
 keepalive: 40
@@ -810,7 +785,7 @@ end;
 
 name: dns-sb-jp1
 website: https://dns.sb/doh
-tags: sni, Japan, AsiaPacific
+tags: sni, Japan, AsiaPacific, FarEast
 address: jp-kix.doh.sb:443
 host: jp-kix.doh.sb/dns-query
 keepalive: 40
@@ -818,7 +793,7 @@ end;
 
 name: dns-sb-jp2
 website: https://dns.sb/doh
-tags: sni, Japan, AsiaPacific
+tags: sni, Japan, AsiaPacific, FarEast
 address: jp-nrt.doh.sb:443
 host: jp-nrt.doh.sb/dns-query
 keepalive: 40
@@ -826,7 +801,7 @@ end;
 
 name: dns-sb-hk
 website: https://dns.sb/doh
-tags: sni, HongKong, AsiaPacific
+tags: sni, HongKong, AsiaPacific, FarEast
 address: hk-hkg.doh.sb:443
 host: hk-hkg.doh.sb/dns-query
 keepalive: 40
@@ -842,7 +817,7 @@ end;
 
 name: dns-sb-us
 website: https://dns.sb/doh
-tags: sni, US, Americas
+tags: sni, US, America
 address: us-chi.doh.sb:443
 host: us-chi.doh.sb/dns-query
 keepalive: 40
@@ -850,7 +825,7 @@ end;
 
 name: dns-sb-us2
 website: https://dns.sb/doh
-tags: sni, US, Americas
+tags: sni, US, America
 address: us-nyc.doh.sb:443
 host: us-nyc.doh.sb/dns-query
 keepalive: 40
@@ -858,9 +833,17 @@ end;
 
 name: dns-sb-us3
 website: https://dns.sb/doh
-tags: sni, US, Americas
+tags: sni, US, America
 address: us-sjc.doh.sb:443
 host: us-sjc.doh.sb/dns-query
+keepalive: 40
+end;
+
+name: dns-sb-us4
+website: https://dns.sb/doh
+tags: sni, US, America
+address: us-lax.doh.sb:443
+host: us-lax.doh.sb/dns-query
 keepalive: 40
 end;
 
@@ -874,15 +857,23 @@ end;
 
 name: dns-sb-sg
 website: https://dns.sb/doh
-tags: sni, Singapore, AsiaPacific
+tags: sni, Singapore, AsiaPacific, FarEast
 address: sg-sin.doh.sb:443
 host: sg-sin.doh.sb/dns-query
 keepalive: 40
 end;
 
+name: dns-sb-sg2
+website: https://dns.sb/doh
+tags: sni, Singapore, AsiaPacific, FarEast
+address: sg-sin2.doh.sb:443
+host: sg-sin2.doh.sb/dns-query
+keepalive: 40
+end;
+
 name: dns-sb-kr
 website: https://dns.sb/doh
-tags: sni, Korea, AsiaPacific
+tags: sni, Korea, AsiaPacific, FarEast
 address: kr-sel.doh.sb:443
 host: kr-sel.doh.sb/dns-query
 keepalive: 40
@@ -898,7 +889,7 @@ end;
 
 name: dns-sb-ca
 website: https://dns.sb/doh
-tags: sni, Canada, Americas
+tags: sni, Canada, America
 address: ca-yyc.doh.sb:443
 host: ca-yyc.doh.sb/dns-query
 keepalive: 40
@@ -906,7 +897,7 @@ end;
 
 name: dns-sb-de3
 website: https://dns.sb/doh
-tags: sni, Canada, Americas
+tags: sni, Berlin, Europe
 address: de-ber.doh.sb:443
 host: de-ber.doh.sb/dns-query
 keepalive: 40
@@ -920,22 +911,13 @@ end;
 #keepalive: 40
 #end;
 
-# temporarily discontinued, moving to new VPS providers
-#name: dnscrypt-ca
-#website: https://dnscrypt.ca/
-#tags: Canada, Americas
-#address: 167.114.220.125:453
-#host: dns1.dnscrypt.ca:453/dns-query
-#keepalive: 40
-#end;
-#
-#name: dnscrypt-ca2
-#website: https://dnscrypt.ca/
-#tags: Canada, Americas
-#address: 149.56.228.45:453
-#host: dns2.dnscrypt.ca:453/dns-query
-#keepalive: 40
-#end;
+name: dnscrypt-ca
+website: https://dnscrypt.ca/
+tags: Canada, America
+address: 185.111.188.46:443
+host: dns1.dnscrypt.ca/dns-query
+keepalive: 40
+end;
 
 #name: dnsforfamily
 #website: https://dnsforfamily.com
@@ -996,7 +978,7 @@ end;
 
 name: dnslow
 website: https://dnslow.me/
-tags: adblocker, Japan, AsiaPacific
+tags: adblocker, Japan, AsiaPacific, FarEast
 address: 52.246.182.50:443
 host: dnslow.me/dns-query
 keepalive: 40
@@ -1004,7 +986,7 @@ end;
 
 name: dnswarden
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, Americas, AsiaPacific, Europe
+tags: sni, America, AsiaPacific, Europe
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
 keepalive: 25
@@ -1012,7 +994,7 @@ end;
 
 name: dnswarden-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, dot, Americas, AsiaPacific, Europe
+tags: sni, dot, America, AsiaPacific, Europe
 address: uncensored.dns.dnswarden.com:853
 host: uncensored.dns.dnswarden.com/
 keepalive: 25
@@ -1020,7 +1002,7 @@ end;
 
 name: dnswarden-adblocker
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, adblocker, Americas, AsiaPacific, Europe
+tags: sni, adblocker, America, AsiaPacific, Europe
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adblock
 keepalive: 25
@@ -1028,7 +1010,7 @@ end;
 
 name: dnswarden-adblocker-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, dot, adblocker, Americas, AsiaPacific, Europe
+tags: sni, dot, adblocker, America, AsiaPacific, Europe
 address: adblock.dns.dnswarden.com:853
 host: adblock.dns.dnswarden.com/
 keepalive: 25
@@ -1036,7 +1018,7 @@ end;
 
 name: dnswarden-family
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, family, Americas, AsiaPacific, Europe
+tags: sni, family, America, AsiaPacific, Europe
 address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adultfilter
 keepalive: 25
@@ -1044,29 +1026,11 @@ end;
 
 name: dnswarden-family-dot
 website: https://github.com/bhanupratapys/dnswarden
-tags: sni, dot, family, Americas, AsiaPacific, Europe
+tags: sni, dot, family, America, AsiaPacific, Europe
 address: adultfilter.dns.dnswarden.com:853
 host: adultfilter.dns.dnswarden.com/
 keepalive: 25
 end;
-
-# expired cert
-#name: eth-services
-#website: https://servers.opennic.org/
-#tags: Germany, Europe
-#address: 94.247.43.254:853
-#host: opennic1.eth-services.de:853/
-#keepalive: 40
-#end;
-
-# ns31.de.dns.opennic.glue
-#name: eth-services2
-#website: https://servers.opennic.org/
-#tags: Germany, Europe
-#address: 195.10.195.195:853
-#host: opennic2.eth-services.de:853/
-#keepalive: 40
-#end;
 
 #name: faelix-uk-adblocker
 #website: https://faelix.net/ref/dns/#privacy-dns
@@ -1207,7 +1171,7 @@ end;
 
 name: flutadns
 website: https://site.futa.gg/
-tags: sni, adblocker, Taiwan, AsiaPacific
+tags: sni, adblocker, Taiwan, AsiaPacific, FarEast
 address: 104.16.0.132:443
 host: doh.futa.gg/dns-query
 keepalive: 40
@@ -1282,7 +1246,7 @@ end;
 # using HTTP 1.1
 #name: lavadns-us
 #website: https://dns.lavate.ch
-#tags: US, Americas
+#tags: US, America
 #address: 79.110.170.43:443
 #host: us1.dns.lavate.ch/dns-query
 #keepalive: 40
@@ -1381,7 +1345,7 @@ end;
 
 name: lonet3
 website: https://lonet.org/service/dns
-tags: sni, US, Americas, adblocker
+tags: sni, US, America, adblocker
 address: 74.208.85.60:443
 host: doh.phdns3.lonet.org/dns-query
 keepalive: 25
@@ -1389,7 +1353,7 @@ end;
 
 #name: lonet3-dot
 #website: https://lonet.org/service/dns
-#tags: sni, dot, US, Americas, adblocker
+#tags: sni, dot, US, America, adblocker
 #address: 74.208.85.60:853
 #host: doh.phdns3.lonet.org/
 #keepalive: 25
@@ -1428,33 +1392,33 @@ end;
 #end;
 
 # redirected to cloudflare
-#name: mydns.network
-#website: https://mydns.network
-#tags: sni, Americas, AsiaPacific, Europe
-#address: freedom.mydns.network:443
-#host: freedom.mydns.network/dns-query
-#keepalive: 40
-#end;
-#
-#name: mydns.network2
-#website: https://mydns.network
-#tags: sni, Americas, AsiaPacific, Europe
-#address: paranoia.mydns.network:443
-#host: paranoia.mydns.network/dns-query
-#keepalive: 40
-#end;
-#
-#name: mydns.network.adblock
-#website: https://mydns.network
-#tags: sni, adblocker, Americas, AsiaPacific, Europe
-#address: adblock.mydns.network:443
-#host: adblock.mydns.network/dns-query
-#keepalive: 40
-#end;
+name: mydns.network
+website: https://mydns.network
+tags: sni, America, AsiaPacific, Europe
+address: freedom.mydns.network:443
+host: freedom.mydns.network/dns-query
+keepalive: 40
+end;
+
+name: mydns.network2
+website: https://mydns.network
+tags: sni, America, AsiaPacific, Europe
+address: paranoia.mydns.network:443
+host: paranoia.mydns.network/dns-query
+keepalive: 40
+end;
+
+name: mydns.network.adblock
+website: https://mydns.network
+tags: sni, adblocker, America, AsiaPacific, Europe
+address: adblock.mydns.network:443
+host: adblock.mydns.network/dns-query
+keepalive: 40
+end;
 
 name: mydns.network.family
 website: https://mydns.network
-tags: sni, family, Americas, AsiaPacific, Europe
+tags: sni, family, America, AsiaPacific, Europe
 address: family.mydns.network:443
 host: family.mydns.network/dns-query
 keepalive: 40
@@ -1470,7 +1434,7 @@ end;
 
 name: nextdns
 website: https://nextdns.io/
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 45.90.30.0:443
 host: trr.dns.nextdns.io/
 keepalive: 40
@@ -1478,7 +1442,7 @@ end;
 
 name: nextdns-dot
 website: https://nextdns.io/
-tags: dot, Americas, AsiaPacific, Europe
+tags: anycast, dot, America, AsiaPacific, Europe
 address: 45.90.30.0:853
 host: trr.dns.nextdns.io/
 keepalive: 40
@@ -1486,7 +1450,7 @@ end;
 
 name: nextdns2
 website: https://nextdns.io/
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
 keepalive: 40
@@ -1494,7 +1458,7 @@ end;
 
 name: nextdns2-dot
 website: https://nextdns.io/
-tags: dot, Americas, AsiaPacific, Europe
+tags: anycast, dot, America, AsiaPacific, Europe
 address: 45.90.28.0:853
 host: trr.dns.nextdns.io/
 keepalive: 40
@@ -1502,7 +1466,7 @@ end;
 
 name: nextdns3
 website: https://nextdns.io/
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: trr.dns.nextdns.io:443
 host: trr.dns.nextdns.io/
 keepalive: 40
@@ -1510,7 +1474,7 @@ end;
 
 name: nextdns3-dot
 website: https://nextdns.io/
-tags: dot, Americas, AsiaPacific, Europe
+tags: anycast, dot, America, AsiaPacific, Europe
 address: trr.dns.nextdns.io:853
 host: trr.dns.nextdns.io/
 keepalive: 40
@@ -1589,26 +1553,17 @@ keepalive: 25
 end;
 
 # running in cloudflare cloud
-name: paesadns
-website: https://milgradesec.github.io/paesadns/
-tags: sni, Americas, AsiaPacific, Europe
-address: dns.paesa.es:443
-host: dns.paesa.es/dns-query
-keepalive: 40
-end;
-
-# short keepalive
-#name: puredns
-#website: https://puredns.org/
-#tags: sni, Singapore, AsiaPacific
-#address: puredns.org:443
-#host: puredns.org/dns-query
+#name: paesadns
+#website: https://milgradesec.github.io/paesadns/
+#tags: sni, America, AsiaPacific, Europe
+#address: dns.paesa.es:443
+#host: dns.paesa.es/dns-query
 #keepalive: 40
 #end;
 
 name: qquackdns
 website: https://qquack.org/nameserver/
-tags: Korea, AsiaPacific
+tags: Korea, AsiaPacific, FarEast
 address: ns1.qquack.org:443
 host: ns1.qquack.org/dns-query
 keepalive: 40
@@ -1616,7 +1571,7 @@ end;
 
 name: quad9
 website: https://quad9.net
-tags: security, Americas, AsiaPacific, Europe
+tags: anycast, security, America, AsiaPacific, Europe
 address: 9.9.9.9:443
 host: dns.quad9.net/dns-query
 keepalive: 25
@@ -1624,7 +1579,7 @@ end;
 
 name: quad9-2
 website: https://quad9.net
-tags: security, Americas, AsiaPacific, Europe
+tags: anycast, security, America, AsiaPacific, Europe
 address: 149.112.112.112:443
 host: dns.quad9.net/dns-query
 keepalive: 25
@@ -1632,7 +1587,7 @@ end;
 
 name: quad9-3
 website: https://quad9.net
-tags: security, Americas, AsiaPacific, Europe
+tags: anycast, security, America, AsiaPacific, Europe
 address: 149.112.112.9:443
 host: dns9.quad9.net/dns-query
 keepalive: 25
@@ -1640,7 +1595,7 @@ end;
 
 name: quad9-unsecured
 website: https://quad9.net
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 9.9.9.10:443
 host: dns10.quad9.net/dns-query
 keepalive: 25
@@ -1648,27 +1603,11 @@ end;
 
 name: quad9-unsecured-2
 website: https://quad9.net
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 149.112.112.10:443
 host: dns10.quad9.net/dns-query
 keepalive: 25
 end;
-
-#name: quadrantsec
-#website: https://quadrantsec.com/blog/quadrants-public-dns-resolver-tls-https-support
-#tags: US, Americas
-#address: 12.159.2.159:443
-#host: doh.qis.io/dns-query
-#keepalive: 40
-#end;
-#
-#name: quadrantsec-dot
-#website: https://quadrantsec.com/blog/quadrants-public-dns-resolver-tls-https-support
-#tags: dot, US, Americas
-#address: 12.159.2.159:853
-#host: doh.qis.io/dns-query
-#keepalive: 25
-#end;
 
 #name: r0cket
 #website: https://dns.radeksprta.eu/
@@ -1681,24 +1620,16 @@ end;
 # 10 sec keepalive
 #name: r0cket-dot
 #website: https://dns.radeksprta.eu/
-#tags: dot, Sweden, Europe
+#tags: dot, Czechia, Europe
 #address: 80.211.208.74:853
 #host: resolver.r0cket.net/
 #keepalive: 40
 #end;
 
-#name: radeksprta-dot
-#website: https://dns.radeksprta.eu/
-#tags: dot, Czechia, Europe
-#address: 80.211.208.74:853
-#host: dns.radeksprta.eu/
-#keepalive: 25
-#end;
-
 # running in cloudflare cloud
 name: rethink
 website: https://www.rethinkdns.com
-tags: sni, Americas, AsiaPacific, Europe
+tags: sni, America, AsiaPacific, Europe
 address: basic.rethinkdns.com:443
 host: basic.rethinkdns.com/dns-query
 keepalive: 40
@@ -1707,7 +1638,7 @@ end;
 # running in cloudflare cloud
 name: rethink-adblocker
 website: https://www.rethinkdns.com
-tags: sni, adblocker, Americas, AsiaPacific, Europe
+tags: sni, adblocker, America, AsiaPacific, Europe
 address: sky.rethinkdns.com:443
 host: sky.rethinkdns.com/1:IAAgAA==
 keepalive: 40
@@ -1715,20 +1646,20 @@ end;
 
 name: rezjahul
 website: https://doh.rezhajul.io/
-tags: sni, adblocker, Singapore, AsiaPacific
+tags: sni, adblocker, Singapore, AsiaPacific, FarEast
 address: doh.rezhajul.io:443
 host: doh.rezhajul.io/dns-query
 keepalive: 40
 end;
 
 # redirected to cloudflare
-#name: rotunneling
-#website: https://www.rotunneling.net/rotunneling-doh-free/
-#tags: sni, adblocker, Romania, Europe
-#address: dns.rotunneling.net:443
-#host: dns.rotunneling.net/dns-query/public
-#keepalive: 40
-#end;
+name: rotunneling
+website: https://www.rotunneling.net/rotunneling-doh-free/
+tags: sni, adblocker, Romania, Europe
+address: dns.rotunneling.net:443
+host: dns.rotunneling.net/dns-query/public
+keepalive: 40
+end;
 
 name: ryan-palmer
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
@@ -1772,7 +1703,7 @@ end;
 
 name: sev.monster
 website: https://sev.monster/
-tags: US, Americas
+tags: US, America
 address: 168.235.111.72:443
 host: dns.sev.monster/dns-query
 keepalive: 40
@@ -1830,7 +1761,7 @@ end;
 # expired certificate
 # name: teradns-us1
 # website: https://teradns.org/dns-over-https/
-# tags: US, Americas
+# tags: US, America
 # address: 45.61.162.132:443
 # host: ny.teradns.org/dns-query
 # keepalive: 40
@@ -1839,7 +1770,7 @@ end;
 # expired certificate
 #name: teradns-us2
 #website: https://teradns.org/dns-over-https/
-#tags: US, Americas
+#tags: US, America
 #address: 45.79.38.174:443
 #host: tx.teradns.org/dns-query
 #keepalive: 40
@@ -1856,32 +1787,24 @@ end;
 
 # name: teradns-sg
 # website: https://teradns.org/dns-over-https/
-# tags: Singapore, AsiaPacific
+# tags: Singapore, AsiaPacific, FarEast
 # address: 103.167.151.201:443
 # host: sg.teradns.org/dns-query
 # keepalive: 40
 # end;
 
-#name: therifleman
-#website: https://therifleman.name/
-#tags: India, AsiaPacific
-#address: 172.104.206.174:443
-#host: dns.therifleman.name/dns-query
-#keepalive: 40
-#end;
-
 # cloudflare redirect
-#name: tiarap
-#website: https://doh.tiarap.org
-#tags: sni, Americas, AsiaPacific, Europe
-#address: doh.tiarap.org:443
-#host: doh.tiarap.org/dns-query
-#keepalive: 40
-#end;
+name: tiarap
+website: https://doh.tiarap.org
+tags: sni, AsiaPacific
+address: doh.tiarap.org:443
+host: doh.tiarap.org/dns-query
+keepalive: 40
+end;
 
 name: twnic
 website: https://101.101.101.101/index_en.html
-tags: Taiwan, AsiaPacific
+tags: Taiwan, AsiaPacific, FarEast
 address: 101.101.101.101:443
 host: dns.twnic.tw/dns-query
 keepalive: 40
@@ -1889,7 +1812,7 @@ end;
 
 name: twnic-dot
 website: https://101.101.101.101/index_en.html
-tags: dot, Taiwan, AsiaPacific
+tags: dot, Taiwan, AsiaPacific, FarEast
 address: 101.101.101.101:853
 host: dns.twnic.tw/
 keepalive: 25
@@ -1897,7 +1820,7 @@ end;
 
 #name: uncensoreddns
 #website: https://blog.uncensoreddns.org/
-#tags: Europe, Americas
+#tags: Europe, America
 #address: 91.239.100.100:443
 #host: anycast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -1913,7 +1836,7 @@ end;
 #
 #name: uncensoreddns3
 #website: https://blog.uncensoreddns.org/
-#tags: US, Americas
+#tags: US, America
 #address: 198.180.150.12:443
 #host: unicast.censurfridns.dk/dns-query
 #keepalive: 25
@@ -1945,7 +1868,7 @@ end;
 
 name: vinnyp
 website: https://dns.vinnyp.xyz/privacy
-tags: family, US, Americas
+tags: family, US, America
 address: 167.99.150.134:443
 host: dns.vinnyp.xyz/dns-query
 keepalive: 40
@@ -1953,7 +1876,7 @@ end;
 
 name: vinnyp-dot
 website: https://dns.vinnyp.xyz/privacy
-tags: dot, family, US, Americas
+tags: dot, family, US, America
 address: 167.99.150.134:853
 host: dns.vinnyp.xyz/dns-query
 keepalive: 40
@@ -1961,7 +1884,7 @@ end;
 
 name: wikimedia
 website: https://meta.wikimedia.org/wiki/Wikimedia_DNS
-tags: Americas, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 185.71.138.138:443
 host: wikimedia-dns.org/dns-query
 keepalive: 25
@@ -1980,7 +1903,7 @@ end;
 # - extracted from https://dnscry.pt lists
 ##################################################
 name: dnscry-tampa
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 165.140.117.248:853
 host: tpa01.dnscry.pt/
@@ -2004,7 +1927,7 @@ keepalive: 25
 end;
 
 name: dnscry-fremont
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 23.134.88.71:853
 host: fet01.dnscry.pt/
@@ -2028,7 +1951,7 @@ keepalive: 25
 end;
 
 name: dnscry-jakarta
-tags: dot, Indonesia, AsiaPacific
+tags: dot, Indonesia, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 103.76.129.94:853
 host: jkt01.dnscry.pt/
@@ -2036,7 +1959,7 @@ keepalive: 25
 end;
 
 name: dnscry-taos
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 63.133.223.138:853
 host: tsm01.dnscry.pt/
@@ -2052,7 +1975,7 @@ keepalive: 25
 end;
 
 name: dnscry-durham
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 38.45.64.117:853
 host: rdu01.dnscry.pt/
@@ -2060,7 +1983,7 @@ keepalive: 25
 end;
 
 name: dnscry-atlanta
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 170.249.237.154:853
 host: atl01.dnscry.pt/
@@ -2084,7 +2007,7 @@ keepalive: 25
 end;
 
 name: dnscry-montreal
-tags: dot, Canada, Americas
+tags: dot, Canada, America
 website: https://www.dnscry.pt
 address: 147.189.136.183:853
 host: ymq01.dnscry.pt/
@@ -2092,7 +2015,7 @@ keepalive: 25
 end;
 
 name: dnscry-flint
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 147.189.140.136:853
 host: fnt01.dnscry.pt/
@@ -2100,7 +2023,7 @@ keepalive: 25
 end;
 
 #name: dnscry-ottoville
-#tags: dot, US, Americas
+#tags: dot, US, America
 #website: https://www.dnscry.pt
 #address: 104.234.231.23:853
 #host: ott01.dnscry.pt/
@@ -2116,7 +2039,7 @@ keepalive: 25
 end;
 
 name: dnscry-hongkong
-tags: dot, HongKong, AsiaPacific
+tags: dot, HongKong, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 89.213.0.26:853
 host: hkg01.dnscry.pt/
@@ -2132,7 +2055,7 @@ keepalive: 25
 end;
 
 name: dnscry-lima
-tags: dot, Peru, SouthAmerica, Americas
+tags: dot, Peru, SouthAmerica, America
 website: https://www.dnscry.pt
 address: 161.132.47.185:853
 host: lim01.dnscry.pt/
@@ -2164,7 +2087,7 @@ keepalive: 25
 end;
 
 #name: dnscry-tokyo
-#tags: dot, Japan, AsiaPacific
+#tags: dot, Japan, AsiaPacific, FarEast
 #website: https://www.dnscry.pt
 #address: 84.33.12.158:853
 #host: tyo01.dnscry.pt/
@@ -2172,7 +2095,7 @@ end;
 #end;
 
 name: dnscry-losangeles
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 84.33.244.100:853
 host: lax01.dnscry.pt/
@@ -2188,7 +2111,7 @@ keepalive: 25
 end;
 
 name: dnscry-toronto
-tags: dot, Canada, Americas
+tags: dot, Canada, America
 website: https://www.dnscry.pt
 address: 23.134.89.23:853
 host: yyz01.dnscry.pt/
@@ -2204,7 +2127,7 @@ keepalive: 25
 end;
 
 name: dnscry-chicago
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 45.41.204.204:853
 host: ord01.dnscry.pt/
@@ -2220,7 +2143,7 @@ keepalive: 25
 end;
 
 #name: dnscry-dallas
-#tags: dot, US, Americas
+#tags: dot, US, America
 #website: https://www.dnscry.pt
 #address: 202.5.26.130:853
 #host: dfw01.dnscry.pt/
@@ -2228,7 +2151,7 @@ end;
 #end;
 
 name: dnscry-santaclara
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 176.111.223.167:853
 host: sjc01.dnscry.pt/
@@ -2244,7 +2167,7 @@ keepalive: 25
 end;
 
 name: dnscry-valdivia
-tags: dot, Chile, SouthAmerica, Americas
+tags: dot, Chile, SouthAmerica, America
 website: https://www.dnscry.pt
 address: 216.73.159.26:853
 host: zal01.dnscry.pt/
@@ -2268,7 +2191,7 @@ keepalive: 25
 end;
 
 name: dnscry-taipeh
-tags: dot, Taiwan, AsiaPacific
+tags: dot, Taiwan, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 103.131.189.11:853
 host: tpe01.dnscry.pt/
@@ -2316,7 +2239,7 @@ keepalive: 25
 end;
 
 name: dnscry-libertylake
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 23.184.48.19:853
 host: llk01.dnscry.pt/
@@ -2324,7 +2247,7 @@ keepalive: 25
 end;
 
 name: dnscry-singapore02
-tags: dot, Singapore, AsiaPacific
+tags: dot, Singapore, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 103.179.44.73:853
 host: sin02.dnscry.pt/
@@ -2340,7 +2263,7 @@ keepalive: 25
 end;
 
 #name: dnscry-losangeles02
-#tags: dot, US, Americas
+#tags: dot, US, America
 #website: https://www.dnscry.pt
 #address: 104.200.67.194:853
 #host: lax02.dnscry.pt/
@@ -2356,7 +2279,7 @@ keepalive: 25
 end;
 
 name: dnscry-spokane
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 104.36.86.181:853
 host: geg01.dnscry.pt/
@@ -2364,7 +2287,7 @@ keepalive: 25
 end;
 
 name: dnscry-portland
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 103.124.106.233:853
 host: pdx01.dnscry.pt/
@@ -2380,7 +2303,7 @@ keepalive: 25
 end;
 
 #name: dnscry-singapore
-#tags: dot, Singapore, AsiaPacific
+#tags: dot, Singapore, AsiaPacific, FarEast
 #website: https://www.dnscry.pt
 #address: 84.33.16.124:853
 #host: sin01.dnscry.pt/
@@ -2388,7 +2311,7 @@ end;
 #end;
 
 name: dnscry-phoenix
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 173.249.203.52:853
 host: phx01.dnscry.pt/
@@ -2396,7 +2319,7 @@ keepalive: 25
 end;
 
 name: dnscry-coeurdalene
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 104.192.102.132:853
 host: coe01.dnscry.pt/
@@ -2404,7 +2327,7 @@ keepalive: 25
 end;
 
 name: dnscry-kansascity
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 23.150.40.121:853
 host: mci01.dnscry.pt/
@@ -2412,7 +2335,7 @@ keepalive: 25
 end;
 
 name: dnscry-allentown
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 23.137.253.24:853
 host: abe01.dnscry.pt/
@@ -2420,7 +2343,7 @@ keepalive: 25
 end;
 
 name: dnscry-portedwards
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 176.111.219.126:853
 host: ped01.dnscry.pt/
@@ -2428,7 +2351,7 @@ keepalive: 25
 end;
 
 name: dnscry-saltlakecity
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 103.114.162.65:853
 host: slc01.dnscry.pt/
@@ -2436,7 +2359,7 @@ keepalive: 25
 end;
 
 name: dnscry-philadelphia
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 154.16.159.22:853
 host: phl01.dnscry.pt/
@@ -2452,7 +2375,7 @@ keepalive: 25
 end;
 
 name: dnscry-denver
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 193.8.172.248:853
 host: den01.dnscry.pt/
@@ -2476,7 +2399,7 @@ keepalive: 25
 end;
 
 name: dnscry-seattle
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 45.14.115.125:853
 host: sea01.dnscry.pt/
@@ -2484,7 +2407,7 @@ keepalive: 25
 end;
 
 name: dnscry-tokyo02
-tags: dot, Japan, AsiaPacific
+tags: dot, Japan, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 103.179.45.6:853
 host: tyo02.dnscry.pt/
@@ -2508,7 +2431,7 @@ keepalive: 25
 end;
 
 name: dnscry-lasvegas
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 209.141.45.27:853
 host: las01.dnscry.pt/
@@ -2524,7 +2447,7 @@ keepalive: 25
 end;
 
 name: dnscry-miami
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 84.33.14.10:853
 host: mia01.dnscry.pt/
@@ -2540,7 +2463,7 @@ keepalive: 25
 end;
 
 name: dnscry-hongkong02
-tags: dot, HongKong, AsiaPacific
+tags: dot, HongKong, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 45.123.188.129:853
 host: hkg02.dnscry.pt/
@@ -2556,7 +2479,7 @@ keepalive: 25
 end;
 
 name: dnscry-newyork
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 84.33.245.10:853
 host: nyc01.dnscry.pt/
@@ -2564,7 +2487,7 @@ keepalive: 25
 end;
 
 name: dnscry-detroit
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 66.187.7.140:853
 host: dtw01.dnscry.pt/
@@ -2580,7 +2503,7 @@ keepalive: 25
 end;
 
 name: dnscry-saopaulo
-tags: dot, Brazil, SouthAmerica, Americas
+tags: dot, Brazil, SouthAmerica, America
 website: https://www.dnscry.pt
 address: 108.181.69.153:853
 host: gru01.dnscry.pt/
@@ -2588,7 +2511,7 @@ keepalive: 25
 end;
 
 name: dnscry-vancouver
-tags: dot, Canada, Americas
+tags: dot, Canada, America
 website: https://www.dnscry.pt
 address: 104.36.148.46:853
 host: yvr01.dnscry.pt/
@@ -2596,7 +2519,7 @@ keepalive: 25
 end;
 
 name: dnscry-hanoi
-tags: dot, Vietnam, AsiaPacific
+tags: dot, Vietnam, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 103.199.16.93:853
 host: han01.dnscry.pt/
@@ -2604,7 +2527,7 @@ keepalive: 25
 end;
 
 name: dnscry-hochiminh
-tags: dot, Vietnam, AsiaPacific
+tags: dot, Vietnam, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 157.20.83.135:853
 host: sgn01.dnscry.pt/
