@@ -164,8 +164,10 @@ void resolver(void) {
 			if (--dns_keepalive_cnt <= 0)  {
 				dns_send_keepalive();
 				dns_keepalive_cnt = srv->keepalive;
-				print_time();
-				printf("(%d) keepalive %d\n", arg_id, dns_keepalive_cnt);
+				if (ssl_state == SSL_OPEN) {
+					print_time();
+					printf("(%d) keepalive %d\n", arg_id, dns_keepalive_cnt);
+				}
 				stats.changed = 1;
 			}
 

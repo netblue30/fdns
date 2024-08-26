@@ -30,6 +30,9 @@
 #include <sys/stat.h>
 #include <sys/un.h>
 
+// keepalive autodetect
+static int restarting = 0;
+
 #ifdef __ia64__
 /* clone(2) has a different interface on ia64, as it needs to know
    the size of the stack */
@@ -109,12 +112,24 @@ static int sandbox(void *sandbox_arg) {
 		a[last++] = "--allow-self-signed-certs";
 	if (arg_allow_expired_certs)
 		a[last++] = "--allow-expired-certs";
+
+	// keepalive autodetect
+	DnsServer *srv = server_get();
+	assert(srv);
+	// keepalive autodetection
+	if (restarting && !arg_keepalive) {
+		arg_keepalive = srv->keepalive - 3;
+		print_time();
+		printf("(%d) Keepalive reconfigured for %d seconds\n", id, arg_keepalive);
+	}
+
 	if (arg_keepalive) {
 		char *cmd;
 		if (asprintf(&cmd, "--keepalive=%d", arg_keepalive) == -1)
 			errExit("asprintf");
 		a[last++] = cmd;
 	}
+
 	if (arg_certfile) {
 		char *cmd;
 		if (asprintf(&cmd, "--certfile=%s", arg_certfile) == -1)
@@ -156,7 +171,7 @@ static int sandbox(void *sandbox_arg) {
 			a[last++] = cmd;
 		}
 	}
-	
+
 	if (wcnt) {
 		whitelist_command(a + last);
 		last += wcnt;
@@ -253,6 +268,8 @@ void frontend(void) {
 	int i;
 	for (i = 0; i < arg_resolvers; i++)
 		start_sandbox(i);
+	// keepalive autodetection
+	restarting = 1;
 
 	// handle SIGCHLD in pselect loop
 	sigset_t sigmask, empty_mask;
@@ -389,6 +406,7 @@ void frontend(void) {
 						       &s.fwd,
 						       &s.query_time,
 						       &k);
+						// keepalive autodetection
 						srv->keepalive = (k > srv->keepalive)? k: srv->keepalive;
 
 						// calculate global stats

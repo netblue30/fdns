@@ -233,6 +233,7 @@ drop_nxdomain:
 	return buf;
 }
 
+static int freerun_limit = 0;
 void dns_send_keepalive(void) {
 	if (ssl_state == SSL_CLOSED)
 		return;
@@ -246,8 +247,17 @@ void dns_send_keepalive(void) {
 	int len;
 	DnsServer *srv = server_get();
 	assert(srv);
-	if (srv->keepalive > 30)
+
+	// keepalive autodetection
+	freerun_limit += srv->keepalive;
+	if (!arg_keepalive)
 		srv->keepalive++;
+#define HALF_HOUR 1800
+#define TEN_MINUTES 600
+	else if (freerun_limit > (HALF_HOUR + arg_id * TEN_MINUTES)) {
+		if (srv->keepalive < CONFIG_KEEPALIVE_MAX)
+			srv->keepalive++;
+	}
 
 	len = transport->send_exampledotcom(msg);
 	// some servers return NXDOMAIN for example.com

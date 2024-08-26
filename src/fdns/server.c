@@ -33,7 +33,7 @@ static DnsServer *scurrent = NULL;	// current DoH/DoT server
 static inline void print_server(DnsServer *s) {
 	assert(s);
 	if (server_print_servers) {
-		printf("%s - %s (keepalive %d)\n", s->name, s->tags, s->keepalive);
+		printf("%s - %s\n", s->name, s->tags);
 		printf("\t%s\n", s->website);
 	}
 }
@@ -113,6 +113,12 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 		errExit("malloc");
 	memset(s, 0, sizeof(DnsServer));
 
+	// keepalive autodetection
+	if (arg_keepalive)
+		s->keepalive = arg_keepalive;
+	else
+		s->keepalive = KEEPALIVE_DEFAULT;
+
 	char buf[4096];
 	buf[0] = '\0';
 	int host = 0;
@@ -149,7 +155,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 			}
 		}
 
-		if (strcmp(tok1, "end") != 0 && tok2 == NULL) {
+ 		if (strcmp(tok1, "end") != 0 && tok2 == NULL) {
 			fprintf(stderr, "Error: file %s, line %d, invalid command\n", fname, *linecnt);
 			exit(1);
 		}
@@ -226,19 +232,16 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				errExit("strdup");
 			*str++ = '\0';
 		}
+
 		else if (strcmp(tok1, "keepalive") == 0) {
-			if (s->keepalive)
-				goto errout;
 			assert(tok2);
 
 			if (sscanf(tok2, "%d", &s->keepalive) != 1 || s->keepalive <= 0) {
 				fprintf(stderr, "Error: file %s, line %d, invalid keepalive\n", fname, *linecnt);
 				exit(1);
 			}
-
-			if (arg_keepalive)
-				s->keepalive = arg_keepalive;
 		}
+
 		else if (strcmp(tok1, "end") == 0) {
 			assert(tok2 == NULL);
 			// check server data
@@ -397,8 +400,6 @@ static float test_server(const char *server_name)  {
 		if (arg_details)
 			transport->header_stats();
 		printf("   %s/Do53 bandwidth ratio: %0.02f\n", transport->dns_type, transport->bandwidth());
-		if (s->tags) // servers set from command line don't have a tag, and the keepalive is supposed to be 60
-			printf("   Keepalive: %d seconds\n", s->keepalive);
 
 		fflush(0);
 		exit(0);
@@ -771,7 +772,7 @@ void server_set_custom(const char *url) {
 	if (arg_keepalive)
 		s->keepalive = arg_keepalive;
 	else
-		s->keepalive = DEFAULT_KEEPALIVE_VALUE;
+		s->keepalive = KEEPALIVE_DEFAULT;
 
 	scurrent = s;
 }
