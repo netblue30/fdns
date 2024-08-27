@@ -234,7 +234,12 @@ drop_nxdomain:
 }
 
 static int freerun_limit = 0;
+static int freerun_counter = 0;
 void dns_send_keepalive(void) {
+#define HALF_HOUR 1800
+	if (freerun_limit == 0)
+		freerun_limit = HALF_HOUR + (rand() % HALF_HOUR);
+
 	if (ssl_state == SSL_CLOSED)
 		return;
 
@@ -249,12 +254,10 @@ void dns_send_keepalive(void) {
 	assert(srv);
 
 	// keepalive autodetection
-	freerun_limit += srv->keepalive;
+	freerun_counter += srv->keepalive;
 	if (!arg_keepalive)
 		srv->keepalive++;
-#define HALF_HOUR 1800
-#define TEN_MINUTES 600
-	else if (freerun_limit > (HALF_HOUR + arg_id * TEN_MINUTES)) {
+	else if (freerun_counter > freerun_limit) {
 		if (srv->keepalive < CONFIG_KEEPALIVE_MAX)
 			srv->keepalive++;
 	}

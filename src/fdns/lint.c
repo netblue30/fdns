@@ -36,7 +36,8 @@ static const char *err2str[DNSERR_MAX] = {
 	"invalid packet length",
 	"invalid RR length",
 	"potential rebinding attack",
-	"cname cloaking"
+	"cname cloaking",
+	"invalid cname"
 };
 
 int lint_error(void) {
@@ -65,7 +66,7 @@ const char *lint_err2str(void) {
 static uint8_t cname[256 + 1];
 // get last cname
 const char *lint_get_cname(void) {
-	return (const char *) cname;
+	return (const char *) cname + 1;
 }
 //***********************************************
 // lint
@@ -131,10 +132,11 @@ errexit:
 	return -1;
 }
 
-
-static void clean_domain(uint8_t *ptr) {
+// return 1 if we have a compressed domain
+static uint16_t clean_domain(uint8_t *ptr, unsigned len) {
 	assert(ptr);
-	uint8_t *end = ptr + strlen((char *) ptr);
+	uint8_t *end = ptr + len;
+	uint16_t rv = 0;
 
 	while (*ptr != 0 && ptr < end) {
 		if ((*ptr & 0xc0) == 0) {
@@ -143,10 +145,13 @@ static void clean_domain(uint8_t *ptr) {
 			ptr += jump;
 		}
 		else {
-			*ptr = '.';
-			ptr++;
+			rv = ((*ptr) ^ 0xc0) * 256 + *(ptr + 1);
+			break;
 		}
+
 	}
+
+	return rv;
 }
 
 // return -1 if error, 0 if ok
@@ -290,6 +295,7 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 	assert(len);
 	uint8_t *last = pkt + len - 1;
 	dnserror = DNSERR_OK;
+	uint8_t *pktstart = pkt;
 
 	// check header
 	DnsHeader *h = lint_header(&pkt, last);
@@ -382,25 +388,42 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 			printf("(%d) %s %u.%u.%u.%u\n", arg_id, cache_get_name(), *pkt, *(pkt + 1), *(pkt + 2), *(pkt +3));
 		}
 		else if (rr.type == 5) { // CNAME
+			// CNAME Cloaking is implemented partially
 			if (rr.rlen > 253) {
 				dnserror = DNSERR_INVALID_RLEN;
 				return -1;
 			}
 
-//			uint8_t cname[256 + 1];
+			memset(cname, 0, sizeof(cname));
 			memcpy(cname, pkt, rr.rlen);
 			cname[rr.rlen] = '\0';
 
 			// clean cname
-			clean_domain(cname);
+			uint16_t rv = clean_domain(cname, rr.rlen);
+			if (rv) { // compressed domain
+				// check length
+				unsigned len = *(pktstart + rv);
+				if ((rr.rlen + len) > sizeof(cname)) {
+					dnserror = DNSERR_INVALID_CNAME;
+					return -1;
+				}
+
+				// copy
+				cname[rr.rlen - 2] = '.';
+				memcpy(cname + rr.rlen - 1, pktstart + rv + 1, len);
+				cname[rr.rlen + len - 1] = '\0';
+				if (cname[rr.rlen + len - 1 - 2] & 0xc0)
+					rv = 1;
+				else
+					rv = 0;
+			}
 			print_time();
 			printf("(%d) ", arg_id);
-			printf("CNAME: %s\n", cname);
+			printf("CNAME: %s\n", cname + 1);
 			fflush(0);
 
 			// CNAME Cloaking Blocklist
-			if (filter_cname((char *) cname)) {
-				assert(arg_nofilter == 0);
+			if (filter_cname((char *) cname + 1)) {
 				dnserror = DNSERR_CNAME_CLOAKING;
 				return -1;
 			}

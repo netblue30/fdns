@@ -62,7 +62,8 @@ typedef struct __attribute__((__packed__)) dns_rr_t {
 #define DNSERR_INVALID_RLEN 7
 #define DNSERR_REBINDING_ATTACK 8
 #define DNSERR_CNAME_CLOAKING 9
-#define DNSERR_MAX 10		// always the last one
+#define DNSERR_INVALID_CNAME 10
+#define DNSERR_MAX 11		// always the last one
 int lint_error(void);
 const char *lint_err2str(void);
 

@@ -59,6 +59,6 @@ void init_time_delta(void) {
 // print a timestamp - local time
 void print_time(void) {
 	time_t t = time(NULL);
-	struct tm *ts =gmtime(&t);
-	printf("%02u:%02u:%02u ", ts->tm_hour + gm_delta, ts->tm_min, ts->tm_sec);
+	struct tm *ts = gmtime(&t);
+	printf("%02d:%02d:%02d ", ts->tm_hour + gm_delta, ts->tm_min, ts->tm_sec);
 }
