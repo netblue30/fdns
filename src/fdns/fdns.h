@@ -91,12 +91,10 @@ static inline int rand_range(int min, int max) {
 #define H11_TIMEOUT 5 // wait time for HTTP1 (DoH) answer - will close the connection
 #define H2_TIMEOUT 5 // wait time for HTTP2 (DoH) answer - will close the connection
 
-// transport  keealive
+// transport  keealive autodetection
 #define CONFIG_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
-#define CONFIG_KEEPALIVE_MAX (180 + 3) // transport keepalive (PING) max value in seconds for --keepalive option
-
-// keepalive autodetection
-#define KEEPALIVE_DEFAULT 27
+#define KEEPALIVE_DEFAULT 25
+#define MAX_AUTODETECT_KEEPALIVE 65
 
 #define FALLBACK_TIMEOUT 10 // wait time for DNS responses from the server in fallback
 	// for NAT traversal, this value should be smaller than 30 seconds - the default is in /proc/sys/net/netfilter/nf_conntrack_udp_timeout

@@ -423,7 +423,7 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 			fflush(0);
 
 			// CNAME Cloaking Blocklist
-			if (!arg_nofilter && !rv && filter_cname((char *) cname + 1)) {
+			if (!arg_nofilter && !rv && filter_blocked((char *) cname + 1, 0)) {
 				dnserror = DNSERR_CNAME_CLOAKING;
 				return -1;
 			}

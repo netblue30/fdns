@@ -113,25 +113,34 @@ static DFilter default_filter[] = {
 	{"^sw88.", NULL, 0}, // 63
 	{"^tk.airfrance.", NULL, 0}, // 98
 
-	// phishing
-	{"^paypal.com.", NULL, 0},
-	{"^paypal.co.uk.", NULL, 0},
-	{"^paypal.co.de.", NULL, 0},
-	{"^amazon.de.", NULL, 0},
-	{"^appleid.apple.com.", NULL, 0},
-	{"^https.secure.", NULL, 0},
-	{"^online.paypal.com.", NULL, 0},
-	{"^paypal-", NULL, 0},
-	{"^amazon-", NULL, 0},
-	{"^google-", NULL, 0},
-	{"^appleid-", NULL, 0},
-	{"^icloud-", NULL, 0},
-	{"^iphone-", NULL, 0},
-	{"^itunes-", NULL, 0},
-	{"-telegram.com", NULL, 0},
-
 	{"^xinchao", NULL, 0}, // about 2800 miners here!
 	{NULL, NULL, 0}	// last entry
+};
+
+//************************************
+// CNAME cloaking based on rx DoH packet
+//************************************
+// based on https://github.com/nextdns/cname-cloaking-blocklist/blob/master/domains
+// MIT license
+static char *fp_block[] = {
+	".eulerian",		//eulerian.net
+	".at-o", 		//at-o.net
+	".keyade.", 		//k.keyade.com
+	".madmetrics",	// k.madmetrics.com
+	".2o7.",		//2o7.net
+	".adobedc.", 	// several domains
+	".omtrdc.", 		//sc.omtrdc.net
+	".storetail.",		//storetail.io
+	".dnsdelegation.",	//dnsdelegation.io
+	".tagcommander.",	//tagcommander.com
+	".wizaly.",		//wizaly.com
+	".affex.",		//affex.org
+	".intentmedia.",	//partner.intentmedia.net
+	".webtrekk.",	//webtrekk.net
+	".wt-eu02.",		//wt-eu02.net
+	".oghub.",		//oghub.io
+
+	NULL
 };
 
 typedef struct hash_entry_t {
@@ -479,6 +488,17 @@ int filter_blocked(const char *str, int verbose) {
 		i++;
 	}
 
+	// check default fptrackers
+	i = 0;
+	while (fp_block[i]) {
+		if (strstr(str, fp_block[i])) {
+			if (verbose)
+				printf("URL %s dropped by default fptrackers rule \"%s\"\n", str, fp_block[i]);
+			return 1;
+		}
+		i++;
+	}
+
 
 	int cnt = extract_domains(str);
 	for (i = cnt; i >= 0; i--) {
@@ -586,46 +606,3 @@ void filter_test_list(void) {
 	}
 }
 
-//************************************
-// CNAME cloaking based on rx DoH packet
-//************************************
-// based on https://github.com/nextdns/cname-cloaking-blocklist/blob/master/domains
-// MIT license
-static char *fp_block[] = {
-	".eulerian",		//eulerian.net
-	".at-o", 		//at-o.net
-	".keyade.", 		//k.keyade.com
-	".madmetrics",	// k.madmetrics.com
-	".2o7.",		//2o7.net
-	".adobedc.", 	// several domains
-	".omtrdc.", 		//sc.omtrdc.net
-	".storetail.",		//storetail.io
-	".dnsdelegation.",	//dnsdelegation.io
-	".tagcommander.",	//tagcommander.com
-	".wizaly.",		//wizaly.com
-	".affex.",		//affex.org
-	".intentmedia.",	//partner.intentmedia.net
-	".webtrekk.",	//webtrekk.net
-	".wt-eu02.",		//wt-eu02.net
-	".oghub.",		//oghub.io
-	".trafficmanager.",	// trafficmanager.net
-
-	NULL
-};
-
-// return -1 if found in the block list, 0 if not found in the block list
-int filter_cname(const char *cname) {
-	assert(cname);
-	int i = 0;
-
-	while (fp_block[i]) {
-		if (strstr(cname, fp_block[i]))
-			return -1;
-		i++;
-	}
-
-	if (filter_blocked(cname, 0))
-		return -1;
-
-	return 0;
-}

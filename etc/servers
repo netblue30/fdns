@@ -32,6 +32,7 @@
 #	host: URL
 #
 #	keepalive: seconds, how often we send a DNS request to keep the connection going.
+#		This number is just an indication to our keepalive autodetect engine where to start.
 #
 #	end;
 #	       Marks the end of the server description
@@ -66,14 +67,6 @@ host: testserver.123/dns-query
 # server inactivity timer 60 seconds or higher
 end;
 ############################
-
-#name: 0ms
-#website: https://0ms.dev/
-#tags: adblocker, Singapore, AsiaPacific, FarEast
-#address: 91.199.87.89:443
-#host: cdn.0ms.dev/dns-query
-#keepalive: 40
-#end;
 
 name: 42l
 website: https://42l.fr
@@ -123,6 +116,7 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, America, AsiaPacific, Europe
 address: 94.140.14.140:443
 host: dns-unfiltered.adguard.com/dns-query
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -138,6 +132,7 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, America, AsiaPacific, Europe
 address: 94.140.14.141:443
 host: dns-unfiltered.adguard.com/dns-query
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -153,7 +148,9 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 94.140.15.15:443
 host: dns.adguard.com/dns-query
+keepalive: 50
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: adguard-dot
@@ -168,7 +165,9 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 94.140.14.14:443
 host: dns.adguard.com/dns-query
+keepalive: 50
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: adguard2-dot
@@ -183,7 +182,9 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: family, America, AsiaPacific, Europe
 address: 94.140.15.16:443
 host: dns-family.adguard.com/dns-query
+keepalive: 50
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: adguard-family-dot
@@ -199,6 +200,7 @@ tags: family, America, AsiaPacific, Europe
 address: 94.140.14.15:443
 host: dns-family.adguard.com/dns-query
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: adguard-family2-dot
@@ -240,14 +242,6 @@ host: dns.artikel10.org/
 # server inactivity timer 65 seconds or higher
 end;
 
-#name: appliedprivacy
-#website: https://appliedprivacy.net
-#tags: sni, Austria, Europe
-#address: 146.255.56.98:443
-#host: doh.applied-privacy.net/query
-#keepalive: 25
-#end;
-
 name: aquilenet
 website: https://www.aquilenet.fr/
 tags: France, Europe
@@ -256,15 +250,6 @@ host: dns.aquilenet.fr/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-# self-signed certificate
-#name: bebasid
-#website: https://github.com/bebasid/bebasdns
-#tags: adblocker, Malaysia, Indonesia, AsiaPacific, FarEast
-#address: 103.87.68.194:443
-#host: dns.bebasid.com/dns-query
-#keepalive: 25
-#end;
-
 name: bebasid-dot
 website: https://github.com/bebasid/bebasdns
 tags: dot, adblocker, Malaysia, Indonesia, AsiaPacific, FarEast
@@ -272,38 +257,12 @@ address: 103.87.68.194:853
 host: dns.bebasid.com/
 end;
 
-# self-signed certificate
-#name: bebasid-unfiltered
-#website: https://github.com/bebasid/bebasdns
-#tags: Malaysia, Indonesia, AsiaPacific, FarEast
-#address: 103.87.68.194:443
-#host: unfiltered.dns.bebasid.com/dns-query
-#keepalive: 25
-#end;
-
 name: bebasid-family
 website: https://github.com/bebasid/bebasdns
 tags: family, Malaysia, Indonesia, AsiaPacific, FarEast
 address: 103.87.68.196:443
 host: internetsehat.bebasid.com/dns-query
 end;
-
-#name: blahdns-de
-#website: https://blahdns.com
-#tags: sni, Germany, Europe, adblocker
-#address: 78.46.244.143:443
-#host: doh-de.blahdns.com/dns-query
-#keepalive: 7
-#end;
-#
-##short keepalive, expired certificate
-#name: blahdns-sg
-#website: https://blahdns.com
-#tags: sni, admin-down, Singapore, AsiaPacific, adblocker, FarEast
-#address: 192.53.175.149:443
-#host: doh-sg.blahdns.com/dns-query
-#keepalive: 7
-#end;
 
 name: blokada-dns
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
@@ -406,6 +365,7 @@ tags: anycast, security, America, AsiaPacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/security-filter
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: cleanbrowsing2
@@ -414,6 +374,7 @@ tags: anycast, security, America, AsiaPacific, Europe
 address: 185.228.168.10:443
 host: doh.cleanbrowsing.org/doh/security-filter
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: cleanbrowsing-family
@@ -422,6 +383,7 @@ tags: family, America, AsiaPacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: cleanbrowsing-family2
@@ -430,6 +392,7 @@ tags: family, America, AsiaPacific, Europe
 address: 185.228.168.10:443
 host: doh.cleanbrowsing.org/doh/family-filter
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 #name: cleanbrowsing-adult
@@ -438,6 +401,7 @@ end;
 #address: 185.228.168.168:443
 #host: doh.cleanbrowsing.org/doh/adult-filter
 # server inactivity timer 65 seconds or higher
+#keepalive: 50
 #end;
 
 #name: cleanbrowsing-adult2
@@ -446,6 +410,7 @@ end;
 #address: 185.228.168.10:443
 #host: doh.cleanbrowsing.org/doh/adult-filter
 # server inactivity timer 65 seconds or higher
+#keepalive: 50
 #end;
 
 name: cloudflare
@@ -454,7 +419,7 @@ tags: anycast, America, AsiaPacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
-keepalive: 120
+keepalive: 50
 end;
 
 name: cloudflare2
@@ -463,7 +428,7 @@ tags: anycast, America, AsiaPacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
-keepalive: 120
+keepalive: 50
 end;
 
 name: cloudflare-security
@@ -472,7 +437,7 @@ tags: anycast, security, America, AsiaPacific, Europe
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
-keepalive: 120
+keepalive: 50
 end;
 
 name: cloudflare-security2
@@ -481,7 +446,7 @@ tags: anycast, security, America, AsiaPacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
-keepalive: 120
+keepalive: 50
 end;
 
 name: cloudflare-family
@@ -490,7 +455,7 @@ tags: family, America, AsiaPacific, Europe
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
-keepalive: 120
+keepalive: 50
 end;
 
 name: cloudflare-family2
@@ -499,7 +464,7 @@ tags: family, America, AsiaPacific, Europe
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
-keepalive: 120
+keepalive: 50
 end;
 
 name: comssone
@@ -514,6 +479,7 @@ website: https://controld.com/free-dns/
 tags: anycast, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/p0
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -522,6 +488,7 @@ website: https://controld.com/free-dns/
 tags: anycast, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/p0
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -544,6 +511,7 @@ website: https://controld.com/free-dns/
 tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.2.44:443
 host: freedns.controld.com/adguard
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -552,6 +520,7 @@ website: https://controld.com/free-dns/
 tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.44:443
 host: freedns.controld.com/adguard
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -560,6 +529,7 @@ website: https://controld.com/free-dns/
 tags: anycast, security, adblocker, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/p2
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -568,6 +538,7 @@ website: https://controld.com/free-dns/
 tags: anycast, security, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/p2
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -576,6 +547,7 @@ website: https://controld.com/free-dns/
 tags: family, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/family
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -584,6 +556,7 @@ website: https://controld.com/free-dns/
 tags: family, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/family
+keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -624,16 +597,6 @@ tags: Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
 end;
-
-
-# short keepalive
-#name: digitalsize
-#website: https://dns.digitalsize.net
-#tags: Germany, Europe
-#address: 94.130.135.203:443
-#host: dns.digitalsize.net/dns-query
-#keepalive: 40
-#end;
 
 name: dns0eu
 website: https://dns0.eu
@@ -890,7 +853,6 @@ end;
 #tags: admin-down, Germany, Europe
 #address: 84.200.70.40:443
 #host: resolver2.dns.watch/dns-query
-#keepalive: 40
 #end;
 
 name: dnscrypt-ca
@@ -901,29 +863,12 @@ host: dns1.dnscrypt.ca/dns-query
 # server inactivity timer 66 seconds or higher
 end;
 
-#name: dnsforfamily
-#website: https://dnsforfamily.com
-#tags: family, Germany, Europe
-#address: 167.235.236.107:443
-#host: dns-doh.dnsforfamily.com/dns-query
-#keepalive: 25
-#end;
-
 name: dnsforfamily-dot
 website: https://dnsforfamily.com
 tags: dot, family, Germany, Europe
 address: 167.235.236.107:853
 host: dns-dot.dnsforfamily.com/
 end;
-
-# short keepalive
-#name: dnsforge
-#website: https://dnsforge.de
-#tags: Germany, Europe, adblocker
-#address: 176.9.93.198:443
-#host: dnsforge.de/dns-query
-#keepalive: 7
-#end;
 
 name: dnsforge-family1
 website: https://dnsforge.de
@@ -940,22 +885,6 @@ address: 49.12.43.208:443
 host: clean.dnsforge.de/dns-query
 # server inactivity timer 65 seconds or higher
 end;
-
-#name: dnshome
-#website: https://www.dnshome.de/doh-dot-public-resolver.php
-#tags: Germany, Europe
-#address: 45.86.125.58:443
-#host: dns.dnshome.de/dns-query
-#keepalive: 25
-#end;
-
-#name: dnshome2
-#website: https://www.dnshome.de/doh-dot-public-resolver.php
-#tags: Germany, Europe
-#address: 45.86.125.59:443
-#host: dns.dnshome.de/dns-query
-#keepalive: 25
-#end;
 
 name: dnslow
 website: https://dnslow.me/
@@ -1006,87 +935,6 @@ tags: sni, dot, family, America, AsiaPacific, Europe
 address: adultfilter.dns.dnswarden.com:853
 host: adultfilter.dns.dnswarden.com/
 end;
-
-#name: faelix-uk-adblocker
-#website: https://faelix.net/ref/dns/#privacy-dns
-#tags: UK, Europe, adblocker
-#address: 46.227.200.52:443
-#host: pdns.faelix.net/
-#keepalive: 25
-#end;
-
-#name: faelix-uk-adblocker2
-#website: https://faelix.net/ref/dns/#privacy-dns
-#tags: admin-down, UK, Europe, adblocker
-#address: 46.227.203.52:443
-#host: pdns.faelix.net/
-#keepalive: 25
-#end;
-
-#name: faelix-uk-adblocker3
-#website: https://faelix.net/ref/dns/#privacy-dns
-#tags: UK, Europe, adblocker
-#address: 46.227.207.52:443
-#host: pdns.faelix.net/
-#keepalive: 25
-#end;
-
-#name: faelix-ch-adblocker
-#website: https://faelix.net/ref/dns/#privacy-dns
-#tags: Switzerland, Europe, adblocker
-#address: 185.134.196.52:443
-#host: pdns.faelix.net/
-#keepalive: 25
-#end;
-
-#name: faelix-uk
-#website: https://faelix.net/ref/dns
-#tags: UK, Europe
-#address: 46.227.200.54:443
-#host: rdns.faelix.net/
-#keepalive: 25
-#end;
-
-#name: faelix-uk2
-#website: https://faelix.net/ref/dns
-#tags: admin-down, UK, Europe
-#address: 46.227.200.55:443
-#host: rdns.faelix.net/
-#keepalive: 25
-#end;
-
-#name: faelix-ch
-#website: https://faelix.net/ref/dns/#privacy-dns
-#tags: Switzerland, Europe
-#address: 185.134.196.54:443
-#host: rdns.faelix.net/
-#keepalive: 25
-#end;
-
-#certificate has expired
-#name: faelix-ch2
-#website: https://faelix.net/ref/dns/#privacy-dns
-#tags: Switzerland, Europe
-#address: 185.134.196.55:443
-#host: rdns.faelix.net/
-#keepalive: 25
-#end;
-
-#name: fdn
-#website: https://www.fdn.fr/
-#tags: Frence, Europe
-#address: 80.67.169.12:443
-#host: ns0.fdn.fr/dns-query
-#keepalive: 25
-#end;
-#
-#name: fdn2
-#website: https://www.fdn.fr/
-#tags: Frence, Europe
-#address: 80.67.169.40:443
-#host: ns1.fdn.fr/dns-query
-#keepalive: 25
-#end;
 
 name: ffmuc
 website: https://ffmuc.net/
@@ -1170,15 +1018,6 @@ host: getdnsapi.net/
 # server inactivity timer 65 seconds or higher
 end;
 
-# connected fine, cannot resolve domains
-#name: hostux
-#website: https://hostux.network/en/index.html
-#tags: Luxembourg, Europe
-#address: 46.226.108.173:443
-#host: dns.hostux.net/dns-query
-#keepalive: 40
-#end;
-
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
 tags: Luxembourg, Europe, adblocker
@@ -1186,23 +1025,6 @@ address: 46.226.109.82:443
 host: dns.hostux.net/ads
 # server inactivity timer 65 seconds or higher
 end;
-
-#name: i2pd
-#website: https://opennic.i2pd.xyz/
-#tags: France, Europe
-#address: 151.80.222.79:443
-#host: opennic.i2pd.xyz/dns-query
-#keepalive: 7
-#end;
-
-# bad connection/keepalive???
-#name: ibksturm
-#website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-#tags: Switzerland, Europe
-#address: 213.196.191.96:443
-#host: ibksturm.synology.me/dns-query
-#keepalive: 40
-#end;
 
 name: lacontrevoie
 website: https://hostux.network/en/index.html
@@ -1218,7 +1040,6 @@ end;
 #tags: US, America
 #address: 79.110.170.43:443
 #host: us1.dns.lavate.ch/dns-query
-#keepalive: 40
 #end;
 
 # using HTTP 1.1
@@ -1229,15 +1050,6 @@ address: 95.217.25.217:443
 host: eu1.dns.lavate.ch/dns-query
 # server inactivity timer 65 seconds or higher
 end;
-
-# using HTTP 1.1
-#name: lavadns-de
-#website: https://dns.lavate.ch
-#tags: Germany, Europe
-#address: 130.61.185.42:443
-#host: eu2.dns.lavate.ch/dns-query
-#keepalive: 40
-#end;
 
 name: lefolgoc
 website: https://yarp.lefolgoc.net/
@@ -1255,14 +1067,6 @@ address: 46.101.66.244:443
 host: doh.li/dns-query
 # server inactivity timer 65 seconds or higher
 end;
-
-#name: li-dot
-#website: https://doh.li/
-#tags: dot, admin-down, UK, Europe
-#address: 46.101.66.244:853
-#host: doh.li/dns-query
-#keepalive: 40
-#end;
 
 name: libredns
 website: https://libredns.gr/
@@ -1285,28 +1089,12 @@ address: 185.183.156.85:443
 host: doh.phdns1.lonet.org/dns-query
 end;
 
-#name: lonet-dot
-#website: https://lonet.org/service/dns
-#tags: sni, dot, Germany, Europe, adblocker
-#address: 185.183.156.85:853
-#host: doh.phdns1.lonet.org/
-#keepalive: 25
-#end;
-
 name: lonet2
 website: https://lonet.org/service/dns
 tags: sni, Germany, Europe, adblocker
 address: 217.160.191.192:443
 host: doh.phdns2.lonet.org/dns-query
 end;
-
-#name: lonet2-dot
-#website: https://lonet.org/service/dns
-#tags: sni, dot, Germany, Europe, adblocker
-#address: 217.160.191.192:853
-#host: doh.phdns2.lonet.org/
-#keepalive: 25
-#end;
 
 name: lonet3
 website: https://lonet.org/service/dns
@@ -1315,14 +1103,6 @@ address: 74.208.85.60:443
 host: doh.phdns3.lonet.org/dns-query
 end;
 
-#name: lonet3-dot
-#website: https://lonet.org/service/dns
-#tags: sni, dot, US, America, adblocker
-#address: 74.208.85.60:853
-#host: doh.phdns3.lonet.org/
-#keepalive: 25
-#end;
-
 name: lonet4
 website: https://lonet.org/service/dns
 tags: sni, Spain, Europe, adblocker
@@ -1330,29 +1110,12 @@ address: 194.164.170.183:443
 host: doh.phdns4.lonet.org/dns-query
 end;
 
-#name: lonet4-dot
-#website: https://lonet.org/service/dns
-#tags: sni, dot, Spain, Europe, adblocker
-#address: 194.164.170.183:853
-#host: doh.phdns4.lonet.org/
-#keepalive: 25
-#end;
-
 name: lonet5
 website: https://lonet.org/service/dns
 tags: sni, UK, Europe, adblocker
 address: 194.164.121.97:443
 host: doh.phdns5.lonet.org/dns-query
 end;
-
-#name: lonet5-dot
-#website: https://lonet.org/service/dns
-#tags: sni, dot, UK, Europe, adblocker
-#address: 194.164.121.97:853
-#host: doh.phdns5.lonet.org/
-#keepalive: 25
-#end;
-
 
 # low keepalive
 name: mullvad
@@ -1363,6 +1126,7 @@ host: dns.mullvad.net/dns-query
 keepalive: 7
 end;
 
+# low keepalive
 name: mullvad-adblocker
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
 tags: anycast, adblocker, America, AsiaPacific, Europe
@@ -1371,6 +1135,7 @@ host: base.dns.mullvad.net/dns-query
 keepalive: 7
 end;
 
+# low keepalive
 name: mullvad-family
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
 tags: family, America, AsiaPacific, Europe
@@ -1412,20 +1177,13 @@ host: family.mydns.network/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-#name: ndodev
-#website: https://ndo.dev/posts/doh
-#tags: Germany, Europe, adblocker
-#address: 185.121.71.99:443
-#host: dns.ndo.dev/dns-query
-#keepalive: 40
-#end;
-
 name: nextdns
 website: https://nextdns.io/
 tags: anycast, America, AsiaPacific, Europe
 address: 45.90.30.0:443
 host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: nextdns-dot
@@ -1442,6 +1200,7 @@ tags: anycast, America, AsiaPacific, Europe
 address: 45.90.28.0:443
 host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: nextdns2-dot
@@ -1458,6 +1217,7 @@ tags: anycast, America, AsiaPacific, Europe
 address: trr.dns.nextdns.io:443
 host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
+keepalive: 50
 end;
 
 name: nextdns3-dot
@@ -1531,15 +1291,6 @@ address: 185.181.61.24:853
 host: ns4.opennameserver.org/
 end;
 
-# running in cloudflare cloud
-#name: paesadns
-#website: https://milgradesec.github.io/paesadns/
-#tags: sni, America, AsiaPacific, Europe
-#address: dns.paesa.es:443
-#host: dns.paesa.es/dns-query
-#keepalive: 40
-#end;
-
 name: qquackdns
 website: https://qquack.org/nameserver/
 tags: Korea, AsiaPacific, FarEast
@@ -1581,23 +1332,6 @@ tags: anycast, America, AsiaPacific, Europe
 address: 149.112.112.10:443
 host: dns10.quad9.net/dns-query
 end;
-
-#name: r0cket
-#website: https://dns.radeksprta.eu/
-#tags: Sweden, Europe, NorthEurope
-#address: 80.211.208.74:443
-#host: resolver.r0cket.net/dns-query
-#keepalive: 40
-#end;
-#
-# 10 sec keepalive
-#name: r0cket-dot
-#website: https://dns.radeksprta.eu/
-#tags: dot, Czechia, Europe
-#address: 80.211.208.74:853
-#host: resolver.r0cket.net/
-#keepalive: 40
-#end;
 
 # running in cloudflare cloud
 name: rethink
@@ -1641,38 +1375,6 @@ address: 68.183.253.200:443
 host: ns1.ryan-palmer.com/dns-query
 end;
 
-#name: seby
-#website: https://dns.seby.io
-#tags: Australia, AsiaPacific
-#address: 45.76.113.31:443
-#host: dns.seby.io/dns-query
-#keepalive: 7
-#end;
-
-# name: seby-dot
-# website: https://dns.seby.io
-# tags: dot, Australia, AsiaPacific
-# address: 45.76.113.31:853
-# host: dns.seby.io/
-# keepalive: 7
-# end;
-
-#name: seby2
-#website: https://dns.seby.io
-#tags: Australia, AsiaPacific
-#address: 139.99.222.72:443
-#host: doh-2.seby.io/dns-query
-#keepalive: 7
-#end;
-
-#name: seby2-dot
-#website: https://dns.seby.io
-#tags: dot, Australia, AsiaPacific
-#address: 139.99.222.72:853
-#host: doh-2.seby.io/
-#keepalive: 40
-#end;
-
 name: sev.monster
 website: https://sev.monster/
 tags: US, America
@@ -1686,7 +1388,6 @@ end;
 #tags: France, Europe
 #address: 78.194.186.17:443
 #host: dns.sellan.fr/dns-query
-#keepalive: 40
 #end;
 
 name: sellan-dot
@@ -1696,73 +1397,6 @@ address: 78.194.186.17:853
 host: dns.sellan.fr/
 end;
 
-#name: switch
-#website: https://www.switch.ch/security/info/public-dns/
-#tags: Switzerland, Europe
-#address: 130.59.31.248:443
-#host: dns.switch.ch/dns-query
-#keepalive: 25
-#end;
-#
-#name: switch2
-#website: https://www.switch.ch/security/info/public-dns/
-#tags: Switzerland, Europe
-#address: 130.59.31.251:443
-#host: dns.switch.ch/dns-query
-#keepalive: 25
-#end;
-
-# expired certificate
-# name: teradns-de
-# website: https://teradns.org/dns-over-https/
-# tags: Germany, Europe
-# address: 188.68.45.12:443
-# host: de.teradns.org/dns-query
-# keepalive: 40
-# end;
-
-# name: teradns-uk
-# website: https://teradns.org/dns-over-https/
-# tags: UK, Europe
-# address: 45.147.54.7:443
-# host: uk.teradns.org/dns-query
-# keepalive: 40
-# end;
-
-# expired certificate
-# name: teradns-us1
-# website: https://teradns.org/dns-over-https/
-# tags: US, America
-# address: 45.61.162.132:443
-# host: ny.teradns.org/dns-query
-# keepalive: 40
-# end;
-
-# expired certificate
-#name: teradns-us2
-#website: https://teradns.org/dns-over-https/
-#tags: US, America
-#address: 45.79.38.174:443
-#host: tx.teradns.org/dns-query
-#keepalive: 40
-#end;
-
-# expired certificate
-#name: teradns-au
-#website: https://teradns.org/dns-over-https/
-#tags: Australia, AsiaPacific
-#address: 194.29.100.68:443
-#host: au.teradns.org/dns-query
-#keepalive: 40
-#end;
-
-# name: teradns-sg
-# website: https://teradns.org/dns-over-https/
-# tags: Singapore, AsiaPacific, FarEast
-# address: 103.167.151.201:443
-# host: sg.teradns.org/dns-query
-# keepalive: 40
-# end;
 
 # cloudflare redirect
 name: tiarap
@@ -1793,7 +1427,6 @@ end;
 #tags: Europe, America
 #address: 91.239.100.100:443
 #host: anycast.censurfridns.dk/dns-query
-#keepalive: 25
 #end;
 #
 #name: uncensoreddns2
@@ -1801,7 +1434,6 @@ end;
 #tags: Denmark, Europe
 #address: 89.233.43.71:443
 #host: unicast.censurfridns.dk/dns-query
-#keepalive: 25
 #end;
 #
 #name: uncensoreddns3
@@ -1809,7 +1441,6 @@ end;
 #tags: US, America
 #address: 198.180.150.12:443
 #host: unicast.censurfridns.dk/dns-query
-#keepalive: 25
 #end;
 #
 #name: uncensoreddns4
@@ -1817,7 +1448,6 @@ end;
 #tags: Denmark, Europe
 #address: 130.225.244.166:443
 #host: unicast.censurfridns.dk/dns-query
-#keepalive: 25
 #end;
 #
 #name: uncensoreddns5
@@ -1825,7 +1455,6 @@ end;
 #tags: Denmark, Europe
 #address: 130.226.161.34:443
 #host: unicast.censurfridns.dk/dns-query
-#keepalive: 25
 #end;
 #
 #name: uncensoreddns6
@@ -1833,7 +1462,6 @@ end;
 #tags: Denmark, Europe
 #address: 185.38.27.139:443
 #host: unicast.censurfridns.dk/dns-query
-#keepalive: 25
 #end;
 
 name: vinnyp
@@ -1981,7 +1609,6 @@ end;
 #website: https://www.dnscry.pt
 #address: 104.234.231.23:853
 #host: ott01.dnscry.pt/
-#keepalive: 25
 #end;
 
 name: dnscrypt-istanbul
@@ -2038,7 +1665,6 @@ end;
 #website: https://www.dnscry.pt
 #address: 84.33.12.158:853
 #host: tyo01.dnscry.pt/
-#keepalive: 25
 #end;
 
 name: dnscrypt-losangeles
@@ -2088,7 +1714,6 @@ end;
 #website: https://www.dnscry.pt
 #address: 202.5.26.130:853
 #host: dfw01.dnscry.pt/
-#keepalive: 25
 #end;
 
 name: dnscrypt-santaclara
@@ -2194,7 +1819,6 @@ end;
 #website: https://www.dnscry.pt
 #address: 104.200.67.194:853
 #host: lax02.dnscry.pt/
-#keepalive: 25
 #end;
 
 name: dnscrypt-lagos
@@ -2230,7 +1854,6 @@ end;
 #website: https://www.dnscry.pt
 #address: 84.33.16.124:853
 #host: sin01.dnscry.pt/
-#keepalive: 25
 #end;
 
 name: dnscrypt-phoenix

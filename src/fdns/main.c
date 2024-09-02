@@ -156,9 +156,8 @@ int main(int argc, char **argv) {
 				arg_debug_transport = 1;
 			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
 				arg_keepalive = atoi(argv[i] + 12);
-				if (arg_keepalive < CONFIG_KEEPALIVE_MIN || arg_keepalive > CONFIG_KEEPALIVE_MAX) {
-					fprintf(stderr, "Error: keepalive value out of range. Allowed values " \
-						"between %d and %d \n", CONFIG_KEEPALIVE_MIN, CONFIG_KEEPALIVE_MAX);
+				if (arg_keepalive < CONFIG_KEEPALIVE_MIN) {
+					fprintf(stderr, "Error: keepalive value too small. Minimum allowed value is %d\n", CONFIG_KEEPALIVE_MIN);
 					exit(1);
 				}
 			}

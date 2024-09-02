@@ -369,7 +369,7 @@ void ssl_open(void) {
 	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
 		goto errh2;
 
-	rlogprintf("%s transport up\n", dns_get_transport());
+	rlogprintf("%s transport up (keepalive %d)\n", dns_get_transport(), srv->keepalive);
 	return;
 
 errh2:

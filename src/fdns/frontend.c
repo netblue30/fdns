@@ -118,7 +118,7 @@ static int sandbox(void *sandbox_arg) {
 	assert(srv);
 	// keepalive autodetection
 	if (restarting && !arg_keepalive) {
-		arg_keepalive = srv->keepalive - 3;
+		arg_keepalive = srv->keepalive - 5;
 		print_time();
 		printf("(%d) Keepalive reconfigured for %d seconds\n", id, arg_keepalive);
 	}
@@ -264,6 +264,12 @@ void frontend(void) {
 
 	int shm_keepalive_cnt = 0;
 
+	// keepalive autodetection
+	DnsServer *srv = server_get();
+	assert(srv);
+	if (srv->keepalive < KEEPALIVE_DEFAULT && !arg_keepalive)
+		arg_keepalive = srv->keepalive;
+
 	// start resolvers
 	int i;
 	for (i = 0; i < arg_resolvers; i++)
@@ -287,10 +293,6 @@ void frontend(void) {
 		errExit("sigaction");
 
 	sigemptyset(&empty_mask);
-
-	// server
-	DnsServer *srv = server_get();
-	assert(srv);
 
 	struct timespec t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections

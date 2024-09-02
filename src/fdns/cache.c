@@ -17,6 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "fdns.h"
+#include "timetrace.h"
 
 // debug statistics
 //#define DEBUG_STATS
@@ -182,7 +183,8 @@ void print_cache(void) {
 		return;
 
 	ctimer = CACHE_PRINT_TIMEOUT;
-	printf("Cache %d: ", arg_id);
+	print_time();
+	printf("(%d) Cache: ", arg_id);
 
 	int i;
 	for (i = 0; i < MAX_HASH_ARRAY; i++) {
