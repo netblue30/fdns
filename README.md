@@ -11,7 +11,7 @@ alt="Network Security Introduction" width="240" height="142" border="10" />
 </a>
 </td>
 <td>
-<a href="https://odysee.com/@netblue30:9/nonet:7" target="_blank">
+<a href="https://odysee.com/@netblue30:9/fdns:8" target="_blank">
 <img src="https://thumbs.odycdn.com/d22e1d3084e6f03315e076f640d829ec.webp"
 alt="Firejail Encrypted DNS HowTo" width="240" height="142" border="10" />
 <br/>Firejail Encrypted DNS HowTo
