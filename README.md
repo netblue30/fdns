@@ -1,16 +1,4 @@
 # Firejail DNS-over-HTTPS Proxy Server
-
-<div style="height:20px;">&nbsp;</div>
-
-FDNS is an encrypted DNS proxy designed for small networks and Linux desktops. Lean and mean, it protects your computer from some of the most common cyber threats, while also improving privacy and the system performance.
-
-FDNS is written in C and licensed under GPLv3. We use only DoH and DoT services from non-logging and non-censoring providers, while preferring small operators such as open-source enthusiasts and privacy-oriented non-profit organizations.
-
-<div style="height:20px;">&nbsp;</div>
-
-<table>
-<tr>
-
 <td>
 <a href="https://odysee.com/@netblue30:9/networking:5" target="_blank">
 <img src="https://thumbs.odycdn.com/ab044dd53b47ff1a6355ecc11c27b9ec.webp"
@@ -27,6 +15,16 @@ alt="Firejail Encrypted DNS HowTo" width="240" height="142" border="10" />
 </a>
 </td>
 
+<div style="height:20px;">&nbsp;</div>
+
+FDNS is an encrypted DNS proxy designed for small networks and Linux desktops. Lean and mean, it protects your computer from some of the most common cyber threats, while also improving privacy and the system performance.
+
+FDNS is written in C and licensed under GPLv3. We use only DoH and DoT services from non-logging and non-censoring providers, while preferring small operators such as open-source enthusiasts and privacy-oriented non-profit organizations.
+
+<div style="height:20px;">&nbsp;</div>
+
+<table>
+<tr>
 
 <div style="height:20px;">&nbsp;</div>
 
