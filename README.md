@@ -1,4 +1,8 @@
 # Firejail DNS-over-HTTPS Proxy Server
+<div style="height:20px;">&nbsp;</div>
+
+<table>
+<tr>
 <td>
 <a href="https://odysee.com/@netblue30:9/networking:5" target="_blank">
 <img src="https://thumbs.odycdn.com/ab044dd53b47ff1a6355ecc11c27b9ec.webp"
@@ -6,14 +10,15 @@ alt="Network Security Introduction" width="240" height="142" border="10" />
 <br/>Network Security Introduction
 </a>
 </td>
-
 <td>
 <a href="https://odysee.com/@netblue30:9/nonet:7" target="_blank">
-<img src="https://thumbs.odycdn.com/a909846bdce7992f1aacceb0dcc8898b.webp"
+<img src="https://thumbs.odycdn.com/d22e1d3084e6f03315e076f640d829ec.webp"
 alt="Firejail Encrypted DNS HowTo" width="240" height="142" border="10" />
 <br/>Firejail Encrypted DNS HowTo
 </a>
 </td>
+</tr>
+</table>
 
 <div style="height:20px;">&nbsp;</div>
 
