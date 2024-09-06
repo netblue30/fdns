@@ -264,6 +264,13 @@ address: 103.87.68.196:443
 host: internetsehat.bebasid.com/dns-query
 end;
 
+name: blisdns
+website: https://blissdns.net/
+tags: US, America, adblocker
+address: 173.255.201.254:443
+host: us1.blissdns.net/dns-query
+end;
+
 name: blokada-dns
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
 tags: Sweden, Europe
@@ -570,6 +577,20 @@ host: dns.cynthialabs.net/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
+name: data.haus
+website: https://data.haus/
+tags: Germany, Europe, sni, adblocker
+address: 5.75.228.192:443
+host: ns.data.haus/dns-query
+end;
+
+name: denypradana
+website: https://doh.denypradana.com/
+tags: Indonesia, AsiaPacific, FarEast
+address: 103.28.53.16:443
+host: doh.denypradana.com/dns-query
+end;
+
 name: digitalcourage-dot
 website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
 tags: dot, Germany, Europe
@@ -660,6 +681,97 @@ tags: dot, family, Europe
 address: 185.253.5.1:853
 host: kids.dns0.eu/
 # server inactivity timer 65 seconds or higher
+end;
+
+name: dns4me-ca1
+website: https://dns4me.net/
+tags: Canada, America
+address: 99.79.182.170:443
+host: ca01.dns4me.net/
+end;
+
+name: dns4me-ca2
+website: https://dns4me.net/
+tags: Canada, America
+address: 169.48.27.179:443
+host: ca02.dns4me.net/
+end;
+
+name: dns4me-us1
+website: https://dns4me.net/
+tags: US, America
+address: 54.187.149.240:443
+host: us01.dns4me.net/
+end;
+
+name: dns4me-us2
+website: https://dns4me.net/
+tags: US, America
+address: 54.172.110.180:443
+host: us02.dns4me.net/
+end;
+
+name: dns4me-sg1
+website: https://dns4me.net/
+tags: Singapore, AsiaPacific, FarEast
+address: 54.169.113.231:443
+host: sg01.dns4me.net/
+end;
+
+name: dns4me-sa1
+website: https://dns4me.net/
+tags: SouthAfrica, Europe, Africa
+address: 54.169.113.231:443
+host: sa01.dns4me.net/
+end;
+
+name: dns4me-au1
+website: https://dns4me.net/
+tags: Australia, AsiaPacific
+address: 54.79.3.18:443
+host: au01.dns4me.net/
+end;
+
+name: dns4me-au2
+website: https://dns4me.net/
+tags: Australia, AsiaPacific
+address: 52.63.91.105:443
+host: au02.dns4me.net/
+end;
+
+name: dns4me-uk1
+website: https://dns4me.net/
+tags: UK, Europe
+address: 3.10.65.124:443
+host: uk01.dns4me.net/
+end;
+
+name: dns4me-nz1
+website: https://dns4me.net/
+tags: NewZealand, AsiaPacific
+address: 103.6.212.123:443
+host: nz01.dns4me.net/
+end;
+
+name: dns4me-ie1
+website: https://dns4me.net/
+tags: Ireland, Europe
+address: 54.77.124.213:443
+host: ie01.dns4me.net/
+end;
+
+name: dns4me-de1
+website: https://dns4me.net/
+tags: Germany, Europe
+address: 52.29.2.17:443
+host: de01.dns4me.net/
+end;
+
+name: dns4me-jp
+website: https://dns4me.net/
+tags: Australia, AsiaPacific, FarEast
+address: 54.64.104.154:443
+host: jp01.dns4me.net/
 end;
 
 # global dns-sb cdn
