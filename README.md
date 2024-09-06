@@ -8,7 +8,25 @@ FDNS is written in C and licensed under GPLv3. We use only DoH and DoT services 
 
 <div style="height:20px;">&nbsp;</div>
 
-![FDNS monitor](monitor1.png)
+<table>
+<tr>
+
+<td>
+<a href="https://odysee.com/@netblue30:9/networking:5" target="_blank">
+<img src="https://thumbs.odycdn.com/ab044dd53b47ff1a6355ecc11c27b9ec.webp"
+alt="Network Security Introduction" width="240" height="142" border="10" />
+<br/>Network Security Introduction
+</a>
+</td>
+
+<td>
+<a href="https://odysee.com/@netblue30:9/nonet:7" target="_blank">
+<img src="https://thumbs.odycdn.com/a909846bdce7992f1aacceb0dcc8898b.webp"
+alt="Firejail Encrypted DNS HowTo" width="240" height="142" border="10" />
+<br/>Firejail Encrypted DNS HowTo
+</a>
+</td>
+
 
 <div style="height:20px;">&nbsp;</div>
 
@@ -20,8 +38,26 @@ FDNS is written in C and licensed under GPLv3. We use only DoH and DoT services 
 <li>Highly scalable multi-process design and built-in support for various security technologies such as seccomp, Linux namespaces, and AppArmor.</li>
 <li>Seamless integration with Firejail Security Sandbox.</li>
 </ul>
+
+![FDNS monitor](monitor1.png)
+
 <div style="height:20px;">&nbsp;</div>
 
+
+<h2>Build and Install</h2>
+
+`````
+sudo apt install build-essential make git
+sudo apt install libseccomp-dev libssl-dev
+git clone --recursive https://github.com/netblue30/fdns
+cd fdns
+./configure --prefix=/usr --enable-apparmor
+make
+sudo make install
+(to uninstall) sudo make uninstall
+`````
+
+<div style="height:20px;">&nbsp;</div>
 <h2>About us</h2>
 <div style="height:20px;">&nbsp;</div>
 
