@@ -406,7 +406,6 @@ int main(int argc, char **argv) {
 		}
 
 		// count the number of chunks
-		int buflen = 1000 + 1;
 		int rd;
 		while ((rd = fgetc(fp)) != EOF) {
 			if (rd == '\n')
