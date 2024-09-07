@@ -505,7 +505,6 @@ void server_list(const char *tag) {
 
 	// try to match a server name - allow family tag, allow any zone
 	s = slist;
-	cnt = 0;
 	while (s) {
 		if (tag && strcmp(tag, s->name) == 0) {
 			s->active = 1;
@@ -652,7 +651,6 @@ DnsServer *server_get(void) {
 				DnsServer *first = s;
 				float first_average = qaverage;
 				scurrent = first;
-				s = first;
 
 				// try another server
 				s = random_server();
