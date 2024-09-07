@@ -1,4 +1,4 @@
-fdns (0.9.73) baseline; urgency=low
+fdns (0.9.74) baseline; urgency=low
   * remove --debug-ssl command
   * remove --proxy-addr-any command
   * remove --cache-ttl command
@@ -9,16 +9,24 @@ fdns (0.9.73) baseline; urgency=low
   * remove --disable-local-doh feature
   * remove --unlist command
   * remove --disable-syslog feature
+  * remove --transport
+  * remove --fallback-only
+  * rework startup server testing - always test two servers
   * --blocklist-file and --whitelist-file commands rework
-  * running resolver processes in an empty chroot
+  * rename Americas zone to America
+  * removed OpenNIC label
+  * added FarEast label
+  * keepalive autodetection
+  * added dnsc tool
+  * security: running resolver processes in an empty chroot
   * print disabled TLDs at startup
   * added dnsc utility program
   * added a default hosts file in /etc/fdns/hosts
   * split blocklists in a different git submodule
-  * server list update - 250 servers currently
+  * server list update - over 250 servers currently
   * DSN blocklist filters rebuild
   * bugfixes
- -- netblue30 <netblue30@yahoo.com>  Thu, 11 Apr 2024 08:00:00 -0500
+ -- netblue30 <netblue30@yahoo.com>  Thu, 7 Sep 2024 08:00:00 -0500
 
 fdns (0.9.72) baseline; urgency=low
   * more nxdomain development
