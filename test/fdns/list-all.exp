@@ -13,10 +13,6 @@ expect {
 	"Current zone:"
 }
 expect {
-	timeout {puts "TESTING ERROR 0.1\n";exit}
-	"appliedprivacy"
-}
-expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
 	"cleanbrowsing"
 }

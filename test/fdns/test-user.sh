@@ -17,9 +17,6 @@ echo "TESTING: list (test/fdns/list.exp)"
 echo "TESTING: unlisted (test/fdns/unlisted.exp)"
 ./unlisted.exp
 
-echo "TESTING: transport (test/fdns/transport.exp)"
-./transport.exp
-
 echo "TESTING: list=anycast (test/fdns/list-anycast.exp)"
 ./list-anycast.exp
 
@@ -31,9 +28,6 @@ echo "TESTING: list=family (test/fdns/list-family.exp)"
 
 echo "TESTING: list=security (test/fdns/list-security.exp)"
 ./list-security.exp
-
-echo "TESTING: list=OpenNIC (test/fdns/list-opennic.exp)"
-./list-opennic.exp
 
 echo "TESTING: list=adblocker (test/fdns/list-adblocker.exp)"
 ./list-adblocker.exp

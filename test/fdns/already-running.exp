@@ -22,7 +22,7 @@ expect {
 sleep 1
 
 spawn $env(SHELL)
-send -- "fdns\r"
+send -- "fdns --nofilter\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
 	"a different DNS server is already running on"

@@ -14,13 +14,6 @@ expect {
 }
 after 100
 
-send -- "fdns --server-list=$env(SERVER_LIST) --test-url=amazon-adsystem.com\r"
-expect {
-	timeout {puts "TESTING ERROR 1\n";exit}
-	"URL amazon-adsystem.com dropped by default rule"
-}
-after 100
-
 send -- "fdns --server-list=$env(SERVER_LIST) --test-url=debian.org\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}

@@ -1,4 +1,4 @@
 # blocklists
-google.com
-youtube.com
-facebook.com
+127.0.0.1 google.com
+127.0.0.1 youtube.com
+127.0.0.1 facebook.com

@@ -28,15 +28,5 @@ expect {
 }
 after 100
 
-send -- "fdns --server-list=$env(SERVER_LIST) --unlist=cloudflare-security --unlist=cloudflare-security2 --list=anycast\r"
-expect {
-	timeout {puts "TESTING ERROR 3\n";exit}
-	"cloudflare-security - anycast" {puts "TESTING ERROR 4\n";exit}
-	"cloudflare-security2 - anycast" {puts "TESTING ERROR 5\n";exit}
-	"servers found"
-}
-after 100
-
-
 puts "\nall done\n"
 

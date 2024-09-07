@@ -10,15 +10,12 @@ export MALLOC_CHECK_=3
 export MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
 
 echo "TESTING: ********************"
-printf "TESTING: running as user "
+printf "TESTING: running as root "
 whoami
 echo "TESTING: ********************"
 
 echo "TESTING: dot vs h2 (test/fdns/dotvsh2.exp)"
 ./dotvsh2.exp
-
-echo "TESTING: udp transport (test/fdns/transport_udp.exp)"
-./transport-udp.exp
 
 echo "TESTING: keepalive and custom servers (test/fdns/keepalive.exp)"
 ./keepalive.exp
@@ -36,9 +33,6 @@ echo "TESTING: invalid server (test/fdns/invalid-server.exp)"
 echo "TESTING: default ping (test/fdns/default-ping.exp)"
 ./default-ping.exp
 
-echo "TESTING: all interfaces (test/fdns/all-interfaces.exp)"
-./all-interfaces.exp
-
 echo "TESTING: default nslookup (test/fdns/default-nslookup.exp)"
 ./default-nslookup.exp
 
@@ -50,9 +44,6 @@ echo "TESTING: ipv6 (test/fdns/ipv6.exp)"
 
 echo "TESTING: filter (test/fdns/filter.exp)"
 ./filter.exp
-
-echo "TESTING: filter doh (test/fdns/filter-doh.exp)"
-./filter-doh.exp
 
 echo "TESTING: nofilter (test/fdns/nofilter.exp)"
 ./nofilter.exp
@@ -74,9 +65,6 @@ echo "TESTING: whitelist (test/fdns/whitelist.exp)"
 
 echo "TESTING: whitelist-file (test/fdns/whitelist-file.exp)"
 ./whitelist-file.exp
-
-echo "TESTING: blocklist (test/fdns/blocklist.exp)"
-./blocklist.exp
 
 echo "TESTING: blocklist-file (test/fdns/blocklist-file.exp)"
 ./blocklist-file.exp

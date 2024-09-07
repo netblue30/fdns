@@ -10,14 +10,14 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --server-list=$env(SERVER_LIST) --server=https://dns.google/dns-query --fallback-server=8.8.8.8 --proxy-addr=127.8.8.8 --keepalive=7\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --server=https://dns.quad9.net/dns-query --fallback-server=9.9.9.9 --proxy-addr=127.9.9.9 --keepalive=7\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"
 }
 expect {
 	timeout {puts "TESTING ERROR 0.1\n";exit}
-	"configuring fallback server 8.8.8.8"
+	"configuring fallback server 9.9.9.9"
 }
 expect {
 	timeout {puts "TESTING ERROR 0.2\n";exit}
@@ -39,13 +39,13 @@ expect {
 	timeout {puts "TESTING ERROR 4\n";exit}
 	"keepalive 7"
 }
-sleep 1
+sleep 2
 
 spawn $env(SHELL)
-send -- "fdns --server-list=$env(SERVER_LIST) --test-server=dot://8.8.8.8 --details\r"
+send -- "fdns --server-list=$env(SERVER_LIST) --test-server=dot://9.9.9.9 --details\r"
 expect {
 	timeout {puts "TESTING ERROR 10\n";exit}
-	"URL: dot://8.8.8.8"
+	"URL: dot://9.9.9.9"
 }
 expect {
 	timeout {puts "TESTING ERROR 11\n";exit}
