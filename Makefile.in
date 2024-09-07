@@ -101,6 +101,7 @@ install: all
 install-strip: all
 	strip src/fdns/fdns
 	strip src/nxdomain/nxdomain
+	strip src/dnsc/dnsc
 	$(MAKE) realinstall
 
 uninstall:

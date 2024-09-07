@@ -5,14 +5,10 @@ Linux desktops. To speed up the name resolution fdns caches the responses,
 and uses a configurable adblocker and privacy filter to cut down the
 unnecessary traffic.
 
-The software is written in C, and is licensed under GPLv3.
-Adblock filters installed in /etc/fnds directory are preserving the original license
-of the source used for building them:
+Copyright (C) 2024 fdns Authors
 
-     /etc/fdns/adblocker - MIT license
-     /etc/fdns/coinblocker - AGPLv3 license
-     /etc/fdns/fp-trackers - MIT license
-     /etc/fdns/trackers - GPLv3 license
+All files are licensed under GPLv3, with the exception of 
+etc/bloclists/list.coinblocker licensed under AGPLv3.
 
 
 Build and Install

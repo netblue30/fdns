@@ -32,8 +32,8 @@ echo "install size $SIZE"
 echo "*****************************************"
 
 pwd
-mkdir -p $INSTALL_DIR/lib/systemd/system
-mv $INSTALL_DIR/usr/lib/systemd/system/fdns.service $INSTALL_DIR/lib/systemd/system/fdns.service
+mkdir -p $INSTALL_DIR/usr/lib/systemd/system
+install -m644 $INSTALL_DIR/etc/fdns/fdns.service $INSTALL_DIR/usr/lib/systemd/system/fdns.service
 mv $INSTALL_DIR/usr/share/doc/fdns/RELNOTES $INSTALL_DIR/usr/share/doc/fdns/changelog.Debian
 gzip -9 -n $INSTALL_DIR/usr/share/doc/fdns/changelog.Debian
 rm $INSTALL_DIR/usr/share/doc/fdns/COPYING
