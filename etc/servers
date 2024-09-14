@@ -1194,39 +1194,32 @@ address: 116.202.176.26:443
 host: doh.libredns.gr/noads
 end;
 
-name: lonet
-website: https://lonet.org/service/dns
-tags: sni, Germany, Europe, adblocker
-address: 185.183.156.85:443
-host: doh.phdns1.lonet.org/dns-query
+name: marbled
+website: https://www.marbledfennec.net/public-dns-server/
+tags: US, America, security
+address: 204.12.237.197:443
+host: dns.marbledfennec.net/dns-query
 end;
 
-name: lonet2
-website: https://lonet.org/service/dns
-tags: sni, Germany, Europe, adblocker
-address: 217.160.191.192:443
-host: doh.phdns2.lonet.org/dns-query
+name: marbled-dot
+website: https://www.marbledfennec.net/public-dns-server/
+tags: dot, US, America, security
+address: 204.12.237.197:853
+host: dns.marbledfennec.net/
 end;
 
-name: lonet3
-website: https://lonet.org/service/dns
-tags: sni, US, America, adblocker
-address: 74.208.85.60:443
-host: doh.phdns3.lonet.org/dns-query
+name: marbled2
+website: https://www.marbledfennec.net/public-dns-server/
+tags: US, America, security
+address: 173.208.212.205:443
+host: dns2.marbledfennec.net/dns-query
 end;
 
-name: lonet4
-website: https://lonet.org/service/dns
-tags: sni, Spain, Europe, adblocker
-address: 194.164.170.183:443
-host: doh.phdns4.lonet.org/dns-query
-end;
-
-name: lonet5
-website: https://lonet.org/service/dns
-tags: sni, UK, Europe, adblocker
-address: 194.164.121.97:443
-host: doh.phdns5.lonet.org/dns-query
+name: marbled2-dot
+website: https://www.marbledfennec.net/public-dns-server/
+tags: dot, US, America, security
+address: 173.208.212.205:853
+host: dns2.marbledfennec.net/
 end;
 
 # low keepalive
@@ -1361,20 +1354,6 @@ address: 217.160.70.42:853
 host: ns1.opennameserver.org/
 end;
 
-name: opennameserver2
-website: https://opennameserver.org/
-tags: Germany, Europe
-address: 178.254.22.166:443
-host: ns2.opennameserver.org/dns-query
-end;
-
-name: opennameserver2-dot
-website: https://opennameserver.org/
-tags: dot, Germany, Europe
-address: 178.254.22.166:853
-host: ns2.opennameserver.org/
-end;
-
 name: opennameserver3
 website: https://opennameserver.org/
 tags: Germany, Europe
@@ -1403,11 +1382,41 @@ address: 185.181.61.24:853
 host: ns4.opennameserver.org/
 end;
 
+
+# Cloudflare upstream
+name: paesa
+website: https://milgradesec.github.io/paesadns/
+tags: sni, America, AsiaPacific, Europe, adblocker
+address: dns.paesa.es:443
+host: dns.paesa.es/dns-query
+end;
+
+name: prokits
+website: https://www.prokits.digital/
+tags: India, AsiaPacific
+address: 20.244.105.117:443
+host: dns.prokits.digital/dns-query
+end;
+
 name: qquackdns
 website: https://qquack.org/nameserver/
 tags: Korea, AsiaPacific, FarEast
 address: ns1.qquack.org:443
 host: ns1.qquack.org/dns-query
+end;
+
+name: quadrantsec
+website: https://www.quadrantsec.com/post/public-dns-resolver-with-tls-https-support
+tags: US, America
+address: 157.230.188.174:443
+host: doh.qis.io/dns-query
+end;
+
+name: quadrantsec-dot
+website: https://www.quadrantsec.com/post/public-dns-resolver-with-tls-https-support
+tags: dot, US, America
+address: 157.230.188.174:853
+host: dns-tls.qis.io/
 end;
 
 name: quad9
@@ -1443,6 +1452,37 @@ website: https://quad9.net
 tags: anycast, America, AsiaPacific, Europe
 address: 149.112.112.10:443
 host: dns10.quad9.net/dns-query
+end;
+
+# cloudflare redirect
+name: rabbitdns
+website: https://rabbitdns.org/install
+tags: sni, America, AsiaPacific, Europe
+address: dns.rabbitdns.org:443
+host: dns.rabbitdns.org/dns-query
+end;
+
+# cloudflare redirect
+name: rabbitdns-security
+website: https://rabbitdns.org/install
+tags: security, sni, America, AsiaPacific, Europe
+address: security.rabbitdns.org:443
+host: security.rabbitdns.org/dns-query
+end;
+
+# cloudflare redirect
+name: rabbitdns-family
+website: https://rabbitdns.org/install
+tags: family, sni, America, AsiaPacific, Europe
+address: family.rabbitdns.org:443
+host: family.rabbitdns.org/dns-query
+end;
+
+name: respinger
+website: https://dns.repinger.com/
+tags: sni, Indonesia, AsiaPacific
+address: 103.235.73.244:443
+host: dns.repinger.com/dns-query
 end;
 
 # running in cloudflare cloud
@@ -1599,12 +1639,33 @@ address: 185.71.138.138:443
 host: wikimedia-dns.org/dns-query
 end;
 
+name: xstl
+website: https://get.dns.seia.io/
+tags: sni, Korea, AsiaPacific, FarEast, adblocker
+address: 116.121.57.111:443
+host: dns.seia.io/dns-query
+end;
+
+name: xstl2
+website: https://get.dns.seia.io/
+tags: sni, Korea, AsiaPacific, FarEast, adblocker
+address: 140.238.14.191:443
+host: secondary.dns.seia.io/dns-query
+end;
+
 name: yarp
 website: https://yarp.lefolgoc.net
 tags: France, Europe
 address: 5.39.88.20:443
 host: yarp.lefolgoc.net/dns-query
 # server inactivity timer 65 seconds or higher
+end;
+
+name: zdn
+website: https://zdn.ro
+tags: adblocker, Romania, Europe
+address: 89.43.174.10:443
+host: zdn.ro/dns-query
 end;
 
 ##################################################
@@ -2059,6 +2120,13 @@ address: 103.179.45.6:853
 host: tyo02.dnscry.pt/
 end;
 
+name: dnscrypt-tokyo03
+tags: dot, Japan, AsiaPacific, FarEast
+website: https://www.dnscry.pt
+address: 45.67.86.123:853
+host: tyo03.dnscry.pt/
+end;
+
 name: dnscrypt-dusseldorf
 tags: dot, Germany, Europe
 website: https://www.dnscry.pt
@@ -2083,7 +2151,7 @@ end;
 name: dnscrypt-london
 tags: dot, UK, Europe
 website: https://www.dnscry.pt
-address: 178.239.174.244:853
+address: 45.67.84.132:853
 host: lon01.dnscry.pt/
 end;
 
@@ -2163,4 +2231,3 @@ website: https://www.dnscry.pt
 address: 157.20.83.135:853
 host: sgn01.dnscry.pt/
 end;
-

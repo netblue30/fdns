@@ -316,8 +316,10 @@ void resolver(void) {
 			assert(dest == DEST_SSL);
 			int ssl_len = 0;
 			timetrace_start();
-			if (ssl_state == SSL_OPEN)
+			if (ssl_state == SSL_OPEN) {
+				dns_keepalive_cnt = srv->keepalive;
 				ssl_len = dns_query(buf, len);
+			}
 
 			// a HTTP error from SSL, with no DNS data coming back
 			if (ssl_state == SSL_OPEN && ssl_len == 0) {
@@ -342,8 +344,6 @@ void resolver(void) {
 				}
 				if (len == -1) // todo: parse errno - EAGAIN
 					errExit("sendto");
-				else
-					dns_keepalive_cnt = srv->keepalive;
 			}
 			// send the data to the remote fallback server; store the request in the database
 			else {

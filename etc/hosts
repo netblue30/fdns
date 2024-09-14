@@ -5,11 +5,52 @@
 # Example:
 #	127.0.0.1 domain-name.com
 #
-# These are wildcard domains, like *.domain-name.com in the example above.
-# Any site under domain-name.com will be dropped.
+# Add your personal list here. This list is not overwritten by a new
+# software install.
+#
+#        127.0.0.1 domain-name.com   #drop any site under domain-name.com
 #
 # Note:
 #    glibc library installed on Linux does not support wildcard domains.
 #    Copying /etc/hosts in /etc/fdns/hosts will work, but not the other
 #    way around.
+#
+# Some suggestions:
+#
+
+## Firefox browser
+#127.0.0.1 getpocket.com
+#127.0.0.1 incoming.telemetry.mozilla.org
+#127.0.0.1 location.services.mozilla.com
+#127.0.0.1 safebrowsing.googleapis.com
+#127.0.0.1 contile.services.mozilla.com
+#127.0.0.1 snippets.cdn.mozilla.net
+#127.0.0.1 getpocket.cdn.mozilla.net
+#127.0.0.1 normandy.cdn.mozilla.net
+#127.0.0.1 links.email.mozilla.org
+#127.0.0.1 discovery.addons.mozilla.org
+#127.0.0.1 input.mozilla.org
+#127.0.0.1 contile.services.mozilla.com
+#127.0.0.1 push.services.mozilla.com
+#
+## Brave browser
+#127.0.0.1 matomo.brave.com
+#127.0.0.1 metric-proxy.brave.com
+#127.0.0.1 p3a.brave.com
+#127.0.0.1 rewards.brave.com
+#127.0.0.1 variations.brave.com
+#
+## etc.
+#127.0.0.1 improving.duckduckgo.com
+#127.0.0.1 fundingchoicesmessages.google.com
+#127.0.0.1 fonts.googleapis.com
+#127.0.0.1 fonts.gstatic.com
+#127.0.0.1 accounts.google.com
+#127.0.0.1 connect.facebook.net
+#127.0.0.1 coinpayments.net
+#127.0.0.1 paypalobjects.com
+#127.0.0.1 appleid.cdn-apple.com
+#127.0.0.1 cdn.syndication.twimg.com
+#127.0.0.1 polyfill.io
+#127.0.0.1 puzzmo.com
 #

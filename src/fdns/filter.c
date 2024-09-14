@@ -317,7 +317,7 @@ void filter_load_all_lists(void) {
 	filter_load_list(PATH_ETC_TRACKERS_LIST);
 	filter_load_list(PATH_ETC_ADBLOCKER_LIST);
 	filter_load_list(PATH_ETC_COINBLOCKER_LIST);
-	filter_load_list(PATH_ETC_DYNDNS_LIST);
+// not in 0.9.47 release!!!	filter_load_list(PATH_ETC_DYNDNS_LIST);
 	filter_load_list(PATH_ETC_MALWARE_LIST);
 	filter_load_list(PATH_ETC_HOSTS_LIST);
 
