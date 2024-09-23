@@ -78,10 +78,7 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 </ul>
 <div style="height:20px;">&nbsp;</div>
 
-<h2>Development release 0.9.73:</h2>
-
-In order to keep the size of git repository in check,
-the blocklist filters files were split into a git submodule at https://github.com/netblue30/fdns-blocklists.
+<h2>Development release 0.9.76:</h2>
 
 When you clone the project please run `````git clone --recursive https://github.com/netblue30/fdns`````
 
