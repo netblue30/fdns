@@ -26,7 +26,7 @@ fdns (0.9.74) baseline; urgency=low
   * server list update - over 250 servers currently
   * DSN blocklist filters rebuild
   * bugfixes
- -- netblue30 <netblue30@yahoo.com>  Sat, 7 Sep 2024 08:00:00 -0500
+ -- netblue30 <netblue30@yahoo.com>  Sat, 21 Sep 2024 08:00:00 -0500
 
 fdns (0.9.72) baseline; urgency=low
   * more nxdomain development

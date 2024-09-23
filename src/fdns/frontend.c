@@ -118,6 +118,8 @@ static int sandbox(void *sandbox_arg) {
 	assert(srv);
 	// keepalive autodetection
 	if (restarting && !arg_keepalive) {
+		if (srv->keepalive > 30 && srv->keepalive <= 35)
+			srv->keepalive = 30;
 		arg_keepalive = srv->keepalive - 5;
 		print_time();
 		printf("(%d) Keepalive reconfigured for %d seconds\n", id, arg_keepalive);

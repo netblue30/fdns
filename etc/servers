@@ -210,21 +210,21 @@ address: 94.140.14.15:853
 host: dns-family.adguard.com/
 end;
 
-name: ahadns
-website: https://ahadns.com
-tags: sni, America, AsiaPacific, Europe
-address: blitz.ahadns.com:443
-host: blitz.ahadns.com/
-# server inactivity timer 65 seconds or higher
-end;
-
-name: ahadns-adblocker
-website: https://ahadns.com
-tags: sni, adblocker America, AsiaPacific, Europe
-address: blitz.ahadns.com:443
-host: blitz.ahadns.com/1:1
-# server inactivity timer 65 seconds or higher
-end;
+#name: ahadns
+#website: https://ahadns.com
+#tags: sni, America, AsiaPacific, Europe
+#address: blitz.ahadns.com:443
+#host: blitz.ahadns.com/
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: ahadns-adblocker
+#website: https://ahadns.com
+#tags: sni, adblocker America, AsiaPacific, Europe
+#address: blitz.ahadns.com:443
+#host: blitz.ahadns.com/1:1
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: artikel10
 website: https://dns.artikel10.org
@@ -499,19 +499,19 @@ keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
-name: controld-dot
-website: https://controld.com/free-dns/
-tags: anycast, dot, America, AsiaPacific, Europe
-address: 76.76.2.11:853
-host: freedns.controld.com/
-end;
-
-name: controld2-dot
-website: https://controld.com/free-dns/
-tags: anycast, dot, America, AsiaPacific, Europe
-address: 76.76.10.11:853
-host: freedns.controld.com/
-end;
+#name: controld-dot
+#website: https://controld.com/free-dns/
+#tags: anycast, dot, America, AsiaPacific, Europe
+#address: 76.76.2.11:853
+#host: freedns.controld.com/
+#end;
+#
+#name: controld2-dot
+#website: https://controld.com/free-dns/
+#tags: anycast, dot, America, AsiaPacific, Europe
+#address: 76.76.10.11:853
+#host: freedns.controld.com/
+#end;
 
 name: controld-adblocker
 website: https://controld.com/free-dns/
@@ -1013,12 +1013,12 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/uncensored
 end;
 
-name: dnswarden-dot
-website: https://github.com/bhanupratapys/dnswarden
-tags: sni, dot, America, AsiaPacific, Europe
-address: uncensored.dns.dnswarden.com:853
-host: uncensored.dns.dnswarden.com/
-end;
+#name: dnswarden-dot
+#website: https://github.com/bhanupratapys/dnswarden
+#tags: sni, dot, America, AsiaPacific, Europe
+#address: uncensored.dns.dnswarden.com:853
+#host: uncensored.dns.dnswarden.com/
+#end;
 
 name: dnswarden-adblocker
 website: https://github.com/bhanupratapys/dnswarden
@@ -1027,12 +1027,12 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adblock
 end;
 
-name: dnswarden-adblocker-dot
-website: https://github.com/bhanupratapys/dnswarden
-tags: sni, dot, adblocker, America, AsiaPacific, Europe
-address: adblock.dns.dnswarden.com:853
-host: adblock.dns.dnswarden.com/
-end;
+#name: dnswarden-adblocker-dot
+#website: https://github.com/bhanupratapys/dnswarden
+#tags: sni, dot, adblocker, America, AsiaPacific, Europe
+#address: adblock.dns.dnswarden.com:853
+#host: adblock.dns.dnswarden.com/
+#end;
 
 name: dnswarden-family
 website: https://github.com/bhanupratapys/dnswarden
@@ -1041,20 +1041,21 @@ address: dns.dnswarden.com:443
 host: dns.dnswarden.com/adultfilter
 end;
 
-name: dnswarden-family-dot
-website: https://github.com/bhanupratapys/dnswarden
-tags: sni, dot, family, America, AsiaPacific, Europe
-address: adultfilter.dns.dnswarden.com:853
-host: adultfilter.dns.dnswarden.com/
-end;
+#name: dnswarden-family-dot
+#website: https://github.com/bhanupratapys/dnswarden
+#tags: sni, dot, family, America, AsiaPacific, Europe
+#address: adultfilter.dns.dnswarden.com:853
+#host: adultfilter.dns.dnswarden.com/
+#end;
 
-name: ffmuc
-website: https://ffmuc.net/
-tags: sni, Germany, Europe
-address: oh.ffmuc.net:443
-host: doh.ffmuc.net/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+# slow!!!
+#name: ffmuc
+#website: https://ffmuc.net/
+#tags: sni, Germany, Europe
+#address: doh.ffmuc.net:443
+#host: doh.ffmuc.net/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: flokinet
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
@@ -1250,42 +1251,42 @@ keepalive: 7
 end;
 
 # redirected to cloudflare
-name: mydns.network
-website: https://mydns.network
-tags: sni, America, AsiaPacific, Europe
-address: freedom.mydns.network:443
-host: freedom.mydns.network/dns-query
-# server inactivity timer 65 seconds or higher
-end;
-
-name: mydns.network2
-website: https://mydns.network
-tags: sni, America, AsiaPacific, Europe
-address: paranoia.mydns.network:443
-host: paranoia.mydns.network/dns-query
-# server inactivity timer 65 seconds or higher
-end;
-
-name: mydns.network.adblock
-website: https://mydns.network
-tags: sni, adblocker, America, AsiaPacific, Europe
-address: adblock.mydns.network:443
-host: adblock.mydns.network/dns-query
-# server inactivity timer 65 seconds or higher
-end;
-
-name: mydns.network.family
-website: https://mydns.network
-tags: sni, family, America, AsiaPacific, Europe
-address: family.mydns.network:443
-host: family.mydns.network/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: mydns.network
+#website: https://mydns.network
+#tags: sni, America, AsiaPacific, Europe
+#address: freedom.mydns.network:443
+#host: freedom.mydns.network/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: mydns.network2
+#website: https://mydns.network
+#tags: sni, America, AsiaPacific, Europe
+#address: paranoia.mydns.network:443
+#host: paranoia.mydns.network/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: mydns.network.adblock
+#website: https://mydns.network
+#tags: sni, adblocker, America, AsiaPacific, Europe
+#address: adblock.mydns.network:443
+#host: adblock.mydns.network/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: mydns.network.family
+#website: https://mydns.network
+#tags: sni, family, America, AsiaPacific, Europe
+#address: family.mydns.network:443
+#host: family.mydns.network/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: nextdns
 website: https://nextdns.io/
-tags: anycast, America, AsiaPacific, Europe
-address: 45.90.30.0:443
+tags: America, AsiaPacific, Europe
+address: trr.dns.nextdns.io:443
 host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
 keepalive: 50
@@ -1293,45 +1294,47 @@ end;
 
 name: nextdns-dot
 website: https://nextdns.io/
-tags: anycast, dot, America, AsiaPacific, Europe
-address: 45.90.30.0:853
-host: trr.dns.nextdns.io/
-# server inactivity timer 65 seconds or higher
-end;
-
-name: nextdns2
-website: https://nextdns.io/
-tags: anycast, America, AsiaPacific, Europe
-address: 45.90.28.0:443
-host: trr.dns.nextdns.io/
-# server inactivity timer 65 seconds or higher
-keepalive: 50
-end;
-
-name: nextdns2-dot
-website: https://nextdns.io/
-tags: anycast, dot, America, AsiaPacific, Europe
-address: 45.90.28.0:853
-host: trr.dns.nextdns.io/
-# server inactivity timer 65 seconds or higher
-end;
-
-name: nextdns3
-website: https://nextdns.io/
-tags: anycast, America, AsiaPacific, Europe
-address: trr.dns.nextdns.io:443
-host: trr.dns.nextdns.io/
-# server inactivity timer 65 seconds or higher
-keepalive: 50
-end;
-
-name: nextdns3-dot
-website: https://nextdns.io/
-tags: anycast, dot, America, AsiaPacific, Europe
+tags: dot, America, AsiaPacific, Europe
 address: trr.dns.nextdns.io:853
 host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
 end;
+
+# anycast not working?
+#name: nextdns2
+#website: https://nextdns.io/
+#tags: anycast, America, AsiaPacific, Europe
+#address: 45.90.30.30:443
+##address: 45.90.30.0:443
+#host: trr.dns.nextdns.io/
+## server inactivity timer 65 seconds or higher
+#keepalive: 50
+#end;
+#
+#name: nextdns2-dot
+#website: https://nextdns.io/
+#tags: anycast, dot, America, AsiaPacific, Europe
+#address: 45.90.30.0:853
+#host: trr.dns.nextdns.io/
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: nextdns3
+#website: https://nextdns.io/
+#tags: anycast, America, AsiaPacific, Europe
+#address: 45.90.28.0:443
+#host: trr.dns.nextdns.io/
+## server inactivity timer 65 seconds or higher
+#keepalive: 50
+#end;
+#
+#name: nextdns3-dot
+#website: https://nextdns.io/
+#tags: anycast, dot, America, AsiaPacific, Europe
+#address: 45.90.28.0:853
+#host: trr.dns.nextdns.io/
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: njalla
 website: https://njal.la
