@@ -1,3 +1,6 @@
+fdns (0.9.75) baseline; urgency=low
+ -- netblue30 <netblue30@yahoo.com>  Mon, 23 Sep 2024 08:00:00 -0500
+
 fdns (0.9.74) baseline; urgency=low
   * remove --debug-ssl command
   * remove --proxy-addr-any command
