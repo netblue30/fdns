@@ -1,4 +1,7 @@
 fdns (0.9.75) baseline; urgency=low
+  * added stats to --test-server
+  * added WesternEurope label
+  * added list.dyndns (dynamic dns filter)
  -- netblue30 <netblue30@yahoo.com>  Mon, 23 Sep 2024 08:00:00 -0500
 
 fdns (0.9.74) baseline; urgency=low
