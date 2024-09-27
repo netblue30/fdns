@@ -53,7 +53,7 @@ unlist: testserver2
 
 name: testserver1
 website: https://testserver.123
-tags: France, Europe
+tags: France, WesternEurope, Europe
 address: 0.0.0.0:443
 host: testserver.123/dns-query
 # server inactivity timer 60 seconds or higher
@@ -61,7 +61,7 @@ end;
 
 name: testserver2
 website: https://testserver.123
-tags: France, Europe
+tags: France, WesternEurope, Europe
 address: 0.0.0.0:443
 host: testserver.123/dns-query
 # server inactivity timer 60 seconds or higher
@@ -70,7 +70,7 @@ end;
 
 name: 42l
 website: https://42l.fr
-tags: sni, France, Europe
+tags: sni, France, WesternEurope, Europe
 address: 45.155.171.163:443
 host: doh.42l.fr/dns-query
 # server inactivity timer 65 seconds or higher
@@ -78,14 +78,14 @@ end;
 
 name: a-and-a
 website: https://www.aa.net.uk/legal/dohdot-disclaimer/
-tags: UK, Europe
+tags: UK, WesternEurope, Europe
 address: 217.169.20.23:443
 host: dns.aa.net.uk/dns-query
 end;
 
 name: a-and-a2
 website: https://www.aa.net.uk/legal/dohdot-disclaimer/
-tags: UK, Europe
+tags: UK, WesternEurope, Europe
 address: 217.169.20.22:443
 host: dns.aa.net.uk/dns-query
 end;
@@ -210,25 +210,26 @@ address: 94.140.14.15:853
 host: dns-family.adguard.com/
 end;
 
-name: ahadns
-website: https://ahadns.com
-tags: sni, America, AsiaPacific, Europe
-address: blitz.ahadns.com:443
-host: blitz.ahadns.com/
-# server inactivity timer 65 seconds or higher
-end;
-
-name: ahadns-adblocker
-website: https://ahadns.com
-tags: sni, adblocker America, AsiaPacific, Europe
-address: blitz.ahadns.com:443
-host: blitz.ahadns.com/1:1
-# server inactivity timer 65 seconds or higher
-end;
+# unreliable
+#name: ahadns
+#website: https://ahadns.com
+#tags: sni, America, AsiaPacific, Europe
+#address: blitz.ahadns.com:443
+#host: blitz.ahadns.com/
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: ahadns-adblocker
+#website: https://ahadns.com
+#tags: sni, adblocker America, AsiaPacific, Europe
+#address: blitz.ahadns.com:443
+#host: blitz.ahadns.com/1:1
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: artikel10
 website: https://dns.artikel10.org
-tags: Netherlands, Europe
+tags: Netherlands, WesternEurope, Europe
 address: 217.197.91.153:443
 host: dns.artikel10.org/dns-query
 # server inactivity timer 65 seconds or higher
@@ -236,7 +237,7 @@ end;
 
 name: artikel10-dot
 website: https://dns.artikel10.org
-tags: dot, Netherlands, Europe
+tags: dot, Netherlands, WesternEurope, Europe
 address: 217.197.91.153:853
 host: dns.artikel10.org/
 # server inactivity timer 65 seconds or higher
@@ -252,7 +253,7 @@ end;
 
 name: aquilenet
 website: https://www.aquilenet.fr/
-tags: France, Europe
+tags: France, WesternEurope, Europe
 address: 45.67.81.23:443
 host: dns.aquilenet.fr/dns-query
 # server inactivity timer 65 seconds or higher
@@ -756,7 +757,7 @@ end;
 
 name: dns4me-uk1
 website: https://dns4me.net/
-tags: UK, Europe
+tags: UK, WesternEurope, Europe
 address: 3.10.65.124:443
 host: uk01.dns4me.net/
 end;
@@ -770,7 +771,7 @@ end;
 
 name: dns4me-ie1
 website: https://dns4me.net/
-tags: Ireland, Europe
+tags: Ireland, WesternEurope, Europe
 address: 54.77.124.213:443
 host: ie01.dns4me.net/
 end;
@@ -792,7 +793,7 @@ end;
 # global dns-sb cdn
 name: dns-sb1
 website: https://dns.sb/doh
-tags: sni, Belgium, Europe
+tags: sni, Belgium, WesternEurope, Europe
 address: 185.222.222.222:443
 host: doh.dns.sb/dns-query
 # server inactivity timer 60 seconds or higher
@@ -801,7 +802,7 @@ end;
 # global dns-sb cdn
 name: dns-sb2
 website: https://dns.sb/doh
-tags: sni, Belgium, Europe
+tags: sni, Belgium, WesternEurope, Europe
 address: 45.11.45.11:443
 host: doh.dns.sb/dns-query
 # server inactivity timer 65 seconds or higher
@@ -825,7 +826,7 @@ end;
 
 name: dns-sb-nl1
 website: https://dns.sb/doh
-tags: sni, Netherlands, Europe
+tags: sni, Netherlands, WesternEurope, Europe
 address: nl-ams.doh.sb:443
 host: nl-ams.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
@@ -833,7 +834,7 @@ end;
 
 name: dns-sb-nl2
 website: https://dns.sb/doh
-tags: sni, Netherlands, Europe
+tags: sni, Netherlands, WesternEurope, Europe
 address: nl-ams2.doh.sb:443
 host: nl-ams2.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
@@ -841,7 +842,7 @@ end;
 
 name: dns-sb-uk
 website: https://dns.sb/doh
-tags: sni, UK, Europe
+tags: sni, UK, WesternEurope, Europe
 address: uk-lon.doh.sb:443
 host: uk-lon.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
@@ -1074,14 +1075,14 @@ end;
 
 name: flokinet
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Iceland, Europe
+tags: Iceland, WesternEurope, Europe
 address: 37.156.68.20:443
 host: nl.resolv.flokinet.net/dns-query
 end;
 
 name: flokinet-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: dot, Europe, Iceland
+tags: dot, Europe, Iceland, WesternEurope
 address: 37.156.68.20:853
 host: nl.resolv.flokinet.net/
 end;
@@ -1102,14 +1103,14 @@ end;
 
 name: flokinet-nl
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Netherlands, Europe
+tags: Netherlands, WesternEurope, Europe
 address: 185.246.188.51:443
 host: nl.resolv.flokinet.net/dns-query
 end;
 
 name: flokinet-nl-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: dot, Netherlands, Europe
+tags: dot, Netherlands, WesternEurope, Europe
 address: 185.246.188.51:853
 host: nl.resolv.flokinet.net/
 end;
@@ -1124,7 +1125,7 @@ end;
 
 name: getdnsapi-dot
 website: https://getdnsapi.net/
-tags: dot, Netherlands, Europe
+tags: dot, Netherlands, WesternEurope, Europe
 address: 185.49.141.37:853
 host: getdnsapi.net/
 # server inactivity timer 65 seconds or higher
@@ -1132,7 +1133,7 @@ end;
 
 name: getdnsapi2-dot
 website: https://getdnsapi.net/
-tags: dot, Netherlands, Europe
+tags: dot, Netherlands, WesternEurope, Europe
 address: 185.49.141.37:443
 host: getdnsapi.net/
 # server inactivity timer 65 seconds or higher
@@ -1140,7 +1141,7 @@ end;
 
 name: getdnsapi3-dot
 website: https://getdnsapi.net/
-tags: dot, Netherlands, Europe
+tags: dot, Netherlands, WesternEurope, Europe
 address: 185.49.141.38:853
 host: getdnsapi.net/
 # server inactivity timer 65 seconds or higher
@@ -1148,7 +1149,7 @@ end;
 
 name: gorgeous-nindy
 website: https://so-gorgeo.us.kg/
-tags: sni, Netherlands, Europe
+tags: sni, Netherlands, WesternEurope, Europe
 address: nindy-is.so-gorgeo.us.kg:443
 host: nindy-is.so-gorgeo.us.kg/dns-query
 end;
@@ -1197,7 +1198,7 @@ end;
 
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
-tags: Luxembourg, Europe, adblocker
+tags: Luxembourg, WesternEurope, Europe, adblocker
 address: 46.226.109.82:443
 host: dns.hostux.net/ads
 # server inactivity timer 65 seconds or higher
@@ -1205,7 +1206,7 @@ end;
 
 name: lacontrevoie
 website: https://hostux.network/en/index.html
-tags: sni, France, Europe
+tags: sni, France, WesternEurope, Europe
 address: 45.155.171.163:443
 host: doh.lacontrevoie.fr/dns-query
 # server inactivity timer 65 seconds or higher
@@ -1220,7 +1221,7 @@ end;
 
 name: lefolgoc
 website: https://yarp.lefolgoc.net/
-tags: France, Europe
+tags: France, WesternEurope, Europe
 address: 5.39.88.20:443
 host: yarp.lefolgoc.net/dns-query
 # server inactivity timer 65 seconds or higher
@@ -1229,7 +1230,7 @@ end;
 # using HTTP 1.1
 name: li
 website: https://doh.li/
-tags: UK, Europe
+tags: UK, WesternEurope, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
 # server inactivity timer 65 seconds or higher
@@ -1442,7 +1443,7 @@ end;
 
 name: privex-nl
 website: https://www.privex.io/articles/public-infra
-tags: sni, Netherlands, Europe
+tags: sni, Netherlands, WesternEurope, Europe
 address: 185.130.47.20:443
 host: nl.dns.privex.io/
 end;
@@ -1620,7 +1621,7 @@ end;
 
 name: ryan-palmer
 website: https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-tags: UK, Europe
+tags: UK, WesternEurope, Europe
 address: 68.183.253.200:443
 host: ns1.ryan-palmer.com/dns-query
 end;
@@ -1635,14 +1636,14 @@ end;
 
 #name: sellan
 #website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-#tags: France, Europe
+#tags: France, WesternEurope, Europe
 #address: 78.194.186.17:443
 #host: dns.sellan.fr/dns-query
 #end;
 
 name: sellan-dot
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-tags: dot, admin-down, France, Europe
+tags: dot, admin-down, France, WesternEurope, Europe
 address: 78.194.186.17:853
 host: dns.sellan.fr/
 end;
@@ -1711,7 +1712,7 @@ end;
 
 name: yarp
 website: https://yarp.lefolgoc.net
-tags: France, Europe
+tags: France, WesternEurope, Europe
 address: 5.39.88.20:443
 host: yarp.lefolgoc.net/dns-query
 # server inactivity timer 65 seconds or higher
@@ -1743,7 +1744,7 @@ host: tpa01.dnscry.pt/
 end;
 
 name: dnscrypt-amsterdam
-tags: dot, Netherlands, Europe
+tags: dot, Netherlands, WesternEurope, Europe
 website: https://www.dnscry.pt
 address: 198.140.141.46:853
 host: ams01.dnscry.pt/
@@ -1778,7 +1779,7 @@ host: rix01.dnscry.pt/
 end;
 
 name: dnscrypt-coventry
-tags: dot, UK, Europe
+tags: dot, UK, WesternEurope, Europe
 website: https://www.dnscry.pt
 address: 104.128.190.108:853
 host: cvt01.dnscry.pt/
@@ -1813,14 +1814,14 @@ host: yvr01.dnscry.pt/
 end;
 
 name: dnscrypt-dublin
-tags: dot, Ireland, Europe
+tags: dot, Ireland, WesternEurope, Europe
 website: https://www.dnscry.pt
 address: 194.26.213.15:853
 host: dub01.dnscry.pt/
 end;
 
 name: dnscrypt-durham
-tags: dot, UK, Europe
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 38.45.64.117:853
 host: rdu01.dnscry.pt/
@@ -1960,7 +1961,7 @@ host: hel01.dnscry.pt/
 end;
 
 name: dnscrypt-paris
-tags: dot, France, Europe
+tags: dot, France, WesternEurope, Europe
 website: https://www.dnscry.pt
 address: 89.117.2.17:853
 host: par01.dnscry.pt/
@@ -1988,7 +1989,7 @@ host: yyz01.dnscry.pt/
 end;
 
 name: dnscrypt-eygelshoven
-tags: dot, Netherlands, Europe
+tags: dot, Netherlands, WesternEurope, Europe
 website: https://www.dnscry.pt
 address: 93.95.115.21:853
 host: eyg01.dnscry.pt/
@@ -2030,7 +2031,7 @@ host: zal01.dnscry.pt/
 end;
 
 name: dnscrypt-naaldwijk
-tags: dot, Netherlands, Europe
+tags: dot, Netherlands, WesternEurope, Europe
 website: https://www.dnscry.pt
 address: 23.137.249.26:853
 host: naw01.dnscry.pt/
@@ -2065,7 +2066,7 @@ host: iev01.dnscry.pt/
 end;
 
 name: dnscrypt-madrid
-tags: dot, Spain, Europe
+tags: dot, Spain, WesternEurope, Europe
 website: https://www.dnscry.pt
 address: 5.134.118.198:853
 host: mad01.dnscry.pt/
@@ -2289,7 +2290,7 @@ host: las01.dnscry.pt/
 end;
 
 name: dnscrypt-london
-tags: dot, UK, Europe
+tags: dot, UK, WesternEurope, Europe
 website: https://www.dnscry.pt
 address: 45.67.84.132:853
 host: lon01.dnscry.pt/
@@ -2317,7 +2318,7 @@ host: hkg02.dnscry.pt/
 end;
 
 name: dnscrypt-amsterdam02
-tags: dot, Netherlands, Europe
+tags: dot, Netherlands, WesternEurope, Europe
 website: https://www.dnscry.pt
 address: 45.86.162.110:853
 host: ams02.dnscry.pt/
