@@ -73,7 +73,7 @@ static DFilter default_filter[] = {
 	{"id.google.", NULL, 0},
 	{"^oas.", NULL, 0},
 	{"^oascentral.", NULL, 0},
-	{"^stats.", NULL, 0},
+//	{"^stats.", NULL, 0},
 	{"^tag.", NULL, 0},
 	{"^hostmaster.hostmaster", NULL, 0},
 

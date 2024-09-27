@@ -448,4 +448,8 @@ extern DnsTransport h11_transport;
 // dot.c
 extern DnsTransport dot_transport;
 
+// stats.c
+void stats_add(const char *name, float qtime);
+void stats_down(const char *name);
+void stats_print(void);
 #endif

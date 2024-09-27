@@ -688,16 +688,17 @@ void server_test_tag(const char *tag)  {
 
 	// walk the list
 	DnsServer *s = slist;
-	float qaverage = 0;
 	int cnt = 0;
 	while (s) {
 		if (s->active) {
 			scurrent = s;
 			float rv = test_server(s->name);
 			if (rv != 0) {
-				qaverage += rv;
+				stats_add(s->name, rv);
 				cnt++;
 			}
+			else
+				stats_down(s->name);
 			usleep(500000);
 		}
 		s = s->next;
@@ -707,7 +708,7 @@ void server_test_tag(const char *tag)  {
 	if (cnt == 0)
 		printf("No active servers found\n");
 	else
-		printf("%d server%s active, average query time %.02f ms\n", cnt, (cnt > 1)? "s": "", qaverage / cnt);
+		stats_print();
 	printf("Testing completed\n");
 }
 

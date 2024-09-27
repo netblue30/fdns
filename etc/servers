@@ -210,21 +210,21 @@ address: 94.140.14.15:853
 host: dns-family.adguard.com/
 end;
 
-#name: ahadns
-#website: https://ahadns.com
-#tags: sni, America, AsiaPacific, Europe
-#address: blitz.ahadns.com:443
-#host: blitz.ahadns.com/
-## server inactivity timer 65 seconds or higher
-#end;
-#
-#name: ahadns-adblocker
-#website: https://ahadns.com
-#tags: sni, adblocker America, AsiaPacific, Europe
-#address: blitz.ahadns.com:443
-#host: blitz.ahadns.com/1:1
-## server inactivity timer 65 seconds or higher
-#end;
+name: ahadns
+website: https://ahadns.com
+tags: sni, America, AsiaPacific, Europe
+address: blitz.ahadns.com:443
+host: blitz.ahadns.com/
+# server inactivity timer 65 seconds or higher
+end;
+
+name: ahadns-adblocker
+website: https://ahadns.com
+tags: sni, adblocker America, AsiaPacific, Europe
+address: blitz.ahadns.com:443
+host: blitz.ahadns.com/1:1
+# server inactivity timer 65 seconds or higher
+end;
 
 name: artikel10
 website: https://dns.artikel10.org
@@ -240,6 +240,14 @@ tags: dot, Netherlands, Europe
 address: 217.197.91.153:853
 host: dns.artikel10.org/
 # server inactivity timer 65 seconds or higher
+end;
+
+# cloudflare redirect
+name: asagiri
+website: https://asagiri.moe/
+tags: sni, Indonesia, AsiaPacific, FarEast
+address: doh.asagiri.moe:443
+host: doh.asagiri.moe/dns-query
 end;
 
 name: aquilenet
@@ -310,6 +318,13 @@ tags: sni, America, AsiaPacific, Europe
 address: basic.bravedns.com:443
 host: basic.bravedns.com/
 # server inactivity timer 65 seconds or higher
+end;
+
+name: bravocone
+website: https://bravoc.one/en/
+tags: sni, adblocker, US, America
+address: dns.bravoc.one:443
+host: dns.bravoc.one/dns-query
 end;
 
 # low keepalive
@@ -769,7 +784,7 @@ end;
 
 name: dns4me-jp
 website: https://dns4me.net/
-tags: Australia, AsiaPacific, FarEast
+tags: Japan, AsiaPacific, FarEast
 address: 54.64.104.154:443
 host: jp01.dns4me.net/
 end;
@@ -960,13 +975,6 @@ host: de-ber.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-#name: dns-watch
-#website: https://dns.watch/
-#tags: admin-down, Germany, Europe
-#address: 84.200.70.40:443
-#host: resolver2.dns.watch/dns-query
-#end;
-
 name: dnscrypt-ca
 website: https://dnscrypt.ca/
 tags: Canada, America
@@ -1006,41 +1014,42 @@ host: dnslow.me/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dnswarden
-website: https://github.com/bhanupratapys/dnswarden
-tags: sni, America, AsiaPacific, Europe
-address: dns.dnswarden.com:443
-host: dns.dnswarden.com/uncensored
-end;
-
+# unreliable
+#name: dnswarden
+#website: https://github.com/bhanupratapys/dnswarden
+#tags: sni, America, AsiaPacific, Europe
+#address: dns.dnswarden.com:443
+#host: dns.dnswarden.com/uncensored
+#end;
+#
 #name: dnswarden-dot
 #website: https://github.com/bhanupratapys/dnswarden
 #tags: sni, dot, America, AsiaPacific, Europe
 #address: uncensored.dns.dnswarden.com:853
 #host: uncensored.dns.dnswarden.com/
 #end;
-
-name: dnswarden-adblocker
-website: https://github.com/bhanupratapys/dnswarden
-tags: sni, adblocker, America, AsiaPacific, Europe
-address: dns.dnswarden.com:443
-host: dns.dnswarden.com/adblock
-end;
-
+#
+#name: dnswarden-adblocker
+#website: https://github.com/bhanupratapys/dnswarden
+#tags: sni, adblocker, America, AsiaPacific, Europe
+#address: dns.dnswarden.com:443
+#host: dns.dnswarden.com/adblock
+#end;
+#
 #name: dnswarden-adblocker-dot
 #website: https://github.com/bhanupratapys/dnswarden
 #tags: sni, dot, adblocker, America, AsiaPacific, Europe
 #address: adblock.dns.dnswarden.com:853
 #host: adblock.dns.dnswarden.com/
 #end;
-
-name: dnswarden-family
-website: https://github.com/bhanupratapys/dnswarden
-tags: sni, family, America, AsiaPacific, Europe
-address: dns.dnswarden.com:443
-host: dns.dnswarden.com/adultfilter
-end;
-
+#
+#name: dnswarden-family
+#website: https://github.com/bhanupratapys/dnswarden
+#tags: sni, family, America, AsiaPacific, Europe
+#address: dns.dnswarden.com:443
+#host: dns.dnswarden.com/adultfilter
+#end;
+#
 #name: dnswarden-family-dot
 #website: https://github.com/bhanupratapys/dnswarden
 #tags: sni, dot, family, America, AsiaPacific, Europe
@@ -1048,14 +1057,20 @@ end;
 #host: adultfilter.dns.dnswarden.com/
 #end;
 
-# slow!!!
-#name: ffmuc
-#website: https://ffmuc.net/
-#tags: sni, Germany, Europe
-#address: doh.ffmuc.net:443
-#host: doh.ffmuc.net/dns-query
-## server inactivity timer 65 seconds or higher
-#end;
+name: eliv
+website: https://dns.eliv.kr/
+tags: adblocker, Korea, AsiaPacific, FarEast
+address: 138.2.122.236:443
+host: dns.eliv.kr/dns-query
+end;
+
+name: ffmuc
+website: https://ffmuc.net/
+tags: sni, Germany, Europe
+address: doh.ffmuc.net:443
+host: doh.ffmuc.net/dns-query
+# server inactivity timer 65 seconds or higher
+end;
 
 name: flokinet
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
@@ -1131,6 +1146,55 @@ host: getdnsapi.net/
 # server inactivity timer 65 seconds or higher
 end;
 
+name: gorgeous-nindy
+website: https://so-gorgeo.us.kg/
+tags: sni, Netherlands, Europe
+address: nindy-is.so-gorgeo.us.kg:443
+host: nindy-is.so-gorgeo.us.kg/dns-query
+end;
+
+name: gorgeous-nova
+website: https://so-gorgeo.us.kg/
+tags: sni, SouthAfrica, Africa, Europe
+address: nova-is.so-gorgeo.us.kg:443
+host: nova-is.so-gorgeo.us.kg/dns-query
+end;
+
+name: gorgeous-yussy
+website: https://so-gorgeo.us.kg/
+tags: sni, India, AsiaPacific
+address: yussy-is.so-gorgeo.us.kg:443
+host: yussy-is.so-gorgeo.us.kg/dns-query
+end;
+
+name: gorgeous-mita
+website: https://so-gorgeo.us.kg/
+tags: sni, Singapore, AsiaPacific, FarEast
+address: mita-is.so-gorgeo.us.kg:443
+host: mita-is.so-gorgeo.us.kg/dns-query
+end;
+
+name: gorgeous-luna
+website: https://so-gorgeo.us.kg/
+tags: sni, Japan, AsiaPacific, FarEast
+address: luna-is.so-gorgeo.us.kg:443
+host: luna-is.so-gorgeo.us.kg/dns-query
+end;
+
+name: gorgeous-tetty
+website: https://so-gorgeo.us.kg/
+tags: sni, Japan, AsiaPacific, FarEast
+address: tetty-is.so-gorgeo.us.kg:443
+host: tetty-is.so-gorgeo.us.kg/dns-query
+end;
+
+name: gorgeous-nana
+website: https://so-gorgeo.us.kg/
+tags: sni, Japan, AsiaPacific, FarEast
+address: nana-is.so-gorgeo.us.kg:443
+host: nana-is.so-gorgeo.us.kg/dns-query
+end;
+
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
 tags: Luxembourg, Europe, adblocker
@@ -1147,21 +1211,11 @@ host: doh.lacontrevoie.fr/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-# using HTTP 1.1
-#name: lavadns-us
-#website: https://dns.lavate.ch
-#tags: US, America
-#address: 79.110.170.43:443
-#host: us1.dns.lavate.ch/dns-query
-#end;
-
-# using HTTP 1.1
-name: lavadns-fi
-website: https://dns.lavate.ch
+name: lavadns-eu1
+website: https://dns.lavate.ch/
 tags: Finland, Europe
 address: 95.217.25.217:443
 host: eu1.dns.lavate.ch/dns-query
-# server inactivity timer 65 seconds or higher
 end;
 
 name: lefolgoc
@@ -1223,6 +1277,20 @@ address: 173.208.212.205:853
 host: dns2.marbledfennec.net/
 end;
 
+name: marbled3
+website: https://www.marbledfennec.net/public-dns-server/
+tags: US, America, security
+address: multi.dns.marbledfennec.net:443
+host: multi.dns.marbledfennec.net/dns-query
+end;
+
+name: marbled3-dot
+website: https://www.marbledfennec.net/public-dns-server/
+tags: dot, US, America, security
+address: multi.dns.marbledfennec.net:853
+host: multi.dns.marbledfennec.net/
+end;
+
 # low keepalive
 name: mullvad
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
@@ -1251,37 +1319,37 @@ keepalive: 7
 end;
 
 # redirected to cloudflare
-#name: mydns.network
-#website: https://mydns.network
-#tags: sni, America, AsiaPacific, Europe
-#address: freedom.mydns.network:443
-#host: freedom.mydns.network/dns-query
-## server inactivity timer 65 seconds or higher
-#end;
-#
-#name: mydns.network2
-#website: https://mydns.network
-#tags: sni, America, AsiaPacific, Europe
-#address: paranoia.mydns.network:443
-#host: paranoia.mydns.network/dns-query
-## server inactivity timer 65 seconds or higher
-#end;
-#
-#name: mydns.network.adblock
-#website: https://mydns.network
-#tags: sni, adblocker, America, AsiaPacific, Europe
-#address: adblock.mydns.network:443
-#host: adblock.mydns.network/dns-query
-## server inactivity timer 65 seconds or higher
-#end;
-#
-#name: mydns.network.family
-#website: https://mydns.network
-#tags: sni, family, America, AsiaPacific, Europe
-#address: family.mydns.network:443
-#host: family.mydns.network/dns-query
-## server inactivity timer 65 seconds or higher
-#end;
+name: mydns.network
+website: https://mydns.network
+tags: sni, America, AsiaPacific, Europe
+address: freedom.mydns.network:443
+host: freedom.mydns.network/dns-query
+# server inactivity timer 65 seconds or higher
+end;
+
+name: mydns.network2
+website: https://mydns.network
+tags: sni, America, AsiaPacific, Europe
+address: paranoia.mydns.network:443
+host: paranoia.mydns.network/dns-query
+# server inactivity timer 65 seconds or higher
+end;
+
+name: mydns.network.adblock
+website: https://mydns.network
+tags: sni, adblocker, America, AsiaPacific, Europe
+address: adblock.mydns.network:443
+host: adblock.mydns.network/dns-query
+# server inactivity timer 65 seconds or higher
+end;
+
+name: mydns.network.family
+website: https://mydns.network
+tags: sni, family, America, AsiaPacific, Europe
+address: family.mydns.network:443
+host: family.mydns.network/dns-query
+# server inactivity timer 65 seconds or higher
+end;
 
 name: nextdns
 website: https://nextdns.io/
@@ -1300,47 +1368,25 @@ host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
 end;
 
-# anycast not working?
-#name: nextdns2
-#website: https://nextdns.io/
-#tags: anycast, America, AsiaPacific, Europe
-#address: 45.90.30.30:443
-##address: 45.90.30.0:443
-#host: trr.dns.nextdns.io/
-## server inactivity timer 65 seconds or higher
-#keepalive: 50
-#end;
-#
-#name: nextdns2-dot
-#website: https://nextdns.io/
-#tags: anycast, dot, America, AsiaPacific, Europe
-#address: 45.90.30.0:853
-#host: trr.dns.nextdns.io/
-## server inactivity timer 65 seconds or higher
-#end;
-#
-#name: nextdns3
-#website: https://nextdns.io/
-#tags: anycast, America, AsiaPacific, Europe
-#address: 45.90.28.0:443
-#host: trr.dns.nextdns.io/
-## server inactivity timer 65 seconds or higher
-#keepalive: 50
-#end;
-#
-#name: nextdns3-dot
-#website: https://nextdns.io/
-#tags: anycast, dot, America, AsiaPacific, Europe
-#address: 45.90.28.0:853
-#host: trr.dns.nextdns.io/
-## server inactivity timer 65 seconds or higher
-#end;
-
 name: njalla
 website: https://njal.la
 tags: Sweden, Europe
 address: 95.215.19.53:443
 host: dns.njal.la/dns-query
+end;
+
+name: noridev
+website:https://adblock.noridev.moe/html/dns_android.html
+tags: adblocker, Korea, AsiaPacific, FarEast
+address: 220.84.185.202:443
+host: 1.dns.noridev.moe/dns-query
+end;
+
+name: noridev2
+website:https://adblock.noridev.moe/html/dns_android.html
+tags: adblocker, Korea, AsiaPacific, FarEast
+address: 112.163.234.84:443
+host: 2.dns.noridev.moe/dns-query
 end;
 
 name: opennameserver
@@ -1392,6 +1438,20 @@ website: https://milgradesec.github.io/paesadns/
 tags: sni, America, AsiaPacific, Europe, adblocker
 address: dns.paesa.es:443
 host: dns.paesa.es/dns-query
+end;
+
+name: privex-nl
+website: https://www.privex.io/articles/public-infra
+tags: sni, Netherlands, Europe
+address: 185.130.47.20:443
+host: nl.dns.privex.io/
+end;
+
+name: privex-de
+website: https://www.privex.io/articles/public-infra
+tags: sni, Germany, Europe
+address: 176.9.54.219:443
+host: de.dns.privex.io/
 end;
 
 name: prokits
@@ -1457,6 +1517,41 @@ address: 149.112.112.10:443
 host: dns10.quad9.net/dns-query
 end;
 
+name: qwer-tiger
+website: https://dns.qwer.pw/
+tags: adblocker, Korea, AsiaPacific, FarEast
+address: 132.145.83.120:443
+host: tiger.dns.qwer.pw/dns-query
+end;
+
+name: qwer-frog
+website: https://dns.qwer.pw/
+tags: adblocker, Korea, AsiaPacific, FarEast
+address: 140.238.10.79:443
+host: frog.dns.qwer.pw/dns-query
+end;
+
+name: qwer-lion
+website: https://dns.qwer.pw/
+tags: adblocker, Korea, AsiaPacific, FarEast
+address: 146.56.137.68:443
+host: lion.dns.qwer.pw/dns-query
+end;
+
+name: qwer-dog
+website: https://dns.qwer.pw/
+tags: adblocker, Korea, AsiaPacific, FarEast
+address: 146.56.176.39:443
+host: dog.dns.qwer.pw/dns-query
+end;
+
+name: qwer-ant
+website: https://dns.qwer.pw/
+tags: adblocker, Korea, AsiaPacific, FarEast
+address: 146.56.160.153:443
+host: ant.dns.qwer.pw/dns-query
+end;
+
 # cloudflare redirect
 name: rabbitdns
 website: https://rabbitdns.org/install
@@ -1483,7 +1578,7 @@ end;
 
 name: respinger
 website: https://dns.repinger.com/
-tags: sni, Indonesia, AsiaPacific
+tags: sni, Indonesia, AsiaPacific, FarEast
 address: 103.235.73.244:443
 host: dns.repinger.com/dns-query
 end;
@@ -1577,48 +1672,6 @@ address: 101.101.101.101:853
 host: dns.twnic.tw/
 end;
 
-#name: uncensoreddns
-#website: https://blog.uncensoreddns.org/
-#tags: Europe, America
-#address: 91.239.100.100:443
-#host: anycast.censurfridns.dk/dns-query
-#end;
-#
-#name: uncensoreddns2
-#website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe
-#address: 89.233.43.71:443
-#host: unicast.censurfridns.dk/dns-query
-#end;
-#
-#name: uncensoreddns3
-#website: https://blog.uncensoreddns.org/
-#tags: US, America
-#address: 198.180.150.12:443
-#host: unicast.censurfridns.dk/dns-query
-#end;
-#
-#name: uncensoreddns4
-#website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe
-#address: 130.225.244.166:443
-#host: unicast.censurfridns.dk/dns-query
-#end;
-#
-#name: uncensoreddns5
-#website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe
-#address: 130.226.161.34:443
-#host: unicast.censurfridns.dk/dns-query
-#end;
-#
-#name: uncensoreddns6
-#website: https://blog.uncensoreddns.org/
-#tags: Denmark, Europe
-#address: 185.38.27.139:443
-#host: unicast.censurfridns.dk/dns-query
-#end;
-
 name: vinnyp
 website: https://dns.vinnyp.xyz/privacy
 tags: family, US, America
@@ -1664,6 +1717,13 @@ host: yarp.lefolgoc.net/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
+name: your-dns
+website: https://github.com/yegle/your-dns
+tags: adblocker, US, America
+address: 35.247.39.128:443
+host: your-dns.run/dns-query
+end;
+
 name: zdn
 website: https://zdn.ro
 tags: adblocker, Romania, Europe
@@ -1675,8 +1735,8 @@ end;
 # dnscry.pt section
 # - extracted from https://dnscry.pt lists
 ##################################################
-name: dnscry-tampa
-tags: dot, US, America
+name: dnscrypt-tampa
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 165.140.117.248:853
 host: tpa01.dnscry.pt/
@@ -1696,8 +1756,15 @@ address: 79.124.77.3:853
 host: sof01.dnscry.pt/
 end;
 
+name: dnscrypt-budapest
+tags: dot, Hungary, Europe
+website: https://www.dnscry.pt
+address: 194.102.227.5:853
+host: bud01.dnscry.pt/
+end;
+
 name: dnscrypt-fremont
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 23.134.88.71:853
 host: fet01.dnscry.pt/
@@ -1725,7 +1792,7 @@ host: jkt01.dnscry.pt/
 end;
 
 name: dnscrypt-taos
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 63.133.223.138:853
 host: tsm01.dnscry.pt/
@@ -1738,18 +1805,46 @@ address: 202.61.236.67:853
 host: nue01.dnscry.pt/
 end;
 
+name: dnscrypt-vancouver
+tags: dot, Canada, America
+website: https://www.dnscry.pt
+address: 104.36.148.46:853
+host: yvr01.dnscry.pt/
+end;
+
+name: dnscrypt-dublin
+tags: dot, Ireland, Europe
+website: https://www.dnscry.pt
+address: 194.26.213.15:853
+host: dub01.dnscry.pt/
+end;
+
 name: dnscrypt-durham
-tags: dot, US, America
+tags: dot, UK, Europe
 website: https://www.dnscry.pt
 address: 38.45.64.117:853
 host: rdu01.dnscry.pt/
 end;
 
+name: dnscrypt-athens
+tags: dot, Greece, Europe
+website: https://www.dnscry.pt
+address: 185.234.52.87:853
+host: ath01.dnscry.pt/
+end;
+
 name: dnscrypt-atlanta
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 170.249.237.154:853
 host: atl01.dnscry.pt/
+end;
+
+name: dnscrypt-copenhagen
+tags: dot, Denmark, Europe
+website: https://www.dnscry.pt
+address: 85.120.84.5:853
+host: cph01.dnscry.pt/
 end;
 
 name: dnscrypt-chisinau
@@ -1766,26 +1861,33 @@ address: 84.33.15.100:853
 host: syd01.dnscry.pt/
 end;
 
+name: dnscrypt-milan
+tags: dot, Italy, Europe
+website: https://www.dnscry.pt
+address: 217.156.50.25:853
+host: mil01.dnscry.pt/
+end;
+
 name: dnscrypt-montreal
-tags: dot, Canada, America
+tags: dot, Canada, Americas
 website: https://www.dnscry.pt
 address: 147.189.136.183:853
 host: ymq01.dnscry.pt/
 end;
 
 name: dnscrypt-flint
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 147.189.140.136:853
 host: fnt01.dnscry.pt/
 end;
 
-#name: dnscrypt-ottoville
-#tags: dot, US, America
-#website: https://www.dnscry.pt
-#address: 104.234.231.23:853
-#host: ott01.dnscry.pt/
-#end;
+name: dnscrypt-ottoville
+tags: dot, US, Americas
+website: https://www.dnscry.pt
+address: 104.234.231.239:853
+host: ott01.dnscry.pt/
+end;
 
 name: dnscrypt-istanbul
 tags: dot, Turkey, Europe, MiddleEast
@@ -1794,10 +1896,31 @@ address: 193.228.1.130:853
 host: ist01.dnscry.pt/
 end;
 
+name: dnscrypt-dallas
+tags: dot, US, Americas
+website: https://www.dnscry.pt
+address: 23.230.253.98:853
+host: dfw02.dnscry.pt/
+end;
+
+name: dnscrypt-hanoi
+tags: dot, Vietnam, AsiaPacific, FarEast
+website: https://www.dnscry.pt
+address: 103.199.16.93:853
+host: han01.dnscry.pt/
+end;
+
+name: dnscrypt-tokyo
+tags: dot, Japan, AsiaPacific
+website: https://www.dnscry.pt
+address: 45.67.86.123:853
+host: tyo03.dnscry.pt/
+end;
+
 name: dnscrypt-hongkong
 tags: dot, HongKong, AsiaPacific, FarEast
 website: https://www.dnscry.pt
-address: 89.213.0.26:853
+address: 89.213.0.14:853
 host: hkg01.dnscry.pt/
 end;
 
@@ -1809,10 +1932,17 @@ host: fjr01.dnscry.pt/
 end;
 
 name: dnscrypt-lima
-tags: dot, Peru, SouthAmerica, America
+tags: dot, Peru, SouthAmerica, Americas
 website: https://www.dnscry.pt
 address: 161.132.47.185:853
 host: lim01.dnscry.pt/
+end;
+
+name: dnscrypt-vilnius
+tags: dot, Lithuania, Europe
+website: https://www.dnscry.pt
+address: 162.254.86.13:853
+host: vno01.dnscry.pt/
 end;
 
 name: dnscrypt-geneva
@@ -1836,15 +1966,8 @@ address: 89.117.2.17:853
 host: par01.dnscry.pt/
 end;
 
-#name: dnscrypt-tokyo
-#tags: dot, Japan, AsiaPacific, FarEast
-#website: https://www.dnscry.pt
-#address: 84.33.12.158:853
-#host: tyo01.dnscry.pt/
-#end;
-
 name: dnscrypt-losangeles
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 84.33.244.100:853
 host: lax01.dnscry.pt/
@@ -1858,7 +1981,7 @@ host: adl01.dnscry.pt/
 end;
 
 name: dnscrypt-toronto
-tags: dot, Canada, America
+tags: dot, Canada, Americas
 website: https://www.dnscry.pt
 address: 23.134.89.23:853
 host: yyz01.dnscry.pt/
@@ -1872,7 +1995,7 @@ host: eyg01.dnscry.pt/
 end;
 
 name: dnscrypt-chicago
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 45.41.204.204:853
 host: ord01.dnscry.pt/
@@ -1885,15 +2008,8 @@ address: 102.222.106.165:853
 host: mru01.dnscry.pt/
 end;
 
-#name: dnscrypt-dallas
-#tags: dot, US, America
-#website: https://www.dnscry.pt
-#address: 202.5.26.130:853
-#host: dfw01.dnscry.pt/
-#end;
-
 name: dnscrypt-santaclara
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 176.111.223.167:853
 host: sjc01.dnscry.pt/
@@ -1907,7 +2023,7 @@ host: bom01.dnscry.pt/
 end;
 
 name: dnscrypt-valdivia
-tags: dot, Chile, SouthAmerica, America
+tags: dot, Chile, SouthAmerica, Americas
 website: https://www.dnscry.pt
 address: 216.73.159.26:853
 host: zal01.dnscry.pt/
@@ -1932,6 +2048,13 @@ tags: dot, Taiwan, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 103.131.189.11:853
 host: tpe01.dnscry.pt/
+end;
+
+name: dnscrypt-ashburn
+tags: dot, US, America
+website: https://www.dnscry.pt
+address: 45.11.230.8:853
+host: abn01.dnscry.pt/
 end;
 
 name: dnscrypt-kyiv
@@ -1970,14 +2093,14 @@ host: trf01.dnscry.pt/
 end;
 
 name: dnscrypt-libertylake
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 23.184.48.19:853
 host: llk01.dnscry.pt/
 end;
 
 name: dnscrypt-singapore02
-tags: dot, Singapore, AsiaPacific, FarEast
+tags: dot, Singapore, AsiaPacific
 website: https://www.dnscry.pt
 address: 103.179.44.73:853
 host: sin02.dnscry.pt/
@@ -1990,12 +2113,12 @@ address: 194.50.19.150:853
 host: fra01.dnscry.pt/
 end;
 
-#name: dnscrypt-losangeles02
-#tags: dot, US, America
-#website: https://www.dnscry.pt
-#address: 104.200.67.194:853
-#host: lax02.dnscry.pt/
-#end;
+name: dnscrypt-losangeles02
+tags: dot, US, Americas
+website: https://www.dnscry.pt
+address: 104.200.67.194:853
+host: lax02.dnscry.pt/
+end;
 
 name: dnscrypt-lagos
 tags: dot, Nigeria, Africa, Europe
@@ -2005,14 +2128,14 @@ host: los01.dnscry.pt/
 end;
 
 name: dnscrypt-spokane
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 104.36.86.181:853
 host: geg01.dnscry.pt/
 end;
 
 name: dnscrypt-portland
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 103.124.106.233:853
 host: pdx01.dnscry.pt/
@@ -2025,57 +2148,64 @@ address: 185.194.53.22:853
 host: tll01.dnscry.pt/
 end;
 
-#name: dnscrypt-singapore
-#tags: dot, Singapore, AsiaPacific, FarEast
-#website: https://www.dnscry.pt
-#address: 84.33.16.124:853
-#host: sin01.dnscry.pt/
-#end;
+name: dnscrypt-saopaulo
+tags: dot, Brazil, America, SouthAmerica
+website: https://www.dnscry.pt
+address: 108.181.69.153:853
+host: gru01.dnscry.pt/
+end;
 
 name: dnscrypt-phoenix
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 173.249.203.52:853
 host: phx01.dnscry.pt/
 end;
 
+name: dnscrypt-hochiminhcity
+tags: dot, Vietnam, AsiaPacific, FarEast
+website: https://www.dnscry.pt
+address: 157.20.83.135:853
+host: sgn01.dnscry.pt/
+end;
+
 name: dnscrypt-coeurdalene
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 104.192.102.132:853
 host: coe01.dnscry.pt/
 end;
 
 name: dnscrypt-kansascity
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 23.150.40.121:853
 host: mci01.dnscry.pt/
 end;
 
 name: dnscrypt-allentown
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 23.137.253.24:853
 host: abe01.dnscry.pt/
 end;
 
 name: dnscrypt-portedwards
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 176.111.219.126:853
 host: ped01.dnscry.pt/
 end;
 
 name: dnscrypt-saltlakecity
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 103.114.162.65:853
 host: slc01.dnscry.pt/
 end;
 
 name: dnscrypt-philadelphia
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 154.16.159.22:853
 host: phl01.dnscry.pt/
@@ -2089,7 +2219,7 @@ host: muc01.dnscry.pt/
 end;
 
 name: dnscrypt-denver
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 193.8.172.248:853
 host: den01.dnscry.pt/
@@ -2102,6 +2232,13 @@ address: 88.218.206.137:853
 host: waw02.dnscry.pt/
 end;
 
+name: dnscrypt-bratislava
+tags: dot, Slovakia, Europe
+website: https://www.dnscry.pt
+address: 95.131.202.105:853
+host: bts01.dnscry.pt/
+end;
+
 name: dnscrypt-johannesburg
 tags: dot, SouthAfrica, Africa, Europe
 website: https://www.dnscry.pt
@@ -2110,24 +2247,17 @@ host: jnb01.dnscry.pt/
 end;
 
 name: dnscrypt-seattle
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 45.14.115.125:853
 host: sea01.dnscry.pt/
 end;
 
 name: dnscrypt-tokyo02
-tags: dot, Japan, AsiaPacific, FarEast
+tags: dot, Japan, AsiaPacific
 website: https://www.dnscry.pt
 address: 103.179.45.6:853
 host: tyo02.dnscry.pt/
-end;
-
-name: dnscrypt-tokyo03
-tags: dot, Japan, AsiaPacific, FarEast
-website: https://www.dnscry.pt
-address: 45.67.86.123:853
-host: tyo03.dnscry.pt/
 end;
 
 name: dnscrypt-dusseldorf
@@ -2135,6 +2265,13 @@ tags: dot, Germany, Europe
 website: https://www.dnscry.pt
 address: 185.244.27.136:853
 host: dus01.dnscry.pt/
+end;
+
+name: dnscrypt-singapore
+tags: dot, Singapore, AsiaPacific
+website: https://www.dnscry.pt
+address: 23.27.101.191:853
+host: sin03.dnscry.pt/
 end;
 
 name: dnscrypt-oradea
@@ -2145,7 +2282,7 @@ host: omr01.dnscry.pt/
 end;
 
 name: dnscrypt-lasvegas
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 209.141.45.27:853
 host: las01.dnscry.pt/
@@ -2159,7 +2296,7 @@ host: lon01.dnscry.pt/
 end;
 
 name: dnscrypt-miami
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 84.33.14.10:853
 host: mia01.dnscry.pt/
@@ -2187,50 +2324,16 @@ host: ams02.dnscry.pt/
 end;
 
 name: dnscrypt-newyork
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 84.33.245.10:853
 host: nyc01.dnscry.pt/
 end;
 
 name: dnscrypt-detroit
-tags: dot, US, America
+tags: dot, US, Americas
 website: https://www.dnscry.pt
 address: 66.187.7.140:853
 host: dtw01.dnscry.pt/
 end;
-
-name: dnscrypt-bratislava
-tags: dot, Slovakia, Europe
-website: https://www.dnscry.pt
-address: 95.131.202.105:853
-host: bts01.dnscry.pt/
-end;
-
-name: dnscrypt-saopaulo
-tags: dot, Brazil, SouthAmerica, America
-website: https://www.dnscry.pt
-address: 108.181.69.153:853
-host: gru01.dnscry.pt/
-end;
-
-name: dnscrypt-vancouver
-tags: dot, Canada, America
-website: https://www.dnscry.pt
-address: 104.36.148.46:853
-host: yvr01.dnscry.pt/
-end;
-
-name: dnscrypt-hanoi
-tags: dot, Vietnam, AsiaPacific, FarEast
-website: https://www.dnscry.pt
-address: 103.199.16.93:853
-host: han01.dnscry.pt/
-end;
-
-name: dnscrypt-hochiminh
-tags: dot, Vietnam, AsiaPacific, FarEast
-website: https://www.dnscry.pt
-address: 157.20.83.135:853
-host: sgn01.dnscry.pt/
-end;
+# dnscry.pt: 86 servers
