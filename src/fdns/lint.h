@@ -53,17 +53,18 @@ typedef struct __attribute__((__packed__)) dns_rr_t {
 
 // error checking
 #define DNSERR_OK 0
-#define DNSERR_INVALID_HEADER 1
-#define DNSERR_INVALID_DOMAIN 2
-#define DNSERR_INVALID_CLASS 3
-#define DNSERR_NXDOMAIN 4
-#define DNSERR_MULTIPLE_QUESTIONS 5
-#define DNSERR_INVALID_PKT_LEN 6
-#define DNSERR_INVALID_RLEN 7
-#define DNSERR_REBINDING_ATTACK 8
-#define DNSERR_CNAME_CLOAKING 9
-#define DNSERR_INVALID_CNAME 10
-#define DNSERR_MAX 11		// always the last one
+#define DNSERR_INVALID_HEADER_LENGTH 1
+#define DNSERR_INVALID_HEADER_QR 2
+#define DNSERR_INVALID_DOMAIN 3
+#define DNSERR_INVALID_CLASS 4
+#define DNSERR_NXDOMAIN 5
+#define DNSERR_MULTIPLE_QUESTIONS 6
+#define DNSERR_INVALID_PKT_LEN 7
+#define DNSERR_INVALID_RLEN 8
+#define DNSERR_REBINDING_ATTACK 9
+#define DNSERR_CNAME_CLOAKING 10
+#define DNSERR_INVALID_CNAME 11
+#define DNSERR_MAX 12		// always the last one
 int lint_error(void);
 const char *lint_err2str(void);
 

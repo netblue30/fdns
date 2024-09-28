@@ -1075,29 +1075,31 @@ end;
 
 name: flokinet
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: Iceland, WesternEurope, Europe
+# Note: long query time if added to WesternEurope as seen from North America.
+tags: Iceland, Netherlands, Romania, Europe
 address: 37.156.68.20:443
-host: nl.resolv.flokinet.net/dns-query
+host: resolv.flokinet.net/dns-query
 end;
 
 name: flokinet-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: dot, Europe, Iceland, WesternEurope
+# Note: long query time if added to WesternEurope as seen from North America.
+tags: Iceland, Netherlands, Romania, Europe
 address: 37.156.68.20:853
-host: nl.resolv.flokinet.net/
+host: resolv.flokinet.net/
 end;
 
 name: flokinet-ro
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
 tags: Romania, Europe
-address: 185.246.188.51:443
+address: 185.247.225.17:443
 host: ro.resolv.flokinet.net/dns-query
 end;
 
 name: flokinet-ro-dot
 website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
 tags: dot, Romania, Europe
-address: 185.246.188.51:853
+address: 185.247.225.17:853
 host: ro.resolv.flokinet.net/
 end;
 

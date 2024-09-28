@@ -28,7 +28,8 @@ static uint8_t dnserror_ipv4[4];
 static char dnserror_str[50];
 static const char *err2str[DNSERR_MAX] = {
 	"no error",
-	"invalid header",
+	"invalid header length",
+	"invalid header QR flag",
 	"invalid domain",
 	"invalid class",
 	"nxdomain",
@@ -217,7 +218,7 @@ DnsHeader *lint_header(uint8_t **pkt, uint8_t *last) {
 	dnserror = DNSERR_OK;
 
 	if (*pkt + sizeof(DnsHeader) > last) {
-		dnserror = DNSERR_INVALID_HEADER;
+		dnserror = DNSERR_INVALID_HEADER_LENGTH;
 		return NULL;
 	}
 
@@ -304,7 +305,7 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 
 	// check response field
 	if ((h->flags & 0x8000) == 0) {
-		dnserror = DNSERR_INVALID_HEADER;
+		dnserror = DNSERR_INVALID_HEADER_QR;
 		return -1;
 	}
 	// check errors such as NXDOMAIN -> caching the response for a very short time
