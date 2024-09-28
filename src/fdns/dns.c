@@ -248,7 +248,7 @@ void dns_send_keepalive(void) {
 	assert(srv);
 
 	// keepalive autodetection
-	if (!arg_keepalive && srv->keepalive < MAX_AUTODETECT_KEEPALIVE)
+	if (!arg_keepalive && srv->keepalive < DNS_MAX_AUTODETECT_KEEPALIVE)
 		srv->keepalive++;
 
 	len = transport->send_exampledotcom(msg);

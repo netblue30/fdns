@@ -81,7 +81,6 @@ static inline int rand_range(int min, int max) {
 #define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 3) // timer to detect a dead resolver process
 #define FRONTEND_KEEPALIVE_TIMER 10 // keepalive messages sent by frontend processes
 #define FRONTEND_KEEPALIVE_SHUTDOWN (FRONTEND_KEEPALIVE_TIMER * 3) // timer to detect the dead frontend process
-#define RESOLVER_KEEPALIVE_AFTER_SLEEP (RESOLVER_KEEPALIVE_TIMER * 1.2) // after sleep detection
 #define MONITOR_WAIT_TIMER 2	// wait for this number of seconds before restarting a failed resolver process
 #define CONSOLE_PRINTOUT_TIMER 5	// transfer stats from resolver to frontend
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
@@ -92,9 +91,9 @@ static inline int rand_range(int min, int max) {
 #define H2_TIMEOUT 5 // wait time for HTTP2 (DoH) answer - will close the connection
 
 // transport  keealive autodetection
-#define CONFIG_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
-#define KEEPALIVE_DEFAULT 25
-#define MAX_AUTODETECT_KEEPALIVE 65
+#define DNS_CONFIG_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
+#define DNS_KEEPALIVE_DEFAULT 25
+#define DNS_MAX_AUTODETECT_KEEPALIVE 65
 
 #define FALLBACK_TIMEOUT 10 // wait time for DNS responses from the server in fallback
 	// for NAT traversal, this value should be smaller than 30 seconds - the default is in /proc/sys/net/netfilter/nf_conntrack_udp_timeout

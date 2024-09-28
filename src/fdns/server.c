@@ -117,7 +117,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 	if (arg_keepalive)
 		s->keepalive = arg_keepalive;
 	else
-		s->keepalive = KEEPALIVE_DEFAULT;
+		s->keepalive = DNS_KEEPALIVE_DEFAULT;
 
 	char buf[4096];
 	buf[0] = '\0';
@@ -773,7 +773,7 @@ void server_set_custom(const char *url) {
 	if (arg_keepalive)
 		s->keepalive = arg_keepalive;
 	else
-		s->keepalive = KEEPALIVE_DEFAULT;
+		s->keepalive = DNS_KEEPALIVE_DEFAULT;
 
 	scurrent = s;
 }

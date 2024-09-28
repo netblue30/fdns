@@ -156,8 +156,8 @@ int main(int argc, char **argv) {
 				arg_debug_transport = 1;
 			else if (strncmp(argv[i], "--keepalive=", 12) == 0) {
 				arg_keepalive = atoi(argv[i] + 12);
-				if (arg_keepalive < CONFIG_KEEPALIVE_MIN) {
-					fprintf(stderr, "Error: keepalive value too small. Minimum allowed value is %d\n", CONFIG_KEEPALIVE_MIN);
+				if (arg_keepalive < DNS_CONFIG_KEEPALIVE_MIN) {
+					fprintf(stderr, "Error: keepalive value too small. Minimum allowed value is %d\n", DNS_CONFIG_KEEPALIVE_MIN);
 					exit(1);
 				}
 			}

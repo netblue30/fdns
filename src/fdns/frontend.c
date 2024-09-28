@@ -269,7 +269,7 @@ void frontend(void) {
 	// keepalive autodetection
 	DnsServer *srv = server_get();
 	assert(srv);
-	if (srv->keepalive < KEEPALIVE_DEFAULT && !arg_keepalive)
+	if (srv->keepalive < DNS_KEEPALIVE_DEFAULT && !arg_keepalive)
 		arg_keepalive = srv->keepalive;
 
 	// start resolvers
@@ -323,22 +323,15 @@ void frontend(void) {
 		}
 		else if (rv == 0) {
 			time_t ts = time(NULL);
+			time_t delta = ts - timestamp;
 			int i;
 
 			// clean shared memory logs
 			shm_timeout();
 
-			// decrease keepalive wait when coming out of sleep/hibernation
-			if (ts - timestamp > OUT_OF_SLEEP) {
-				for (i = 0; i < arg_resolvers; i++) {
-					if (w[i].keepalive > RESOLVER_KEEPALIVE_AFTER_SLEEP)
-						w[i].keepalive = RESOLVER_KEEPALIVE_AFTER_SLEEP;
-				}
-			}
-
 			// restart resolvers if the keepalive time expired
 			for (i = 0; i < arg_resolvers; i++) {
-				if (--w[i].keepalive <= 0) {
+				if (--w[i].keepalive <= 0 || delta > OUT_OF_SLEEP) {
 					logprintf("Restarting resolver process %d (pid %d)\n", i, w[i].pid);
 					kill(w[i].pid, SIGKILL);
 					int status;
@@ -424,8 +417,6 @@ void frontend(void) {
 							// multiplier = 2 / (window + 1) = 2 / [10 + 1] = 0.18
 							// EMA = last_query x multiplier +  (previous_EMA) x (1 - multiplier)
 							stats.query_time = (s.query_time * 0.18) + (stats.query_time * 0.82);
-//							stats.query_time += s.query_time;
-//							stats.query_time /= 2;
 						}
 
 						shmem_store_stats(proxy_addr);

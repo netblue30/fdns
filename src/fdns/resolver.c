@@ -132,15 +132,8 @@ void resolver(void) {
 			// attempting to detect the computer coming out of sleep mode
 			time_t ts = time(NULL);
 			if (ts - timestamp > OUT_OF_SLEEP) {
-				// send a keepalive to frontend in order not to get killed
-				rlogprintf("resolver keepalive\n");
-				resolver_keepalive_cnt = (RESOLVER_KEEPALIVE_TIMER * arg_id) / arg_resolvers;
-				// assume the frontend is still alive
-				frontend_keepalive_cnt = 0;
-				// clear DNS cache
-				cache_init();
-				// force a HTTP2 PING - if the connection is already down, it will close SSL
-				dns_send_keepalive();
+				rlogprintf("resolver shutdown\n");
+				exit(0);
 			}
 			timestamp = ts;
 			// processing stats
