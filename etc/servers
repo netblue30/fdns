@@ -1198,6 +1198,14 @@ address: nana-is.so-gorgeo.us.kg:443
 host: nana-is.so-gorgeo.us.kg/dns-query
 end;
 
+name: hostux
+website: https://hostux.network/en/index.html
+tags: Luxembourg, WesternEurope, Europe, adblocker
+address: 46.226.108.173:443
+host: dns.hostux.net/dns-query
+# server inactivity timer 65 seconds or higher
+end;
+
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
 tags: Luxembourg, WesternEurope, Europe, adblocker
@@ -1207,7 +1215,7 @@ host: dns.hostux.net/ads
 end;
 
 name: lacontrevoie
-website: https://hostux.network/en/index.html
+website: https://lacontrevoie.fr/en/services/doh
 tags: sni, France, WesternEurope, Europe
 address: 45.155.171.163:443
 host: doh.lacontrevoie.fr/dns-query

@@ -222,6 +222,7 @@ static void run_chunk(int chunk_no, const char *tname_out) {
 	test(fpout, chunk_no);
 	fclose(fpout);
 	free(fout);
+	sleep(2);
 }
 
 

@@ -257,6 +257,7 @@ void filter_load_list(const char *fname) {
 
 	char buf[MAXBUF];
 	int cnt = 0;
+	int removed = 0;
 	int line_no = 0;
 	while (fgets(buf, MAXBUF, fp)) {
 		line_no++;
@@ -301,24 +302,32 @@ void filter_load_list(const char *fname) {
 			filter_add(ptr, file_id, line_no);
 			cnt++;
 		}
+		else
+			removed++;
 	}
 	fclose(fp);
 
 	fflush(0);
 	if (arg_id == 0)
-		printf("%d filter entries added from %s\n", cnt, fname);
+		printf("%s: %d domains added, %d removed\n", fname, cnt, removed);
 }
 
 void filter_load_all_lists(void) {
 	// apparmor will fail glob() or opendir() on /etc/fdns directory
-	// we need to hardcode the filter files
+	// we need to hardcode the filter files!
+
+	// global filters developed by fdns project
 	filter_load_list(PATH_ETC_TLD_LIST);
 	filter_load_list(PATH_ETC_PHISHING_LIST);
+	filter_load_list(PATH_ETC_DYNDNS_LIST);
+
+	// independent filters developed by various other projects
+	filter_load_list(PATH_ETC_COINBLOCKER_LIST);
+	filter_load_list(PATH_ETC_MALWARE_LIST);
 	filter_load_list(PATH_ETC_TRACKERS_LIST);
 	filter_load_list(PATH_ETC_ADBLOCKER_LIST);
-	filter_load_list(PATH_ETC_COINBLOCKER_LIST);
-	filter_load_list(PATH_ETC_DYNDNS_LIST);
-	filter_load_list(PATH_ETC_MALWARE_LIST);
+
+	// personal filters
 	filter_load_list(PATH_ETC_HOSTS_LIST);
 
 	int i;
