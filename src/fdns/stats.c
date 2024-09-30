@@ -88,7 +88,6 @@ void stats_print(void) {
 		ptr = ptr->next;
 	}
 	stdev = sqrtf(stdev);
-	float twostdev = average + 2 * stdev;
 
 	// print
 	printf("%-5s%-25s%-12s probability (cumulative)\n", "", "", "query time");
