@@ -321,12 +321,12 @@ host: basic.bravedns.com/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: bravocone
-website: https://bravoc.one/en/
-tags: sni, adblocker, US, America
-address: dns.bravoc.one:443
-host: dns.bravoc.one/dns-query
-end;
+#name: bravocone
+#website: https://bravoc.one/en/
+#tags: sni, adblocker, US, America
+#address: dns.bravoc.one:443
+#host: dns.bravoc.one/dns-query
+#end;
 
 # low keepalive
 name: cira
@@ -585,13 +585,13 @@ end;
 
 
 # cloudflare redirect
-name: cynthialabs
-website: https://cynthialabs.net/
-tags: sni, America, AsiaPacific, Europe, adblocker
-address: dns.cynthialabs.net:443
-host: dns.cynthialabs.net/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: cynthialabs
+#website: https://cynthialabs.net/
+#tags: sni, America, AsiaPacific, Europe, adblocker
+#address: dns.cynthialabs.net:443
+#host: dns.cynthialabs.net/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: data.haus
 website: https://data.haus/
@@ -1330,37 +1330,37 @@ keepalive: 7
 end;
 
 # redirected to cloudflare
-name: mydns.network
-website: https://mydns.network
-tags: sni, America, AsiaPacific, Europe
-address: freedom.mydns.network:443
-host: freedom.mydns.network/dns-query
-# server inactivity timer 65 seconds or higher
-end;
-
-name: mydns.network2
-website: https://mydns.network
-tags: sni, America, AsiaPacific, Europe
-address: paranoia.mydns.network:443
-host: paranoia.mydns.network/dns-query
-# server inactivity timer 65 seconds or higher
-end;
-
-name: mydns.network.adblock
-website: https://mydns.network
-tags: sni, adblocker, America, AsiaPacific, Europe
-address: adblock.mydns.network:443
-host: adblock.mydns.network/dns-query
-# server inactivity timer 65 seconds or higher
-end;
-
-name: mydns.network.family
-website: https://mydns.network
-tags: sni, family, America, AsiaPacific, Europe
-address: family.mydns.network:443
-host: family.mydns.network/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: mydns.network
+#website: https://mydns.network
+#tags: sni, America, AsiaPacific, Europe
+#address: freedom.mydns.network:443
+#host: freedom.mydns.network/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: mydns.network2
+#website: https://mydns.network
+#tags: sni, America, AsiaPacific, Europe
+#address: paranoia.mydns.network:443
+#host: paranoia.mydns.network/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: mydns.network.adblock
+#website: https://mydns.network
+#tags: sni, adblocker, America, AsiaPacific, Europe
+#address: adblock.mydns.network:443
+#host: adblock.mydns.network/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: mydns.network.family
+#website: https://mydns.network
+#tags: sni, family, America, AsiaPacific, Europe
+#address: family.mydns.network:443
+#host: family.mydns.network/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: nextdns
 website: https://nextdns.io/
@@ -2124,12 +2124,12 @@ address: 194.50.19.150:853
 host: fra01.dnscry.pt/
 end;
 
-name: dnscrypt-losangeles02
-tags: dot, US, Americas
-website: https://www.dnscry.pt
-address: 104.200.67.194:853
-host: lax02.dnscry.pt/
-end;
+#name: dnscrypt-losangeles02
+#tags: dot, US, Americas
+#website: https://www.dnscry.pt
+#address: 104.200.67.194:853
+#host: lax02.dnscry.pt/
+#end;
 
 name: dnscrypt-lagos
 tags: dot, Nigeria, Africa, Europe

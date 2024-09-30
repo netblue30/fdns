@@ -1,8 +1,10 @@
-fdns (0.9.75) baseline; urgency=low
+fdns (0.9.74.2) baseline; urgency=low
+  * added futex syscall in seccomp filter
   * added stats to --test-server option
   * added WesternEurope label
   * added list.dyndns (dynamic dns filter)
- -- netblue30 <netblue30@yahoo.com>  Mon, 23 Sep 2024 08:00:00 -0500
+  * small bugs and cleanup
+ -- netblue30 <netblue30@yahoo.com>  Mon, 30 Sep 2024 08:00:00 -0500
 
 fdns (0.9.74) baseline; urgency=low
   * remove --debug-ssl command

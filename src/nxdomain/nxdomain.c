@@ -295,13 +295,7 @@ static void timeout_only(const char *fin, const char *fout) {
 	}
 	fclose(fpin);
 	fclose(fpout);
-
-
-
-
 }
-
-
 
 static void usage(void) {
 	printf("nxdomain - version %s\n", VERSION);
