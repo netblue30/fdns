@@ -1653,7 +1653,7 @@ end;
 
 name: sellan-dot
 website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
-tags: dot, admin-down, France, WesternEurope, Europe
+tags: dot, France, WesternEurope, Europe
 address: 78.194.186.17:853
 host: dns.sellan.fr/
 end;
