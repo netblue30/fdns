@@ -105,6 +105,10 @@ static char *line_filter(char *buf) {
 	}
 	if (*start == '\0')
 		return NULL;
+	while ((*start == '|' || *start == '!') && *start != '\0')
+		start++;
+	if (*start == '\0')
+		return NULL;
 
 	// clean port numbers
 	ptr = strchr(start, ':');
@@ -143,6 +147,9 @@ static char *line_filter(char *buf) {
 	if (ptr)
 		*ptr = '\0';
 	ptr = strchr(start, '\t');
+	if (ptr)
+		*ptr = '\0';
+	ptr = strchr(start, '^');
 	if (ptr)
 		*ptr = '\0';
 
