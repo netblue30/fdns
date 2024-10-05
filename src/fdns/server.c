@@ -651,21 +651,23 @@ DnsServer *server_get(void) {
 				DnsServer *first = s;
 				float first_average = qaverage;
 				scurrent = first;
-
-				// try another server
-				s = random_server();
-				if (s == first) // try again
+				stats.query_time = first_average;
+				if (first_average > 50) {
+					// try another server
 					s = random_server();
-				scurrent = s;
-				qaverage = test_server(s->name);
-				stats.query_time = qaverage;
+					if (s == first) // try again
+						s = random_server();
+					scurrent = s;
+					qaverage = test_server(s->name);
+					stats.query_time = qaverage;
 
-				// grab the fastest one
-				if (qaverage == 0 || qaverage > first_average) {
-					// revert back to the first server
-					scurrent = first;
-					s = first;
-					stats.query_time = first_average;
+					// grab the fastest one
+					if (qaverage == 0 || qaverage > first_average) {
+						// revert back to the first server
+						scurrent = first;
+						s = first;
+						stats.query_time = first_average;
+					}
 				}
 			}
 		}
