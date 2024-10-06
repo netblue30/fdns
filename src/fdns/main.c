@@ -275,7 +275,8 @@ int main(int argc, char **argv) {
 				return 0;
 			}
 			else if (strcmp(argv[i], "--proxies") == 0) {
-				procs_list();
+				char *rv = procs_list();
+				free(rv);
 				return 0;
 			}
 			else if (strcmp(argv[i], "--monitor") == 0) {

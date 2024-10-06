@@ -105,21 +105,17 @@ void procs_add(void) {
 	atexit(procs_exit);
 }
 
-int procs_addr_default = 0;
-int procs_addr_loopback = 0;
-char *procs_addr_real = NULL;
-
-void procs_list(void) {
+char *procs_list(void) {
 	DIR *dir;
+	char *rv = NULL;
 	if (!(dir = opendir("/run/fdns"))) {
 		// sleep 2 seconds and try again
 		sleep(2);
 		if (!(dir = opendir("/run/fdns")))
-			return;
+			return NULL;
 	}
 
 	struct dirent *entry;
-	int procs_addr_flag = 0;
 	while ((entry = readdir(dir))) {
 		if (*entry->d_name == '.')
 			continue;
@@ -140,20 +136,17 @@ void procs_list(void) {
 					if (ptr)
 						*ptr = '\0';
 
-					if (!procs_addr_flag) {
-						if (strcmp(buf, "127.1.1.1") == 0) {
-							procs_addr_default = 1;
-							procs_addr_flag = 1;
-						}
-						else if (strcmp(buf, "127.0.0.1") == 0) {
-							procs_addr_loopback = 1;
-							procs_addr_flag = 1;
-						}
-						else if (!procs_addr_real) {
-							procs_addr_real = strdup(buf);
-							if (!procs_addr_real)
-								errExit("strdup");
-						}
+					if (strcmp(buf, DEFAULT_PROXY_ADDR) == 0) {
+						if (rv)
+							free(rv);
+						rv = strdup(DEFAULT_PROXY_ADDR);
+						if (!rv)
+							errExit("strdup");
+					}
+					else if (!rv) {
+						rv = strdup(buf);
+						if (!rv)
+							errExit("strdup");
 					}
 
 					printf(" address %s", buf);
@@ -168,4 +161,5 @@ void procs_list(void) {
 		free(fname);
 	}
 	closedir(dir);
+	return rv;
 }
