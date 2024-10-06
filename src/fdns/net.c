@@ -117,7 +117,7 @@ int net_local_dns_socket(int reuse) {
 #endif
 	}
 
-	// configure porxy server local  address:port
+	// configure proxy server local  address:port
 	struct sockaddr_in addr_local;
 	memset(&addr_local, 0, sizeof(addr_local));
 	addr_local.sin_family = AF_INET;
