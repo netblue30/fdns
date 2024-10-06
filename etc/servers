@@ -1451,6 +1451,62 @@ address: dns.paesa.es:443
 host: dns.paesa.es/dns-query
 end;
 
+name: privacy-dns-luxembourg
+tags: Europe, WesternEurope, Luxembourg, adblocker
+website: https://privacy-dns.pw/
+address: 104.244.79.116:443
+host: luxembourg.privacy-dns.pw/dns-query
+end;
+
+name: privacy-dns-lasvegas
+tags: US, America, adblocker
+website: https://privacy-dns.pw/
+address: 205.185.127.120:443
+host: las-vegas.privacy-dns.pw/dns-query
+end;
+
+name: privacy-dns-hungary
+tags: Europe, Hungary, adblocker
+website: https://privacy-dns.pw/
+address: 5.181.77.105:443
+host: hungary.privacy-dns.pw/dns-query
+end;
+
+name: privacy-dns-romania
+tags: Europe, Romania, adblocker
+website: https://privacy-dns.pw/
+address: 45.82.102.33:443
+host: romania.privacy-dns.pw/dns-query
+end;
+
+name: privacy-dns-sweden
+tags: Europe, Sweden, adblocker
+website: https://privacy-dns.pw/
+address: 31.192.244.132:443
+host: sweden.privacy-dns.pw/dns-query
+end;
+
+name: privacy-dns-switzerland
+tags: Europe, Switzerland, adblocker
+website: https://privacy-dns.pw/
+address: 194.87.18.80:443
+host: switzerland.privacy-dns.pw/dns-query
+end;
+
+name: privacy-dns-uae
+tags: Europe, UnitedArabEmirates, MiddleEast, adblocker
+website: https://privacy-dns.pw/
+address: 188.208.110.144:443
+host: united-arab-emirates.privacy-dns.pw/dns-query
+end;
+
+name: privacy-dns-india
+tags: India, AsiaPacific, adblocker
+website: https://privacy-dns.pw/
+address: 86.107.100.200:443
+host: india.privacy-dns.pw/dns-query
+end;
+
 name: privex-nl
 website: https://www.privex.io/articles/public-infra
 tags: sni, Netherlands, WesternEurope, Europe
@@ -1747,7 +1803,7 @@ end;
 # - extracted from https://dnscry.pt lists
 ##################################################
 name: dnscrypt-tampa
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 165.140.117.248:853
 host: tpa01.dnscry.pt/
@@ -1775,7 +1831,7 @@ host: bud01.dnscry.pt/
 end;
 
 name: dnscrypt-fremont
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 23.134.88.71:853
 host: fet01.dnscry.pt/
@@ -1803,7 +1859,7 @@ host: jkt01.dnscry.pt/
 end;
 
 name: dnscrypt-taos
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 63.133.223.138:853
 host: tsm01.dnscry.pt/
@@ -1845,7 +1901,7 @@ host: ath01.dnscry.pt/
 end;
 
 name: dnscrypt-atlanta
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 170.249.237.154:853
 host: atl01.dnscry.pt/
@@ -1880,21 +1936,21 @@ host: mil01.dnscry.pt/
 end;
 
 name: dnscrypt-montreal
-tags: dot, Canada, Americas
+tags: dot, Canada, America
 website: https://www.dnscry.pt
 address: 147.189.136.183:853
 host: ymq01.dnscry.pt/
 end;
 
 name: dnscrypt-flint
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 147.189.140.136:853
 host: fnt01.dnscry.pt/
 end;
 
 name: dnscrypt-ottoville
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 104.234.231.239:853
 host: ott01.dnscry.pt/
@@ -1908,7 +1964,7 @@ host: ist01.dnscry.pt/
 end;
 
 name: dnscrypt-dallas
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 23.230.253.98:853
 host: dfw02.dnscry.pt/
@@ -1943,7 +1999,7 @@ host: fjr01.dnscry.pt/
 end;
 
 name: dnscrypt-lima
-tags: dot, Peru, SouthAmerica, Americas
+tags: dot, Peru, SouthAmerica, America
 website: https://www.dnscry.pt
 address: 161.132.47.185:853
 host: lim01.dnscry.pt/
@@ -1978,7 +2034,7 @@ host: par01.dnscry.pt/
 end;
 
 name: dnscrypt-losangeles
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 84.33.244.100:853
 host: lax01.dnscry.pt/
@@ -1992,7 +2048,7 @@ host: adl01.dnscry.pt/
 end;
 
 name: dnscrypt-toronto
-tags: dot, Canada, Americas
+tags: dot, Canada, America
 website: https://www.dnscry.pt
 address: 23.134.89.23:853
 host: yyz01.dnscry.pt/
@@ -2006,7 +2062,7 @@ host: eyg01.dnscry.pt/
 end;
 
 name: dnscrypt-chicago
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 45.41.204.204:853
 host: ord01.dnscry.pt/
@@ -2020,7 +2076,7 @@ host: mru01.dnscry.pt/
 end;
 
 name: dnscrypt-santaclara
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 176.111.223.167:853
 host: sjc01.dnscry.pt/
@@ -2034,7 +2090,7 @@ host: bom01.dnscry.pt/
 end;
 
 name: dnscrypt-valdivia
-tags: dot, Chile, SouthAmerica, Americas
+tags: dot, Chile, SouthAmerica, America
 website: https://www.dnscry.pt
 address: 216.73.159.26:853
 host: zal01.dnscry.pt/
@@ -2104,7 +2160,7 @@ host: trf01.dnscry.pt/
 end;
 
 name: dnscrypt-libertylake
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 23.184.48.19:853
 host: llk01.dnscry.pt/
@@ -2125,7 +2181,7 @@ host: fra01.dnscry.pt/
 end;
 
 #name: dnscrypt-losangeles02
-#tags: dot, US, Americas
+#tags: dot, US, America
 #website: https://www.dnscry.pt
 #address: 104.200.67.194:853
 #host: lax02.dnscry.pt/
@@ -2139,14 +2195,14 @@ host: los01.dnscry.pt/
 end;
 
 name: dnscrypt-spokane
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 104.36.86.181:853
 host: geg01.dnscry.pt/
 end;
 
 name: dnscrypt-portland
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 103.124.106.233:853
 host: pdx01.dnscry.pt/
@@ -2167,7 +2223,7 @@ host: gru01.dnscry.pt/
 end;
 
 name: dnscrypt-phoenix
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 173.249.203.52:853
 host: phx01.dnscry.pt/
@@ -2181,42 +2237,42 @@ host: sgn01.dnscry.pt/
 end;
 
 name: dnscrypt-coeurdalene
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 104.192.102.132:853
 host: coe01.dnscry.pt/
 end;
 
 name: dnscrypt-kansascity
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 23.150.40.121:853
 host: mci01.dnscry.pt/
 end;
 
 name: dnscrypt-allentown
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 23.137.253.24:853
 host: abe01.dnscry.pt/
 end;
 
 name: dnscrypt-portedwards
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 176.111.219.126:853
 host: ped01.dnscry.pt/
 end;
 
 name: dnscrypt-saltlakecity
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 103.114.162.65:853
 host: slc01.dnscry.pt/
 end;
 
 name: dnscrypt-philadelphia
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 154.16.159.22:853
 host: phl01.dnscry.pt/
@@ -2230,7 +2286,7 @@ host: muc01.dnscry.pt/
 end;
 
 name: dnscrypt-denver
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 193.8.172.248:853
 host: den01.dnscry.pt/
@@ -2258,7 +2314,7 @@ host: jnb01.dnscry.pt/
 end;
 
 name: dnscrypt-seattle
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 45.14.115.125:853
 host: sea01.dnscry.pt/
@@ -2293,7 +2349,7 @@ host: omr01.dnscry.pt/
 end;
 
 name: dnscrypt-lasvegas
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 209.141.45.27:853
 host: las01.dnscry.pt/
@@ -2307,7 +2363,7 @@ host: lon01.dnscry.pt/
 end;
 
 name: dnscrypt-miami
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 84.33.14.10:853
 host: mia01.dnscry.pt/
@@ -2335,16 +2391,19 @@ host: ams02.dnscry.pt/
 end;
 
 name: dnscrypt-newyork
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 84.33.245.10:853
 host: nyc01.dnscry.pt/
 end;
 
 name: dnscrypt-detroit
-tags: dot, US, Americas
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 66.187.7.140:853
 host: dtw01.dnscry.pt/
 end;
 # dnscry.pt: 86 servers
+
+
+
