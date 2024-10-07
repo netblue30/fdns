@@ -331,7 +331,7 @@ end;
 # low keepalive
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: Canada, America
+tags: h2ping, Canada, America
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -340,7 +340,7 @@ end;
 # low keepalive
 name: cira2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: Canada, America
+tags: h2ping, Canada, America
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -349,7 +349,7 @@ end;
 # low keepalive
 name: cira-security
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: security, Canada, America
+tags: h2ping, security, Canada, America
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -358,7 +358,7 @@ end;
 # low keepalive
 name: cira-security2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: security, Canada, America
+tags: h2ping, security, Canada, America
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -367,7 +367,7 @@ end;
 # low keepalive
 name: cira-family
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: family, America
+tags: h2ping, family, Canada, America
 address: 149.112.121.30:443
 host: family.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -376,7 +376,7 @@ end;
 # low keepalive
 name: cira-family2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: family, America
+tags: h2ping, family, Canada, America
 address: 149.112.122.30:443
 host: family.canadianshield.cira.ca/dns-query
 keepalive: 7
@@ -438,7 +438,7 @@ end;
 
 name: cloudflare
 website: https://www.cloudflare.com
-tags: anycast, America, AsiaPacific, Europe
+tags: h2ping, anycast, America, AsiaPacific, Europe
 address: 1.1.1.1:443
 host: cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
@@ -447,7 +447,7 @@ end;
 
 name: cloudflare2
 website: https://www.cloudflare.com
-tags: anycast, America, AsiaPacific, Europe
+tags: h2ping, anycast, America, AsiaPacific, Europe
 address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
@@ -456,7 +456,7 @@ end;
 
 name: cloudflare-security
 website: https://www.cloudflare.com
-tags: anycast, security, America, AsiaPacific, Europe
+tags: h2ping, anycast, security, America, AsiaPacific, Europe
 address: 1.1.1.2:443
 host: security.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
@@ -465,7 +465,7 @@ end;
 
 name: cloudflare-security2
 website: https://www.cloudflare.com
-tags: anycast, security, America, AsiaPacific, Europe
+tags: h2ping, anycast, security, America, AsiaPacific, Europe
 address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
@@ -474,7 +474,7 @@ end;
 
 name: cloudflare-family
 website: https://www.cloudflare.com
-tags: family, America, AsiaPacific, Europe
+tags: h2ping, family, America, AsiaPacific, Europe
 address: 1.0.0.3:443
 host: family.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
@@ -483,7 +483,7 @@ end;
 
 name: cloudflare-family2
 website: https://www.cloudflare.com
-tags: family, America, AsiaPacific, Europe
+tags: h2ping, family, America, AsiaPacific, Europe
 address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
@@ -1305,7 +1305,7 @@ end;
 # low keepalive
 name: mullvad
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
-tags: anycast, America, AsiaPacific, Europe
+tags: h2ping, anycast, America, AsiaPacific, Europe
 address: 194.242.2.2:443
 host: dns.mullvad.net/dns-query
 keepalive: 7
@@ -1314,7 +1314,7 @@ end;
 # low keepalive
 name: mullvad-adblocker
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
-tags: anycast, adblocker, America, AsiaPacific, Europe
+tags: h2ping, anycast, adblocker, America, AsiaPacific, Europe
 address: 194.242.2.4:443
 host: base.dns.mullvad.net/dns-query
 keepalive: 7
@@ -1323,7 +1323,7 @@ end;
 # low keepalive
 name: mullvad-family
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
-tags: family, America, AsiaPacific, Europe
+tags: h2ping, family, America, AsiaPacific, Europe
 address: 194.242.2.6:443
 host: base.dns.mullvad.net/dns-query
 keepalive: 7

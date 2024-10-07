@@ -251,10 +251,18 @@ void dns_send_keepalive(void) {
 	if (!arg_keepalive && srv->keepalive < DNS_MAX_AUTODETECT_KEEPALIVE)
 		srv->keepalive++;
 
-	len = transport->send_exampledotcom(msg);
-	// some servers return NXDOMAIN for example.com
-	if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
-		ssl_close();
+	if (srv->h2ping) {
+		if (transport->send_ping() == -1) {
+			rlogprintf("Error: %s ping failed, closing SSL connection\n", dns_get_transport());
+			ssl_close();
+		}
+	}
+	else {
+		len = transport->send_exampledotcom(msg);
+		// some servers return NXDOMAIN for example.com
+		if (len <= 0 || (lint_rx(msg, len) && lint_error() != DNSERR_NXDOMAIN))
+			ssl_close();
+	}
 #ifdef HAVE_GCOV
 	__gcov_flush();
 #endif

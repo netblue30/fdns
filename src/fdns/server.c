@@ -191,6 +191,8 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 				s->transport = "dot";
 			if (strstr(s->tags, "sni,"))
 				s->sni = 1;
+			if (strstr(s->tags, "h2ping,"))
+				s->h2ping = 1;
 		}
 		else if (strcmp(tok1, "address") == 0) {
 			if (s->address)

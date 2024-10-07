@@ -167,6 +167,7 @@ typedef struct dnsserver_t {
 	int sni;		// 1 or 0
 	int test_sni;		// not read from the config file; 1 only when the server is specified by url with --server or --test-server
 	int keepalive;	// keepalive in seconds
+	int h2ping;	// send keepalive as an http2 ping
 } DnsServer;
 
 typedef struct dnstransport_t {
