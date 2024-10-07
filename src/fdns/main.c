@@ -111,6 +111,7 @@ static void usage(void) {
 	printf("    --resolvers=number - the number of resolver processes, between %d and %d,\n"
 	       "\tdefault %d.\n",
 	       RESOLVERS_CNT_MIN, RESOLVERS_CNT_MAX, RESOLVERS_CNT_DEFAULT);
+	printf("    --restart - restart default proxy\n");
 	printf("    --server=server-name|tag|all - DoH server to connect to.\n");
 	printf("    --test-server - test the DoH servers in your current zone.\n");
 	printf("    --test-server=server-name|tag|all - test DoH servers.\n");
@@ -240,6 +241,7 @@ int main(int argc, char **argv) {
 				arg_details = 1;
 
 			// handled in second pass
+			else if (strcmp(argv[i], "--restart") == 0);
 			else if (strcmp(argv[i], "--list") == 0);
 			else if (strncmp(argv[i], "--list=", 7) == 0);
 			else if (strcmp(argv[i], "--proxies") == 0);
@@ -264,6 +266,10 @@ int main(int argc, char **argv) {
 	if (argc != 1) {
 		int i;
 		for (i = 1; i < argc; i++) {
+			if (strcmp(argv[i], "--restart") == 0) {
+				restart();
+				return 0;
+			}
 			if (strcmp(argv[i], "--list") == 0) {
 				server_print_servers = 1;
 				server_list(NULL);
@@ -275,7 +281,7 @@ int main(int argc, char **argv) {
 				return 0;
 			}
 			else if (strcmp(argv[i], "--proxies") == 0) {
-				char *rv = procs_list();
+				char *rv = procs_list(NULL);
 				free(rv);
 				return 0;
 			}

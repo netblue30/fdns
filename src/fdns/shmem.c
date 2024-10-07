@@ -247,7 +247,7 @@ void shmem_monitor_stats(const char *proxy_addr) {
 	signal(SIGWINCH, wins_resize_sighandler);
 
 	if (proxy_addr == NULL) {
-		proxy_addr = procs_list();
+		proxy_addr = procs_list(NULL);
 		if (!proxy_addr) {
 			printf("No FDNS proxy running on the system\n");
 			exit(1);

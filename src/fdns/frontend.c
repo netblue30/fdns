@@ -68,6 +68,42 @@ static void my_handler(int s) {
 	// attempt to remove shmem file
 	int rv = unlink("/dev/shm/fdns-stats");
 	(void) rv;
+
+	if (s == SIGUSR1) {
+		logprintf("restarting...\n");
+		char *path;
+		if (asprintf(&path, "%s/bin/fdns", PREFIX) == -1)
+			errExit("asprintf");
+
+		// extract command line
+		char *fname;
+		if (asprintf(&fname, "/proc/%d/cmdline", getpid()) == -1)
+			errExit("asprintf");
+		FILE *fp = fopen(fname, "r");
+		if (!fp) {
+			fprintf(stderr, "Error: cannot open %s file, the proxy was not restarted\n", fname);
+			return;
+		}
+
+#define MAXARG 2048
+		char *arg[MAXARG];
+		int cnt = 0;
+		size_t size = 0;
+		while(getdelim(&arg[cnt], &size, 0, fp) != -1) {
+			cnt++;
+			if (cnt >=  MAXARG) {
+				fprintf(stderr, "Error: maximum number of program arguments reached, the proxy was not restarted\n");
+				fclose(fp);
+				return;
+			}
+		}
+
+		fclose(fp);
+		arg[cnt] = NULL;
+		int rv = execv(path, arg);
+		(void) rv;
+	}
+
 	exit(0);
 }
 
@@ -218,6 +254,7 @@ static void install_signal_handler(void) {
 	sigemptyset(&sga.sa_mask);
 	sigaddset(&sga.sa_mask, SIGTERM);
 	sigaddset(&sga.sa_mask, SIGHUP);
+	sigaddset(&sga.sa_mask, SIGUSR1);
 	sga.sa_handler = my_handler;
 	sga.sa_flags = 0;
 	sigaction(SIGINT, &sga, NULL);
@@ -226,6 +263,7 @@ static void install_signal_handler(void) {
 	sigemptyset(&sga.sa_mask);
 	sigaddset(&sga.sa_mask, SIGINT);
 	sigaddset(&sga.sa_mask, SIGHUP);
+	sigaddset(&sga.sa_mask, SIGUSR1);
 	sga.sa_handler = my_handler;
 	sga.sa_flags = 0;
 	sigaction(SIGTERM, &sga, NULL);
@@ -234,9 +272,19 @@ static void install_signal_handler(void) {
 	sigemptyset(&sga.sa_mask);
 	sigaddset(&sga.sa_mask, SIGINT);
 	sigaddset(&sga.sa_mask, SIGTERM);
+	sigaddset(&sga.sa_mask, SIGUSR1);
 	sga.sa_handler = my_handler;
 	sga.sa_flags = 0;
 	sigaction(SIGHUP, &sga, NULL);
+
+	// block SIGINT/SIGTERM/SIGHUP while handling SIGUSR1
+	sigemptyset(&sga.sa_mask);
+	sigaddset(&sga.sa_mask, SIGINT);
+	sigaddset(&sga.sa_mask, SIGTERM);
+	sigaddset(&sga.sa_mask, SIGHUP);
+	sga.sa_handler = my_handler;
+	sga.sa_flags = 0;
+	sigaction(SIGUSR1, &sga, NULL);
 }
 
 void frontend(void) {
@@ -247,7 +295,7 @@ void frontend(void) {
 
 	// check for different DNS servers running on this address:port
 	char *proxy_addr = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
-	int slocal = net_local_dns_socket(0);
+	int slocal = net_local_dns_socket(1);
 	if (slocal == -1) {
 		fprintf(stderr, "Error: a different DNS server is already running on %s:53\n", proxy_addr);
 		exit(1);

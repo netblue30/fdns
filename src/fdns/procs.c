@@ -105,7 +105,7 @@ void procs_add(void) {
 	atexit(procs_exit);
 }
 
-char *procs_list(void) {
+char *procs_list(pid_t *default_proxy_pid) {
 	DIR *dir;
 	char *rv = NULL;
 	if (!(dir = opendir("/run/fdns"))) {
@@ -142,11 +142,15 @@ char *procs_list(void) {
 						rv = strdup(DEFAULT_PROXY_ADDR);
 						if (!rv)
 							errExit("strdup");
+						if (default_proxy_pid)
+							*default_proxy_pid = atoi(entry->d_name);
 					}
 					else if (!rv) {
 						rv = strdup(buf);
 						if (!rv)
 							errExit("strdup");
+						if (default_proxy_pid)
+							*default_proxy_pid = atoi(entry->d_name);
 					}
 
 					printf(" address %s", buf);

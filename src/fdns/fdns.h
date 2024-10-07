@@ -428,7 +428,7 @@ int whitelist_blocked(const char *domain);
 // procs.c
 void procs_add(void);
 void procs_exit(void);
-char *procs_list(void);
+char *procs_list(pid_t *default_proxy_pid);
 
 // h2.c
 extern DnsTransport h2_transport;
@@ -446,4 +446,8 @@ extern DnsTransport dot_transport;
 void stats_add(const char *name, float qtime);
 void stats_down(const char *name);
 void stats_print(void);
+
+// resetart.c
+void restart(void);
+
 #endif
