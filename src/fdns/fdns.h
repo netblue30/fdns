@@ -98,6 +98,8 @@ static inline int rand_range(int min, int max) {
 #define FALLBACK_TIMEOUT 10 // wait time for DNS responses from the server in fallback
 	// for NAT traversal, this value should be smaller than 30 seconds - the default is in /proc/sys/net/netfilter/nf_conntrack_udp_timeout
 
+#define QTIME_RANDOM_LIMIT 50 // milliseconds
+
 // logging
 #define LOG_TIMEOUT_DEFAULT 10		// amount of time to keep the log entries in shared memory in minutes
 

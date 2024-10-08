@@ -68,15 +68,38 @@ void stats_print(void) {
 		return;
 	printf("Run-time statistics:\n");
 
-	// calculate probability and average
+	// calculate probability
 	float total = stats_cnt * (stats_cnt - 1);
-	float average = 0;
 	int i = 0;
 	while (ptr) {
 		ptr->probability = ((float) (stats_cnt - 1 - i) * 2 / total);
-		average += ptr->qtime * ptr->probability;
-
 		i++;
+		ptr = ptr->next;
+	}
+
+	// adjust probability for random limit
+	ptr = stats_list;
+	int cnt = 0;
+	float sum = 0;
+	while (ptr) {
+		if (ptr->qtime > QTIME_RANDOM_LIMIT)
+			break;
+		sum += ptr->probability;
+		cnt++;
+		ptr = ptr->next;
+	}
+	if (cnt) {
+		sum /= cnt;
+		ptr = stats_list;
+		for (i = 0; i < cnt; i++, ptr = ptr->next)
+			ptr->probability = sum;
+	}
+
+	// calculate average;
+	float average = 0;
+	ptr = stats_list;
+	while (ptr) {
+		average += ptr->qtime * ptr->probability;
 		ptr = ptr->next;
 	}
 

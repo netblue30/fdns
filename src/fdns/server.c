@@ -654,7 +654,7 @@ DnsServer *server_get(void) {
 				float first_average = qaverage;
 				scurrent = first;
 				stats.query_time = first_average;
-				if (first_average > 50) {
+				if (first_average > QTIME_RANDOM_LIMIT) {
 					// try another server
 					s = random_server();
 					if (s == first) // try again
