@@ -71,9 +71,6 @@ static void my_handler(int s) {
 
 	if (s == SIGUSR1) {
 		logprintf("restarting...\n");
-		char *path;
-		if (asprintf(&path, "%s/bin/fdns", PREFIX) == -1)
-			errExit("asprintf");
 
 		// extract command line
 		char *fname;
@@ -100,7 +97,7 @@ static void my_handler(int s) {
 
 		fclose(fp);
 		arg[cnt] = NULL;
-		int rv = execv(path, arg);
+		int rv = execv(PATH_FDNS, arg);
 		(void) rv;
 	}
 
