@@ -365,6 +365,7 @@ void shmem_print_stats(void);
 void shmem_monitor_stats(const char *proxy_addr);
 void shmem_keepalive(void);
 void shm_timeout(void);
+void shmem_print_server(const char *proxy_addr);
 
 // server.c
 extern int server_print_servers;

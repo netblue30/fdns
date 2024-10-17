@@ -338,6 +338,17 @@ void shmem_monitor_stats(const char *proxy_addr) {
 	}
 }
 
+void shmem_print_server(const char *proxy_addr) {
+	assert(proxy_addr);
+	shmem_open(0, proxy_addr);
+	assert(report);
+
+	printf("%s", report->header1);
+}
+
+
+
+
 void shm_timeout(void) {
 	static int cnt = 0;
 	if (!report)	// when running in containers, shm is disabled

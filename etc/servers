@@ -1315,6 +1315,15 @@ end;
 name: mullvad-adblocker
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
 tags: h2ping, anycast, adblocker, America, AsiaPacific, Europe
+address: 194.242.2.3:443
+host: adblock.dns.mullvad.net/dns-query
+keepalive: 7
+end;
+
+# low keepalive
+name: mullvad-security
+website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
+tags: h2ping, anycast, security, America, AsiaPacific, Europe
 address: 194.242.2.4:443
 host: base.dns.mullvad.net/dns-query
 keepalive: 7
@@ -1325,7 +1334,7 @@ name: mullvad-family
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
 tags: h2ping, family, America, AsiaPacific, Europe
 address: 194.242.2.6:443
-host: base.dns.mullvad.net/dns-query
+host: family.dns.mullvad.net/dns-query
 keepalive: 7
 end;
 

@@ -127,7 +127,7 @@ char *procs_list(pid_t *default_proxy_pid) {
 			char *runfname;
 			if (asprintf(&runfname, "/run/fdns/%s", entry->d_name) == -1)
 				errExit("asprintf");
-			printf("pid %s,", entry->d_name);
+			printf("pid %s: ", entry->d_name);
 			FILE *fp = fopen(runfname, "r");
 			if (fp) {
 				char buf[MAXBUF];
@@ -153,9 +153,9 @@ char *procs_list(pid_t *default_proxy_pid) {
 							*default_proxy_pid = atoi(entry->d_name);
 					}
 
-					printf(" address %s", buf);
-					if (strcmp(buf, DEFAULT_PROXY_ADDR) == 0)
-						printf(" (default)");
+					shmem_print_server(buf);
+//					if (strcmp(buf, DEFAULT_PROXY_ADDR) == 0)
+//						printf(" (default)");
 				}
 			}
 			printf("\n");
