@@ -418,12 +418,11 @@ static float test_server(const char *server_name)  {
 		struct timeval t = {1, 0};
 		int rv = select(pipefd[0] + 1, &readfds, NULL, NULL, &t);
 		if (rv == -1)
-			return 0;
+			goto ret;
 		if (FD_ISSET(pipefd[0], &readfds)) {
 			rv = read(pipefd[0], &qaverage, sizeof(qaverage));
-//printf("****** %f *****\n", qaverage);
 			if (rv != sizeof(qaverage))
-				return 0;
+				goto ret;
 			break;
 		}
 
@@ -434,21 +433,19 @@ static float test_server(const char *server_name)  {
 			// check child status
 			if (WIFEXITED(status) && WEXITSTATUS(status) == 1) {
 				printf("   Error: server %s failed\n", arg_server);
-				fflush(0);
-				return 0;
+				goto ret;
 			}
 			break;
 		}
 		i++;
 	}
-	while (i < 20); // 20 second wait
+	while (i < 10); // 10 second wait
 
-	if (i == 20) {
-		printf("   Error: server %s failed\n", arg_server);
-		fflush(0);
-		kill(child, SIGKILL);
-		return 0;
-	}
+ret:
+	fflush(0);
+	kill(child, SIGKILL);
+	int status;
+	waitpid(child, &status, 0);
 
 	return qaverage;
 }

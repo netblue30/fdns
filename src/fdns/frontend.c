@@ -32,7 +32,7 @@
 
 // keepalive autodetect
 static int restarting = 0;
-
+static char *proxy_addr = NULL;
 #ifdef __ia64__
 /* clone(2) has a different interface on ia64, as it needs to know
    the size of the stack */
@@ -62,12 +62,20 @@ static void my_handler(int s) {
 	logprintf("signal %d caught, shutting down all resolvers\n", s);
 
 	int i;
-	for (i = 0; i < arg_resolvers; i++)
+	for (i = 0; i < arg_resolvers; i++) {
 		kill(w[i].pid, SIGKILL);
+		int status;
+		waitpid(w[i].pid, &status, 0);
+	}
 
 	// attempt to remove shmem file
-	int rv = unlink("/dev/shm/fdns-stats");
+	char *statsfile;
+	assert(proxy_addr);
+	if (asprintf(&statsfile, "/dev/shm/fdns-stats-%s", proxy_addr) == -1)
+		errExit("asprintf");
+	int rv = unlink(statsfile);
 	(void) rv;
+	free(statsfile);
 
 	if (s == SIGUSR1) {
 		logprintf("restarting...\n");
@@ -291,7 +299,7 @@ void frontend(void) {
 	install_signal_handler();
 
 	// check for different DNS servers running on this address:port
-	char *proxy_addr = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
+	proxy_addr = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
 	int slocal = net_local_dns_socket(1);
 	if (slocal == -1) {
 		fprintf(stderr, "Error: a different DNS server is already running on %s:53\n", proxy_addr);
