@@ -42,9 +42,8 @@ void resolver(void) {
 	else
 		rlogprintf("Warning: resolver starting in fallback mode\n");
 
-	// start the local DNS server on 127.0.0.1 only
-	// in order to mitigate DDoS amplification attacks
-	int slocal = net_local_dns_socket(1);
+	// start the local DNS server on 127.1.1.1
+	int slocal = net_local_dns_socket(1); // address/port reuse
 	if (slocal == -1) {
 		fprintf(stderr, "Error: cannot bind to port 53\n");
 		exit(1);

@@ -300,7 +300,7 @@ void frontend(void) {
 
 	// check for different DNS servers running on this address:port
 	proxy_addr = (arg_proxy_addr) ? arg_proxy_addr : DEFAULT_PROXY_ADDR;
-	int slocal = net_local_dns_socket(1);
+	int slocal = net_local_dns_socket(0); // no address/port reuse
 	if (slocal == -1) {
 		fprintf(stderr, "Error: a different DNS server is already running on %s:53\n", proxy_addr);
 		exit(1);
