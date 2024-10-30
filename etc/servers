@@ -505,7 +505,7 @@ end;
 #host: dns.controld.com/comms
 #end;
 
-name: controld
+name: controld-unfiltered
 website: https://controld.com/free-dns/
 tags: anycast, America, AsiaPacific, Europe
 address: 76.76.2.11:443
@@ -514,7 +514,7 @@ keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
-name: controld2
+name: controld2-unfiltered
 website: https://controld.com/free-dns/
 tags: anycast, America, AsiaPacific, Europe
 address: 76.76.10.11:443
@@ -527,17 +527,10 @@ end;
 #website: https://controld.com/free-dns/
 #tags: anycast, dot, America, AsiaPacific, Europe
 #address: 76.76.2.11:853
-#host: freedns.controld.com/
-#end;
-#
-#name: controld2-dot
-#website: https://controld.com/free-dns/
-#tags: anycast, dot, America, AsiaPacific, Europe
-#address: 76.76.10.11:853
-#host: freedns.controld.com/
+#host: p0.freedns.controld.com/
 #end;
 
-name: controld-adblocker
+name: controld-adguard
 website: https://controld.com/free-dns/
 tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.2.44:443
@@ -546,7 +539,7 @@ keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
-name: controld2-adblocker
+name: controld2-adguard
 website: https://controld.com/free-dns/
 tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.44:443
@@ -559,7 +552,7 @@ name: controld-security
 website: https://controld.com/free-dns/
 tags: anycast, security, adblocker, America, AsiaPacific, Europe
 address: 76.76.2.11:443
-host: freedns.controld.com/p2
+host: freedns.controld.com/p1
 keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
@@ -567,6 +560,24 @@ end;
 name: controld2-security
 website: https://controld.com/free-dns/
 tags: anycast, security, adblocker, America, AsiaPacific, Europe
+address: 76.76.10.11:443
+host: freedns.controld.com/p1
+keepalive: 50
+# server inactivity timer 65 seconds or higher
+end;
+
+name: controld-adblocker
+website: https://controld.com/free-dns/
+tags: anycast, security, adblocker, America, AsiaPacific, Europe
+address: 76.76.2.11:443
+host: freedns.controld.com/p2
+keepalive: 50
+# server inactivity timer 65 seconds or higher
+end;
+
+name: controld2-adblocker
+website: https://controld.com/free-dns/
+tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/p2
 keepalive: 50
@@ -587,6 +598,24 @@ website: https://controld.com/free-dns/
 tags: family, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/family
+keepalive: 50
+# server inactivity timer 65 seconds or higher
+end;
+
+name: controld-uncensored
+website: https://controld.com/free-dns/
+tags: anycast, security, adblocker, America, AsiaPacific, Europe
+address: 76.76.2.11:443
+host: freedns.controld.com/uncensored
+keepalive: 50
+# server inactivity timer 65 seconds or higher
+end;
+
+name: controld2-uncensored
+website: https://controld.com/free-dns/
+tags: anycast, adblocker, America, AsiaPacific, Europe
+address: 76.76.10.11:443
+host: freedns.controld.com/uncensored
 keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
