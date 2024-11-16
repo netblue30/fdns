@@ -10,6 +10,7 @@ typedef struct stats_node_t {
 
 static StatsNode *stats_list = NULL;
 static int stats_cnt = 0;
+static double simple_average = 0;
 
 void stats_add(const char *name, float qtime) {
 	assert(name);
@@ -38,6 +39,7 @@ void stats_add(const char *name, float qtime) {
 	// add
 	snew->next = *pptr;
 	*pptr = snew;
+	simple_average += snew->qtime;
 }
 
 
@@ -66,6 +68,7 @@ void stats_print(void) {
 
 	if (stats_cnt <= 1)
 		return;
+	printf("Simple average %.02f ms\n\n", simple_average / stats_cnt);
 	printf("Run-time statistics:\n");
 
 	// calculate probability

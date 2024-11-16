@@ -1188,7 +1188,7 @@ end;
 # google redirect in cloudflare network
 name: gorgeous-mecca
 website: https://so-gorgeo.us.kg/
-tags: sni, anycast, America, AsiaPacific, Europe
+tags: sni, America, AsiaPacific, Europe
 address: mecca-is.so-gorgeo.us.kg:443
 host: mecca-is.so-gorgeo.us.kg/dns-query
 end;
@@ -1196,7 +1196,7 @@ end;
 # adguard redirect in cludflare network
 name: gorgeous-myrra
 website: https://so-gorgeo.us.kg/
-tags: sni, anycast, America, AsiaPacific, Europe
+tags: sni, America, AsiaPacific, Europe
 address: myrra-is.so-gorgeo.us.kg:443
 host: myrra-is.so-gorgeo.us.kg/dns-query
 end;
@@ -1483,6 +1483,20 @@ address: 217.160.70.42:853
 host: ns1.opennameserver.org/
 end;
 
+name: opennameserver2
+website: https://opennameserver.org/
+tags: Germany, Europe
+address: 213.202.211.221:443
+host: ns2.opennameserver.org/dns-query
+end;
+
+name: opennameserver2-dot
+website: https://opennameserver.org/
+tags: dot, Germany, Europe
+address: 213.202.211.221:853
+host: ns2.opennameserver.org/
+end;
+
 name: opennameserver3
 website: https://opennameserver.org/
 tags: Germany, Europe
@@ -1698,7 +1712,7 @@ end;
 
 # cloudflare redirect
 name: rabbitdns-security
-website: https://rabbitdns.org/install
+website: https://rabbitdns.org
 tags: security, sni, America, AsiaPacific, Europe
 address: security.rabbitdns.org:443
 host: security.rabbitdns.org/dns-query
@@ -1971,7 +1985,7 @@ host: ath01.dnscry.pt/
 end;
 
 name: dnscrypt-tbilisi
-tags: dot, Georgia, AsiaPacific
+tags: dot, Georgia, Europe, MiddleEast
 website: https://www.dnscry.pt
 address: 194.135.119.93:853
 host: tbs01.dnscry.pt/
@@ -2419,7 +2433,7 @@ host: muc01.dnscry.pt/
 end;
 
 name: dnscrypt-telaviv
-tags: dot, Israel, Europe
+tags: dot, Israel, Europe, MiddleEast
 website: https://www.dnscry.pt
 address: 146.185.219.24:853
 host: tlv01.dnscry.pt/
@@ -2496,7 +2510,7 @@ host: sin03.dnscry.pt/
 end;
 
 name: dnscrypt-yerevan
-tags: dot, Armenia, Europe
+tags: dot, Armenia, Europe, MiddleEast
 website: https://www.dnscry.pt
 address: 85.90.207.199:853
 host: evn01.dnscry.pt/
@@ -2572,3 +2586,10 @@ address: 66.187.7.140:853
 host: dtw01.dnscry.pt/
 end;
 # dnscry.pt: 100 servers
+
+name: dnscrypt-eyg
+tags: dot, Netherlands, Europe, WesternEurope
+website: https://www.dnscry.pt
+address: 93.95.115.21:853
+host: ams02.dnscry.pt/
+end;
