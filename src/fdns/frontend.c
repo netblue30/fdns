@@ -382,9 +382,19 @@ void frontend(void) {
 			// clean shared memory logs
 			shm_timeout();
 
+			// decrease keepalive wait when coming out of sleep/hibernation
+			if (delta > OUT_OF_SLEEP) {
+				for (i = 0; i < arg_resolvers; i++) {
+					if (w[i].keepalive > RESOLVER_KEEPALIVE_AFTER_SLEEP)
+						w[i].keepalive = RESOLVER_KEEPALIVE_AFTER_SLEEP;
+				}
+			}
+
+
+
 			// restart resolvers if the keepalive time expired
 			for (i = 0; i < arg_resolvers; i++) {
-				if (--w[i].keepalive <= 0 || delta > OUT_OF_SLEEP) {
+				if (--w[i].keepalive <= 0) {
 					logprintf("Restarting resolver process %d (pid %d)\n", i, w[i].pid);
 					kill(w[i].pid, SIGKILL);
 					int status;
