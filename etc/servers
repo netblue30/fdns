@@ -1185,6 +1185,13 @@ host: getdnsapi.net/
 # server inactivity timer 65 seconds or higher
 end;
 
+name: gorgeous-sitha
+website: https://so-gorgeo.us.kg/
+tags: sni, America
+address: sitha-is.so-gorgeo.us.kg:443
+host: sitha-is.so-gorgeo.us.kg/dns-query
+end;
+
 # google redirect in cloudflare network
 name: gorgeous-mecca
 website: https://so-gorgeo.us.kg/
@@ -1796,6 +1803,41 @@ tags: dot, France, WesternEurope, Europe
 address: 78.194.186.17:853
 host: dns.sellan.fr/
 end;
+
+
+name: tridns-ca
+website: https://dns.triro.net
+tags: h2ping, America, Canada
+address: 178.128.225.109:443
+host: tri-dns.net/dns-query
+keepalive: 7
+end;
+
+name: tridns-ca-dot
+website: https://dns.triro.net
+tags: dot, America, Canada
+address: 178.128.225.109:853
+host: tri-dns.net/
+keepalive: 7
+end;
+
+name: tridns-ch
+website: https://dns.triro.net
+tags: h2ping, Europe, Switzerland
+address: 159.100.250.108:443
+host: tri-dns.net/dns-query
+keepalive: 7
+end;
+
+name: tridns-ch-dot
+website: https://dns.triro.net
+tags: dot, Europe, Switzerland
+address: 159.100.250.108:853
+host: eu.tri-dns.net/
+keepalive: 7
+end;
+
+
 
 
 # cloudflare redirect
