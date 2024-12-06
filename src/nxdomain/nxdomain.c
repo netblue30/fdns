@@ -182,7 +182,7 @@ static void test(FILE *fpout, int chunk_no) {
 		}
 
 		// send DNS request
-		usleep(100000);	// maximum 10xMAX_CHUNKS requests per second
+		usleep(250000);	// maximum 4xMAX_CHUNKS requests per second
 		int rv = resolver(start);
 //printf("%s\n", start);
 		if (rv == 0) {
@@ -308,7 +308,7 @@ static void usage(void) {
 	printf("Options:\n");
 	printf("\t--chunk=number - number of domains in a chunk of input data, default %d\n", FILE_CHUNK_SIZE);
 	printf("\t--help, -?, -h - show this help screen.\n");
-	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare %s\n", SERVER_DEFAULT);
+	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare\n");
 	printf("\t--timeout=seconds - number of seconds to wait for a response form the server, default %d\n", TIMEOUT_DEFAULT);
 	printf("\t--timeout-only - check only the domains that timed out in a previous run\n");
 	printf("\n");

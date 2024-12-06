@@ -13,10 +13,9 @@ The default upstream resolver is Cloudflare 1.1.1.1.
 .br
 
 .br
-By default, the program is using 5 resolver threads, each thread running at 10 queries per second,
-for a grand total of 50 queries per second. If you take into account the time necessary to the upstream
-DNS server to respond, the number is much lower. I am getting about 30 queries per second on Cloudflare,
-on a regular home Internet connection.
+By default, the program is using 5 resolver threads, each thread running at 4 queries per second,
+for a grand total of 20 queries per second. If you take into account the time necessary to the upstream
+DNS server to respond, the number is much lower.
 
 .SH OPTIONS
 .TP
