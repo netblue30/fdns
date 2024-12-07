@@ -9,13 +9,9 @@ nxdomain [options] file-in [file-out]
 nxdomain is a program that removes dead domains from a host list.
 The program accepts regular hosts files with IP addresses of 127.0.0.1 or 0.0.0.0,
 or lists of domain names without IP address, one domain per line.
+The program is sending a maximum of 20 queries per second.
 The default upstream resolver is Cloudflare 1.1.1.1.
 .br
-
-.br
-By default, the program is using 5 resolver threads, each thread running at 4 queries per second,
-for a grand total of 20 queries per second. If you take into account the time necessary to the upstream
-DNS server to respond, the number is much lower.
 
 .SH OPTIONS
 .TP

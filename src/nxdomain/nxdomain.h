@@ -37,13 +37,14 @@
 	((int) (((A) >> 24) & 0xFF)),  ((int) (((A) >> 16) & 0xFF)), ((int) (((A) >> 8) & 0xFF)), ((int) ( (A) & 0xFF))
 
 #define FILE_CHUNK_SIZE 200	// maximum number of domains in a  chunk of data
-#define MAX_CHUNKS 5		// maximum number of parallel chunks for processing
+#define MAX_CHUNKS 2		// maximum number of parallel chunks for processing
 
 // main.c
 extern char *arg_server;
 extern int arg_timeout;
 
 // resolver.c
-int resolver(const char *domain);
+// timeout in seconds
+int resolver(const char *domain, int timeout);
 
 #endif

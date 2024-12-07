@@ -490,12 +490,12 @@ host: family.cloudflare-dns.com/dns-query
 keepalive: 50
 end;
 
-name: comssone
-website: https://www.comss.ru/page.php?id=7315
-tags: adblocker, Europe, Russia
-address: dns.comss.one:443
-host: dns.comss.one/dns-query
-end;
+#name: comssone
+#website: https://www.comss.ru/page.php?id=7315
+#tags: adblocker, Europe, Russia
+#address: dns.comss.one:443
+#host: dns.comss.one/dns-query
+#end;
 
 # running in controld network
 #name: comssone-anycast
@@ -505,122 +505,122 @@ end;
 #host: dns.controld.com/comms
 #end;
 
-name: controld-unfiltered
-website: https://controld.com/free-dns/
-tags: anycast, America, AsiaPacific, Europe
-address: 76.76.2.11:443
-host: freedns.controld.com/p0
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld2-unfiltered
-website: https://controld.com/free-dns/
-tags: anycast, America, AsiaPacific, Europe
-address: 76.76.10.11:443
-host: freedns.controld.com/p0
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-#name: controld-dot
+#name: controld-unfiltered
 #website: https://controld.com/free-dns/
-#tags: anycast, dot, America, AsiaPacific, Europe
-#address: 76.76.2.11:853
-#host: p0.freedns.controld.com/
+#tags: anycast, America, AsiaPacific, Europe
+#address: 76.76.2.11:443
+#host: freedns.controld.com/p0
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
 #end;
-
-name: controld-adguard
-website: https://controld.com/free-dns/
-tags: anycast, adblocker, America, AsiaPacific, Europe
-address: 76.76.2.44:443
-host: freedns.controld.com/adguard
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld2-adguard
-website: https://controld.com/free-dns/
-tags: anycast, adblocker, America, AsiaPacific, Europe
-address: 76.76.10.44:443
-host: freedns.controld.com/adguard
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld-security
-website: https://controld.com/free-dns/
-tags: anycast, security, adblocker, America, AsiaPacific, Europe
-address: 76.76.2.11:443
-host: freedns.controld.com/p1
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld2-security
-website: https://controld.com/free-dns/
-tags: anycast, security, adblocker, America, AsiaPacific, Europe
-address: 76.76.10.11:443
-host: freedns.controld.com/p1
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld-adblocker
-website: https://controld.com/free-dns/
-tags: anycast, security, adblocker, America, AsiaPacific, Europe
-address: 76.76.2.11:443
-host: freedns.controld.com/p2
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld2-adblocker
-website: https://controld.com/free-dns/
-tags: anycast, adblocker, America, AsiaPacific, Europe
-address: 76.76.10.11:443
-host: freedns.controld.com/p2
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld-family
-website: https://controld.com/free-dns/
-tags: family, America, AsiaPacific, Europe
-address: 76.76.2.11:443
-host: freedns.controld.com/family
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld2-family
-website: https://controld.com/free-dns/
-tags: family, America, AsiaPacific, Europe
-address: 76.76.10.11:443
-host: freedns.controld.com/family
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld-uncensored
-website: https://controld.com/free-dns/
-tags: anycast, security, adblocker, America, AsiaPacific, Europe
-address: 76.76.2.11:443
-host: freedns.controld.com/uncensored
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-name: controld2-uncensored
-website: https://controld.com/free-dns/
-tags: anycast, adblocker, America, AsiaPacific, Europe
-address: 76.76.10.11:443
-host: freedns.controld.com/uncensored
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
-
-
+#
+#name: controld2-unfiltered
+#website: https://controld.com/free-dns/
+#tags: anycast, America, AsiaPacific, Europe
+#address: 76.76.10.11:443
+#host: freedns.controld.com/p0
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+##name: controld-dot
+##website: https://controld.com/free-dns/
+##tags: anycast, dot, America, AsiaPacific, Europe
+##address: 76.76.2.11:853
+##host: p0.freedns.controld.com/
+##end;
+#
+#name: controld-adguard
+#website: https://controld.com/free-dns/
+#tags: anycast, adblocker, America, AsiaPacific, Europe
+#address: 76.76.2.44:443
+#host: freedns.controld.com/adguard
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: controld2-adguard
+#website: https://controld.com/free-dns/
+#tags: anycast, adblocker, America, AsiaPacific, Europe
+#address: 76.76.10.44:443
+#host: freedns.controld.com/adguard
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: controld-security
+#website: https://controld.com/free-dns/
+#tags: anycast, security, adblocker, America, AsiaPacific, Europe
+#address: 76.76.2.11:443
+#host: freedns.controld.com/p1
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: controld2-security
+#website: https://controld.com/free-dns/
+#tags: anycast, security, adblocker, America, AsiaPacific, Europe
+#address: 76.76.10.11:443
+#host: freedns.controld.com/p1
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: controld-adblocker
+#website: https://controld.com/free-dns/
+#tags: anycast, security, adblocker, America, AsiaPacific, Europe
+#address: 76.76.2.11:443
+#host: freedns.controld.com/p2
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: controld2-adblocker
+#website: https://controld.com/free-dns/
+#tags: anycast, adblocker, America, AsiaPacific, Europe
+#address: 76.76.10.11:443
+#host: freedns.controld.com/p2
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: controld-family
+#website: https://controld.com/free-dns/
+#tags: family, America, AsiaPacific, Europe
+#address: 76.76.2.11:443
+#host: freedns.controld.com/family
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: controld2-family
+#website: https://controld.com/free-dns/
+#tags: family, America, AsiaPacific, Europe
+#address: 76.76.10.11:443
+#host: freedns.controld.com/family
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: controld-uncensored
+#website: https://controld.com/free-dns/
+#tags: anycast, security, adblocker, America, AsiaPacific, Europe
+#address: 76.76.2.11:443
+#host: freedns.controld.com/uncensored
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: controld2-uncensored
+#website: https://controld.com/free-dns/
+#tags: anycast, adblocker, America, AsiaPacific, Europe
+#address: 76.76.10.11:443
+#host: freedns.controld.com/uncensored
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#
 # cloudflare redirect
 #name: cynthialabs
 #website: https://cynthialabs.net/
@@ -1813,13 +1813,13 @@ host: tri-dns.net/dns-query
 keepalive: 7
 end;
 
-name: tridns-ca-dot
-website: https://dns.triro.net
-tags: dot, America, Canada
-address: 178.128.225.109:853
-host: tri-dns.net/
-keepalive: 7
-end;
+#name: tridns-ca-dot
+#website: https://dns.triro.net
+#tags: dot, America, Canada
+#address: 178.128.225.109:853
+#host: tri-dns.net/
+#keepalive: 7
+#end;
 
 name: tridns-ch
 website: https://dns.triro.net
@@ -1829,13 +1829,13 @@ host: tri-dns.net/dns-query
 keepalive: 7
 end;
 
-name: tridns-ch-dot
-website: https://dns.triro.net
-tags: dot, Europe, Switzerland
-address: 159.100.250.108:853
-host: eu.tri-dns.net/
-keepalive: 7
-end;
+#name: tridns-ch-dot
+#website: https://dns.triro.net
+#tags: dot, Europe, Switzerland
+#address: 159.100.250.108:853
+#host: eu.tri-dns.net/
+#keepalive: 7
+#end;
 
 
 
@@ -2068,12 +2068,12 @@ address: 84.33.15.100:853
 host: syd01.dnscry.pt/
 end;
 
-#name: dnscrypt-milan
-#tags: dot, Italy, Europe
-#website: https://www.dnscry.pt
-#address: 217.156.50.25:853
-#host: mil01.dnscry.pt/
-#end;
+name: dnscrypt-milan
+tags: dot, Italy, Europe
+website: https://www.dnscry.pt
+address: 217.156.50.25:853
+host: mil01.dnscry.pt/
+end;
 
 name: dnscrypt-montreal
 tags: dot, Canada, America
@@ -2176,7 +2176,7 @@ end;
 name: dnscrypt-dusseldorf02
 tags: dot, Germany, Europe
 website: https://www.dnscry.pt
-address: 37.114.58.115:853
+address: 45.133.75.122:853
 host: dus02.dnscry.pt/
 end;
 
@@ -2213,6 +2213,13 @@ tags: dot, US, America
 website: https://www.dnscry.pt
 address: 45.41.204.204:853
 host: ord01.dnscry.pt/
+end;
+
+name: dnscrypt-lisbon
+tags: dot, Portugal, Europe, WesternEurope
+website: https://www.dnscry.pt
+address: 185.219.130.2:853
+host: lis01.dnscry.pt/
 end;
 
 name: dnscrypt-ebene
@@ -2346,6 +2353,13 @@ tags: dot, Singapore, AsiaPacific
 website: https://www.dnscry.pt
 address: 103.179.44.73:853
 host: sin02.dnscry.pt/
+end;
+
+name: dnscrypt-brisbane
+tags: dot, Australia, AsiaPacific
+website: https://www.dnscry.pt
+address: 43.224.180.137:853
+host: bne01.dnscry.pt/
 end;
 
 name: dnscrypt-frankfurt
@@ -2627,11 +2641,11 @@ website: https://www.dnscry.pt
 address: 66.187.7.140:853
 host: dtw01.dnscry.pt/
 end;
-# dnscry.pt: 100 servers
 
-name: dnscrypt-eyg
-tags: dot, Netherlands, Europe, WesternEurope
+name: dnscrypt-stockholm02
+tags: dot, Sweden, Europe
 website: https://www.dnscry.pt
-address: 93.95.115.21:853
-host: ams02.dnscry.pt/
+address: 185.195.236.62:853
+host: sto02.dnscry.pt/
 end;
+# dnscry.pt: 103 servers

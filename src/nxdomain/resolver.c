@@ -27,10 +27,11 @@
 
 static uint16_t id = 0;
 
+// timeout in seconds
 // return 0 if domain OK
 // return 1 if NXDOMAIN
 // return 2 if timeout
-int resolver(const char *domain) {
+int resolver(const char *domain, int timeout) {
 	// init socket
 	int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (sock == -1)
@@ -91,7 +92,7 @@ int resolver(const char *domain) {
 	// send query
 	sendto(sock, dnsmsg, len, 0, (struct sockaddr *) &addr, addr_len);
 
-	struct timeval t = { arg_timeout, 0};	// 10 seconds timeout
+	struct timeval t = { timeout, 0};	// 10 seconds timeout
 	int retval = 0;
 	while (1) {
 		fd_set fds;

@@ -35,6 +35,7 @@ static int arg_timeout_only = 0;
 #define SERVER_DEFAULT "1.1.1.1"
 char *arg_server = SERVER_DEFAULT;
 #define TIMEOUT_DEFAULT 5	// resolv.com, dig, and nslookup are using a default timeout of 5
+#define TIMEOUT_DEFAULT_EXTENDED 10	// for timeout-only feature
 int arg_timeout = TIMEOUT_DEFAULT;
 int arg_chunk = FILE_CHUNK_SIZE;
 char current_chunk[FILE_CHUNK_SIZE][LINE_MAX];
@@ -182,8 +183,8 @@ static void test(FILE *fpout, int chunk_no) {
 		}
 
 		// send DNS request
-		usleep(250000);	// maximum 4xMAX_CHUNKS requests per second
-		int rv = resolver(start);
+		usleep(100000);	// maximum 10 request per second
+		int rv = resolver(start, arg_timeout);
 //printf("%s\n", start);
 		if (rv == 0) {
 			j++;
@@ -272,7 +273,7 @@ static void timeout_only(const char *fin, const char *fout) {
 
 			// send DNS request
 			usleep(100000);	// maximum 10 requests per second
-			int rv = resolver(ptr);
+			int rv = resolver(ptr, arg_timeout);
 			if (rv == 0) {
 				fprintf(stderr, "*");
 				fflush(0);
@@ -368,6 +369,9 @@ int main(int argc, char **argv) {
 		}
 	}
 
+	if (arg_timeout == TIMEOUT_DEFAULT && arg_timeout_only)
+		arg_timeout = TIMEOUT_DEFAULT_EXTENDED;
+			
 
 	time_t start = time(NULL);
 	fprintf(stderr, "%s", ctime(&start));
