@@ -1315,16 +1315,18 @@ end;
 
 name: libredns
 website: https://libredns.gr/
-tags: Germany, Europe
+tags: h2ping, Germany, Europe
 address: 116.202.176.26:443
 host: doh.libredns.gr/dns-query
+keepalive: 7
 end;
 
 name: libredns-adblocker
 website: https://libredns.gr/
-tags: Germany, Europe, adblocker
+tags: h2ping, Germany, Europe, adblocker
 address: 116.202.176.26:443
 host: doh.libredns.gr/noads
+keepalive: 7
 end;
 
 name: marbled
@@ -1825,7 +1827,7 @@ name: tridns-ch
 website: https://dns.triro.net
 tags: h2ping, Europe, Switzerland
 address: 159.100.250.108:443
-host: tri-dns.net/dns-query
+host: eu.tri-dns.net/dns-query
 keepalive: 7
 end;
 
@@ -1909,12 +1911,12 @@ host: yarp.lefolgoc.net/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: your-dns
-website: https://github.com/yegle/your-dns
-tags: adblocker, US, America
-address: 35.247.39.128:443
-host: your-dns.run/dns-query
-end;
+#name: your-dns
+#website: https://github.com/yegle/your-dns
+#tags: adblocker, US, America
+#address: 35.247.39.128:443
+#host: your-dns.run/dns-query
+#end;
 
 name: zdn
 website: https://zdn.ro

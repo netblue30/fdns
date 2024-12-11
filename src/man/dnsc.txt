@@ -12,7 +12,7 @@ dnsc is a program for cleaning and compressing wildcard domain lists in /etc/hos
 .TP
 \fB\-\-cnt=number
 Above this number, the domain is reported in the short list.
-By default we use 1% of the number of input domains.
+By default we use 0.1% of the number of input domains.
 
 .TP
 \fB\-\-debug

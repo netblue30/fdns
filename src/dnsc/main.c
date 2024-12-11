@@ -220,7 +220,7 @@ static void usage(void) {
 	printf("\n");
 	printf("Options:\n");
 	printf("   --cnt=number - above this number, the domain is reported in the short list;\n");
-	printf("                  by default we use 1%% of the number of input domains\n");
+	printf("                  by default we use 0.1%% of the number of input domains\n");
 	printf("   --debug - print debug info\n");
 	printf("   -?, -h, --help - this help screen\n");
 	printf("   --short - print the short list\n");
