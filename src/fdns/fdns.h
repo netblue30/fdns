@@ -332,7 +332,7 @@ int dns_query(uint8_t *msg, int cnt);
 void filter_init(void);
 void filter_load_all_lists(void);
 void filter_load_list(const char *fname);
-int filter_blocked(const char *str, int verbose);
+int filter_blocked(const char *str, int verbose, int default_check);
 void filter_test(char *url);
 void filter_test_list(void);
 

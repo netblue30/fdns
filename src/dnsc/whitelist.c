@@ -91,6 +91,7 @@ void whitelist_load(void) {
 }
 
 void whitelist_print(int total_domains) {
+	printf("# Whitelisted domains:\n");
 	int i;
 	for (i = 0; i < HMAX; i++) {
 		HNode *hnode = ht[i];

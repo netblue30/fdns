@@ -298,7 +298,7 @@ void filter_load_list(const char *fname) {
 			*ptr2 = '\0';
 
 		// add it to the hash table
-		if (!filter_blocked(ptr, 0)) {
+		if (!filter_blocked(ptr, 0, 0)) {
 			filter_add(ptr, file_id, line_no);
 			cnt++;
 		}
@@ -445,12 +445,11 @@ static int custom_checks(const char *str) {
 
 
 // return 1 if the site is blocked, 0 if the site is not blocked
-int filter_blocked(const char *str, int verbose) {
+int filter_blocked(const char *str, int verbose, int default_check) {
 #ifdef DEBUG_STATS
 	timetrace_start();
 #endif
 	int dlen = strlen(str);
-	int i = 0;
 
 	// remove "www."
 	if (strncmp(str, "www.", 4) == 0)
@@ -465,36 +464,39 @@ int filter_blocked(const char *str, int verbose) {
 	}
 
 	// check the default list
-	while (default_filter[i].name != NULL) {
-		if (*default_filter[i].name == '^') {
-			int flen = default_filter[i].len;
-			if (strncmp(str, default_filter[i].name + 1, flen) == 0) {
-				// handle exceptions
+	int i = 0;
+	if (default_check) {
+		while (default_filter[i].name != NULL) {
+			if (*default_filter[i].name == '^') {
+				int flen = default_filter[i].len;
+				if (strncmp(str, default_filter[i].name + 1, flen) == 0) {
+					// handle exceptions
+					if (default_filter[i].exception && strstr(str, default_filter[i].exception))
+						break;
+					if (verbose)
+						printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
+					return 1;
+				}
+			}
+			else if (*default_filter[i].name == '$') {
+				int flen = default_filter[i].len;
+				if (strcmp(str + dlen - flen, default_filter[i].name + 1) == 0) {
+					if (default_filter[i].exception && strstr(str, default_filter[i].exception))
+						break;
+					if (verbose)
+						printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
+					return 1;
+				}
+			}
+			else  if (strstr(str, default_filter[i].name)) {
 				if (default_filter[i].exception && strstr(str, default_filter[i].exception))
 					break;
 				if (verbose)
 					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
 				return 1;
 			}
+			i++;
 		}
-		else if (*default_filter[i].name == '$') {
-			int flen = default_filter[i].len;
-			if (strcmp(str + dlen - flen, default_filter[i].name + 1) == 0) {
-				if (default_filter[i].exception && strstr(str, default_filter[i].exception))
-					break;
-				if (verbose)
-					printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
-				return 1;
-			}
-		}
-		else  if (strstr(str, default_filter[i].name)) {
-			if (default_filter[i].exception && strstr(str, default_filter[i].exception))
-				break;
-			if (verbose)
-				printf("URL %s dropped by default rule \"%s\"\n", str, default_filter[i].name);
-			return 1;
-		}
-		i++;
 	}
 
 	// check default fptrackers
@@ -557,7 +559,7 @@ void filter_test(char *url) {
 	char *ptr = strchr(start, '/');
 	if (ptr)
 		*ptr = 0;
-	filter_blocked(start, 1);
+	filter_blocked(start, 1, 1);
 }
 
 
@@ -606,7 +608,7 @@ void filter_test_list(void) {
 			continue;
 		if (strstr(start, "::")) // IPv6 addresses!
 			continue;
-		if (!filter_blocked(start, 0))
+		if (!filter_blocked(start, 0, 1))
 			printf("127.0.0.1 %s\n", start);
 
 #ifdef HAVE_GCOV

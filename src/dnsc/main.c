@@ -184,6 +184,8 @@ static void print_stats(void) {
 	if (total_domains) {
 		printf("# Final list: %d domains (input list compressed down to %0.02f%%)\n",
 		       phishing, ((double) phishing / (double) total_domains) * 100);
+		if (total_whitelisted)
+			whitelist_print(total_domains);
 	}
 
 	printf("\n");
@@ -197,7 +199,6 @@ static void print_stats(void) {
 
 	printf("\n");
 	subs_print(input_compression);
-
 	printf("\n");
 }
 

@@ -247,6 +247,9 @@ void ssl_open(void) {
 		fflush(0);
 	}
 	if(BIO_do_connect(bio) <= 0) {
+		// Note: nonblocking BIO_do_connect example at
+		//    https://stackoverflow.com/questions/15852840/how-to-set-connection-timeout-and-operation-timeout-in-openssl
+		//    cannot use BIO_set_nbio(bio, 1) - non-blocking cannot be turned off after the connection was establixhed
 //		rlogprintf("Error: cannot connect SSL.\n");
 		if (srv->test_sni) {
 			// try again, this time with sni
