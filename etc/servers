@@ -148,7 +148,6 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 94.140.15.15:443
 host: dns.adguard.com/dns-query
-keepalive: 50
 # server inactivity timer 65 seconds or higher
 keepalive: 50
 end;
@@ -165,7 +164,6 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 94.140.14.14:443
 host: dns.adguard.com/dns-query
-keepalive: 50
 # server inactivity timer 65 seconds or higher
 keepalive: 50
 end;
@@ -1021,12 +1019,12 @@ host: dns1.dnscrypt.ca/dns-query
 # server inactivity timer 66 seconds or higher
 end;
 
-name: dnsforfamily-dot
-website: https://dnsforfamily.com
-tags: dot, family, Germany, Europe
-address: 167.235.236.107:853
-host: dns-dot.dnsforfamily.com/
-end;
+#name: dnsforfamily-dot
+#website: https://dnsforfamily.com
+#tags: dot, family, Germany, Europe
+#address: 167.235.236.107:853
+#host: dns-dot.dnsforfamily.com/
+#end;
 
 name: dnsforge-family1
 website: https://dnsforge.de
@@ -1370,12 +1368,12 @@ address: 204.12.237.197:853
 host: dns.marbledfennec.net/
 end;
 
-name: marbled2
-website: https://www.marbledfennec.net/public-dns-server/
-tags: US, America, security
-address: 173.208.212.205:443
-host: dns.marbledfennec.net/dns-query
-end;
+#name: marbled2
+#website: https://www.marbledfennec.net/public-dns-server/
+#tags: US, America, security
+#address: 173.208.212.205:443
+#host: dns.marbledfennec.net/dns-query
+#end;
 
 name: marbled2-dot
 website: https://www.marbledfennec.net/public-dns-server/
@@ -1470,6 +1468,40 @@ host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
 end;
 
+name: nextdns2
+website: https://nextdns.io/
+tags: anycast, America, AsiaPacific, Europe
+address: 45.90.28.0:443
+host: anycast.dns1.nextdns.io/
+# server inactivity timer 65 seconds or higher
+keepalive: 50
+end;
+
+name: nextdns2-dot
+website: https://nextdns.io/
+tags: anycast, dot, America, AsiaPacific, Europe
+address: 45.90.28.0:853
+host: anycast.dns1.nextdns.io/
+# server inactivity timer 65 seconds or higher
+end;
+
+name: nextdns3
+website: https://nextdns.io/
+tags: anycast, America, AsiaPacific, Europe
+address: 45.90.30.0:443
+host: anycast.dns2.nextdns.io/
+# server inactivity timer 65 seconds or higher
+keepalive: 50
+end;
+
+name: nextdns3-dot
+website: https://nextdns.io/
+tags: anycast, dot, America, AsiaPacific, Europe
+address: 45.90.30.0:853
+host: anycast.dns2.nextdns.io/
+# server inactivity timer 65 seconds or higher
+end;
+
 name: njalla
 website: https://njal.la
 tags: Sweden, Europe
@@ -1556,61 +1588,61 @@ address: dns.paesa.es:443
 host: dns.paesa.es/dns-query
 end;
 
-name: privacy-dns-luxembourg
-tags: adblocker, Europe, WesternEurope, Luxembourg
-website: https://privacy-dns.pw/
-address: 104.244.79.116:443
-host: luxembourg.privacy-dns.pw/dns-query
-end;
-
-name: privacy-dns-lasvegas
-tags: adblocker, US, America
-website: https://privacy-dns.pw/
-address: 205.185.127.120:443
-host: las-vegas.privacy-dns.pw/dns-query
-end;
-
-name: privacy-dns-hungary
-tags: adblocker, Europe, Hungary
-website: https://privacy-dns.pw/
-address: 5.181.77.105:443
-host: hungary.privacy-dns.pw/dns-query
-end;
-
-name: privacy-dns-romania
-tags: adblocker, Europe, Romania
-website: https://privacy-dns.pw/
-address: 45.82.102.33:443
-host: romania.privacy-dns.pw/dns-query
-end;
-
-name: privacy-dns-sweden
-tags: adblocker, Europe, Sweden
-website: https://privacy-dns.pw/
-address: 31.192.244.132:443
-host: sweden.privacy-dns.pw/dns-query
-end;
-
-name: privacy-dns-switzerland
-tags: adblocker, Europe, Switzerland
-website: https://privacy-dns.pw/
-address: 194.87.18.80:443
-host: switzerland.privacy-dns.pw/dns-query
-end;
-
-name: privacy-dns-uae
-tags: adblocker, Europe, UnitedArabEmirates, MiddleEast
-website: https://privacy-dns.pw/
-address: 188.208.110.144:443
-host: united-arab-emirates.privacy-dns.pw/dns-query
-end;
-
-name: privacy-dns-india
-tags: adblocker, India, AsiaPacific
-website: https://privacy-dns.pw/
-address: 86.107.100.200:443
-host: india.privacy-dns.pw/dns-query
-end;
+#name: privacy-dns-luxembourg
+#tags: adblocker, Europe, WesternEurope, Luxembourg
+#website: https://privacy-dns.pw/
+#address: 104.244.79.116:443
+#host: luxembourg.privacy-dns.pw/dns-query
+#end;
+#
+#name: privacy-dns-lasvegas
+#tags: adblocker, US, America
+#website: https://privacy-dns.pw/
+#address: 205.185.127.120:443
+#host: las-vegas.privacy-dns.pw/dns-query
+#end;
+#
+#name: privacy-dns-hungary
+#tags: adblocker, Europe, Hungary
+#website: https://privacy-dns.pw/
+#address: 5.181.77.105:443
+#host: hungary.privacy-dns.pw/dns-query
+#end;
+#
+#name: privacy-dns-romania
+#tags: adblocker, Europe, Romania
+#website: https://privacy-dns.pw/
+#address: 45.82.102.33:443
+#host: romania.privacy-dns.pw/dns-query
+#end;
+#
+#name: privacy-dns-sweden
+#tags: adblocker, Europe, Sweden
+#website: https://privacy-dns.pw/
+#address: 31.192.244.132:443
+#host: sweden.privacy-dns.pw/dns-query
+#end;
+#
+#name: privacy-dns-switzerland
+#tags: adblocker, Europe, Switzerland
+#website: https://privacy-dns.pw/
+#address: 194.87.18.80:443
+#host: switzerland.privacy-dns.pw/dns-query
+#end;
+#
+#name: privacy-dns-uae
+#tags: adblocker, Europe, UnitedArabEmirates, MiddleEast
+#website: https://privacy-dns.pw/
+#address: 188.208.110.144:443
+#host: united-arab-emirates.privacy-dns.pw/dns-query
+#end;
+#
+#name: privacy-dns-india
+#tags: adblocker, India, AsiaPacific
+#website: https://privacy-dns.pw/
+#address: 86.107.100.200:443
+#host: india.privacy-dns.pw/dns-query
+#end;
 
 name: privex-nl
 website: https://www.privex.io/articles/public-infra
@@ -1746,6 +1778,20 @@ website: https://rabbitdns.org/install
 tags: family, sni, America, AsiaPacific, Europe
 address: family.rabbitdns.org:443
 host: family.rabbitdns.org/dns-query
+end;
+
+name: rbn
+website: https://www.robingroppe.de/serverzeug/dns-server
+tags: adblocker, Germany, Europe
+address: 185.245.97.150:443
+host: dns.rbn.gr/dns-query
+end;
+
+name: rbn-dot
+website: https://www.robingroppe.de/serverzeug/dns-server
+tags: dot, adblocker, Germany, Europe
+address: 185.245.97.150:853
+host: dns.rbn.gr/
 end;
 
 #name: respinger
@@ -1942,12 +1988,12 @@ end;
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
 ##################################################
-name: dnscrypt-ebene
-tags: dot, Mauritius, Africa, Europe
-website: https://www.dnscry.pt
-address: 102.222.106.165:853
-host: mru01.dnscry.pt/
-end;
+#name: dnscrypt-ebene
+#tags: dot, Mauritius, Africa, Europe
+#website: https://www.dnscry.pt
+#address: 102.222.106.165:853
+#host: mru01.dnscry.pt/
+#end;
 
 name: dnscrypt-tampa
 tags: dot, US, America
@@ -2159,12 +2205,12 @@ address: 89.36.162.187:853
 host: fjr01.dnscry.pt/
 end;
 
-name: dnscrypt-lima
-tags: dot, Peru, SouthAmerica, America
-website: https://www.dnscry.pt
-address: 161.132.47.185:853
-host: lim01.dnscry.pt/
-end;
+#name: dnscrypt-lima
+#tags: dot, Peru, SouthAmerica, America
+#website: https://www.dnscry.pt
+#address: 161.132.47.185:853
+#host: lim01.dnscry.pt/
+#end;
 
 name: dnscrypt-vilnius
 tags: dot, Lithuania, Europe
@@ -2390,12 +2436,12 @@ address: 92.38.135.128:853
 host: sel01.dnscry.pt/
 end;
 
-name: dnscrypt-losangeles02
-tags: dot, US, America
-website: https://www.dnscry.pt
-address: 104.200.67.194:853
-host: lax02.dnscry.pt/
-end;
+#name: dnscrypt-losangeles02
+#tags: dot, US, America
+#website: https://www.dnscry.pt
+#address: 104.200.67.194:853
+#host: lax02.dnscry.pt/
+#end;
 
 name: dnscrypt-lagos
 tags: dot, Nigeria, Africa, Europe

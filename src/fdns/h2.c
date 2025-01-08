@@ -71,7 +71,7 @@ static int second_query = 0;	// grab the network trace
 
 // network trace
 #define PKTBUFMAX 4096
-static char pktbuf[4096];
+static char pktbuf[PKTBUFMAX];
 static char *ptrbuf = pktbuf;
 static void printn(char* fmt, ...) {
 	if (!second_query)
@@ -234,14 +234,24 @@ static int extract_number(uint8_t *ptr, uint8_t prefix, unsigned *value) {
 }
 
 
+
+#define HDRBUFMAX (1024 * 16)
+static char hdrbuf[HDRBUFMAX];
+static char *ptrhdr = hdrbuf;
 static void printh(char* fmt, ...) {
-	if ((arg_debug || arg_details) && arg_id == -1) {
+	if (arg_id == -1) {
+		// check  space left
+		ptrdiff_t delta = ptrhdr - hdrbuf;
+		if (delta > (HDRBUFMAX - 1024))
+			return;
 		va_list args;
 		va_start(args,fmt);
-		vprintf(fmt, args);
+		vsprintf(ptrhdr, fmt, args);
+		ptrhdr += strlen(ptrhdr);
 		va_end(args);
 	}
 }
+
 
 // return length of consumed data
 static uint8_t extract_string(uint8_t *ptr) {
@@ -255,7 +265,7 @@ static uint8_t extract_string(uint8_t *ptr) {
 		ptr += rv;
 		char *out_str = huffman_search(ptr, value);
 		http_header_size += strlen(out_str);
-		printh("  %s", out_str);
+		printh("%s", out_str);
 		retval = value + rv;
 	}
 	else { // regular string
@@ -267,7 +277,7 @@ static uint8_t extract_string(uint8_t *ptr) {
 		memset(str, 0, value + 1);
 		memcpy(str, ptr, value);
 		http_header_size += value;
-		printh("  %s", str);
+		printh("%s", str);
 		retval = value + rv;
 	}
 
@@ -284,14 +294,10 @@ static void h2_decode_header(uint8_t *frame) {
 		return;
 	}
 
-	if (arg_debug || arg_details)
-		printf("-----------------------------\n");
-
 	size_t len = h2frame_extract_length(&frm);
 	uint8_t *ptr = frame + sizeof(H2Frame);
 	unsigned cnt = 0;
 	while (cnt < len) {
-		printh("|");
 		if (*ptr & 0x80) { // indexed header field
 			unsigned index;
 			int rv = extract_number(ptr, 0x7f, &index);
@@ -299,7 +305,7 @@ static void h2_decode_header(uint8_t *frame) {
 			if (!hp)
 				printh("Unknown indexed header field 0x%02x, position %u\n", *ptr, cnt);
 			else {
-				printh("  %s:  %s\n", hp->name, hp->value);
+				printh("%s:  %s\n", hp->name, hp->value);
 				http_header_size += strlen(hp->name) + 2 + strlen(hp->value) + 1; // + ": " + '\n'
 			}
 			ptr += rv;
@@ -326,7 +332,7 @@ static void h2_decode_header(uint8_t *frame) {
 				cnt += rv;
 			}
 			else {
-				printh("  %s: ", hp->name);
+				printh("%s: ", hp->name);
 				http_header_size += strlen(hp->name) + 2;
 				uint8_t rv = extract_string(ptr);
 				printh("\n");
@@ -338,7 +344,7 @@ static void h2_decode_header(uint8_t *frame) {
 		else if (*ptr & 0x20) { // dynamic table size update
 			unsigned value;
 			int rv = extract_number(ptr, 0x1f, &value);
-			printh("  (HPACK dynamic table size: %u)\n", value);
+			printh("(HPACK dynamic table size: %u)\n", value);
 			ptr += rv;
 			cnt += rv;
 		}
@@ -363,7 +369,7 @@ static void h2_decode_header(uint8_t *frame) {
 				cnt += rv;
 			}
 			else {
-				printh("  %s: ", hp->name);
+				printh("%s: ", hp->name);
 				http_header_size += strlen(hp->name) + 2;
 
 				uint8_t rv = extract_string(ptr);
@@ -394,7 +400,7 @@ static void h2_decode_header(uint8_t *frame) {
 				cnt += rv;
 			}
 			else {
-				printh("  %s:", hp->name);
+				printh("%s:", hp->name);
 				http_header_size += strlen(hp->name) + 2;
 
 				uint8_t rv = extract_string(ptr);
@@ -411,7 +417,14 @@ static void h2_decode_header(uint8_t *frame) {
 		}
 //printf("http_header_size %d\n", http_header_size);
 	}
-	printh("-----------------------------\n");
+	if (first_query && arg_id == -1)
+		extract_server(hdrbuf);
+	if ((arg_debug || arg_details) && first_query) {
+		printf("\n   HTTP Header:\n");
+		printf("-----------------------------\n");
+		printf("%s", hdrbuf);
+		printf("-----------------------------\n");
+	}
 }
 
 
@@ -520,8 +533,6 @@ static int h2_send_exampledotcom(uint8_t *req) {
 
 	ssl_tx(buf_query, len + len2);
 
-	if (arg_details && first_query && first_header_sent)
-		printf("\n   HTTP Header:\n");
 	printn("\n   Network Trace:");
 	int rv = h2_exchange(req, stream_id);
 	second_query = (first_query)? 1: 0;

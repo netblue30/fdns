@@ -76,6 +76,25 @@ static inline int rand_range(int min, int max) {
 	return min + delta;
 }
 
+static inline void extract_server(char *str) {
+	char *ptr = strstr(str, "server:");
+	if (!ptr)
+		ptr = strstr(str, "Server:");
+	if (!ptr)
+		return;
+	ptr += 7;
+	if (!ptr)
+		return;
+	char *end = strchr(ptr, '\n');
+	if (!end)
+		return;
+	*end = '\0';
+	while (*ptr == ' ' || *ptr == '\t')
+		ptr++;
+	printf("   Server: %s\n", ptr);
+	*end = '\n';
+}
+
 // resolvers/frontend timers in seconds
 #define RESOLVER_KEEPALIVE_TIMER 10 // keepalive messages sent by resolver processes
 #define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 3) // timer to detect a dead resolver process
@@ -99,7 +118,7 @@ static inline int rand_range(int min, int max) {
 #define FALLBACK_TIMEOUT 10 // wait time for DNS responses from the server in fallback
 	// for NAT traversal, this value should be smaller than 30 seconds - the default is in /proc/sys/net/netfilter/nf_conntrack_udp_timeout
 
-#define QTIME_RANDOM_LIMIT 50 // milliseconds
+#define QTIME_RANDOM_LIMIT 60 // milliseconds
 
 // logging
 #define LOG_TIMEOUT_DEFAULT 10		// amount of time to keep the log entries in shared memory in minutes

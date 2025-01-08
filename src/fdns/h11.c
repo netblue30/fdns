@@ -174,21 +174,6 @@ static int h11_send_ping(void) {
 	return h11_send_exampledotcom(buf_query);
 }
 
-static void print_header(const char *str) {
-	char *buf = strdup(str);
-	if (!buf)
-		errExit("strdup");
-	printf("\n   HTTP Header\n");
-	printf("-----------------------------\n");
-	char *ptr = strtok(buf, "\n");
-	while (ptr) {
-		printf("|  %s\n", ptr);
-		ptr = strtok(NULL, "\n");
-	}
-	printf("-----------------------------\n");
-	free(buf);
-}
-
 // copy rx data in response and return the length
 // return -1 if error
 static int h11_exchange(uint8_t *response, uint32_t stream) {
@@ -229,8 +214,14 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 	h11_header_total_len += hlen;
 	h11_header_cnt++;
 	*(ptr - 1) = 0;
+	if (first_query && arg_id == -1)
+		extract_server(buf);
 	if ((arg_debug || arg_details) && first_query) {
-		print_header(buf);
+		printf("\n   HTTP Header\n");
+		printf("-----------------------------\n");
+		printf("%s\n", buf);
+		printf("-----------------------------\n");
+
 		printf("\n   Network trace:\n");
 		printf("-----> rx %d bytes: IP + TCP + TLS + HTTP/1.1\n", 20 + 20 + 5 + (int) ((float) total_len * 1.2));
 	}
