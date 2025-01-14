@@ -338,6 +338,12 @@ int main(int argc, char **argv) {
 
 	// initialize the active server structure
 	DnsServer *s = server_get();
+	while ((s = server_get()) == NULL) {
+		// sleep and try again
+		fprintf(stderr, "... will retry in 60 seconds...\n");
+		sleep(60);
+	}
+
 	assert(s);
 	assert(arg_server);
 	if (arg_keepalive)

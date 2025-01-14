@@ -683,7 +683,7 @@ DnsServer *server_get(void) {
 
 errout:
 	fprintf(stderr, "Error: cannot connect to server %s\n", arg_server);
-	exit(1);
+	return NULL;
 }
 
 void server_test_tag(const char *tag)  {

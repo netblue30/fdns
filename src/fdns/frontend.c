@@ -230,10 +230,17 @@ static int sandbox(void *sandbox_arg) {
 	exit(1);
 }
 
+static int start_cnt = 0;
 static void start_sandbox(int id) {
 	assert(id < RESOLVERS_CNT_MAX);
 	stats.encrypted[id] = 0;
 	stats.peer_ip[id] = 0;
+
+	// full restart after resolvers failing repeatedly
+	if (++start_cnt > (FORCE_RESTART_CNT * arg_resolvers)) {
+		my_handler(SIGUSR1);
+		assert(0); // it should never get here
+	}
 
 	if (w[id].fd[0] == 0) {
 		if (socketpair(AF_UNIX, SOCK_DGRAM, 0, w[id].fd) < 0)
