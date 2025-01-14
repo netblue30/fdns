@@ -37,7 +37,7 @@ char *arg_test_server = NULL;
 char *arg_proxy_addr = NULL;
 char *arg_certfile = NULL;
 char *arg_blocklist_file[MAX_BLOCKLIST_FILE] = {NULL};
-char *arg_server_list = NULL;
+char *arg_server_list = PATH_ETC_SERVER_LIST;
 int arg_keepalive = 0;
 int arg_details = 0;
 int arg_allow_self_signed_certs = 0;
@@ -70,6 +70,35 @@ static void install_handler(void) {
 	sigaction(SIGTERM, &sga, NULL);
 }
 
+void restart_program(void) {
+	// extract command line
+	char *fname;
+	if (asprintf(&fname, "/proc/%d/cmdline", getpid()) == -1)
+		errExit("asprintf");
+	FILE *fp = fopen(fname, "r");
+	if (!fp) {
+		fprintf(stderr, "Error: cannot open %s file, the proxy was not restarted\n", fname);
+		return;
+	}
+
+#define MAXARG 2048
+	char *arg[MAXARG];
+	int cnt = 0;
+	size_t size = 0;
+	while(getdelim(&arg[cnt], &size, 0, fp) != -1) {
+		cnt++;
+		if (cnt >=  MAXARG) {
+			fprintf(stderr, "Error: maximum number of program arguments reached, the proxy was not restarted\n");
+			fclose(fp);
+			return;
+		}
+	}
+
+	fclose(fp);
+	arg[cnt] = NULL;
+	int rv = execv(PATH_FDNS, arg);
+	(void) rv;
+}
 
 static void usage(void) {
 	printf("fdns - DNS over HTTPS proxy server\n\n");
@@ -103,8 +132,6 @@ static void usage(void) {
 	printf("    --monitor=proxy-address - monitor statistics for a specific instance\n"
 	       "\tof FDNS.\n");
 	printf("    --nofilter - no DNS request filtering.\n");
-	printf("    --server-list=filename - file with the list of servers. \n"
-	       "\tThe default is %s.\n", PATH_ETC_SERVER_LIST);
 	printf("    --proxies - list all running instances of FDNS\n");
 	printf("    --proxy-addr=address - configure the IP address the proxy listens on for\n"
 	       "\tDNS queries coming from the local clients. The default is 127.1.1.1.\n");
@@ -113,6 +140,8 @@ static void usage(void) {
 	       RESOLVERS_CNT_MIN, RESOLVERS_CNT_MAX, RESOLVERS_CNT_DEFAULT);
 	printf("    --restart - restart default proxy\n");
 	printf("    --server=server-name|tag|all - DoH server to connect to.\n");
+	printf("    --server-list=filename - file with the list of servers. \n"
+	       "\tThe default is %s.\n", PATH_ETC_SERVER_LIST);
 	printf("    --test-server - test the DoH servers in your current zone.\n");
 	printf("    --test-server=server-name|tag|all - test DoH servers.\n");
 	printf("    --test-url=URL - check if URL is dropped.\n");
@@ -204,10 +233,6 @@ int main(int argc, char **argv) {
 			}
 			else if (strncmp(argv[i], "--server-list=", 14) == 0) {
 				arg_server_list = argv[i] + 14;
-				if (access(arg_server_list, F_OK) != 0) {
-					fprintf(stderr, "Error: %s does not exist \n", arg_server_list);
-					exit(1);
-				};
 				if (access(arg_server_list, R_OK) != 0) {
 					fprintf(stderr, "Error: unable to access %s \n", arg_server_list);
 					exit(1);
@@ -338,10 +363,12 @@ int main(int argc, char **argv) {
 
 	// initialize the active server structure
 	DnsServer *s = server_get();
-	while ((s = server_get()) == NULL) {
+	if (s == NULL) {
 		// sleep and try again
-		fprintf(stderr, "... will retry in 60 seconds...\n");
+		fprintf(stderr, "... retrying in 60 seconds ...\n");
 		sleep(60);
+		restart_program();
+		assert(0); // it should not get here!
 	}
 
 	assert(s);

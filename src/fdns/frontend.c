@@ -79,34 +79,7 @@ static void my_handler(int s) {
 
 	if (s == SIGUSR1) {
 		logprintf("restarting...\n");
-
-		// extract command line
-		char *fname;
-		if (asprintf(&fname, "/proc/%d/cmdline", getpid()) == -1)
-			errExit("asprintf");
-		FILE *fp = fopen(fname, "r");
-		if (!fp) {
-			fprintf(stderr, "Error: cannot open %s file, the proxy was not restarted\n", fname);
-			return;
-		}
-
-#define MAXARG 2048
-		char *arg[MAXARG];
-		int cnt = 0;
-		size_t size = 0;
-		while(getdelim(&arg[cnt], &size, 0, fp) != -1) {
-			cnt++;
-			if (cnt >=  MAXARG) {
-				fprintf(stderr, "Error: maximum number of program arguments reached, the proxy was not restarted\n");
-				fclose(fp);
-				return;
-			}
-		}
-
-		fclose(fp);
-		arg[cnt] = NULL;
-		int rv = execv(PATH_FDNS, arg);
-		(void) rv;
+		restart_program();
 	}
 
 	exit(0);

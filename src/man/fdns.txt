@@ -282,6 +282,19 @@ $ sudo fdns --server=https://dns.google/dns-query
 .br
 $ sudo fdns --server=dot://dot1.applied-privacy.net
 .br
+
+.TP
+\fB\-\-server-list=filename
+Specify a list of servers, default /etc/fdns/servers.
+If the program is confined by AppArmor, place this file in /etc/fdns directory.
+Access to most other directories is blocked.
+.br
+
+.br
+Example:
+.br
+$ fdns --server-list=/etc/fdns/newlist
+.br
 .TP
 \fB\-\-test-server[=server-name|tag|all]
 Test all the servers from your geographical zone. You can also request a specific server or tag.

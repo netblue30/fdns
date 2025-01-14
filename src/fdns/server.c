@@ -323,12 +323,9 @@ static void load_list(void) {
 	if (fdns_zone == NULL)
 		set_zone();
 
-	load_file(PATH_ETC_SERVER_LOCAL_LIST);
-	if (arg_server_list) {
-		load_file(arg_server_list);
-	}
-	else if (load_file(PATH_ETC_SERVER_LIST)) {
-		fprintf(stderr, "Error: cannot find %s file. fdns is not correctly installed\n", PATH_ETC_SERVER_LIST);
+	assert(arg_server_list);
+	if (load_file(arg_server_list)) {
+		fprintf(stderr, "Error: cannot find server file %s\n", arg_server_list);
 		exit(1);
 	}
 }
@@ -614,7 +611,7 @@ DnsServer *server_get(void) {
 
 	load_list();
 	if (!slist) {
-		fprintf(stderr, "Error: the server list %s is empty", PATH_ETC_SERVER_LIST);
+		fprintf(stderr, "Error: the server list %s is empty\n", arg_server_list);
 		exit(1);
 	}
 

@@ -299,6 +299,8 @@ extern int arg_allow_expired_certs;
 extern char *arg_fallback_server;
 extern Stats stats;
 
+void restart_program(void);
+
 // dnsdb.c
 void dnsdb_init(void);
 void dnsdb_store(int pool_index, uint8_t *buf, struct sockaddr_in *addr);
