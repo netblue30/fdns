@@ -193,6 +193,10 @@ static void test(FILE *fpout, int chunk_no) {
 			fprintf(fpout, "%s\n", start);
 			fflush(0);
 		}
+		if (rv == 1) {
+			fprintf(stderr, "N");
+			fflush(0);
+		}
 		else if (rv == 2) {
 			fprintf(stderr, "T");
 			fprintf(fpout, "#@timeout 127.0.0.1 %s\n", start);
@@ -246,7 +250,11 @@ static int load_chunk(FILE *fp) {
 
 static void timeout_only(const char *fin, const char *fout) {
 	assert(fin);
-	assert(fout);
+	if (!fout) {
+		fprintf(stderr, "\nError: Please provide an output file\n");
+		fprintf(stderr, "Example: dnsc --timeout-only input-file output-file\n\n");
+		exit(1);
+	}
 
 	FILE *fpin = fopen(fin, "r");
 	if (!fpin) {
@@ -371,7 +379,7 @@ int main(int argc, char **argv) {
 
 	if (arg_timeout == TIMEOUT_DEFAULT && arg_timeout_only)
 		arg_timeout = TIMEOUT_DEFAULT_EXTENDED;
-			
+
 
 	time_t start = time(NULL);
 	fprintf(stderr, "%s", ctime(&start));

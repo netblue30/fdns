@@ -127,15 +127,11 @@ int resolver(const char *domain, int timeout) {
 			ssize_t len = recvfrom(sock, buf, MAXBUF, 0, (struct sockaddr *) &remote, &remote_len);
 			if (len != -1) { // todo: parse errno - EINTR
 //dbg_memory(buf, len, "rx");
-				if (memcmp(buf, &id, sizeof(uint16_t)) != 0) {
-					fprintf(stderr, " old UDP packet ");
-					fflush(0);
+				if (memcmp(buf, &id, sizeof(uint16_t)) != 0)
 					continue;
-				}
 
 				// check for NXDOMAIN
 				if ((buf[3] & 0x3) == 0x3) {
-					fprintf(stderr, "N");
 					fflush(0);
 					retval = 1;
 				}
