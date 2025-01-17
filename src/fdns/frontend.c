@@ -455,7 +455,9 @@ void frontend(void) {
 						stats.fallback += s.fallback;
 						stats.cached += s.cached;
 						stats.fwd += s.fwd;
-						if (s.query_time) {
+						if (s.query_time && stats.query_time == 0)
+							stats.query_time = s.query_time;
+						else if (s.query_time) {
 							// exponantial moving average (EMA) for a window of 10 successive queries
 							// multiplier = 2 / (window + 1) = 2 / [10 + 1] = 0.18
 							// EMA = last_query x multiplier +  (previous_EMA) x (1 - multiplier)
