@@ -254,13 +254,13 @@ host: dns.artikel10.org/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: artikel10-dot
-website: https://dns.artikel10.org
-tags: dot, Netherlands, WesternEurope, Europe
-address: 217.197.91.153:853
-host: dns.artikel10.org/
-# server inactivity timer 65 seconds or higher
-end;
+#name: artikel10-dot
+#website: https://dns.artikel10.org
+#tags: dot, Netherlands, WesternEurope, Europe
+#address: 217.197.91.153:853
+#host: dns.artikel10.org/
+## server inactivity timer 65 seconds or higher
+#end;
 
 # cloudflare redirect
 name: asagiri
@@ -1194,12 +1194,13 @@ address: 185.246.188.51:443
 host: nl.resolv.flokinet.net/dns-query
 end;
 
-name: flokinet-nl-dot
-website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
-tags: dot, Netherlands, WesternEurope, Europe
-address: 185.246.188.51:853
-host: nl.resolv.flokinet.net/
-end;
+# unreliable
+#name: flokinet-nl-dot
+#website: https://blog.flokinet.is/2021/09/27/flokinet-dns-resolver/
+#tags: dot, Netherlands, WesternEurope, Europe
+#address: 185.246.188.51:853
+#host: nl.resolv.flokinet.net/
+#end;
 
 name: flutadns
 website: https://site.futa.gg/
@@ -1255,33 +1256,33 @@ address: mecca-is.so-gorgeo.us.kg:443
 host: mecca-is.so-gorgeo.us.kg/dns-query
 end;
 
-name: gorgeous-nana
-website: https://so-gorgeo.us.kg/
-tags: sni, adblocker, Japan, AsiaPacific, FarEast
-address: nana-is.so-gorgeo.us.kg:443
-host: nana-is.so-gorgeo.us.kg/dns-query
-end;
-
-name: gorgeous-tetty
-website: https://so-gorgeo.us.kg/
-tags: sni, adblocker, Japan, AsiaPacific, FarEast
-address: tetty-is.so-gorgeo.us.kg:443
-host: tetty-is.so-gorgeo.us.kg/dns-query
-end;
-
-name: gorgeous-luna
-website: https://so-gorgeo.us.kg/
-tags: sni, adblocker, Japan, AsiaPacific, FarEast
-address: luna-is.so-gorgeo.us.kg:443
-host: luna-is.so-gorgeo.us.kg/dns-query
-end;
-
-name: gorgeous-mita
-website: https://so-gorgeo.us.kg/
-tags: sni, adblocker, Singapore, AsiaPacific, FarEast
-address: mita-is.so-gorgeo.us.kg:443
-host: mita-is.so-gorgeo.us.kg/dns-query
-end;
+#name: gorgeous-nana
+#website: https://so-gorgeo.us.kg/
+#tags: sni, adblocker, Japan, AsiaPacific, FarEast
+#address: nana-is.so-gorgeo.us.kg:443
+#host: nana-is.so-gorgeo.us.kg/dns-query
+#end;
+#
+#name: gorgeous-tetty
+#website: https://so-gorgeo.us.kg/
+#tags: sni, adblocker, Japan, AsiaPacific, FarEast
+#address: tetty-is.so-gorgeo.us.kg:443
+#host: tetty-is.so-gorgeo.us.kg/dns-query
+#end;
+#
+#name: gorgeous-luna
+#website: https://so-gorgeo.us.kg/
+#tags: sni, adblocker, Japan, AsiaPacific, FarEast
+#address: luna-is.so-gorgeo.us.kg:443
+#host: luna-is.so-gorgeo.us.kg/dns-query
+#end;
+#
+#name: gorgeous-mita
+#website: https://so-gorgeo.us.kg/
+#tags: sni, adblocker, Singapore, AsiaPacific, FarEast
+#address: mita-is.so-gorgeo.us.kg:443
+#host: mita-is.so-gorgeo.us.kg/dns-query
+#end;
 
 name: gorgeous-nindy
 website: https://so-gorgeo.us.kg/
@@ -1375,12 +1376,12 @@ end;
 #keepalive: 7
 #end;
 
-name: marbled
-website: https://www.marbledfennec.net/public-dns-server/
-tags: US, America, security
-address: 204.12.237.197:443
-host: dns.marbledfennec.net/dns-query
-end;
+#name: marbled
+#website: https://www.marbledfennec.net/public-dns-server/
+#tags: US, America, security
+#address: 204.12.237.197:443
+#host: dns.marbledfennec.net/dns-query
+#end;
 
 name: marbled-dot
 website: https://www.marbledfennec.net/public-dns-server/
@@ -1406,7 +1407,7 @@ end;
 # low keepalive
 name: mullvad
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
-tags: h2ping, anycast, America, AsiaPacific, Europe
+tags: anycast, America, AsiaPacific, Europe
 address: 194.242.2.2:443
 host: dns.mullvad.net/dns-query
 keepalive: 7
@@ -1415,7 +1416,7 @@ end;
 # low keepalive
 name: mullvad-adblocker
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
-tags: h2ping, anycast, adblocker, America, AsiaPacific, Europe
+tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 194.242.2.3:443
 host: adblock.dns.mullvad.net/dns-query
 keepalive: 7
@@ -1424,7 +1425,7 @@ end;
 # low keepalive
 name: mullvad-security
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
-tags: h2ping, anycast, security, America, AsiaPacific, Europe
+tags: anycast, security, America, AsiaPacific, Europe
 address: 194.242.2.4:443
 host: base.dns.mullvad.net/dns-query
 keepalive: 7
@@ -1433,7 +1434,7 @@ end;
 # low keepalive
 name: mullvad-family
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
-tags: h2ping, family, America, AsiaPacific, Europe
+tags: family, America, AsiaPacific, Europe
 address: 194.242.2.6:443
 host: family.dns.mullvad.net/dns-query
 keepalive: 7
@@ -1990,13 +1991,14 @@ host: dns.vinnyp.xyz/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: vinnyp-dot
-website: https://dns.vinnyp.xyz/privacy
-tags: dot, US, America
-address: 167.99.150.134:853
-host: dns.vinnyp.xyz/
-# server inactivity timer 65 seconds or higher
-end;
+# unstable
+#name: vinnyp-dot
+#website: https://dns.vinnyp.xyz/privacy
+#tags: dot, US, America
+#address: 167.99.150.134:853
+#host: dns.vinnyp.xyz/
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: wikimedia
 website: https://meta.wikimedia.org/wiki/Wikimedia_DNS
@@ -2045,12 +2047,6 @@ end;
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
 ##################################################
-#name: dnscrypt-ebene
-#tags: dot, Mauritius, Africa, Europe
-#website: https://www.dnscry.pt
-#address: 102.222.106.165:853
-#host: mru01.dnscry.pt/
-#end;
 
 name: dnscrypt-tampa
 tags: dot, US, America
@@ -2097,7 +2093,7 @@ end;
 name: dnscrypt-coventry
 tags: dot, UK, Europe, WesternEurope
 website: https://www.dnscry.pt
-address: 104.128.190.108:853
+address: 45.155.37.165:853
 host: cvt01.dnscry.pt/
 end;
 
@@ -2167,7 +2163,7 @@ end;
 name: dnscrypt-johor
 tags: dot, Malaysia, AsiaPacific, FarEast
 website: https://www.dnscry.pt
-address: 160.30.5.12:853
+address: 45.249.91.150:853
 host: jhb01.dnscry.pt/
 end;
 
@@ -2248,12 +2244,12 @@ address: 45.67.86.123:853
 host: tyo03.dnscry.pt/
 end;
 
-name: dnscrypt-hongkong
-tags: dot, HongKong, AsiaPacific, FarEast
-website: https://www.dnscry.pt
-address: 89.213.0.14:853
-host: hkg01.dnscry.pt/
-end;
+#name: dnscrypt-hongkong
+#tags: dot, HongKong, AsiaPacific, FarEast
+#website: https://www.dnscry.pt
+#address: 89.213.0.14:853
+#host: hkg01.dnscry.pt/
+#end;
 
 name: dnscrypt-fujairah
 tags: dot, UnitedArabEmirates, MiddleEast, Europe
@@ -2261,13 +2257,6 @@ website: https://www.dnscry.pt
 address: 89.36.162.187:853
 host: fjr01.dnscry.pt/
 end;
-
-#name: dnscrypt-lima
-#tags: dot, Peru, SouthAmerica, America
-#website: https://www.dnscry.pt
-#address: 161.132.47.185:853
-#host: lim01.dnscry.pt/
-#end;
 
 name: dnscrypt-vilnius
 tags: dot, Lithuania, Europe
@@ -2307,7 +2296,7 @@ end;
 name: dnscrypt-losangeles
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 84.33.244.100:853
+address: 216.73.156.52:853
 host: lax01.dnscry.pt/
 end;
 
@@ -2393,13 +2382,6 @@ tags: dot, Peru, SouthAmerica, America
 website: https://www.dnscry.pt
 address: 87.121.99.23:853
 host: lim02.dnscry.pt/
-end;
-
-name: dnscrypt-stockholm
-tags: dot, Sweden, Europe
-website: https://www.dnscry.pt
-address: 95.143.196.190:853
-host: sto01.dnscry.pt/
 end;
 
 name: dnscrypt-taipeh
@@ -2608,7 +2590,7 @@ end;
 name: dnscrypt-denver
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 193.8.172.248:853
+address: 216.120.201.105:853
 host: den01.dnscry.pt/
 end;
 
@@ -2650,7 +2632,7 @@ end;
 name: dnscrypt-seattle
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 45.14.115.125:853
+address: 209.182.225.103:853
 host: sea01.dnscry.pt/
 end;
 
@@ -2706,7 +2688,7 @@ end;
 name: dnscrypt-miami
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 84.33.14.10:853
+address: 128.254.207.50:853
 host: mia01.dnscry.pt/
 end;
 
@@ -2741,7 +2723,7 @@ end;
 name: dnscrypt-newyork
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 84.33.245.10:853
+address: 45.59.170.17:853
 host: nyc01.dnscry.pt/
 end;
 
@@ -2752,7 +2734,7 @@ address: 66.187.7.140:853
 host: dtw01.dnscry.pt/
 end;
 
-name: dnscrypt-stockholm02
+name: dnscrypt-stockholm
 tags: dot, Sweden, Europe
 website: https://www.dnscry.pt
 address: 185.195.236.62:853
@@ -2793,4 +2775,53 @@ website: https://www.dnscry.pt
 address: 23.191.80.72:853
 host: yhz01.dnscry.pt/
 end;
-# dnscry.pt: 106 servers
+
+name: dnscrypt-tuusula
+tags: dot, Finaland, Europe
+website: https://www.dnscry.pt
+address: 65.21.252.201:853
+host: tuu01.dnscry.pt/
+end;
+
+name: dnscrypt-bucharest
+tags: dot, Romania, Europe
+website: https://www.dnscry.pt
+address: 185.93.221.167:853
+host: buh01.dnscry.pt/
+end;
+
+name: dnscrypt-jacksonville
+tags: dot, US, America
+website: https://www.dnscry.pt
+address: 104.225.129.106:853
+host: jax01.dnscry.pt/
+end;
+
+name: dnscrypt-prague
+tags: dot, Czechia, Europe
+website: https://www.dnscry.pt
+address: 195.123.245.19:853
+host: prg01.dnscry.pt/
+end;
+
+name: dnscrypt-bengaluru
+tags: dot, India, AsiaPacific
+website: https://www.dnscry.pt
+address: 160.191.182.216:853
+host: blr01.dnscry.pt/
+end;
+
+name: dnscrypt-luxembourg
+tags: dot, Luxembourg, Europe, WesternEurope
+website: https://www.dnscry.pt
+address: 45.80.209.55:853
+host: lux01.dnscry.pt/
+end;
+
+name: dnscrypt-hudiksvall
+tags: dot, Sweden, Europe
+website: https://www.dnscry.pt
+address: 95.143.196.190:853
+host: huv01.dnscry.pt/
+end;
+# dnscry.pt: 111 servers

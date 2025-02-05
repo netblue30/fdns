@@ -121,8 +121,8 @@ int seccomp_load_filter_list(void) {
 	return 1;
 
 errout:
-	fprintf(stderr, "Warning: cannot load seccomp filter %s\n", PATH_ETC_RESOLVER_SECCOMP);
-	rlogprintf("Warning: cannot load seccomp filter %s\n", PATH_ETC_RESOLVER_SECCOMP);
+	fprintf(stderr, "Warning: cannot find seccomp filter %s\n", PATH_ETC_RESOLVER_SECCOMP);
+	rlogprintf("Warning: cannot find seccomp filter %s\n", PATH_ETC_RESOLVER_SECCOMP);
 	return 0;
 }
 
