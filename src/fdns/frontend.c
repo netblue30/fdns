@@ -33,6 +33,7 @@
 // keepalive autodetect
 static int restarting = 0;
 static char *proxy_addr = NULL;
+static int restart_cnt = 0;
 #ifdef __ia64__
 /* clone(2) has a different interface on ia64, as it needs to know
    the size of the stack */
@@ -79,6 +80,7 @@ static void my_handler(int s) {
 
 	if (s == SIGUSR1) {
 		logprintf("restarting...\n");
+		restart_cnt = 0;
 		restart_program();
 	}
 
@@ -203,14 +205,13 @@ static int sandbox(void *sandbox_arg) {
 	exit(1);
 }
 
-static int start_cnt = 0;
 static void start_sandbox(int id) {
 	assert(id < RESOLVERS_CNT_MAX);
 	stats.encrypted[id] = 0;
 	stats.peer_ip[id] = 0;
 
 	// full restart after resolvers failing repeatedly
-	if (++start_cnt > (FORCE_RESTART_CNT * arg_resolvers)) {
+	if (++restart_cnt > (FORCE_RESTART_CNT * arg_resolvers)) {
 		my_handler(SIGUSR1);
 		assert(0); // it should never get here
 	}
@@ -411,7 +412,7 @@ void frontend(void) {
 			for (i = 0; i < arg_resolvers; i++) {
 				pid = waitpid(w[i].pid, &status, WNOHANG);
 				if (pid == w[i].pid) {
-					logprintf("Error: resolver %d (pid %u) terminated, restarting it...\n", i, pid);
+					logprintf("Error: resolver %d (pid %u) terminated, restarting...\n", i, pid);
 					kill(pid, SIGTERM); // just in case
 					start_sandbox(i);
 				}
@@ -463,7 +464,7 @@ void frontend(void) {
 							// EMA = last_query x multiplier +  (previous_EMA) x (1 - multiplier)
 							stats.query_time = (s.query_time * 0.18) + (stats.query_time * 0.82);
 						}
-
+						stats.restart_cnt = restart_cnt;
 						shmem_store_stats(proxy_addr);
 					}
 					else if (strncmp(msg.buf, "Request: ", 9) == 0) {
@@ -482,11 +483,13 @@ void frontend(void) {
 								if (0 == atoip(msg.buf + 25, &ip))
 									stats.peer_ip[i] = ip;
 							}
+							stats.restart_cnt = restart_cnt;
 							shmem_store_stats(proxy_addr);
 						}
 						else if (strncmp(msg.buf, "SSL connection closed", 21) == 0) {
 							stats.encrypted[i] = 0;;
 							stats.peer_ip[i] = 0;
+							stats.restart_cnt = restart_cnt;
 							shmem_store_stats(proxy_addr);
 						}
 

@@ -180,8 +180,9 @@ void rsort_load(const char *fname) {
 	// read file
 	char *storage = read_file_malloc(fname);
 	if (!storage) {
-		fprintf(stderr, "Error: cannot read %s file\n", fname);
-		exit(1);
+		printf("..... file not found!\n");
+		fprintf(stderr, "Warning: cannot read %s file\n", fname);
+		return;
 	}
 
 	int len = strlen(storage);
@@ -234,6 +235,7 @@ void rsort_load(const char *fname) {
 	return;
 
 errout:
+	printf("\n");
 	fprintf(stderr, "Error: file %s, %s\n", fname, ptr);
 	exit(1);
 }

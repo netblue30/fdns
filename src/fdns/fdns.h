@@ -173,6 +173,9 @@ typedef struct stats_t {
 	// per-resolver stats
 	int encrypted[RESOLVERS_CNT_MAX];
 	uint32_t peer_ip[RESOLVERS_CNT_MAX];
+
+	// restart cnt
+	int restart_cnt;
 } Stats;
 
 typedef struct dnsserver_t {

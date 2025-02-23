@@ -92,7 +92,7 @@ end;
 name: 42l
 website: https://42l.fr
 tags: sni, France, WesternEurope, Europe
-address: 45.155.171.163:443
+address: 5.196.8.241:443
 host: doh.42l.fr/dns-query
 # server inactivity timer 65 seconds or higher
 end;
@@ -464,6 +464,14 @@ host: cloudflare-dns.com/dns-query
 keepalive: 50
 end;
 
+name: cloudflare-dot
+website: https://www.cloudflare.com
+tags: dot, anycast, America, AsiaPacific, Europe
+address: 1.1.1.1:853
+host: cloudflare-dns.com/
+keepalive: 7
+end;
+
 name: cloudflare2
 website: https://www.cloudflare.com
 tags: h2ping, anycast, America, AsiaPacific, Europe
@@ -471,6 +479,14 @@ address: 1.0.0.1:443
 host: cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
 keepalive: 50
+end;
+
+name: cloudflare2-dot
+website: https://www.cloudflare.com
+tags: dot, anycast, America, AsiaPacific, Europe
+address: 1.0.0.1:853
+host: cloudflare-dns.com/
+keepalive: 7
 end;
 
 name: cloudflare-security
@@ -482,6 +498,14 @@ host: security.cloudflare-dns.com/dns-query
 keepalive: 50
 end;
 
+name: cloudflare-security-dot
+website: https://www.cloudflare.com
+tags: dot, anycast, security, America, AsiaPacific, Europe
+address: 1.1.1.2:853
+host: security.cloudflare-dns.com/
+keepalive: 7
+end;
+
 name: cloudflare-security2
 website: https://www.cloudflare.com
 tags: h2ping, anycast, security, America, AsiaPacific, Europe
@@ -489,6 +513,14 @@ address: 1.0.0.2:443
 host: security.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
 keepalive: 50
+end;
+
+name: cloudflare-security2-dot
+website: https://www.cloudflare.com
+tags: dot, anycast, security, America, AsiaPacific, Europe
+address: 1.0.0.2:853
+host: security.cloudflare-dns.com/
+keepalive: 7
 end;
 
 name: cloudflare-family
@@ -500,6 +532,14 @@ host: family.cloudflare-dns.com/dns-query
 keepalive: 50
 end;
 
+name: cloudflare-family-dot
+website: https://www.cloudflare.com
+tags: dot, family, America, AsiaPacific, Europe
+address: 1.0.0.3:853
+host: family.cloudflare-dns.com/
+keepalive: 7
+end;
+
 name: cloudflare-family2
 website: https://www.cloudflare.com
 tags: h2ping, family, America, AsiaPacific, Europe
@@ -507,6 +547,14 @@ address: 1.1.1.3:443
 host: family.cloudflare-dns.com/dns-query
 # server inactivity timer 60 seconds or higher
 keepalive: 50
+end;
+
+name: cloudflare-family2-dot
+website: https://www.cloudflare.com
+tags: dot, family, America, AsiaPacific, Europe
+address: 1.1.1.3:853
+host: family.cloudflare-dns.com/
+keepalive: 7
 end;
 
 #name: comssone
@@ -1248,70 +1296,6 @@ host: getdnsapi.net/
 # server inactivity timer 65 seconds or higher
 end;
 
-# google redirect in cloudflare network
-name: gorgeous-mecca
-website: https://so-gorgeo.us.kg/
-tags: sni, adblocker, America, AsiaPacific, Europe
-address: mecca-is.so-gorgeo.us.kg:443
-host: mecca-is.so-gorgeo.us.kg/dns-query
-end;
-
-#name: gorgeous-nana
-#website: https://so-gorgeo.us.kg/
-#tags: sni, adblocker, Japan, AsiaPacific, FarEast
-#address: nana-is.so-gorgeo.us.kg:443
-#host: nana-is.so-gorgeo.us.kg/dns-query
-#end;
-#
-#name: gorgeous-tetty
-#website: https://so-gorgeo.us.kg/
-#tags: sni, adblocker, Japan, AsiaPacific, FarEast
-#address: tetty-is.so-gorgeo.us.kg:443
-#host: tetty-is.so-gorgeo.us.kg/dns-query
-#end;
-#
-#name: gorgeous-luna
-#website: https://so-gorgeo.us.kg/
-#tags: sni, adblocker, Japan, AsiaPacific, FarEast
-#address: luna-is.so-gorgeo.us.kg:443
-#host: luna-is.so-gorgeo.us.kg/dns-query
-#end;
-#
-#name: gorgeous-mita
-#website: https://so-gorgeo.us.kg/
-#tags: sni, adblocker, Singapore, AsiaPacific, FarEast
-#address: mita-is.so-gorgeo.us.kg:443
-#host: mita-is.so-gorgeo.us.kg/dns-query
-#end;
-
-name: gorgeous-nindy
-website: https://so-gorgeo.us.kg/
-tags: sni, adblocker, Netherlands, WesternEurope, Europe
-address: nindy-is.so-gorgeo.us.kg:443
-host: nindy-is.so-gorgeo.us.kg/dns-query
-end;
-
-name: gorgeous-yussy
-website: https://so-gorgeo.us.kg/
-tags: sni, adblocker, India, AsiaPacific
-address: yussy-is.so-gorgeo.us.kg:443
-host: yussy-is.so-gorgeo.us.kg/dns-query
-end;
-
-name: gorgeous-nova
-website: https://so-gorgeo.us.kg/
-tags: sni, adblocker, SouthAfrica, Africa, Europe
-address: nova-is.so-gorgeo.us.kg:443
-host: nova-is.so-gorgeo.us.kg/dns-query
-end;
-
-name: gorgeous-sitha
-website: https://so-gorgeo.us.kg/
-tags: sni, adblocker, US, America
-address: sitha-is.so-gorgeo.us.kg:443
-host: sitha-is.so-gorgeo.us.kg/dns-query
-end;
-
 name: hostux
 website: https://hostux.network/en/index.html
 tags: adblocker, Luxembourg, WesternEurope, Europe
@@ -1331,7 +1315,7 @@ end;
 name: lacontrevoie
 website: https://lacontrevoie.fr/en/services/doh
 tags: sni, France, WesternEurope, Europe
-address: 45.155.171.163:443
+address: 5.196.8.241:443
 host: doh.lacontrevoie.fr/dns-query
 # server inactivity timer 65 seconds or higher
 end;
@@ -1980,6 +1964,21 @@ name: twnic-dot
 website: https://101.101.101.101/index_en.html
 tags: dot, Taiwan, AsiaPacific, FarEast
 address: 101.101.101.101:853
+host: dns.twnic.tw/
+end;
+
+name: twnic2
+website: https://101.101.101.101/index_en.html
+tags: Taiwan, AsiaPacific, FarEast
+address: 101.102.103.104:443
+host: dns.twnic.tw/dns-query
+# server inactivity timer 65 seconds or higher
+end;
+
+name: twnic2-dot
+website: https://101.101.101.101/index_en.html
+tags: dot, Taiwan, AsiaPacific, FarEast
+address: 101.102.103.104:853
 host: dns.twnic.tw/
 end;
 

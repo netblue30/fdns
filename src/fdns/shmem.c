@@ -125,13 +125,14 @@ void shmem_store_stats(const char *proxy_addr) {
 	if (srv->transport && strstr(srv->transport, "dot"))
 		transport = "DoT";
 	snprintf(report->header1, MAX_ENTRY_LEN,
-		 "%s %s %s (%s %.02lf ms, %d s)",
+		 "%s %s %s (%s %.02lfms, %ds, %d/%d)",
 		 proxy_addr,
 		 srv->name,
 		 encstatus,
 		 transport,
 		 stats.query_time,
-		 srv->keepalive);
+		 srv->keepalive,
+		 stats.restart_cnt, FORCE_RESTART_CNT * arg_resolvers);
 
 	snprintf(report->header2, MAX_ENTRY_LEN,
 		 "requests %u, drop %u, cache %u, fwd %u, fallback %u",
