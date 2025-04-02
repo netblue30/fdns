@@ -105,6 +105,7 @@ static BNode blacklist[] = {
 	{"webcam", 6},
 	{"win", 3},
 	{"ws", 2},
+	{"xin", 3},
 	{"xyz", 3},
 	{"zip", 3},
 	{"zone", 4},

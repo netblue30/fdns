@@ -70,23 +70,26 @@ end;
 # redirected to cloudflare
 name: 0ms
 website: https://s1.0ms.dev/docs/dns
-tags: sni, US, America
+tags: sni, Indonesia, AsiaPacific, FarEast
 address: 0ms.dev:443
 host: 0ms.dev/dns-query
+keepalive: 7
 end;
 
 name: 0ms-security
 website: https://s1.0ms.dev/docs/dns
-tags: sni, sercurity, US, America
+tags: sni, security, Indonesia, AsiaPacific, FarEast
 address: 0ms.dev:443
 host: 0ms.dev/dns-security
+keepalive: 7
 end;
 
 name: 0ms-adblocker
 website: https://s1.0ms.dev/docs/dns
-tags: sni, adblocker, US, America
+tags: sni, adblocker, Indonesia, AsiaPacific, FarEast
 address: 0ms.dev:443
 host: 0ms.dev/dns-adblock
+keepalive: 7
 end;
 
 name: 42l
@@ -402,25 +405,25 @@ keepalive: 7
 end;
 
 name: cleanbrowsing
-website: https://cleanbrowsing.org
+website: https://cleanbrowsing.org/filters
 tags: anycast, security, America, AsiaPacific, Europe
-address: 185.228.168.168:443
+address: 185.228.168.9:443
 host: doh.cleanbrowsing.org/doh/security-filter
 # server inactivity timer 65 seconds or higher
 keepalive: 50
 end;
 
 name: cleanbrowsing2
-website: https://cleanbrowsing.org
+website: https://cleanbrowsing.org/filters
 tags: anycast, security, America, AsiaPacific, Europe
-address: 185.228.168.10:443
+address: 185.228.169.9:443
 host: doh.cleanbrowsing.org/doh/security-filter
 # server inactivity timer 65 seconds or higher
 keepalive: 50
 end;
 
 name: cleanbrowsing-family
-website: https://cleanbrowsing.org
+website: https://cleanbrowsing.org/filters
 tags: family, America, AsiaPacific, Europe
 address: 185.228.168.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
@@ -429,31 +432,13 @@ keepalive: 50
 end;
 
 name: cleanbrowsing-family2
-website: https://cleanbrowsing.org
+website: https://cleanbrowsing.org/filters
 tags: family, America, AsiaPacific, Europe
-address: 185.228.168.10:443
+address: 185.228.169.168:443
 host: doh.cleanbrowsing.org/doh/family-filter
 # server inactivity timer 65 seconds or higher
 keepalive: 50
 end;
-
-#name: cleanbrowsing-adult
-#website: https://cleanbrowsing.org
-#tags: enterprise, America, AsiaPacific, Europe
-#address: 185.228.168.168:443
-#host: doh.cleanbrowsing.org/doh/adult-filter
-# server inactivity timer 65 seconds or higher
-#keepalive: 50
-#end;
-
-#name: cleanbrowsing-adult2
-#website: https://cleanbrowsing.org
-#tags: enterprise, America, AsiaPacific, Europe
-#address: 185.228.168.10:443
-#host: doh.cleanbrowsing.org/doh/adult-filter
-# server inactivity timer 65 seconds or higher
-#keepalive: 50
-#end;
 
 name: cloudflare
 website: https://www.cloudflare.com
@@ -704,21 +689,7 @@ address: 5.75.228.192:443
 host: ns.data.haus/dns-query
 end;
 
-name: denypradana
-website: https://doh.denypradana.com/
-tags: Indonesia, AsiaPacific, FarEast
-address: 103.28.53.16:443
-host: doh.denypradana.com/dns-query
-end;
-
-name: digitalcourage-dot
-website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
-tags: dot, Germany, Europe
-address: 46.182.19.48:853
-host: dns2.digitalcourage.de/
-end;
-
-name: digitalcourage2-dot
+name: digitalcourage3-dot
 website: hhttps://digitalcourage.de/support/zensurfreier-dns-server
 tags: dot, Germany, Europe
 address: 5.9.164.112:853
@@ -1016,14 +987,6 @@ host: us-sjc.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns-sb-us4
-website: https://dns.sb/doh
-tags: sni, US, America
-address: us-lax.doh.sb:443
-host: us-lax.doh.sb/dns-query
-# server inactivity timer 65 seconds or higher
-end;
-
 name: dns-sb-in
 website: https://dns.sb/doh
 tags: sni, India, AsiaPacific
@@ -1189,6 +1152,20 @@ website: https://www.dremaxx.de/
 tags: dot, security, Europe, UK, WesternEurope
 address: 87.106.35.241:853
 host: fritz.dremaxx.de/
+end;
+
+name: dynx
+website: https://www.dynx.pro
+tags: adblocker, Europe, Germany
+address: 195.26.26.23:443
+host: dns.dynx.pro/dns-query
+end;
+
+name: dynx-family
+website: https://www.dynx.pro
+tags: family, Europe, Germany
+address: 195.26.26.23:443
+host: dns.dynx.pro/dns-query/family
 end;
 
 #name: eliv
@@ -1702,19 +1679,19 @@ address: ns1.qquack.org:443
 host: ns1.qquack.org/dns-query
 end;
 
-name: quadrantsec
-website: https://www.quadrantsec.com/post/public-dns-resolver-with-tls-https-support
-tags: US, America
-address: 157.230.188.174:443
-host: doh.qis.io/dns-query
-end;
-
-name: quadrantsec-dot
-website: https://www.quadrantsec.com/post/public-dns-resolver-with-tls-https-support
-tags: dot, US, America
-address: 157.230.188.174:853
-host: dns-tls.qis.io/
-end;
+#name: quadrantsec
+#website: https://www.quadrantsec.com/post/public-dns-resolver-with-tls-https-support
+#tags: US, America
+#address: doh.qis.io:443
+#host: doh.qis.io/dns-query
+#end;
+#
+#name: quadrantsec-dot
+#website: https://www.quadrantsec.com/post/public-dns-resolver-with-tls-https-support
+#tags: dot, US, America
+#address: dns-tls.qis.io:853
+#host: dns-tls.qis.io/
+#end;
 
 name: quad9
 website: https://quad9.net
@@ -1749,6 +1726,7 @@ website: https://quad9.net
 tags: anycast, America, AsiaPacific, Europe
 address: 149.112.112.10:443
 host: dns10.quad9.net/dns-query
+keepalive: 7
 end;
 
 name: qwer-tiger
@@ -1897,23 +1875,23 @@ end;
 
 # doh very short keepalive
 name: trcnet1-dot
-website: https://https://ns1.trcnet.fi
+website: https://ns1.trcnet.fi
 tags: dot, Finland, Europe
-address: 185.131.216.30:853
+address: ns1.trcnet.fi:853
 host: ns1.trcnet.fi/
 end;
 
 name: trcnet2-dot
-website: https://https://ns1.trcnet.fi
+website: https://ns1.trcnet.fi
 tags: dot, Finland, Europe
-address: 185.131.216.248:853
+address: ns2.trcnet.fi:853
 host: ns2.trcnet.fi/
 end;
 
 name: trcnet3-dot
-website: https://https://ns1.trcnet.fi
+website: https://ns1.trcnet.fi
 tags: dot, Finland, Europe
-address: 149.154.123.215:853
+address: ns3.trcnet.fi:853
 host: ns3.trcnet.fi/
 end;
 
@@ -1952,13 +1930,13 @@ host: doh.tiarap.org/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: twnic
-website: https://101.101.101.101/index_en.html
-tags: Taiwan, AsiaPacific, FarEast
-address: 101.101.101.101:443
-host: dns.twnic.tw/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: twnic
+#website: https://101.101.101.101/index_en.html
+#tags: Taiwan, AsiaPacific, FarEast
+#address: 101.101.101.101:443
+#host: dns.twnic.tw/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: twnic-dot
 website: https://101.101.101.101/index_en.html
@@ -2045,6 +2023,7 @@ end;
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
+# - last update April 2, 2025
 ##################################################
 
 
@@ -2475,12 +2454,12 @@ address: 92.38.135.128:853
 host: sel01.dnscry.pt/
 end;
 
-#name: dnscrypt-losangeles02
-#tags: dot, US, America
-#website: https://www.dnscry.pt
-#address: 104.200.67.194:853
-#host: lax02.dnscry.pt/
-#end;
+name: dnscrypt-losangeles02
+tags: dot, US, America
+website: https://www.dnscry.pt
+address: 104.200.67.194:853
+host: lax02.dnscry.pt/
+end;
 
 name: dnscrypt-lagos
 tags: dot, Nigeria, Africa, Europe
@@ -2583,7 +2562,7 @@ end;
 name: dnscrypt-telaviv
 tags: dot, Israel, Europe, MiddleEast
 website: https://www.dnscry.pt
-address: 146.185.219.24:853
+address: 45.144.172.45:853
 host: tlv01.dnscry.pt/
 end;
 
@@ -2716,7 +2695,7 @@ end;
 name: dnscrypt-bogota
 tags: dot, Colombia, SouthAmerica, America
 website: https://www.dnscry.pt
-address: 103.57.250.39:853
+address: 103.57.250.54:853
 host: bog01.dnscry.pt/
 end;
 
@@ -2859,4 +2838,25 @@ website: https://www.dnscry.pt
 address: 193.42.246.108:853
 host: bei01.dnscry.pt/
 end;
-# dnscry.pt: 116 servers
+
+name: dnscrypt-fremont02
+tags: dot, US, America
+website: https://www.dnscry.pt
+address: 167.88.48.18:853
+host: fet02.dnscry.pt/
+end;
+
+name: dnscrypt-ikeja
+tags: dot, Nigeria, Africa, Europe
+website: https://www.dnscry.pt
+address: 167.88.51.245:853
+host: los02.dnscry.pt/
+end;
+
+name: dnscrypt-palermo
+tags: dot, Italy, Europe
+website: https://www.dnscry.pt
+address: 185.198.235.5:853
+host: pmo01.dnscry.pt/
+end;
+# dnscry.pt: 119 servers
