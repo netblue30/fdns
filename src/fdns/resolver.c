@@ -36,11 +36,15 @@ void resolver(void) {
 		filter_load_all_lists();
 
 	// connect SSL/DNS server
+	DnsServer *srv = server_get();
+	assert(srv);
 	ssl_init();
 	if (ssl_test_open())
 		ssl_open();
-	else
+	else {
+		rlogprintf("Error: cannot connect to %s\n", srv->name);
 		rlogprintf("Warning: resolver starting in fallback mode\n");
+	}
 
 	// start the local DNS server on 127.1.1.1
 	int slocal = net_local_dns_socket(1); // address/port reuse
@@ -75,8 +79,6 @@ void resolver(void) {
 
 	fflush(0);
 	int resolver_keepalive_cnt = (RESOLVER_KEEPALIVE_TIMER * arg_id) / arg_resolvers;
-	DnsServer *srv = server_get();
-	assert(srv);
 	int dns_keepalive_cnt = srv->keepalive;
 	int console_printout_cnt = CONSOLE_PRINTOUT_TIMER;
 

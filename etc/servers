@@ -266,12 +266,12 @@ end;
 #end;
 
 # cloudflare redirect
-name: asagiri
-website: https://asagiri.moe/
-tags: sni, Indonesia, AsiaPacific, FarEast
-address: doh.asagiri.moe:443
-host: doh.asagiri.moe/dns-query
-end;
+#name: asagiri
+#website: https://asagiri.moe/
+#tags: sni, Indonesia, AsiaPacific, FarEast
+#address: doh.asagiri.moe:443
+#host: doh.asagiri.moe/dns-query
+#end;
 
 name: aquilenet
 website: https://www.aquilenet.fr/
@@ -342,13 +342,6 @@ address: basic.bravedns.com:443
 host: basic.bravedns.com/
 # server inactivity timer 65 seconds or higher
 end;
-
-#name: bravocone
-#website: https://bravoc.one/en/
-#tags: sni, adblocker, US, America
-#address: dns.bravoc.one:443
-#host: dns.bravoc.one/dns-query
-#end;
 
 # low keepalive
 name: cira
@@ -1095,6 +1088,22 @@ website: https://dnsforge.de
 tags: family, Germany, Europe
 address: 49.12.43.208:443
 host: clean.dnsforge.de/dns-query
+# server inactivity timer 65 seconds or higher
+end;
+
+name: dnsforge-adblocker1
+website: https://dnsforge.de
+tags: adblocker, Germany, Europe
+address: 49.12.222.213:443
+host: hard.dnsforge.de/dns-query
+# server inactivity timer 65 seconds or higher
+end;
+
+name: dnsforge-adblocker2
+website: https://dnsforge.de
+tags: adblocker, Germany, Europe
+address: 88.198.122.154:443
+host: hard.dnsforge.de/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -1999,12 +2008,12 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-name: wikimedia
-website: https://meta.wikimedia.org/wiki/Wikimedia_DNS
-tags: anycast, America, AsiaPacific, Europe
-address: 185.71.138.138:443
-host: wikimedia-dns.org/dns-query
-end;
+#name: wikimedia
+#website: https://meta.wikimedia.org/wiki/Wikimedia_DNS
+#tags: anycast, America, AsiaPacific, Europe
+#address: 185.71.138.138:443
+#host: wikimedia-dns.org/dns-query
+#end;
 
 name: xstl
 website: https://get.dns.seia.io/
