@@ -2436,12 +2436,12 @@ address: 185.99.133.112:853
 host: akl01.dnscry.pt/
 end;
 
-name: dnscrypt-kharkiv
-tags: dot, Ukraine, Europe
-website: https://www.dnscry.pt
-address: 193.238.153.17:853
-host: hrk01.dnscry.pt/
-end;
+#name: dnscrypt-kharkiv
+#tags: dot, Ukraine, Europe
+#website: https://www.dnscry.pt
+#address: 193.238.153.17:853
+#host: hrk01.dnscry.pt/
+#end;
 
 name: dnscrypt-sandefjord
 tags: dot, Norway, Europe

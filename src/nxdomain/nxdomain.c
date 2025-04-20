@@ -203,7 +203,14 @@ static void test(FILE *fpout, int chunk_no) {
 			fflush(0);
 		}
 	}
-	printf("# chunk %d: %d removed #", chunk_no, i - j - empty);
+
+	assert(start);
+	char *ptr = strrchr(start, '.');
+	if (ptr)
+		printf("# chunk %d: %d removed, last .%s #", chunk_no, i - j - empty, ptr + 1);
+	else
+		printf("# chunk %d: %d removed #", chunk_no, i - j - empty);
+
 	fflush(0);
 }
 
