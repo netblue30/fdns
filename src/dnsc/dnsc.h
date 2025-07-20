@@ -154,4 +154,8 @@ void tech_print(int total_domains);
 // tld_top.c
 void tld_top_print(int total_domains);
 
+// dedup.c
+int dedup_search(const char *name);
+void dedup_init(const char *fname);
+
 #endif

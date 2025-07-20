@@ -67,30 +67,6 @@ host: testserver.123/dns-query
 # server inactivity timer 60 seconds or higher
 end;
 ############################
-# redirected to cloudflare
-name: 0ms
-website: https://s1.0ms.dev/docs/dns
-tags: sni, Indonesia, AsiaPacific, FarEast
-address: 0ms.dev:443
-host: 0ms.dev/dns-query
-keepalive: 7
-end;
-
-name: 0ms-security
-website: https://s1.0ms.dev/docs/dns
-tags: sni, security, Indonesia, AsiaPacific, FarEast
-address: 0ms.dev:443
-host: 0ms.dev/dns-security
-keepalive: 7
-end;
-
-name: 0ms-adblocker
-website: https://s1.0ms.dev/docs/dns
-tags: sni, adblocker, Indonesia, AsiaPacific, FarEast
-address: 0ms.dev:443
-host: 0ms.dev/dns-adblock
-keepalive: 7
-end;
 
 name: 42l
 website: https://42l.fr
@@ -249,13 +225,13 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-name: artikel10
-website: https://dns.artikel10.org
-tags: Netherlands, WesternEurope, Europe
-address: 217.197.91.153:443
-host: dns.artikel10.org/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: artikel10
+#website: https://dns.artikel10.org
+#tags: Netherlands, WesternEurope, Europe
+#address: 217.197.91.153:443
+#host: dns.artikel10.org/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 #name: artikel10-dot
 #website: https://dns.artikel10.org
@@ -559,20 +535,19 @@ host: dns.cmrg.net/
 keepalive: 7
 end;
 
-#name: comssone
-#website: https://www.comss.ru/page.php?id=7315
-#tags: adblocker, Europe, Russia
-#address: dns.comss.one:443
-#host: dns.comss.one/dns-query
-#end;
+name: comssone
+website: https://www.comss.ru/page.php?id=7315
+tags: adblocker, Europe, Russia
+address: 83.220.169.155:443
+host: dns.comss.one/dns-query
+end;
 
-# running in controld network
-#name: comssone-anycast
-#website: https://www.comss.ru/page.php?id=7315
-#tags: adblocker, anycast, America, AsiaPacific, Europe
-#address: 76.76.2.22:443
-#host: dns.controld.com/comms
-#end;
+name: comssone2
+website: https://www.comss.ru/page.php?id=7315
+tags: adblocker, Russia, Europe
+address: 212.109.195.93:443
+host: dns.comms.one/dns-query
+end;
 
 name: controld-unfiltered
 website: https://controld.com/free-dns/
@@ -875,12 +850,12 @@ address: 52.29.2.17:443
 host: de01.dns4me.net/
 end;
 
-name: dns4me-jp
-website: https://dns4me.net/
-tags: Japan, AsiaPacific, FarEast
-address: 54.64.104.154:443
-host: jp01.dns4me.net/
-end;
+#name: dns4me-jp
+#website: https://dns4me.net/
+#tags: Japan, AsiaPacific, FarEast
+#address: 54.64.104.154:443
+#host: jp01.dns4me.net/
+#end;
 
 # global dns-sb cdn
 name: dns-sb1
@@ -891,7 +866,6 @@ host: doh.dns.sb/dns-query
 # server inactivity timer 60 seconds or higher
 end;
 
-# global dns-sb cdn
 name: dns-sb2
 website: https://dns.sb/doh
 tags: sni, Belgium, WesternEurope, Europe
@@ -918,7 +892,7 @@ end;
 
 name: dns-sb-nl1
 website: https://dns.sb/doh
-tags: sni, Netherlands, WesternEurope, Europe
+tags: sni, Netherlands, WesternEurope, Europebhg
 address: nl-ams.doh.sb:443
 host: nl-ams.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
@@ -956,13 +930,13 @@ host: jp-kix.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns-sb-jp2
-website: https://dns.sb/doh
-tags: sni, Japan, AsiaPacific, FarEast
-address: jp-nrt.doh.sb:443
-host: jp-nrt.doh.sb/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: dns-sb-jp2
+#website: https://dns.sb/doh
+#tags: sni, Japan, AsiaPacific, FarEast
+#address: jp-nrt.doh.sb:443
+#host: jp-nrt.doh.sb/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: dns-sb-hk
 website: https://dns.sb/doh
@@ -1047,8 +1021,8 @@ end;
 name: dns-sb-ca
 website: https://dns.sb/doh
 tags: sni, Canada, America
-address: ca-yyc.doh.sb:443
-host: ca-yyc.doh.sb/dns-query
+address: ca-yyz.doh.sb:443
+host: ca-yyz.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
@@ -1105,6 +1079,20 @@ tags: adblocker, Germany, Europe
 address: 88.198.122.154:443
 host: hard.dnsforge.de/dns-query
 # server inactivity timer 65 seconds or higher
+end;
+
+name: dnsguard
+website: https:/dnsguard.pub
+tags: adblocker, Germany, Europe
+address: 179.61.253.223:443
+host: dnsguard.pub/dns-query
+end;
+
+name: dnsguard2
+website: https:/dnsguard.pub
+tags: adblocker, Germany, Europe
+address: 181.214.231.96:443
+host: dnsguard.pub/dns-query
 end;
 
 name: dnslow
@@ -1266,20 +1254,6 @@ tags: sni, adblocker, Taiwan, AsiaPacific, FarEast
 address: 104.16.0.132:443
 host: doh.futa.gg/dns-query
 # server inactivity timer 65 seconds or higher
-end;
-
-name: futuredns-de
-website: https://futuredns.eu.org
-tags: adblocker, Germany, Europe
-address: 162.55.52.228:443
-host: dns.de.futuredns.eu.org/dns-query
-end;
-
-name: futuredns-us
-website: https://futuredns.eu.org
-tags: adblocker, US, America
-address: 5.161.67.176:443
-host: dns.us.futuredns.eu.org/dns-query
 end;
 
 name: getdnsapi-dot
@@ -1968,28 +1942,28 @@ end;
 #host: dns.twnic.tw/dns-query
 ## server inactivity timer 65 seconds or higher
 #end;
-
-name: twnic-dot
-website: https://101.101.101.101/index_en.html
-tags: dot, Taiwan, AsiaPacific, FarEast
-address: 101.101.101.101:853
-host: dns.twnic.tw/
-end;
-
-name: twnic2
-website: https://101.101.101.101/index_en.html
-tags: Taiwan, AsiaPacific, FarEast
-address: 101.102.103.104:443
-host: dns.twnic.tw/dns-query
-# server inactivity timer 65 seconds or higher
-end;
-
-name: twnic2-dot
-website: https://101.101.101.101/index_en.html
-tags: dot, Taiwan, AsiaPacific, FarEast
-address: 101.102.103.104:853
-host: dns.twnic.tw/
-end;
+#
+#name: twnic-dot
+#website: https://101.101.101.101/index_en.html
+#tags: dot, Taiwan, AsiaPacific, FarEast
+#address: 101.101.101.101:853
+#host: dns.twnic.tw/
+#end;
+#
+#name: twnic2
+#website: https://101.101.101.101/index_en.html
+#tags: Taiwan, AsiaPacific, FarEast
+#address: 101.102.103.104:443
+#host: dns.twnic.tw/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
+#
+#name: twnic2-dot
+#website: https://101.101.101.101/index_en.html
+#tags: dot, Taiwan, AsiaPacific, FarEast
+#address: 101.102.103.104:853
+#host: dns.twnic.tw/
+#end;
 
 name: vinnyp
 website: https://dns.vinnyp.xyz/privacy
@@ -2015,19 +1989,19 @@ end;
 #host: wikimedia-dns.org/dns-query
 #end;
 
-name: xstl
-website: https://get.dns.seia.io/
-tags: sni, Korea, AsiaPacific, FarEast, adblocker
-address: 116.121.57.111:443
-host: dns.seia.io/dns-query
-end;
+#name: xstl
+#website: https://get.dns.seia.io/
+#tags: sni, Korea, AsiaPacific, FarEast, adblocker
+#address: 116.121.57.111:443
+#host: dns.seia.io/dns-query
+#end;
 
-name: xstl2
-website: https://get.dns.seia.io/
-tags: sni, Korea, AsiaPacific, FarEast, adblocker
-address: 140.238.14.191:443
-host: secondary.dns.seia.io/dns-query
-end;
+#name: xstl2
+#website: https://get.dns.seia.io/
+#tags: sni, Korea, AsiaPacific, FarEast, adblocker
+#address: 140.238.14.191:443
+#host: secondary.dns.seia.io/dns-query
+#end;
 
 name: yarp
 website: https://yarp.lefolgoc.net
@@ -2054,7 +2028,8 @@ end;
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
-# - last update April 2, 2025
+# - last update June 23, 2025
+# - removed sydney, jakarta, islamabad
 ##################################################
 
 
@@ -2107,12 +2082,12 @@ address: 45.155.37.165:853
 host: cvt01.dnscry.pt/
 end;
 
-name: dnscrypt-jakarta
-tags: dot, Indonesia, AsiaPacific, FarEast
-website: https://www.dnscry.pt
-address: 151.243.222.94:853
-host: jkt01.dnscry.pt/
-end;
+#name: dnscrypt-jakarta
+#tags: dot, Indonesia, AsiaPacific, FarEast
+#website: https://www.dnscry.pt
+#address: 151.243.222.94:853
+#host: jkt01.dnscry.pt/
+#end;
 
 name: dnscrypt-taos
 tags: dot, US, America
@@ -2143,7 +2118,7 @@ host: dub01.dnscry.pt/
 end;
 
 name: dnscrypt-durham
-tags: dot, US, America
+tags: dot, UK, Europe, WesternEurope
 website: https://www.dnscry.pt
 address: 38.45.64.117:853
 host: rdu01.dnscry.pt/
@@ -2159,7 +2134,7 @@ end;
 name: dnscrypt-tbilisi
 tags: dot, Georgia, Europe, MiddleEast
 website: https://www.dnscry.pt
-address: 194.135.119.93:853
+address: 194.135.119.158:853
 host: tbs01.dnscry.pt/
 end;
 
@@ -2180,7 +2155,7 @@ end;
 name: dnscrypt-copenhagen
 tags: dot, Denmark, Europe
 website: https://www.dnscry.pt
-address: 85.120.84.5:853
+address: 192.121.119.19:853
 host: cph01.dnscry.pt/
 end;
 
@@ -2191,12 +2166,12 @@ address: 176.123.10.105:853
 host: kiv01.dnscry.pt/
 end;
 
-name: dnscrypt-sydney
-tags: dot, Australia, AsiaPacific
-website: https://www.dnscry.pt
-address: 84.33.15.100:853
-host: syd01.dnscry.pt/
-end;
+#name: dnscrypt-sydney
+#tags: dot, Australia, AsiaPacific
+#website: https://www.dnscry.pt
+#address: 84.33.15.100:853
+#host: syd01.dnscry.pt/
+#end;
 
 name: dnscrypt-milan
 tags: dot, Italy, Europe
@@ -2264,8 +2239,15 @@ end;
 name: dnscrypt-fujairah
 tags: dot, UnitedArabEmirates, MiddleEast, Europe
 website: https://www.dnscry.pt
-address: 89.36.162.187:853
+address: 89.36.162.76:853
 host: fjr01.dnscry.pt/
+end;
+
+name: dnscrypt-capetown
+tags: dot, SouthAfrica, Africa
+website: https://www.dnscry.pt
+address: 102.216.79.237:853
+host: cpt01.dnscry.pt/
 end;
 
 name: dnscrypt-vilnius
@@ -2310,7 +2292,7 @@ address: 216.73.156.52:853
 host: lax01.dnscry.pt/
 end;
 
-name: dnscrypt-auckland
+name: dnscrypt-auckland02
 tags: dot, NewZeeland, AsiaPacific
 website: https://www.dnscry.pt
 address: 23.140.248.100:853
@@ -2343,6 +2325,13 @@ tags: dot, Portugal, Europe, WesternEurope
 website: https://www.dnscry.pt
 address: 185.219.130.2:853
 host: lis01.dnscry.pt/
+end;
+
+name: dnscrypt-ebenecity
+tags: dot, Mauritius, Africa, Europe
+website: https://www.dnscry.pt
+address: 102.222.106.96:853
+host: mru01.dnscry.pt/
 end;
 
 name: dnscrypt-sydney02
@@ -2394,10 +2383,17 @@ address: 87.121.99.23:853
 host: lim02.dnscry.pt/
 end;
 
+name: dnscrypt-capetown02
+tags: dot, SouthAfrica, Africa
+website: https://www.dnscry.pt
+address: 160.119.233.245:853
+host: cpt02.dnscry.pt/
+end;
+
 name: dnscrypt-taipeh
 tags: dot, Taiwan, AsiaPacific, FarEast
 website: https://www.dnscry.pt
-address: 103.131.189.11:853
+address: 103.131.189.74:853
 host: tpe01.dnscry.pt/
 end;
 
@@ -2429,19 +2425,19 @@ address: 5.134.118.198:853
 host: mad01.dnscry.pt/
 end;
 
-name: dnscrypt-auckland02
+name: dnscrypt-auckland
 tags: dot, NewZeeland, AsiaPacific
 website: https://www.dnscry.pt
 address: 185.99.133.112:853
 host: akl01.dnscry.pt/
 end;
 
-#name: dnscrypt-kharkiv
-#tags: dot, Ukraine, Europe
-#website: https://www.dnscry.pt
-#address: 193.238.153.17:853
-#host: hrk01.dnscry.pt/
-#end;
+name: dnscrypt-johannesburg02
+tags: dot, SouthAfrica, Africa, Europe
+website: https://www.dnscry.pt
+address: 160.119.234.156:853
+host: jnb02.dnscry.pt/
+end;
 
 name: dnscrypt-sandefjord
 tags: dot, Norway, Europe
@@ -2485,12 +2481,12 @@ address: 92.38.135.128:853
 host: sel01.dnscry.pt/
 end;
 
-#name: dnscrypt-losangeles02
-#tags: dot, US, America
-#website: https://www.dnscry.pt
-#address: 104.200.67.194:853
-#host: lax02.dnscry.pt/
-#end;
+name: dnscrypt-losangeles02
+tags: dot, US, America
+website: https://www.dnscry.pt
+address: 104.200.67.194:853
+host: lax02.dnscry.pt/
+end;
 
 name: dnscrypt-lagos
 tags: dot, Nigeria, Africa, Europe
@@ -2530,7 +2526,7 @@ end;
 name: dnscrypt-phoenix
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 173.249.203.52:853
+address: 23.95.134.15:853
 host: phx01.dnscry.pt/
 end;
 
@@ -2541,11 +2537,25 @@ address: 157.20.83.135:853
 host: sgn01.dnscry.pt/
 end;
 
-name: dnscrypt-islamabad
-tags: dot, Pakistan, AsiaPacific
+name: dnscrypt-molln
+tags: dot, Germany, Europe
 website: https://www.dnscry.pt
-address: 103.151.111.174:853
-host: isb01.dnscry.pt/
+address: 91.108.80.159:853
+host: moe01.dnscry.pt/
+end;
+
+#name: dnscrypt-islamabad
+#tags: dot, Pakistan, AsiaPacific
+#website: https://www.dnscry.pt
+#address: 103.151.111.174:853
+#host: isb01.dnscry.pt/
+#end;
+
+name: dnscrypt-ebenecity02
+tags: dot, Mauritius, Africa, Europe
+website: https://www.dnscry.pt
+address: 196.46.50.93:853
+host: mru02.dnscry.pt/
 end;
 
 name: dnscrypt-kansascity
@@ -2751,12 +2761,12 @@ address: 185.195.236.62:853
 host: sto02.dnscry.pt/
 end;
 
-name: dnscrypt-manchester
-tags: dot, UK, Europe, WesternEurope
-website: https://www.dnscry.pt
-address: 81.181.108.40:853
-host: man01.dnscry.pt/
-end;
+#name: dnscrypt-manchester
+#tags: dot, UK, Europe, WesternEurope
+#website: https://www.dnscry.pt
+#address: 81.181.108.40:853
+#host: man01.dnscry.pt/
+#end;
 
 name: dnscrypt-houston
 tags: dot, US, America
@@ -2831,7 +2841,7 @@ end;
 name: dnscrypt-hudiksvall
 tags: dot, Sweden, Europe
 website: https://www.dnscry.pt
-address: 95.143.196.190:853
+address: 95.143.196.16:853
 host: huv01.dnscry.pt/
 end;
 
@@ -2890,4 +2900,47 @@ website: https://www.dnscry.pt
 address: 185.198.235.5:853
 host: pmo01.dnscry.pt/
 end;
-# dnscry.pt: 119 servers
+
+name: dnscrypt-gdansk
+tags: dot, Poland, Europe
+website: https://www.dnscry.pt
+address: 82.118.21.189:853
+host: gdn01.dnscry.pt/
+end;
+
+name: dnscrypt-kyiv02
+tags: dot, Ukraine, Europe
+website: https://www.dnscry.pt
+address: 185.126.255.30:853
+host: iev02.dnscry.pt/
+end;
+
+name: dnscrypt-melbourne
+tags: dot, Australia, AsiaPacific
+website: https://www.dnscry.pt
+address: 103.108.228.15:853
+host: mel01.dnscry.pt/
+end;
+
+name: dnscrypt-timisoara
+tags: dot, Romania, Europe
+website: https://www.dnscry.pt
+address: 45.134.48.25:853
+host: tsr01.dnscry.pt/
+end;
+
+name: dnscrypt-newcastle
+tags: dot, UK, Europe, WesternEurope
+website: https://www.dnscry.pt
+address: 89.213.196.77:853
+host: ncl01.dnscry.pt/
+end;
+
+name: dnscrypt-barcelona
+tags: dot, Spain, Europe, WesternEurope
+website: https://www.dnscry.pt
+address: 45.134.91.164:853
+host: bcn01.dnscry.pt/
+end;
+# dnscry.pt: 130 servers
+

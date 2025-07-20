@@ -87,7 +87,7 @@ static char *line_filter(char *buf) {
 			goto getout;
 		start = ptr;
 	}
-	getout:
+getout:
 
 //printf("%d: start %s\n", __LINE__, start);
 	if (strncmp(start, "127.0.0.1", 9) == 0 || strncmp(start, "0.0.0.0", 7) == 0) {
@@ -103,8 +103,13 @@ static char *line_filter(char *buf) {
 		else
 			start = oldstart;
 	}
+
 	if (*start == '\0')
 		return NULL;
+	// dealing with urls such as http://[2602:fc59:b0:64::b869:8e3e]/m/login.php
+	if (*start == '[')
+		return NULL;
+
 	while ((*start == '|' || *start == '!') && *start != '\0')
 		start++;
 	if (*start == '\0')

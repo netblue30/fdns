@@ -27,12 +27,14 @@ char execpath[LINE_MAX+ 1];
 static int arg_cnt = 0;
 int arg_short = 0;
 int arg_debug = 0;
+static char *arg_dedup = NULL;
 
 FILE *fpout = NULL;
 
 static int total_domains = 0;
 static int total_whitelisted = 0;
 static int total_ipaddr = 0;
+static int total_dedup = 0;
 static int input_compression = 0;
 
 Node *domains = NULL;
@@ -153,6 +155,12 @@ static void load_files(int argc, char **argv, int index) {
 			goto endloop;
 		}
 
+		if (dedup_search(sorted[i])) {
+			total_dedup++;
+			goto endloop;
+		}
+
+
 		input_compression++;
 		domain_add(sorted[i]);
 endloop:
@@ -181,6 +189,9 @@ static void print_stats(void) {
 	printf("# Input list(s): %d domains\n", total_domains);
 	printf("#   removed %d (%.02f%%) IP addresses\n", total_ipaddr, ((double) total_ipaddr / (double) total_domains) * 100);
 	printf("#   removed %d (%.02f%%) false positives\n", total_whitelisted, ((double) total_whitelisted / (double) total_domains) * 100);
+	if (arg_dedup)
+		printf("#   removed %d (%.02f%%) duplicates in dedup file\n", total_dedup, ((double) total_dedup / (double) total_domains) * 100);
+
 	if (total_domains) {
 		printf("# Final list: %d domains (input list compressed down to %0.02f%%)\n",
 		       phishing, ((double) phishing / (double) total_domains) * 100);
@@ -223,6 +234,7 @@ static void usage(void) {
 	printf("   --cnt=number - above this number, the domain is reported in the short list;\n");
 	printf("                  by default we use 0.1%% of the number of input domains\n");
 	printf("   --debug - print debug info\n");
+	printf("   --dedup=file - remove duplicate found in file\n");
 	printf("   -?, -h, --help - this help screen\n");
 	printf("   --short - print the short list\n");
 	printf("\n");
@@ -249,6 +261,8 @@ int main(int argc, char **argv) {
 			arg_debug = 1;
 		else if (strcmp(argv[i], "--short") == 0)
 			arg_short = 1;
+		else if (strncmp(argv[i], "--dedup=", 8) == 0)
+			arg_dedup = argv[i] + 8;
 		else if (strncmp(argv[i], "--cnt=", 6) == 0)
 			arg_cnt = atoi(argv[i] + 6);
 		else if (*argv[i] == '-') {
@@ -262,6 +276,9 @@ int main(int argc, char **argv) {
 
 	if (arg_debug)
 		fprintf(stderr, "Executable path %s#\n", execpath);
+
+	if (arg_dedup)
+		dedup_init(arg_dedup);
 
 	// generate stats
 	if (i < argc) {

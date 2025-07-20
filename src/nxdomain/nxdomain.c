@@ -207,7 +207,7 @@ static void test(FILE *fpout, int chunk_no) {
 	assert(start);
 	char *ptr = strrchr(start, '.');
 	if (ptr)
-		printf("# chunk %d: %d removed, last .%s #", chunk_no, i - j - empty, ptr + 1);
+		printf("# chunk %d: %d removed (.%s) #", chunk_no, i - j - empty, ptr + 1);
 	else
 		printf("# chunk %d: %d removed #", chunk_no, i - j - empty);
 
