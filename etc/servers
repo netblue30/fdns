@@ -549,6 +549,13 @@ address: 212.109.195.93:443
 host: dns.comms.one/dns-query
 end;
 
+name: comssone3
+website: https://www.comss.ru/page.php?id=7315
+tags: adblocker, Russia, Europe
+address: 195.133.25.16:443
+host: router.comms.one/dns-query
+end;
+
 name: controld-unfiltered
 website: https://controld.com/free-dns/
 tags: anycast, America, AsiaPacific, Europe
@@ -1878,6 +1885,28 @@ address: 78.194.186.17:853
 host: dns.sellan.fr/
 end;
 
+name: surfshark
+website:https://dns.surfsharkdns.com
+tags: anycast, America, AsiaPacific, Europe
+address: 194.169.169.169:443
+host: dns.surfsharkdns.com/dns-query
+end;
+
+name: surfshark-dot
+website:https://dns.surfsharkdns.com
+tags: anycast, dot, America, AsiaPacific, Europe
+address: 194.169.169.169:853
+host: dns.surfsharkdns.com/
+keepalive: 7
+end;
+
+name: sz-dns
+tags:  America, AsiaPacific, Europe
+website: https://www.sz-dns.com
+address:  doh.sz-dns.com:443
+host: doh.sz-dns.com/dns-query
+end;
+
 # doh very short keepalive
 name: trcnet1-dot
 website: https://ns1.trcnet.fi
@@ -1982,12 +2011,12 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-#name: wikimedia
-#website: https://meta.wikimedia.org/wiki/Wikimedia_DNS
-#tags: anycast, America, AsiaPacific, Europe
-#address: 185.71.138.138:443
-#host: wikimedia-dns.org/dns-query
-#end;
+name: wikimedia
+website: https://meta.wikimedia.org/wiki/Wikimedia_DNS
+tags: anycast, America, AsiaPacific, Europe
+address: 185.71.138.138:443
+host: wikimedia-dns.org/dns-query
+end;
 
 #name: xstl
 #website: https://get.dns.seia.io/
