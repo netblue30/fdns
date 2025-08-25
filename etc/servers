@@ -180,7 +180,6 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: family, America, AsiaPacific, Europe
 address: 94.140.15.16:443
 host: dns-family.adguard.com/dns-query
-keepalive: 50
 # server inactivity timer 65 seconds or higher
 keepalive: 50
 end;
@@ -305,7 +304,7 @@ end;
 # redirected (probably) to cloudflare
 name: bravedns
 website: https://bravedns.com
-tags: sni, America, AsiaPacific, Europe
+tags: h2ping, sni, America, AsiaPacific, Europe
 address: free.bravedns.com:443
 host: free.bravedns.com/dns-query
 # server inactivity timer 65 seconds or higher
@@ -313,64 +312,106 @@ end;
 
 name: bravedns2
 website: https://bravedns.com
-tags: sni, America, AsiaPacific, Europe
+tags: h2ping, sni, America, AsiaPacific, Europe
 address: basic.bravedns.com:443
 host: basic.bravedns.com/
 # server inactivity timer 65 seconds or higher
 end;
 
-# low keepalive
 name: cira
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 tags: h2ping, Canada, America
 address: 149.112.121.10:443
 host: private.canadianshield.cira.ca/dns-query
-keepalive: 7
+# server inactivity timer 65 seconds or higher
 end;
 
-# low keepalive
+name: cira-dot
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+tags: dot, Canada, America
+address: 149.112.121.10:853
+host: private.canadianshield.cira.ca/
+# server inactivity timer 65 seconds or higher
+end;
+
 name: cira2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 tags: h2ping, Canada, America
 address: 149.112.122.10:443
 host: private.canadianshield.cira.ca/dns-query
-keepalive: 7
+# server inactivity timer 65 seconds or higher
 end;
 
-# low keepalive
+name: cira2-dot
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+tags: dot, Canada, America
+address: 149.112.122.10:853
+host: private.canadianshield.cira.ca/
+# server inactivity timer 65 seconds or higher
+end;
+
 name: cira-security
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 tags: h2ping, security, Canada, America
 address: 149.112.121.20:443
 host: protected.canadianshield.cira.ca/dns-query
-keepalive: 7
+# server inactivity timer 65 seconds or higher
 end;
 
-# low keepalive
+name: cira-security-dot
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+tags: dot, security, Canada, America
+address: 149.112.121.20:853
+host: protected.canadianshield.cira.ca/
+# server inactivity timer 65 seconds or higher
+end;
+
 name: cira-security2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 tags: h2ping, security, Canada, America
 address: 149.112.122.20:443
 host: protected.canadianshield.cira.ca/dns-query
-keepalive: 7
+# server inactivity timer 65 seconds or higher
 end;
 
-# low keepalive
+name: cira-security2-dot
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+tags: dot, security, Canada, America
+address: 149.112.122.20:853
+host: protected.canadianshield.cira.ca/
+keepalive: 50
+# server inactivity timer 65 seconds or higher
+end;
+
 name: cira-family
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 tags: h2ping, family, Canada, America
 address: 149.112.121.30:443
 host: family.canadianshield.cira.ca/dns-query
-keepalive: 7
+# server inactivity timer 65 seconds or higher
 end;
 
-# low keepalive
+name: cira-family-dot
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+tags: dot, family, Canada, America
+address: 149.112.121.30:853
+host: family.canadianshield.cira.ca/
+# server inactivity timer 65 seconds or higher
+end;
+
 name: cira-family2
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
 tags: h2ping, family, Canada, America
 address: 149.112.122.30:443
 host: family.canadianshield.cira.ca/dns-query
-keepalive: 7
+# server inactivity timer 65 seconds or higher
+end;
+
+name: cira-family2-dot
+website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+tags: dot, family, Canada, America
+address: 149.112.122.30:853
+host: family.canadianshield.cira.ca/
 end;
 
 name: cleanbrowsing
@@ -562,7 +603,6 @@ tags: anycast, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/p0
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 name: controld2-unfiltered
@@ -571,15 +611,7 @@ tags: anycast, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/p0
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
-
-#name: controld-dot
-#website: https://controld.com/free-dns/
-#tags: anycast, dot, America, AsiaPacific, Europe
-#address: 76.76.2.11:853
-#host: p0.freedns.controld.com/
-#end;
 
 name: controld-adguard
 website: https://controld.com/free-dns/
@@ -587,7 +619,6 @@ tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.2.44:443
 host: freedns.controld.com/adguard
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 name: controld2-adguard
@@ -596,7 +627,6 @@ tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.44:443
 host: freedns.controld.com/adguard
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 name: controld-security
@@ -605,7 +635,6 @@ tags: anycast, security, adblocker, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/p1
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 name: controld2-security
@@ -614,7 +643,6 @@ tags: anycast, security, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/p1
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 name: controld-adblocker
@@ -632,7 +660,6 @@ tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/p2
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 name: controld-family
@@ -641,7 +668,6 @@ tags: family, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/family
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 name: controld2-family
@@ -650,7 +676,6 @@ tags: family, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/family
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 name: controld-uncensored
@@ -659,7 +684,6 @@ tags: anycast, security, adblocker, America, AsiaPacific, Europe
 address: 76.76.2.11:443
 host: freedns.controld.com/uncensored
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 name: controld2-uncensored
@@ -668,7 +692,6 @@ tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 76.76.10.11:443
 host: freedns.controld.com/uncensored
 keepalive: 7
-# server inactivity timer 65 seconds or higher
 end;
 
 
@@ -921,13 +944,13 @@ host: uk-lon.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns-sb-ee
-website: https://dns.sb/doh
-tags: sni, Estonia, Europe
-address: ee-tll.doh.sb:443
-host: ee-tll.doh.sb/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: dns-sb-ee
+#website: https://dns.sb/doh
+#tags: sni, Estonia, Europe
+#address: ee-tll.doh.sb:443
+#host: ee-tll.doh.sb/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: dns-sb-jp1
 website: https://dns.sb/doh
@@ -1386,12 +1409,28 @@ host: dns.mullvad.net/dns-query
 keepalive: 7
 end;
 
+name: mullvad-dot
+website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
+tags: dot, anycast, America, AsiaPacific, Europe
+address: 194.242.2.2:853
+host: dns.mullvad.net/
+keepalive: 7
+end;
+
 # low keepalive
 name: mullvad-adblocker
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
 tags: anycast, adblocker, America, AsiaPacific, Europe
 address: 194.242.2.3:443
 host: adblock.dns.mullvad.net/dns-query
+keepalive: 7
+end;
+
+name: mullvad-adblocker-dot
+website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
+tags: dot, anycast, adblocker, America, AsiaPacific, Europe
+address: 194.242.2.3:853
+host: adblock.dns.mullvad.net/
 keepalive: 7
 end;
 
@@ -1404,12 +1443,28 @@ host: base.dns.mullvad.net/dns-query
 keepalive: 7
 end;
 
+name: mullvad-security-dot
+website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
+tags: dot, anycast, security, America, AsiaPacific, Europe
+address: 194.242.2.4:853
+host: base.dns.mullvad.net/
+keepalive: 7
+end;
+
 # low keepalive
 name: mullvad-family
 website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
 tags: family, America, AsiaPacific, Europe
 address: 194.242.2.6:443
 host: family.dns.mullvad.net/dns-query
+keepalive: 7
+end;
+
+name: mullvad-family-dot
+website: https://mullvad.net/en/help/dns-over-https-and-dns-over-tls
+tags: dot, family, America, AsiaPacific, Europe
+address: 194.242.2.6:853
+host: family.dns.mullvad.net/
 keepalive: 7
 end;
 
@@ -1712,12 +1767,28 @@ address: 9.9.9.9:443
 host: dns.quad9.net/dns-query
 end;
 
+#name: quad9-dot
+#website: https://quad9.net
+#tags: dot, anycast, security, America, AsiaPacific, Europe
+#address: 9.9.9.9:863
+#host: dns.quad9.net/
+#keepalive: 7
+#end;
+
 name: quad9-2
 website: https://quad9.net
 tags: anycast, security, America, AsiaPacific, Europe
 address: 149.112.112.112:443
 host: dns.quad9.net/dns-query
 end;
+
+#name: quad9-2-dot
+#website: https://quad9.net
+#tags: dot, anycast, security, America, AsiaPacific, Europe
+#address: 149.112.112.112:853
+#host: dns.quad9.net/
+#keepalive: 7
+#end;
 
 name: quad9-3
 website: https://quad9.net
@@ -1726,6 +1797,14 @@ address: 149.112.112.9:443
 host: dns9.quad9.net/dns-query
 end;
 
+#name: quad9-3-dot
+#website: https://quad9.net
+#tags: dot, anycast, security, America, AsiaPacific, Europe
+#address: 149.112.112.9:853
+#host: dns9.quad9.net/
+#keepalive: 7
+#end;
+
 name: quad9-unsecured
 website: https://quad9.net
 tags: anycast, America, AsiaPacific, Europe
@@ -1733,13 +1812,28 @@ address: 9.9.9.10:443
 host: dns10.quad9.net/dns-query
 end;
 
+#name: quad9-unsecured-dot
+#website: https://quad9.net
+#tags: dot, anycast, America, AsiaPacific, Europe
+#address: 9.9.9.10:853
+#host: dns10.quad9.net/
+#keepalive: 7
+#end;
+
 name: quad9-unsecured-2
 website: https://quad9.net
 tags: anycast, America, AsiaPacific, Europe
 address: 149.112.112.10:443
 host: dns10.quad9.net/dns-query
-keepalive: 7
 end;
+
+#name: quad9-unsecured-2-dot
+#website: https://quad9.net
+#tags: dot, anycast, America, AsiaPacific, Europe
+#address: 149.112.112.10:853
+#host: dns10.quad9.net/
+#keepalive: 7
+#end;
 
 name: qwer-tiger
 website: https://dns.qwer.pw/
@@ -1907,7 +2001,6 @@ address:  doh.sz-dns.com:443
 host: doh.sz-dns.com/dns-query
 end;
 
-# doh very short keepalive
 name: trcnet1-dot
 website: https://ns1.trcnet.fi
 tags: dot, Finland, Europe
@@ -2057,10 +2150,9 @@ end;
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
-# - last update June 23, 2025
-# - removed sydney, jakarta, islamabad
+# - update Aug 1st, 2025
+# - removed dnscrypt-hongkong02, dnscrypt-singapore02
 ##################################################
-
 
 name: dnscrypt-tampa
 tags: dot, US, America
@@ -2111,12 +2203,12 @@ address: 45.155.37.165:853
 host: cvt01.dnscry.pt/
 end;
 
-#name: dnscrypt-jakarta
-#tags: dot, Indonesia, AsiaPacific, FarEast
-#website: https://www.dnscry.pt
-#address: 151.243.222.94:853
-#host: jkt01.dnscry.pt/
-#end;
+name: dnscrypt-jakarta
+tags: dot, Indonesia, AsiaPacific, FarEast
+website: https://www.dnscry.pt
+address: 151.243.222.94:853
+host: jkt01.dnscry.pt/
+end;
 
 name: dnscrypt-taos
 tags: dot, US, America
@@ -2195,12 +2287,12 @@ address: 176.123.10.105:853
 host: kiv01.dnscry.pt/
 end;
 
-#name: dnscrypt-sydney
-#tags: dot, Australia, AsiaPacific
-#website: https://www.dnscry.pt
-#address: 84.33.15.100:853
-#host: syd01.dnscry.pt/
-#end;
+name: dnscrypt-manchester
+tags: dot, UK, Europe, WesternEurope
+website: https://www.dnscry.pt
+address: 216.245.140.20:853
+host: man01.dnscry.pt/
+end;
 
 name: dnscrypt-milan
 tags: dot, Italy, Europe
@@ -2321,11 +2413,11 @@ address: 216.73.156.52:853
 host: lax01.dnscry.pt/
 end;
 
-name: dnscrypt-auckland02
-tags: dot, NewZeeland, AsiaPacific
+name: dnscrypt-guayaquil
+tags: dot, Ecuador, SouthAmerica, America
 website: https://www.dnscry.pt
-address: 23.140.248.100:853
-host: adl01.dnscry.pt/
+address: 205.235.2.3:853
+host: gye01.dnscry.pt/
 end;
 
 name: dnscrypt-toronto
@@ -2429,7 +2521,7 @@ end;
 name: dnscrypt-ashburn
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 45.11.230.8:853
+address: 77.247.127.107:853
 host: abn01.dnscry.pt/
 end;
 
@@ -2482,12 +2574,12 @@ address: 23.184.48.19:853
 host: llk01.dnscry.pt/
 end;
 
-name: dnscrypt-singapore02
-tags: dot, Singapore, AsiaPacific
-website: https://www.dnscry.pt
-address: 103.179.44.73:853
-host: sin02.dnscry.pt/
-end;
+#name: dnscrypt-singapore02
+#tags: dot, Singapore, AsiaPacific
+#website: https://www.dnscry.pt
+#address: 103.179.44.73:853
+#host: sin02.dnscry.pt/
+#end;
 
 name: dnscrypt-brisbane
 tags: dot, Australia, AsiaPacific
@@ -2573,12 +2665,12 @@ address: 91.108.80.159:853
 host: moe01.dnscry.pt/
 end;
 
-#name: dnscrypt-islamabad
-#tags: dot, Pakistan, AsiaPacific
-#website: https://www.dnscry.pt
-#address: 103.151.111.174:853
-#host: isb01.dnscry.pt/
-#end;
+name: dnscrypt-islamabad
+tags: dot, Pakistan, AsiaPacific
+website: https://www.dnscry.pt
+address: 103.99.133.110:853
+host: isb01.dnscry.pt/
+end;
 
 name: dnscrypt-ebenecity02
 tags: dot, Mauritius, Africa, Europe
@@ -2748,12 +2840,12 @@ address: 83.138.55.186:853
 host: vie01.dnscry.pt/
 end;
 
-name: dnscrypt-hongkong02
-tags: dot, HongKong, AsiaPacific, FarEast
-website: https://www.dnscry.pt
-address: 91.124.30.31:853
-host: hkg02.dnscry.pt/
-end;
+#name: dnscrypt-hongkong02
+#tags: dot, HongKong, AsiaPacific, FarEast
+#website: https://www.dnscry.pt
+#address: 91.124.30.31:853
+#host: hkg02.dnscry.pt/
+#end;
 
 name: dnscrypt-amsterdam02
 tags: dot, Netherlands, Europe, WesternEurope
@@ -2790,12 +2882,12 @@ address: 185.195.236.62:853
 host: sto02.dnscry.pt/
 end;
 
-#name: dnscrypt-manchester
-#tags: dot, UK, Europe, WesternEurope
-#website: https://www.dnscry.pt
-#address: 81.181.108.40:853
-#host: man01.dnscry.pt/
-#end;
+name: dnscrypt-marseille
+tags: dot, France, Europe, WesternEurope
+website: https://www.dnscry.pt
+address: 45.140.164.127:853
+host: mrs01.dnscry.pt/
+end;
 
 name: dnscrypt-houston
 tags: dot, US, America
@@ -2971,5 +3063,32 @@ website: https://www.dnscry.pt
 address: 45.134.91.164:853
 host: bcn01.dnscry.pt/
 end;
-# dnscry.pt: 130 servers
 
+name: dnscrypt-tirana
+tags: dot, Albania, Europe
+website: https://www.dnscry.pt
+address: 193.108.112.74:853
+host: tia01.dnscry.pt/
+end;
+
+name: dnscrypt-queretaro
+tags: dot, Mexico, SouthAmerica, America
+website: https://www.dnscry.pt
+address: 89.223.88.74:853
+host: qro01.dnscry.pt/
+end;
+
+name: dnscrypt-minneapolis
+tags: dot, US, America
+website: https://www.dnscry.pt
+address: 92.223.102.13:853
+host: msp01.dnscry.pt/
+end;
+
+name: dnscrypt-adelaide
+tags: dot, Australia, AsiaPacific
+website: https://www.dnscry.pt
+address: 163.47.119.182:853
+host: adl01.dnscry.pt/
+end;
+# dnscry.pt: 134 servers
