@@ -163,7 +163,7 @@ static char *certlist[] = {
 	NULL
 };
 
-char *get_cert_file(void) {
+static char *get_cert_file(void) {
 	if (arg_certfile)
 		return arg_certfile;
 
