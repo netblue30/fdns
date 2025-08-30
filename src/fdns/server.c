@@ -21,6 +21,7 @@
 #include <sys/wait.h>
 #include <time.h>
 #include <errno.h>
+#include <openssl/opensslv.h>
 
 int server_print_servers = 0;
 int server_print_unlist = 1;
@@ -122,6 +123,7 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 	char buf[4096];
 	buf[0] = '\0';
 	int host = 0;
+	int quic = 0;
 	while (fgets(buf, 4096, fp)) {
 		(*linecnt)++;
 
@@ -189,6 +191,10 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 
 			if (strstr(s->tags, "dot,"))
 				s->transport = "dot";
+			if (strstr(s->tags, "quic,")) {
+				s->transport = "quic";
+				quic = 1;
+			}
 			if (strstr(s->tags, "sni,"))
 				s->sni = 1;
 			if (strstr(s->tags, "h2ping,"))
@@ -255,6 +261,10 @@ static DnsServer *read_one_server(FILE *fp, int *linecnt, const char *fname) {
 
 			// check unlisted servers
 			if (unlisted_find(s->name))
+				return  read_one_server(fp, linecnt, fname);
+
+			// check quic support
+			if (quic && OPENSSL_VERSION_NUMBER < 0x30500000)
 				return  read_one_server(fp, linecnt, fname);
 
 			if (!s->transport)

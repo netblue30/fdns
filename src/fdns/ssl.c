@@ -33,6 +33,9 @@ SSLState ssl_state = SSL_CLOSED;
 static BIO *bio = NULL;
 static SSL_CTX *ctx = NULL;
 static SSL *ssl = NULL;
+static int dot = 0;
+static int quic = 0;
+SSL *quic_stream = NULL;
 
 // test SSL connection in a different process, in order to start directly
 // in the fallback server if necessary; logging is disabled in this case
@@ -65,12 +68,12 @@ int ssl_test_open(void)  {
 		sleep(1);
 		i++;
 	}
-	while (i < 5); // 5 seconds test
+	while (i < TRANSPORT_TIMEOUT); // 5 seconds test
 
 	kill(child, SIGKILL);
 	usleep(10000);
 
-	if (i >= 5)
+	if (i >= TRANSPORT_TIMEOUT)
 		return 0;
 	return 1;
 }
@@ -119,6 +122,10 @@ int ssl_status_check(void) {
 	if (ssl == NULL)
 		return 0;
 
+	if (quic)
+		return 0;
+ 	
+	
 	fd_set readfds;
 	FD_ZERO(&readfds);
 	int fd = SSL_get_fd(ssl);
@@ -187,8 +194,22 @@ void ssl_open(void) {
 		printf("%d: opening ssl connection\n", arg_id);
 	fflush(0);
 
+	if (strstr(srv->transport, "dot")) {
+		dns_set_transport("dot");
+		dot = 1;
+	}
+	else if (strstr(srv->transport, "quic")) {
+		dns_set_transport("quic");
+		quic = 1;
+	}
+
 	if (ctx == NULL) {
-		ctx = SSL_CTX_new(TLS_client_method());
+#if OPENSSL_VERSION_NUMBER >= 0x30500000
+		if (quic)
+			ctx = SSL_CTX_new(OSSL_QUIC_client_method());
+		else
+#endif
+			ctx = SSL_CTX_new(TLS_client_method());
 		char *certfile = get_cert_file();
 		if (certfile == NULL) {
 			if(! SSL_CTX_load_verify_locations(ctx, NULL, "/etc/ssl/certs")) {
@@ -210,18 +231,32 @@ void ssl_open(void) {
 	if (arg_debug)
 		printf("%d: transport %s, host %s, address %s\n", arg_id, srv->transport, srv->host, srv->address);
 
-	int dot = 0;
-
-	if (strstr(srv->transport, "dot")) {
-//		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x03dot", 4);
-		dns_set_transport("dot");
-		dot = 1;
+	// set alpn
+	if (dot) {
+		unsigned char alpn[] = { 3, 'd', 'o', 't'};
+		int rv = SSL_CTX_set_alpn_protos(ctx, alpn, sizeof(alpn));
+		//		int rv = SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x03doq", 4);
+		if (rv)
+			assert(0);
+		
 		if (arg_debug)
-			printf("%d: No ALPN configured\n", arg_id);
+			printf("%d: Send ALPN doq\n", arg_id);
+	}
+	else if (quic) {
+		unsigned char alpn[] = { 3, 'd', 'o', 'q'};
+		int rv = SSL_CTX_set_alpn_protos(ctx, alpn, sizeof(alpn));
+		//		int rv = SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x03doq", 4);
+		if (rv)
+			assert(0);
+		
+		if (arg_debug)
+			printf("%d: Send ALPN doq\n", arg_id);
 	}
 	else {
 		// inform the server we prefer http2 over http/1.1
-		SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
+		int rv = SSL_CTX_set_alpn_protos(ctx, (const unsigned char *)"\x02h2\x08http/1.1", 12);
+		if (rv)
+			assert(0);
 		if (arg_debug)
 			printf("%d: Send ALPN h2, http/1.1\n", arg_id);
 
@@ -230,7 +265,8 @@ void ssl_open(void) {
 	fflush(0);
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
-	SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);
+	if (!quic)
+		SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);
 
 	// set connection and SNI
 	BIO_set_conn_hostname(bio, srv->address);
@@ -247,10 +283,6 @@ void ssl_open(void) {
 		fflush(0);
 	}
 	if(BIO_do_connect(bio) <= 0) {
-		// Note: nonblocking BIO_do_connect example at
-		//    https://stackoverflow.com/questions/15852840/how-to-set-connection-timeout-and-operation-timeout-in-openssl
-		//    cannot use BIO_set_nbio(bio, 1) - non-blocking cannot be turned off after the connection was establixhed
-//		rlogprintf("Error: cannot connect SSL.\n");
 		if (srv->test_sni) {
 			// try again, this time with sni
 			srv->test_sni = 0;
@@ -317,9 +349,24 @@ void ssl_open(void) {
 
 	// check ALPN negotiation
 	const char *ver = SSL_get_version(ssl);
-	if (dot) {
-		if (arg_details && arg_id == -1)
-			printf("   %s, ", ver);
+	if (quic || dot) {
+		unsigned len = 0;
+		const unsigned char *alpn;
+
+		SSL_get0_alpn_selected(ssl, &alpn, &len);
+		if (alpn == NULL) {
+			if ((arg_details && arg_id == -1) || arg_debug)
+				printf("   %s, ALPN not negotiated\n", ver);
+		}
+		else if (len < 100) {
+			char alpn_value[100 + 1];
+			memcpy(alpn_value, alpn, len);
+			alpn_value[len] = '\0';
+			if (arg_details && arg_id == -1)
+				printf("   %s, ALPN %s, ", ver, alpn_value);
+		}
+		else
+			fprintf(stderr, "Error: invalid ALPN string of length %d\n", len);
 	}
 	else {
 		unsigned len = 0;
@@ -359,7 +406,7 @@ void ssl_open(void) {
 		uint32_t ip = ntohl(remote.sin_addr.s_addr);
 		rlogprintf("SSL connection opened to %d.%d.%d.%d (%s)\n", PRINT_IP(ip), srv->name);
 	}
-
+	
 	// transport connect
 	transport->init();
 	if (transport->connect() == -1)
@@ -417,44 +464,55 @@ int ssl_tx(uint8_t *buf, int len) {
 		printf("(%d) ssl tx len %u\n", arg_id, len);
 	}
 
-	int lentx;
-	if((lentx = BIO_write(bio, buf, len)) <= 0) {
-		if(! BIO_should_retry(bio)) {
-			rlogprintf("Error: failed SSL write, retval %d\n", lentx);
-			goto errout;
-		}
-		if((lentx = BIO_write(bio, buf, len)) <= 0) {
-			rlogprintf("Error: failed SSL write, retval %d\n", lentx);\
-			goto errout;
-		}
+	size_t lentx;
+	if (quic)
+		quic_stream = SSL_new_stream(ssl, 0);	// transmit: create a new quic stream
+	SSL *stream = (quic)? quic_stream: ssl;
+	if (!SSL_write_ex(stream, buf, len, &lentx)) {
+		printf("Error: Failed to transmit the query\n");
+		goto errout;
 	}
-
+	if (quic)
+		SSL_stream_conclude(quic_stream, 0); // inform the server that's all that is
+	
 	return lentx;
 errout:
 	ssl_close();
 	return 0;
 }
-
+	
 int ssl_rx(uint8_t *buf, int size) {
 	assert(buf);
 	if (size < 1 || ctx == NULL || ssl == NULL || ssl_state != SSL_OPEN)
 		goto errout;
 
-	int len = BIO_read(bio, buf, size - 1);
-	if(len <= 0) {
-		if(! BIO_should_retry(bio)) {
-			rlogprintf("Error: failed SSL read, retval %d\n", len);
-			goto errout;
-		}
-		len = BIO_read(bio, buf, MAXBUF);
+	size_t len = 0;
+	if (quic) {
+		assert(quic_stream);
+		size_t lentmp;
+		while (SSL_read_ex(quic_stream, buf + len, size - 1 - len, &lentmp))
+			len += lentmp;
+		SSL_free(quic_stream); // kill the quic stream
+		//		quic_stream = NULL;
+	}
+	else {
+		len = BIO_read(bio, buf, size - 1);
 		if(len <= 0) {
-			rlogprintf("Error: failed SSL read, retval %d\n", len);
-			goto errout;
+			if(! BIO_should_retry(bio)) {
+				rlogprintf("Error: failed SSL read, retval %d\n", len);
+				goto errout;
+			}
+			len = BIO_read(bio, buf, size - 1);
+			if(len <= 0) {
+				rlogprintf("Error: failed SSL read, retval %d\n", len);
+				goto errout;
+			}
 		}
 	}
+
 	if (arg_debug) {
 		print_time();
-		printf("(%d) ssl rx len %u\n", arg_id, len);
+		printf("(%d) ssl rx len %lu\n", arg_id, len);
 	}
 	buf[len] = '\0';
 

@@ -29,69 +29,69 @@
 #include "timetrace.h"
 #include "lint.h"
 
-static void dot_header_stats(void);
-static double dot_bandwidth(void);
-static void dot_init(void);
-static void dot_close(void);
-static int dot_connect(void);
-static int dot_send_exampledotcom(uint8_t *req);
-static int dot_send_query(uint8_t *req, int cnt);
-static int dot_send_ping(void);
-static int dot_exchange(uint8_t *response, uint32_t stream);
-static void dot_print_url(void);
-DnsTransport dot_transport = {
-	"dot",
-	"DoT",
-	dot_init,
-	dot_close,
-	dot_connect,
-	dot_send_exampledotcom,
-	dot_send_query,
-	dot_send_ping,
-	dot_exchange,
-	dot_header_stats,
-	dot_bandwidth,
-	dot_print_url
+static void quic_header_stats(void);
+static double quic_bandwidth(void);
+static void quic_init(void);
+static void quic_close(void);
+static int quic_connect(void);
+static int quic_send_exampledotcom(uint8_t *req);
+static int quic_send_query(uint8_t *req, int cnt);
+static int quic_send_ping(void);
+static int quic_exchange(uint8_t *response, uint32_t stream);
+static void quic_print_url(void);
+DnsTransport quic_transport = {
+	"quic",
+	"DoQ",
+	quic_init,
+	quic_close,
+	quic_connect,
+	quic_send_exampledotcom,
+	quic_send_query,
+	quic_send_ping,
+	quic_exchange,
+	quic_header_stats,
+	quic_bandwidth,
+	quic_print_url
 };
 
 
-static int dot_rx = 0; // received bytes, including IP/TCP/TLS headers
-static int dot_rx_dns = 0; // received DNS bytes over H2 plus IP/UDP
+static int quic_rx = 0; // received bytes, including IP/UDP/QUIC headers
+static int quic_rx_dns = 0; // received DNS bytes over H2 plus IP/UDP
 static int first_query = 1;	// don't include the first query in network byte count
 
-static void dot_print_url(void) {
+static void quic_print_url(void) {
 	DnsServer *srv = server_get();
 	assert(srv);
-	printf("   URL: dot://%s\n", srv->host);
+	printf("   URL: quic://%s\n", srv->host);
 }
 
-static void dot_header_stats(void) {
+static void quic_header_stats(void) {
 }
 
 // Do53 / DoH ratio
-static double dot_bandwidth(void) {
-	if (dot_rx_dns == 0)
+static double quic_bandwidth(void) {
+	if (quic_rx_dns == 0)
 		return 0;
-	return (double) dot_rx / (double) dot_rx_dns;
+	return (double) quic_rx / (double) quic_rx_dns;
 }
 
-static void dot_init(void) {
+static void quic_init(void) {
 	first_query = 1;
 }
 
-static void dot_close(void) {
+static void quic_close(void) {
 	first_query = 1;
 }
 
 static uint8_t buf_query[MAXBUF];
 // returns -1 if error
-static int dot_connect(void) {
+static int quic_connect(void) {
 	return 0;
 }
 
 // the result message is placed in res, the length of the message is returned
 // returns -1 if error
-static int dot_send_exampledotcom(uint8_t *req) {
+static int quic_send_exampledotcom(uint8_t *req) {
 	uint8_t dnsmsg[] = {
 		0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00,
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x65, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x03, 0x63, 0x6f,
@@ -105,10 +105,10 @@ static int dot_send_exampledotcom(uint8_t *req) {
 
 	if (arg_debug || arg_debug_transport) {
 		print_time();
-		printf("(%d) tx len %d dot\n", arg_id, (int) sizeof(dnsmsg) + 2);
+		printf("(%d) tx len %d quic\n", arg_id, (int) sizeof(dnsmsg) + 2);
 	}
 	ssl_tx(buf_query, sizeof(dnsmsg) + 2);
-	int rv = dot_exchange(req, 0);
+	int rv = quic_exchange(req, 0);
 	first_query = 0;
 	return rv;
 }
@@ -116,7 +116,7 @@ static int dot_send_exampledotcom(uint8_t *req) {
 
 // the result message is placed in req, the length of the message is returned
 // returns -1 if error
-static int dot_send_query(uint8_t *req, int cnt) {
+static int quic_send_query(uint8_t *req, int cnt) {
 	if (cnt <= 0 || cnt > DNS_MAX_DOMAIN_NAME)
 		return 0;
 
@@ -127,22 +127,22 @@ static int dot_send_query(uint8_t *req, int cnt) {
 
 	if (arg_debug || arg_debug_transport) {
 		print_time();
-		printf("(%d) tx len %d dot\n", arg_id, cnt + 2);
+		printf("(%d) tx len %d quic\n", arg_id, cnt + 2);
 	}
 	ssl_tx(buf_query, cnt + 2);
-	int rv = dot_exchange(req, 0);
+	int rv = quic_exchange(req, 0);
 	first_query = 0;
 	return rv;
 }
 
 // returns -1 if error
-static int dot_send_ping(void) {
-	return dot_send_exampledotcom(buf_query);
+static int quic_send_ping(void) {
+	return quic_send_exampledotcom(buf_query);
 }
 
 // copy rx data in response and return the length
 // return -1 if error
-static int dot_exchange(uint8_t *response, uint32_t stream) {
+static int quic_exchange(uint8_t *response, uint32_t stream) {
 	assert(response);
 	(void) stream;
 
@@ -156,10 +156,10 @@ static int dot_exchange(uint8_t *response, uint32_t stream) {
 
 	if (arg_debug || arg_debug_transport) {
 		print_time();
-		printf("(%d) rx len %d dot\n", arg_id, total_len);
+		printf("(%d) rx len %d quic\n", arg_id, total_len);
 	}
 
-	dot_rx += 20 + 20 + 5 +  (int) ((float) total_len * 1.2); // ip + tcp + dot
+	quic_rx += 20 + 8 + 5 +  (int) ((float) total_len * 1.2); // ip + udp + quic
 
 	uint16_t len;
 	memcpy(&len, buf, 2);
@@ -169,7 +169,7 @@ static int dot_exchange(uint8_t *response, uint32_t stream) {
 
 	if ((arg_debug || arg_details) && first_query) {
 		printf("\n   Network trace:\n");
-		printf("-----> rx %d bytes: IP + TCP + TLS\n", 20 + 20 + 5 + (int) ((float) total_len * 1.2));
+		printf("-----> rx %d bytes: IP + UDP + QUIC\n", 20 + 8 + 5 + (int) ((float) total_len * 1.2));
 	}
 
 	if ((total_len - 2) > len) {
@@ -179,12 +179,12 @@ static int dot_exchange(uint8_t *response, uint32_t stream) {
 			goto errout;
 		if (arg_debug || arg_debug_transport) {
 			print_time();
-			printf("(%d) rx len %d dot\n", arg_id, total_len);
+			printf("(%d) rx len %d quic\n", arg_id, total_len);
 		}
 		total_len += newlen;
-		dot_rx += 20 + 20 + 5 + (int) ((float) newlen * 1.2); // ip + tcp + dot
+		quic_rx += 20 + 8 + 5 + (int) ((float) newlen * 1.2); // ip + udp + quic
 		if ((arg_debug || arg_details) && first_query)
-			printf("-----> rx %d bytes: IP + TCP + TLS\n", 20 + 20 + 5 + (int) ((float) newlen * 1.2));
+			printf("-----> rx %d bytes: IP + TCP + TLS\n", 20 + 8 + 5 + (int) ((float) newlen * 1.2));
 	}
 	if ((arg_debug || arg_details) && first_query)
 		printf("\n");
@@ -196,7 +196,7 @@ static int dot_exchange(uint8_t *response, uint32_t stream) {
 	if (arg_debug)
 		print_mem(buf + 2, len);
 
-	dot_rx_dns += 20 + 8 + len; // ip + tcp + dot + dns
+	quic_rx_dns += 20 + 8 + len; // ip + tcp + dot + dns
 
 	// copy response in buf_query_data
 	if (len != 0) {
@@ -207,9 +207,9 @@ static int dot_exchange(uint8_t *response, uint32_t stream) {
 
 errout:
 	if (arg_id > 0)
-		rlogprintf("Error: dot timeout\n");
+		rlogprintf("Error: doq timeout\n");
 	else
-		fprintf(stderr, "Error: dot timeout\n");
+		fprintf(stderr, "Error: doq timeout\n");
 	fflush(0);
 	if (ssl_state == SSL_OPEN)
 		ssl_close();

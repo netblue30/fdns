@@ -121,15 +121,17 @@ void shmem_store_stats(const char *proxy_addr) {
 		report->peer_ip[i] = stats.peer_ip[i];
 	}
 
-	char *transport = "DoH";
-	if (srv->transport && strstr(srv->transport, "dot"))
-		transport = "DoT";
+		char *transport = "DoH";
+		if (srv->transport && strstr(srv->transport, "dot"))
+			transport = "DoT";
+		else if (srv->transport && strstr(srv->transport, "quic"))
+			transport = "DoQ";
 	snprintf(report->header1, MAX_ENTRY_LEN,
 		 "%s %s %s (%s %.02lfms, %ds, %d/%d)",
 		 proxy_addr,
 		 srv->name,
 		 encstatus,
-		 transport,
+ 		 transport,
 		 stats.query_time,
 		 srv->keepalive,
 		 stats.restart_cnt, FORCE_RESTART_CNT * arg_resolvers);

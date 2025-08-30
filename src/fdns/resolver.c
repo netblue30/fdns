@@ -154,6 +154,7 @@ void resolver(void) {
 
 			// ssl keepalive:
 			// if any incoming data, probably is the session going down
+			// ... unless the protocol is quic!
 			if (ssl_status_check())
 				transport->exchange(buf, 0);
 
@@ -227,7 +228,7 @@ void resolver(void) {
 
 				struct sockaddr_in *addr_client = dnsdb_retrieve(i, buf);
 				if (!addr_client) {
-					rlogprintf("Warning: DNS over UDP request timeout\n");
+					rlogprintf("Warning: timeout request\n");
 					continue;
 				}
 				socklen_t addr_client_len = sizeof(struct sockaddr_in);
@@ -391,7 +392,7 @@ void resolver(void) {
 
 					struct sockaddr_in *addr_client = dnsdb_retrieve(0, buf);
 					if (!addr_client) {
-						rlogprintf("Warning: fwd DNS over UDP request timeout\n");
+						rlogprintf("Warning: fwd request timeout\n");
 						continue;
 					}
 					socklen_t addr_client_len = sizeof(struct sockaddr_in);

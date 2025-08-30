@@ -584,7 +584,7 @@ static int h2_exchange(uint8_t *response, uint32_t stream) {
 		int fd = ssl_get_socket();
 		FD_SET(fd, &readfds);
 		struct timeval timeout;
-		timeout.tv_sec = H2_TIMEOUT;
+		timeout.tv_sec = TRANSPORT_TIMEOUT;
 		timeout.tv_usec = 0;
 
 		int rv = select(fd + 1, &readfds, NULL, NULL, &timeout);

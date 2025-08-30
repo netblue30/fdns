@@ -32,6 +32,8 @@ void dns_set_transport(const char *tname) {
 		transport = &h11_transport;
 	else if (strcmp(tname, "dot") == 0)
 		transport = &dot_transport;
+	else if (strcmp(tname, "quic") == 0)
+		transport = &quic_transport;
 	else {
 		fprintf(stderr, "Error: DNS transport %s not supported\n", tname);
 		exit(1);

@@ -172,7 +172,11 @@ int main(int argc, char **argv) {
 				return 0;
 			}
 			else if (strcmp(argv[i], "--version") == 0) {
-				printf("FDNS version %s, %s\n", VERSION, OPENSSL_VERSION_TEXT);
+				printf("FDNS version %s. ", VERSION);
+				printf("The software was compiled against OpenSSL %s\n", OPENSSL_VERSION_STR);
+				printf("QUIC support: %s\n", (OPENSSL_VERSION_NUMBER >= 0x30500000)? "enabled": "disabled");
+				if (OPENSSL_VERSION_NUMBER < 0x30500000)
+					printf("Note: to add quic support you need an OpenSSL version 3.5 or up at compile time.\n");
 				return 0;
 			}
 

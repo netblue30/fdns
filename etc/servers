@@ -159,6 +159,15 @@ address: 94.140.15.15:853
 host: dns.adguard.com/
 end;
 
+# will drop the session in under 10 minutes
+#name: adguard-quic
+#website: https://adguard.com/en/adguard-dns/overview.html
+#tags: anycast, quic, adblocker, America, AsiaPacific, Europe
+#address: 94.140.15.15:853
+#host: dns.adguard.com/
+#keepalive: 24
+#end;
+
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, adblocker, America, AsiaPacific, Europe
@@ -747,6 +756,14 @@ address: 193.110.81.9:853
 host: zero.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
+
+#name: dns0eu-quic
+#website: https://dns0.eu
+#tags: quic, security, Europe
+#address: 193.110.81.9:853
+#host: zero.dns0.eu/
+#keepalive: 24
+#end;
 
 name: dns0eu-2
 website: https://dns0.eu
@@ -1518,6 +1535,15 @@ host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
 end;
 
+# dropping the session under heavy load
+#name: nextdns-quic
+#website: https://nextdns.io/
+#tags: quic, America, AsiaPacific, Europe
+#address: trr.dns.nextdns.io:853
+#host: trr.dns.nextdns.io/
+#keepalive: 24
+#end;
+
 name: nextdns2
 website: https://nextdns.io/
 tags: anycast, America, AsiaPacific, Europe
@@ -1770,7 +1796,7 @@ end;
 #name: quad9-dot
 #website: https://quad9.net
 #tags: dot, anycast, security, America, AsiaPacific, Europe
-#address: 9.9.9.9:863
+#address: 9.9.9.9:853
 #host: dns.quad9.net/
 #keepalive: 7
 #end;
@@ -1992,6 +2018,14 @@ tags: anycast, dot, America, AsiaPacific, Europe
 address: 194.169.169.169:853
 host: dns.surfsharkdns.com/
 keepalive: 7
+end;
+
+name: surfshark-quic
+website:https://dns.surfsharkdns.com
+tags: anycast, quic, America, AsiaPacific, Europe
+address: 194.169.169.169:853
+host: dns.surfsharkdns.com/
+keepalive:24
 end;
 
 name: sz-dns

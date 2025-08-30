@@ -107,9 +107,7 @@ static inline void extract_server(char *str) {
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
 
 // transport protocol timeout
-#define DOT_TIMEOUT 5 // wait time for DoT answer - will close the connection
-#define H11_TIMEOUT 5 // wait time for HTTP1 (DoH) answer - will close the connection
-#define H2_TIMEOUT 5 // wait time for HTTP2 (DoH) answer - will close the connection
+#define TRANSPORT_TIMEOUT 5 // wait time for a server answer - will close the connection
 
 // transport  keealive autodetection
 #define DNS_CONFIG_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
@@ -471,6 +469,9 @@ extern DnsTransport h11_transport;
 
 // dot.c
 extern DnsTransport dot_transport;
+
+// quic.c
+extern DnsTransport quic_transport;
 
 // stats.c
 void stats_add(const char *name, float qtime);
