@@ -636,7 +636,6 @@ DnsServer *server_get(void) {
 	// initialize s->active
 	server_list(arg_server);
 
-
 	// choose a random server
 	int cnt = count_active_servers();
 	DnsServer *s = random_server();
@@ -739,6 +738,12 @@ void server_set_custom(const char *url) {
 		s->host = strdup(url + 6); // skip dot://
 		s->tags = "dot";
 		s->transport = "dot";
+		dot_transport = 1;
+	}
+	else if (strncmp(url, "quic://", 7)  == 0) {
+		s->host = strdup(url + 7); // skip quic://
+		s->tags = "quic";
+		s->transport = "quic";
 		dot_transport = 1;
 	}
 	else

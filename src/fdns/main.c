@@ -221,7 +221,8 @@ int main(int argc, char **argv) {
 				arg_fd = atoi(argv[i] + 5);
 			else if (strncmp(argv[i], "--server=", 9) == 0) {
 				if (strncmp(argv[i] + 9, "https://", 8) == 0 ||
-				    strncmp(argv[i] + 9, "dot://", 6)  == 0)
+				    strncmp(argv[i] + 9, "dot://", 6)  == 0 ||
+				    strncmp(argv[i] + 9, "quic://", 7)  == 0)
 					server_set_custom(argv[i] + 9);
 				arg_server = strdup(argv[i] + 9);
 				if (!arg_server)
@@ -349,7 +350,8 @@ int main(int argc, char **argv) {
 				if (!arg_test_server)
 					errExit("strdup");
 				if (strncmp(argv[i] + 14, "https://", 8) == 0 ||
-				    strncmp(argv[i] + 14, "dot://", 6) == 0) {
+				    strncmp(argv[i] + 14, "dot://", 6) == 0 ||
+				    strncmp(argv[i] + 14, "quic://", 7) == 0) {
 					server_set_custom(argv[i] + 14);
 					server_test_tag(argv[i] + 14);
 				}
