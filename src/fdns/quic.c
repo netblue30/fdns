@@ -70,9 +70,9 @@ static void quic_header_stats(void) {
 
 // Do53 / DoH ratio
 static double quic_bandwidth(void) {
-	if (quic_rx_dns == 0)
+//	if (quic_rx_dns == 0)
 		return 0;
-	return (double) quic_rx / (double) quic_rx_dns;
+//	return (double) quic_rx / (double) quic_rx_dns;
 }
 
 static void quic_init(void) {

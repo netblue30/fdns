@@ -265,8 +265,7 @@ void ssl_open(void) {
 	fflush(0);
 	bio = BIO_new_ssl_connect(ctx);
 	BIO_get_ssl(bio, &ssl);
-	if (!quic)
-		SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);
+	SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);
 
 	// set connection and SNI
 	BIO_set_conn_hostname(bio, srv->address);
@@ -465,16 +464,29 @@ int ssl_tx(uint8_t *buf, int len) {
 	}
 
 	size_t lentx;
-	if (quic)
+
+	if (quic) {
 		quic_stream = SSL_new_stream(ssl, 0);	// transmit: create a new quic stream
-	SSL *stream = (quic)? quic_stream: ssl;
-	if (!SSL_write_ex(stream, buf, len, &lentx)) {
-		printf("Error: Failed to transmit the query\n");
-		goto errout;
-	}
-	if (quic)
+		if (!SSL_write_ex(quic_stream, buf, len, &lentx)) {
+			printf("Error: Failed to transmit the query\n");
+			goto errout;
+		}
 		SSL_stream_conclude(quic_stream, 0); // inform the server that's all that is
-	
+	}
+	else {
+		if((lentx = BIO_write(bio, buf, len)) <= 0) {
+			if(! BIO_should_retry(bio)) {
+				rlogprintf("Error: failed SSL write, retval %d\n", lentx);
+				goto errout;
+			}
+			if((lentx = BIO_write(bio, buf, len)) <= 0) {
+				rlogprintf("Error: failed SSL write, retval %d\n", lentx); \
+				goto errout;
+			}
+		}
+	}
+
+
 	return lentx;
 errout:
 	ssl_close();

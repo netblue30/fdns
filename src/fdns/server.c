@@ -408,7 +408,9 @@ static float test_server(const char *server_name)  {
 		printf("   %s query average: %.02f ms\n", transport->dns_type, average);
 		if (arg_details)
 			transport->header_stats();
-		printf("   %s/Do53 bandwidth ratio: %0.02f\n", transport->dns_type, transport->bandwidth());
+		double bdw = transport->bandwidth();
+		if (bdw != 0)
+			printf("   %s/Do53 bandwidth ratio: %0.02f\n", transport->dns_type, bdw);
 
 		fflush(0);
 		exit(0);

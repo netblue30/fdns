@@ -127,6 +127,14 @@ address: 94.140.14.140:853
 host: dns-unfiltered.adguard.com/
 end;
 
+name: adguard-unfiltered-quic
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: anycast, quic, America, AsiaPacific, Europe
+address: 94.140.14.140:853
+host: dns-unfiltered.adguard.com/
+keepalive: 24
+end;
+
 name: adguard-unfiltered2
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, America, AsiaPacific, Europe
@@ -141,6 +149,14 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, dot, America, AsiaPacific, Europe
 address: 94.140.14.141:853
 host: dns-unfiltered.adguard.com/
+end;
+
+name: adguard-unfiltered2-quic
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: anycast, quic, America, AsiaPacific, Europe
+address: 94.140.14.141:853
+host: dns-unfiltered.adguard.com/
+keepalive: 24
 end;
 
 name: adguard
@@ -159,14 +175,13 @@ address: 94.140.15.15:853
 host: dns.adguard.com/
 end;
 
-# will drop the session in under 10 minutes
-#name: adguard-quic
-#website: https://adguard.com/en/adguard-dns/overview.html
-#tags: anycast, quic, adblocker, America, AsiaPacific, Europe
-#address: 94.140.15.15:853
-#host: dns.adguard.com/
-#keepalive: 24
-#end;
+name: adguard-quic
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: anycast, quic, adblocker, America, AsiaPacific, Europe
+address: 94.140.15.15:853
+host: dns.adguard.com/
+keepalive: 24
+end;
 
 name: adguard2
 website: https://adguard.com/en/adguard-dns/overview.html
@@ -182,6 +197,14 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, dot, adblocker, America, AsiaPacific, Europe
 address: 94.140.14.14:853
 host: dns.adguard.com/dns-query
+end;
+
+name: adguard2-quic
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: anycast, quic, adblocker, America, AsiaPacific, Europe
+address: 94.140.14.14:853
+host: dns.adguard.com/
+keepalive: 24
 end;
 
 name: adguard-family
@@ -200,6 +223,14 @@ address: 94.140.15.16:853
 host: dns-family.adguard.com/
 end;
 
+name: adguard-family-quic
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: quic, family, America, AsiaPacific, Europe
+address: 94.140.15.16:853
+host: dns-family.adguard.com/
+keepalive: 24
+end;
+
 name: adguard-family2
 website: https://adguard.com/en/adguard-dns/overview.html
 tags: family, America, AsiaPacific, Europe
@@ -214,6 +245,14 @@ website: https://adguard.com/en/adguard-dns/overview.html
 tags: anycast, dot, family, America, AsiaPacific, Europe
 address: 94.140.14.15:853
 host: dns-family.adguard.com/
+end;
+
+name: adguard-family2-quic
+website: https://adguard.com/en/adguard-dns/overview.html
+tags: anycast, quic, family, America, AsiaPacific, Europe
+address: 94.140.14.15:853
+host: dns-family.adguard.com/
+keepalive: 24
 end;
 
 # unreliable
@@ -233,21 +272,21 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-#name: artikel10
-#website: https://dns.artikel10.org
-#tags: Netherlands, WesternEurope, Europe
-#address: 217.197.91.153:443
-#host: dns.artikel10.org/dns-query
-## server inactivity timer 65 seconds or higher
-#end;
+name: artikel10
+website: https://dns.artikel10.org
+tags: Netherlands, WesternEurope, Europe
+address: 217.197.91.153:443
+host: dns.artikel10.org/dns-query
+# server inactivity timer 65 seconds or higher
+end;
 
-#name: artikel10-dot
-#website: https://dns.artikel10.org
-#tags: dot, Netherlands, WesternEurope, Europe
-#address: 217.197.91.153:853
-#host: dns.artikel10.org/
-## server inactivity timer 65 seconds or higher
-#end;
+name: artikel10-dot
+website: https://dns.artikel10.org
+tags: dot, Netherlands, WesternEurope, Europe
+address: 217.197.91.153:853
+host: dns.artikel10.org/
+# server inactivity timer 65 seconds or higher
+end;
 
 # cloudflare redirect
 #name: asagiri
@@ -705,13 +744,13 @@ end;
 
 
 # cloudflare redirect
-#name: cynthialabs
-#website: https://cynthialabs.net/
-#tags: sni, adblocker, America, AsiaPacific, Europe
-#address: dns.cynthialabs.net:443
-#host: dns.cynthialabs.net/dns-query
-## server inactivity timer 65 seconds or higher
-#end;
+name: cynthialabs
+website: https://cynthialabs.net/
+tags: sni, adblocker, Europe
+address: dns.cynthialabs.net:443
+host: dns.cynthialabs.net/dns-query
+# server inactivity timer 65 seconds or higher
+end;
 
 name: data.haus
 website: https://data.haus/
