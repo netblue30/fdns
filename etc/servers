@@ -318,11 +318,26 @@ end;
 #host: internetsehat.bebasid.com/dns-query
 #end;
 
-name: blisdns
+name: blissdns
 website: https://blissdns.net/
 tags: adblocker, US, America
 address: 173.255.201.254:443
 host: us1.blissdns.net/dns-query
+end;
+
+#name: blissdns-dot
+#website: https://blissdns.net/
+#tags: dot, adblocker, US, America
+#address: 173.255.201.254:853
+#host: us1.blissdns.net/
+#end;
+
+name: blissdns-quic
+website: https://blissdns.net/
+tags: quic, adblocker, US, America
+address: 173.255.201.254:853
+host: us1.blissdns.net/
+keepalive: 24
 end;
 
 name: blokada-dns
@@ -347,6 +362,14 @@ website: https://dns.brahma.world/
 tags: adblocker, Sweden, Europe
 address: 157.90.124.62:443
 host: dns.brahma.world/dns-query
+end;
+
+name: brahmaworld-quic
+website: https://dns.brahma.world/
+tags: quic, adblocker, Sweden, Europe
+address: 157.90.124.62:853
+host: dns.brahma.world/dns-query
+keepalive: 24
 end;
 
 # redirected (probably) to cloudflare
@@ -952,6 +975,23 @@ host: doh.dns.sb/dns-query
 # server inactivity timer 60 seconds or higher
 end;
 
+name: dns-sb1
+website: https://dns.sb/doh
+tags: sni, Belgium, WesternEurope, Europe
+address: 185.222.222.222:443
+host: doh.dns.sb/dns-query
+# server inactivity timer 60 seconds or higher
+end;
+
+# very low keepalive
+#name: dns-sb1-dot
+#website: https://dns.sb/doh
+#tags: dot, Belgium, WesternEurope, Europe
+#address: 185.222.222.222:853
+#host: dot.sb/
+## server inactivity timer 60 seconds or higher
+#end;
+
 name: dns-sb2
 website: https://dns.sb/doh
 tags: sni, Belgium, WesternEurope, Europe
@@ -959,6 +999,15 @@ address: 45.11.45.11:443
 host: doh.dns.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
+
+# very low keepalive
+#name: dns-sb2-dot
+#website: https://dns.sb/doh
+#tags: dot, Belgium, WesternEurope, Europe
+#address: 45.11.45.11:853
+#host: dot.sb/
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: dns-sb-de1
 website: https://dns.sb/doh
@@ -1266,6 +1315,14 @@ website: https://www.dynx.pro
 tags: adblocker, Europe, Germany
 address: 195.26.26.23:443
 host: dns.dynx.pro/dns-query
+end;
+
+name: dynx-quic
+website: https://www.dynx.pro
+tags: quic, adblocker, Europe, Germany
+address: 195.26.26.23:853
+host: dns.dynx.pro/dns-query
+keepalive: 24
 end;
 
 name: dynx-family
@@ -1631,11 +1688,27 @@ address: 220.84.185.202:443
 host: 1.dns.noridev.moe/dns-query
 end;
 
+name: noridev-quic
+website:https://adblock.noridev.moe/html/dns_android.html
+tags: quic, adblocker, Korea, AsiaPacific, FarEast
+address: 220.84.185.202:853
+host: 1.dns.noridev.moe/dns-query
+keepalive: 24
+end;
+
 name: noridev2
 website:https://adblock.noridev.moe/html/dns_android.html
 tags: adblocker, Korea, AsiaPacific, FarEast
 address: 112.163.234.84:443
 host: 2.dns.noridev.moe/dns-query
+end;
+
+name: noridev2-quic
+website:https://adblock.noridev.moe/html/dns_android.html
+tags: quic, adblocker, Korea, AsiaPacific, FarEast
+address: 112.163.234.84:853
+host: 2.dns.noridev.moe/dns-query
+keepalive: 24
 end;
 
 name: nwps-family
@@ -1727,61 +1800,19 @@ address: dns.paesa.es:443
 host: dns.paesa.es/dns-query
 end;
 
-#name: privacy-dns-luxembourg
-#tags: adblocker, Europe, WesternEurope, Luxembourg
-#website: https://privacy-dns.pw/
-#address: 104.244.79.116:443
-#host: luxembourg.privacy-dns.pw/dns-query
-#end;
-#
-#name: privacy-dns-lasvegas
-#tags: adblocker, US, America
-#website: https://privacy-dns.pw/
-#address: 205.185.127.120:443
-#host: las-vegas.privacy-dns.pw/dns-query
-#end;
-#
-#name: privacy-dns-hungary
-#tags: adblocker, Europe, Hungary
-#website: https://privacy-dns.pw/
-#address: 5.181.77.105:443
-#host: hungary.privacy-dns.pw/dns-query
-#end;
-#
-#name: privacy-dns-romania
-#tags: adblocker, Europe, Romania
-#website: https://privacy-dns.pw/
-#address: 45.82.102.33:443
-#host: romania.privacy-dns.pw/dns-query
-#end;
-#
-#name: privacy-dns-sweden
-#tags: adblocker, Europe, Sweden
-#website: https://privacy-dns.pw/
-#address: 31.192.244.132:443
-#host: sweden.privacy-dns.pw/dns-query
-#end;
-#
-#name: privacy-dns-switzerland
-#tags: adblocker, Europe, Switzerland
-#website: https://privacy-dns.pw/
-#address: 194.87.18.80:443
-#host: switzerland.privacy-dns.pw/dns-query
-#end;
-#
-#name: privacy-dns-uae
-#tags: adblocker, Europe, UnitedArabEmirates, MiddleEast
-#website: https://privacy-dns.pw/
-#address: 188.208.110.144:443
-#host: united-arab-emirates.privacy-dns.pw/dns-query
-#end;
-#
-#name: privacy-dns-india
-#tags: adblocker, India, AsiaPacific
-#website: https://privacy-dns.pw/
-#address: 86.107.100.200:443
-#host: india.privacy-dns.pw/dns-query
-#end;
+name: privacy-dns-luxembourg
+tags: sni, adblocker, Europe, WesternEurope, Luxembourg
+website: https://privacy-dns.pw/
+address: 104.244.79.116:443
+host: luxembourg.privacy-dns.pw/dns-query
+end;
+
+name: privacy-dns-lasvegas
+tags: sni, adblocker, US, America
+website: https://privacy-dns.pw/
+address: 205.185.127.120:443
+host: las-vegas.privacy-dns.pw/dns-query
+end;
 
 name: privex-nl
 website: https://www.privex.io/articles/public-infra
@@ -1809,6 +1840,14 @@ website: https://qquack.org/nameserver/
 tags: Korea, AsiaPacific, FarEast
 address: ns1.qquack.org:443
 host: ns1.qquack.org/dns-query
+end;
+
+name: qquackdns-quic
+website: https://qquack.org/nameserver/
+tags: quic, Korea, AsiaPacific, FarEast
+address: ns1.qquack.org:784
+host: ns1.qquack.org/dns-query
+keepalive: 24
 end;
 
 #name: quadrantsec
@@ -2218,6 +2257,14 @@ website: https://zdn.ro
 tags: adblocker, Romania, Europe
 address: 89.43.174.10:443
 host: zdn.ro/dns-query
+end;
+
+name: zdn-quic
+website: https://zdn.ro
+tags: quic, adblocker, Romania, Europe
+address: 89.43.174.10:853
+host: zdn.ro/dns-query
+keepalive: 24
 end;
 
 ##################################################
