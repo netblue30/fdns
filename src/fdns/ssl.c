@@ -52,28 +52,22 @@ int ssl_test_open(void)  {
 	}
 
 	// wait for the child to finish
-	int i = 0;
-	do {
+	int i;
+	for (i = 0; i < (TRANSPORT_TIMEOUT * 10); i++) {
 		int status = 0;
 		pid_t rv = waitpid(child, &status, WNOHANG);
 		if (rv == child) {
-			if (WIFEXITED(status) && WEXITSTATUS(status) == 1) {
-				printf(" Error: SSL connect test failed\n");
-				fflush(0);
+			if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
 				return 0;
-			}
 			break;
 		}
-
-		sleep(1);
-		i++;
+		usleep(100000);
 	}
-	while (i < TRANSPORT_TIMEOUT); // 5 seconds test
-
+	
 	kill(child, SIGKILL);
 	usleep(10000);
 
-	if (i >= TRANSPORT_TIMEOUT)
+	if (i >= (TRANSPORT_TIMEOUT * 10))
 		return 0;
 	return 1;
 }
@@ -194,11 +188,11 @@ void ssl_open(void) {
 		printf("%d: opening ssl connection\n", arg_id);
 	fflush(0);
 
-	if (strstr(srv->transport, "dot")) {
+	if (strcmp(srv->transport, "dot") == 0) {
 		dns_set_transport("dot");
 		dot = 1;
 	}
-	else if (strstr(srv->transport, "quic")) {
+	else if (strcmp(srv->transport, "quic") == 0) {
 		dns_set_transport("quic");
 		quic = 1;
 	}

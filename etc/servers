@@ -1312,14 +1312,14 @@ end;
 
 name: dynx
 website: https://www.dynx.pro
-tags: adblocker, Europe, Germany
+tags: adblocker, Germany, Europe
 address: 195.26.26.23:443
 host: dns.dynx.pro/dns-query
 end;
 
 name: dynx-quic
 website: https://www.dynx.pro
-tags: quic, adblocker, Europe, Germany
+tags: quic, adblocker, Germany, Europe
 address: 195.26.26.23:853
 host: dns.dynx.pro/dns-query
 keepalive: 24
@@ -1631,7 +1631,7 @@ host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
 end;
 
-# dropping the session under heavy load
+# quic not supported on trr???
 #name: nextdns-quic
 #website: https://nextdns.io/
 #tags: quic, America, AsiaPacific, Europe
@@ -1648,6 +1648,16 @@ host: anycast.dns1.nextdns.io/
 # server inactivity timer 65 seconds or higher
 keepalive: 50
 end;
+
+# dropping quic connection after a small number of request
+#name: nextdns2-quic
+#website: https://nextdns.io/
+#tags: quic, America, AsiaPacific, Europe
+#address: 45.90.28.0:853
+#host: anycast.dns1.nextdns.io/
+#keepalive: 24
+#end;
+
 
 name: nextdns2-dot
 website: https://nextdns.io/
@@ -1846,7 +1856,7 @@ name: qquackdns-quic
 website: https://qquack.org/nameserver/
 tags: quic, Korea, AsiaPacific, FarEast
 address: ns1.qquack.org:784
-host: ns1.qquack.org/dns-query
+host: ns1.qquack.org/
 keepalive: 24
 end;
 
@@ -2152,7 +2162,7 @@ end;
 
 name: tridns-sg
 website: https://dns.triro.net
-tags: h2ping, Singapore, AsiaPacific
+tags: h2ping, Singapore, AsiaPacific. FarEast
 address: 185.111.159.59:443
 host: asia.tri-dns.net/dns-query
 keepalive: 7
@@ -2167,6 +2177,29 @@ tags: sni, AsiaPacific
 address: doh.tiarap.org:443
 host: doh.tiarap.org/dns-query
 # server inactivity timer 65 seconds or higher
+end;
+
+name: tiarap2
+website: https://doh.tiarap.org
+tags: Singapore, FarEast, AsiaPacific
+address: 174.138.29.175:443
+host: doh.tiar.app/dns-query
+# server inactivity timer 65 seconds or higher
+end;
+
+name: tiarap2-dot
+website: https://doh.tiarap.org
+tags: dot, Singapore, FarEast, AsiaPacific
+address: 174.138.29.175:853
+host: doh.tiar.app/
+end;
+
+name: tiarap2-quic
+website: https://doh.tiarap.org
+tags: quic, Singapore, FarEast, AsiaPacific
+address: 174.138.29.175:853
+host: doh.tiar.app/
+keepalive: 24
 end;
 
 #name: twnic
@@ -2695,7 +2728,7 @@ host: llk01.dnscry.pt/
 end;
 
 #name: dnscrypt-singapore02
-#tags: dot, Singapore, AsiaPacific
+#tags: dot, Singapore, AsiaPacific, FarEast
 #website: https://www.dnscry.pt
 #address: 103.179.44.73:853
 #host: sin02.dnscry.pt/
@@ -2912,7 +2945,7 @@ host: dus01.dnscry.pt/
 end;
 
 name: dnscrypt-singapore
-tags: dot, Singapore, AsiaPacific
+tags: dot, Singapore, AsiaPacific, FarEast
 website: https://www.dnscry.pt
 address: 157.20.105.115:853
 host: sin03.dnscry.pt/

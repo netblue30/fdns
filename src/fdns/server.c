@@ -369,6 +369,8 @@ static float test_server(const char *server_name)  {
 		fflush(0);
 
 		timetrace_start();
+		if (strcmp(s->transport, "quic") == 0)
+			 ssl_test_open();
 		ssl_open();
 		if (ssl_state == SSL_CLOSED) {
 			fprintf(stderr, "   Error: cannot open SSL connection to server %s\n", arg_server);
