@@ -145,8 +145,8 @@ void resolver(void) {
 			// processing stats
 			if (--console_printout_cnt <= 0) {
 				if (stats.changed) {
-					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %.02lf %d\n",
-						   stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd,
+					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, qps %u, %.02lf %d\n",
+						   stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd, stats.qps_drop,
 						   stats.query_time,
 						   srv->keepalive);
 					stats.changed = 0;
@@ -266,8 +266,10 @@ void resolver(void) {
 			}
 			stats.rx++;
 			stats.changed = 1;
-			if (++qps > MAX_QPS)
+			if (++qps > MAX_QPS) {
+				stats.qps_drop++;
 				continue;
+			}
 
 			// filter incoming requests
 			DnsDestination dest;

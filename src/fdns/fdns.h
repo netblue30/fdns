@@ -175,6 +175,7 @@ typedef struct stats_t {
 
 	// restart cnt
 	int restart_cnt;
+	unsigned qps_drop;
 } Stats;
 
 typedef struct dnsserver_t {

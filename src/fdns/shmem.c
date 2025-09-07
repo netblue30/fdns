@@ -137,12 +137,13 @@ void shmem_store_stats(const char *proxy_addr) {
 		 stats.restart_cnt, FORCE_RESTART_CNT * arg_resolvers);
 
 	snprintf(report->header2, MAX_ENTRY_LEN,
-		 "requests %u, drop %u, cache %u, fwd %u, fallback %u",
+		 "requests %u, drop %u, cache %u, fwd %u, fallback %u, qps-drop %u",
 		 stats.rx,
 		 stats.drop,
 		 stats.cached,
 		 stats.fwd,
-		 stats.fallback);
+		 stats.fallback,
+		 stats.qps_drop);
 
 	fflush(0);
 

@@ -439,12 +439,13 @@ void frontend(void) {
 					if (strncmp(msg.buf, "Stats: ", 7) == 0) {
 						Stats s;
 						int k;
-						sscanf(msg.buf, "Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %lf %d",
+						sscanf(msg.buf, "Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, qps %u, %lf %d",
 						       &s.rx,
 						       &s.drop,
 						       &s.fallback,
 						       &s.cached,
 						       &s.fwd,
+						       &s.qps_drop,
 						       &s.query_time,
 						       &k);
 						// keepalive autodetection
@@ -456,6 +457,7 @@ void frontend(void) {
 						stats.fallback += s.fallback;
 						stats.cached += s.cached;
 						stats.fwd += s.fwd;
+						stats.qps_drop += s.qps_drop;
 						if (s.query_time && stats.query_time == 0)
 							stats.query_time = s.query_time;
 						else if (s.query_time) {
