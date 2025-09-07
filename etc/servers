@@ -819,13 +819,13 @@ host: zero.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
 
-#name: dns0eu-quic
-#website: https://dns0.eu
-#tags: quic, security, Europe
-#address: 193.110.81.9:853
-#host: zero.dns0.eu/
-#keepalive: 24
-#end;
+name: dns0eu-quic
+website: https://dns0.eu
+tags: quic, security, Europe
+address: 193.110.81.9:853
+host: zero.dns0.eu/
+keepalive: 24
+end;
 
 name: dns0eu-2
 website: https://dns0.eu
@@ -841,6 +841,14 @@ tags: dot, security, Europe
 address: 185.253.5.9:853
 host: zero.dns0.eu/
 # server inactivity timer 65 seconds or higher
+end;
+
+name: dns0eu-quic2
+website: https://dns0.eu
+tags: quic, security, Europe
+address: 185.253.5.9:853
+host: zero.dns0.eu/
+keepalive: 24
 end;
 
 name: dns0eu-family
@@ -859,6 +867,14 @@ host: kids.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
 
+name: dns0eu-family-quic
+website: https://dns0.eu
+tags: quic, family, Europe
+address: 193.110.81.1:853
+host: kids.dns0.eu/
+keepalive: 24
+end;
+
 name: dns0eu-family-2
 website: https://dns0.eu
 tags: family, Europe
@@ -873,6 +889,14 @@ tags: dot, family, Europe
 address: 185.253.5.1:853
 host: kids.dns0.eu/
 # server inactivity timer 65 seconds or higher
+end;
+
+name: dns0eu-family-quic2
+website: https://dns0.eu
+tags: quic, family, Europe
+address: 185.253.5.1:853
+host: kids.dns0.eu/
+keepalive: 24
 end;
 
 name: dns4me-ca1
