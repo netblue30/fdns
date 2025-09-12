@@ -332,13 +332,13 @@ end;
 #host: us1.blissdns.net/
 #end;
 
-name: blissdns-quic
-website: https://blissdns.net/
-tags: quic, adblocker, US, America
-address: 173.255.201.254:853
-host: us1.blissdns.net/
-keepalive: 24
-end;
+#name: blissdns-quic
+#website: https://blissdns.net/
+#tags: quic, adblocker, US, America
+#address: 173.255.201.254:853
+#host: us1.blissdns.net/
+#keepalive: 24
+#end;
 
 name: blokada-dns
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
@@ -364,13 +364,13 @@ address: 157.90.124.62:443
 host: dns.brahma.world/dns-query
 end;
 
-name: brahmaworld-quic
-website: https://dns.brahma.world/
-tags: quic, adblocker, Sweden, Europe
-address: 157.90.124.62:853
-host: dns.brahma.world/dns-query
-keepalive: 24
-end;
+#name: brahmaworld-quic
+#website: https://dns.brahma.world/
+#tags: quic, adblocker, Sweden, Europe
+#address: 157.90.124.62:853
+#host: dns.brahma.world/dns-query
+#keepalive: 24
+#end;
 
 # redirected (probably) to cloudflare
 name: bravedns
@@ -819,13 +819,13 @@ host: zero.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns0eu-quic
-website: https://dns0.eu
-tags: quic, security, Europe
-address: 193.110.81.9:853
-host: zero.dns0.eu/
-keepalive: 24
-end;
+#name: dns0eu-quic
+#website: https://dns0.eu
+#tags: quic, security, Europe
+#address: 193.110.81.9:853
+#host: zero.dns0.eu/
+#keepalive: 24
+#end;
 
 name: dns0eu-2
 website: https://dns0.eu
@@ -843,13 +843,13 @@ host: zero.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns0eu-quic2
-website: https://dns0.eu
-tags: quic, security, Europe
-address: 185.253.5.9:853
-host: zero.dns0.eu/
-keepalive: 24
-end;
+#name: dns0eu-quic2
+#website: https://dns0.eu
+#tags: quic, security, Europe
+#address: 185.253.5.9:853
+#host: zero.dns0.eu/
+#keepalive: 24
+#end;
 
 name: dns0eu-family
 website: https://dns0.eu
@@ -867,13 +867,13 @@ host: kids.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns0eu-family-quic
-website: https://dns0.eu
-tags: quic, family, Europe
-address: 193.110.81.1:853
-host: kids.dns0.eu/
-keepalive: 24
-end;
+#name: dns0eu-family-quic
+#website: https://dns0.eu
+#tags: quic, family, Europe
+#address: 193.110.81.1:853
+#host: kids.dns0.eu/
+#keepalive: 24
+#end;
 
 name: dns0eu-family-2
 website: https://dns0.eu
@@ -891,13 +891,13 @@ host: kids.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns0eu-family-quic2
-website: https://dns0.eu
-tags: quic, family, Europe
-address: 185.253.5.1:853
-host: kids.dns0.eu/
-keepalive: 24
-end;
+#name: dns0eu-family-quic2
+#website: https://dns0.eu
+#tags: quic, family, Europe
+#address: 185.253.5.1:853
+#host: kids.dns0.eu/
+#keepalive: 24
+#end;
 
 name: dns4me-ca1
 website: https://dns4me.net/
@@ -1341,13 +1341,13 @@ address: 195.26.26.23:443
 host: dns.dynx.pro/dns-query
 end;
 
-name: dynx-quic
-website: https://www.dynx.pro
-tags: quic, adblocker, Germany, Europe
-address: 195.26.26.23:853
-host: dns.dynx.pro/dns-query
-keepalive: 24
-end;
+#name: dynx-quic
+#website: https://www.dynx.pro
+#tags: quic, adblocker, Germany, Europe
+#address: 195.26.26.23:853
+#host: dns.dynx.pro/dns-query
+#keepalive: 24
+#end;
 
 name: dynx-family
 website: https://www.dynx.pro
@@ -1722,13 +1722,13 @@ address: 220.84.185.202:443
 host: 1.dns.noridev.moe/dns-query
 end;
 
-name: noridev-quic
-website:https://adblock.noridev.moe/html/dns_android.html
-tags: quic, adblocker, Korea, AsiaPacific, FarEast
-address: 220.84.185.202:853
-host: 1.dns.noridev.moe/dns-query
-keepalive: 24
-end;
+#name: noridev-quic
+#website:https://adblock.noridev.moe/html/dns_android.html
+#tags: quic, adblocker, Korea, AsiaPacific, FarEast
+#address: 220.84.185.202:853
+#host: 1.dns.noridev.moe/dns-query
+#keepalive: 24
+#end;
 
 name: noridev2
 website:https://adblock.noridev.moe/html/dns_android.html
@@ -1737,13 +1737,13 @@ address: 112.163.234.84:443
 host: 2.dns.noridev.moe/dns-query
 end;
 
-name: noridev2-quic
-website:https://adblock.noridev.moe/html/dns_android.html
-tags: quic, adblocker, Korea, AsiaPacific, FarEast
-address: 112.163.234.84:853
-host: 2.dns.noridev.moe/dns-query
-keepalive: 24
-end;
+#name: noridev2-quic
+#website:https://adblock.noridev.moe/html/dns_android.html
+#tags: quic, adblocker, Korea, AsiaPacific, FarEast
+#address: 112.163.234.84:853
+#host: 2.dns.noridev.moe/dns-query
+#keepalive: 24
+#end;
 
 name: nwps-family
 website:https://niko.nwps.fi
@@ -1876,13 +1876,13 @@ address: ns1.qquack.org:443
 host: ns1.qquack.org/dns-query
 end;
 
-name: qquackdns-quic
-website: https://qquack.org/nameserver/
-tags: quic, Korea, AsiaPacific, FarEast
-address: ns1.qquack.org:784
-host: ns1.qquack.org/
-keepalive: 24
-end;
+#name: qquackdns-quic
+#website: https://qquack.org/nameserver/
+#tags: quic, Korea, AsiaPacific, FarEast
+#address: ns1.qquack.org:784
+#host: ns1.qquack.org/
+#keepalive: 24
+#end;
 
 #name: quadrantsec
 #website: https://www.quadrantsec.com/post/public-dns-resolver-with-tls-https-support
@@ -2132,13 +2132,13 @@ host: dns.surfsharkdns.com/
 keepalive: 7
 end;
 
-name: surfshark-quic
-website:https://dns.surfsharkdns.com
-tags: anycast, quic, America, AsiaPacific, Europe
-address: 194.169.169.169:853
-host: dns.surfsharkdns.com/
-keepalive:24
-end;
+#name: surfshark-quic
+#website:https://dns.surfsharkdns.com
+#tags: anycast, quic, America, AsiaPacific, Europe
+#address: 194.169.169.169:853
+#host: dns.surfsharkdns.com/
+#keepalive:24
+#end;
 
 name: sz-dns
 tags:  America, AsiaPacific, Europe
@@ -2218,13 +2218,13 @@ address: 174.138.29.175:853
 host: doh.tiar.app/
 end;
 
-name: tiarap2-quic
-website: https://doh.tiarap.org
-tags: quic, Singapore, FarEast, AsiaPacific
-address: 174.138.29.175:853
-host: doh.tiar.app/
-keepalive: 24
-end;
+#name: tiarap2-quic
+#website: https://doh.tiarap.org
+#tags: quic, Singapore, FarEast, AsiaPacific
+#address: 174.138.29.175:853
+#host: doh.tiar.app/
+#keepalive: 24
+#end;
 
 #name: twnic
 #website: https://101.101.101.101/index_en.html
@@ -2316,13 +2316,13 @@ address: 89.43.174.10:443
 host: zdn.ro/dns-query
 end;
 
-name: zdn-quic
-website: https://zdn.ro
-tags: quic, adblocker, Romania, Europe
-address: 89.43.174.10:853
-host: zdn.ro/dns-query
-keepalive: 24
-end;
+#name: zdn-quic
+#website: https://zdn.ro
+#tags: quic, adblocker, Romania, Europe
+#address: 89.43.174.10:853
+#host: zdn.ro/dns-query
+#keepalive: 24
+#end;
 
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt
