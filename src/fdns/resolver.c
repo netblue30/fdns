@@ -88,6 +88,7 @@ void resolver(void) {
 	struct timeval t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
 	int frontend_keepalive_cnt = 0;
+	int qps = 0; // imposing a queries per second limit of MAX_QPS
 	while (1) {
 #ifdef HAVE_GCOV
 		__gcov_flush();
@@ -132,6 +133,8 @@ void resolver(void) {
 		// one second timeout
 		//***********************************************
 		else if (rv == 0) {
+			qps = 0; // reset queries per second counter
+			
 			// attempting to detect the computer coming out of sleep mode
 			time_t ts = time(NULL);
 			if (ts - timestamp > OUT_OF_SLEEP) {
@@ -142,8 +145,8 @@ void resolver(void) {
 			// processing stats
 			if (--console_printout_cnt <= 0) {
 				if (stats.changed) {
-					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, %.02lf %d\n",
-						   stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd,
+					rlogprintf("Stats: rx %u, dropped %u, fallback %u, cached %u, fwd %u, qps %u, %.02lf %d\n",
+						   stats.rx, stats.drop, stats.fallback, stats.cached, stats.fwd, stats.qps_drop,
 						   stats.query_time,
 						   srv->keepalive);
 					stats.changed = 0;
@@ -154,6 +157,7 @@ void resolver(void) {
 
 			// ssl keepalive:
 			// if any incoming data, probably is the session going down
+			// ... unless the protocol is quic!
 			if (ssl_status_check())
 				transport->exchange(buf, 0);
 
@@ -227,7 +231,7 @@ void resolver(void) {
 
 				struct sockaddr_in *addr_client = dnsdb_retrieve(i, buf);
 				if (!addr_client) {
-					rlogprintf("Warning: DNS over UDP request timeout\n");
+					rlogprintf("Warning: timeout request\n");
 					continue;
 				}
 				socklen_t addr_client_len = sizeof(struct sockaddr_in);
@@ -262,6 +266,10 @@ void resolver(void) {
 			}
 			stats.rx++;
 			stats.changed = 1;
+			if (++qps > MAX_QPS) {
+				stats.qps_drop++;
+				continue;
+			}
 
 			// filter incoming requests
 			DnsDestination dest;
@@ -391,7 +399,7 @@ void resolver(void) {
 
 					struct sockaddr_in *addr_client = dnsdb_retrieve(0, buf);
 					if (!addr_client) {
-						rlogprintf("Warning: fwd DNS over UDP request timeout\n");
+						rlogprintf("Warning: fwd request timeout\n");
 						continue;
 					}
 					socklen_t addr_client_len = sizeof(struct sockaddr_in);

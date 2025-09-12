@@ -107,9 +107,7 @@ static inline void extract_server(char *str) {
 #define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
 
 // transport protocol timeout
-#define DOT_TIMEOUT 5 // wait time for DoT answer - will close the connection
-#define H11_TIMEOUT 5 // wait time for HTTP1 (DoH) answer - will close the connection
-#define H2_TIMEOUT 5 // wait time for HTTP2 (DoH) answer - will close the connection
+#define TRANSPORT_TIMEOUT 5 // wait time for a server answer - will close the connection
 
 // transport  keealive autodetection
 #define DNS_CONFIG_KEEPALIVE_MIN 5 // transport keepalive (PING) min value in seconds for --keepalive option
@@ -137,6 +135,7 @@ static inline void extract_server(char *str) {
 #define RESOLVERS_CNT_DEFAULT 2
 #define DEFAULT_PROXY_ADDR "127.1.1.1"
 #define MAX_FALLBACK_POOL 8	// fallback socket pool size
+#define MAX_QPS 10 // max number of queries per second enforced by each resolver
 
 // filesystem paths
 #define PATH_FDNS (PREFIX "/bin/fdns")
@@ -176,6 +175,7 @@ typedef struct stats_t {
 
 	// restart cnt
 	int restart_cnt;
+	unsigned qps_drop;
 } Stats;
 
 typedef struct dnsserver_t {
@@ -471,6 +471,9 @@ extern DnsTransport h11_transport;
 
 // dot.c
 extern DnsTransport dot_transport;
+
+// quic.c
+extern DnsTransport quic_transport;
 
 // stats.c
 void stats_add(const char *name, float qtime);

@@ -181,7 +181,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 	(void) stream;
 
 	char buf[MAXBUF];
-	int total_len = ssl_rx_timeout((uint8_t *) buf, MAXBUF, H11_TIMEOUT);
+	int total_len = ssl_rx_timeout((uint8_t *) buf, MAXBUF, TRANSPORT_TIMEOUT);
 	if (total_len == 0)
 		goto errout;
 
@@ -243,7 +243,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 
 	// give it another chance
 	if ((hlen + datalen) > total_len) {
-		int len = ssl_rx_timeout((uint8_t *) buf + hlen, MAXBUF - hlen, H11_TIMEOUT);
+		int len = ssl_rx_timeout((uint8_t *) buf + hlen, MAXBUF - hlen, TRANSPORT_TIMEOUT);
 		if (len == 0)
 			goto errout;
 		total_len += len;

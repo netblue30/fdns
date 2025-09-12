@@ -42,7 +42,7 @@ static void procs_dir_cleanup(void) {
 		if (asprintf(&fname, "/proc/%s", entry->d_name) == -1)
 			errExit("asprintf");
 		if (access(fname, R_OK)) {
-			printf("cleaning %s\n", entry->d_name);
+			printf("cleaning %s process\n", entry->d_name);
 			fflush(0);
 
 			char *runfname;
