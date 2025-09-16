@@ -81,7 +81,7 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 
 <h2>Development release 0.9.75:</h2>
 
-Introducing DNS over QUIC support on a small number of servers, both adblocker and family flavours:
+Introducing DNS over QUIC support on a small number of servers, both adblocker and family flavors:
 `````
 $ fdns --list=quic
 Current zone: America
