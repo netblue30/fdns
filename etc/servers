@@ -1240,19 +1240,20 @@ host: hard.dnsforge.de/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dnsguard
-website: https:/dnsguard.pub
-tags: adblocker, Germany, Europe
-address: 179.61.253.223:443
-host: dnsguard.pub/dns-query
-end;
-
-name: dnsguard2
-website: https:/dnsguard.pub
-tags: adblocker, Germany, Europe
-address: 181.214.231.96:443
-host: dnsguard.pub/dns-query
-end;
+# Sept 14: service migrating to a new server
+#name: dnsguard
+#website: https:/dnsguard.pub
+#tags: adblocker, Germany, Europe
+#address: 179.61.253.223:443
+#host: dnsguard.pub/dns-query
+#end;
+#
+#name: dnsguard2
+#website: https:/dnsguard.pub
+#tags: adblocker, Germany, Europe
+#address: 181.214.231.96:443
+#host: dnsguard.pub/dns-query
+#end;
 
 name: dnslow
 website: https://dnslow.me/
@@ -1500,6 +1501,7 @@ website: https://libredns.gr/
 tags: Germany, Europe
 address: 116.202.176.26:443
 host: doh.libredns.gr/dns-query
+keepalive: 7
 end;
 
 name: libredns-adblocker
@@ -1507,6 +1509,7 @@ website: https://libredns.gr/
 tags: Germany, Europe, adblocker
 address: 116.202.176.26:443
 host: doh.libredns.gr/noads
+keepalive: 7
 end;
 
 #name: marbled
@@ -1848,13 +1851,20 @@ address: 205.185.127.120:443
 host: las-vegas.privacy-dns.pw/dns-query
 end;
 
-name: privex-nl
-website: https://www.privex.io/articles/public-infra
-tags: sni, Netherlands, WesternEurope, Europe
-address: 185.130.47.20:443
-host: nl.dns.privex.io/
-end;
-
+#name: privex-se
+#website: https://www.privex.io/articles/public-infra
+#tags: sni, Sweden, WesternEurope, Europe
+#address: 185.130.44.20:443
+#host: se.dns.privex.io/
+#end;
+#
+#name: privex-nl
+#website: https://www.privex.io/articles/public-infra
+#tags: sni, Netherlands, WesternEurope, Europe
+#address: 185.130.47.20:443
+#host: nl.dns.privex.io/
+#end;
+#
 #name: privex-de
 #website: https://www.privex.io/articles/public-infra
 #tags: sni, Germany, Europe

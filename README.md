@@ -58,6 +58,7 @@ cd fdns
 make
 sudo make install
 (to uninstall) sudo make uninstall
+(to update the repo) git submodule update --remote --merge
 `````
 
 <div style="height:20px;">&nbsp;</div>
@@ -80,6 +81,52 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 
 <h2>Development release 0.9.75:</h2>
 
-When you clone the project please run `````git clone --recursive https://github.com/netblue30/fdns`````
+Introducing DNS over QUIC support on a small number of servers, both adblocker and family flavours:
+`````
+$ fdns --list=quic
+Current zone: America
+adguard-unfiltered-quic - anycast, quic, America, AsiaPacific, Europe
+	https://adguard.com/en/adguard-dns/overview.html
+adguard-unfiltered2-quic - anycast, quic, America, AsiaPacific, Europe
+	https://adguard.com/en/adguard-dns/overview.html
+adguard-quic - anycast, quic, adblocker, America, AsiaPacific, Europe
+	https://adguard.com/en/adguard-dns/overview.html
+adguard2-quic - anycast, quic, adblocker, America, AsiaPacific, Europe
+	https://adguard.com/en/adguard-dns/overview.html
+4 servers found
+
+$ fdns --list=family
+Current zone: America
+[...]
+adguard-family-quic - quic, family, America, AsiaPacific, Europe
+	https://adguard.com/en/adguard-dns/overview.html
+adguard-family2-quic - anycast, quic, family, America, AsiaPacific, Europe
+	https://adguard.com/en/adguard-dns/overview.html
+[...]
+`````
+A short comparison of DoH, DoT, and DoQ:
+`````
+$ fdns --test-server
+Current zone: America
+
+Testing server adguard-unfiltered
+   Tags: anycast, America, AsiaPacific, Europe
+   SSL/TLS connection: 122.96 ms
+   DoH query average: 22.22 ms
+   DoH/Do53 bandwidth ratio: 2.13
+
+Testing server adguard-unfiltered-dot
+   Tags: anycast, dot, America, AsiaPacific, Europe
+   SSL/TLS connection: 146.72 ms
+   DoT query average: 20.88 ms
+   DoT/Do53 bandwidth ratio: 1.32
+
+Testing server adguard-unfiltered-quic
+   Tags: anycast, quic, America, AsiaPacific, Europe
+   SSL/TLS connection: 485.44 ms
+   DoQ query average: 22.92 ms
+[...]
+`````
+Larger connection time, similar query time average, the bandwidth requirements are believed to be similar to DoT or lower. We will add more DoQ servers as the technology matures.
 
 <div style="height:20px;">&nbsp;</div>

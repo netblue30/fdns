@@ -266,10 +266,6 @@ void resolver(void) {
 			}
 			stats.rx++;
 			stats.changed = 1;
-			if (++qps > MAX_QPS) {
-				stats.qps_drop++;
-				continue;
-			}
 
 			// filter incoming requests
 			DnsDestination dest;
@@ -313,6 +309,11 @@ void resolver(void) {
 #ifdef HAVE_GCOV
 				__gcov_flush();
 #endif
+				continue;
+			}
+
+			if (++qps > MAX_QPS) {
+				stats.qps_drop++;
 				continue;
 			}
 
