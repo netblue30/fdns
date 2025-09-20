@@ -134,6 +134,9 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 			goto drop_nxdomain;
 		}
 
+		// HTTPS Specific Service Endpoint
+		else if (q->type == 0x41);
+		
 		// drop all the rest
 		else {
 			char *type = NULL;
@@ -147,6 +150,7 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 				case 25: type = "KEY"; break;
 				case 29: type = "LOC"; break;
 				case 33: type = "SRV"; break;
+			        case 65: type = "HTTPS"; break;
 				case 255: type = "ANY"; break;
 				case 256: type = "URI";break;
 				case 65399: type = "PRIVATE"; break;

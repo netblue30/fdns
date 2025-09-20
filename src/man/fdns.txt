@@ -25,7 +25,7 @@ The computer's location is determined by the time zone setting.
 .SH OPTIONS
 .TP
 \fB\-\-allow-all-queries
-Allow all DNS query types; by default only A queries are allowed. In case --ipv6 is set,
+Allow all DNS query types; by default only A and HTTPS Specific Service Endpoint queries are allowed. In case --ipv6 is set,
 AAAA queries are also allowed.
 .TP
 \fB\-\-allow-expired-certs
