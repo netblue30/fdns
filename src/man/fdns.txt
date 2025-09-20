@@ -18,7 +18,7 @@ fdns --monitor
 FDNS is a lightweight encrypted DNS proxy designed for small networks and Linux desktops.
 The proxy implements caching, a DNS firewall, and uses configurable adblocker and privacy filters.
 
-Out of the box, the proxy comes with a large number of non-logging and non-censoring DoH/DoT service providers.
+Out of the box, the proxy comes with a large number of non-logging and non-censoring DoH/DoT/DoQ service providers.
 At startup, it chooses a server at random, as close geographically as possible.
 The computer's location is determined by the time zone setting.
 
@@ -282,6 +282,9 @@ $ sudo fdns --server=https://dns.google/dns-query
 .br
 $ sudo fdns --server=dot://dot1.applied-privacy.net
 .br
+$ sudo fdns --server=quic://dns.adguard.com
+.br
+
 
 .TP
 \fB\-\-server-list=filename

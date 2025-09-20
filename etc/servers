@@ -332,13 +332,13 @@ end;
 #host: us1.blissdns.net/
 #end;
 
-#name: blissdns-quic
-#website: https://blissdns.net/
-#tags: quic, adblocker, US, America
-#address: 173.255.201.254:853
-#host: us1.blissdns.net/
-#keepalive: 24
-#end;
+name: blissdns-quic
+website: https://blissdns.net/
+tags: quic, adblocker, US, America
+address: 173.255.201.254:853
+host: us1.blissdns.net/
+keepalive: 24
+end;
 
 name: blokada-dns
 website: https://community.blokada.org/t/the-benefits-of-blokada-dns/6646
@@ -364,13 +364,13 @@ address: 157.90.124.62:443
 host: dns.brahma.world/dns-query
 end;
 
-#name: brahmaworld-quic
-#website: https://dns.brahma.world/
-#tags: quic, adblocker, Sweden, Europe
-#address: 157.90.124.62:853
-#host: dns.brahma.world/dns-query
-#keepalive: 24
-#end;
+name: brahmaworld-quic
+website: https://dns.brahma.world/
+tags: quic, adblocker, Sweden, Europe
+address: 157.90.124.62:853
+host: dns.brahma.world/dns-query
+keepalive: 24
+end;
 
 # redirected (probably) to cloudflare
 name: bravedns
@@ -1255,6 +1255,23 @@ end;
 #host: dnsguard.pub/dns-query
 #end;
 
+# note: DoH temporarely down; DoT very small keepalive
+#name: dnsprivacy-dot
+#website: https://dnsprivacy.org.uk/
+#tags: dot, UK, Europe, WesternEurope
+#address: 209.250.227.42:853
+#host: resolver-1.dnsprivacy.org.uk/
+#keepalive: 7
+#end;
+#
+#name: dnsprivacy2-dot
+#website: https://dnsprivacy.org.uk/
+#tags: dot, UK, Europe, WesternEurope
+#address: 64.176.190.82:853
+#host: resolver-1.dnsprivacy.org.uk/
+#keepalive: 7
+#end;
+
 name: dnslow
 website: https://dnslow.me/
 tags: adblocker, Japan, AsiaPacific, FarEast
@@ -1262,49 +1279,6 @@ address: 52.246.182.50:443
 host: dnslow.me/dns-query
 # server inactivity timer 65 seconds or higher
 end;
-
-# unreliable
-#name: dnswarden
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: sni, America, AsiaPacific, Europe
-#address: dns.dnswarden.com:443
-#host: dns.dnswarden.com/uncensored
-#end;
-#
-#name: dnswarden-dot
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: sni, dot, America, AsiaPacific, Europe
-#address: uncensored.dns.dnswarden.com:853
-#host: uncensored.dns.dnswarden.com/
-#end;
-#
-#name: dnswarden-adblocker
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: sni, adblocker, America, AsiaPacific, Europe
-#address: dns.dnswarden.com:443
-#host: dns.dnswarden.com/adblock
-#end;
-#
-#name: dnswarden-adblocker-dot
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: sni, dot, adblocker, America, AsiaPacific, Europe
-#address: adblock.dns.dnswarden.com:853
-#host: adblock.dns.dnswarden.com/
-#end;
-#
-#name: dnswarden-family
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: sni, family, America, AsiaPacific, Europe
-#address: dns.dnswarden.com:443
-#host: dns.dnswarden.com/adultfilter
-#end;
-#
-#name: dnswarden-family-dot
-#website: https://github.com/bhanupratapys/dnswarden
-#tags: sni, dot, family, America, AsiaPacific, Europe
-#address: adultfilter.dns.dnswarden.com:853
-#host: adultfilter.dns.dnswarden.com/
-#end;
 
 # quad9 redirect
 name: dremaxx-de
@@ -1342,13 +1316,13 @@ address: 195.26.26.23:443
 host: dns.dynx.pro/dns-query
 end;
 
-#name: dynx-quic
-#website: https://www.dynx.pro
-#tags: quic, adblocker, Germany, Europe
-#address: 195.26.26.23:853
-#host: dns.dynx.pro/dns-query
-#keepalive: 24
-#end;
+name: dynx-quic
+website: https://www.dynx.pro
+tags: quic, adblocker, Germany, Europe
+address: 195.26.26.23:853
+host: dns.dynx.pro/dns-query
+keepalive: 24
+end;
 
 name: dynx-family
 website: https://www.dynx.pro
@@ -1886,13 +1860,13 @@ address: ns1.qquack.org:443
 host: ns1.qquack.org/dns-query
 end;
 
-#name: qquackdns-quic
-#website: https://qquack.org/nameserver/
-#tags: quic, Korea, AsiaPacific, FarEast
-#address: ns1.qquack.org:784
-#host: ns1.qquack.org/
-#keepalive: 24
-#end;
+name: qquackdns-quic
+website: https://qquack.org/nameserver/
+tags: quic, Korea, AsiaPacific, FarEast
+address: ns1.qquack.org:784
+host: ns1.qquack.org/
+keepalive: 24
+end;
 
 #name: quadrantsec
 #website: https://www.quadrantsec.com/post/public-dns-resolver-with-tls-https-support
@@ -2142,13 +2116,13 @@ host: dns.surfsharkdns.com/
 keepalive: 7
 end;
 
-#name: surfshark-quic
-#website:https://dns.surfsharkdns.com
-#tags: anycast, quic, America, AsiaPacific, Europe
-#address: 194.169.169.169:853
-#host: dns.surfsharkdns.com/
-#keepalive:24
-#end;
+name: surfshark-quic
+website:https://dns.surfsharkdns.com
+tags: anycast, quic, America, AsiaPacific, Europe
+address: 194.169.169.169:853
+host: dns.surfsharkdns.com/
+keepalive:24
+end;
 
 name: sz-dns
 tags:  America, AsiaPacific, Europe
@@ -2186,11 +2160,43 @@ host: tri-dns.net/dns-query
 keepalive: 7
 end;
 
+name: tridns-ca-dot
+website: https://dns.triro.net
+tags: dot, America, Canada
+address: 178.128.225.109:853
+host: tri-dns.net/
+keepalive: 7
+end;
+
+name: tridns-ca-quic
+website: https://dns.triro.net
+tags: quic, America, Canada
+address: 178.128.225.109:853
+host: tri-dns.net/
+keepalive: 7
+end;
+
 name: tridns-ch
 website: https://dns.triro.net
 tags: h2ping, Europe, Switzerland
 address: 159.100.250.108:443
 host: eu.tri-dns.net/dns-query
+keepalive: 7
+end;
+
+name: tridns-ch-dot
+website: https://dns.triro.net
+tags: dot, Europe, Switzerland
+address: 159.100.250.108:853
+host: eu.tri-dns.net/
+keepalive: 7
+end;
+
+name: tridns-ch-quic
+website: https://dns.triro.net
+tags: quic, Europe, Switzerland
+address: 159.100.250.108:853
+host: eu.tri-dns.net/
 keepalive: 7
 end;
 
@@ -2202,7 +2208,21 @@ host: asia.tri-dns.net/dns-query
 keepalive: 7
 end;
 
+name: tridns-sg-dot
+website: https://dns.triro.net
+tags: dot, Singapore, AsiaPacific. FarEast
+address: 185.111.159.59:853
+host: asia.tri-dns.net/
+keepalive: 7
+end;
 
+name: tridns-sg-quic
+website: https://dns.triro.net
+tags: quic, Singapore, AsiaPacific. FarEast
+address: 185.111.159.59:853
+host: asia.tri-dns.net/
+keepalive: 7
+end;
 
 # cloudflare redirect
 name: tiarap
@@ -2228,13 +2248,13 @@ address: 174.138.29.175:853
 host: doh.tiar.app/
 end;
 
-#name: tiarap2-quic
-#website: https://doh.tiarap.org
-#tags: quic, Singapore, FarEast, AsiaPacific
-#address: 174.138.29.175:853
-#host: doh.tiar.app/
-#keepalive: 24
-#end;
+name: tiarap2-quic
+website: https://doh.tiarap.org
+tags: quic, Singapore, FarEast, AsiaPacific
+address: 174.138.29.175:853
+host: doh.tiar.app/
+keepalive: 24
+end;
 
 #name: twnic
 #website: https://101.101.101.101/index_en.html
@@ -2283,6 +2303,31 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
+# running in Cloudflare cloud
+name: vrecipes
+website: https://v.recipes/docs/dns
+tags: sni, America, AsiaPacific, Europe
+address: v.recipes:443
+host: v.recipes/dns-query
+end;
+
+name: vrecipes-adblocker
+website: https://v.recipes/docs/dns
+tags: sni, adblocker, America, AsiaPacific, Europe
+address: v.recipes:443
+host: v.recipes/dns-adblocker
+end;
+
+name: vrecipes-security
+website:https://v.recipes/docs/dns
+tags: sni, security, America, AsiaPacific, Europe
+address: v.recipes:443
+host: v.recipes/dns-security
+end;
+
+
+
+
 name: wikimedia
 website: https://meta.wikimedia.org/wiki/Wikimedia_DNS
 tags: anycast, America, AsiaPacific, Europe
@@ -2326,13 +2371,13 @@ address: 89.43.174.10:443
 host: zdn.ro/dns-query
 end;
 
-#name: zdn-quic
-#website: https://zdn.ro
-#tags: quic, adblocker, Romania, Europe
-#address: 89.43.174.10:853
-#host: zdn.ro/dns-query
-#keepalive: 24
-#end;
+name: zdn-quic
+website: https://zdn.ro
+tags: quic, adblocker, Romania, Europe
+address: 89.43.174.10:853
+host: zdn.ro/dns-query
+keepalive: 24
+end;
 
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt

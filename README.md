@@ -24,7 +24,7 @@ alt="Firejail Encrypted DNS HowTo" width="240" height="142" border="10" />
 
 FDNS is an encrypted DNS proxy designed for small networks and Linux desktops. Lean and mean, it protects your computer from some of the most common cyber threats, while also improving privacy and the system performance.
 
-FDNS is written in C and licensed under GPLv3. We use only DoH and DoT services from non-logging and non-censoring providers, while preferring small operators such as open-source enthusiasts and privacy-oriented non-profit organizations.
+FDNS is written in C and licensed under GPLv3. We use only DoH/DoT/DoQ services from non-logging and non-censoring providers, while preferring small operators such as open-source enthusiasts and privacy-oriented non-profit organizations.
 
 <div style="height:20px;">&nbsp;</div>
 
@@ -35,7 +35,7 @@ FDNS is written in C and licensed under GPLv3. We use only DoH and DoT services 
 
 <h2>Features</h2>
 <ul>
-<li>Network of 200+ non-logging/non-censoring service providers spread across the globe. Access to specialized services such as family filtering, adblocking, security, OpenNIC.</li>
+<li>Network of 300+ non-logging/non-censoring service providers spread across the globe. Access to specialized services such as family filtering, adblocking, and security.</li>
 <li>Blocking ads, trackers, coinminers, phishing.</li>
 <li>DNS resolver cache and DNS firewall targeting various DNS attack techniques.</li>
 <li>Highly scalable multi-process design and built-in support for various security technologies such as seccomp, Linux namespaces, and AppArmor.</li>
@@ -81,28 +81,25 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 
 <h2>Development release 0.9.75:</h2>
 
-Introducing DNS over QUIC support on a small number of servers, both adblocker and family flavors:
+Introducing DNS over QUIC support on a small number of servers:
 `````
-$ fdns --list=quic
-Current zone: America
+$ fdns --list=all | grep quic
 adguard-unfiltered-quic - anycast, quic, America, AsiaPacific, Europe
-	https://adguard.com/en/adguard-dns/overview.html
 adguard-unfiltered2-quic - anycast, quic, America, AsiaPacific, Europe
-	https://adguard.com/en/adguard-dns/overview.html
 adguard-quic - anycast, quic, adblocker, America, AsiaPacific, Europe
-	https://adguard.com/en/adguard-dns/overview.html
 adguard2-quic - anycast, quic, adblocker, America, AsiaPacific, Europe
-	https://adguard.com/en/adguard-dns/overview.html
-4 servers found
-
-$ fdns --list=family
-Current zone: America
-[...]
 adguard-family-quic - quic, family, America, AsiaPacific, Europe
-	https://adguard.com/en/adguard-dns/overview.html
 adguard-family2-quic - anycast, quic, family, America, AsiaPacific, Europe
-	https://adguard.com/en/adguard-dns/overview.html
-[...]
+blissdns-quic - quic, adblocker, US, America
+brahmaworld-quic - quic, adblocker, Sweden, Europe
+dynx-quic - quic, adblocker, Germany, Europe
+qquackdns-quic - quic, Korea, AsiaPacific, FarEast
+surfshark-quic - anycast, quic, America, AsiaPacific, Europe
+tridns-ca-quic - quic, America, Canada
+tridns-ch-quic - quic, Europe, Switzerland
+tridns-sg-quic - quic, Singapore, AsiaPacific. FarEast
+tiarap2-quic - quic, Singapore, FarEast, AsiaPacific
+zdn-quic - quic, adblocker, Romania, Europe
 `````
 A short comparison of DoH, DoT, and DoQ:
 `````
@@ -127,6 +124,6 @@ Testing server adguard-unfiltered-quic
    DoQ query average: 22.92 ms
 [...]
 `````
-Larger connection time, similar query time average, the bandwidth requirements are believed to be similar to DoT or lower. We will add more DoQ servers as the technology matures.
+Larger connection time, but similar query time averages. We will add more DoQ servers as the technology matures.
 
 <div style="height:20px;">&nbsp;</div>
