@@ -135,8 +135,10 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 		}
 
 		// HTTPS Specific Service Endpoint
-		else if (q->type == 0x41);
-		
+		else if (q->type == 0x41) {
+			rlogprintf("Request: %s (HTTPS), dropped\n", q->domain);
+			goto drop_nxdomain;
+		}
 		// drop all the rest
 		else {
 			char *type = NULL;
