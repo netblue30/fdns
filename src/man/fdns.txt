@@ -25,9 +25,7 @@ The computer's location is determined by the time zone setting.
 .SH OPTIONS
 .TP
 \fB\-\-allow-all-queries
-Allow all DNS query types. By default only A (type 1) queries are allowed. In case --ipv6 is set,
-AAAA (type 28) queries are also allowed.  For PTR (type 12) and HTTPS Specific Service Endpoint (type 65)
-the proxy responds with NXDOMAIN.
+Disable FDNS firewall - see section DNS Firewall below.
 .TP
 \fB\-\-allow-expired-certs
 Allow expired SSL certificates during SSL connection.
@@ -403,6 +401,17 @@ wiki.gentoo.org
 
 .br
 $ sudo fdns --whitelist-file=/etc/fdns/whitelist-gentoo
+
+.SH DNS Firewall
+
+A packet-level DNS firewall is one of the security layers we implement in FDNS.
+Before being forwarded to the DNS server, the queries received from the local network are examined and evaluated.
+Only type 1 (A) and type 28 (AAAA) queries are permitted; all other queries are promptly rejected.
+We return NXDOMAIN (non-existent domain) in response to type 12 (PTR) and type 65 (HTTPS) queries.
+These effectively disables the majority of DNS tunneling tools hackers employ to transmit data stolen from local network computers.
+The firewall can be turned off by using the \-\-allow-all-queries command line option,
+
+Additionally, there is a hard cap of 20 forwarded queries per second (default), anything above this limit is dropped. 
 
 .SH Setup FDNS on a workstation
 You would need to set FDNS as your DNS server in /etc/resolv.conf:
