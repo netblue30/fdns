@@ -83,7 +83,7 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 
 Introducing DNS over QUIC support on a small number of servers:
 `````
-$ fdns --list=all | grep quic
+$  fdns --list=all | grep quic
 adguard-unfiltered-quic - anycast, quic, America, AsiaPacific, Europe
 adguard-unfiltered2-quic - anycast, quic, America, AsiaPacific, Europe
 adguard-quic - anycast, quic, adblocker, America, AsiaPacific, Europe
@@ -93,6 +93,8 @@ adguard-family2-quic - anycast, quic, family, America, AsiaPacific, Europe
 blissdns-quic - quic, adblocker, US, America
 brahmaworld-quic - quic, adblocker, Sweden, Europe
 dynx-quic - quic, adblocker, Germany, Europe
+noridev-quic - quic, adblocker, Korea, AsiaPacific, FarEast
+noridev2-quic - quic, adblocker, Korea, AsiaPacific, FarEast
 qquackdns-quic - quic, Korea, AsiaPacific, FarEast
 surfshark-quic - anycast, quic, America, AsiaPacific, Europe
 tridns-ca-quic - quic, America, Canada

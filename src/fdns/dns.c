@@ -115,8 +115,9 @@ uint8_t *dns_parser(uint8_t *buf, ssize_t *lenptr, DnsDestination *dest) {
 	//******************************
 	if (arg_allow_all_queries == 0) {
 		// type A requests
-		if (q->type == 1);
-
+		if (q->type == 1)
+			//printf("timestamp %lu %s\n", time(NULL), q->domain)
+				;
 		// AAAA requests
 		else if (q->type == 0x1c) {
 			if (!arg_ipv6) {

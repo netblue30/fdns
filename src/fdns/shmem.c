@@ -111,30 +111,30 @@ void shmem_store_stats(const char *proxy_addr) {
 
 	// encryption status
 	int i;
+	char *transport = "DoH";
+	if (srv->transport && strstr(srv->transport, "dot"))
+		transport = "DoT";
+	else if (srv->transport && strstr(srv->transport, "quic"))
+		transport = "DoQ";
 	for (i = 0; i < arg_resolvers; i++)
 		if (stats.encrypted[i] == 0)
 			break;
-	char *encstatus = (i == arg_resolvers) ? "ENCRYPTED" : "NOT ENCRYPTED";
+	
+	char *encstatus = (i == arg_resolvers) ? transport : "CLEAR";
 	report->resolvers = arg_resolvers;
 	for (i = 0; i < arg_resolvers; i++) {
 		report->encrypted[i] = stats.encrypted[i];
 		report->peer_ip[i] = stats.peer_ip[i];
 	}
 
-		char *transport = "DoH";
-		if (srv->transport && strstr(srv->transport, "dot"))
-			transport = "DoT";
-		else if (srv->transport && strstr(srv->transport, "quic"))
-			transport = "DoQ";
 	snprintf(report->header1, MAX_ENTRY_LEN,
-		 "%s %s %s (%s %.02lfms, %ds, %d/%d)",
+		 "%s %s %s (qav %.02lfms, %ds, conn %d)",
 		 proxy_addr,
 		 srv->name,
 		 encstatus,
- 		 transport,
 		 stats.query_time,
 		 srv->keepalive,
-		 stats.restart_cnt, FORCE_RESTART_CNT * arg_resolvers);
+		 stats.restart_cnt);
 
 	snprintf(report->header2, MAX_ENTRY_LEN,
 		 "requests %u, drop %u, cache %u, fwd %u, fallback %u, qps-drop %u",

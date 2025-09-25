@@ -134,7 +134,7 @@ Testing server cloudflare
 .br
    DoH/Do53 bandwidth ratio: 2.50
 .br
-   Keepalive: 40 seconds
+   Keepalive: 50 seconds
 .br
 
 .br
@@ -176,7 +176,7 @@ Allow AAAA requests. Use this option if you have Internet IPv6 connectivity. By 
 .TP
 \fB\-\-keepalive=value
 Use this session keepalive value instead of the one in the server file. A query for example.com domain is initiated if there is
-no DNS query activity in order to keep the HTTP2 connection open. For most servers we are using values between 25 and 40 seconds.
+no DNS query activity in order to keep the HTTP2 connection open. For most servers we are using values between 25 and 50 seconds.
 In many cases you can bump the keepalive above 120 seconds.
 .br
 
@@ -411,7 +411,8 @@ We return NXDOMAIN (non-existent domain) in response to type 12 (PTR) and type 6
 These effectively disables the majority of DNS tunneling tools hackers employ to transmit data stolen from local network computers.
 The firewall can be turned off by using the \-\-allow-all-queries command line option,
 
-Additionally, there is a hard cap of 20 forwarded queries per second (default), anything above this limit is dropped. 
+Additionally, there is a hard cap of 20 forwarded queries per second (default).
+Anything above this limit is dropped, forcing the browser to try again.
 
 .SH Setup FDNS on a workstation
 You would need to set FDNS as your DNS server in /etc/resolv.conf:
@@ -457,7 +458,7 @@ $ sudo fdns --proxy-addr=192.168.1.44 --daemonize
 
 .br
 .RE
-You can also add a specific tag as --server=security or --server=family.
+You can also add a specific tag such as --server=security or --server=family.
 .SH FAQ
 
 .TP
@@ -470,7 +471,7 @@ The command you need to run at  startup is
 .br
 
 .br
-Include this command in your system startup scripts. If your system uses Systemd (Debian/.Ubuntu/Arch/RedHat etc.),
+Include this command in your system startup scripts. If your system uses Systemd (Debian/Ubuntu/Arch/RedHat etc.),
 enable the fdns.service unit provided in /etc/fdns/fdns.service.
 .br
 
