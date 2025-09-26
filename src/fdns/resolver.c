@@ -137,6 +137,7 @@ void resolver(void) {
 			
 			// attempting to detect the computer coming out of sleep mode
 			time_t ts = time(NULL);
+			//printf("%d: delta %lu, dns %d\n", arg_id, ts - timestamp, dns_keepalive_cnt);
 			if (ts - timestamp > OUT_OF_SLEEP) {
 				rlogprintf("resolver shutdown\n");
 				exit(0);
@@ -185,7 +186,8 @@ void resolver(void) {
 			}
 
 			cache_timeout();
-			print_cache();
+			if (arg_debug)
+				print_cache();
 			t.tv_sec = 1;
 			t.tv_usec = 0;
 			continue;

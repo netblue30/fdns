@@ -371,9 +371,12 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 			return -1;
 		}
 
-//printf("type %u, class %u, ttl %u, rlen %u\n",
-//rr.type, rr.cls, rr.ttl, rr.rlen);
-
+		if (arg_debug) {
+			print_time();
+			printf("type %u, class %u, ttl %u, rlen %u\n",
+			       rr.type, rr.cls, rr.ttl, rr.rlen);
+		}
+		
 		if (rr.type == 1) { // A
 			if (rr.rlen != 4) {
 				dnserror = DNSERR_INVALID_RLEN;
@@ -385,8 +388,10 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 				memcpy(dnserror_ipv4, pkt, 4);
 				return -1;
 			}
-			print_time();
-			printf("(%d) %s %u.%u.%u.%u\n", arg_id, cache_get_name(), *pkt, *(pkt + 1), *(pkt + 2), *(pkt +3));
+			if (arg_debug) {
+				print_time();
+				printf("(%d) %s %u.%u.%u.%u\n", arg_id, cache_get_name(), *pkt, *(pkt + 1), *(pkt + 2), *(pkt +3));
+			}
 		}
 		else if (rr.type == 5) { // CNAME
 			// CNAME Cloaking is implemented partially
@@ -418,10 +423,13 @@ int lint_rx(uint8_t *pkt, unsigned len) {
 				else
 					rv = 0;
 			}
-			print_time();
-			printf("(%d) ", arg_id);
-			printf("CNAME: %s\n", cname + 1);
-			fflush(0);
+
+			if (arg_debug) {
+				print_time();
+				printf("(%d) ", arg_id);
+				printf("CNAME: %s\n", cname + 1);
+				fflush(0);
+			}
 
 			// CNAME Cloaking Blocklist
 			if (!arg_nofilter && !rv && filter_blocked((char *) cname + 1, 0, 1)) {

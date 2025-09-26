@@ -98,13 +98,12 @@ static inline void extract_server(char *str) {
 // resolvers/frontend timers in seconds
 #define RESOLVER_KEEPALIVE_TIMER 10 // keepalive messages sent by resolver processes
 #define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 3) // timer to detect a dead resolver process
-#define RESOLVER_KEEPALIVE_AFTER_SLEEP 3 // use this value when coming up out of sleep
 #define FRONTEND_KEEPALIVE_TIMER 10 // keepalive messages sent by frontend processes
 #define FRONTEND_KEEPALIVE_SHUTDOWN (FRONTEND_KEEPALIVE_TIMER * 3) // timer to detect the dead frontend process
 #define FORCE_RESTART_CNT 10	// force a full restart after resovers failing so many times
 #define MONITOR_WAIT_TIMER 2	// wait for this number of seconds before restarting a failed resolver process
 #define CONSOLE_PRINTOUT_TIMER 5	// transfer stats from resolver to frontend
-#define OUT_OF_SLEEP 10 // attempting to detect the computer coming out of sleep mode
+#define OUT_OF_SLEEP 60 // attempting to detect the computer coming out of sleep mode
 
 // transport protocol timeout
 #define TRANSPORT_TIMEOUT 5 // wait time for a server answer - will close the connection

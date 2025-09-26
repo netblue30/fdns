@@ -363,15 +363,11 @@ void frontend(void) {
 			// clean shared memory logs
 			shm_timeout();
 
-			// decrease keepalive wait when coming out of sleep/hibernation
+			// force a resolver restart when coming out of sleep/hibernation
 			if (delta > OUT_OF_SLEEP) {
-				for (i = 0; i < arg_resolvers; i++) {
-					if (w[i].keepalive > RESOLVER_KEEPALIVE_AFTER_SLEEP)
-						w[i].keepalive = RESOLVER_KEEPALIVE_AFTER_SLEEP;
-				}
+				for (i = 0; i < arg_resolvers; i++)
+					w[i].keepalive = 0;
 			}
-
-
 
 			// restart resolvers if the keepalive time expired
 			for (i = 0; i < arg_resolvers; i++) {
@@ -381,6 +377,7 @@ void frontend(void) {
 					int status;
 					waitpid(w[i].pid, &status, 0);
 					start_sandbox(i);
+
 				}
 			}
 
@@ -434,6 +431,8 @@ void frontend(void) {
 
 					// parse the incoming message
 					msg.buf[len - sizeof(LogMsgHeader)] = '\0';
+					// message comming from resolver, it means the resolver is up
+					w[i].keepalive = RESOLVER_KEEPALIVE_SHUTDOWN;
 
 					// parse incoming message
 					if (strncmp(msg.buf, "Stats: ", 7) == 0) {
