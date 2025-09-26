@@ -96,8 +96,8 @@ static inline void extract_server(char *str) {
 }
 
 // resolvers/frontend timers in seconds
-#define RESOLVER_KEEPALIVE_TIMER 10 // keepalive messages sent by resolver processes
-#define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 3) // timer to detect a dead resolver process
+#define RESOLVER_KEEPALIVE_TIMER 5 // keepalive messages sent by resolver processes
+#define RESOLVER_KEEPALIVE_SHUTDOWN (RESOLVER_KEEPALIVE_TIMER * 6) // timer to detect a dead resolver process
 #define FRONTEND_KEEPALIVE_TIMER 10 // keepalive messages sent by frontend processes
 #define FRONTEND_KEEPALIVE_SHUTDOWN (FRONTEND_KEEPALIVE_TIMER * 3) // timer to detect the dead frontend process
 #define FORCE_RESTART_CNT 10	// force a full restart after resovers failing so many times

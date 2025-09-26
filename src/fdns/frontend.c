@@ -431,8 +431,6 @@ void frontend(void) {
 
 					// parse the incoming message
 					msg.buf[len - sizeof(LogMsgHeader)] = '\0';
-					// message comming from resolver, it means the resolver is up
-					w[i].keepalive = RESOLVER_KEEPALIVE_SHUTDOWN;
 
 					// parse incoming message
 					if (strncmp(msg.buf, "Stats: ", 7) == 0) {
