@@ -134,7 +134,8 @@ static inline void extract_server(char *str) {
 #define RESOLVERS_CNT_DEFAULT 2
 #define DEFAULT_PROXY_ADDR "127.1.1.1"
 #define MAX_FALLBACK_POOL 8	// fallback socket pool size
-#define MAX_QPS 10 // max number of queries per second enforced by each resolver
+#define QPS_MAX_ENCRYPTED 10 // max number of encrypted queries per second sent to the server by each resolver
+#define QPS_MAX_GLOBAL 50 // max number of queries per second handled from the local network by each resolver
 
 // filesystem paths
 #define PATH_FDNS (PREFIX "/bin/fdns")

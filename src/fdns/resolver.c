@@ -88,7 +88,10 @@ void resolver(void) {
 	struct timeval t = { 1, 0};	// one second timeout
 	time_t timestamp = time(NULL);	// detect the computer going to sleep in order to reinitialize SSL connections
 	int frontend_keepalive_cnt = 0;
-	int qps = 0; // imposing a queries per second limit of MAX_QPS
+
+	int qps = 0;
+	int qps_global = 0;
+
 	while (1) {
 #ifdef HAVE_GCOV
 		__gcov_flush();
@@ -134,6 +137,7 @@ void resolver(void) {
 		//***********************************************
 		else if (rv == 0) {
 			qps = 0; // reset queries per second counter
+			qps_global = 0;
 			
 			// attempting to detect the computer coming out of sleep mode
 			time_t ts = time(NULL);
@@ -269,6 +273,12 @@ void resolver(void) {
 			stats.rx++;
 			stats.changed = 1;
 
+			if (++qps_global > QPS_MAX_GLOBAL) {
+				stats.drop++;
+				stats.qps_drop++;
+				continue;
+			}
+			
 			// filter incoming requests
 			DnsDestination dest;
 			uint8_t *r = dns_parser(buf, &len, &dest);
@@ -314,7 +324,7 @@ void resolver(void) {
 				continue;
 			}
 
-			if (++qps > MAX_QPS) {
+			if (++qps > QPS_MAX_ENCRYPTED) {
 				stats.qps_drop++;
 				continue;
 			}

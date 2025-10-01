@@ -280,13 +280,13 @@ host: dns.artikel10.org/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: artikel10-dot
-website: https://dns.artikel10.org
-tags: dot, Netherlands, WesternEurope, Europe
-address: 217.197.91.153:853
-host: dns.artikel10.org/
-# server inactivity timer 65 seconds or higher
-end;
+#name: artikel10-dot
+#website: https://dns.artikel10.org
+#tags: dot, Netherlands, WesternEurope, Europe
+#address: 217.197.91.153:853
+#host: dns.artikel10.org/
+## server inactivity timer 65 seconds or higher
+#end;
 
 # cloudflare redirect
 #name: asagiri
@@ -1422,13 +1422,13 @@ host: getdnsapi.net/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: hostux
-website: https://hostux.network/en/index.html
-tags: adblocker, Luxembourg, WesternEurope, Europe
-address: 46.226.108.173:443
-host: dns.hostux.net/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: hostux
+#website: https://hostux.network/en/index.html
+#tags: adblocker, Luxembourg, WesternEurope, Europe
+#address: 46.226.108.173:443
+#host: dns.hostux.net/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: hostux-adblocker
 website: https://hostux.network/en/index.html
@@ -1811,19 +1811,20 @@ address: dns.paesa.es:443
 host: dns.paesa.es/dns-query
 end;
 
-name: privacy-dns-luxembourg
-tags: sni, adblocker, Europe, WesternEurope, Luxembourg
-website: https://privacy-dns.pw/
-address: 104.244.79.116:443
-host: luxembourg.privacy-dns.pw/dns-query
-end;
-
-name: privacy-dns-lasvegas
-tags: sni, adblocker, US, America
-website: https://privacy-dns.pw/
-address: 205.185.127.120:443
-host: las-vegas.privacy-dns.pw/dns-query
-end;
+# expired cert
+#name: privacy-dns-luxembourg
+#tags: sni, adblocker, Europe, WesternEurope, Luxembourg
+#website: https://privacy-dns.pw/
+#address: 104.244.79.116:443
+#host: luxembourg.privacy-dns.pw/dns-query
+#end;
+#
+#name: privacy-dns-lasvegas
+#tags: sni, adblocker, US, America
+#website: https://privacy-dns.pw/
+#address: 205.185.127.120:443
+#host: las-vegas.privacy-dns.pw/dns-query
+#end;
 
 #name: privex-se
 #website: https://www.privex.io/articles/public-infra
@@ -2129,6 +2130,13 @@ tags:  America, AsiaPacific, Europe
 website: https://www.sz-dns.com
 address:  doh.sz-dns.com:443
 host: doh.sz-dns.com/dns-query
+end;
+
+name: sz-dns-quic
+tags:  quic, America, AsiaPacific, Europe
+website: https://www.sz-dns.com
+address:  dot.sz-dns.com:853
+host: dot.sz-dns.com/
 end;
 
 name: trcnet1-dot
