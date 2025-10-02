@@ -277,7 +277,7 @@ void dns_send_keepalive(void) {
 #endif
 }
 
-// returns the length of the response,,0 if failed
+// returns the length of the response, 0 if failed
 // the response is copied back in msg
 int dns_query(uint8_t *msg, int cnt) {
 	assert(msg);
@@ -286,7 +286,7 @@ int dns_query(uint8_t *msg, int cnt) {
 
 	int datalen = transport->send_query(msg, cnt);
 	if (datalen <= 0)
-		goto errout;
+		return 0;
 
 	//
 	// partial response parsing
@@ -320,9 +320,5 @@ int dns_query(uint8_t *msg, int cnt) {
 	// cache the response and exit
 	cache_set_reply(msg, datalen, CACHE_TTL_DEFAULT);
 	return datalen;
-
-errout:
-	ssl_close();
-	return 0;
 }
 

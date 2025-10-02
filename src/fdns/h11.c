@@ -280,8 +280,8 @@ errout:
 	else
 		fprintf(stderr, "Error: http/1.1 timeout\n");
 	fflush(0);
-	if (ssl_state == SSL_OPEN)
-		ssl_close();
+	//if (ssl_state == SSL_OPEN)
+	//	ssl_close();
 	return -1;
 }
 

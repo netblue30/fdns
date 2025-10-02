@@ -338,8 +338,9 @@ void resolver(void) {
 				ssl_len = dns_query(buf, len);
 			}
 
-			// a HTTP error from SSL, with no DNS data coming back
-			if (ssl_state == SSL_OPEN && ssl_len == 0) {
+			// transport error or timeout
+  			if (ssl_state == SSL_OPEN && ssl_len == 0) {
+ 				dns_keepalive_cnt -= TRANSPORT_TIMEOUT;
 				if (arg_debug) {
 					print_time();
 					printf("(%d) no data received, dropping...\n", arg_id);

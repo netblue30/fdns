@@ -595,8 +595,8 @@ static int h2_exchange(uint8_t *response, uint32_t stream) {
 				rlogprintf("Error: h2 timeout\n");
 			else
 				fprintf(stderr, "Error: h2 timeout\n");
-			if (ssl_state == SSL_OPEN)
-				ssl_close();
+			//if (ssl_state == SSL_OPEN)
+			//	ssl_close();
 			return -1;
 		}
 

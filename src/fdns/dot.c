@@ -211,8 +211,8 @@ errout:
 	else
 		fprintf(stderr, "Error: dot timeout\n");
 	fflush(0);
-	if (ssl_state == SSL_OPEN)
-		ssl_close();
+	//if (ssl_state == SSL_OPEN)
+	//	ssl_close();
 	return -1;
 }
 
