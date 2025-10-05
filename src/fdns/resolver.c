@@ -237,7 +237,7 @@ void resolver(void) {
 
 				struct sockaddr_in *addr_client = dnsdb_retrieve(i, buf);
 				if (!addr_client) {
-					rlogprintf("Warning: timeout request\n");
+					rlogprintf("Warning: fallback request timeout\n");
 					continue;
 				}
 				socklen_t addr_client_len = sizeof(struct sockaddr_in);

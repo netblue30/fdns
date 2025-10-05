@@ -819,13 +819,13 @@ host: zero.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
 
-#name: dns0eu-quic
-#website: https://dns0.eu
-#tags: quic, security, Europe
-#address: 193.110.81.9:853
-#host: zero.dns0.eu/
-#keepalive: 24
-#end;
+name: dns0eu-quic
+website: https://dns0.eu
+tags: quic, security, Europe
+address: 193.110.81.9:853
+host: zero.dns0.eu/
+keepalive: 24
+end;
 
 name: dns0eu-2
 website: https://dns0.eu
@@ -843,13 +843,13 @@ host: zero.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
 
-#name: dns0eu-quic2
-#website: https://dns0.eu
-#tags: quic, security, Europe
-#address: 185.253.5.9:853
-#host: zero.dns0.eu/
-#keepalive: 24
-#end;
+name: dns0eu-quic2
+website: https://dns0.eu
+tags: quic, security, Europe
+address: 185.253.5.9:853
+host: zero.dns0.eu/
+keepalive: 24
+end;
 
 name: dns0eu-family
 website: https://dns0.eu
@@ -891,13 +891,13 @@ host: kids.dns0.eu/
 # server inactivity timer 65 seconds or higher
 end;
 
-#name: dns0eu-family-quic2
-#website: https://dns0.eu
-#tags: quic, family, Europe
-#address: 185.253.5.1:853
-#host: kids.dns0.eu/
-#keepalive: 24
-#end;
+name: dns0eu-family-quic2
+website: https://dns0.eu
+tags: quic, family, Europe
+address: 185.253.5.1:853
+host: kids.dns0.eu/
+keepalive: 24
+end;
 
 name: dns4me-ca1
 website: https://dns4me.net/
@@ -1632,14 +1632,13 @@ host: trr.dns.nextdns.io/
 # server inactivity timer 65 seconds or higher
 end;
 
-# quic not supported on trr???
-#name: nextdns-quic
-#website: https://nextdns.io/
-#tags: quic, America, AsiaPacific, Europe
-#address: trr.dns.nextdns.io:853
-#host: trr.dns.nextdns.io/
-#keepalive: 24
-#end;
+name: nextdns-quic
+website: https://nextdns.io/
+tags: quic, America, AsiaPacific, Europe
+address: dns.nextdns.io:853
+host: dns.nextdns.io/
+keepalive: 24
+end;
 
 name: nextdns2
 website: https://nextdns.io/
@@ -1650,14 +1649,13 @@ host: anycast.dns1.nextdns.io/
 keepalive: 50
 end;
 
-# dropping quic connection after a small number of request
-#name: nextdns2-quic
-#website: https://nextdns.io/
-#tags: quic, America, AsiaPacific, Europe
-#address: 45.90.28.0:853
-#host: anycast.dns1.nextdns.io/
-#keepalive: 24
-#end;
+name: nextdns2-quic
+website: https://nextdns.io/
+tags: quic, America, AsiaPacific, Europe
+address: 45.90.28.0:853
+host: anycast.dns1.nextdns.io/
+keepalive: 24
+end;
 
 
 name: nextdns2-dot
@@ -1675,6 +1673,14 @@ address: 45.90.30.0:443
 host: anycast.dns2.nextdns.io/
 # server inactivity timer 65 seconds or higher
 keepalive: 50
+end;
+
+name: nextdns3-quic
+website: https://nextdns.io/
+tags: anycast, quic, America, AsiaPacific, Europe
+address: 45.90.30.0:853
+host: anycast.dns2.nextdns.io/
+keepalive: 24
 end;
 
 name: nextdns3-dot

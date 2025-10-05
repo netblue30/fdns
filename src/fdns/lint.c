@@ -75,6 +75,10 @@ const char *lint_get_cname(void) {
 static DnsHeader hdr;
 static DnsQuestion question;
 
+char *lint_last_domain(void) {
+	return question.domain;
+}
+
 // check chars in domain name: a-z, A-Z, and 0-9
 // return 0 if ok, 1 if bad
 //TODO: add support or IDNA and/or Punycode (rfc3492)
