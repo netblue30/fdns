@@ -68,7 +68,7 @@ static void dot_print_url(void) {
 static void dot_header_stats(void) {
 }
 
-// Do53 / DoH ratio
+// DoT/DNS ratio
 static double dot_bandwidth(void) {
 	if (dot_rx_dns == 0)
 		return 0;

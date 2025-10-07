@@ -78,7 +78,7 @@ static void h11_header_stats(void) {
 		h11_header_total_len / h11_header_cnt);
 }
 
-// Do53 / DoH ratio
+// DoH/DNS ratio
 static double h11_bandwidth(void) {
 	if (h11_rx_dns == 0)
 		return 0;
@@ -278,7 +278,7 @@ errout:
 	if (arg_id > 0)
 		rlogprintf("Error: http/1.1 timeout %s\n", lint_last_domain());
 	else
-		fprintf(stderr, "Error: http/1.1 timeout\n", lint_last_domain());
+		fprintf(stderr, "Error: http/1.1 timeout %s\n", lint_last_domain());
 	fflush(0);
 	//if (ssl_state == SSL_OPEN)
 	//	ssl_close();

@@ -68,7 +68,7 @@ static void quic_print_url(void) {
 static void quic_header_stats(void) {
 }
 
-// Do53 / DoH ratio
+// DoQ/DNS ratio
 static double quic_bandwidth(void) {
 //	if (quic_rx_dns == 0)
 		return 0;

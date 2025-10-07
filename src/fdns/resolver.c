@@ -341,6 +341,7 @@ void resolver(void) {
 			// transport error or timeout
   			if (ssl_state == SSL_OPEN && ssl_len == 0) {
  				dns_keepalive_cnt -= TRANSPORT_TIMEOUT;
+				resolver_keepalive_cnt -= TRANSPORT_TIMEOUT;
 				if (arg_debug) {
 					print_time();
 					printf("(%d) no data received, dropping...\n", arg_id);

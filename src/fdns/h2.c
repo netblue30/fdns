@@ -106,7 +106,7 @@ static void h2_header_stats(void) {
 		(float) http_header_size / (float) average);
 }
 
-// Do53 / DoH ratio
+// DoH/DNS ratio
 static double h2_bandwidth(void) {
 	if (h2_rx_dns == 0)
 		return 0;

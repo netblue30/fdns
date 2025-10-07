@@ -73,7 +73,7 @@ const char *lint_get_cname(void) {
 // lint
 //***********************************************
 static DnsHeader hdr;
-static DnsQuestion question;
+static DnsQuestion question = {"\0", 0, 0, 0};
 
 char *lint_last_domain(void) {
 	return question.domain;

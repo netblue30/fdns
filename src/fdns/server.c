@@ -412,7 +412,7 @@ static float test_server(const char *server_name)  {
 			transport->header_stats();
 		double bdw = transport->bandwidth();
 		if (bdw != 0)
-			printf("   %s/Do53 bandwidth ratio: %0.02f\n", transport->dns_type, bdw);
+			printf("   %s/DNS bandwidth ratio: %0.02f\n", transport->dns_type, bdw);
 
 		fflush(0);
 		exit(0);
