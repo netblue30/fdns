@@ -193,12 +193,16 @@ void rsort_load(const char *fname) {
 	int len = strlen(storage);
 	if (len == 0) {
 		printf(" (0)\n");
+		free(storage);
 		return;
 	}
 
 	// if the file doesn't end in '\n', add a '\n' at the end
 	if (*(storage + len - 1) != '\n') {
 		char *newstorage = malloc(len + 2);
+		if (!newstorage) {
+			goto errout;
+		}
 		sprintf(newstorage, "%s\n", storage);
 		free(storage);
 		storage = newstorage;
@@ -213,7 +217,11 @@ void rsort_load(const char *fname) {
 	char *ptr;
 	while ((ptr = strsep(&storage, "\n")) != NULL) {
 		if ((line_in_cnt + 10) >= line_in_size) {
-			line_in = realloc(line_in, sizeof(char *) * (line_in_cnt + LINE_CHUNK));
+			char **new_line_in = realloc(line_in, sizeof(char *) * (line_in_cnt + LINE_CHUNK));
+			if (!new_line_in) {
+				goto errout;
+			}
+			line_in = new_line_in;
 			line_in_size += LINE_CHUNK;
 		}
 
@@ -237,11 +245,13 @@ void rsort_load(const char *fname) {
 
 	line_in[line_in_cnt] = NULL; // we allocated 10 more above!
 	printf(" (%d)\n", domains);
+	free(storage);
 	return;
 
 errout:
 	printf("\n");
 	fprintf(stderr, "Error: file %s, %s\n", fname, ptr);
+	free(storage);
 	exit(1);
 }
 
