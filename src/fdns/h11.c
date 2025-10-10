@@ -275,13 +275,7 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 
 
 errout:
-	if (arg_id > 0)
-		rlogprintf("Error: http/1.1 timeout %s\n", lint_last_domain());
-	else
-		fprintf(stderr, "Error: http/1.1 timeout %s\n", lint_last_domain());
-	fflush(0);
-	//if (ssl_state == SSL_OPEN)
-	//	ssl_close();
+	rlogprintf("Error: http/1.1 timeout\n");
 	return -1;
 }
 

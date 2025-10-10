@@ -1713,20 +1713,20 @@ host: 1.dns.noridev.moe/dns-query
 keepalive: 24
 end;
 
-name: noridev2
-website:https://adblock.noridev.moe/html/dns_android.html
-tags: adblocker, Korea, AsiaPacific, FarEast
-address: 112.163.234.84:443
-host: 2.dns.noridev.moe/dns-query
-end;
-
-name: noridev2-quic
-website:https://adblock.noridev.moe/html/dns_android.html
-tags: quic, adblocker, Korea, AsiaPacific, FarEast
-address: 112.163.234.84:853
-host: 2.dns.noridev.moe/dns-query
-keepalive: 24
-end;
+#name: noridev2
+#website:https://adblock.noridev.moe/html/dns_android.html
+#tags: adblocker, Korea, AsiaPacific, FarEast
+#address: 112.163.234.84:443
+#host: 2.dns.noridev.moe/dns-query
+#end;
+#
+#name: noridev2-quic
+#website:https://adblock.noridev.moe/html/dns_android.html
+#tags: quic, adblocker, Korea, AsiaPacific, FarEast
+#address: 112.163.234.84:853
+#host: 2.dns.noridev.moe/dns-query
+#keepalive: 24
+#end;
 
 name: nwps-family
 website:https://niko.nwps.fi

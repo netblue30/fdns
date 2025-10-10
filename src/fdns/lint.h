@@ -69,7 +69,6 @@ int lint_error(void);
 const char *lint_err2str(void);
 
 DnsHeader *lint_header(uint8_t **pkt, uint8_t *last);
-char *lint_last_domain(void);
 DnsQuestion *lint_question(uint8_t **pkt, uint8_t *last);
 int lint_rx(uint8_t *pkt, unsigned len);
 const char *lint_get_cname(void);

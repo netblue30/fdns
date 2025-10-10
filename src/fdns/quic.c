@@ -206,13 +206,7 @@ static int quic_exchange(uint8_t *response, uint32_t stream) {
 
 
 errout:
-	if (arg_id > 0)
-		rlogprintf("Error: doq timeout %s\n", lint_last_domain());
-	else
-		fprintf(stderr, "Error: doq timeout %s\n", lint_last_domain());
-	fflush(0);
-	//if (ssl_state == SSL_OPEN)
-	//	ssl_close();
+	rlogprintf("Error: doq timeout\n");
 	return -1;
 }
 
