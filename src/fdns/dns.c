@@ -294,14 +294,17 @@ int dns_query(uint8_t *msg, int cnt) {
 	if (lint_rx(msg, datalen)) {
 		if (lint_error() == DNSERR_NXDOMAIN) {
 			rlogprintf("%s nxdomain\n", cache_get_name());
-			// NXDOMAIN or similar received, cache for 10 minutes
+			// NXDOMAIN or similar received, cache for 2 minutes
 			cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
 			return datalen;
 		}
 		else if (lint_error() == DNSERR_CNAME_CLOAKING) {
 			rlogprintf("Error: %s %s\n", lint_err2str(), cache_get_name());
 			rlogprintf("Error: ... redirected to %s\n", lint_get_cname());
-			return 0;
+			// set NXDOMAIN bytes in the packet
+			msg[3] = 3;
+			cache_set_reply(msg, datalen, CACHE_TTL_ERROR);
+			return datalen;
 		}
 		// several adblocker/family services return addresses of 0.0.0.0 or 127.0.0.1 for blocked domains
 		const char *str = lint_err2str();
