@@ -461,8 +461,13 @@ int ssl_tx(uint8_t *buf, int len) {
 
 	if (quic) {
 		quic_stream = SSL_new_stream(ssl, 0);	// transmit: create a new quic stream
+		if (!quic_stream) {
+			rlogprintf("Error: cannot create quic stream\n");
+			goto errout;
+		}
+
 		if (!SSL_write_ex(quic_stream, buf, len, &lentx)) {
-			printf("Error: Failed to transmit the query\n");
+			rlogprintf("Error: Failed to transmit the query\n");
 			goto errout;
 		}
 		SSL_stream_conclude(quic_stream, 0); // inform the server that's all that is

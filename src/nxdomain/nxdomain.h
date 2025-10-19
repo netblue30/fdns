@@ -36,8 +36,8 @@
 #define PRINT_IP(A) \
 	((int) (((A) >> 24) & 0xFF)),  ((int) (((A) >> 16) & 0xFF)), ((int) (((A) >> 8) & 0xFF)), ((int) ( (A) & 0xFF))
 
-#define FILE_CHUNK_SIZE 200	// maximum number of domains in a  chunk of data
-#define MAX_CHUNKS 2		// maximum number of parallel chunks for processing
+#define FILE_CHUNK_SIZE 200	// maximum number of domains in a chunk of data
+#define MAX_CHUNKS 3		// maximum number of parallel chunks for processing
 
 // main.c
 extern char *arg_server;

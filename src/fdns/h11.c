@@ -276,6 +276,8 @@ static int h11_exchange(uint8_t *response, uint32_t stream) {
 
 errout:
 	rlogprintf("Error: http/1.1 timeout\n");
+	ssl_close();
+	exit(1);
 	return -1;
 }
 
