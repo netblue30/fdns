@@ -76,19 +76,19 @@ host: doh.42l.fr/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: a-and-a
-website: https://www.aa.net.uk/legal/dohdot-disclaimer/
-tags: UK, WesternEurope, Europe
-address: 217.169.20.23:443
-host: dns.aa.net.uk/dns-query
-end;
-
-name: a-and-a2
-website: https://www.aa.net.uk/legal/dohdot-disclaimer/
-tags: UK, WesternEurope, Europe
-address: 217.169.20.22:443
-host: dns.aa.net.uk/dns-query
-end;
+#name: a-and-a
+#website: https://www.aa.net.uk/legal/dohdot-disclaimer/
+#tags: UK, WesternEurope, Europe
+#address: 217.169.20.23:443
+#host: dns.aa.net.uk/dns-query
+#end;
+#
+#name: a-and-a2
+#website: https://www.aa.net.uk/legal/dohdot-disclaimer/
+#tags: UK, WesternEurope, Europe
+#address: 217.169.20.22:443
+#host: dns.aa.net.uk/dns-query
+#end;
 
 name: adfilter-adelaide
 website: https://adfilter.net
@@ -684,22 +684,6 @@ host: freedns.controld.com/p0
 keepalive: 7
 end;
 
-name: controld-adguard
-website: https://controld.com/free-dns/
-tags: anycast, adblocker, America, AsiaPacific, Europe
-address: 76.76.2.44:443
-host: freedns.controld.com/adguard
-keepalive: 7
-end;
-
-name: controld2-adguard
-website: https://controld.com/free-dns/
-tags: anycast, adblocker, America, AsiaPacific, Europe
-address: 76.76.10.44:443
-host: freedns.controld.com/adguard
-keepalive: 7
-end;
-
 name: controld-security
 website: https://controld.com/free-dns/
 tags: anycast, security, adblocker, America, AsiaPacific, Europe
@@ -775,6 +759,8 @@ host: dns.cynthialabs.net/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
+# todo: https://dnsguard.pub/
+
 name: data.haus
 website: https://data.haus/
 tags: sni, adblocker, Germany, Europe
@@ -803,100 +789,100 @@ address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
 end;
 
-name: dns0eu
-website: https://dns0.eu
-tags: security, Europe
-address: 193.110.81.9:443
-host: zero.dns0.eu/
-# server inactivity timer 65 seconds or higher
+name: dns4eu
+website: https://https://www.joindns4.eu
+tags: Europe
+address: 86.54.11.100:443
+host: unfiltered.joindns4.eu/dns-query
+keepalive: 7
 end;
 
-name: dns0eu-dot
-website: https://dns0.eu
-tags: dot, security, Europe
-address: 193.110.81.9:853
-host: zero.dns0.eu/
-# server inactivity timer 65 seconds or higher
+name: dns4eu2
+website: https://https://www.joindns4.eu
+tags: Europe
+address: 86.54.11.200:443
+host: unfiltered.joindns4.eu/dns-query
+keepalive: 7
 end;
 
-name: dns0eu-quic
-website: https://dns0.eu
-tags: quic, security, Europe
-address: 193.110.81.9:853
-host: zero.dns0.eu/
-keepalive: 24
+name: dns4eu-dot
+website: https://https://www.joindns4.eu
+tags: dot, Europe
+address: 86.54.11.100:853
+host: unfiltered.joindns4.eu/
+keepalive: 7
 end;
 
-name: dns0eu-2
-website: https://dns0.eu
-tags: security, Europe
-address: 185.253.5.9:443
-host: zero.dns0.eu/
-# server inactivity timer 65 seconds or higher
+name: dns4eu2-dot
+website: https://https://www.joindns4.eu
+tags: dot, Europe
+address: 86.54.11.200:853
+host: unfiltered.joindns4.eu/
+keepalive: 7
 end;
 
-name: dns0eu-dot2
-website: https://dns0.eu
-tags: dot, security, Europe
-address: 185.253.5.9:853
-host: zero.dns0.eu/
-# server inactivity timer 65 seconds or higher
+name: dns4eu-noads
+website: https://https://www.joindns4.eu
+tags: adblocker, Europe
+address: 86.54.11.13:443
+host: noads.joindns4.eu/dns-query
+keepalive: 7
 end;
 
-name: dns0eu-quic2
-website: https://dns0.eu
-tags: quic, security, Europe
-address: 185.253.5.9:853
-host: zero.dns0.eu/
-keepalive: 24
+name: dns4eu2-noads
+website: https://https://www.joindns4.eu
+tags: adblocker, Europe
+address: 86.54.11.213:443
+host: noads.joindns4.eu/dns-query
+keepalive: 7
 end;
 
-name: dns0eu-family
-website: https://dns0.eu
+name: dns4eu-noads-dot
+website: https://https://www.joindns4.eu
+tags: dot, adblocker, Europe
+address: 86.54.11.13:853
+host: noads.joindns4.eu/
+keepalive: 7
+end;
+
+name: dns4eu2-noads-dot
+website: https://https://www.joindns4.eu
+tags: dot, adblocker, Europe
+address: 86.54.11.213:853
+host: noads.joindns4.eu/
+keepalive: 7
+end;
+
+name: dns4eu-family
+website: https://https://www.joindns4.eu
 tags: family, Europe
-address: 193.110.81.1:443
-host: kids.dns0.eu/
-# server inactivity timer 65 seconds or higher
+address: 86.54.11.11:443
+host: child-noads.joindns4.eu/dns-query
+keepalive: 7
 end;
 
-name: dns0eu-family-dot
-website: https://dns0.eu
-tags: dot, family, Europe
-address: 193.110.81.1:853
-host: kids.dns0.eu/
-# server inactivity timer 65 seconds or higher
-end;
-
-#name: dns0eu-family-quic
-#website: https://dns0.eu
-#tags: quic, family, Europe
-#address: 193.110.81.1:853
-#host: kids.dns0.eu/
-#keepalive: 24
-#end;
-
-name: dns0eu-family-2
-website: https://dns0.eu
+name: dns4eu2-family
+website: https://https://www.joindns4.eu
 tags: family, Europe
-address: 185.253.5.1:443
-host: kids.dns0.eu/
-# server inactivity timer 65 seconds or higher
+address: 86.54.11.211:443
+host: child-noads.joindns4.eu/dns-query
+keepalive: 7
 end;
 
-name: dns0eu-family-dot2
-website: https://dns0.eu
+name: dns4eu-family-dot
+website: https://https://www.joindns4.eu
 tags: dot, family, Europe
-address: 185.253.5.1:853
-host: kids.dns0.eu/
-# server inactivity timer 65 seconds or higher
+address: 86.54.11.11:853
+host: child-noads.joindns4.eu/
+keepalive: 7
 end;
 
-name: dns0eu-family-quic2
-website: https://dns0.eu
-tags: quic, family, Europe
-address: 185.253.5.1:853
-host: kids.dns0.eu/
-keepalive: 24
+name: dns4eu2-family-dot
+website: https://https://www.joindns4.eu
+tags: dot, family, Europe
+address: 86.54.11.211:853
+host: child-noads.joindns4.eu/
+keepalive: 7
 end;
 
 name: dns4me-ca1
@@ -1468,6 +1454,13 @@ tags: UK, WesternEurope, Europe
 address: 46.101.66.244:443
 host: doh.li/dns-query
 # server inactivity timer 65 seconds or higher
+end;
+
+name: li-dot
+website: https://doh.li/
+tags: dot, UK, WesternEurope, Europe
+address: 46.101.66.244:853
+host: doh.li/dns-query
 end;
 
 name: libredns
@@ -2339,9 +2332,6 @@ address: v.recipes:443
 host: v.recipes/dns-security
 end;
 
-
-
-
 name: wikimedia
 website: https://meta.wikimedia.org/wiki/Wikimedia_DNS
 tags: anycast, America, AsiaPacific, Europe
@@ -2371,12 +2361,19 @@ host: yarp.lefolgoc.net/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-#name: your-dns
-#website: https://github.com/yegle/your-dns
-#tags: adblocker, US, America
-#address: 35.247.39.128:443
-#host: your-dns.run/dns-query
-#end;
+name: yuzi-ska
+website: https://linux.do/t/topic/1004533
+tags: Japan, AsiaPacific, FarEast
+address: 156.231.115.237:443
+host: dns.yuzia.cc/dns-query
+end;
+
+name: yuzi-ska-quic
+website: https://linux.do/t/topic/1004533
+tags: quic, Japan, AsiaPacific, FarEast
+address: 156.231.115.237:853
+host: dns.yuzia.cc/
+end;
 
 name: zdn
 website: https://zdn.ro
@@ -2486,7 +2483,7 @@ host: dub01.dnscry.pt/
 end;
 
 name: dnscrypt-durham
-tags: dot, UK, Europe, WesternEurope
+tags: dot, US, America
 website: https://www.dnscry.pt
 address: 38.45.64.117:853
 host: rdu01.dnscry.pt/

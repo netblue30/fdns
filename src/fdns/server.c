@@ -710,8 +710,17 @@ void server_test_tag(const char *tag)  {
 				stats_add(s->name, rv);
 				cnt++;
 			}
-			else
-				stats_down(s->name);
+			// do a second test
+			else {
+				printf("retrying...\n");
+				sleep(3);
+				if ((rv = test_server(s->name)) != 0) {
+					stats_add(s->name, rv);
+					cnt++;
+				}
+				else
+					stats_down(s->name);
+			}
 			usleep(500000);
 		}
 		s = s->next;
