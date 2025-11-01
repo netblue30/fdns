@@ -1725,7 +1725,7 @@ name: nwps-family
 website:https://niko.nwps.fi
 tags: h2ping, family, Finaland, Europe
 address: 95.217.11.63:443
-host: family.ns.nwps.fi/dns-query
+host: kids.ns.nwps.fi/dns-query
 keepalive: 7
 end;
 
@@ -1734,14 +1734,6 @@ website:https://niko.nwps.fi
 tags: h2ping, adblocker, Finaland, Europe
 address: 95.217.11.63:443
 host: public.ns.nwps.fi/dns-query
-keepalive: 7
-end;
-
-name: nwps-unfiltered
-website:https://niko.nwps.fi
-tags: h2ping, Finaland, Europe
-address: 95.217.11.63:443
-host: unfiltered.ns.nwps.fi/dns-query
 keepalive: 7
 end;
 
