@@ -99,7 +99,7 @@ static DFilter default_filter[] = {
 	{"^aa-metrics.", NULL, 0}, // 20
 	{"^smetric.", NULL, 0}, //  2711
 	{"^smetrics.", NULL, 0}, //  2642
-	{"^tr.", NULL, 0}, // 1756
+	//	{"^tr.", NULL, 0}, // 1756 - lots of false positives, such as tr.wiktionary.org
 	{"^metric.", NULL, 0}, // 950
 	{"^metrics.", NULL, 0}, // 644
 	{"^mdws.", NULL, 0}, // 193

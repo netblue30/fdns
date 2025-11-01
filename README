@@ -50,7 +50,13 @@ Fdns manitainers/committers as described above.
 Airat Makhmutov (https://github.com/rautyrauty)
 	- add ALT OpenSSL certificate
 	- --server-list option enhancement
-
+	
+Deng XingJing (https://github.com/MicroMilo)
+        - memory allocation fix
+	
+Niko Itäjärvi (https://github.com/nwps)
+        - server list fixes
+	
 sblighting (https://github.com/sblighting)
 	- hash table for the local DNS cache
 	- disable doh on local network
