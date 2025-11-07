@@ -89,6 +89,8 @@ void dedup_init(const char *fname) {
 		}
 		dedup_add(ptr);
 	}
+
+	fclose(fp);
 }
 
 
