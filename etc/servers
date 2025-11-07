@@ -759,7 +759,24 @@ host: dns.cynthialabs.net/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-# todo: https://dnsguard.pub/
+name: cznic-dot
+tags: dot, Czechia, Europe
+website: https://www.nic.cz/odvr
+address: 193.17.47.1:853
+host: odvr.nic.cz/
+keepalive: 7
+end;
+
+name: cznic2-dot
+tags: dot, Czechia, Europe
+website: https://www.nic.cz/odvr
+address: 185.43.135.1:853
+host: odvr.nic.cz/
+keepalive: 7
+end;
+
+
+# todo: https://dnsguard.pub/ - certificate expired
 
 name: data.haus
 website: https://data.haus/
@@ -2057,6 +2074,14 @@ host: doh.rezhajul.io/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
+name: rezjahul-quic
+website: https://doh.rezhajul.io/
+tags: quic, adblocker, Singapore, AsiaPacific, FarEast
+address: doh.rezhajul.io:853
+host: doh.rezhajul.io/
+keepalive: 24
+end;
+
 # redirected to cloudflare
 name: rotunneling
 website: https://www.rotunneling.net/rotunneling-doh-free/
@@ -2130,6 +2155,7 @@ tags:  quic, America, AsiaPacific, Europe
 website: https://www.sz-dns.com
 address:  dot.sz-dns.com:853
 host: dot.sz-dns.com/
+keepalive: 24
 end;
 
 name: trcnet1-dot
@@ -2217,13 +2243,13 @@ host: asia.tri-dns.net/
 keepalive: 7
 end;
 
-#name: tridns-sg-quic
-#website: https://dns.triro.net
-#tags: quic, Singapore, AsiaPacific. FarEast
-#address: 185.111.159.59:853
-#host: asia.tri-dns.net/
-#keepalive: 7
-#end;
+name: tridns-sg-quic
+website: https://dns.triro.net
+tags: quic, Singapore, AsiaPacific. FarEast
+address: 185.111.159.59:853
+host: asia.tri-dns.net/
+keepalive: 7
+end;
 
 # cloudflare redirect
 name: tiarap
