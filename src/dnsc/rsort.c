@@ -250,7 +250,7 @@ void rsort_load(const char *fname) {
 
 errout:
 	printf("\n");
-	fprintf(stderr, "Error: file %s, %s\n", fname, ptr);
+	fprintf(stderr, "Error: file %s\n", fname);
 	free(storage);
 	exit(1);
 }

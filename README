@@ -53,6 +53,7 @@ Airat Makhmutov (https://github.com/rautyrauty)
 	
 Deng XingJing (https://github.com/MicroMilo)
         - memory allocation fix
+	- fix file descriptor leak in dedup_init
 	
 Niko Itäjärvi (https://github.com/nwps)
         - server list fixes

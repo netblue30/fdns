@@ -117,7 +117,7 @@ static inline void h2frame_print(int id, const char *direction, H2Frame *frm) {
 		memcpy(&window, wstart, 4);
 		window &= 0x7fffffff;
 		window = ntohl(window);
-		printf("(%d) h2 %s s %u, len %u, 0x%02u %s(%d), 0x%02u (",
+		printf("(%d) h2 %s s %u, len %u, 0x%02u %s(%u), 0x%02u (",
 		       id,
 		       direction,
 		       stream,

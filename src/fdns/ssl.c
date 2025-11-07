@@ -359,7 +359,7 @@ void ssl_open(void) {
 				printf("   %s, ALPN %s, ", ver, alpn_value);
 		}
 		else
-			fprintf(stderr, "Error: invalid ALPN string of length %d\n", len);
+			fprintf(stderr, "Error: invalid ALPN string of length %u\n", len);
 	}
 	else {
 		unsigned len = 0;
@@ -380,7 +380,7 @@ void ssl_open(void) {
 			dns_set_transport(http);
 		}
 		else
-			fprintf(stderr, "Error: invalid ALPN string of length %d\n", len);
+			fprintf(stderr, "Error: invalid ALPN string of length %u\n", len);
 		free((char *) alpn);
 	}
 
@@ -454,7 +454,7 @@ int ssl_tx(uint8_t *buf, int len) {
 
 	if (arg_debug) {
 		print_time();
-		printf("(%d) ssl tx len %u\n", arg_id, len);
+		printf("(%d) ssl tx len %d\n", arg_id, len);
 	}
 
 	size_t lentx;

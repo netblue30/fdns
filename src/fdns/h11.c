@@ -74,7 +74,7 @@ static void h11_print_url(void) {
 static void h11_header_stats(void) {
 	if (h11_header_cnt == 0)
 		return;
-	printf("   Header size: %d bytes\n",
+	printf("   Header size: %u bytes\n",
 		h11_header_total_len / h11_header_cnt);
 }
 

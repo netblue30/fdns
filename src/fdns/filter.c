@@ -247,7 +247,7 @@ void filter_load_list(const char *fname) {
 	unsigned short file_id = file_id_cnt;
 	if (file_id < MAX_FILE_ID) {
 		file_id_arr[file_id] = strdup(fname);
-		if (!fname)
+		if (!file_id_arr[file_id])
 			errExit("strdup");
 		file_id_cnt++;
 

@@ -16,6 +16,7 @@ PACKAGE_TARNAME=@PACKAGE_TARNAME@
 DOCDIR=@docdir@
 HAVE_APPARMOR=@HAVE_APPARMOR@
 SYSTEMD_DIR=@SYSTEMD_DIR@
+CPPCHECK ?= cppcheck
 
 .PHONY: apps $(APPS)
 apps: $(APPS)
@@ -133,7 +134,7 @@ deb: dist
 	./mkdeb.sh $(NAME) $(VERSION)
 
 cppcheck: clean
-	cppcheck --force .
+	$(CPPCHECK) --force --error-exitcode=1 --enable=warning,performance --check-level=exhaustive .
 
 filtercheck:; ./filtercheck.sh
 

@@ -157,9 +157,9 @@ char *procs_list(pid_t *default_proxy_pid) {
 //					if (strcmp(buf, DEFAULT_PROXY_ADDR) == 0)
 //						printf(" (default)");
 				}
+				fclose(fp);
 			}
 			printf("\n");
-			fclose(fp);
 			free(runfname);
 		}
 		free(fname);

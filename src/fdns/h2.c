@@ -100,7 +100,7 @@ static void h2_header_stats(void) {
 	if (http_header_size == 0 || h2_header_cnt == 0)
 		return;
 	int average = h2_header_total_len / h2_header_cnt;
-	printf("   Header uncompressed | compressed | ratio:  %d | %d | %0.02f:1\n",
+	printf("   Header uncompressed | compressed | ratio:  %d | %u | %0.02f:1\n",
 		http_header_size,
 		h2_header_total_len / h2_header_cnt,
 		(float) http_header_size / (float) average);

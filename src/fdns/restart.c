@@ -46,4 +46,7 @@ void restart(void) {
 		fprintf(stderr, "Error: cannot kill existing default proxy, not enough permissions\n");
 		exit(1);
 	}
+	
+	free(fname);
+	fclose(fp);
 }
