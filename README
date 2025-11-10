@@ -5,7 +5,7 @@ Linux desktops. To speed up the name resolution fdns caches the responses,
 and uses a configurable adblocker and privacy filter to cut down the
 unnecessary traffic.
 
-Copyright (C) 2024 fdns Authors
+Copyright (C) 2025 fdns Authors
 
 All files are licensed under GPLv3, with the exception of 
 etc/bloclists/list.coinblocker licensed under AGPLv3.
