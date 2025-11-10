@@ -6,7 +6,7 @@ This is the Debian/Ubuntu prepackaged version of fdns.
     and uses a configurable adblocker and privacy filter to cut down the
     unnecessary traffic. The software is written in C, and is licensed under GPLv3.
 
-    Copyright (C) 2019-2021 FDNS Authors (see README file for more details)
+    Copyright (C) 2019-2025 FDNS Authors (see README file for more details)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

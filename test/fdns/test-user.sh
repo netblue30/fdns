@@ -1,6 +1,6 @@
 #!/bin/bash
 # This file is part of fdns project
-# Copyright (C) 2019-2021 FDNS Authors
+# Copyright (C) 2019-2025 FDNS Authors
 # License GPL v2
 
 export SERVER_LIST=${SERVER_LIST:-/etc/fdns/servers}

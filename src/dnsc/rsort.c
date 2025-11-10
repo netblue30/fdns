@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2024 FDNS Authors
+ * Copyright (C) 2019-2025 FDNS Authors
  *
  * This file is part of fdns project
  *
