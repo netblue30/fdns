@@ -242,14 +242,14 @@ end;
 
 name: adguard-family2-dot
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: anycast, dot, family, America, AsiaPacific, Europe
+tags: dot, family, America, AsiaPacific, Europe
 address: 94.140.14.15:853
 host: dns-family.adguard.com/
 end;
 
 name: adguard-family2-quic
 website: https://adguard.com/en/adguard-dns/overview.html
-tags: anycast, quic, family, America, AsiaPacific, Europe
+tags: quic, family, America, AsiaPacific, Europe
 address: 94.140.14.15:853
 host: dns-family.adguard.com/
 keepalive: 24
@@ -2036,6 +2036,14 @@ end;
 name: rbn-dot
 website: https://www.robingroppe.de/serverzeug/dns-server
 tags: dot, adblocker, Germany, Europe
+address: 185.245.97.150:853
+host: dns.rbn.gr/
+keepalive: 7
+end;
+
+name: rbn-quic
+website: https://www.robingroppe.de/serverzeug/dns-server
+tags: quic, adblocker, Germany, Europe
 address: 185.245.97.150:853
 host: dns.rbn.gr/
 keepalive: 7

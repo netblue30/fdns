@@ -1,3 +1,16 @@
+fdns (0.9.76) baseline; urgency=low
+  * DNS over QUIC support - 23 servers supported by default
+    (16 AsiaPacific, 13 America, 16 Europe)
+  * updated server list - 388 servers supported by default
+    (126 AsiaPacific, 141 America, 222 Europe)
+  * added dnsc utility program for cleaning and compressing wildcard
+    domain lists
+  * updated seccomp filter
+  * updated blacklist filter
+  * re-enabled systemd sandbox in /etc/fdns/fdns.service file
+  * bugfixes, security fixes, and general software cleanup
+ -- netblue30 <netblue30@yahoo.com>  Mon, 10 Nov 2025 08:00:00 -0500
+
 fdns (0.9.74.2) baseline; urgency=low
   * added futex syscall in seccomp filter
   * added stats to --test-server option
