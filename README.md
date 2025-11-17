@@ -79,9 +79,9 @@ Security bugs are taken seriously, please email them to netblue30 at protonmail.
 </ul>
 <div style="height:20px;">&nbsp;</div>
 
-<h2>Development release 0.9.75:</h2>
+<h2>Development release 0.9.77:</h2>
 
-Introducing DNS over QUIC support on a small number of servers:
+Current DNS over QUIC server list:
 `````
 $  fdns --list=all | grep quic
 adguard-unfiltered-quic - anycast, quic, America, AsiaPacific, Europe
@@ -89,14 +89,19 @@ adguard-unfiltered2-quic - anycast, quic, America, AsiaPacific, Europe
 adguard-quic - anycast, quic, adblocker, America, AsiaPacific, Europe
 adguard2-quic - anycast, quic, adblocker, America, AsiaPacific, Europe
 adguard-family-quic - quic, family, America, AsiaPacific, Europe
-adguard-family2-quic - anycast, quic, family, America, AsiaPacific, Europe
+adguard-family2-quic - quic, family, America, AsiaPacific, Europe
 blissdns-quic - quic, adblocker, US, America
 brahmaworld-quic - quic, adblocker, Sweden, Europe
 dynx-quic - quic, adblocker, Germany, Europe
+nextdns-quic - quic, America, AsiaPacific, Europe
+nextdns2-quic - quic, America, AsiaPacific, Europe
+nextdns3-quic - anycast, quic, America, AsiaPacific, Europe
 noridev-quic - quic, adblocker, Korea, AsiaPacific, FarEast
-noridev2-quic - quic, adblocker, Korea, AsiaPacific, FarEast
 qquackdns-quic - quic, Korea, AsiaPacific, FarEast
+rbn-quic - quic, adblocker, Germany, Europe
+rezjahul-quic - quic, adblocker, Singapore, AsiaPacific, FarEast
 surfshark-quic - anycast, quic, America, AsiaPacific, Europe
+sz-dns-quic - quic, America, AsiaPacific, Europe
 tridns-ca-quic - quic, America, Canada
 tridns-ch-quic - quic, Europe, Switzerland
 tridns-sg-quic - quic, Singapore, AsiaPacific. FarEast

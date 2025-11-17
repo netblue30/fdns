@@ -1,3 +1,8 @@
+fdns (0.9.77) baseline; urgency=low
+  * development verson
+  * bugfixes
+ -- netblue30 <netblue30@yahoo.com>  Mon, 17 Nov 2025 08:00:00 -0500
+
 fdns (0.9.76) baseline; urgency=low
   * DNS over QUIC support - 23 servers supported by default
     (16 AsiaPacific, 13 America, 16 Europe)
