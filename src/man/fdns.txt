@@ -44,7 +44,7 @@ $ sudo fdns --blocklist=/usr/fdns/newblocklist
 .br
 
 .br
-Note: If AppArmor is enabled, please place your files additional files in /etc/fdns directory.
+Note: If AppArmor is enabled, please place your files in /etc/fdns directory.
 .TP
 \fB\-\-certfile=filename
 Use an SSL certificate file in PEM format. By default we use the certificates installed
@@ -288,8 +288,10 @@ $ sudo fdns --server=quic://dns.adguard.com
 .TP
 \fB\-\-server-list=filename
 Specify a list of servers, default /etc/fdns/servers.
-If the program is confined by AppArmor, place this file in /etc/fdns directory.
-Access to most other directories is blocked.
+.br
+
+.br
+Note: If AppArmor is enabled, please place your files in /etc/fdns directory.
 .br
 
 .br
@@ -379,8 +381,11 @@ $ sudo fdns --whitelist=gentoo.org \\
       --whitelist=wiki.gentoo.org
 .TP
 \fB\-\-whitelist-file=file-name
-Similar to \-\-whitelist above, it gets the domains from a file. If running under AppArmor, put the file under /etc/fdns directory.
-This is the only directory allowed by our AppArmor profile.
+Similar to \-\-whitelist above, it gets the domains from a file.
+.br
+
+.br
+Note: If AppArmor is enabled, please place your files in /etc/fdns directory.
 .br
 
 .br
