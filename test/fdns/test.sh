@@ -5,17 +5,16 @@
 
 # we are coming into this file as root user; by the end we will switch back to the regular $USER
 
-export SERVER_LIST=${SERVER_LIST:-/etc/fdns/servers}
 export MALLOC_CHECK_=3
 export MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
 
 echo "TESTING: ********************"
-printf "TESTING: running as root "
+printf "TESTING: running as "
 whoami
 echo "TESTING: ********************"
 
-echo "TESTING: dot vs h2 (test/fdns/dotvsh2.exp)"
-./dotvsh2.exp
+echo "TESTING: protocol (test/fdns/protocol.exp)"
+./protocol.exp
 
 echo "TESTING: keepalive and custom servers (test/fdns/keepalive.exp)"
 ./keepalive.exp

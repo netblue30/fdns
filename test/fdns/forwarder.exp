@@ -10,19 +10,22 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --server-list=$env(SERVER_LIST) --daemonize --forwarder=gentoo.org@127.2.2.2\r"
+send -- "fdns --daemonize --forwarder=gentoo.org@127.2.2.2 --nofilter\r"
 sleep 6
-send -- "fdns --server-list=$env(SERVER_LIST) --proxy-addr=127.2.2.2 --daemonize\r"
+send -- "fdns --proxy-addr=127.2.2.2 --daemonize --nofilter\r"
 sleep 6
 
-send -- "fdns --server-list=$env(SERVER_LIST) --proxies\r"
+send -- "fdns --proxies\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"address 127.2.2.2"
+	"127.1.1.1"
 }
+sleep 1
+
+send -- "fdns --proxies\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"address 127.1.1.1"
+	"127.2.2.2"
 }
 
 sleep 2
@@ -36,9 +39,9 @@ expect {
 set main_id $spawn_id
 sleep 2
 spawn $env(SHELL)
-send -- "fdns --server-list=$env(SERVER_LIST) --monitor\r"
+send -- "fdns --monitor\r"
 expect {
-	timeout {puts "TESTING ERROR 5\n";exit}
+	timeout {puts "TESTING ERROR 4\n";exit}
 	"assets.gentoo.org, forwarded"
 }
 after 100
@@ -46,7 +49,7 @@ after 100
 
 sleep 1
 spawn $env(SHELL)
-send -- "fdns --server-list=$env(SERVER_LIST) --monitor=127.2.2.2\r"
+send -- "fdns --monitor=127.2.2.2\r"
 expect {
 	timeout {puts "TESTING ERROR 7\n";exit}
 	"assets.gentoo.org, encrypted"

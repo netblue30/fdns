@@ -10,7 +10,7 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --server-list=$env(SERVER_LIST) --resolvers=10\r"
+send -- "fdns --resolvers=10\r"
 set server_id $spawn_id
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}

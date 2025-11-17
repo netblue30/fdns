@@ -12,10 +12,11 @@ sleep 2
 
 send -- "rm /etc/fdns/blocklist-fdns-test\r"
 after 100
+# copy blocklist in /etc/fdns since apparmor might be enabled!
 send -- "cp blocklist-fdns-test /etc/fdns/.\r"
 after 100
 
-send -- "fdns --server-list=$env(SERVER_LIST) --blocklist-file=/etc/fdns/blocklist-fdns-test\r"
+send -- "fdns --blocklist-file=/etc/fdns/blocklist-fdns-test --resolvers=1\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"fdns starting"

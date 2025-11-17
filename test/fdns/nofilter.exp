@@ -10,7 +10,7 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --server-list=$env(SERVER_LIST) --nofilter\r"
+send -- "fdns --nofilter\r"
 set server_id $spawn_id
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
@@ -28,7 +28,7 @@ set ping_id $spawn_id
 
 spawn $env(SHELL)
 set monitor_id $spawn_id
-send -- "fdns --server-list=$env(SERVER_LIST) --monitor\r"
+send -- "fdns --monitor\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
 	"doubleclick.net, dropped" {puts "TESTING ERROR 2\n";exit}

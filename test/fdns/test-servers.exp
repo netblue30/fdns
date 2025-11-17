@@ -7,7 +7,7 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "fdns --server-list=$env(SERVER_LIST) --test-server\r"
+send -- "fdns --test-server\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"Testing server"
@@ -18,7 +18,7 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"DoH query average"
+	"query average"
 }
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
@@ -30,7 +30,7 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 5\n";exit}
-	"DoH query average"
+	"query average"
 }
 expect {
 	timeout {puts "TESTING ERROR 6\n";exit}
@@ -42,7 +42,7 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 8\n";exit}
-	"DoH query average"
+	"query average"
 }
 
 

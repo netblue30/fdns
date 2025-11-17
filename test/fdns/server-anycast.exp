@@ -10,13 +10,15 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "firejail --bind=/tmp/dotvsh2-config,$env(SERVER_LIST) --noprofile fdns --nofilter --server=anycast\r"
-send -- "fdns --server-list=$env(SERVER_LIST) --server=anycast\r"
+send -- "fdns --nofilter --server=anycast\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"connecting to nextdns-dot"  {puts "1"}
-	"connecting to cloudflare"  {puts "2"}
-	"connecting to quad9"  {puts "3"}
+	"anycast"
+}
+expect {
+	timeout {puts "TESTING ERROR 2\n";exit}
+	"Error" {puts "TESTING ERROR 3\n";exit}
+	"SSL connection opened"
 }
 
 after 100

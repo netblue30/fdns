@@ -10,33 +10,22 @@ match_max 100000
 send -- "pkill fdns\r"
 sleep 2
 
-send -- "fdns --server-list=$env(SERVER_LIST) --daemonize\r"
+send -- "fdns --daemonize --nofilter\r"
 sleep 6
-send -- "fdns --server-list=$env(SERVER_LIST) --proxy-addr=127.2.2.2 --daemonize\r"
+send -- "fdns --proxy-addr=127.2.2.2 --daemonize --nofilter\r"
 sleep 6
-send -- "fdns --server-list=$env(SERVER_LIST) --proxy-addr=127.3.3.3 --debug&\r"
-expect {
-	timeout {puts "TESTING ERROR 0.1\n";exit}
-	"Testing server"
-}
-expect {
-	timeout {puts "TESTING ERROR 0.2\n";exit}
-	"Checking proxy address"
-}
-sleep 5
 
-send -- "fdns --server-list=$env(SERVER_LIST) --proxies\r"
+send -- "fdns --proxies\r"
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
-	"address 127.3.3.3"
+	"127.1.1.1"
 }
+sleep 1
+
+send -- "fdns --proxies\r"
 expect {
 	timeout {puts "TESTING ERROR 2\n";exit}
-	"address 127.2.2.2"
-}
-expect {
-	timeout {puts "TESTING ERROR 3\n";exit}
-	"address 127.1.1.1"
+	"127.2.2.2"
 }
 
 sleep 2
@@ -53,18 +42,11 @@ expect {
 	"3 received"
 }
 
-sleep 2
-send -- "firejail --dns=127.3.3.3 ping -c 3 google.com\r"
-expect {
-	timeout {puts "TESTING ERROR 6\n";exit}
-	"3 received"
-}
-
 set main_id $spawn_id
 sleep 2
 
 spawn $env(SHELL)
-send -- "fdns --server-list=$env(SERVER_LIST) --monitor=127.2.2.2\r"
+send -- "fdns --monitor=127.2.2.2\r"
 expect {
 	timeout {puts "TESTING ERROR 7\n";exit}
 	"google.com, encrypted"

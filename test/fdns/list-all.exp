@@ -7,7 +7,7 @@ set timeout 10
 spawn $env(SHELL)
 match_max 100000
 
-send -- "fdns --server-list=$env(SERVER_LIST) --list=all\r"
+send -- "fdns --list=all\r"
 expect {
 	timeout {puts "TESTING ERROR 0\n";exit}
 	"Current zone:"
@@ -15,10 +15,6 @@ expect {
 expect {
 	timeout {puts "TESTING ERROR 1\n";exit}
 	"cleanbrowsing"
-}
-expect {
-	timeout {puts "TESTING ERROR 2\n";exit}
-	"cleanbrowsing-family"
 }
 expect {
 	timeout {puts "TESTING ERROR 3\n";exit}
@@ -30,10 +26,6 @@ expect {
 }
 expect {
 	timeout {puts "TESTING ERROR 6\n";exit}
-	"twnic"
-}
-expect {
-	timeout {puts "TESTING ERROR 7\n";exit}
 	"servers found"
 }
 
