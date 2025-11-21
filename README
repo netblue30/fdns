@@ -108,14 +108,6 @@ Incorporating code from NextDNS CNAME cloaking block list
 https://github.com/nextdns/cname-cloaking-blocklist/blob/master/domains
 Copyright (c) 2022 NextDNS, MIT license
 
-Incorporating code from  CoinBlocker list  author AeroDot1
-https://zerodot1.gitlab.io/CoinBlockerListsWeb/index.html
-License AGPLv3,
-
-Incorporatong malware and trackers lists  author QuidsUp
-https://gitlab.com/quidsup/notrack-blocklists
-License GPLv3
-
 Incorporating  phising list from Phishing.Database, autohor mitchellkrogza
 from https://github.com/mitchellkrogza/Phishing.Database/blob/master/phishing-domains-ACTIVE.txt
 MIT License
@@ -131,10 +123,6 @@ McRae General Public License (version 4.r53) - https://pgl.yoyo.org/license/
 Incorporating several lists by lightswitch05
 from  https://www.github.developerdan.com/hosts/
 Apache License, Version 2.0
-
-Incorporating Global Advert Servers Blocklist - Personal Edition
-from http://hostsfile.mine.nu
-autohor Andy Short, license LGPL.
 
 Incorporating malware domains from URLhouse
 https://urlhaus.abuse.ch/api

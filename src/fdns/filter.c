@@ -237,10 +237,8 @@ void filter_load_list(const char *fname) {
 	assert(fname);
 	FILE *fp = fopen(fname, "r");
 	if (!fp) {
-		if (arg_id == 0) {
-			fprintf(stderr, "Error: cannot open %s\n", fname);
-			fprintf(stderr, "If AppArmor is enabled, please place the file in %s directory\n", SYSCONFDIR);
-		}
+		if (arg_id == 0)
+			fprintf(stderr, "Warning: cannot open %s.\n", fname);
 		return;
 	}
 
