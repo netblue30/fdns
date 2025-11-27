@@ -151,10 +151,11 @@ void seccomp_resolver(void) {
 	int rc = seccomp_load(ctx);
 //seccomp_export_bpf(ctx, STDOUT_FILENO);
 //seccomp_export_pfc(ctx, STDOUT_FILENO);
-//	seccomp_release(ctx);
+
 	if (rc)
 		goto errout;
 
+	seccomp_release(ctx);
 	return;
 
 errout:
