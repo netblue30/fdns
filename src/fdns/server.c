@@ -666,16 +666,27 @@ DnsServer *server_get(void) {
 					s = random_server();
 					if (s == first) // try again
 						s = random_server();
-					scurrent = s;
-					qaverage = test_server(s->name);
-					stats.query_time = qaverage;
 
-					// grab the fastest one
-					if (qaverage == 0 || qaverage > first_average) {
+					// no servers left!
+					if (s == NULL) {
 						// revert back to the first server
 						scurrent = first;
 						s = first;
 						stats.query_time = first_average;
+					}
+
+					else {
+						scurrent = s;
+						qaverage = test_server(s->name);
+						stats.query_time = qaverage;
+						
+						// grab the fastest one
+						if (qaverage == 0 || qaverage > first_average) {
+							// revert back to the first server
+							scurrent = first;
+							s = first;
+							stats.query_time = first_average;
+						}
 					}
 				}
 			}
