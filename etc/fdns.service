@@ -16,9 +16,6 @@ ExecStart=/usr/bin/fdns --daemonize
 # For more options like --allow-all-queries see man 1 fdns.
 RemainAfterExit=true
 
-[Install]
-WantedBy=multi-user.target
-
 # Log all queries to /tmp/fdns-log.txt.
 #  [NOTE] /tmp is often a tmpfs, you need to change this path if you want persistent logs.
 #StandardOutput=append:/tmp/fdns-log.txt
@@ -145,6 +142,7 @@ ReadWritePaths=/run/fdns
 #IPAddressAllow=localhost
 #IPAddressAllow=<IP-ADDR1> <IP-ADDR2> ...
 #
-#[Install]
-#WantedBy=multi-user.target
+
+[Install]
+WantedBy=multi-user.target
 ###############################################################
