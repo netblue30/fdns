@@ -351,13 +351,13 @@ host: basic.bravedns.com/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: cira
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: h2ping, Canada, America
-address: 149.112.121.10:443
-host: private.canadianshield.cira.ca/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: h2ping, Canada, America
+#address: 149.112.121.10:443
+#host: private.canadianshield.cira.ca/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: cira-dot
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -367,13 +367,13 @@ host: private.canadianshield.cira.ca/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: cira2
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: h2ping, Canada, America
-address: 149.112.122.10:443
-host: private.canadianshield.cira.ca/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira2
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: h2ping, Canada, America
+#address: 149.112.122.10:443
+#host: private.canadianshield.cira.ca/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: cira2-dot
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -383,13 +383,13 @@ host: private.canadianshield.cira.ca/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: cira-security
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: h2ping, security, Canada, America
-address: 149.112.121.20:443
-host: protected.canadianshield.cira.ca/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira-security
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: h2ping, security, Canada, America
+#address: 149.112.121.20:443
+#host: protected.canadianshield.cira.ca/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: cira-security-dot
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -399,13 +399,13 @@ host: protected.canadianshield.cira.ca/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: cira-security2
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: h2ping, security, Canada, America
-address: 149.112.122.20:443
-host: protected.canadianshield.cira.ca/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira-security2
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: h2ping, security, Canada, America
+#address: 149.112.122.20:443
+#host: protected.canadianshield.cira.ca/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: cira-security2-dot
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -416,13 +416,13 @@ keepalive: 50
 # server inactivity timer 65 seconds or higher
 end;
 
-name: cira-family
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: h2ping, family, Canada, America
-address: 149.112.121.30:443
-host: family.canadianshield.cira.ca/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira-family
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: h2ping, family, Canada, America
+#address: 149.112.121.30:443
+#host: family.canadianshield.cira.ca/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: cira-family-dot
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -432,13 +432,13 @@ host: family.canadianshield.cira.ca/
 # server inactivity timer 65 seconds or higher
 end;
 
-name: cira-family2
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: h2ping, family, Canada, America
-address: 149.112.122.30:443
-host: family.canadianshield.cira.ca/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira-family2
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: h2ping, family, Canada, America
+#address: 149.112.122.30:443
+#host: family.canadianshield.cira.ca/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: cira-family2-dot
 website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -1858,12 +1858,12 @@ end;
 #host: dns-tls.qis.io/
 #end;
 
-name: quad9
-website: https://quad9.net
-tags: anycast, security, America, AsiaPacific, Europe
-address: 9.9.9.9:443
-host: dns.quad9.net/dns-query
-end;
+#name: quad9
+#website: https://quad9.net
+#tags: anycast, security, America, AsiaPacific, Europe
+#address: 9.9.9.9:443
+#host: dns.quad9.net/dns-query
+#end;
 
 #name: quad9-dot
 #website: https://quad9.net
@@ -1873,12 +1873,12 @@ end;
 #keepalive: 7
 #end;
 
-name: quad9-2
-website: https://quad9.net
-tags: anycast, security, America, AsiaPacific, Europe
-address: 149.112.112.112:443
-host: dns.quad9.net/dns-query
-end;
+#name: quad9-2
+#website: https://quad9.net
+#tags: anycast, security, America, AsiaPacific, Europe
+#address: 149.112.112.112:443
+#host: dns.quad9.net/dns-query
+#end;
 
 #name: quad9-2-dot
 #website: https://quad9.net
@@ -1888,12 +1888,12 @@ end;
 #keepalive: 7
 #end;
 
-name: quad9-3
-website: https://quad9.net
-tags: anycast, security, America, AsiaPacific, Europe
-address: 149.112.112.9:443
-host: dns9.quad9.net/dns-query
-end;
+#name: quad9-3
+#website: https://quad9.net
+#tags: anycast, security, America, AsiaPacific, Europe
+#address: 149.112.112.9:443
+#host: dns9.quad9.net/dns-query
+#end;
 
 #name: quad9-3-dot
 #website: https://quad9.net
@@ -1903,12 +1903,12 @@ end;
 #keepalive: 7
 #end;
 
-name: quad9-unsecured
-website: https://quad9.net
-tags: anycast, America, AsiaPacific, Europe
-address: 9.9.9.10:443
-host: dns10.quad9.net/dns-query
-end;
+#name: quad9-unsecured
+#website: https://quad9.net
+#tags: anycast, America, AsiaPacific, Europe
+#address: 9.9.9.10:443
+#host: dns10.quad9.net/dns-query
+#end;
 
 #name: quad9-unsecured-dot
 #website: https://quad9.net
@@ -1918,12 +1918,12 @@ end;
 #keepalive: 7
 #end;
 
-name: quad9-unsecured-2
-website: https://quad9.net
-tags: anycast, America, AsiaPacific, Europe
-address: 149.112.112.10:443
-host: dns10.quad9.net/dns-query
-end;
+#name: quad9-unsecured-2
+#website: https://quad9.net
+#tags: anycast, America, AsiaPacific, Europe
+#address: 149.112.112.10:443
+#host: dns10.quad9.net/dns-query
+#end;
 
 #name: quad9-unsecured-2-dot
 #website: https://quad9.net
