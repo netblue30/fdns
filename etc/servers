@@ -2388,10 +2388,8 @@ end;
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
-# - update Oct 26, 2025
-#### - removed dnscrypt-hongkong02, dnscrypt-singapore02
+# - update Dec 14, 2025
 ##################################################
-
 name: dnscrypt-tampa
 tags: dot, US, America
 website: https://www.dnscry.pt
@@ -2409,7 +2407,7 @@ end;
 name: dnscrypt-sofia
 tags: dot, Bulgaria, Europe
 website: https://www.dnscry.pt
-address: 79.124.77.3:853
+address: 79.124.7.43:853
 host: sof01.dnscry.pt/
 end;
 
@@ -2640,7 +2638,7 @@ end;
 name: dnscrypt-dusseldorf02
 tags: dot, Germany, Europe
 website: https://www.dnscry.pt
-address: 45.133.75.122:853
+address: 37.114.58.115:853
 host: dus02.dnscry.pt/
 end;
 
@@ -2724,7 +2722,7 @@ end;
 name: dnscrypt-hafnarfjordur
 tags: dot, Iceland, Europe, WesternEurope
 website: https://www.dnscry.pt
-address: 151.236.24.190:853
+address: 192.71.218.121:853
 host: haf01.dnscry.pt/
 end;
 
@@ -2829,7 +2827,7 @@ end;
 name: dnscrypt-frankfurt
 tags: dot, Germany, Europe
 website: https://www.dnscry.pt
-address: 194.50.19.150:853
+address: 45.82.120.61:853
 host: fra01.dnscry.pt/
 end;
 
@@ -3151,7 +3149,7 @@ end;
 name: dnscrypt-halifax
 tags: dot, Canada, America
 website: https://www.dnscry.pt
-address: 23.191.80.72:853
+address: 23.191.80.43:853
 host: yhz01.dnscry.pt/
 end;
 
