@@ -1155,6 +1155,30 @@ host: dns1.dnscrypt.ca/dns-query
 # server inactivity timer 66 seconds or higher
 end;
 
+name: dnsdoh.art
+website: https://dnsdoh.art
+tags: adblocker, Finland, Europe
+address: 194.180.189.33:443
+host: dnsdoh.art/dns-query
+keepalive: 7
+end;
+
+#name: dnsdoh.art-dot
+#website: https://dnsdoh.art
+#tags: dot, adblocker, Finland, Europe
+#address: 194.180.189.33:853
+#host: dnsdoh.art/dns-query
+#keepalive: 7
+#end;
+
+name: dnsdoh.art-quic
+website: https://dnsdoh.art
+tags: quic, adblocker, Finland, Europe
+address: 194.180.189.33:853
+host: dnsdoh.art/
+keepalive: 24
+end;
+
 #name: dnsforfamily-dot
 #website: https://dnsforfamily.com
 #tags: dot, family, Germany, Europe
