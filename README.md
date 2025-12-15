@@ -92,7 +92,11 @@ adguard-family-quic - quic, family, America, AsiaPacific, Europe
 adguard-family2-quic - quic, family, America, AsiaPacific, Europe
 blissdns-quic - quic, adblocker, US, America
 brahmaworld-quic - quic, adblocker, Sweden, Europe
+dnsdoh.art-quic - quic, adblocker, Finland, Europe
 dynx-quic - quic, adblocker, Germany, Europe
+hagezi-quic - dot, adblocker, Germany, Europe
+hagezi2-quic - dot, adblocker, Germany, Europe
+hagezi3-quic - dot, adblocker, Finland, Europe
 nextdns-quic - quic, America, AsiaPacific, Europe
 nextdns2-quic - quic, America, AsiaPacific, Europe
 nextdns3-quic - anycast, quic, America, AsiaPacific, Europe

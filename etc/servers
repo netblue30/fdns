@@ -750,11 +750,40 @@ address: 185.95.218.42:443
 host: dns.digitale-gesellschaft.ch/dns-query
 end;
 
-name: digital-society
+name: digital-society2
 website: https://www.digitale-gesellschaft.ch
 tags: Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
+end;
+
+#name: digitalsize
+#website: https:/https://dns.digitalsize.net
+#tags: Germany, Europe
+#address: 94.130.135.203:853
+#host: dns.digitalsize.net/dns-query
+#end;
+
+name: digitalsize-dot
+website: https:/https://dns.digitalsize.net
+tags: dot, Germany, Europe
+address: 94.130.135.203:853
+host: dns.digitalsize.net/
+keepalive: 7
+end;
+
+name: dns.li
+website: https://padlock.argh.in/2019/07/11/dns-over-https.html
+tags: UK, Europe, WesternEurope
+address: 46.101.66.244:443
+host: doh.li/dns-query
+end;
+
+name: dns.li-dot
+website: https://padlock.argh.in/2019/07/11/dns-over-https.html
+tags: dot, UK, Europe, WesternEurope
+address: 46.101.66.244:853
+host: doh.li/
 end;
 
 name: dns4eu
@@ -1399,6 +1428,82 @@ address: 185.49.141.38:853
 host: getdnsapi.net/
 # server inactivity timer 65 seconds or higher
 end;
+
+
+
+name:hagezi
+website: https://github.com/hagezi/dns-servers
+tags: h2ping, adblocker, Germany, Europe
+address: 88.99.13.180:443
+host: root.hagezi.org/dns-query
+keepalive: 7
+end;
+
+name:hagezi-dot
+website: https://github.com/hagezi/dns-servers
+tags: dot, adblocker, Germany, Europe
+address: 88.99.13.180:853
+host: root.hagezi.org/
+keepalive: 7
+end;
+
+name:hagezi-quic
+website: https://github.com/hagezi/dns-servers
+tags: dot, adblocker, Germany, Europe
+address: 88.99.13.180:853
+host: quic.hagezi.org/
+keepalive: 7
+end;
+
+name:hagezi2
+website: https://github.com/hagezi/dns-servers
+tags: h2ping, adblocker, Germany, Europe
+address: 159.69.155.94:443
+host: root.hagezi.org/dns-query
+keepalive: 7
+end;
+
+name:hagezi2-dot
+website: https://github.com/hagezi/dns-servers
+tags: dot, adblocker, Germany, Europe
+address: 159.69.155.94:853
+host: root.hagezi.org/
+keepalive: 7
+end;
+
+name:hagezi2-quic
+website: https://github.com/hagezi/dns-servers
+tags: dot, adblocker, Germany, Europe
+address: 159.69.155.94:853
+host: quic.hagezi.org/
+keepalive: 7
+end;
+
+name:hagezi3
+website: https://github.com/hagezi/dns-servers
+tags: h2ping, adblocker, Finland, Europe
+address: 95.217.163.17:443
+host: root.hagezi.org/dns-query
+keepalive: 7
+end;
+
+name:hagezi3-dot
+website: https://github.com/hagezi/dns-servers
+tags: dot, adblocker, Finland, Europe
+address: 95.217.163.17:853
+host: root.hagezi.org/
+keepalive: 7
+end;
+
+name:hagezi3-quic
+website: https://github.com/hagezi/dns-servers
+tags: dot, adblocker, Finland, Europe
+address: 95.217.163.17:853
+host: quic.hagezi.org/
+keepalive: 7
+end;
+
+
 
 #name: hostux
 #website: https://hostux.network/en/index.html
