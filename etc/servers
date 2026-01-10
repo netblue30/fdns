@@ -1431,7 +1431,7 @@ end;
 
 
 
-name:hagezi
+name: hagezi
 website: https://github.com/hagezi/dns-servers
 tags: h2ping, adblocker, Germany, Europe
 address: 88.99.13.180:443
@@ -1439,7 +1439,7 @@ host: root.hagezi.org/dns-query
 keepalive: 7
 end;
 
-name:hagezi-dot
+name: hagezi-dot
 website: https://github.com/hagezi/dns-servers
 tags: dot, adblocker, Germany, Europe
 address: 88.99.13.180:853
@@ -1447,7 +1447,7 @@ host: root.hagezi.org/
 keepalive: 7
 end;
 
-name:hagezi-quic
+name: hagezi-quic
 website: https://github.com/hagezi/dns-servers
 tags: dot, adblocker, Germany, Europe
 address: 88.99.13.180:853
@@ -1455,7 +1455,7 @@ host: quic.hagezi.org/
 keepalive: 7
 end;
 
-name:hagezi2
+name: hagezi2
 website: https://github.com/hagezi/dns-servers
 tags: h2ping, adblocker, Germany, Europe
 address: 159.69.155.94:443
@@ -1463,7 +1463,7 @@ host: root.hagezi.org/dns-query
 keepalive: 7
 end;
 
-name:hagezi2-dot
+name: hagezi2-dot
 website: https://github.com/hagezi/dns-servers
 tags: dot, adblocker, Germany, Europe
 address: 159.69.155.94:853
@@ -1471,7 +1471,7 @@ host: root.hagezi.org/
 keepalive: 7
 end;
 
-name:hagezi2-quic
+name: hagezi2-quic
 website: https://github.com/hagezi/dns-servers
 tags: dot, adblocker, Germany, Europe
 address: 159.69.155.94:853
@@ -1479,7 +1479,7 @@ host: quic.hagezi.org/
 keepalive: 7
 end;
 
-name:hagezi3
+name: hagezi3
 website: https://github.com/hagezi/dns-servers
 tags: h2ping, adblocker, Finland, Europe
 address: 95.217.163.17:443
@@ -1487,7 +1487,7 @@ host: root.hagezi.org/dns-query
 keepalive: 7
 end;
 
-name:hagezi3-dot
+name: hagezi3-dot
 website: https://github.com/hagezi/dns-servers
 tags: dot, adblocker, Finland, Europe
 address: 95.217.163.17:853
@@ -1495,15 +1495,13 @@ host: root.hagezi.org/
 keepalive: 7
 end;
 
-name:hagezi3-quic
+name: hagezi3-quic
 website: https://github.com/hagezi/dns-servers
 tags: dot, adblocker, Finland, Europe
 address: 95.217.163.17:853
 host: quic.hagezi.org/
 keepalive: 7
 end;
-
-
 
 #name: hostux
 #website: https://hostux.network/en/index.html
@@ -2518,6 +2516,7 @@ end;
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
 # - update Dec 14, 2025
+# - disabled dnscrypt-naaldwijk, dnscrypt-fremont
 ##################################################
 name: dnscrypt-tampa
 tags: dot, US, America
@@ -2547,12 +2546,12 @@ address: 193.201.185.146:853
 host: bud01.dnscry.pt/
 end;
 
-name: dnscrypt-fremont
-tags: dot, US, America
-website: https://www.dnscry.pt
-address: 23.178.72.82:853
-host: fet01.dnscry.pt/
-end;
+#name: dnscrypt-fremont
+#tags: dot, US, America
+#website: https://www.dnscry.pt
+#address: 23.178.72.82:853
+#host: fet01.dnscry.pt/
+#end;
 
 name: dnscrypt-riga
 tags: dot, Latvia, Europe
@@ -2855,12 +2854,12 @@ address: 192.71.218.121:853
 host: haf01.dnscry.pt/
 end;
 
-name: dnscrypt-naaldwijk
-tags: dot, Netherlands, Europe, WesternEurope
-website: https://www.dnscry.pt
-address: 45.95.38.29:853
-host: naw01.dnscry.pt/
-end;
+#name: dnscrypt-naaldwijk
+#tags: dot, Netherlands, Europe, WesternEurope
+#website: https://www.dnscry.pt
+#address: 45.95.38.29:853
+#host: naw01.dnscry.pt/
+#end;
 
 name: dnscrypt-lima02
 tags: dot, Peru, SouthAmerica, America
