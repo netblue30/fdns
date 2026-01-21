@@ -29,6 +29,9 @@ typedef struct hnode_t {
 HNode *ht[HMAX] = {NULL};
 
 static void whitelist_add(const char *name) {
+	if (strncmp(name, "www.", 4) == 0)
+		name = (char *) name + 4;
+
 	HNode *hnode = malloc(sizeof(HNode));
 	if (!hnode)
 		errExit("malloc");
@@ -43,7 +46,11 @@ static void whitelist_add(const char *name) {
 	ht[h] = hnode;
 }
 
+
 void *whitelist_find(const char *name) {
+	if (strncmp(name, "www.", 4) == 0)
+		name = (char *) name + 4;
+
 	unsigned h = hash(name, HMAX);
 	HNode *hnode = ht[h];
 
