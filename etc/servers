@@ -359,13 +359,13 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-name: cira-dot
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: dot, Canada, America
-address: 149.112.121.10:853
-host: private.canadianshield.cira.ca/
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira-dot
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: dot, Canada, America
+#address: 149.112.121.10:853
+#host: private.canadianshield.cira.ca/
+## server inactivity timer 65 seconds or higher
+#end;
 
 #name: cira2
 #website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -375,13 +375,13 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-name: cira2-dot
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: dot, Canada, America
-address: 149.112.122.10:853
-host: private.canadianshield.cira.ca/
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira2-dot
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: dot, Canada, America
+#address: 149.112.122.10:853
+#host: private.canadianshield.cira.ca/
+## server inactivity timer 65 seconds or higher
+#end;
 
 #name: cira-security
 #website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -391,13 +391,13 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-name: cira-security-dot
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: dot, security, Canada, America
-address: 149.112.121.20:853
-host: protected.canadianshield.cira.ca/
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira-security-dot
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: dot, security, Canada, America
+#address: 149.112.121.20:853
+#host: protected.canadianshield.cira.ca/
+## server inactivity timer 65 seconds or higher
+#end;
 
 #name: cira-security2
 #website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -407,14 +407,14 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-name: cira-security2-dot
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: dot, security, Canada, America
-address: 149.112.122.20:853
-host: protected.canadianshield.cira.ca/
-keepalive: 50
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira-security2-dot
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: dot, security, Canada, America
+#address: 149.112.122.20:853
+#host: protected.canadianshield.cira.ca/
+#keepalive: 50
+## server inactivity timer 65 seconds or higher
+#end;
 
 #name: cira-family
 #website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -424,13 +424,13 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-name: cira-family-dot
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: dot, family, Canada, America
-address: 149.112.121.30:853
-host: family.canadianshield.cira.ca/
-# server inactivity timer 65 seconds or higher
-end;
+#name: cira-family-dot
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: dot, family, Canada, America
+#address: 149.112.121.30:853
+#host: family.canadianshield.cira.ca/
+## server inactivity timer 65 seconds or higher
+#end;
 
 #name: cira-family2
 #website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
@@ -440,12 +440,12 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-name: cira-family2-dot
-website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
-tags: dot, family, Canada, America
-address: 149.112.122.30:853
-host: family.canadianshield.cira.ca/
-end;
+#name: cira-family2-dot
+#website: https://www.cira.ca/cybersecurity-services/canadianshield/how-works
+#tags: dot, family, Canada, America
+#address: 149.112.122.30:853
+#host: family.canadianshield.cira.ca/
+#end;
 
 name: cleanbrowsing
 website: https://cleanbrowsing.org/filters
@@ -770,20 +770,6 @@ tags: dot, Germany, Europe
 address: 94.130.135.203:853
 host: dns.digitalsize.net/
 keepalive: 7
-end;
-
-name: dns.li
-website: https://padlock.argh.in/2019/07/11/dns-over-https.html
-tags: UK, Europe, WesternEurope
-address: 46.101.66.244:443
-host: doh.li/dns-query
-end;
-
-name: dns.li-dot
-website: https://padlock.argh.in/2019/07/11/dns-over-https.html
-tags: dot, UK, Europe, WesternEurope
-address: 46.101.66.244:853
-host: doh.li/
 end;
 
 name: dns4eu
@@ -1546,7 +1532,7 @@ end;
 name: li
 website: https://doh.li/
 tags: UK, WesternEurope, Europe
-address: 46.101.66.244:443
+address: 159.69.154.207:443
 host: doh.li/dns-query
 # server inactivity timer 65 seconds or higher
 end;
@@ -1554,7 +1540,7 @@ end;
 name: li-dot
 website: https://doh.li/
 tags: dot, UK, WesternEurope, Europe
-address: 46.101.66.244:853
+address: 159.69.154.207:853
 host: doh.li/dns-query
 end;
 
