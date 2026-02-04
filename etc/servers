@@ -2501,8 +2501,6 @@ end;
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
-# - update Dec 14, 2025
-# - disabled dnscrypt-naaldwijk, dnscrypt-fremont
 ##################################################
 name: dnscrypt-tampa
 tags: dot, US, America
@@ -2532,12 +2530,12 @@ address: 193.201.185.146:853
 host: bud01.dnscry.pt/
 end;
 
-#name: dnscrypt-fremont
-#tags: dot, US, America
-#website: https://www.dnscry.pt
-#address: 23.178.72.82:853
-#host: fet01.dnscry.pt/
-#end;
+name: dnscrypt-bremen
+tags: dot, Germany, Europe
+website: https://www.dnscry.pt
+address: 89.106.78.106:853
+host: bre01.dnscry.pt/
+end;
 
 name: dnscrypt-riga
 tags: dot, Latvia, Europe
@@ -2759,7 +2757,7 @@ end;
 name: dnscrypt-losangeles
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 216.73.156.52:853
+address: 104.156.154.11:853
 host: lax01.dnscry.pt/
 end;
 
@@ -2780,7 +2778,7 @@ end;
 name: dnscrypt-moscow
 tags: dot, Russia, Europe
 website: https://www.dnscry.pt
-address: 93.183.105.109:853
+address: 93.183.106.222:853
 host: mow01.dnscry.pt/
 end;
 
@@ -2840,12 +2838,12 @@ address: 192.71.218.121:853
 host: haf01.dnscry.pt/
 end;
 
-#name: dnscrypt-naaldwijk
-#tags: dot, Netherlands, Europe, WesternEurope
-#website: https://www.dnscry.pt
-#address: 45.95.38.29:853
-#host: naw01.dnscry.pt/
-#end;
+name: dnscrypt-naaldwijk
+tags: dot, Netherlands, Europe, WesternEurope
+website: https://www.dnscry.pt
+address: 45.95.38.29:853
+host: naw01.dnscry.pt/
+end;
 
 name: dnscrypt-lima02
 tags: dot, Peru, SouthAmerica, America
@@ -3001,13 +2999,6 @@ address: 23.95.134.15:853
 host: phx01.dnscry.pt/
 end;
 
-name: dnscrypt-hochiminhcity
-tags: dot, Vietnam, AsiaPacific, FarEast
-website: https://www.dnscry.pt
-address: 157.20.83.135:853
-host: sgn01.dnscry.pt/
-end;
-
 name: dnscrypt-molln
 tags: dot, Germany, Europe
 website: https://www.dnscry.pt
@@ -3085,11 +3076,11 @@ address: 216.120.201.105:853
 host: den01.dnscry.pt/
 end;
 
-name: dnscrypt-warsaw02
-tags: dot, Poland, Europe
+name: dnscrypt-hochiminhcity
+tags: dot, Vietnam, AsiaPacific, FarEast
 website: https://www.dnscry.pt
-address: 88.218.206.137:853
-host: waw02.dnscry.pt/
+address: 157.20.83.217:853
+host: sgn01.dnscry.pt/
 end;
 
 name: dnscrypt-bratislava
@@ -3137,7 +3128,7 @@ end;
 name: dnscrypt-dusseldorf
 tags: dot, Germany, Europe
 website: https://www.dnscry.pt
-address: 185.244.27.136:853
+address: 5.175.180.171:853
 host: dus01.dnscry.pt/
 end;
 
@@ -3165,7 +3156,7 @@ end;
 name: dnscrypt-lasvegas
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 209.141.45.27:853
+address: 66.187.4.39:853
 host: las01.dnscry.pt/
 end;
 
@@ -3225,10 +3216,10 @@ address: 66.187.7.140:853
 host: dtw01.dnscry.pt/
 end;
 
-name: dnscrypt-stockholm
+name: dnscrypt-stockholm02
 tags: dot, Sweden, Europe
 website: https://www.dnscry.pt
-address: 185.195.236.62:853
+address: 185.231.100.106:853
 host: sto02.dnscry.pt/
 end;
 
@@ -3410,7 +3401,7 @@ end;
 name: dnscrypt-barcelona
 tags: dot, Spain, Europe, WesternEurope
 website: https://www.dnscry.pt
-address: 45.134.91.164:853
+address: 46.28.71.52:853
 host: bcn01.dnscry.pt/
 end;
 
@@ -3428,17 +3419,10 @@ address: 89.223.88.74:853
 host: qro01.dnscry.pt/
 end;
 
-name: dnscrypt-minneapolis
-tags: dot, US, America
-website: https://www.dnscry.pt
-address: 92.223.102.13:853
-host: msp01.dnscry.pt/
-end;
-
 name: dnscrypt-adelaide
 tags: dot, Australia, AsiaPacific
 website: https://www.dnscry.pt
-address: 163.47.119.182:853
+address: 175.45.182.179:853
 host: adl01.dnscry.pt/
 end;
 
@@ -3504,4 +3488,74 @@ website: https://www.dnscry.pt
 address: 38.247.3.107:853
 host: aqx01.dnscry.pt/
 end;
-# dnscry.pt: 143 servers
+
+name: dnscrypt-sanjose
+tags: dot, US, America
+website: https://www.dnscry.pt
+address: 185.106.96.210:853
+host: sjc02.dnscry.pt/
+end;
+
+name: dnscrypt-toronto02
+tags: dot, Canada, America
+website: https://www.dnscry.pt
+address: 103.144.177.57:853
+host: yyz02.dnscry.pt/
+end;
+
+name: dnscrypt-seoul02
+tags: dot, Korea, AsiaPacific, FarEast
+website: https://www.dnscry.pt
+address: 151.245.106.181:853
+host: sel02.dnscry.pt/
+end;
+
+name: dnscrypt-stockholm
+tags: dot, Sweden, Europe
+website: https://www.dnscry.pt
+address: 195.72.60.66:853
+host: sto01.dnscry.pt/
+end;
+
+name: dnscrypt-ogden
+tags: dot, US, America
+website: https://www.dnscry.pt
+address: 107.182.173.83:853
+host: ogd01.dnscry.pt/
+end;
+
+name: dnscrypt-thessaloniki
+tags: dot, Greece, Europe
+website: https://www.dnscry.pt
+address: 85.90.197.7:853
+host: skg01.dnscry.pt/
+end;
+
+name: dnscrypt-dusseldorf03
+tags: dot, Germany, Europe
+website: https://www.dnscry.pt
+address: 118.91.184.89:853
+host: dus03.dnscry.pt/
+end;
+
+name: dnscrypt-mumbai02
+tags: dot, India, AsiaPacific
+website: https://www.dnscry.pt
+address: 165.99.9.209:853
+host: bom02.dnscry.pt/
+end;
+
+name: dnscrypt-vientiane
+tags: dot, Laos, FarEast, AsiaPacific
+website: https://www.dnscry.pt
+address: 103.228.101.178:853
+host: vte01.dnscry.pt/
+end;
+
+name: dnscrypt-warsaw
+tags: dot, Poland, Europe
+website: https://www.dnscry.pt
+address: 195.3.221.162:853
+host: waw01.dnscry.pt/
+end;
+# dnscry.pt: 151 servers
