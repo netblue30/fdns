@@ -48,24 +48,10 @@
 name: 42l
 website: https://42l.fr
 tags: sni, France, WesternEurope, Europe
-address: 5.196.8.241:443
+address: doh.42l.fr:443
 host: doh.42l.fr/dns-query
 # server inactivity timer 65 seconds or higher
 end;
-
-#name: a-and-a
-#website: https://www.aa.net.uk/legal/dohdot-disclaimer/
-#tags: UK, WesternEurope, Europe
-#address: 217.169.20.23:443
-#host: dns.aa.net.uk/dns-query
-#end;
-#
-#name: a-and-a2
-#website: https://www.aa.net.uk/legal/dohdot-disclaimer/
-#tags: UK, WesternEurope, Europe
-#address: 217.169.20.22:443
-#host: dns.aa.net.uk/dns-query
-#end;
 
 name: adfilter-adelaide
 website: https://adfilter.net
@@ -1026,14 +1012,6 @@ host: nl-ams.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns-sb-nl2
-website: https://dns.sb/doh
-tags: sni, Netherlands, WesternEurope, Europe
-address: nl-ams2.doh.sb:443
-host: nl-ams2.doh.sb/dns-query
-# server inactivity timer 65 seconds or higher
-end;
-
 name: dns-sb-uk
 website: https://dns.sb/doh
 tags: sni, UK, WesternEurope, Europe
@@ -1043,12 +1021,12 @@ host: uk-lon.doh.sb/dns-query
 end;
 
 #name: dns-sb-ee
-#website: https://dns.sb/doh
-#tags: sni, Estonia, Europe
-#address: ee-tll.doh.sb:443
-#host: ee-tll.doh.sb/dns-query
-## server inactivity timer 65 seconds or higher
-#end;
+website: https://dns.sb/doh
+tags: sni, Estonia, Europe
+address: ee-tll.doh.sb:443
+host: ee-tll.doh.sb/dns-query
+# server inactivity timer 65 seconds or higher
+end;
 
 name: dns-sb-jp1
 website: https://dns.sb/doh
@@ -1172,7 +1150,7 @@ end;
 
 name: dnsdoh.art
 website: https://dnsdoh.art
-tags: adblocker, Finland, Europe
+tags: sni, adblocker, Finland, Europe
 address: 194.180.189.33:443
 host: dnsdoh.art/dns-query
 keepalive: 7
@@ -1180,7 +1158,7 @@ end;
 
 #name: dnsdoh.art-dot
 #website: https://dnsdoh.art
-#tags: dot, adblocker, Finland, Europe
+#tags: dot, sni, adblocker, Finland, Europe
 #address: 194.180.189.33:853
 #host: dnsdoh.art/dns-query
 #keepalive: 7
@@ -1188,7 +1166,7 @@ end;
 
 name: dnsdoh.art-quic
 website: https://dnsdoh.art
-tags: quic, adblocker, Finland, Europe
+tags: quic, sni, adblocker, Finland, Europe
 address: 194.180.189.33:853
 host: dnsdoh.art/
 keepalive: 24
@@ -1420,7 +1398,7 @@ end;
 name: hagezi
 website: https://github.com/hagezi/dns-servers
 tags: h2ping, adblocker, Germany, Europe
-address: 88.99.13.180:443
+address: 188.34.161.210:443
 host: root.hagezi.org/dns-query
 keepalive: 7
 end;
@@ -1428,7 +1406,7 @@ end;
 name: hagezi-dot
 website: https://github.com/hagezi/dns-servers
 tags: dot, adblocker, Germany, Europe
-address: 88.99.13.180:853
+address: 188.34.161.210:853
 host: root.hagezi.org/
 keepalive: 7
 end;
@@ -1436,7 +1414,7 @@ end;
 name: hagezi-quic
 website: https://github.com/hagezi/dns-servers
 tags: dot, adblocker, Germany, Europe
-address: 88.99.13.180:853
+address: 188.34.161.210:853
 host: quic.hagezi.org/
 keepalive: 7
 end;
@@ -1508,7 +1486,7 @@ end;
 name: lacontrevoie
 website: https://lacontrevoie.fr/en/services/doh
 tags: sni, France, WesternEurope, Europe
-address: 5.196.8.241:443
+address: doh.lacontrevoie.fr:443
 host: doh.lacontrevoie.fr/dns-query
 # server inactivity timer 65 seconds or higher
 end;
@@ -1520,13 +1498,13 @@ address: 95.217.25.217:443
 host: eu1.dns.lavate.ch/dns-query
 end;
 
-name: lefolgoc
-website: https://yarp.lefolgoc.net/
-tags: France, WesternEurope, Europe
-address: 5.39.88.20:443
-host: yarp.lefolgoc.net/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: lefolgoc
+#website: https://yarp.lefolgoc.net/
+#tags: France, WesternEurope, Europe
+#address: 5.39.88.20:443
+#host: yarp.lefolgoc.net/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 # using HTTP 1.1
 name: li
@@ -2081,29 +2059,29 @@ address: 146.56.160.153:443
 host: ant.dns.qwer.pw/dns-query
 end;
 
-# cloudflare redirect
-name: rabbitdns
-website: https://rabbitdns.org/install
-tags: sni, America, AsiaPacific, Europe
-address: dns.rabbitdns.org:443
-host: dns.rabbitdns.org/dns-query
-end;
-
-# cloudflare redirect
-name: rabbitdns-security
-website: https://rabbitdns.org
-tags: security, sni, America, AsiaPacific, Europe
-address: security.rabbitdns.org:443
-host: security.rabbitdns.org/dns-query
-end;
-
-# cloudflare redirect
-name: rabbitdns-family
-website: https://rabbitdns.org/install
-tags: family, sni, America, AsiaPacific, Europe
-address: family.rabbitdns.org:443
-host: family.rabbitdns.org/dns-query
-end;
+## cloudflare redirect
+#name: rabbitdns
+#website: https://rabbitdns.org/install
+#tags: sni, America, AsiaPacific, Europe
+#address: dns.rabbitdns.org:443
+#host: dns.rabbitdns.org/dns-query
+#end;
+#
+## cloudflare redirect
+#name: rabbitdns-security
+#website: https://rabbitdns.org
+#tags: security, sni, America, AsiaPacific, Europe
+#address: security.rabbitdns.org:443
+#host: security.rabbitdns.org/dns-query
+#end;
+#
+## cloudflare redirect
+#name: rabbitdns-family
+#website: https://rabbitdns.org/install
+#tags: family, sni, America, AsiaPacific, Europe
+#address: family.rabbitdns.org:443
+#host: family.rabbitdns.org/dns-query
+#end;
 
 name: rbn
 website: https://www.robingroppe.de/serverzeug/dns-server
@@ -2461,13 +2439,13 @@ end;
 #host: secondary.dns.seia.io/dns-query
 #end;
 
-name: yarp
-website: https://yarp.lefolgoc.net
-tags: France, WesternEurope, Europe
-address: 5.39.88.20:443
-host: yarp.lefolgoc.net/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: yarp
+#website: https://yarp.lefolgoc.net
+#tags: France, WesternEurope, Europe
+#address: 5.39.88.20:443
+#host: yarp.lefolgoc.net/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 #name: yuzi-ska
 #website: https://linux.do/t/topic/1004533
