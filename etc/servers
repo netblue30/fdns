@@ -1020,7 +1020,7 @@ host: uk-lon.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-#name: dns-sb-ee
+name: dns-sb-ee
 website: https://dns.sb/doh
 tags: sni, Estonia, Europe
 address: ee-tll.doh.sb:443
@@ -2224,6 +2224,28 @@ host: dot.sz-dns.com/
 keepalive: 24
 end;
 
+name: techniverse
+website: https://www.cleveradmin.de/public-adguard-dns-resolver/
+tags: Germany, Europe
+address: 185.228.136.191:443
+host: dns1.techniverse.net/dns-query
+end;
+
+#name: techniverse-dot
+#website: https://www.cleveradmin.de/public-adguard-dns-resolver/
+#tags: dot, Germany, Europe
+#address: 185.228.136.191:853
+#host: dns1.techniverse.net/
+#end;
+
+name: techniverse-quic
+website: https://www.cleveradmin.de/public-adguard-dns-resolver/
+tags: quic, Germany, Europe
+address: 185.228.136.191:853
+host: dns1.techniverse.net/
+keepalive: 24
+end;
+
 name: trcnet1-dot
 website: https://ns1.trcnet.fi
 tags: dot, Finland, Europe
@@ -2479,6 +2501,7 @@ end;
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
+# - Last update Feb 4, 2026
 ##################################################
 name: dnscrypt-tampa
 tags: dot, US, America
