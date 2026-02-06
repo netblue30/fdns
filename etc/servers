@@ -53,6 +53,20 @@ host: doh.42l.fr/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
+#name: a-and-a
+#website: https://www.aa.net.uk/dns/
+#tags: sni, UK, WesternEurope, Europe
+#address: dns.aa.net.uk:443
+#host: dns.aa.net.uk/dns-query
+#end;
+#
+#name: a-and-a-dot
+#website: https://www.aa.net.uk/dns/
+#tags: sni, dot, UK, WesternEurope, Europe
+#address: dns.aa.net.uk:853
+#host: dns.aa.net.uk/
+#end;
+
 name: adfilter-adelaide
 website: https://adfilter.net
 tags: adblocker, Australia, AsiaPacific
@@ -234,6 +248,43 @@ end;
 #host: blitz.ahadns.com/1:1
 ## server inactivity timer 65 seconds or higher
 #end;
+
+name: akbxr
+website: https://dns.akbxr.com/
+tags: family, Indonesia, AsiaPacific, FarEast
+address: 168.110.220.247:443
+host: dns.akbxr.com/dns-query
+end;
+
+name: akbxr-dot
+website: https://dns.akbxr.com/
+tags: dot, family, Indonesia, AsiaPacific, FarEast
+address: 168.110.220.247:853
+host: dns.akbxr.com/
+keepalive: 7
+end;
+
+name: anon.no
+website: https://dns.anon.no
+tags: adblocker, Norway, Europe
+address: dns.anon.no:443
+host: dns.anon.no/dns-query
+end;
+
+#name: anon.no-dot
+#website: https://dns.anon.no
+#tags: dot, adblocker, Norway, Europe
+#address: dns.anon.no:853
+#host: dns.anon.no/
+#end;
+
+name: anon.no-quic
+website: https://dns.anon.no
+tags: quic, adblocker, Norway, Europe
+address: dns.anon.no:853
+host: dns.anon.no/
+keepalive: 24
+end;
 
 name: artikel10
 website: https://dns.artikel10.org
@@ -686,6 +737,13 @@ address: 76.76.10.11:443
 host: freedns.controld.com/uncensored
 end;
 
+# very low keepalive
+#name: cryptostorm
+#website: https://cryptostorm.is
+#tags: Germany, Europe
+#address: 46.165.221.100:443
+#host: cryptostorm.is/dns-query
+#end;
 
 # cloudflare redirect
 name: cynthialabs
@@ -1315,6 +1373,13 @@ tags: sni, Germany, Europe
 address: doh.ffmuc.net:443
 host: doh.ffmuc.net/dns-query
 # server inactivity timer 65 seconds or higher
+end;
+
+name: flatuslifir
+website: https://github.com/curl/curl/wiki/DNS-over-HTTPS
+tags: sni, Netherlands, WesternEurope, Europe
+address: dns.flatuslifir.is:443
+host: dns.flatuslifir.is/dns-query
 end;
 
 name: flokinet
