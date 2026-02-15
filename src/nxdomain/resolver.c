@@ -31,7 +31,7 @@ static uint16_t id = 0;
 // return 0 if domain OK
 // return 1 if NXDOMAIN
 // return 2 if timeout
-int resolver(const char *domain, int timeout) {
+int resolver(const char *domain, int timeout, const char *server_ip) {
 	// init socket
 	int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (sock == -1)
@@ -40,7 +40,7 @@ int resolver(const char *domain, int timeout) {
 	memset(&addr, 0, sizeof(struct sockaddr_in));
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(53);
-	addr.sin_addr.s_addr = inet_addr(arg_server);
+	addr.sin_addr.s_addr = inet_addr(server_ip);
 	socklen_t addr_len = sizeof(addr);
 
 	// manufacture a dns query

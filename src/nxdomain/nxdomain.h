@@ -38,13 +38,13 @@
 
 #define FILE_CHUNK_SIZE 200	// maximum number of domains in a chunk of data
 #define MAX_CHUNKS 3		// maximum number of parallel chunks for processing
-
-// main.c
-extern char *arg_server;
-extern int arg_timeout;
+#define SERVER_DEFAULT "1.1.1.1"
+#define TIMEOUT_DEFAULT 5	// resolv.com, dig, and nslookup are using
+                                // a default timeout of 5 seconds
+#define TIMEOUT_ONLY_DEFAULT 10	// for timeout-only feature
 
 // resolver.c
 // timeout in seconds
-int resolver(const char *domain, int timeout);
+int resolver(const char *domain, int timeout, const char *server_ip);
 
 #endif

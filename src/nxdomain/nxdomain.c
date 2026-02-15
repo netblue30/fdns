@@ -31,16 +31,11 @@
 
 static char *arg_fin = NULL;
 static char *arg_fout = NULL;
-static int arg_timeout_only = 0;
-#define SERVER_DEFAULT "1.1.1.1"
-char *arg_server = SERVER_DEFAULT;
-#define TIMEOUT_DEFAULT 5	// resolv.com, dig, and nslookup are using a default timeout of 5
-#define TIMEOUT_DEFAULT_EXTENDED 10	// for timeout-only feature
-int arg_timeout = TIMEOUT_DEFAULT;
-int arg_chunk = FILE_CHUNK_SIZE;
-char current_chunk[FILE_CHUNK_SIZE][LINE_MAX];
-int chunks_in_input = 0;
-
+static char *arg_server = SERVER_DEFAULT;
+static int arg_timeout = TIMEOUT_DEFAULT;
+static int arg_chunk = FILE_CHUNK_SIZE;
+static char current_chunk[FILE_CHUNK_SIZE][LINE_MAX];
+static int chunks_in_input = 0;
 
 static void build_output(const char *tname_out, int chunk) {
 	char *tname;
@@ -49,7 +44,7 @@ static void build_output(const char *tname_out, int chunk) {
 	FILE *fp1 = fopen(tname, "r");
 	assert(fp1);
 
-	FILE *fp2 = NULL;
+	FILE *fp2 = stdout;
 	if (arg_fout) {
 		fp2 = fopen(arg_fout, "a");
 		assert(fp2);
@@ -66,15 +61,35 @@ static void build_output(const char *tname_out, int chunk) {
 
 		// comments
 		char *start = ptr;
-		if (*start == '#' || *start == '\0') { // preserve comments, blank lines
-			if (fp2)
-				fprintf(fp2, "%s\n", start);
-			printf("%s\n", start);
+		if (strncmp(start, "#@timeout", 9) == 0) {
+			ptr = start + 9;
+
+			// send DNS request
+			usleep(100000);	// maximum 10 requests per second
+			int rv = resolver(ptr, arg_timeout * 2, arg_server);
+			if (rv == 0) {
+				fprintf(stderr, "*");
+				fflush(0);
+				fprintf(fp2, "%s\n", ptr);
+				fflush(0);
+			}
+			else if (rv == 1) {
+				fprintf(stderr, "N");
+				fflush(0);
+			}
+			else if (rv == 2) {
+				fprintf(stderr, "T");
+				fflush(0);
+			}
+
+		}
+		else if (*start == '#' || *start == '\0') { // preserve comments, blank lines
+			assert(fp2);
+			fprintf(fp2, "%s\n", start);
 		}
 		else  {
-			if (fp2)
-				fprintf(fp2, "127.0.0.1 %s\n", start);
-			printf("127.0.0.1 %s\n", start);
+			assert(fp2);
+			fprintf(fp2, "127.0.0.1 %s\n", start);
 		}
 	}
 
@@ -184,7 +199,7 @@ static void test(FILE *fpout, int chunk_no) {
 
 		// send DNS request
 		usleep(100000);	// maximum 10 request per second
-		int rv = resolver(start, arg_timeout);
+		int rv = resolver(start, arg_timeout, arg_server);
 //printf("%s\n", start);
 		if (rv == 0) {
 			j++;
@@ -255,64 +270,6 @@ static int load_chunk(FILE *fp) {
 	return 0;
 }
 
-static void timeout_only(const char *fin, const char *fout) {
-	assert(fin);
-	if (!fout) {
-		fprintf(stderr, "\nError: Please provide an output file\n");
-		fprintf(stderr, "Example: dnsc --timeout-only input-file output-file\n\n");
-		exit(1);
-	}
-
-	FILE *fpin = fopen(fin, "r");
-	if (!fpin) {
-		fprintf(stderr, "Error: cannot open input file\n");
-		exit(1);
-	}
-
-	FILE *fpout = fopen(fout, "w");
-	if (!fpout) {
-		fprintf(stderr, "Error: cannot open output file\n");
-		exit(1);
-	}
-
-	char buf[LINE_MAX];
-	while (fgets(buf, LINE_MAX, fpin)) {
-		char *ptr = strchr(buf, '\n');
-		if (ptr)
-			*ptr = '\0';
-
-		if (strncmp(buf, "#@timeout", 9) == 0) {
-			ptr = buf + 9;
-			while (*ptr == ' ' || *ptr == '\t')
-				ptr++;
-
-			// send DNS request
-			usleep(100000);	// maximum 10 requests per second
-			int rv = resolver(ptr, arg_timeout);
-			if (rv == 0) {
-				fprintf(stderr, "*");
-				fflush(0);
-				fprintf(fpout, "%s\n", ptr);
-				fflush(0);
-			}
-			else if (rv == 1) {
-				fprintf(stderr, "N");
-				fflush(0);
-			}
-			else if (rv == 2) {
-				fprintf(stderr, "T");
-				fflush(0);
-			}
-
-		}
-		else
-			fprintf(fpout, "%s\n", buf);
-
-	}
-	fclose(fpin);
-	fclose(fpout);
-}
-
 static void usage(void) {
 	printf("nxdomain - version %s\n", VERSION);
 	printf("nxdomain is an utility program that removes dead domains from a host list.\n");
@@ -326,11 +283,11 @@ static void usage(void) {
 	printf("\t--help, -?, -h - show this help screen.\n");
 	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare\n");
 	printf("\t--timeout=seconds - number of seconds to wait for a response form the server, default %d\n", TIMEOUT_DEFAULT);
-	printf("\t--timeout-only - check only the domains that timed out in a previous run\n");
 	printf("\n");
 }
 
 int main(int argc, char **argv) {
+	srand(time(NULL));
 	if (argc < 2) {
 		fprintf(stderr, "Error: invalid number of arguments\n");
 		usage();
@@ -358,8 +315,6 @@ int main(int argc, char **argv) {
 				exit(1);
 			}
 		}
-		else if (strcmp(argv[i], "--timeout-only") == 0)
-			arg_timeout_only = 1;
 		else if (strncmp(argv[i], "--chunk=", 8) == 0) {
 			arg_chunk = atoi(argv[i] + 8);
 			if (arg_chunk < 1 || arg_chunk > 500) {
@@ -384,24 +339,15 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	if (arg_timeout == TIMEOUT_DEFAULT && arg_timeout_only)
-		arg_timeout = TIMEOUT_DEFAULT_EXTENDED;
-
-
 	time_t start = time(NULL);
 	fprintf(stderr, "%s", ctime(&start));
 	fprintf(stderr, "Input file %s\n", arg_fin);
 	fprintf(stderr, "Output file %s\n", (arg_fout)? arg_fout: "stdout");
-	if (arg_timeout_only)
-		fprintf(stderr, "Server %s, timeout-only %d seconds\n", arg_server, arg_timeout);
-	else
-		fprintf(stderr, "Server %s, timeout %d seconds, max %d queries per second, %d domains in a chunk of data\n",
-			arg_server, arg_timeout, 10 * MAX_CHUNKS, arg_chunk);
+	fprintf(stderr, "Server %s, timeout %d seconds, max %d queries per second, %d domains in a chunk of data\n",
+		arg_server, arg_timeout, 10 * MAX_CHUNKS, arg_chunk);
 
 
-	if (arg_timeout_only)
-		timeout_only(arg_fin, arg_fout);
-	else {
+	{
 		// split input file
 		char tname_in[128];
 		sprintf(tname_in, "/run/user/%u/nxdomainXXXXXX", getuid());
