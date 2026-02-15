@@ -3,7 +3,7 @@
 nxdomain \- simple utility program to clean up hosts files
 .SH SYNOPSIS
 .PP
-nxdomain [options] file-in [file-out]
+nxdomain [options] file\-in [file\-out]
 
 .SH DESCRIPTION
 nxdomain is a program that removes dead domains from a host list.
@@ -31,18 +31,14 @@ Use this IP address for your server, default Cloudflare 1.1.1.1.
 .br
 Other unfiltered servers:
 .br
-Quad9 - 9.9.9.10
+Quad9 \- 9.9.9.10
 .br
-AdGuard - 94.140.14.140
+AdGuard \- 94.140.14.140
 .br
 
 .TP
 \fB\-\-timeout=seconds
 Number of seconds to wait for a response form the server, default 5 seconds.
-
-.TP
-\fB\-\-timeout-only
-Check only the domains that timed out in a previous run.
 
 .SH EXAMPLE
 $ nxdomain adblocker.hostsfile adblocker.hostfile.new

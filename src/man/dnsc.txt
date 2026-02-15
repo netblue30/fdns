@@ -3,7 +3,7 @@
 nxdomain \- utility program for cleaning and compressing wildcard domain lists
 .SH SYNOPSIS
 .PP
-dnsc [options] hosts-file [hosts-file]
+dnsc [options] hosts\-file [hosts\-file]
 
 .SH DESCRIPTION
 dnsc is a program for cleaning and compressing wildcard domain lists in /etc/hosts format.
@@ -20,7 +20,7 @@ Print debug info
 
 .TP
 \fB\-\-help, \-?, \-h
-Print command-line options and exit.
+Print command\-line options and exit.
 
 .TP
 \fB\-\-short

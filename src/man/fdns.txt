@@ -11,7 +11,7 @@ fdns [OPTIONS]
 Start the monitor (regular user):
 .PP
 .RS
-fdns --monitor
+fdns \-\-monitor
 .RE
 
 .SH DESCRIPTION
@@ -24,23 +24,23 @@ The computer's location is determined by the time zone setting.
 
 .SH OPTIONS
 .TP
-\fB\-\-allow-all-queries
-Disable FDNS firewall - see section DNS Firewall below.
+\fB\-\-allow\-all\-queries
+Disable FDNS firewall \- see section DNS Firewall below.
 .TP
-\fB\-\-allow-expired-certs
+\fB\-\-allow\-expired\-certs
 Allow expired SSL certificates during SSL connection.
 .TP
-\fB\-\-allow-self-signed-certs
+\fB\-\-allow\-self\-signed\-certs
 Allow self-signed SSL certificates during SSL connection. Use this option for bringing up new servers.
 .TP
-\fB\-\-blocklist-file=filename
+\fB\-\-blocklist\-file=filename
 Load an additional blocklist file at startup. Up to 8 such files can be loaded.
 The blocklists are regular 127.0.0.1 or 0.0.0.0 host files. All domains in the file
 are considered wildcard domains. Example:
 .br
 
 .br
-$ sudo fdns --blocklist=/usr/fdns/newblocklist
+$ sudo fdns \-\-blocklist=/usr/fdns/newblocklist
 .br
 
 .br
@@ -54,20 +54,20 @@ by OpenSSL.
 .br
 Example:
 .br
-$ sudo fdns --certfile=/etc/ssl/certs/ca-certificates.crt
+$ sudo fdns \-\-certfile=/etc/ssl/certs/ca-certificates.crt
 .TP
 \fB\-\-daemonize
 Detach from the controlling terminal and run as a Unix daemon. Example:
 .br
 
 .br
-$ sudo fdns --daemonize
+$ sudo fdns \-\-daemonize
 .br
 .TP
 \fB\-\-debug
 Print debug messages.
 .TP
-\fB\-\-debug-transport
+\fB\-\-debug\-transport
 Print transport layer debug messages.
 .TP
 \fB\-\-details
@@ -78,7 +78,7 @@ phase of the connection establishment.
 .br
 Example:
 .br
-$ fdns --test-server=cloudflare --details
+$ fdns \-\-test\-server=cloudflare \-\-details
 .br
 Testing server cloudflare
 .br
@@ -106,7 +106,7 @@ Testing server cloudflare
 .br
 |  date:   Mon, 19 Jun 2023 11:20:53 GMT
 .br
-|  content-type:   application/dns-message
+|  content-type:   application/dns\-message
 .br
 |  access-control-allow-origin:   *
 .br
@@ -122,9 +122,9 @@ Testing server cloudflare
 .br
    Network Trace:
 .br
------> rx 60 bytes: IP + TCP + TLS + H2-WINDOW-UPDATE
+-----> rx 60 bytes: IP + TCP + TLS + H2\-WINDOW\-UPDATE
 .br
------> rx 187 bytes: IP + TCP + TLS + H2-HEADERS + H2-DATA  (end stream)
+-----> rx 187 bytes: IP + TCP + TLS + H2\-HEADERS + H2\-DATA  (end stream)
 .br
 
 .br
@@ -140,7 +140,7 @@ Testing server cloudflare
 .br
 Testing completed
 .TP
-\fB\-\-fallback-server=address
+\fB\-\-fallback\-server=address
 In case the main DoH/DoT server is down, use this regular DNS/UDP server for fallback.
 By default we test and chose the fastes server from the following list:
 Adguard, CleanBrowsing, Cloudflare, NextDNS, and Quad9.
@@ -149,7 +149,7 @@ Adguard, CleanBrowsing, Cloudflare, NextDNS, and Quad9.
 .br
 Example:
 .br
-$ sudo fdns --fallback-server=66.70.228.164
+$ sudo fdns \-\-fallback\-server=66.70.228.164
 .br
 .TP
 \fB\-\-forwarder=domain@address
@@ -159,7 +159,7 @@ Conditional domain forwarding to a different DNS server.
 .br
 Example:
 .br
-$ sudo fdns --forwarder=libre@66.70.228.164
+$ sudo fdns \-\-forwarder=libre@66.70.228.164
 .br
 
 .br
@@ -183,16 +183,16 @@ In many cases you can bump the keepalive above 120 seconds.
 .br
 Example:
 .br
-$ sudo fdns --keepalive=120 --server=coudflare
+$ sudo fdns \-\-keepalive=120 \-\-server=coudflare
 .TP
-\fB\-\-list[=server-name|tag|all]
+\fB\-\-list[=server\-name|tag|all]
 List the DoH service providers available in your current zone, or specific servers based on names or tags.
 .br
 
 .br
 Example:
 .br
-$ fdns --list
+$ fdns \-\-list
 .br
 Current zone: Europe
 .br
@@ -200,19 +200,19 @@ Current zone: Europe
 .br
 	https://42l.fr
 .br
-aaflalo - Netherlands, Europe, adblocker
+aaflalo \- Netherlands, Europe, adblocker
 .br
 	https://www.aaflalo.me
 .br
-appliedprivacy - Austria, Europe
+appliedprivacy \- Austria, Europe
 .br
 	https://appliedprivacy.net
 .br
-bortzmeyer - France, Europe
+bortzmeyer \- France, Europe
 .br
 	https://www.bortzmeyer.org/doh-bortzmeyer-fr-policy.html
 .br
-cznic - Czechia, Europe
+cznic \- Czechia, Europe
 .br
 	https://www.nic.cz/odvr/
 .br
@@ -225,9 +225,9 @@ Start the stats monitor in a regular terminal. Without specifying an IP address,
 .br
 Example:
 .br
-$ fdns --monitor
+$ fdns \-\-monitor
 .br
-$ fdns --monitor=127.2.2.2
+$ fdns \-\-monitor=127.2.2.2
 .TP
 \fB\-\-nofilter
 No DNS request filtering. This disables all domain filters (adblocker, trackers, etc.)
@@ -241,7 +241,7 @@ List all running instances of FDNS.
 .br
 Example:
 .br
-$ fdns --proxies
+$ fdns \-\-proxies
 .br
 pid 4900, address 127.3.3.3
 .br
@@ -249,7 +249,7 @@ pid 4893, address 127.2.2.2
 .br
 pid 4883, address 127.1.1.1 (default)
 .TP
-\fB\-\-proxy-addr=address
+\fB\-\-proxy\-addr=address
 Configure the IP address the proxy listens on for
 DNS queries coming from the local clients. The default is 127.1.1.1.
 .br
@@ -257,12 +257,12 @@ DNS queries coming from the local clients. The default is 127.1.1.1.
 .br
 Example:
 .br
-$ sudo fdns --proxy-addr=127.0.0.1
+$ sudo fdns \-\-proxy\-addr=127.0.0.1
 .TP
 \fB\-\-resolvers=number
 The number of resolver processes, between 1 and 10, default 2.
 .TP
-\fB\-\-server=server-name|tag|all|url
+\fB\-\-server=server\-name|tag|all|url
 Connect to a specific server, or to a random one based on the tag and your geographical location.
 Using "all" will instruct FDNS to chose a server at random from the list, regardless where
 the server is located. You can also specify a DoH URL for servers not yet supported by FDNS.
@@ -271,22 +271,22 @@ the server is located. You can also specify a DoH URL for servers not yet suppor
 .br
 Examples:
 .br
-$ sudo fdns --server=cloudflare
+$ sudo fdns \-\-server=cloudflare
 .br
-$ sudo fdns --server=security
+$ sudo fdns \-\-server=security
 .br
-$ sudo fdns --server=family
+$ sudo fdns \-\-server=family
 .br
-$ sudo fdns --server=https://dns.google/dns-query
+$ sudo fdns \-\-server=https://dns.google/dns-query
 .br
-$ sudo fdns --server=dot://dot1.applied-privacy.net
+$ sudo fdns \-\-server=dot://dot1.applied-privacy.net
 .br
-$ sudo fdns --server=quic://dns.adguard.com
+$ sudo fdns \-\-server=quic://dns.adguard.com
 .br
 
 
 .TP
-\fB\-\-server-list=filename
+\fB\-\-server\-list=filename
 Specify a list of servers, default /etc/fdns/servers.
 .br
 
@@ -297,17 +297,17 @@ Note: If AppArmor is enabled, please place your files in /etc/fdns directory.
 .br
 Example:
 .br
-$ fdns --server-list=/etc/fdns/newlist
+$ fdns \-\-server\-list=/etc/fdns/newlist
 .br
 .TP
-\fB\-\-test-server[=server-name|tag|all]
+\fB\-\-test\-server[=server\-name|tag|all]
 Test all the servers from your geographical zone. You can also request a specific server or tag.
 .br
 
 .br
 Example:
 .br
-$ fdns --test-server
+$ fdns \-\-test\-server
 .br
 Testing server adguard
 .br
@@ -337,32 +337,32 @@ Testing server dnscrypt-ca
 .br
 
 .br
-$ fdns --test-server=digital-society
+$ fdns \-\-test\-server=digital\-society
 .br
    SSL connection opened in 640.53 ms
 .br
    DoH response average 155.22 ms
 .br
 .TP
-\fB\-\-test-url=URL
+\fB\-\-test\-url=URL
 Check if URL is dropped by the adblock/tracker filters.
 .br
 
 .br
 Example:
 .br
-$ fdns --test-url=amazon-adsystem.com
+$ fdns \-\-test\-url=amazon\-adsystem.com
 .br
-URL amazon-adsystem.com dropped by "amazon-adsystem.com" rule
+URL amazon\-adsystem.com dropped by "amazon\-adsystem.com" rule
 .TP
-\fB\-\-test-url-list
+\fB\-\-test\-url\-list
 Check URLs as they are introduced on STDIN.
 .br
 
 .br
 Example:
 .br
-$ cat biglist.txt | fdns --test-url-list
+$ cat biglist.txt | fdns \-\-test\-url\-list
 .br
 .TP
 \fB\-\-version
@@ -380,7 +380,7 @@ $ sudo fdns --whitelist=gentoo.org \\
       --whitelist=security.gentoo.org \\
       --whitelist=wiki.gentoo.org
 .TP
-\fB\-\-whitelist-file=file-name
+\fB\-\-whitelist\-file=file\-name
 Similar to \-\-whitelist above, it gets the domains from a file.
 .br
 
@@ -391,7 +391,7 @@ Note: If AppArmor is enabled, please place your files in /etc/fdns directory.
 .br
 Example:
 .br
-$ cat /etc/fdns/whitelist-gentoo
+$ cat /etc/fdns/whitelist\-gentoo
 .br
 # whitelist file for gentoo.org
 .br
@@ -405,7 +405,7 @@ wiki.gentoo.org
 .br
 
 .br
-$ sudo fdns --whitelist-file=/etc/fdns/whitelist-gentoo
+$ sudo fdns \-\-whitelist\-file=/etc/fdns/whitelist\-gentoo
 
 .SH DNS Firewall
 
@@ -445,25 +445,25 @@ If things go wrong, you won't lose your Internet connectivity. Here are the step
 $ sudo fdns
 .TP
 \fBStart your applications in Firejail:
-$ firejail --dns=127.1.1.1 firefox
+$ firejail \-\-dns=127.1.1.1 firefox
 .br
-$ firejail --dns=127.1.1.1 transmission-qt
+$ firejail \-\-dns=127.1.1.1 transmission\-qt
 .br
 .TP
 \fBStart the monitor:
-$ fdns --monitor
+$ fdns \-\-monitor
 .br
 .br
 .SH Setup FDNS as a network server
 Example assuming 192.168.1.44 is the IP address of your network interface:
 .PP
 .RS
-$ sudo fdns --proxy-addr=192.168.1.44 --daemonize
+$ sudo fdns \-\-proxy\-addr=192.168.1.44 \-\-daemonize
 .br
 
 .br
 .RE
-You can also add a specific tag such as --server=security or --server=family.
+You can also add a specific tag such as \-\-server=security or \-\-server=family.
 .SH FAQ
 
 .TP
@@ -472,7 +472,7 @@ The command you need to run at  startup is
 .br
 
 .br
-# /usr/bin/fdns --daemonize
+# /usr/bin/fdns \-\-daemonize
 .br
 
 .br
@@ -508,11 +508,11 @@ $ sudo fdns | tee dnslist.txt
 
 .TP
 \fBHow do I check FDNS is running in the background?
-Use "--proxies" command to list all FDNS proxies running on your computer:
+Use "\-\-proxies" command to list all FDNS proxies running on your computer:
 .br
 
 .br
-$ fdns --proxies
+$ fdns \-\-proxies
 .br
 pid 12062, address 127.1.1.1 (default)
 .br
@@ -522,7 +522,7 @@ Or run ss and look for sockets open on port 53:
 .br
 
 .br
-$ sudo ss -nulp
+$ sudo ss \-nulp
 .br
 State     Recv-Q    Send-Q       Local Address:Port        Peer Address:Port
 .br
@@ -540,15 +540,15 @@ $ sudo pkill fdns
 .br
 
 .SH FILES
-/etc/fdns/list.* - domain filters distributed with FDNS
+/etc/fdns/list.* \- domain filters distributed with FDNS
 .br
-/etc/fdns/fdns.service - systemd service file
+/etc/fdns/fdns.service \- systemd service file
 .br
-/etc/fdns/hosts - user hosts file
+/etc/fdns/hosts \- user hosts file
 .br
-/etc/fdns/resolver.seccomp - seccomp filter applied to resolver processes
+/etc/fdns/resolver.seccomp \- seccomp filter applied to resolver processes
 .br
-/etc/fdns/servers - DoH/DoT servers FDNS knows about
+/etc/fdns/servers \- DoH/DoT servers FDNS knows about
 
 .SH LICENSE
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
