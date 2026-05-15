@@ -2566,7 +2566,7 @@ end;
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
-# - Last update Feb 4, 2026
+# - Last update May 15, 2026
 ##################################################
 name: dnscrypt-tampa
 tags: dot, US, America
@@ -3061,7 +3061,7 @@ end;
 name: dnscrypt-phoenix
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 23.95.134.15:853
+address: 173.249.205.198:853
 host: phx01.dnscry.pt/
 end;
 
@@ -3145,7 +3145,7 @@ end;
 name: dnscrypt-hochiminhcity
 tags: dot, Vietnam, AsiaPacific, FarEast
 website: https://www.dnscry.pt
-address: 157.20.83.217:853
+address: 165.99.131.95:853
 host: sgn01.dnscry.pt/
 end;
 
@@ -3551,7 +3551,7 @@ end;
 name: dnscrypt-allendale
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 38.247.3.107:853
+address: 23.129.180.195:853
 host: aqx01.dnscry.pt/
 end;
 
@@ -3624,4 +3624,11 @@ website: https://www.dnscry.pt
 address: 195.3.221.162:853
 host: waw01.dnscry.pt/
 end;
-# dnscry.pt: 151 servers
+
+name: dnscrypt-zurich
+tags: dot, Germany, Europe
+website: https://www.dnscry.pt
+address: 94.26.35.57:853
+host: zrh01.dnscry.pt/
+end;
+# dnscry.pt: 152 servers
