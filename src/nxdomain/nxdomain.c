@@ -65,7 +65,7 @@ static void build_output(const char *tname_out, int chunk) {
 			ptr = start + 9;
 
 			// send DNS request
-			usleep(100000);	// maximum 10 requests per second
+			usleep(RPS_WAIT);	// maximum 5 requests per second
 			int rv = resolver(ptr, arg_timeout * 2, arg_server);
 			if (rv == 0) {
 				fprintf(stderr, "*");
@@ -109,6 +109,7 @@ static void test(FILE *fpout, int chunk_no) {
 	int i = 0;
 	int j = 0;
 	char *start = "not running";
+	char *first = NULL;
 	int empty = 0;
 	for (i = 0; i < arg_chunk && *current_chunk[i] != '\0'; i++) {
 		char*buf = current_chunk[i];
@@ -127,7 +128,7 @@ static void test(FILE *fpout, int chunk_no) {
 		}
 		start = ptr;
 
-		// ltimeout lines from previoud runs
+		// timeout lines from previoud runs
 		if (strncmp(start, "#@timeout ", 10) == 0)
 			start += 10;
 		// comments
@@ -198,7 +199,7 @@ static void test(FILE *fpout, int chunk_no) {
 		}
 
 		// send DNS request
-		usleep(100000);	// maximum 10 request per second
+		usleep(RPS_WAIT); // maximum 5 request per second
 		int rv = resolver(start, arg_timeout, arg_server);
 //printf("%s\n", start);
 		if (rv == 0) {
@@ -217,12 +218,24 @@ static void test(FILE *fpout, int chunk_no) {
 			fprintf(fpout, "#@timeout 127.0.0.1 %s\n", start);
 			fflush(0);
 		}
+
+		assert(start);
+		if (!first) {
+			first = strdup(start);
+			if (!first)
+				errExit("strdup");
+		}
 	}
 
 	assert(start);
 	char *ptr = strrchr(start, '.');
-	if (ptr)
-		printf("# chunk %d: %d removed (.%s) #", chunk_no, i - j - empty, ptr + 1);
+	char *ptr2 = strrchr(first, '.');
+	if (ptr && ptr2)
+		printf("# chunk %d (%.2f%%): %d removed (%s - %s) #",
+		       chunk_no,
+		       ((double) chunk_no / (double) chunks_in_input) * 100,
+		       i - j - empty,
+		       ptr2, ptr);
 	else
 		printf("# chunk %d: %d removed #", chunk_no, i - j - empty);
 
@@ -232,9 +245,6 @@ static void test(FILE *fpout, int chunk_no) {
 
 
 static void run_chunk(int chunk_no, const char *tname_out) {
-	fprintf(stderr, "\n# chunk %d (%.2f%%)\n", chunk_no, ((double) chunk_no / (double) chunks_in_input) * 100);
-	fflush(0);
-
 	char *fout;
 	if (asprintf(&fout, "%s-%d", tname_out, chunk_no) == -1) {
 		perror("asprintf");
@@ -249,7 +259,7 @@ static void run_chunk(int chunk_no, const char *tname_out) {
 	test(fpout, chunk_no);
 	fclose(fpout);
 	free(fout);
-	sleep(2);
+	sleep(5);
 }
 
 
@@ -343,8 +353,8 @@ int main(int argc, char **argv) {
 	fprintf(stderr, "%s", ctime(&start));
 	fprintf(stderr, "Input file %s\n", arg_fin);
 	fprintf(stderr, "Output file %s\n", (arg_fout)? arg_fout: "stdout");
-	fprintf(stderr, "Server %s, timeout %d seconds, max %d queries per second, %d domains in a chunk of data\n",
-		arg_server, arg_timeout, 10 * MAX_CHUNKS, arg_chunk);
+	fprintf(stderr, "Server %s, timeout %d seconds, max 15 queries per second, %d domains in a chunk of data\n",
+		arg_server, arg_timeout, (1000000 / RPS_WAIT) * MAX_CHUNKS, arg_chunk);
 
 
 	{

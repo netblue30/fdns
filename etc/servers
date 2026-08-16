@@ -788,14 +788,14 @@ host: dns3.digitalcourage.de/
 end;
 
 name: digital-society
-website: https://www.digitale-gesellschaft.ch
+website: https://www.digitale-gesellschaft.ch/dns
 tags: Switzerland, Europe
 address: 185.95.218.42:443
 host: dns.digitale-gesellschaft.ch/dns-query
 end;
 
 name: digital-society2
-website: https://www.digitale-gesellschaft.ch
+website: https://www.digitale-gesellschaft.ch/dns
 tags: Switzerland, Europe
 address: 185.95.218.43:443
 host: dns.digitale-gesellschaft.ch/dns-query
@@ -2332,77 +2332,78 @@ address: ns3.trcnet.fi:853
 host: ns3.trcnet.fi/
 end;
 
-name: tridns-ca
-website: https://dns.triro.net
-tags: h2ping, America, Canada
-address: 178.128.225.109:443
-host: tri-dns.net/dns-query
-keepalive: 7
-end;
-
-name: tridns-ca-dot
-website: https://dns.triro.net
-tags: dot, America, Canada
-address: 178.128.225.109:853
-host: tri-dns.net/
-keepalive: 7
-end;
-
-name: tridns-ca-quic
-website: https://dns.triro.net
-tags: quic, America, Canada
-address: 178.128.225.109:853
-host: tri-dns.net/
-keepalive: 7
-end;
-
-name: tridns-ch
-website: https://dns.triro.net
-tags: h2ping, Europe, Switzerland
-address: 159.100.250.108:443
-host: eu.tri-dns.net/dns-query
-keepalive: 7
-end;
-
-name: tridns-ch-dot
-website: https://dns.triro.net
-tags: dot, Europe, Switzerland
-address: 159.100.250.108:853
-host: eu.tri-dns.net/
-keepalive: 7
-end;
-
-name: tridns-ch-quic
-website: https://dns.triro.net
-tags: quic, Europe, Switzerland
-address: 159.100.250.108:853
-host: eu.tri-dns.net/
-keepalive: 7
-end;
-
-name: tridns-sg
-website: https://dns.triro.net
-tags: h2ping, Singapore, AsiaPacific. FarEast
-address: 185.111.159.59:443
-host: asia.tri-dns.net/dns-query
-keepalive: 7
-end;
-
-name: tridns-sg-dot
-website: https://dns.triro.net
-tags: dot, Singapore, AsiaPacific. FarEast
-address: 185.111.159.59:853
-host: asia.tri-dns.net/
-keepalive: 7
-end;
-
-name: tridns-sg-quic
-website: https://dns.triro.net
-tags: quic, Singapore, AsiaPacific. FarEast
-address: 185.111.159.59:853
-host: asia.tri-dns.net/
-keepalive: 7
-end;
+# expired cert
+#name: tridns-ca
+#website: https://dns.triro.net
+#tags: h2ping, America, Canada
+#address: 178.128.225.109:443
+#host: tri-dns.net/dns-query
+#keepalive: 7
+#end;
+#
+#name: tridns-ca-dot
+#website: https://dns.triro.net
+#tags: dot, America, Canada
+#address: 178.128.225.109:853
+#host: tri-dns.net/
+#keepalive: 7
+#end;
+#
+#name: tridns-ca-quic
+#website: https://dns.triro.net
+#tags: quic, America, Canada
+#address: 178.128.225.109:853
+#host: tri-dns.net/
+#keepalive: 7
+#end;
+#
+#name: tridns-ch
+#website: https://dns.triro.net
+#tags: h2ping, Europe, Switzerland
+#address: 159.100.250.108:443
+#host: eu.tri-dns.net/dns-query
+#keepalive: 7
+#end;
+#
+#name: tridns-ch-dot
+#website: https://dns.triro.net
+#tags: dot, Europe, Switzerland
+#address: 159.100.250.108:853
+#host: eu.tri-dns.net/
+#keepalive: 7
+#end;
+#
+#name: tridns-ch-quic
+#website: https://dns.triro.net
+#tags: quic, Europe, Switzerland
+#address: 159.100.250.108:853
+#host: eu.tri-dns.net/
+#keepalive: 7
+#end;
+#
+#name: tridns-sg
+#website: https://dns.triro.net
+#tags: h2ping, Singapore, AsiaPacific. FarEast
+#address: 185.111.159.59:443
+#host: asia.tri-dns.net/dns-query
+#keepalive: 7
+#end;
+#
+#name: tridns-sg-dot
+#website: https://dns.triro.net
+#tags: dot, Singapore, AsiaPacific. FarEast
+#address: 185.111.159.59:853
+#host: asia.tri-dns.net/
+#keepalive: 7
+#end;
+#
+#name: tridns-sg-quic
+#website: https://dns.triro.net
+#tags: quic, Singapore, AsiaPacific. FarEast
+#address: 185.111.159.59:853
+#host: asia.tri-dns.net/
+#keepalive: 7
+#end;
 
 # cloudflare redirect
 name: tiarap
@@ -2566,8 +2567,10 @@ end;
 ##################################################
 # dnscry.pt section from https://www.dnscry.pt
 # - https://www.dnscry.pt/dot-resolvers.md
-# - Last update May 15, 2026
+# - Last update Aug 16, 2026
 ##################################################
+
+
 name: dnscrypt-tampa
 tags: dot, US, America
 website: https://www.dnscry.pt
@@ -2587,13 +2590,6 @@ tags: dot, Bulgaria, Europe
 website: https://www.dnscry.pt
 address: 79.124.7.43:853
 host: sof01.dnscry.pt/
-end;
-
-name: dnscrypt-budapest
-tags: dot, Hungary, Europe
-website: https://www.dnscry.pt
-address: 193.201.185.146:853
-host: bud01.dnscry.pt/
 end;
 
 name: dnscrypt-bremen
@@ -2650,20 +2646,6 @@ tags: dot, Ireland, Europe, WesternEurope
 website: https://www.dnscry.pt
 address: 194.26.213.15:853
 host: dub01.dnscry.pt/
-end;
-
-name: dnscrypt-durham
-tags: dot, UK, Europe, WesternEurope
-website: https://www.dnscry.pt
-address: 38.45.64.117:853
-host: rdu01.dnscry.pt/
-end;
-
-name: dnscrypt-athens
-tags: dot, Greece, Europe
-website: https://www.dnscry.pt
-address: 185.234.52.87:853
-host: ath01.dnscry.pt/
 end;
 
 name: dnscrypt-tbilisi
@@ -2771,13 +2753,6 @@ address: 96.9.228.27:853
 host: hkg01.dnscry.pt/
 end;
 
-name: dnscrypt-fujairah
-tags: dot, UnitedArabEmirates, MiddleEast, Europe
-website: https://www.dnscry.pt
-address: 89.36.162.76:853
-host: fjr01.dnscry.pt/
-end;
-
 name: dnscrypt-capetown
 tags: dot, SouthAfrica, Africa
 website: https://www.dnscry.pt
@@ -2827,13 +2802,6 @@ address: 104.156.154.11:853
 host: lax01.dnscry.pt/
 end;
 
-name: dnscrypt-guayaquil
-tags: dot, Ecuador, SouthAmerica, America
-website: https://www.dnscry.pt
-address: 205.235.2.3:853
-host: gye01.dnscry.pt/
-end;
-
 name: dnscrypt-toronto
 tags: dot, Canada, America
 website: https://www.dnscry.pt
@@ -2862,13 +2830,6 @@ address: 143.20.12.32:853
 host: lis01.dnscry.pt/
 end;
 
-name: dnscrypt-ebenecity
-tags: dot, Mauritius, Africa, Europe
-website: https://www.dnscry.pt
-address: 102.222.106.96:853
-host: mru01.dnscry.pt/
-end;
-
 name: dnscrypt-sydney02
 tags: dot, Australia, AsiaPacific
 website: https://www.dnscry.pt
@@ -2881,13 +2842,6 @@ tags: dot, US, America
 website: https://www.dnscry.pt
 address: 176.111.223.167:853
 host: sjc01.dnscry.pt/
-end;
-
-name: dnscrypt-mumbai
-tags: dot, India, AsiaPacific
-website: https://www.dnscry.pt
-address: 103.111.114.25:853
-host: bom01.dnscry.pt/
 end;
 
 name: dnscrypt-valdivia
@@ -2911,13 +2865,6 @@ address: 45.95.38.29:853
 host: naw01.dnscry.pt/
 end;
 
-name: dnscrypt-lima02
-tags: dot, Peru, SouthAmerica, America
-website: https://www.dnscry.pt
-address: 87.121.99.23:853
-host: lim02.dnscry.pt/
-end;
-
 name: dnscrypt-capetown02
 tags: dot, SouthAfrica, Africa
 website: https://www.dnscry.pt
@@ -2928,7 +2875,7 @@ end;
 name: dnscrypt-taipeh
 tags: dot, Taiwan, AsiaPacific, FarEast
 website: https://www.dnscry.pt
-address: 103.131.189.74:853
+address: 103.131.189.191:853
 host: tpe01.dnscry.pt/
 end;
 
@@ -3009,25 +2956,11 @@ address: 45.82.120.61:853
 host: fra01.dnscry.pt/
 end;
 
-name: dnscrypt-seoul
-tags: dot, Korea, AsiaPacific, FarEast
-website: https://www.dnscry.pt
-address: 92.38.135.128:853
-host: sel01.dnscry.pt/
-end;
-
 name: dnscrypt-losangeles02
 tags: dot, US, America
 website: https://www.dnscry.pt
 address: 104.200.67.194:853
 host: lax02.dnscry.pt/
-end;
-
-name: dnscrypt-lagos
-tags: dot, Nigeria, Africa, Europe
-website: https://www.dnscry.pt
-address: 176.97.192.12:853
-host: los01.dnscry.pt/
 end;
 
 name: dnscrypt-spokane
@@ -3049,13 +2982,6 @@ tags: dot, Estonia, Europe
 website: https://www.dnscry.pt
 address: 185.194.53.22:853
 host: tll01.dnscry.pt/
-end;
-
-name: dnscrypt-saopaulo
-tags: dot, Brazil, America, SouthAmerica
-website: https://www.dnscry.pt
-address: 108.181.69.153:853
-host: gru01.dnscry.pt/
 end;
 
 name: dnscrypt-phoenix
@@ -3114,25 +3040,11 @@ address: 103.114.162.65:853
 host: slc01.dnscry.pt/
 end;
 
-name: dnscrypt-philadelphia
-tags: dot, US, America
-website: https://www.dnscry.pt
-address: 154.16.159.22:853
-host: phl01.dnscry.pt/
-end;
-
 name: dnscrypt-munich
 tags: dot, Germany, Europe
 website: https://www.dnscry.pt
 address: 194.39.205.10:853
 host: muc01.dnscry.pt/
-end;
-
-name: dnscrypt-telaviv
-tags: dot, Israel, Europe, MiddleEast
-website: https://www.dnscry.pt
-address: 5.188.227.13:853
-host: tlv01.dnscry.pt/
 end;
 
 name: dnscrypt-denver
@@ -3154,13 +3066,6 @@ tags: dot, Slovakia, Europe
 website: https://www.dnscry.pt
 address: 95.131.202.105:853
 host: bts01.dnscry.pt/
-end;
-
-name: dnscrypt-brussels
-tags: dot, Belgium, WesternEurope, Europe
-website: https://www.dnscry.pt
-address: 192.121.170.151:853
-host: bru01.dnscry.pt/
 end;
 
 name: dnscrypt-redditch
@@ -3205,13 +3110,6 @@ address: 157.20.105.115:853
 host: sin03.dnscry.pt/
 end;
 
-name: dnscrypt-yerevan
-tags: dot, Armenia, Europe, MiddleEast
-website: https://www.dnscry.pt
-address: 85.90.207.199:853
-host: evn01.dnscry.pt/
-end;
-
 name: dnscrypt-oradea
 tags: dot, Romania, Europe
 website: https://www.dnscry.pt
@@ -3250,7 +3148,7 @@ end;
 name: dnscrypt-hongkong02
 tags: dot, HongKong, AsiaPacific, FarEast
 website: https://www.dnscry.pt
-address: 151.242.64.36:853
+address: 216.250.97.148:853
 host: hkg02.dnscry.pt/
 end;
 
@@ -3259,13 +3157,6 @@ tags: dot, Netherlands, Europe, WesternEurope
 website: https://www.dnscry.pt
 address: 45.86.162.110:853
 host: ams02.dnscry.pt/
-end;
-
-name: dnscrypt-bogota
-tags: dot, Colombia, SouthAmerica, America
-website: https://www.dnscry.pt
-address: 103.57.250.54:853
-host: bog01.dnscry.pt/
 end;
 
 name: dnscrypt-newyork
@@ -3359,13 +3250,6 @@ address: 160.191.182.216:853
 host: blr01.dnscry.pt/
 end;
 
-name: dnscrypt-luxembourg
-tags: dot, Luxembourg, Europe, WesternEurope
-website: https://www.dnscry.pt
-address: 45.80.209.55:853
-host: lux01.dnscry.pt/
-end;
-
 name: dnscrypt-hudiksvall
 tags: dot, Sweden, Europe
 website: https://www.dnscry.pt
@@ -3397,7 +3281,7 @@ end;
 name: dnscrypt-indianapolis
 tags: dot, US, America
 website: https://www.dnscry.pt
-address: 23.168.136.144:853
+address: 198.134.107.82:853
 host: ind01.dnscry.pt/
 end;
 
@@ -3420,13 +3304,6 @@ tags: dot, Nigeria, Africa, Europe
 website: https://www.dnscry.pt
 address: 167.88.51.245:853
 host: los02.dnscry.pt/
-end;
-
-name: dnscrypt-palermo
-tags: dot, Italy, Europe
-website: https://www.dnscry.pt
-address: 91.201.67.107:853
-host: pmo01.dnscry.pt/
 end;
 
 name: dnscrypt-gdansk
@@ -3464,13 +3341,6 @@ address: 82.22.20.34:853
 host: ncl01.dnscry.pt/
 end;
 
-name: dnscrypt-barcelona
-tags: dot, Spain, Europe, WesternEurope
-website: https://www.dnscry.pt
-address: 46.28.71.52:853
-host: bcn01.dnscry.pt/
-end;
-
 name: dnscrypt-tirana
 tags: dot, Albania, Europe
 website: https://www.dnscry.pt
@@ -3478,25 +3348,11 @@ address: 185.75.243.80:853
 host: tia01.dnscry.pt/
 end;
 
-name: dnscrypt-queretaro
-tags: dot, Mexico, SouthAmerica, America
-website: https://www.dnscry.pt
-address: 89.223.88.74:853
-host: qro01.dnscry.pt/
-end;
-
 name: dnscrypt-adelaide
 tags: dot, Australia, AsiaPacific
 website: https://www.dnscry.pt
 address: 175.45.182.179:853
 host: adl01.dnscry.pt/
-end;
-
-name: dnscrypt-baku
-tags: dot, Azerbaijan, AsiaPacific
-website: https://www.dnscry.pt
-address: 180.149.44.22:853
-host: gyd01.dnscry.pt/
 end;
 
 name: dnscrypt-dhaka
@@ -3513,13 +3369,6 @@ address: 81.7.11.246:853
 host: jen01.dnscry.pt/
 end;
 
-name: dnscrypt-ljubljana
-tags: dot, Slovenia, Europe
-website: https://www.dnscry.pt
-address: 91.132.94.98:853
-host: lju01.dnscry.pt/
-end;
-
 name: dnscrypt-lisbon02
 tags: dot, Portugal, Europe, WesternEurope
 website: https://www.dnscry.pt
@@ -3532,13 +3381,6 @@ tags: dot, Netherlands, Europe, WesternEurope
 website: https://www.dnscry.pt
 address: 23.137.249.26:853
 host: ams03.dnscry.pt/
-end;
-
-name: dnscrypt-manila
-tags: dot, Philippines, FarEast, AsiaPacific
-website: https://www.dnscry.pt
-address: 103.38.251.60:853
-host: mnl01.dnscry.pt/
 end;
 
 name: dnscrypt-bangkok
@@ -3607,7 +3449,7 @@ end;
 name: dnscrypt-mumbai02
 tags: dot, India, AsiaPacific
 website: https://www.dnscry.pt
-address: 165.99.9.209:853
+address: 157.20.27.79:853
 host: bom02.dnscry.pt/
 end;
 
@@ -3631,4 +3473,4 @@ website: https://www.dnscry.pt
 address: 94.26.35.57:853
 host: zrh01.dnscry.pt/
 end;
-# dnscry.pt: 152 servers
+# dnscry.pt: 129 servers

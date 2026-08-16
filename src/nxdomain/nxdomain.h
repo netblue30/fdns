@@ -43,6 +43,8 @@
                                 // a default timeout of 5 seconds
 #define TIMEOUT_ONLY_DEFAULT 10	// for timeout-only feature
 
+#define RPS_WAIT 200000  // wait this number of microseconds between queries
+
 // resolver.c
 // timeout in seconds
 int resolver(const char *domain, int timeout, const char *server_ip);
