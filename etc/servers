@@ -249,20 +249,20 @@ end;
 ## server inactivity timer 65 seconds or higher
 #end;
 
-name: akbxr
-website: https://dns.akbxr.com/
-tags: family, Indonesia, AsiaPacific, FarEast
-address: 168.110.220.247:443
-host: dns.akbxr.com/dns-query
-end;
-
-name: akbxr-dot
-website: https://dns.akbxr.com/
-tags: dot, family, Indonesia, AsiaPacific, FarEast
-address: 168.110.220.247:853
-host: dns.akbxr.com/
-keepalive: 7
-end;
+#name: akbxr
+#website: https://dns.akbxr.com/
+#tags: family, Indonesia, AsiaPacific, FarEast
+#address: 168.110.220.247:443
+#host: dns.akbxr.com/dns-query
+#end;
+#
+#name: akbxr-dot
+#website: https://dns.akbxr.com/
+#tags: dot, family, Indonesia, AsiaPacific, FarEast
+#address: 168.110.220.247:853
+#host: dns.akbxr.com/
+#keepalive: 7
+#end;
 
 name: anon.no
 website: https://dns.anon.no
@@ -278,13 +278,13 @@ end;
 #host: dns.anon.no/
 #end;
 
-name: anon.no-quic
-website: https://dns.anon.no
-tags: quic, adblocker, Norway, Europe
-address: dns.anon.no:853
-host: dns.anon.no/
-keepalive: 24
-end;
+#name: anon.no-quic
+#website: https://dns.anon.no
+#tags: quic, adblocker, Norway, Europe
+#address: dns.anon.no:853
+#host: dns.anon.no/
+#keepalive: 24
+#end;
 
 name: artikel10
 website: https://dns.artikel10.org
@@ -653,19 +653,19 @@ address: 83.220.169.155:443
 host: dns.comss.one/dns-query
 end;
 
-name: comssone2
-website: https://www.comss.ru/page.php?id=7315
-tags: adblocker, Russia, Europe
-address: 212.109.195.93:443
-host: dns.comms.one/dns-query
-end;
-
-name: comssone3
-website: https://www.comss.ru/page.php?id=7315
-tags: adblocker, Russia, Europe
-address: 195.133.25.16:443
-host: router.comms.one/dns-query
-end;
+#name: comssone2
+#website: https://www.comss.ru/page.php?id=7315
+#tags: adblocker, Russia, Europe
+#address: 212.109.195.93:443
+#host: dns.comms.one/dns-query
+#end;
+#
+#name: comssone3
+#website: https://www.comss.ru/page.php?id=7315
+#tags: adblocker, Russia, Europe
+#address: 195.133.25.16:443
+#host: router.comms.one/dns-query
+#end;
 
 name: controld-unfiltered
 website: https://controld.com/free-dns/
@@ -787,19 +787,19 @@ address: 5.9.164.112:853
 host: dns3.digitalcourage.de/
 end;
 
-name: digital-society
-website: https://www.digitale-gesellschaft.ch/dns
-tags: Switzerland, Europe
-address: 185.95.218.42:443
-host: dns.digitale-gesellschaft.ch/dns-query
-end;
-
-name: digital-society2
-website: https://www.digitale-gesellschaft.ch/dns
-tags: Switzerland, Europe
-address: 185.95.218.43:443
-host: dns.digitale-gesellschaft.ch/dns-query
-end;
+#name: digital-society
+#website: https://www.digitale-gesellschaft.ch/dns
+#tags: Switzerland, Europe
+#address: 185.95.218.42:443
+#host: dns.digitale-gesellschaft.ch/dns-query
+#end;
+#
+#name: digital-society2
+#website: https://www.digitale-gesellschaft.ch/dns
+#tags: Switzerland, Europe
+#address: 185.95.218.43:443
+#host: dns.digitale-gesellschaft.ch/dns-query
+#end;
 
 #name: digitalsize
 #website: https:/https://dns.digitalsize.net
@@ -1062,13 +1062,13 @@ host: de-fra.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns-sb-nl1
-website: https://dns.sb/doh
-tags: sni, Netherlands, WesternEurope, Europebhg
-address: nl-ams.doh.sb:443
-host: nl-ams.doh.sb/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: dns-sb-nl1
+#website: https://dns.sb/doh
+#tags: sni, Netherlands, WesternEurope, Europebhg
+#address: nl-ams.doh.sb:443
+#host: nl-ams.doh.sb/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: dns-sb-uk
 website: https://dns.sb/doh
@@ -1174,13 +1174,13 @@ host: kr-sel.doh.sb/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: dns-sb-ru
-website: https://dns.sb/doh
-tags: sni, Russia, Europe
-address: ru-mow.doh.sb:443
-host: ru-mow.doh.sb/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+#name: dns-sb-ru
+#website: https://dns.sb/doh
+#tags: sni, Russia, Europe
+#address: ru-mow.doh.sb:443
+#host: ru-mow.doh.sb/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 name: dns-sb-ca
 website: https://dns.sb/doh
@@ -1310,12 +1310,12 @@ host: dnslow.me/dns-query
 end;
 
 # quad9 redirect
-name: dremaxx-de
-website: https://www.dremaxx.de/
-tags: security, Europe, Germany
-address: 85.215.153.54:443
-host: theo.dremaxx.de/dns-query
-end;
+#name: dremaxx-de
+#website: https://www.dremaxx.de/
+#tags: security, Europe, Germany
+#address: 85.215.153.54:443
+#host: theo.dremaxx.de/dns-query
+#end;
 
 name: dremaxx-de-dot
 website: https://www.dremaxx.de/
@@ -1324,12 +1324,12 @@ address: 85.215.153.54:853
 host: theo.dremaxx.de/
 end;
 
-name: dremaxx-uk
-website: https://www.dremaxx.de/
-tags: security, Europe, UK, WesternEurope
-address: 87.106.35.241:443
-host: fritz.dremaxx.de/dns-query
-end;
+#name: dremaxx-uk
+#website: https://www.dremaxx.de/
+#tags: security, Europe, UK, WesternEurope
+#address: 87.106.35.241:443
+#host: fritz.dremaxx.de/dns-query
+#end;
 
 name: dremaxx-uk-dot
 website: https://www.dremaxx.de/
@@ -1556,12 +1556,12 @@ host: doh.lacontrevoie.fr/dns-query
 # server inactivity timer 65 seconds or higher
 end;
 
-name: lavadns-eu1
-website: https://dns.lavate.ch/
-tags: Finland, Europe
-address: 95.217.25.217:443
-host: eu1.dns.lavate.ch/dns-query
-end;
+#name: lavadns-eu1
+#website: https://dns.lavate.ch/
+#tags: Finland, Europe
+#address: 95.217.25.217:443
+#host: eu1.dns.lavate.ch/dns-query
+#end;
 
 #name: lefolgoc
 #website: https://yarp.lefolgoc.net/
@@ -1587,21 +1587,21 @@ address: 159.69.154.207:853
 host: doh.li/dns-query
 end;
 
-name: libredns
-website: https://libredns.gr/
-tags: Germany, Europe
-address: 116.202.176.26:443
-host: doh.libredns.gr/dns-query
-keepalive: 7
-end;
-
-name: libredns-adblocker
-website: https://libredns.gr/
-tags: Germany, Europe, adblocker
-address: 116.202.176.26:443
-host: doh.libredns.gr/noads
-keepalive: 7
-end;
+#name: libredns
+#website: https://libredns.gr/
+#tags: Germany, Europe
+#address: 116.202.176.26:443
+#host: doh.libredns.gr/dns-query
+#keepalive: 7
+#end;
+#
+#name: libredns-adblocker
+#website: https://libredns.gr/
+#tags: Germany, Europe, adblocker
+#address: 116.202.176.26:443
+#host: doh.libredns.gr/noads
+#keepalive: 7
+#end;
 
 #name: marbled
 #website: https://www.marbledfennec.net/public-dns-server/
@@ -1815,20 +1815,20 @@ address: 95.215.19.53:443
 host: dns.njal.la/dns-query
 end;
 
-name: noridev
-website:https://adblock.noridev.moe/html/dns_android.html
-tags: adblocker, Korea, AsiaPacific, FarEast
-address: 220.84.185.202:443
-host: 1.dns.noridev.moe/dns-query
-end;
+#name: noridev
+#website:https://adblock.noridev.moe/html/dns_android.html
+#tags: adblocker, Korea, AsiaPacific, FarEast
+#address: 220.84.185.202:443
+#host: 1.dns.noridev.moe/dns-query
+#end;
 
-name: noridev-quic
-website:https://adblock.noridev.moe/html/dns_android.html
-tags: quic, adblocker, Korea, AsiaPacific, FarEast
-address: 220.84.185.202:853
-host: 1.dns.noridev.moe/dns-query
-keepalive: 24
-end;
+#name: noridev-quic
+#website:https://adblock.noridev.moe/html/dns_android.html
+#tags: quic, adblocker, Korea, AsiaPacific, FarEast
+#address: 220.84.185.202:853
+#host: 1.dns.noridev.moe/dns-query
+#keepalive: 24
+#end;
 
 #name: noridev2
 #website:https://adblock.noridev.moe/html/dns_android.html
@@ -1891,19 +1891,19 @@ address: 217.160.70.42:853
 host: ns1.opennameserver.org/
 end;
 
-name: opennameserver2
-website: https://opennameserver.org/
-tags: Germany, Europe
-address: 213.202.211.221:443
-host: ns2.opennameserver.org/dns-query
-end;
-
-name: opennameserver2-dot
-website: https://opennameserver.org/
-tags: dot, Germany, Europe
-address: 213.202.211.221:853
-host: ns2.opennameserver.org/
-end;
+#name: opennameserver2
+#website: https://opennameserver.org/
+#tags: Germany, Europe
+#address: 213.202.211.221:443
+#host: ns2.opennameserver.org/dns-query
+#end;
+#
+#name: opennameserver2-dot
+#website: https://opennameserver.org/
+#tags: dot, Germany, Europe
+#address: 213.202.211.221:853
+#host: ns2.opennameserver.org/
+#end;
 
 name: opennameserver3
 website: https://opennameserver.org/
@@ -2148,13 +2148,13 @@ end;
 #host: family.rabbitdns.org/dns-query
 #end;
 
-name: rbn
-website: https://www.robingroppe.de/serverzeug/dns-server
-tags: adblocker, Germany, Europe
-address: 185.245.97.150:443
-host: dns.rbn.gr/dns-query
-keepalive: 7
-end;
+#name: rbn
+#website: https://www.robingroppe.de/serverzeug/dns-server
+#tags: adblocker, Germany, Europe
+#address: 185.245.97.150:443
+#host: dns.rbn.gr/dns-query
+#keepalive: 7
+#end;
 
 name: rbn-dot
 website: https://www.robingroppe.de/serverzeug/dns-server
@@ -2164,13 +2164,13 @@ host: dns.rbn.gr/
 keepalive: 7
 end;
 
-name: rbn-quic
-website: https://www.robingroppe.de/serverzeug/dns-server
-tags: quic, adblocker, Germany, Europe
-address: 185.245.97.150:853
-host: dns.rbn.gr/
-keepalive: 7
-end;
+#name: rbn-quic
+#website: https://www.robingroppe.de/serverzeug/dns-server
+#tags: quic, adblocker, Germany, Europe
+#address: 185.245.97.150:853
+#host: dns.rbn.gr/
+#keepalive: 7
+#end;
 
 #name: respinger
 #website: https://dns.repinger.com/
@@ -2467,13 +2467,14 @@ end;
 #host: dns.twnic.tw/
 #end;
 
-name: vinnyp
-website: https://dns.vinnyp.xyz/privacy
-tags: US, America
-address: 167.99.150.134:443
-host: dns.vinnyp.xyz/dns-query
-# server inactivity timer 65 seconds or higher
-end;
+# it would not recognize youtube.com
+#name: vinnyp
+#website: https://dns.vinnyp.xyz/privacy
+#tags: US, America
+#address: 167.99.150.134:443
+#host: dns.vinnyp.xyz/dns-query
+## server inactivity timer 65 seconds or higher
+#end;
 
 # unstable
 #name: vinnyp-dot
@@ -2492,12 +2493,12 @@ address: v.recipes:443
 host: v.recipes/dns-query
 end;
 
-name: vrecipes-adblocker
-website: https://v.recipes/docs/dns
-tags: sni, adblocker, America, AsiaPacific, Europe
-address: v.recipes:443
-host: v.recipes/dns-adblocker
-end;
+#name: vrecipes-adblocker
+#website: https://v.recipes/docs/dns
+#tags: sni, adblocker, America, AsiaPacific, Europe
+#address: v.recipes:443
+#host: v.recipes/dns-adblocker
+#end;
 
 name: vrecipes-security
 website:https://v.recipes/docs/dns
@@ -3369,12 +3370,12 @@ address: 81.7.11.246:853
 host: jen01.dnscry.pt/
 end;
 
-name: dnscrypt-lisbon02
-tags: dot, Portugal, Europe, WesternEurope
-website: https://www.dnscry.pt
-address: 91.209.16.98:853
-host: lis02.dnscry.pt/
-end;
+#name: dnscrypt-lisbon02
+#tags: dot, Portugal, Europe, WesternEurope
+#website: https://www.dnscry.pt
+#address: 91.209.16.98:853
+#host: lis02.dnscry.pt/
+#end;
 
 name: dnscrypt-amsterdam03
 tags: dot, Netherlands, Europe, WesternEurope
@@ -3453,12 +3454,12 @@ address: 157.20.27.79:853
 host: bom02.dnscry.pt/
 end;
 
-name: dnscrypt-vientiane
-tags: dot, Laos, FarEast, AsiaPacific
-website: https://www.dnscry.pt
-address: 103.228.101.178:853
-host: vte01.dnscry.pt/
-end;
+#name: dnscrypt-vientiane
+#tags: dot, Laos, FarEast, AsiaPacific
+#website: https://www.dnscry.pt
+#address: 103.228.101.178:853
+#host: vte01.dnscry.pt/
+#end;
 
 name: dnscrypt-warsaw
 tags: dot, Poland, Europe

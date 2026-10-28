@@ -290,13 +290,133 @@ static void usage(void) {
 	printf("\n");
 	printf("Options:\n");
 	printf("\t--chunk=number - number of domains in a chunk of input data, default %d\n", FILE_CHUNK_SIZE);
+	printf("\t--clean=domain - test only the entries ending in \"domain\"\n");
 	printf("\t--help, -?, -h - show this help screen.\n");
 	printf("\t--server=IP_ADDRESS - DNS server IP address, default Cloudflare\n");
 	printf("\t--timeout=seconds - number of seconds to wait for a response form the server, default %d\n", TIMEOUT_DEFAULT);
 	printf("\n");
 }
+static inline int string_ends_with(const char *str, const char *end) {
+	assert(str);
+	assert(end);
+	
+	const char *ptr = strstr(str, end);
+	if (!ptr)
+		return 0;
+	if (strlen(ptr) != strlen(end))
+		return 0;
+
+	return 1;
+}
+
+static void test_cdomain(const char *cdomain) {
+	unsigned domains_ok = 0;
+	unsigned domains_failed = 0;
+	FILE *fp = fopen(arg_fin, "r");
+	if (!fp) {
+		fprintf(stderr, "Error: input file not found\n");
+		usage();
+		exit(1);
+	}
+	FILE *fpout = NULL;
+	if (arg_fout) {
+		fpout = fopen(arg_fout, "w");
+		if (!fpout) {
+			fprintf(stderr, "Error: cannot open output file\n");
+			usage();
+			exit(1);
+		}
+	}
+	
+	char buf[LINE_MAX];
+	while(fgets(buf, LINE_MAX, fp) != NULL) {
+		char *start = buf;
+		if (*start == '#' || *start == '\0') // preserve comments, blank lines
+			goto print_as_is;
+
+		char *ptr = strchr(buf, '\n');
+		if (ptr)
+			*ptr = '\0';
+		// end of line comments
+		ptr = strchr(start, '#');
+		if (ptr)
+			*ptr = '\0';
+		
+		// regular hosts files:
+		// 127.0.0.1 domain.name
+		if (strncmp(start, "127.0.0.1", 9) == 0)
+			start += 9;
+		else if (strncmp(start, "0.0.0.0", 7) == 0)
+			start += 7;
+		while (*start == ' ' || *start == '\t')
+			start++;
+
+		// clean end spaces
+		ptr = strchr(start, ' ');
+		if (ptr)
+			*ptr = '\0';
+		ptr = strchr(start, '\t');
+		if (ptr)
+			*ptr = '\0';
+
+		// clean www.
+		if (strncmp(start, "www.", 4) == 0)
+			start += 4;
+		if (*start == '\0')
+			goto print_as_is;
+		if (strstr(start, "::")) // IPv6 addresses!
+			goto print_as_is;
+
+		if (strcspn(start, "\\&!?\"'<>%^(){}[];,|") != strlen(start))
+			goto print_as_is;
+
+		// domains no longer 80 chars
+		if (strlen(start) > 80)
+			goto print_as_is;
+
+		if (string_ends_with(start, cdomain)) {
+			fprintf(stderr, "@testing %s...", start);
+			fflush(0);
+			// send DNS request
+			usleep(RPS_WAIT);	// maximum 5 requests per second
+			int rv = resolver(start, arg_timeout * 2, arg_server);
+			if (rv == 0) {
+				domains_ok++;
+				fprintf(stderr, "OK (%d/%d)\n",
+					domains_ok, domains_ok + domains_failed);
+				goto print_as_is;
+			}
+			else {
+				domains_failed++;
+				fprintf(stderr, "failed (%d/%d)\n",
+					domains_failed, domains_ok + domains_failed);
+			}
+			continue;
+		}
+
+	print_as_is:
+		if (fpout)
+			fprintf(fpout, "%s\n", buf);
+		else
+			printf("%s\n", buf);
+		
+	}
+	
+	fclose(fp);
+	if (fpout)
+		fclose(fpout);
+	float total = domains_ok + domains_failed;
+	if (total == 0)
+		fprintf(stderr, "No domains tested\n");
+	else {
+		fprintf(stderr, "domains ok %d (%.02f%%)\n", domains_ok, ((float) domains_ok * 100) / total);
+			fprintf(stderr, "domains failed %d (%.02f%%)\n", domains_failed, ((float) domains_failed * 100) / total);
+		fprintf(stderr, "domains total %d\n", domains_ok + domains_failed);
+	}
+}
 
 int main(int argc, char **argv) {
+	char *arg_cdomain = NULL;
 	srand(time(NULL));
 	if (argc < 2) {
 		fprintf(stderr, "Error: invalid number of arguments\n");
@@ -316,6 +436,8 @@ int main(int argc, char **argv) {
 			printf("nxdomain - version %s\n", VERSION);
 			return 0;
 		}
+		else if (strncmp(argv[i], "--clean=", 8) == 0)
+			arg_cdomain = argv[i] + 8;
 		else if (strncmp(argv[i], "--server=", 9) == 0)
 			arg_server = argv[i] + 9;
 		else if (strncmp(argv[i], "--timeout=", 10) == 0) {
@@ -353,7 +475,17 @@ int main(int argc, char **argv) {
 	fprintf(stderr, "%s", ctime(&start));
 	fprintf(stderr, "Input file %s\n", arg_fin);
 	fprintf(stderr, "Output file %s\n", (arg_fout)? arg_fout: "stdout");
-	fprintf(stderr, "Server %s, timeout %d seconds, max 15 queries per second, %d domains in a chunk of data\n",
+
+	if (arg_cdomain) {
+		fprintf(stderr, "Cleaning %s\n", arg_cdomain);
+		test_cdomain(arg_cdomain);
+		time_t end = time(NULL);
+		unsigned delta = end - start;
+		fprintf(stderr, "\nrun time %u minutes\n", delta / 60);
+		return 0;
+	}
+					   
+	fprintf(stderr, "Server %s, timeout %d seconds, max %d queries per second, %d domains in a chunk of data\n",
 		arg_server, arg_timeout, (1000000 / RPS_WAIT) * MAX_CHUNKS, arg_chunk);
 
 
@@ -437,7 +569,7 @@ int main(int argc, char **argv) {
 	}
 	time_t end = time(NULL);
 	unsigned delta = end - start;
-	printf("\nrun time %u minutes\n", delta / 60);
+	fprintf(stderr, "\nrun time %u minutes\n", delta / 60);
 
 	return 0;
 }
